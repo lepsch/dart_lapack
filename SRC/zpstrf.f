@@ -36,8 +36,7 @@
       EXTERNAL           DLAMCH, ILAENV, LSAME, DISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZDSCAL, ZGEMV, ZHERK, ZLACGV, ZPSTF2, ZSWAP,
-     $                   XERBLA
+      EXTERNAL           ZDSCAL, ZGEMV, ZHERK, ZLACGV, ZPSTF2, ZSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCONJG, MAX, MIN, SQRT, MAXLOC
@@ -62,8 +61,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get block size
 *
@@ -72,8 +70,7 @@
 *
 *        Use unblocked code
 *
-         CALL ZPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK,
-     $                INFO )
+         CALL ZPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
          GO TO 230
 *
       ELSE
@@ -132,9 +129,7 @@
                   DO 130 I = J, N
 *
                      IF( J.GT.K ) THEN
-                        WORK( I ) = WORK( I ) +
-     $                              DBLE( DCONJG( A( J-1, I ) )*
-     $                                    A( J-1, I ) )
+                        WORK( I ) = WORK( I ) + DBLE( DCONJG( A( J-1, I ) )* A( J-1, I ) )
                      END IF
                      WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I )
 *
@@ -156,9 +151,7 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL ZSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
-                     IF( PVT.LT.N )
-     $                  CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA,
-     $                              A( PVT, PVT+1 ), LDA )
+                     IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
                      DO 140 I = J + 1, PVT - 1
                         ZTEMP = DCONJG( A( J, I ) )
                         A( J, I ) = DCONJG( A( I, PVT ) )
@@ -183,9 +176,7 @@
 *
                   IF( J.LT.N ) THEN
                      CALL ZLACGV( J-1, A( 1, J ), 1 )
-                     CALL ZGEMV( 'Trans', J-K, N-J, -CONE, A( K, J+1 ),
-     $                           LDA, A( K, J ), 1, CONE, A( J, J+1 ),
-     $                           LDA )
+                     CALL ZGEMV( 'Trans', J-K, N-J, -CONE, A( K, J+1 ), LDA, A( K, J ), 1, CONE, A( J, J+1 ), LDA )
                      CALL ZLACGV( J-1, A( 1, J ), 1 )
                      CALL ZDSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
                   END IF
@@ -195,8 +186,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL ZHERK( 'Upper', 'Conj Trans', N-J+1, JB, -ONE,
-     $                        A( K, J ), LDA, ONE, A( J, J ), LDA )
+                  CALL ZHERK( 'Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   160       CONTINUE
@@ -227,9 +217,7 @@
                   DO 180 I = J, N
 *
                      IF( J.GT.K ) THEN
-                        WORK( I ) = WORK( I ) +
-     $                              DBLE( DCONJG( A( I, J-1 ) )*
-     $                                    A( I, J-1 ) )
+                        WORK( I ) = WORK( I ) + DBLE( DCONJG( A( I, J-1 ) )* A( I, J-1 ) )
                      END IF
                      WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I )
 *
@@ -251,9 +239,7 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL ZSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
-                     IF( PVT.LT.N )
-     $                  CALL ZSWAP( N-PVT, A( PVT+1, J ), 1,
-     $                              A( PVT+1, PVT ), 1 )
+                     IF( PVT.LT.N ) CALL ZSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
                      DO 190 I = J + 1, PVT - 1
                         ZTEMP = DCONJG( A( I, J ) )
                         A( I, J ) = DCONJG( A( PVT, I ) )
@@ -279,9 +265,7 @@
 *
                   IF( J.LT.N ) THEN
                      CALL ZLACGV( J-1, A( J, 1 ), LDA )
-                     CALL ZGEMV( 'No Trans', N-J, J-K, -CONE,
-     $                           A( J+1, K ), LDA, A( J, K ), LDA, CONE,
-     $                           A( J+1, J ), 1 )
+                     CALL ZGEMV( 'No Trans', N-J, J-K, -CONE, A( J+1, K ), LDA, A( J, K ), LDA, CONE, A( J+1, J ), 1 )
                      CALL ZLACGV( J-1, A( J, 1 ), LDA )
                      CALL ZDSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
                   END IF
@@ -291,8 +275,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL ZHERK( 'Lower', 'No Trans', N-J+1, JB, -ONE,
-     $                        A( J, K ), LDA, ONE, A( J, J ), LDA )
+                  CALL ZHERK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   210       CONTINUE

@@ -39,8 +39,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Initialize IPIV(i) = i and DU2(I) = 0
 *

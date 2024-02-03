@@ -21,8 +21,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( IOUNIT.LE.0 )
-     $   RETURN
+      IF( IOUNIT.LE.0 ) RETURN
       C2 = PATH( 1: 3 )
 *
 *     First line describing matrices in this path

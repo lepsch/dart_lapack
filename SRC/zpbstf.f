@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       KLD = MAX( 1, LDAB-1 )
 *
@@ -85,8 +84,7 @@
 *           the leading submatrix within the band.
 *
             CALL ZDSCAL( KM, ONE / AJJ, AB( KD+1-KM, J ), 1 )
-            CALL ZHER( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1,
-     $                 AB( KD+1, J-KM ), KLD )
+            CALL ZHER( 'Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD )
    10    CONTINUE
 *
 *        Factorize the updated submatrix A(1:m,1:m) as U**H*U.
@@ -110,8 +108,7 @@
             IF( KM.GT.0 ) THEN
                CALL ZDSCAL( KM, ONE / AJJ, AB( KD, J+1 ), KLD )
                CALL ZLACGV( KM, AB( KD, J+1 ), KLD )
-               CALL ZHER( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD,
-     $                    AB( KD+1, J+1 ), KLD )
+               CALL ZHER( 'Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
                CALL ZLACGV( KM, AB( KD, J+1 ), KLD )
             END IF
    20    CONTINUE
@@ -137,8 +134,7 @@
 *
             CALL ZDSCAL( KM, ONE / AJJ, AB( KM+1, J-KM ), KLD )
             CALL ZLACGV( KM, AB( KM+1, J-KM ), KLD )
-            CALL ZHER( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD,
-     $                 AB( 1, J-KM ), KLD )
+            CALL ZHER( 'Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD )
             CALL ZLACGV( KM, AB( KM+1, J-KM ), KLD )
    30    CONTINUE
 *
@@ -162,8 +158,7 @@
 *
             IF( KM.GT.0 ) THEN
                CALL ZDSCAL( KM, ONE / AJJ, AB( 2, J ), 1 )
-               CALL ZHER( 'Lower', KM, -ONE, AB( 2, J ), 1,
-     $                    AB( 1, J+1 ), KLD )
+               CALL ZHER( 'Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
             END IF
    40    CONTINUE
       END IF

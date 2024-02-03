@@ -52,14 +52,12 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Invert the triangular Cholesky factor U or L.
 *
       CALL DTFTRI( TRANSR, UPLO, 'N', N, A, INFO )
-      IF( INFO.GT.0 )
-     $   RETURN
+      IF( INFO.GT.0 ) RETURN
 *
 *     If N is odd, set NISODD = .TRUE.
 *     If N is even, set K = N/2 and NISODD = .FALSE.
@@ -99,10 +97,7 @@
 *              T1 -> a(0), T2 -> a(n), S -> a(N1)
 *
                CALL DLAUUM( 'L', N1, A( 0 ), N, INFO )
-               CALL DSYRK( 'L', 'T', N1, N2, ONE, A( N1 ), N, ONE,
-     $                     A( 0 ), N )
-               CALL DTRMM( 'L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N,
-     $                     A( N1 ), N )
+               CALL DSYRK( 'L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL DTRMM( 'L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N )
                CALL DLAUUM( 'U', N2, A( N ), N, INFO )
 *
             ELSE
@@ -112,10 +107,7 @@
 *              T1 -> a(N2), T2 -> a(N1), S -> a(0)
 *
                CALL DLAUUM( 'L', N1, A( N2 ), N, INFO )
-               CALL DSYRK( 'L', 'N', N1, N2, ONE, A( 0 ), N, ONE,
-     $                     A( N2 ), N )
-               CALL DTRMM( 'R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N,
-     $                     A( 0 ), N )
+               CALL DSYRK( 'L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N )                CALL DTRMM( 'R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N, A( 0 ), N )
                CALL DLAUUM( 'U', N2, A( N1 ), N, INFO )
 *
             END IF
@@ -130,10 +122,7 @@
 *              T1 -> a(0), T2 -> a(1), S -> a(0+N1*N1)
 *
                CALL DLAUUM( 'U', N1, A( 0 ), N1, INFO )
-               CALL DSYRK( 'U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE,
-     $                     A( 0 ), N1 )
-               CALL DTRMM( 'R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1,
-     $                     A( N1*N1 ), N1 )
+               CALL DSYRK( 'U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL DTRMM( 'R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 )
                CALL DLAUUM( 'L', N2, A( 1 ), N1, INFO )
 *
             ELSE
@@ -142,10 +131,7 @@
 *              T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
 *
                CALL DLAUUM( 'U', N1, A( N2*N2 ), N2, INFO )
-               CALL DSYRK( 'U', 'T', N1, N2, ONE, A( 0 ), N2, ONE,
-     $                     A( N2*N2 ), N2 )
-               CALL DTRMM( 'L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ),
-     $                     N2, A( 0 ), N2 )
+               CALL DSYRK( 'U', 'T', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 )                CALL DTRMM( 'L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ), N2, A( 0 ), N2 )
                CALL DLAUUM( 'L', N2, A( N1*N2 ), N2, INFO )
 *
             END IF
@@ -167,10 +153,7 @@
 *              T1 -> a(1), T2 -> a(0), S -> a(k+1)
 *
                CALL DLAUUM( 'L', K, A( 1 ), N+1, INFO )
-               CALL DSYRK( 'L', 'T', K, K, ONE, A( K+1 ), N+1, ONE,
-     $                     A( 1 ), N+1 )
-               CALL DTRMM( 'L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1,
-     $                     A( K+1 ), N+1 )
+               CALL DSYRK( 'L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL DTRMM( 'L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 )
                CALL DLAUUM( 'U', K, A( 0 ), N+1, INFO )
 *
             ELSE
@@ -180,10 +163,7 @@
 *              T1 -> a(k+1), T2 -> a(k), S -> a(0)
 *
                CALL DLAUUM( 'L', K, A( K+1 ), N+1, INFO )
-               CALL DSYRK( 'L', 'N', K, K, ONE, A( 0 ), N+1, ONE,
-     $                     A( K+1 ), N+1 )
-               CALL DTRMM( 'R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1,
-     $                     A( 0 ), N+1 )
+               CALL DSYRK( 'L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 )                CALL DTRMM( 'R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1, A( 0 ), N+1 )
                CALL DLAUUM( 'U', K, A( K ), N+1, INFO )
 *
             END IF
@@ -199,10 +179,7 @@
 *              T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 *
                CALL DLAUUM( 'U', K, A( K ), K, INFO )
-               CALL DSYRK( 'U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE,
-     $                     A( K ), K )
-               CALL DTRMM( 'R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K,
-     $                     A( K*( K+1 ) ), K )
+               CALL DSYRK( 'U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL DTRMM( 'R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K )
                CALL DLAUUM( 'L', K, A( 0 ), K, INFO )
 *
             ELSE
@@ -212,10 +189,7 @@
 *              T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 *
                CALL DLAUUM( 'U', K, A( K*( K+1 ) ), K, INFO )
-               CALL DSYRK( 'U', 'T', K, K, ONE, A( 0 ), K, ONE,
-     $                     A( K*( K+1 ) ), K )
-               CALL DTRMM( 'L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K,
-     $                     A( 0 ), K )
+               CALL DSYRK( 'U', 'T', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K )                CALL DTRMM( 'L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K, A( 0 ), K )
                CALL DLAUUM( 'L', K, A( K*K ), K, INFO )
 *
             END IF

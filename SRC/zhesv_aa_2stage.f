@@ -1,6 +1,4 @@
-      SUBROUTINE ZHESV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                            IPIV, IPIV2, B, LDB, WORK, LWORK,
-     $                            INFO )
+      SUBROUTINE ZHESV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,8 +18,7 @@
 *  =====================================================================
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ),
-     $                     ONE  = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE  = ( 1.0D+0, 0.0D+0 ) )
 *
 *     .. Local Scalars ..
       LOGICAL            UPPER, TQUERY, WQUERY
@@ -64,8 +61,7 @@
       END IF
 *
       IF( INFO.EQ.0 ) THEN
-         CALL ZHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV,
-     $                          IPIV2, WORK, -1, INFO )
+         CALL ZHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = LWKOPT
       END IF
@@ -79,14 +75,12 @@
 *
 *     Compute the factorization A = U**H*T*U or A = L*T*L**H.
 *
-      CALL ZHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2,
-     $                       WORK, LWORK, INFO )
+      CALL ZHETRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL ZHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV,
-     $                          IPIV2, B, LDB, INFO )
+         CALL ZHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
       END IF
 *

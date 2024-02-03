@@ -1,9 +1,4 @@
-      SUBROUTINE CDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL,
-     +              THRESH, A, ASAV, AFAC, AINV, B,
-     +              BSAV, XACT, X, ARF, ARFINV,
-     +              C_WORK_CLATMS, C_WORK_CPOT02,
-     +              C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE,
-     +              S_WORK_CPOT01, S_WORK_CPOT02, S_WORK_CPOT03 )
+      SUBROUTINE CDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, C_WORK_CLATMS, C_WORK_CPOT02, C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE, S_WORK_CPOT01, S_WORK_CPOT02, S_WORK_CPOT03 )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,9 +40,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
-      INTEGER            I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL,
-     +                   NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN,
-     +                   IIT, IIS
+      INTEGER            I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
       CHARACTER          DIST, CTYPE, UPLO, CFORM
       INTEGER            KL, KU, MODE
       REAL               ANORM, AINVNM, CNDNUM, RCONDC
@@ -62,10 +55,7 @@
       EXTERNAL           CLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CGET04, CTFTTR, CLACPY,
-     +                   CLAIPD, CLARHS, CLATB4, CLATMS, CPFTRI, CPFTRF,
-     +                   CPFTRS, CPOT01, CPOT02, CPOT03, CPOTRI, CPOTRF,
-     +                   CTRTTF
+      EXTERNAL           ALADHD, ALAERH, ALASVM, CGET04, CTFTTR, CLACPY, CLAIPD, CLARHS, CLATB4, CLATMS, CPFTRI, CPFTRF, CPFTRS, CPOT01, CPOT02, CPOT03, CPOTRI, CPOTRF, CTRTTF
 *     ..
 *     .. Scalars in Common ..
       CHARACTER*32       SRNAMT
@@ -125,21 +115,15 @@
 *                    Set up parameters with CLATB4 and generate a test
 *                    matrix with CLATMS.
 *
-                     CALL CLATB4( 'CPO', IMAT, N, N, CTYPE, KL, KU,
-     +                            ANORM, MODE, CNDNUM, DIST )
+                     CALL CLATB4( 'CPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                      SRNAMT = 'CLATMS'
-                     CALL CLATMS( N, N, DIST, ISEED, CTYPE,
-     +                            S_WORK_CLATMS,
-     +                            MODE, CNDNUM, ANORM, KL, KU, UPLO, A,
-     +                            LDA, C_WORK_CLATMS, INFO )
+                     CALL CLATMS( N, N, DIST, ISEED, CTYPE, S_WORK_CLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, C_WORK_CLATMS, INFO )
 *
 *                    Check error code from CLATMS.
 *
                      IF( INFO.NE.0 ) THEN
-                        CALL ALAERH( 'CPF', 'CLATMS', INFO, 0, UPLO, N,
-     +                               N, -1, -1, -1, IIT, NFAIL, NERRS,
-     +                               NOUT )
+                        CALL ALAERH( 'CPF', 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
                         GO TO 100
                      END IF
 *
@@ -199,8 +183,7 @@
 *
 *                       Compute the 1-norm of A.
 *
-                        ANORM = CLANHE( '1', UPLO, N, A, LDA,
-     +                         S_WORK_CLANHE )
+                        ANORM = CLANHE( '1', UPLO, N, A, LDA, S_WORK_CLANHE )
 *
 *                       Factor the matrix A.
 *
@@ -214,8 +197,7 @@
 *
 *                          Compute the 1-norm condition number of A.
 *
-                           AINVNM = CLANHE( '1', UPLO, N, A, LDA,
-     +                           S_WORK_CLANHE )
+                           AINVNM = CLANHE( '1', UPLO, N, A, LDA, S_WORK_CLANHE )
                            RCONDC = ( ONE / ANORM ) / AINVNM
 *
 *                          Restore the matrix A.
@@ -228,9 +210,7 @@
 *                    Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'CLARHS'
-                     CALL CLARHS( 'CPO', 'N', UPLO, ' ', N, N, KL, KU,
-     +                            NRHS, A, LDA, XACT, LDA, B, LDA,
-     +                            ISEED, INFO )
+                     CALL CLARHS( 'CPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 *
 *                    Compute the L*L' or U'*U factorization of the
@@ -252,9 +232,7 @@
 *                       always be INFO however if INFO is ZERO, ALAERH does not
 *                       complain.
 *
-                         CALL ALAERH( 'CPF', 'CPFSV ', INFO, IZERO,
-     +                                UPLO, N, N, -1, -1, NRHS, IIT,
-     +                                NFAIL, NERRS, NOUT )
+                         CALL ALAERH( 'CPF', 'CPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
                          GO TO 100
                       END IF
 *
@@ -265,8 +243,7 @@
                      END IF
 *
                      SRNAMT = 'CPFTRS'
-                     CALL CPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB,
-     +                            INFO )
+                     CALL CPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
 *
                      SRNAMT = 'CTFTTR'
                      CALL CTFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
@@ -275,50 +252,36 @@
 *                    residual.
 *
                      CALL CLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA,
-     +                             S_WORK_CPOT01, RESULT( 1 ) )
+                     CALL CPOT01( UPLO, N, A, LDA, AFAC, LDA, S_WORK_CPOT01, RESULT( 1 ) )
                      CALL CLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
 *
 *                    Form the inverse and compute the residual.
 *
                     IF(MOD(N,2).EQ.0)THEN
-                       CALL CLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV,
-     +                               N+1 )
+                       CALL CLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
                     ELSE
-                       CALL CLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV,
-     +                               N )
+                       CALL CLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
                     END IF
 *
                      SRNAMT = 'CPFTRI'
                      CALL CPFTRI( CFORM, UPLO, N, ARFINV , INFO )
 *
                      SRNAMT = 'CTFTTR'
-                     CALL CTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA,
-     +                            INFO )
+                     CALL CTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
 *
 *                    Check error code from CPFTRI.
 *
-                     IF( INFO.NE.0 )
-     +                  CALL ALAERH( 'CPO', 'CPFTRI', INFO, 0, UPLO, N,
-     +                               N, -1, -1, -1, IMAT, NFAIL, NERRS,
-     +                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( 'CPO', 'CPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL CPOT03( UPLO, N, A, LDA, AINV, LDA,
-     +                            C_WORK_CPOT03, LDA, S_WORK_CPOT03,
-     +                            RCONDC, RESULT( 2 ) )
+                     CALL CPOT03( UPLO, N, A, LDA, AINV, LDA, C_WORK_CPOT03, LDA, S_WORK_CPOT03, RCONDC, RESULT( 2 ) )
 *
 *                    Compute residual of the computed solution.
 *
-                     CALL CLACPY( 'Full', N, NRHS, B, LDA,
-     +                            C_WORK_CPOT02, LDA )
-                     CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA,
-     +                            C_WORK_CPOT02, LDA, S_WORK_CPOT02,
-     +                            RESULT( 3 ) )
+                     CALL CLACPY( 'Full', N, NRHS, B, LDA, C_WORK_CPOT02, LDA )                      CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, C_WORK_CPOT02, LDA, S_WORK_CPOT02, RESULT( 3 ) )
 *
 *                    Check solution from generated exact solution.
 *
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     +                         RESULT( 4 ) )
+                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
                      NT = 4
 *
 *                    Print information about the tests that did not
@@ -326,10 +289,7 @@
 *
                      DO 60 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     +                        CALL ALADHD( NOUT, 'CPF' )
-                           WRITE( NOUT, FMT = 9999 )'CPFSV ', UPLO,
-     +                            N, IIT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, 'CPF' )                            WRITE( NOUT, FMT = 9999 )'CPFSV ', UPLO, N, IIT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
    60                CONTINUE

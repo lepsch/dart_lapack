@@ -1,7 +1,4 @@
-      SUBROUTINE CGGESX( JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, A, LDA,
-     $                   B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR,
-     $                   LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK,
-     $                   IWORK, LIWORK, BWORK, INFO )
+      SUBROUTINE CGGESX( JOBVSL, JOBVSR, SORT, SELCTG, SENSE, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,16 +6,13 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBVSL, JOBVSR, SENSE, SORT
-      INTEGER            INFO, LDA, LDB, LDVSL, LDVSR, LIWORK, LWORK, N,
-     $                   SDIM
+      INTEGER            INFO, LDA, LDB, LDVSL, LDVSR, LIWORK, LWORK, N, SDIM
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       INTEGER            IWORK( * )
       REAL               RCONDE( 2 ), RCONDV( 2 ), RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
 *     ..
 *     .. Function Arguments ..
       LOGICAL            SELCTG
@@ -31,24 +25,17 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL,
-     $                   LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV
-      INTEGER            I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR,
-     $                   ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK,
-     $                   LIWMIN, LWRK, MAXWRK, MINWRK
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL,
-     $                   PR, SMLNUM
+      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTSB, WANTSE, WANTSN, WANTST, WANTSV       INTEGER            I, ICOLS, IERR, IHI, IJOB, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LIWMIN, LWRK, MAXWRK, MINWRK
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PL, PR, SMLNUM
 *     ..
 *     .. Local Arrays ..
       REAL               DIF( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY,
-     $                   CLASCL, CLASET, CTGSEN, CUNGQR, CUNMQR, XERBLA
+      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGSEN, CUNGQR, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -110,8 +97,7 @@
          INFO = -2
       ELSE IF( ( .NOT.WANTST ) .AND. ( .NOT.LSAME( SORT, 'N' ) ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR.
-     $         ( .NOT.WANTST .AND. .NOT.WANTSN ) ) THEN
+      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSV .OR. WANTSB ) .OR. ( .NOT.WANTST .AND. .NOT.WANTSN ) ) THEN
          INFO = -5
       ELSE IF( N.LT.0 ) THEN
          INFO = -6
@@ -136,15 +122,12 @@
          IF( N.GT.0) THEN
             MINWRK = 2*N
             MAXWRK = N*(1 + ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
-            MAXWRK = MAX( MAXWRK, N*( 1 +
-     $                    ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) )
+            MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNMQR', ' ', N, 1, N, -1 ) ) )
             IF( ILVSL ) THEN
-               MAXWRK = MAX( MAXWRK, N*( 1 +
-     $                       ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) )
+               MAXWRK = MAX( MAXWRK, N*( 1 + ILAENV( 1, 'CUNGQR', ' ', N, 1, N, -1 ) ) )
             END IF
             LWRK = MAXWRK
-            IF( IJOB.GE.1 )
-     $         LWRK = MAX( LWRK, N*N/2 )
+            IF( IJOB.GE.1 ) LWRK = MAX( LWRK, N*N/2 )
          ELSE
             MINWRK = 1
             MAXWRK = 1
@@ -198,8 +181,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-      IF( ILASCL )
-     $   CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -212,8 +194,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-      IF( ILBSCL )
-     $   CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute the matrix to make it more nearly triangular
 *     (Real Workspace: need 6*N)
@@ -221,8 +202,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
-      CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ),
-     $             RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
+      CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
 *     Reduce B to triangular form (QR decomposition of B)
 *     (Complex Workspace: need N, prefer N*NB)
@@ -231,15 +211,12 @@
       ICOLS = N + 1 - ILO
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the unitary transformation to matrix A
 *     (Complex Workspace: need N, prefer N*NB)
 *
-      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VSL
 *     (Complex Workspace: need N, prefer N*NB)
@@ -247,23 +224,19 @@
       IF( ILVSL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
          IF( IROWS.GT.1 ) THEN
-            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VSL( ILO+1, ILO ), LDVSL )
+            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
          END IF
-         CALL CUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL CUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
 *     Initialize VSR
 *
-      IF( ILVSR )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
+      IF( ILVSR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
 *
 *     Reduce to generalized Hessenberg form
 *     (Workspace: none needed)
 *
-      CALL CGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL,
-     $             LDVSL, VSR, LDVSR, IERR )
+      CALL CGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
 *
       SDIM = 0
 *
@@ -272,9 +245,7 @@
 *     (Real Workspace:    need N)
 *
       IWRK = ITAU
-      CALL CHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ),
-     $             LWORK+1-IWRK, RWORK( IRWRK ), IERR )
+      CALL CHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -293,10 +264,7 @@
 *
 *        Undo scaling on eigenvalues before SELCTGing
 *
-         IF( ILASCL )
-     $      CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
-         IF( ILBSCL )
-     $      CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
 *        Select eigenvalues
 *
@@ -309,13 +277,9 @@
 *        (Complex Workspace: If IJOB >= 1, need MAX(1, 2*SDIM*(N-SDIM))
 *                            otherwise, need 1 )
 *
-         CALL CTGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB,
-     $                ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR,
-     $                DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK,
-     $                IERR )
+         CALL CTGSEN( IJOB, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PL, PR, DIF, WORK( IWRK ), LWORK-IWRK+1, IWORK, LIWORK, IERR )
 *
-         IF( IJOB.GE.1 )
-     $      MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
+         IF( IJOB.GE.1 ) MAXWRK = MAX( MAXWRK, 2*SDIM*( N-SDIM ) )
          IF( IERR.EQ.-21 ) THEN
 *
 *            not enough complex workspace
@@ -330,8 +294,7 @@
                RCONDV( 1 ) = DIF( 1 )
                RCONDV( 2 ) = DIF( 2 )
             END IF
-            IF( IERR.EQ.1 )
-     $         INFO = N + 3
+            IF( IERR.EQ.1 ) INFO = N + 3
          END IF
 *
       END IF
@@ -339,13 +302,9 @@
 *     Apply permutation to VSL and VSR
 *     (Workspace: none needed)
 *
-      IF( ILVSL )
-     $   CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ),
-     $                RWORK( IRIGHT ), N, VSL, LDVSL, IERR )
+      IF( ILVSL ) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )
 *
-      IF( ILVSR )
-     $   CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ),
-     $                RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
 *     Undo scaling
 *
@@ -367,10 +326,7 @@
          SDIM = 0
          DO 30 I = 1, N
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            IF( CURSL )
-     $         SDIM = SDIM + 1
-            IF( CURSL .AND. .NOT.LASTSL )
-     $         INFO = N + 2
+            IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             LASTSL = CURSL
    30    CONTINUE
 *

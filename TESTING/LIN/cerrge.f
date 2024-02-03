@@ -23,17 +23,14 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       REAL               R( NMAX ), R1( NMAX ), R2( NMAX )
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( 2*NMAX ), X( NMAX )
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CGBCON, CGBEQU, CGBRFS, CGBTF2, CGBTRF,
-     $                   CGBTRS, CGECON, CGEEQU, CGERFS, CGETF2, CGETRF,
-     $                   CGETRI, CGETRS, CHKXER
+      EXTERNAL           ALAESM, CGBCON, CGBEQU, CGBRFS, CGBTF2, CGBTRF, CGBTRS, CGECON, CGEEQU, CGERFS, CGETF2, CGETRF, CGETRI, CGETRS, CHKXER
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -136,32 +133,25 @@
 *
          SRNAMT = 'CGERFS'
          INFOT = 1
-         CALL CGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGERFS', INFOT, NOUT, LERR, OK )
 *
 *        CGECON
@@ -262,40 +252,31 @@
 *
          SRNAMT = 'CGBRFS'
          INFOT = 1
-         CALL CGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL CGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL CGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL CGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CGBRFS', INFOT, NOUT, LERR, OK )
 *
 *        CGBCON
@@ -321,24 +302,19 @@
 *
          SRNAMT = 'CGBEQU'
          INFOT = 1
-         CALL CGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL CGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'CGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL CGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'CGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL CGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'CGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL CGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'CGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL CGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'CGBEQU', INFOT, NOUT, LERR, OK )
       END IF
 *

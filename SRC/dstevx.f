@@ -1,5 +1,4 @@
-      SUBROUTINE DSTEVX( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL,
-     $                   M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSTEVX( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,10 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, VALEIG, WANTZ
       CHARACTER          ORDER
-      INTEGER            I, IMAX, INDISP, INDIWO, INDWRK,
-     $                   ISCALE, ITMP1, J, JJ, NSPLIT
-      DOUBLE PRECISION   BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM,
-     $                   TMP1, TNRM, VLL, VUU
+      INTEGER            I, IMAX, INDISP, INDIWO, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT       DOUBLE PRECISION   BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -35,8 +31,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF,
-     $                   DSWAP, XERBLA
+      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -59,8 +54,7 @@
          INFO = -3
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -7
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -8
@@ -70,8 +64,7 @@
          END IF
       END IF
       IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) )
-     $      INFO = -14
+         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -82,8 +75,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -95,8 +87,7 @@
                W( 1 ) = D( 1 )
             END IF
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -177,14 +168,10 @@
       INDWRK = 1
       INDISP = 1 + N
       INDIWO = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M,
-     $             NSPLIT, W, IWORK( 1 ), IWORK( INDISP ),
-     $             WORK( INDWRK ), IWORK( INDIWO ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL DSTEIN( N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ),
-     $                Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL,
-     $                INFO )
+         CALL DSTEIN( N, D, E, M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

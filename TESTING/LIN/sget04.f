@@ -60,14 +60,12 @@
             DIFFNM = MAX( DIFFNM, ABS( X( I, J )-XACT( I, J ) ) )
    10    CONTINUE
          IF( XNORM.LE.ZERO ) THEN
-            IF( DIFFNM.GT.ZERO )
-     $         RESID = 1.0 / EPS
+            IF( DIFFNM.GT.ZERO ) RESID = 1.0 / EPS
          ELSE
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          END IF
    20 CONTINUE
-      IF( RESID*EPS.LT.1.0 )
-     $   RESID = RESID / EPS
+      IF( RESID*EPS.LT.1.0 ) RESID = RESID / EPS
 *
       RETURN
 *

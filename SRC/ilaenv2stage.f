@@ -33,8 +33,7 @@
 *     2stage eigenvalues and SVD or related subroutines.
 *
       IISPEC = 16 + ISPEC
-      ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS,
-     $                             N1, N2, N3, N4 )
+      ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
       RETURN
 *
 *     End of ILAENV2STAGE

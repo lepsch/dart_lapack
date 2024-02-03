@@ -23,17 +23,12 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANA, TRANB
-      INTEGER            I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA,
-     $                   ITRANB, J, M, N
-      REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM,
-     $                   XNRM
+      INTEGER            I, IMLA, IMLAD, IMLB, IMLC, INFO, ISGN, ITRANA, ITRANB, J, M, N       REAL               BIGNUM, EPS, RES, RES1, SCALE, SMLNUM, TNRM, XNRM
       COMPLEX            RMUL
 *     ..
 *     .. Local Arrays ..
       REAL               DUM( 1 ), VM1( 3 ), VM2( 3 )
-      COMPLEX            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ),
-     $                   BTMP( LDT, LDT ), C( LDT, LDT ),
-     $                   CSAV( LDT, LDT ), CTMP( LDT, LDT )
+      COMPLEX            A( LDT, LDT ), ATMP( LDT, LDT ), B( LDT, LDT ), BTMP( LDT, LDT ), C( LDT, LDT ), CSAV( LDT, LDT ), CTMP( LDT, LDT )
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
@@ -71,8 +66,7 @@
 *
    10 CONTINUE
       READ( NIN, FMT = * )M, N
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       DO 20 I = 1, M
          READ( NIN, FMT = * )( ATMP( I, J ), J = 1, M )
    20 CONTINUE
@@ -89,14 +83,7 @@
                   DO 130 ITRANA = 1, 2
                      DO 120 ITRANB = 1, 2
                         DO 110 ISGN = -1, 1, 2
-                           IF( ITRANA.EQ.1 )
-     $                        TRANA = 'N'
-                           IF( ITRANA.EQ.2 )
-     $                        TRANA = 'C'
-                           IF( ITRANB.EQ.1 )
-     $                        TRANB = 'N'
-                           IF( ITRANB.EQ.2 )
-     $                        TRANB = 'C'
+                           IF( ITRANA.EQ.1 ) TRANA = 'N'                            IF( ITRANA.EQ.2 ) TRANA = 'C'                            IF( ITRANB.EQ.1 ) TRANB = 'N'                            IF( ITRANB.EQ.2 ) TRANB = 'C'
                            TNRM = ZERO
                            DO 60 I = 1, M
                               DO 50 J = 1, M
@@ -112,8 +99,7 @@
                                  TNRM = MAX( TNRM, ABS( B( I, J ) ) )
    70                         CONTINUE
    80                      CONTINUE
-                           IF( TNRM.EQ.ZERO )
-     $                        TNRM = ONE
+                           IF( TNRM.EQ.ZERO ) TNRM = ONE
                            DO 100 I = 1, M
                               DO 90 J = 1, N
                                  C( I, J ) = CTMP( I, J )*VM1( IMLC )
@@ -121,11 +107,8 @@
    90                         CONTINUE
   100                      CONTINUE
                            KNT = KNT + 1
-                           CALL CTRSYL( TRANA, TRANB, ISGN, M, N, A,
-     $                                  LDT, B, LDT, C, LDT, SCALE,
-     $                                  INFO )
-                           IF( INFO.NE.0 )
-     $                        NINFO = NINFO + 1
+                           CALL CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO )
+                           IF( INFO.NE.0 ) NINFO = NINFO + 1
                            XNRM = CLANGE( 'M', M, N, C, LDT, DUM )
                            RMUL = CONE
                            IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
@@ -134,15 +117,9 @@
                                  RMUL = CONE / RMUL
                               END IF
                            END IF
-                           CALL CGEMM( TRANA, 'N', M, N, M, RMUL, A,
-     $                                 LDT, C, LDT, -SCALE*RMUL, CSAV,
-     $                                 LDT )
-                           CALL CGEMM( 'N', TRANB, M, N, N,
-     $                                 REAL( ISGN )*RMUL, C, LDT, B,
-     $                                 LDT, CONE, CSAV, LDT )
+                           CALL CGEMM( TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL CGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT )
                            RES1 = CLANGE( 'M', M, N, CSAV, LDT, DUM )
-                           RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM,
-     $                           ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
+                           RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                            IF( RES.GT.RMAX ) THEN
                               LMAX = KNT
                               RMAX = RES

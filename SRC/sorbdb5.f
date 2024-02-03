@@ -1,13 +1,11 @@
-      SUBROUTINE SORBDB5( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2,
-     $                    LDQ2, WORK, LWORK, INFO )
+      SUBROUTINE SORBDB5( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2,
-     $                   N
+      INTEGER            INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
 *     ..
 *     .. Array Arguments ..
       REAL               Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
@@ -81,13 +79,11 @@
 *           orthogonalization.
          CALL SSCAL( M1, ONE / NORM, X1, INCX1 )
          CALL SSCAL( M2, ONE / NORM, X2, INCX2 )
-         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2,
-     $              LDQ2, WORK, LWORK, CHILDINFO )
+         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )
 *
 *        If the projection is nonzero, then return
 *
-         IF( SNRM2(M1,X1,INCX1) .NE. REALZERO
-     $       .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         IF( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
             RETURN
          END IF
       END IF
@@ -103,10 +99,7 @@
          DO J = 1, M2
             X2(J) = ZERO
          END DO
-         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2,
-     $                 LDQ2, WORK, LWORK, CHILDINFO )
-         IF( SNRM2(M1,X1,INCX1) .NE. REALZERO
-     $       .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
             RETURN
          END IF
       END DO
@@ -122,10 +115,7 @@
             X2(J) = ZERO
          END DO
          X2(I) = ONE
-         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2,
-     $                 LDQ2, WORK, LWORK, CHILDINFO )
-         IF( SNRM2(M1,X1,INCX1) .NE. REALZERO
-     $       .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
+         CALL SORBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, CHILDINFO )          IF( SNRM2(M1,X1,INCX1) .NE. REALZERO .OR. SNRM2(M2,X2,INCX2) .NE. REALZERO ) THEN
             RETURN
          END IF
       END DO

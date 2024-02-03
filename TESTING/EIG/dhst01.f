@@ -1,5 +1,4 @@
-      SUBROUTINE DHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK,
-     $                   LWORK, RESULT )
+      SUBROUTINE DHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            IHI, ILO, LDA, LDH, LDQ, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), H( LDH, * ), Q( LDQ, * ),
-     $                   RESULT( 2 ), WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), H( LDH, * ), Q( LDQ, * ), RESULT( 2 ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -57,17 +55,13 @@
 *
 *     Compute Q*H
 *
-      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, ONE, Q, LDQ,
-     $            H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK )
+      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, ONE, Q, LDQ, H, LDH, ZERO, WORK( LDWORK*N+1 ), LDWORK )
 *
 *     Compute A - Q*H*Q'
 *
-      CALL DGEMM( 'No transpose', 'Transpose', N, N, N, -ONE,
-     $            WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK,
-     $            LDWORK )
+      CALL DGEMM( 'No transpose', 'Transpose', N, N, N, -ONE, WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, ONE, WORK, LDWORK )
 *
-      ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ),
-     $        UNFL )
+      ANORM = MAX( DLANGE( '1', N, N, A, LDA, WORK( LDWORK*N+1 ) ), UNFL )
       WNORM = DLANGE( '1', N, N, WORK, LDWORK, WORK( LDWORK*N+1 ) )
 *
 *     Note that RESULT(1) cannot overflow and is bounded by 1/(N*EPS)

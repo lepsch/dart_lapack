@@ -1,5 +1,4 @@
-      SUBROUTINE DSPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX,
-     $                   FERR, BERR, WORK, IWORK, INFO )
+      SUBROUTINE DSPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   AFP( * ), AP( * ), B( LDB, * ), BERR( * ),
-     $                   FERR( * ), WORK( * ), X( LDX, * )
+      DOUBLE PRECISION   AFP( * ), AP( * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -101,8 +99,7 @@
 *        Compute residual R = B - A * X
 *
          CALL DCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL DSPMV( UPLO, N, -ONE, AP, X( 1, J ), 1, ONE, WORK( N+1 ),
-     $               1 )
+         CALL DSPMV( UPLO, N, -ONE, AP, X( 1, J ), 1, ONE, WORK( N+1 ), 1 )
 *
 *        Compute componentwise relative backward error from formula
 *
@@ -153,8 +150,7 @@
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             ELSE
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) /
-     $             ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
          BERR( J ) = S
@@ -165,8 +161,7 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
@@ -209,15 +204,13 @@
 *
          KASE = 0
   100    CONTINUE
-         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ),
-     $                KASE, ISAVE )
+         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
 *              Multiply by diag(W)*inv(A**T).
 *
-               CALL DSPTRS( UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N,
-     $                      INFO )
+               CALL DSPTRS( UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N, INFO )
                DO 110 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   110          CONTINUE
@@ -228,8 +221,7 @@
                DO 120 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   120          CONTINUE
-               CALL DSPTRS( UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N,
-     $                      INFO )
+               CALL DSPTRS( UPLO, N, 1, AFP, IPIV, WORK( N+1 ), N, INFO )
             END IF
             GO TO 100
          END IF
@@ -240,8 +232,7 @@
          DO 130 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   130    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   140 CONTINUE
 *

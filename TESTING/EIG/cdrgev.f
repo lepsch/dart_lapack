@@ -1,25 +1,18 @@
-      SUBROUTINE CDRGEV( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, QE, LDQE,
-     $                   ALPHA, BETA, ALPHA1, BETA1, WORK, LWORK, RWORK,
-     $                   RESULT, INFO )
+      SUBROUTINE CDRGEV( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, S, T, Q, LDQ, Z, QE, LDQE, ALPHA, BETA, ALPHA1, BETA1, WORK, LWORK, RWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES,
-     $                   NTYPES
+      INTEGER            INFO, LDA, LDQ, LDQE, LWORK, NOUNIT, NSIZES, NTYPES
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), NN( * )
       REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), ALPHA1( * ),
-     $                   B( LDA, * ), BETA( * ), BETA1( * ),
-     $                   Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ),
-     $                   T( LDA, * ), WORK( * ), Z( LDQ, * )
+      COMPLEX            A( LDA, * ), ALPHA( * ), ALPHA1( * ), B( LDA, * ), BETA( * ), BETA1( * ), Q( LDQ, * ), QE( LDQE, * ), S( LDA, * ), T( LDA, * ), WORK( * ), Z( LDQ, * )
 *     ..
 *
 *  =====================================================================
@@ -28,26 +21,19 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       INTEGER            MAXTYP
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      INTEGER            I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE,
-     $                   MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS,
-     $                   NMATS, NMAX, NTESTT
+      INTEGER            I, IADD, IERR, IN, J, JC, JR, JSIZE, JTYPE, MAXWRK, MINWRK, MTYPES, N, N1, NB, NERRS, NMATS, NMAX, NTESTT
       REAL               SAFMAX, SAFMIN, ULP, ULPINV
       COMPLEX            CTEMP
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LASIGN( MAXTYP ), LBSIGN( MAXTYP )
-      INTEGER            IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ),
-     $                   KATYPE( MAXTYP ), KAZERO( MAXTYP ),
-     $                   KBMAGN( MAXTYP ), KBTYPE( MAXTYP ),
-     $                   KBZERO( MAXTYP ), KCLASS( MAXTYP ),
-     $                   KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      INTEGER            IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
       REAL               RMAGN( 0: 3 )
 *     ..
 *     .. External Functions ..
@@ -57,8 +43,7 @@
       EXTERNAL           ILAENV, SLAMCH, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, CGET52, CGGEV, CLACPY, CLARFG, CLASET,
-     $                   CLATM4, CUNM2R, XERBLA
+      EXTERNAL           ALASVM, CGET52, CGGEV, CLACPY, CLARFG, CLASET, CLATM4, CUNM2R, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CONJG, MAX, MIN, REAL, SIGN
@@ -68,25 +53,9 @@
       DATA               KZ1 / 0, 1, 2, 1, 3, 3 /
       DATA               KZ2 / 0, 0, 1, 2, 1, 1 /
       DATA               KADD / 0, 0, 0, 0, 3, 2 /
-      DATA               KATYPE / 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4,
-     $                   4, 4, 2, 4, 5, 8, 7, 9, 4*4, 0 /
-      DATA               KBTYPE / 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4,
-     $                   1, 1, -4, 2, -4, 8*8, 0 /
-      DATA               KAZERO / 6*1, 2, 1, 2*2, 2*1, 2*2, 3, 1, 3,
-     $                   4*5, 4*3, 1 /
-      DATA               KBZERO / 6*1, 1, 2, 2*1, 2*2, 2*1, 4, 1, 4,
-     $                   4*6, 4*4, 1 /
-      DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3,
-     $                   2, 1 /
-      DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3,
-     $                   2, 1 /
+      DATA               KATYPE / 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4*4, 0 /       DATA               KBTYPE / 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8*8, 0 /       DATA               KAZERO / 6*1, 2, 1, 2*2, 2*1, 2*2, 3, 1, 3, 4*5, 4*3, 1 /       DATA               KBZERO / 6*1, 1, 2, 2*1, 2*2, 2*1, 4, 1, 4, 4*6, 4*4, 1 /       DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3, 2, 1 /       DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3, 2, 1 /
       DATA               KTRIAN / 16*0, 10*1 /
-      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE.,
-     $                   2*.FALSE., 3*.TRUE., .FALSE., .TRUE.,
-     $                   3*.FALSE., 5*.TRUE., .FALSE. /
-      DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE.,
-     $                   2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE.,
-     $                   9*.FALSE. /
+      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE., 2*.FALSE., 3*.TRUE., .FALSE., .TRUE., 3*.FALSE., 5*.TRUE., .FALSE. /       DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE., 2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE., 9*.FALSE. /
 *     ..
 *     .. Executable Statements ..
 *
@@ -98,8 +67,7 @@
       NMAX = 1
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
       IF( NSIZES.LT.0 ) THEN
@@ -128,15 +96,12 @@
       MINWRK = 1
       IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
          MINWRK = NMAX*( NMAX+1 )
-         NB = MAX( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ),
-     $        ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ),
-     $        ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
+         NB = MAX( 1, ILAENV( 1, 'CGEQRF', ' ', NMAX, NMAX, -1, -1 ), ILAENV( 1, 'CUNMQR', 'LC', NMAX, NMAX, NMAX, -1 ), ILAENV( 1, 'CUNGQR', ' ', NMAX, NMAX, NMAX, -1 ) )
          MAXWRK = MAX( 2*NMAX, NMAX*( NB+1 ), NMAX*( NMAX+1 ) )
          WORK( 1 ) = MAXWRK
       END IF
 *
-      IF( LWORK.LT.MINWRK )
-     $   INFO = -23
+      IF( LWORK.LT.MINWRK ) INFO = -23
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CDRGEV', -INFO )
@@ -145,8 +110,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
       ULP = SLAMCH( 'Precision' )
       SAFMIN = SLAMCH( 'Safe minimum' )
@@ -178,8 +142,7 @@
          END IF
 *
          DO 210 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 210
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 210
             NMATS = NMATS + 1
 *
 *           Save ISEED in case of an error.
@@ -209,8 +172,7 @@
 *           KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
 *           RMAGN: used to implement KAMAGN and KBMAGN.
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 100
+            IF( MTYPES.GT.MAXTYP ) GO TO 100
             IERR = 0
             IF( KCLASS( JTYPE ).LT.3 ) THEN
 *
@@ -218,37 +180,25 @@
 *
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N )
-     $               CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
+                  IF( IN.NE.N ) CALL CLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
                ELSE
                   IN = N
                END IF
-               CALL CLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ),
-     $                      KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ),
-     $                      RMAGN( KAMAGN( JTYPE ) ), ULP,
-     $                      RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2,
-     $                      ISEED, A, LDA )
+               CALL CLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 2, ISEED, A, LDA )
                IADD = KADD( KAZERO( JTYPE ) )
-               IF( IADD.GT.0 .AND. IADD.LE.N )
-     $            A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
+               IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 *
 *              Generate B (w/o rotation)
 *
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N )
-     $               CALL CLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
+                  IF( IN.NE.N ) CALL CLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
                ELSE
                   IN = N
                END IF
-               CALL CLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ),
-     $                      KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ),
-     $                      RMAGN( KBMAGN( JTYPE ) ), ONE,
-     $                      RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2,
-     $                      ISEED, B, LDA )
+               CALL CLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 2, ISEED, B, LDA )
                IADD = KADD( KBZERO( JTYPE ) )
-               IF( IADD.NE.0 .AND. IADD.LE.N )
-     $            B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
+               IF( IADD.NE.0 .AND. IADD.LE.N ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 *
                IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
 *
@@ -262,12 +212,10 @@
                         Q( JR, JC ) = CLARND( 3, ISEED )
                         Z( JR, JC ) = CLARND( 3, ISEED )
    30                CONTINUE
-                     CALL CLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1,
-     $                            WORK( JC ) )
+                     CALL CLARFG( N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) )
                      WORK( 2*N+JC ) = SIGN( ONE, REAL( Q( JC, JC ) ) )
                      Q( JC, JC ) = CONE
-                     CALL CLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1,
-     $                            WORK( N+JC ) )
+                     CALL CLARFG( N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) )
                      WORK( 3*N+JC ) = SIGN( ONE, REAL( Z( JC, JC ) ) )
                      Z( JC, JC ) = CONE
    40             CONTINUE
@@ -284,30 +232,10 @@
 *
                   DO 60 JC = 1, N
                      DO 50 JR = 1, N
-                        A( JR, JC ) = WORK( 2*N+JR )*
-     $                                CONJG( WORK( 3*N+JC ) )*
-     $                                A( JR, JC )
-                        B( JR, JC ) = WORK( 2*N+JR )*
-     $                                CONJG( WORK( 3*N+JC ) )*
-     $                                B( JR, JC )
+                        A( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC )
    50                CONTINUE
    60             CONTINUE
-                  CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A,
-     $                         LDA, WORK( 2*N+1 ), IERR )
-                  IF( IERR.NE.0 )
-     $               GO TO 90
-                  CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ),
-     $                         A, LDA, WORK( 2*N+1 ), IERR )
-                  IF( IERR.NE.0 )
-     $               GO TO 90
-                  CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B,
-     $                         LDA, WORK( 2*N+1 ), IERR )
-                  IF( IERR.NE.0 )
-     $               GO TO 90
-                  CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ),
-     $                         B, LDA, WORK( 2*N+1 ), IERR )
-                  IF( IERR.NE.0 )
-     $               GO TO 90
+                  CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90
                END IF
             ELSE
 *
@@ -315,10 +243,7 @@
 *
                DO 80 JC = 1, N
                   DO 70 JR = 1, N
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )*
-     $                             CLARND( 4, ISEED )
-                     B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )*
-     $                             CLARND( 4, ISEED )
+                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED )
    70             CONTINUE
    80          CONTINUE
             END IF
@@ -326,8 +251,7 @@
    90       CONTINUE
 *
             IF( IERR.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                RETURN
             END IF
@@ -342,51 +266,42 @@
 *
             CALL CLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL CLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL CGGEV( 'V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q,
-     $                  LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            CALL CGGEV( 'V', 'V', N, S, LDA, T, LDA, ALPHA, BETA, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
             IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
                RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'CGGEV1', IERR, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'CGGEV1', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
             END IF
 *
 *           Do the tests (1) and (2)
 *
-            CALL CGET52( .TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA,
-     $                   WORK, RWORK, RESULT( 1 ) )
+            CALL CGET52( .TRUE., N, A, LDA, B, LDA, Q, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
             IF( RESULT( 2 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'CGGEV1',
-     $            RESULT( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'CGGEV1', RESULT( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Do the tests (3) and (4)
 *
-            CALL CGET52( .FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHA,
-     $                   BETA, WORK, RWORK, RESULT( 3 ) )
+            CALL CGET52( .FALSE., N, A, LDA, B, LDA, Z, LDQ, ALPHA, BETA, WORK, RWORK, RESULT( 3 ) )
             IF( RESULT( 4 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'CGGEV1',
-     $            RESULT( 4 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'CGGEV1', RESULT( 4 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Do test (5)
 *
             CALL CLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL CLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL CGGEV( 'N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q,
-     $                  LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            CALL CGGEV( 'N', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, Z, LDQ, WORK, LWORK, RWORK, IERR )
             IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
                RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'CGGEV2', IERR, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'CGGEV2', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
             END IF
 *
             DO 120 J = 1, N
-               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE.
-     $             BETA1( J ) )RESULT( 5 ) = ULPINV
+               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 5 ) = ULPINV
   120       CONTINUE
 *
 *           Do test (6): Compute eigenvalues and left eigenvectors,
@@ -394,25 +309,21 @@
 *
             CALL CLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL CLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL CGGEV( 'V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE,
-     $                  LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR )
+            CALL CGGEV( 'V', 'N', N, S, LDA, T, LDA, ALPHA1, BETA1, QE, LDQE, Z, LDQ, WORK, LWORK, RWORK, IERR )
             IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
                RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'CGGEV3', IERR, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'CGGEV3', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
             END IF
 *
             DO 130 J = 1, N
-               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE.
-     $             BETA1( J ) )RESULT( 6 ) = ULPINV
+               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 6 ) = ULPINV
   130       CONTINUE
 *
             DO 150 J = 1, N
                DO 140 JC = 1, N
-                  IF( Q( J, JC ).NE.QE( J, JC ) )
-     $               RESULT( 6 ) = ULPINV
+                  IF( Q( J, JC ).NE.QE( J, JC ) ) RESULT( 6 ) = ULPINV
   140          CONTINUE
   150       CONTINUE
 *
@@ -421,25 +332,21 @@
 *
             CALL CLACPY( ' ', N, N, A, LDA, S, LDA )
             CALL CLACPY( ' ', N, N, B, LDA, T, LDA )
-            CALL CGGEV( 'N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q,
-     $                  LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR )
+            CALL CGGEV( 'N', 'V', N, S, LDA, T, LDA, ALPHA1, BETA1, Q, LDQ, QE, LDQE, WORK, LWORK, RWORK, IERR )
             IF( IERR.NE.0 .AND. IERR.NE.N+1 ) THEN
                RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'CGGEV4', IERR, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'CGGEV4', IERR, N, JTYPE, IOLDSD
                INFO = ABS( IERR )
                GO TO 190
             END IF
 *
             DO 160 J = 1, N
-               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE.
-     $             BETA1( J ) )RESULT( 7 ) = ULPINV
+               IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 7 ) = ULPINV
   160       CONTINUE
 *
             DO 180 J = 1, N
                DO 170 JC = 1, N
-                  IF( Z( J, JC ).NE.QE( J, JC ) )
-     $               RESULT( 7 ) = ULPINV
+                  IF( Z( J, JC ).NE.QE( J, JC ) ) RESULT( 7 ) = ULPINV
   170          CONTINUE
   180       CONTINUE
 *
@@ -473,11 +380,9 @@
                   END IF
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   ELSE
-                     WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF
   200       CONTINUE

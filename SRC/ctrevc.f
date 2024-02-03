@@ -1,5 +1,4 @@
-      SUBROUTINE CTREVC( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR,
-     $                   LDVR, MM, M, WORK, RWORK, INFO )
+      SUBROUTINE CTREVC( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       REAL               RWORK( * )
-      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( * )
+      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -22,8 +20,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CMZERO, CMONE
-      PARAMETER          ( CMZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CMONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CMZERO = ( 0.0E+0, 0.0E+0 ), CMONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ALLV, BOTHV, LEFTV, OVER, RIGHTV, SOMEV
@@ -67,8 +64,7 @@
       IF( SOMEV ) THEN
          M = 0
          DO 10 J = 1, N
-            IF( SELECT( J ) )
-     $         M = M + 1
+            IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       ELSE
          M = N
@@ -97,8 +93,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Set the constants to control overflow.
 *
@@ -129,8 +124,7 @@
          DO 80 KI = N, 1, -1
 *
             IF( SOMEV ) THEN
-               IF( .NOT.SELECT( KI ) )
-     $            GO TO 80
+               IF( .NOT.SELECT( KI ) ) GO TO 80
             END IF
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 *
@@ -147,14 +141,11 @@
 *
             DO 50 K = 1, KI - 1
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN )
-     $            T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
    50       CONTINUE
 *
             IF( KI.GT.1 ) THEN
-               CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y',
-     $                      KI-1, T, LDT, WORK( 1 ), SCALE, RWORK,
-     $                      INFO )
+               CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 ), SCALE, RWORK, INFO )
                WORK( KI ) = SCALE
             END IF
 *
@@ -171,9 +162,7 @@
                   VR( K, IS ) = CMZERO
    60          CONTINUE
             ELSE
-               IF( KI.GT.1 )
-     $            CALL CGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ),
-     $                        1, CMPLX( SCALE ), VR( 1, KI ), 1 )
+               IF( KI.GT.1 ) CALL CGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 )
 *
                II = ICAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
@@ -198,8 +187,7 @@
          DO 130 KI = 1, N
 *
             IF( SOMEV ) THEN
-               IF( .NOT.SELECT( KI ) )
-     $            GO TO 130
+               IF( .NOT.SELECT( KI ) ) GO TO 130
             END IF
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 *
@@ -216,14 +204,11 @@
 *
             DO 100 K = KI + 1, N
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN )
-     $            T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
   100       CONTINUE
 *
             IF( KI.LT.N ) THEN
-               CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                      'Y', N-KI, T( KI+1, KI+1 ), LDT,
-     $                      WORK( KI+1 ), SCALE, RWORK, INFO )
+               CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 ), SCALE, RWORK, INFO )
                WORK( KI ) = SCALE
             END IF
 *
@@ -240,10 +225,7 @@
                   VL( K, IS ) = CMZERO
   110          CONTINUE
             ELSE
-               IF( KI.LT.N )
-     $            CALL CGEMV( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL,
-     $                        WORK( KI+1 ), 1, CMPLX( SCALE ),
-     $                        VL( 1, KI ), 1 )
+               IF( KI.LT.N ) CALL CGEMV( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 )
 *
                II = ICAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )

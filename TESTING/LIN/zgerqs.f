@@ -1,5 +1,4 @@
-      SUBROUTINE ZGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE ZGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,16 +8,14 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ),
-     $                   WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZLASET, ZTRSM, ZUNMRQ
@@ -41,8 +38,7 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 )
-     $          THEN
+      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) THEN
          INFO = -10
       END IF
       IF( INFO.NE.0 ) THEN
@@ -52,13 +48,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
 *
 *     Solve R*X = B(n-m+1:n,:)
 *
-      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS,
-     $            CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
+      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, CONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
 *
 *     Set B(1:n-m,:) to zero
 *
@@ -66,8 +60,7 @@
 *
 *     B := Q' * B
 *
-      CALL ZUNMRQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA,
-     $             TAU, B, LDB, WORK, LWORK, INFO )
+      CALL ZUNMRQ( 'Left', 'Conjugate transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
       RETURN
 *

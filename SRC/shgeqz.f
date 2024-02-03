@@ -1,6 +1,4 @@
-      SUBROUTINE SHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT,
-     $                   ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK,
-     $                   LWORK, INFO )
+      SUBROUTINE SHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,9 +9,7 @@
       INTEGER            IHI, ILO, INFO, LDH, LDQ, LDT, LDZ, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      REAL               ALPHAI( * ), ALPHAR( * ), BETA( * ),
-     $                   H( LDH, * ), Q( LDQ, * ), T( LDT, * ),
-     $                   WORK( * ), Z( LDZ, * )
+      REAL               ALPHAI( * ), ALPHAR( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -21,25 +17,10 @@
 *     .. Parameters ..
 *    $                     SAFETY = 1.0E+0 )
       REAL               HALF, ZERO, ONE, SAFETY
-      PARAMETER          ( HALF = 0.5E+0, ZERO = 0.0E+0, ONE = 1.0E+0,
-     $                   SAFETY = 1.0E+2 )
+      PARAMETER          ( HALF = 0.5E+0, ZERO = 0.0E+0, ONE = 1.0E+0, SAFETY = 1.0E+2 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILAZR2, ILAZRO, ILPIVT, ILQ, ILSCHR, ILZ,
-     $                   LQUERY
-      INTEGER            ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST,
-     $                   ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER,
-     $                   JR, MAXIT
-      REAL               A11, A12, A1I, A1R, A21, A22, A2I, A2R, AD11,
-     $                   AD11L, AD12, AD12L, AD21, AD21L, AD22, AD22L,
-     $                   AD32L, AN, ANORM, ASCALE, ATOL, B11, B1A, B1I,
-     $                   B1R, B22, B2A, B2I, B2R, BN, BNORM, BSCALE,
-     $                   BTOL, C, C11I, C11R, C12, C21, C22I, C22R, CL,
-     $                   CQ, CR, CZ, ESHIFT, S, S1, S1INV, S2, SAFMAX,
-     $                   SAFMIN, SCALE, SL, SQI, SQR, SR, SZI, SZR, T1,
-     $                   T2, T3, TAU, TEMP, TEMP2, TEMPI, TEMPR, U1,
-     $                   U12, U12L, U2, ULP, VS, W11, W12, W21, W22,
-     $                   WABS, WI, WR, WR2
+      LOGICAL            ILAZR2, ILAZRO, ILPIVT, ILQ, ILSCHR, ILZ, LQUERY       INTEGER            ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       REAL               A11, A12, A1I, A1R, A21, A22, A2I, A2R, AD11, AD11L, AD12, AD12L, AD21, AD21L, AD22, AD22L, AD32L, AN, ANORM, ASCALE, ATOL, B11, B1A, B1I, B1R, B22, B2A, B2I, B2R, BN, BNORM, BSCALE, BTOL, C, C11I, C11R, C12, C21, C22I, C22R, CL, CQ, CR, CZ, ESHIFT, S, S1, S1INV, S2, SAFMAX, SAFMIN, SCALE, SL, SQI, SQR, SR, SZI, SZR, T1, T2, T3, TAU, TEMP, TEMP2, TEMPI, TEMPR, U1, U12, U12L, U2, ULP, VS, W11, W12, W21, W22, WABS, WI, WR, WR2
 *     ..
 *     .. Local Arrays ..
       REAL               V( 3 )
@@ -47,12 +28,10 @@
 *     .. External Functions ..
       LOGICAL            LSAME
       REAL               SLAMCH, SLANHS, SLAPY2, SLAPY3, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANHS, SLAPY2, SLAPY3,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SLAMCH, SLANHS, SLAPY2, SLAPY3, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAG2, SLARFG, SLARTG, SLASET, SLASV2, SROT,
-     $                   XERBLA
+      EXTERNAL           SLAG2, SLARFG, SLARTG, SLASET, SLASV2, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, REAL, SQRT
@@ -141,10 +120,7 @@
 *
 *     Initialize Q and Z
 *
-      IF( ICOMPQ.EQ.3 )
-     $   CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
-      IF( ICOMPZ.EQ.3 )
-     $   CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      IF( ICOMPQ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
 *     Machine Constants
 *
@@ -185,8 +161,7 @@
 *
 *     If IHI < ILO, skip QZ steps
 *
-      IF( IHI.LT.ILO )
-     $   GO TO 380
+      IF( IHI.LT.ILO ) GO TO 380
 *
 *     MAIN QZ ITERATION LOOP
 *
@@ -229,9 +204,7 @@
 *
             GO TO 80
          ELSE
-            IF( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*( 
-     $         ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) 
-     $         ) ) ) THEN
+            IF( ABS( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( ILAST, ILAST ) ) + ABS( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
                H( ILAST, ILAST-1 ) = ZERO
                GO TO 80
             END IF
@@ -251,9 +224,7 @@
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
             ELSE
-               IF( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*( 
-     $         ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) 
-     $         ) ) ) THEN
+               IF( ABS( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS( H( J, J ) ) + ABS( H( J-1, J-1 ) ) ) ) ) THEN
                   H( J, J-1 ) = ZERO
                   ILAZRO = .TRUE.
                ELSE
@@ -277,8 +248,7 @@
                      TEMP = TEMP / TEMPR
                      TEMP2 = TEMP2 / TEMPR
                   END IF
-                  IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ).LE.TEMP2*
-     $                ( ASCALE*ATOL ) )ILAZR2 = .TRUE.
+                  IF( TEMP*( ASCALE*ABS( H( J+1, J ) ) ).LE.TEMP2* ( ASCALE*ATOL ) )ILAZR2 = .TRUE.
                END IF
 *
 *              If both tests pass (1 & 2), i.e., the leading diagonal
@@ -290,18 +260,10 @@
                IF( ILAZRO .OR. ILAZR2 ) THEN
                   DO 40 JCH = J, ILAST - 1
                      TEMP = H( JCH, JCH )
-                     CALL SLARTG( TEMP, H( JCH+1, JCH ), C, S,
-     $                            H( JCH, JCH ) )
+                     CALL SLARTG( TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
                      H( JCH+1, JCH ) = ZERO
-                     CALL SROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH,
-     $                          H( JCH+1, JCH+1 ), LDH, C, S )
-                     CALL SROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT,
-     $                          T( JCH+1, JCH+1 ), LDT, C, S )
-                     IF( ILQ )
-     $                  CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1,
-     $                             C, S )
-                     IF( ILAZR2 )
-     $                  H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
+                     CALL SROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL SROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
+                     IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
                      IF( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
                         IF( JCH+1.GE.ILAST ) THEN
@@ -321,28 +283,13 @@
 *
                   DO 50 JCH = J, ILAST - 1
                      TEMP = T( JCH, JCH+1 )
-                     CALL SLARTG( TEMP, T( JCH+1, JCH+1 ), C, S,
-     $                            T( JCH, JCH+1 ) )
+                     CALL SLARTG( TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
                      T( JCH+1, JCH+1 ) = ZERO
-                     IF( JCH.LT.ILASTM-1 )
-     $                  CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT,
-     $                             T( JCH+1, JCH+2 ), LDT, C, S )
-                     CALL SROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH,
-     $                          H( JCH+1, JCH-1 ), LDH, C, S )
-                     IF( ILQ )
-     $                  CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1,
-     $                             C, S )
+                     IF( JCH.LT.ILASTM-1 ) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL SROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S )
                      TEMP = H( JCH+1, JCH )
-                     CALL SLARTG( TEMP, H( JCH+1, JCH-1 ), C, S,
-     $                            H( JCH+1, JCH ) )
+                     CALL SLARTG( TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) )
                      H( JCH+1, JCH-1 ) = ZERO
-                     CALL SROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1,
-     $                          H( IFRSTM, JCH-1 ), 1, C, S )
-                     CALL SROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1,
-     $                          T( IFRSTM, JCH-1 ), 1, C, S )
-                     IF( ILZ )
-     $                  CALL SROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1,
-     $                             C, S )
+                     CALL SROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL SROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL SROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
    50             CONTINUE
                   GO TO 70
                END IF
@@ -368,15 +315,9 @@
 *
    70    CONTINUE
          TEMP = H( ILAST, ILAST )
-         CALL SLARTG( TEMP, H( ILAST, ILAST-1 ), C, S,
-     $                H( ILAST, ILAST ) )
+         CALL SLARTG( TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
          H( ILAST, ILAST-1 ) = ZERO
-         CALL SROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1,
-     $              H( IFRSTM, ILAST-1 ), 1, C, S )
-         CALL SROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1,
-     $              T( IFRSTM, ILAST-1 ), 1, C, S )
-         IF( ILZ )
-     $      CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
+         CALL SROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL SROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
 *
 *        H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
 *                              and BETA
@@ -405,8 +346,7 @@
 *        Go to next block -- exit if finished.
 *
          ILAST = ILAST - 1
-         IF( ILAST.LT.ILO )
-     $      GO TO 380
+         IF( ILAST.LT.ILO ) GO TO 380
 *
 *        Reset counters
 *
@@ -414,8 +354,7 @@
          ESHIFT = ZERO
          IF( .NOT.ILSCHR ) THEN
             ILASTM = ILAST
-            IF( IFRSTM.GT.ILAST )
-     $         IFRSTM = ILO
+            IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
          END IF
          GO TO 350
 *
@@ -441,10 +380,7 @@
 *           Exceptional shift.  Chosen for no particularly good reason.
 *           (Single shift only.)
 *
-            IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT.
-     $          ABS( T( ILAST-1, ILAST-1 ) ) ) THEN
-               ESHIFT = H( ILAST, ILAST-1 ) /
-     $                  T( ILAST-1, ILAST-1 )
+            IF( ( REAL( MAXIT )*SAFMIN )*ABS( H( ILAST, ILAST-1 ) ).LT. ABS( T( ILAST-1, ILAST-1 ) ) ) THEN                ESHIFT = H( ILAST, ILAST-1 ) / T( ILAST-1, ILAST-1 )
             ELSE
                ESHIFT = ESHIFT + ONE / ( SAFMIN*REAL( MAXIT ) )
             END IF
@@ -457,13 +393,9 @@
 *           bottom-right 2x2 block of A and B. The first eigenvalue
 *           returned by SLAG2 is the Wilkinson shift (AEP p.512),
 *
-            CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH,
-     $                  T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1,
-     $                  S2, WR, WR2, WI )
+            CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, S2, WR, WR2, WI )
 *
-            IF ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) )
-     $         .GT. ABS( (WR2/S2)*T( ILAST, ILAST )
-     $         - H( ILAST, ILAST ) ) ) THEN
+            IF ( ABS( (WR/S1)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) .GT. ABS( (WR2/S2)*T( ILAST, ILAST ) - H( ILAST, ILAST ) ) ) THEN
                TEMP = WR
                WR = WR2
                WR2 = TEMP
@@ -472,8 +404,7 @@
                S2 = TEMP
             END IF
             TEMP = MAX( S1, SAFMIN*MAX( ONE, ABS( WR ), ABS( WI ) ) )
-            IF( WI.NE.ZERO )
-     $         GO TO 200
+            IF( WI.NE.ZERO ) GO TO 200
          END IF
 *
 *        Fiddle with shift to avoid overflow
@@ -486,8 +417,7 @@
          END IF
 *
          TEMP = MIN( BSCALE, ONE )*( HALF*SAFMAX )
-         IF( ABS( WR ).GT.TEMP )
-     $      SCALE = MIN( SCALE, TEMP / ABS( WR ) )
+         IF( ABS( WR ).GT.TEMP ) SCALE = MIN( SCALE, TEMP / ABS( WR ) )
          S1 = SCALE*S1
          WR = SCALE*WR
 *
@@ -502,8 +432,7 @@
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             END IF
-            IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )*
-     $          TEMP2 )GO TO 130
+            IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )* TEMP2 )GO TO 130
   120    CONTINUE
 *
          ISTART = IFIRST
@@ -585,8 +514,7 @@
 *                   B = (         )  with B11 non-negative.
 *                       (  0  B22 )
 *
-            CALL SLASV2( T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ),
-     $                   T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL )
+            CALL SLASV2( T( ILAST-1, ILAST-1 ), T( ILAST-1, ILAST ), T( ILAST, ILAST ), B22, B11, SR, CR, SL, CL )
 *
             IF( B11.LT.ZERO ) THEN
                CR = -CR
@@ -595,24 +523,11 @@
                B22 = -B22
             END IF
 *
-            CALL SROT( ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH,
-     $                 H( ILAST, ILAST-1 ), LDH, CL, SL )
-            CALL SROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1,
-     $                 H( IFRSTM, ILAST ), 1, CR, SR )
+            CALL SROT( ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL SROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR )
 *
-            IF( ILAST.LT.ILASTM )
-     $         CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT,
-     $                    T( ILAST, ILAST+1 ), LDT, CL, SL )
-            IF( IFRSTM.LT.ILAST-1 )
-     $         CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1,
-     $                    T( IFRSTM, ILAST ), 1, CR, SR )
+            IF( ILAST.LT.ILASTM ) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR )
 *
-            IF( ILQ )
-     $         CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL,
-     $                    SL )
-            IF( ILZ )
-     $         CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR,
-     $                    SR )
+            IF( ILQ ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL )             IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR )
 *
             T( ILAST-1, ILAST-1 ) = B11
             T( ILAST-1, ILAST ) = ZERO
@@ -639,15 +554,12 @@
 *
 *           Recompute shift
 *
-            CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH,
-     $                  T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1,
-     $                  TEMP, WR, TEMP2, WI )
+            CALL SLAG2( H( ILAST-1, ILAST-1 ), LDH, T( ILAST-1, ILAST-1 ), LDT, SAFMIN*SAFETY, S1, TEMP, WR, TEMP2, WI )
 *
 *           If standardization has perturbed the shift onto real line,
 *           do another (real single-shift) QR step.
 *
-            IF( WI.EQ.ZERO )
-     $         GO TO 350
+            IF( WI.EQ.ZERO ) GO TO 350
             S1INV = ONE / S1
 *
 *           Do EISPACK (QZVAL) computation of alpha and beta
@@ -670,8 +582,7 @@
             C22R = S1*A22 - WR*B22
             C22I = -WI*B22
 *
-            IF( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+
-     $          ABS( C22R )+ABS( C22I ) ) THEN
+            IF( ABS( C11R )+ABS( C11I )+ABS( C12 ).GT.ABS( C21 )+ ABS( C22R )+ABS( C22I ) ) THEN
                T1 = SLAPY3( C12, C11R, C11I )
                CZ = C12 / T1
                SZR = -C11R / T1
@@ -750,8 +661,7 @@
 *           Step 3: Go to next block -- exit if finished.
 *
             ILAST = IFIRST - 1
-            IF( ILAST.LT.ILO )
-     $         GO TO 380
+            IF( ILAST.LT.ILO ) GO TO 380
 *
 *           Reset counters
 *
@@ -759,8 +669,7 @@
             ESHIFT = ZERO
             IF( .NOT.ILSCHR ) THEN
                ILASTM = ILAST
-               IF( IFRSTM.GT.ILAST )
-     $            IFRSTM = ILO
+               IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
             END IF
             GO TO 350
          ELSE
@@ -777,31 +686,12 @@
 *
 *           We assume that the block is at least 3x3
 *
-            AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) /
-     $             ( BSCALE*T( ILAST-1, ILAST-1 ) )
-            AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) /
-     $             ( BSCALE*T( ILAST-1, ILAST-1 ) )
-            AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) /
-     $             ( BSCALE*T( ILAST, ILAST ) )
-            AD22 = ( ASCALE*H( ILAST, ILAST ) ) /
-     $             ( BSCALE*T( ILAST, ILAST ) )
+            AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )
             U12 = T( ILAST-1, ILAST ) / T( ILAST, ILAST )
-            AD11L = ( ASCALE*H( IFIRST, IFIRST ) ) /
-     $              ( BSCALE*T( IFIRST, IFIRST ) )
-            AD21L = ( ASCALE*H( IFIRST+1, IFIRST ) ) /
-     $              ( BSCALE*T( IFIRST, IFIRST ) )
-            AD12L = ( ASCALE*H( IFIRST, IFIRST+1 ) ) /
-     $              ( BSCALE*T( IFIRST+1, IFIRST+1 ) )
-            AD22L = ( ASCALE*H( IFIRST+1, IFIRST+1 ) ) /
-     $              ( BSCALE*T( IFIRST+1, IFIRST+1 ) )
-            AD32L = ( ASCALE*H( IFIRST+2, IFIRST+1 ) ) /
-     $              ( BSCALE*T( IFIRST+1, IFIRST+1 ) )
+            AD11L = ( ASCALE*H( IFIRST, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD21L = ( ASCALE*H( IFIRST+1, IFIRST ) ) / ( BSCALE*T( IFIRST, IFIRST ) )             AD12L = ( ASCALE*H( IFIRST, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD22L = ( ASCALE*H( IFIRST+1, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )             AD32L = ( ASCALE*H( IFIRST+2, IFIRST+1 ) ) / ( BSCALE*T( IFIRST+1, IFIRST+1 ) )
             U12L = T( IFIRST, IFIRST+1 ) / T( IFIRST+1, IFIRST+1 )
 *
-            V( 1 ) = ( AD11-AD11L )*( AD22-AD11L ) - AD12*AD21 +
-     $               AD21*U12*AD11L + ( AD12L-AD11L*U12L )*AD21L
-            V( 2 ) = ( ( AD22L-AD11L )-AD21L*U12L-( AD11-AD11L )-
-     $               ( AD22-AD11L )+AD21*U12 )*AD21L
+            V( 1 ) = ( AD11-AD11L )*( AD22-AD11L ) - AD12*AD21 + AD21*U12*AD11L + ( AD12L-AD11L*U12L )*AD21L             V( 2 ) = ( ( AD22L-AD11L )-AD21L*U12L-( AD11-AD11L )- ( AD22-AD11L )+AD21*U12 )*AD21L
             V( 3 ) = AD32L*AD21L
 *
             ISTART = IFIRST
@@ -831,21 +721,18 @@
                T2 = TAU * V( 2 )
                T3 = TAU * V( 3 )
                DO 230 JC = J, ILASTM
-                  TEMP = H( J, JC )+V( 2 )*H( J+1, JC )+V( 3 )*
-     $                   H( J+2, JC )
+                  TEMP = H( J, JC )+V( 2 )*H( J+1, JC )+V( 3 )* H( J+2, JC )
                   H( J, JC ) = H( J, JC ) - TEMP*TAU
                   H( J+1, JC ) = H( J+1, JC ) - TEMP*T2
                   H( J+2, JC ) = H( J+2, JC ) - TEMP*T3
-                  TEMP2 = T( J, JC )+V( 2 )*T( J+1, JC )+V( 3 )*
-     $                    T( J+2, JC )
+                  TEMP2 = T( J, JC )+V( 2 )*T( J+1, JC )+V( 3 )* T( J+2, JC )
                   T( J, JC ) = T( J, JC ) - TEMP2*TAU
                   T( J+1, JC ) = T( J+1, JC ) - TEMP2*T2
                   T( J+2, JC ) = T( J+2, JC ) - TEMP2*T3
   230          CONTINUE
                IF( ILQ ) THEN
                   DO 240 JR = 1, N
-                     TEMP = Q( JR, J )+V( 2 )*Q( JR, J+1 )+V( 3 )*
-     $                      Q( JR, J+2 )
+                     TEMP = Q( JR, J )+V( 2 )*Q( JR, J+1 )+V( 3 )* Q( JR, J+2 )
                      Q( JR, J ) = Q( JR, J ) - TEMP*TAU
                      Q( JR, J+1 ) = Q( JR, J+1 ) - TEMP*T2
                      Q( JR, J+2 ) = Q( JR, J+2 ) - TEMP*T3
@@ -908,10 +795,7 @@
                   U1 = -W12 / W11
                   GO TO 250
                END IF
-               IF( ABS( W22 ).LT.ABS( U2 ) )
-     $            SCALE = ABS( W22 / U2 )
-               IF( ABS( W11 ).LT.ABS( U1 ) )
-     $            SCALE = MIN( SCALE, ABS( W11 / U1 ) )
+               IF( ABS( W22 ).LT.ABS( U2 ) ) SCALE = ABS( W22 / U2 )                IF( ABS( W11 ).LT.ABS( U1 ) ) SCALE = MIN( SCALE, ABS( W11 / U1 ) )
 *
 *              Solve
 *
@@ -939,23 +823,20 @@
                T2 = TAU*V( 2 )
                T3 = TAU*V( 3 )
                DO 260 JR = IFRSTM, MIN( J+3, ILAST )
-                  TEMP = H( JR, J )+V( 2 )*H( JR, J+1 )+V( 3 )*
-     $                   H( JR, J+2 )
+                  TEMP = H( JR, J )+V( 2 )*H( JR, J+1 )+V( 3 )* H( JR, J+2 )
                   H( JR, J ) = H( JR, J ) - TEMP*TAU
                   H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2
                   H( JR, J+2 ) = H( JR, J+2 ) - TEMP*T3
   260          CONTINUE
                DO 270 JR = IFRSTM, J + 2
-                  TEMP = T( JR, J )+V( 2 )*T( JR, J+1 )+V( 3 )*
-     $                   T( JR, J+2 )
+                  TEMP = T( JR, J )+V( 2 )*T( JR, J+1 )+V( 3 )* T( JR, J+2 )
                   T( JR, J ) = T( JR, J ) - TEMP*TAU
                   T( JR, J+1 ) = T( JR, J+1 ) - TEMP*T2
                   T( JR, J+2 ) = T( JR, J+2 ) - TEMP*T3
   270          CONTINUE
                IF( ILZ ) THEN
                   DO 280 JR = 1, N
-                     TEMP = Z( JR, J )+V( 2 )*Z( JR, J+1 )+V( 3 )*
-     $                      Z( JR, J+2 )
+                     TEMP = Z( JR, J )+V( 2 )*Z( JR, J+1 )+V( 3 )* Z( JR, J+2 )
                      Z( JR, J ) = Z( JR, J ) - TEMP*TAU
                      Z( JR, J+1 ) = Z( JR, J+1 ) - TEMP*T2
                      Z( JR, J+2 ) = Z( JR, J+2 ) - TEMP*T3

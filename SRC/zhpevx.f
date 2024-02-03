@@ -1,6 +1,4 @@
-      SUBROUTINE ZHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU,
-     $                   ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK,
-     $                   IFAIL, INFO )
+      SUBROUTINE ZHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,11 +26,8 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, VALEIG, WANTZ
       CHARACTER          ORDER
-      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE,
-     $                   INDISP, INDIWK, INDRWK, INDTAU, INDWRK, ISCALE,
-     $                   ITMP1, J, JJ, NSPLIT
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDTAU, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT
+      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -40,8 +35,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL,
-     $                   ZHPTRD, ZSTEIN, ZSTEQR, ZSWAP, ZUPGTR, ZUPMTR
+      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL, ZHPTRD, ZSTEIN, ZSTEQR, ZSWAP, ZUPGTR, ZUPMTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN, SQRT
@@ -60,15 +54,13 @@
          INFO = -1
       ELSE IF( .NOT.( ALLEIG .OR. VALEIG .OR. INDEIG ) ) THEN
          INFO = -2
-      ELSE IF( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) )
-     $          THEN
+      ELSE IF( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) ) THEN
          INFO = -3
       ELSE IF( N.LT.0 ) THEN
          INFO = -4
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -7
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -8
@@ -78,8 +70,7 @@
          END IF
       END IF
       IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) )
-     $      INFO = -14
+         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -14
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -90,8 +81,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -103,8 +93,7 @@
                W( 1 ) = DBLE( AP( 1 ) )
             END IF
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = CONE
+         IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -138,8 +127,7 @@
       END IF
       IF( ISCALE.EQ.1 ) THEN
          CALL ZDSCAL( ( N*( N+1 ) ) / 2, SIGMA, AP, 1 )
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -153,8 +141,7 @@
       INDRWK = INDE + N
       INDTAU = 1
       INDWRK = INDTAU + N
-      CALL ZHPTRD( UPLO, N, AP, RWORK( INDD ), RWORK( INDE ),
-     $             WORK( INDTAU ), IINFO )
+      CALL ZHPTRD( UPLO, N, AP, RWORK( INDD ), RWORK( INDE ), WORK( INDTAU ), IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call DSTERF or ZUPGTR and ZSTEQR.  If this fails
@@ -173,11 +160,9 @@
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
             CALL DSTERF( N, W, RWORK( INDEE ), INFO )
          ELSE
-            CALL ZUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ,
-     $                   WORK( INDWRK ), IINFO )
+            CALL ZUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ,
-     $                   RWORK( INDRWK ), INFO )
+            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -200,22 +185,16 @@
       END IF
       INDISP = 1 + N
       INDIWK = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W,
-     $             IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ),
-     $             IWORK( INDIWK ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W,
-     $                IWORK( 1 ), IWORK( INDISP ), Z, LDZ,
-     $                RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
 *        Apply unitary matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by ZSTEIN.
 *
          INDWRK = INDTAU + N
-         CALL ZUPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ,
-     $                WORK( INDWRK ), IINFO )
+         CALL ZUPMTR( 'L', UPLO, 'N', N, M, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

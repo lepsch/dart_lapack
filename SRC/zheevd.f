@@ -1,5 +1,4 @@
-      SUBROUTINE ZHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK,
-     $                   LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,11 +24,8 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2,
-     $                   INDWRK, ISCALE, LIOPT, LIWMIN, LLRWK, LLWORK,
-     $                   LLWRK2, LOPT, LROPT, LRWMIN, LWMIN
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDRWK, INDTAU, INDWK2, INDWRK, ISCALE, LIOPT, LIWMIN, LLRWK, LLWORK, LLWRK2, LOPT, LROPT, LRWMIN, LWMIN
+      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +34,7 @@
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZHETRD, ZLACPY, ZLASCL,
-     $                   ZSTEDC, ZUNMTR
+      EXTERNAL           DSCAL, DSTERF, XERBLA, ZHETRD, ZLACPY, ZLASCL, ZSTEDC, ZUNMTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -81,8 +76,7 @@
                LRWMIN = N
                LIWMIN = 1
             END IF
-            LOPT = MAX( LWMIN, N +
-     $                  N*ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 ) )
+            LOPT = MAX( LWMIN, N + N*ILAENV( 1, 'ZHETRD', UPLO, N, -1, -1, -1 ) )
             LROPT = LRWMIN
             LIOPT = LIWMIN
          END IF
@@ -108,13 +102,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = DBLE( A( 1, 1 ) )
-         IF( WANTZ )
-     $      A( 1, 1 ) = CONE
+         IF( WANTZ ) A( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -138,8 +130,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 *
@@ -151,8 +142,7 @@
       LLWORK = LWORK - INDWRK + 1
       LLWRK2 = LWORK - INDWK2 + 1
       LLRWK = LRWORK - INDRWK + 1
-      CALL ZHETRD( UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ),
-     $             WORK( INDWRK ), LLWORK, IINFO )
+      CALL ZHETRD( UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, first call
 *     ZSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -163,11 +153,8 @@
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK( INDWRK ), N,
-     $                WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK,
-     $                IWORK, LIWORK, INFO )
-         CALL ZUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ),
-     $                WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
+         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
+         CALL ZUNMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL ZLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
 *

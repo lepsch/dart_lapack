@@ -17,16 +17,12 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N,
-     $                   NINFO
+      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
       REAL               ANORM, BNORM, EPS, RMAX, VMAX
 *     ..
 *     .. Local Arrays ..
       INTEGER            LMAX( 3 )
-      REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ),
-     $                   RSCLIN( LDA ), WORK( LWORK )
-      COMPLEX            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ),
-     $                   BIN( LDB, LDB )
+      REAL               LSCALE( LDA ), LSCLIN( LDA ), RSCALE( LDA ), RSCLIN( LDA ), WORK( LWORK )       COMPLEX            A( LDA, LDA ), AIN( LDA, LDA ), B( LDB, LDB ), BIN( LDB, LDB )
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
@@ -52,8 +48,7 @@
    10 CONTINUE
 *
       READ( NIN, FMT = * )N
-      IF( N.EQ.0 )
-     $   GO TO 90
+      IF( N.EQ.0 ) GO TO 90
       DO 20 I = 1, N
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE
@@ -78,8 +73,7 @@
 *
       KNT = KNT + 1
 *
-      CALL CGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE,
-     $             WORK, INFO )
+      CALL CGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
 *
       IF( INFO.NE.0 ) THEN
          NINFO = NINFO + 1

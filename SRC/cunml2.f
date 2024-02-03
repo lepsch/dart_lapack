@@ -1,5 +1,4 @@
-      SUBROUTINE CUNML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC,
-     $                   WORK, INFO )
+      SUBROUTINE CUNML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -71,8 +70,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
       IF( ( LEFT .AND. NOTRAN .OR. .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
          I1 = 1
@@ -114,15 +112,12 @@
          ELSE
             TAUI = TAU( I )
          END IF
-         IF( I.LT.NQ )
-     $      CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
+         IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL CLARF( SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ),
-     $               LDC, WORK )
+         CALL CLARF( SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK )
          A( I, I ) = AII
-         IF( I.LT.NQ )
-     $      CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
+         IF( I.LT.NQ ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA )
    10 CONTINUE
       RETURN
 *

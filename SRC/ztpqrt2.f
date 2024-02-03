@@ -67,8 +67,7 @@
             DO J = 1, N-I
                T( J, N ) = CONJG(A( I, I+J ))
             END DO
-            CALL ZGEMV( 'C', P, N-I, ONE, B( 1, I+1 ), LDB,
-     $                  B( 1, I ), 1, ONE, T( 1, N ), 1 )
+            CALL ZGEMV( 'C', P, N-I, ONE, B( 1, I+1 ), LDB, B( 1, I ), 1, ONE, T( 1, N ), 1 )
 *
 *           C(I:M,I+1:N) = C(I:m,I+1:N) + alpha*C(I:M,I)*W(1:N-1)**H
 *
@@ -76,8 +75,7 @@
             DO J = 1, N-I
                A( I, I+J ) = A( I, I+J ) + ALPHA*CONJG(T( J, N ))
             END DO
-            CALL ZGERC( P, N-I, ALPHA, B( 1, I ), 1,
-     $           T( 1, N ), 1, B( 1, I+1 ), LDB )
+            CALL ZGERC( P, N-I, ALPHA, B( 1, I ), 1, T( 1, N ), 1, B( 1, I+1 ), LDB )
          END IF
       END DO
 *
@@ -99,18 +97,15 @@
          DO J = 1, P
             T( J, I ) = ALPHA*B( M-L+J, I )
          END DO
-         CALL ZTRMV( 'U', 'C', 'N', P, B( MP, 1 ), LDB,
-     $               T( 1, I ), 1 )
+         CALL ZTRMV( 'U', 'C', 'N', P, B( MP, 1 ), LDB, T( 1, I ), 1 )
 *
 *        Rectangular part of B2
 *
-         CALL ZGEMV( 'C', L, I-1-P, ALPHA, B( MP, NP ), LDB,
-     $               B( MP, I ), 1, ZERO, T( NP, I ), 1 )
+         CALL ZGEMV( 'C', L, I-1-P, ALPHA, B( MP, NP ), LDB, B( MP, I ), 1, ZERO, T( NP, I ), 1 )
 *
 *        B1
 *
-         CALL ZGEMV( 'C', M-L, I-1, ALPHA, B, LDB, B( 1, I ), 1,
-     $               ONE, T( 1, I ), 1 )
+         CALL ZGEMV( 'C', M-L, I-1, ALPHA, B, LDB, B( 1, I ), 1, ONE, T( 1, I ), 1 )
 *
 *        T(1:I-1,I) := T(1:I-1,1:I-1) * T(1:I-1,I)
 *

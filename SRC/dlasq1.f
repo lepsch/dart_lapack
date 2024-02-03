@@ -78,8 +78,7 @@
       SCALE = SQRT( EPS / SAFMIN )
       CALL DCOPY( N, D, 1, WORK( 1 ), 2 )
       CALL DCOPY( N-1, E, 1, WORK( 2 ), 2 )
-      CALL DLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1,
-     $             IINFO )
+      CALL DLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO )
 *
 *     Compute the q's and e's.
 *

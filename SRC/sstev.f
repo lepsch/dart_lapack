@@ -21,8 +21,7 @@
 *     .. Local Scalars ..
       LOGICAL            WANTZ
       INTEGER            IMAX, ISCALE
-      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM,
-     $                   TNRM
+      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -57,12 +56,10 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *

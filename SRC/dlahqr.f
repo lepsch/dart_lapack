@@ -1,5 +1,4 @@
-      SUBROUTINE DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI,
-     $                   ILOZ, IHIZ, Z, LDZ, INFO )
+      SUBROUTINE DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -25,12 +24,8 @@
       PARAMETER          ( KEXSH = 10 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S,
-     $                   H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX,
-     $                   SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST,
-     $                   ULP, V2, V3
-      INTEGER            I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ,
-     $                   KDEFL 
+      DOUBLE PRECISION   AA, AB, BA, BB, CS, DET, H11, H12, H21, H21S, H22, RT1I, RT1R, RT2I, RT2R, RTDISC, S, SAFMAX, SAFMIN, SMLNUM, SN, SUM, T1, T2, T3, TR, TST, ULP, V2, V3
+      INTEGER            I, I1, I2, ITS, ITMAX, J, K, L, M, NH, NR, NZ, KDEFL
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   V( 3 )
@@ -51,8 +46,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       IF( ILO.EQ.IHI ) THEN
          WR( ILO ) = H( ILO, ILO )
          WI( ILO ) = ZERO
@@ -64,8 +58,7 @@
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
    10 CONTINUE
-      IF( ILO.LE.IHI-2 )
-     $   H( IHI, IHI-2 ) = ZERO
+      IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
 *
       NH = IHI - ILO + 1
       NZ = IHIZ - ILOZ + 1
@@ -103,8 +96,7 @@
       I = IHI
    20 CONTINUE
       L = ILO
-      IF( I.LT.ILO )
-     $   GO TO 160
+      IF( I.LT.ILO ) GO TO 160
 *
 *     Perform QR iterations on rows and columns ILO to I until a
 *     submatrix of order 1 or 2 splits off at the bottom because a
@@ -115,14 +107,10 @@
 *        Look for a single small subdiagonal element.
 *
          DO 30 K = I, L + 1, -1
-            IF( ABS( H( K, K-1 ) ).LE.SMLNUM )
-     $         GO TO 40
+            IF( ABS( H( K, K-1 ) ).LE.SMLNUM ) GO TO 40
             TST = ABS( H( K-1, K-1 ) ) + ABS( H( K, K ) )
             IF( TST.EQ.ZERO ) THEN
-               IF( K-2.GE.ILO )
-     $            TST = TST + ABS( H( K-1, K-2 ) )
-               IF( K+1.LE.IHI )
-     $            TST = TST + ABS( H( K+1, K ) )
+               IF( K-2.GE.ILO ) TST = TST + ABS( H( K-1, K-2 ) )                IF( K+1.LE.IHI ) TST = TST + ABS( H( K+1, K ) )
             END IF
 *           ==== The following is a conservative small subdiagonal
 *           .    deflation  criterion due to Ahues & Tisseur (LAWN 122,
@@ -131,13 +119,9 @@
             IF( ABS( H( K, K-1 ) ).LE.ULP*TST ) THEN
                AB = MAX( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
                BA = MIN( ABS( H( K, K-1 ) ), ABS( H( K-1, K ) ) )
-               AA = MAX( ABS( H( K, K ) ),
-     $              ABS( H( K-1, K-1 )-H( K, K ) ) )
-               BB = MIN( ABS( H( K, K ) ),
-     $              ABS( H( K-1, K-1 )-H( K, K ) ) )
+               AA = MAX( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( ABS( H( K, K ) ), ABS( H( K-1, K-1 )-H( K, K ) ) )
                S = AA + AB
-               IF( BA*( AB / S ).LE.MAX( SMLNUM,
-     $             ULP*( BB*( AA / S ) ) ) )GO TO 40
+               IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40
             END IF
    30    CONTINUE
    40    CONTINUE
@@ -151,8 +135,7 @@
 *
 *        Exit from loop if a submatrix of order 1 or 2 has split off.
 *
-         IF( L.GE.I-1 )
-     $      GO TO 150
+         IF( L.GE.I-1 ) GO TO 150
          KDEFL = KDEFL + 1
 *
 *        Now the active submatrix is in rows and columns L to I. If
@@ -243,19 +226,14 @@
             H21S = H( M+1, M )
             S = ABS( H( M, M )-RT2R ) + ABS( RT2I ) + ABS( H21S )
             H21S = H( M+1, M ) / S
-            V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )*
-     $               ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S )
+            V( 1 ) = H21S*H( M, M+1 ) + ( H( M, M )-RT1R )* ( ( H( M, M )-RT2R ) / S ) - RT1I*( RT2I / S )
             V( 2 ) = H21S*( H( M, M )+H( M+1, M+1 )-RT1R-RT2R )
             V( 3 ) = H21S*H( M+2, M+1 )
             S = ABS( V( 1 ) ) + ABS( V( 2 ) ) + ABS( V( 3 ) )
             V( 1 ) = V( 1 ) / S
             V( 2 ) = V( 2 ) / S
             V( 3 ) = V( 3 ) / S
-            IF( M.EQ.L )
-     $         GO TO 60
-            IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE.
-     $          ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M,
-     $          M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60
+            IF( M.EQ.L ) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60
    50    CONTINUE
    60    CONTINUE
 *
@@ -273,14 +251,12 @@
 *           submatrix. NR is the order of G.
 *
             NR = MIN( 3, I-K+1 )
-            IF( K.GT.M )
-     $         CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 )
+            IF( K.GT.M ) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 )
             CALL DLARFG( NR, V( 1 ), V( 2 ), 1, T1 )
             IF( K.GT.M ) THEN
                H( K, K-1 ) = V( 1 )
                H( K+1, K-1 ) = ZERO
-               IF( K.LT.I-1 )
-     $            H( K+2, K-1 ) = ZERO
+               IF( K.LT.I-1 ) H( K+2, K-1 ) = ZERO
             ELSE IF( M.GT.L ) THEN
 *               ==== Use the following instead of
 *               .    H( K, K-1 ) = -H( K, K-1 ) to
@@ -380,17 +356,13 @@
 *        Transform the 2-by-2 submatrix to standard Schur form,
 *        and compute and store the eigenvalues.
 *
-         CALL DLANV2( H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ),
-     $                H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ),
-     $                CS, SN )
+         CALL DLANV2( H( I-1, I-1 ), H( I-1, I ), H( I, I-1 ), H( I, I ), WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
 *
          IF( WANTT ) THEN
 *
 *           Apply the transformation to the rest of H.
 *
-            IF( I2.GT.I )
-     $         CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH,
-     $                    CS, SN )
+            IF( I2.GT.I ) CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN )
             CALL DROT( I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN )
          END IF
          IF( WANTZ ) THEN

@@ -1,7 +1,4 @@
-      SUBROUTINE CDRVSG2STG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                       NOUNIT, A, LDA, B, LDB, D, D2, Z, LDZ, AB,
-     $                       BB, AP, BP, WORK, NWORK, RWORK, LRWORK,
-     $                       IWORK, LIWORK, RESULT, INFO )
+      SUBROUTINE CDRVSG2STG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, LDB, D, D2, Z, LDZ, AB, BB, AP, BP, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, INFO )
 *
       IMPLICIT NONE
 *
@@ -10,17 +7,14 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LDZ, LIWORK, LRWORK, NOUNIT,
-     $                   NSIZES, NTYPES, NWORK
+      INTEGER            INFO, LDA, LDB, LDZ, LIWORK, LRWORK, NOUNIT, NSIZES, NTYPES, NWORK
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
       REAL               D( * ), D2( * ), RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AB( LDA, * ), AP( * ),
-     $                   B( LDB, * ), BB( LDB, * ), BP( * ), WORK( * ),
-     $                   Z( LDZ, * )
+      COMPLEX            A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -29,25 +23,18 @@
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 10.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       INTEGER            MAXTYP
       PARAMETER          ( MAXTYP = 21 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          UPLO
-      INTEGER            I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP,
-     $                   ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB,
-     $                   KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST,
-     $                   NTESTT
-      REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL,
-     $                   RTUNFL, ULP, ULPINV, UNFL, VL, VU, TEMP1, TEMP2
+      INTEGER            I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP, ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB, KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      REAL               ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU, TEMP1, TEMP2
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -55,20 +42,14 @@
       EXTERNAL           LSAME, SLAMCH, SLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLAFTS, SLASUM, XERBLA, CHBGV, CHBGVD,
-     $                   CHBGVX, CHEGV, CHEGVD, CHEGVX, CHPGV, CHPGVD,
-     $                   CHPGVX, CLACPY, CLASET, CLATMR, CLATMS, CSGT01,
-     $                   CHEGV_2STAGE
+      EXTERNAL           SLAFTS, SLASUM, XERBLA, CHBGV, CHBGVD, CHBGVX, CHEGV, CHEGVD, CHEGVX, CHPGV, CHPGVD, CHPGVX, CLACPY, CLASET, CLATMR, CLATMS, CSGT01, CHEGV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, REAL, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /
-      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1,
-     $                   2, 3, 6*1 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0,
-     $                   0, 0, 6*4 /
+      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -81,8 +62,7 @@
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -112,8 +92,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -146,8 +125,7 @@
          KA9 = 0
          KB9 = 0
          DO 640 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 640
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 640
             NMATS = NMATS + 1
             NTEST = 0
 *
@@ -170,8 +148,7 @@
 *           =8                      random hermitian
 *           =9                      banded, w/ eigenvalues
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -224,8 +201,7 @@
 *
                KA = 0
                KB = 0
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
@@ -233,8 +209,7 @@
 *
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
@@ -242,10 +217,7 @@
 *
                KA = 0
                KB = 0
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
@@ -253,10 +225,7 @@
 *
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
@@ -278,8 +247,7 @@
                END IF
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK, IINFO )
 *
             ELSE
 *
@@ -287,8 +255,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -322,17 +289,12 @@
 *              loop over the setting UPLO
 *
                DO 620 IBUPLO = 1, 2
-                  IF( IBUPLO.EQ.1 )
-     $               UPLO = 'U'
-                  IF( IBUPLO.EQ.2 )
-     $               UPLO = 'L'
+                  IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
 *
 *                 Generate random well-conditioned positive definite
 *                 matrix B, of bandwidth not greater than that of A.
 *
-                  CALL CLATMS( N, N, 'U', ISEED, 'P', RWORK, 5, TEN,
-     $                         ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ),
-     $                         IINFO )
+                  CALL CLATMS( N, N, 'U', ISEED, 'P', RWORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
 *
 *                 Test CHEGV
 *
@@ -341,11 +303,9 @@
                   CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL CHEGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D,
-     $                        WORK, NWORK, RWORK, IINFO )
+                  CALL CHEGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHEGV(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHEGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -357,8 +317,7 @@
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Test CHEGV_2STAGE
 *
@@ -367,13 +326,9 @@
                   CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL CHEGV_2STAGE( IBTYPE, 'N', UPLO, N, Z, LDZ,
-     $                               BB, LDB, D2, WORK, NWORK, RWORK, 
-     $                               IINFO )
+                  CALL CHEGV_2STAGE( IBTYPE, 'N', UPLO, N, Z, LDZ, BB, LDB, D2, WORK, NWORK, RWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )
-     $                  'CHEGV_2STAGE(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 ) 'CHEGV_2STAGE(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -387,21 +342,19 @@
 *
 C                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
 C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
-*           
+*
 *                 Do Tests | D1 - D2 | / ( |D1| ulp )
 *                 D1 computed using the standard 1-stage reduction as reference
 *                 D2 computed using the 2-stage reduction
-*           
+*
                   TEMP1 = ZERO
                   TEMP2 = ZERO
                   DO 151 J = 1, N
-                     TEMP1 = MAX( TEMP1, ABS( D( J ) ), 
-     $                                   ABS( D2( J ) ) )
+                     TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) )
   151             CONTINUE
-*           
-                  RESULT( NTEST ) = TEMP2 / 
-     $                              MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
+*
+                  RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
 *                 Test CHEGVD
 *
@@ -410,12 +363,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
                   CALL CLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL CHEGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D,
-     $                         WORK, NWORK, RWORK, LRWORK, IWORK,
-     $                         LIWORK, IINFO )
+                  CALL CHEGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHEGVD(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHEGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -427,8 +377,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Test CHEGVX
 *
@@ -437,13 +386,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
                   CALL CLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL CHEGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, RWORK, IWORK( N+1 ),
-     $                         IWORK, IINFO )
+                  CALL CHEGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,A' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -455,8 +400,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -470,13 +414,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   VL = ZERO
                   VU = ANORM
-                  CALL CHEGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, RWORK, IWORK( N+1 ),
-     $                         IWORK, IINFO )
+                  CALL CHEGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,V,' //
-     $                  UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -488,21 +428,16 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
                   CALL CLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL CLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL CHEGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, RWORK, IWORK( N+1 ),
-     $                         IWORK, IINFO )
+                  CALL CHEGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,I,' //
-     $                  UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHEGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -514,8 +449,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
   100             CONTINUE
 *
@@ -545,11 +479,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   140                CONTINUE
                   END IF
 *
-                  CALL CHPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ,
-     $                        WORK, RWORK, IINFO )
+                  CALL CHPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, RWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHPGV(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -561,8 +493,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Test CHPGVD
 *
@@ -590,12 +521,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   180                CONTINUE
                   END IF
 *
-                  CALL CHPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ,
-     $                         WORK, NWORK, RWORK, LRWORK, IWORK,
-     $                         LIWORK, IINFO )
+                  CALL CHPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHPGVD(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -607,8 +535,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Test CHPGVX
 *
@@ -636,12 +563,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   220                CONTINUE
                   END IF
 *
-                  CALL CHPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         RWORK, IWORK( N+1 ), IWORK, INFO )
+                  CALL CHPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,A' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -653,8 +577,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -682,12 +605,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   VL = ZERO
                   VU = ANORM
-                  CALL CHPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         RWORK, IWORK( N+1 ), IWORK, INFO )
+                  CALL CHPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,V' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -699,8 +619,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -726,12 +645,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   300                CONTINUE
                   END IF
 *
-                  CALL CHPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         RWORK, IWORK( N+1 ), IWORK, INFO )
+                  CALL CHPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,I' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'CHPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -743,8 +659,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                 Do Test
 *
-                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                  CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
   310             CONTINUE
 *
@@ -776,11 +691,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   370                   CONTINUE
                      END IF
 *
-                     CALL CHBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB,
-     $                           D, Z, LDZ, WORK, RWORK, IINFO )
+                     CALL CHBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, RWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'CHBGV(V,' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'CHBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -792,8 +705,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Do Test
 *
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    TEST CHBGVD
 *
@@ -821,12 +733,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   430                   CONTINUE
                      END IF
 *
-                     CALL CHBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB,
-     $                            LDB, D, Z, LDZ, WORK, NWORK, RWORK,
-     $                            LRWORK, IWORK, LIWORK, IINFO )
+                     CALL CHBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, RWORK, LRWORK, IWORK, LIWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'CHBGVD(V,' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'CHBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -838,8 +747,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Do Test
 *
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Test CHBGVX
 *
@@ -867,13 +775,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   490                   CONTINUE
                      END IF
 *
-                     CALL CHBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL CHBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,A' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -885,8 +789,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Do Test
 *
-                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     CALL CSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                      NTEST = NTEST + 1
 *
@@ -914,13 +817,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                      VL = ZERO
                      VU = ANORM
-                     CALL CHBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL CHBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,V' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -932,8 +831,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Do Test
 *
-                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                      NTEST = NTEST + 1
 *
@@ -959,13 +857,9 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
   610                   CONTINUE
                      END IF
 *
-                     CALL CHBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL CHBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, RWORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,I' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'CHBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -977,8 +871,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
 *                    Do Test
 *
-                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RWORK, RESULT( NTEST ) )
+                     CALL CSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *
                   END IF
 *
@@ -988,8 +881,7 @@ C     $                         LDZ, D, WORK, RWORK, RESULT( NTEST ) )
 *           End of Loop -- Check for RESULT(j) > THRESH
 *
             NTESTT = NTESTT + NTEST
-            CALL SLAFTS( 'CSG', N, N, JTYPE, NTEST, RESULT, IOLDSD,
-     $                   THRESH, NOUNIT, NERRS )
+            CALL SLAFTS( 'CSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
   640    CONTINUE
   650 CONTINUE
 *

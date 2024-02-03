@@ -1,6 +1,4 @@
-      SUBROUTINE SSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                            IPIV, IPIV2, B, LDB, WORK, LWORK,
-     $                            INFO )
+      SUBROUTINE SSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -30,8 +28,7 @@
       EXTERNAL           SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE,
-     $                   XERBLA
+      EXTERNAL           SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -62,8 +59,7 @@
       END IF
 *
       IF( INFO.EQ.0 ) THEN
-         CALL SSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV,
-     $                          IPIV2, WORK, -1, INFO )
+         CALL SSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       END IF
@@ -77,14 +73,12 @@
 *
 *     Compute the factorization A = U**T*T*U or A = L*T*L**T.
 *
-      CALL SSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2,
-     $                       WORK, LWORK, INFO )
+      CALL SSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL SSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV,
-     $                          IPIV2, B, LDB, INFO )
+         CALL SSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
       END IF
 *

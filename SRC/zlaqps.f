@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAQPS( M, N, OFFSET, NB, KB, A, LDA, JPVT, TAU, VN1,
-     $                   VN2, AUXV, F, LDF )
+      SUBROUTINE ZLAQPS( M, N, OFFSET, NB, KB, A, LDA, JPVT, TAU, VN1, VN2, AUXV, F, LDF )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -19,9 +18,7 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0,
-     $                   CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            ITEMP, J, K, LASTRK, LSTICC, PVT, RK
@@ -73,8 +70,7 @@
             DO 20 J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
    20       CONTINUE
-            CALL ZGEMV( 'No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ),
-     $                  LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 )
+            CALL ZGEMV( 'No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 )
             DO 30 J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
    30       CONTINUE
@@ -96,9 +92,7 @@
 *        Compute  F(K+1:N,K) := tau(K)*A(RK:M,K+1:N)**H*A(RK:M,K).
 *
          IF( K.LT.N ) THEN
-            CALL ZGEMV( 'Conjugate transpose', M-RK+1, N-K, TAU( K ),
-     $                  A( RK, K+1 ), LDA, A( RK, K ), 1, CZERO,
-     $                  F( K+1, K ), 1 )
+            CALL ZGEMV( 'Conjugate transpose', M-RK+1, N-K, TAU( K ), A( RK, K+1 ), LDA, A( RK, K ), 1, CZERO, F( K+1, K ), 1 )
          END IF
 *
 *        Padding F(1:K,K) with zeros.
@@ -112,21 +106,16 @@
 *                    *A(RK:M,K).
 *
          IF( K.GT.1 ) THEN
-            CALL ZGEMV( 'Conjugate transpose', M-RK+1, K-1, -TAU( K ),
-     $                  A( RK, 1 ), LDA, A( RK, K ), 1, CZERO,
-     $                  AUXV( 1 ), 1 )
+            CALL ZGEMV( 'Conjugate transpose', M-RK+1, K-1, -TAU( K ), A( RK, 1 ), LDA, A( RK, K ), 1, CZERO, AUXV( 1 ), 1 )
 *
-            CALL ZGEMV( 'No transpose', N, K-1, CONE, F( 1, 1 ), LDF,
-     $                  AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
+            CALL ZGEMV( 'No transpose', N, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
          END IF
 *
 *        Update the current row of A:
 *        A(RK,K+1:N) := A(RK,K+1:N) - A(RK,1:K)*F(K+1:N,1:K)**H.
 *
          IF( K.LT.N ) THEN
-            CALL ZGEMM( 'No transpose', 'Conjugate transpose', 1, N-K,
-     $                  K, -CONE, A( RK, 1 ), LDA, F( K+1, 1 ), LDF,
-     $                  CONE, A( RK, K+1 ), LDA )
+            CALL ZGEMM( 'No transpose', 'Conjugate transpose', 1, N-K, K, -CONE, A( RK, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( RK, K+1 ), LDA )
          END IF
 *
 *        Update partial column norms.
@@ -165,9 +154,7 @@
 *                         A(OFFSET+KB+1:M,1:KB)*F(KB+1:N,1:KB)**H.
 *
       IF( KB.LT.MIN( N, M-OFFSET ) ) THEN
-         CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-RK, N-KB,
-     $               KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF,
-     $               CONE, A( RK+1, KB+1 ), LDA )
+         CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-RK, N-KB, KB, -CONE, A( RK+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( RK+1, KB+1 ), LDA )
       END IF
 *
 *     Recomputation of difficult columns.

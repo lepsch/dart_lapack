@@ -1,6 +1,4 @@
-      COMPLEX*16   FUNCTION ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                 IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                 SPARSE )
+      COMPLEX*16   FUNCTION ZLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,8 +6,7 @@
 *
 *     .. Scalar Arguments ..
 *
-      INTEGER            I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL,
-     $                   KU, M, N
+      INTEGER            I, IDIST, IGRADE, IPVTNG, ISUB, J, JSUB, KL, KU, M, N
       DOUBLE PRECISION   SPARSE
 *     ..
 *

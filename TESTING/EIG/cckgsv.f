@@ -1,6 +1,4 @@
-      SUBROUTINE CCKGSV( NM, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH,
-     $                   NMAX, A, AF, B, BF, U, V, Q, ALPHA, BETA, R,
-     $                   IWORK, WORK, RWORK, NIN, NOUT, INFO )
+      SUBROUTINE CCKGSV( NM, MVAL, PVAL, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, B, BF, U, V, Q, ALPHA, BETA, R, IWORK, WORK, RWORK, NIN, NOUT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,11 +9,9 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ),
-     $                   PVAL( * )
+      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), NVAL( * ), PVAL( * )
       REAL               ALPHA( * ), BETA( * ), RWORK( * )
-      COMPLEX            A( * ), AF( * ), B( * ), BF( * ), Q( * ),
-     $                   R( * ), U( * ), V( * ), WORK( * )
+      COMPLEX            A( * ), AF( * ), B( * ), BF( * ), Q( * ), R( * ), U( * ), V( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -30,9 +26,7 @@
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA,
-     $                   LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA,
-     $                   MODEB, N, NFAIL, NRUN, NT, P, K, L
+      INTEGER            I, IINFO, IM, IMAT, KLA, KLB, KUA, KUB, LDA, LDB, LDQ, LDR, LDU, LDV, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P, K, L
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..
@@ -78,9 +72,7 @@
       B(4+3*M) = CMPLX(9.E16, 0.E0)
       B(5+4*M) = CMPLX(9.E15, 0.E0)
       B(6+5*M) = CMPLX(9.E14, 0.E0)
-      CALL CGGSVD3('N','N','N', M, P, N, K, L, A, M, B, M,
-     $              ALPHA, BETA, U, 1, V, 1, Q, 1,
-     $              WORK, M*N, RWORK, IWORK, INFO)
+      CALL CGGSVD3('N','N','N', M, P, N, K, L, A, M, B, M, ALPHA, BETA, U, 1, V, 1, Q, 1, WORK, M*N, RWORK, IWORK, INFO)
 *
 *     Print information there is a NAN in BETA
       DO 40 I = 1, L
@@ -111,21 +103,16 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 20
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 20
 *
 *           Set up parameters with SLATB9 and generate test
 *           matrices A and B with CLATMS.
 *
-            CALL SLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB,
-     $                   ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB,
-     $                   DISTA, DISTB )
+            CALL SLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
 *           Generate M by N matrix A
 *
-            CALL CLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA,
-     $                   ANORM, KLA, KUA, 'No packing', A, LDA, WORK,
-     $                   IINFO )
+            CALL CLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
@@ -134,9 +121,7 @@
 *
 *           Generate P by N matrix B
 *
-            CALL CLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB,
-     $                   BNORM, KLB, KUB, 'No packing', B, LDB, WORK,
-     $                   IINFO )
+            CALL CLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
                WRITE( NOUT, FMT = 9999 )IINFO
                INFO = ABS( IINFO )
@@ -145,9 +130,7 @@
 *
             NT = 6
 *
-            CALL CGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V,
-     $                    LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK,
-     $                    LWORK, RWORK, RESULT )
+            CALL CGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V, LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK, LWORK, RWORK, RESULT )
 *
 *           Print information about the tests that did not
 *           pass the threshold.
@@ -158,8 +141,7 @@
                      FIRSTT = .FALSE.
                      CALL ALAHDG( NOUT, PATH )
                   END IF
-                  WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I,
-     $               RESULT( I )
+                  WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
                END IF
    10       CONTINUE

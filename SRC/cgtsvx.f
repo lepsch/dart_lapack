@@ -1,6 +1,4 @@
-      SUBROUTINE CGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF,
-     $                   DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR,
-     $                   WORK, RWORK, INFO )
+      SUBROUTINE CGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,9 +12,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            B( LDB, * ), D( * ), DF( * ), DL( * ),
-     $                   DLF( * ), DU( * ), DU2( * ), DUF( * ),
-     $                   WORK( * ), X( LDX, * )
+      COMPLEX            B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -36,8 +32,7 @@
       EXTERNAL           LSAME, CLANGT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGTCON, CGTRFS, CGTTRF, CGTTRS, CLACPY,
-     $                   XERBLA
+      EXTERNAL           CCOPY, CGTCON, CGTRFS, CGTTRF, CGTTRS, CLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -49,8 +44,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -96,25 +90,21 @@
 *
 *     Compute the reciprocal of the condition number of A.
 *
-      CALL CGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK,
-     $             INFO )
+      CALL CGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, INFO )
 *
 *     Compute the solution vectors X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX,
-     $             INFO )
+      CALL CGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO )
 *
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL CGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV,
-     $             B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      CALL CGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

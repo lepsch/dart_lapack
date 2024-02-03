@@ -1,5 +1,4 @@
-      SUBROUTINE CLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA,
-     $                   BETA, WX, WY, S, DIF )
+      SUBROUTINE CLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA, BETA, WX, WY, S, DIF )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               DIF( * ), S( * )
-      COMPLEX            A( LDA, * ), B( LDA, * ), X( LDX, * ),
-     $                   Y( LDY, * )
+      COMPLEX            A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       REAL               RONE, TWO, THREE
       PARAMETER          ( RONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0 )
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   ONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -98,25 +95,14 @@
 *
 *     Compute condition numbers
 *
-      S( 1 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) /
-     $         ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )
-      S( 2 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) /
-     $         ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )
-      S( 3 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) /
-     $         ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )
-      S( 4 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) /
-     $         ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )
-      S( 5 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) /
-     $         ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) )
+      S( 1 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 1, 1 ) )*CABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CABS( WY )*CABS( WY ) ) / ( RONE+CABS( A( 2, 2 ) )*CABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 3, 3 ) )*CABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 4, 4 ) )*CABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CABS( WX )*CABS( WX ) ) / ( RONE+CABS( A( 5, 5 ) )*CABS( A( 5, 5 ) ) ) )
 *
       CALL CLAKF2( 1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 )
-      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1,
-     $             WORK( 3 ), 24, RWORK( 9 ), INFO )
+      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
       DIF( 1 ) = RWORK( 8 )
 *
       CALL CLAKF2( 4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 )
-      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1,
-     $             WORK( 3 ), 24, RWORK( 9 ), INFO )
+      CALL CGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
       DIF( 5 ) = RWORK( 8 )
 *
       RETURN

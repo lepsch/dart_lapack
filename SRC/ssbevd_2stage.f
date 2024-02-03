@@ -1,5 +1,4 @@
-      SUBROUTINE SSBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ,
-     $                          WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE SSBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -24,22 +23,17 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS,
-     $                   LLWRK2
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, LLWRK2
+      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ILAENV2STAGE
       REAL               SLAMCH, SLANSB, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANSB, ILAENV2STAGE,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SLAMCH, SLANSB, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLASCL, SSCAL, SSTEDC,
-     $                   SSTERF, XERBLA, SSYTRD_SB2ST
+      EXTERNAL           SGEMM, SLACPY, SLASCL, SSCAL, SSTEDC, SSTERF, XERBLA, SSYTRD_SB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          SQRT
@@ -102,13 +96,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = AB( 1, 1 )
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -149,26 +141,20 @@
       INDWK2  = INDWRK + N*N
       LLWRK2  = LWORK - INDWK2 + 1
 *
-      CALL SSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W,
-     $                    WORK( INDE ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL SSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N,
-     $                WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )
-         CALL SGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N,
-     $               ZERO, WORK( INDWK2 ), N )
+         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
          CALL SLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.
 *
-      IF( ISCALE.EQ.1 )
-     $   CALL SSCAL( N, ONE / SIGMA, W, 1 )
+      IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, W, 1 )
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN

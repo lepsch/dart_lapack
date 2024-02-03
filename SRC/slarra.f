@@ -1,5 +1,4 @@
-      SUBROUTINE SLARRA( N, D, E, E2, SPLTOL, TNRM,
-     $                    NSPLIT, ISPLIT, INFO )
+      SUBROUTINE SLARRA( N, D, E, E2, SPLTOL, TNRM, NSPLIT, ISPLIT, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -56,8 +55,7 @@
 *        Criterion that guarantees relative accuracy
          DO 10 I = 1, N-1
             EABS = ABS( E(I) )
-            IF( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) )
-     $      THEN
+            IF( EABS .LE. SPLTOL * SQRT(ABS(D(I)))*SQRT(ABS(D(I+1))) ) THEN
                E(I) = ZERO
                E2(I) = ZERO
                ISPLIT( NSPLIT ) = I

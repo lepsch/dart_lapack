@@ -1,6 +1,4 @@
-      SUBROUTINE ZGGES3( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B,
-     $                   LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR,
-     $                   WORK, LWORK, RWORK, BWORK, INFO )
+      SUBROUTINE ZGGES3( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB, SDIM, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, RWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,9 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ),
-     $                   WORK( * )
+      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
 *     ..
 *     .. Function Arguments ..
       LOGICAL            SELCTG
@@ -28,25 +24,18 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL,
-     $                   LQUERY, WANTST
-      INTEGER            I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT,
-     $                   ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKOPT,
-     $                   LWKMIN
-      DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL,
-     $                   PVSR, SMLNUM
+      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, WANTST       INTEGER            I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IRIGHT, IROWS, IRWRK, ITAU, IWRK, LWKOPT, LWKMIN
+      DOUBLE PRECISION   ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SMLNUM
 *     ..
 *     .. Local Arrays ..
       INTEGER            IDUM( 1 )
       DOUBLE PRECISION   DIF( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0,
-     $                   ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
+      EXTERNAL           XERBLA, ZGEQRF, ZGGBAK, ZGGBAL, ZGGHD3, ZLAQZ0, ZLACPY, ZLASCL, ZLASET, ZTGSEN, ZUNGQR, ZUNMQR
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -115,24 +104,18 @@
       IF( INFO.EQ.0 ) THEN
          CALL ZGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
          LWKOPT = MAX( LWKMIN,  N + INT( WORK( 1 ) ) )
-         CALL ZUNMQR( 'L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK,
-     $                -1, IERR )
+         CALL ZUNMQR( 'L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
          LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) )
          IF( ILVSL ) THEN
             CALL ZUNGQR( N, N, N, VSL, LDVSL, WORK, WORK, -1, IERR )
             LWKOPT = MAX( LWKOPT, N + INT ( WORK( 1 ) ) )
          END IF
-         CALL ZGGHD3( JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL,
-     $                LDVSL, VSR, LDVSR, WORK, -1, IERR )
+         CALL ZGGHD3( JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK, -1, IERR )
          LWKOPT = MAX( LWKOPT, N + INT( WORK( 1 ) ) )
-         CALL ZLAQZ0( 'S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB,
-     $                ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1,
-     $                RWORK, 0, IERR )
+         CALL ZLAQZ0( 'S', JOBVSL, JOBVSR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK, -1, RWORK, 0, IERR )
          LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) )
          IF( WANTST ) THEN
-            CALL ZTGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB,
-     $                   ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM,
-     $                   PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR )
+            CALL ZTGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK, -1, IDUM, 1, IERR )
             LWKOPT = MAX( LWKOPT, INT( WORK( 1 ) ) )
          END IF
          IF( N.EQ.0 ) THEN
@@ -176,8 +159,7 @@
          ILASCL = .TRUE.
       END IF
 *
-      IF( ILASCL )
-     $   CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -191,16 +173,14 @@
          ILBSCL = .TRUE.
       END IF
 *
-      IF( ILBSCL )
-     $   CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute the matrix to make it more nearly triangular
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
-      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ),
-     $             RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
+      CALL ZGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
 *     Reduce B to triangular form (QR decomposition of B)
 *
@@ -208,45 +188,36 @@
       ICOLS = N + 1 - ILO
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL ZGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the orthogonal transformation to matrix A
 *
-      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL ZUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VSL
 *
       IF( ILVSL ) THEN
          CALL ZLASET( 'Full', N, N, CZERO, CONE, VSL, LDVSL )
          IF( IROWS.GT.1 ) THEN
-            CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VSL( ILO+1, ILO ), LDVSL )
+            CALL ZLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
          END IF
-         CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL ZUNGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
 *     Initialize VSR
 *
-      IF( ILVSR )
-     $   CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
+      IF( ILVSR ) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR )
 *
 *     Reduce to generalized Hessenberg form
 *
-      CALL ZGGHD3( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL,
-     $             LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL ZGGHD3( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
       SDIM = 0
 *
 *     Perform QZ algorithm, computing Schur vectors if desired
 *
       IWRK = ITAU
-      CALL ZLAQZ0( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ),
-     $             LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR )
+      CALL ZLAQZ0( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -264,10 +235,7 @@
 *
 *        Undo scaling on eigenvalues before selecting
 *
-         IF( ILASCL )
-     $      CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )
-         IF( ILBSCL )
-     $      CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR )
+         IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR )          IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR )
 *
 *        Select eigenvalues
 *
@@ -275,22 +243,14 @@
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
    10    CONTINUE
 *
-         CALL ZTGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA,
-     $                BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR,
-     $                DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR )
-         IF( IERR.EQ.1 )
-     $      INFO = N + 3
+         CALL ZTGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR )
+         IF( IERR.EQ.1 ) INFO = N + 3
 *
       END IF
 *
 *     Apply back-permutation to VSL and VSR
 *
-      IF( ILVSL )
-     $   CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ),
-     $                RWORK( IRIGHT ), N, VSL, LDVSL, IERR )
-      IF( ILVSR )
-     $   CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ),
-     $                RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      IF( ILVSL ) CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR )       IF( ILVSR ) CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
 *     Undo scaling
 *
@@ -312,10 +272,7 @@
          SDIM = 0
          DO 20 I = 1, N
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
-            IF( CURSL )
-     $         SDIM = SDIM + 1
-            IF( CURSL .AND. .NOT.LASTSL )
-     $         INFO = N + 2
+            IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             LASTSL = CURSL
    20    CONTINUE
 *

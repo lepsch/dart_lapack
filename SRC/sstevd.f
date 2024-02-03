@@ -1,5 +1,4 @@
-      SUBROUTINE SSTEVD( JOBZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK,
-     $                   LIWORK, INFO )
+      SUBROUTINE SSTEVD( JOBZ, N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, WANTZ
       INTEGER            ISCALE, LIWMIN, LWMIN
-      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM,
-     $                   TNRM
+      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TNRM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -80,12 +78,10 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -120,14 +116,12 @@
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, D, E, INFO )
       ELSE
-         CALL SSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK,
-     $                INFO )
+         CALL SSTEDC( 'I', N, D, E, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.
 *
-      IF( ISCALE.EQ.1 )
-     $   CALL SSCAL( N, ONE / SIGMA, D, 1 )
+      IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, D, 1 )
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN

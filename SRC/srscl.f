@@ -36,8 +36,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Get machine parameters
 *
@@ -78,8 +77,7 @@
 *
       CALL SSCAL( N, MUL, SX, INCX )
 *
-      IF( .NOT.DONE )
-     $   GO TO 10
+      IF( .NOT.DONE ) GO TO 10
 *
       RETURN
 *

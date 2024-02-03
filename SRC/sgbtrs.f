@@ -1,5 +1,4 @@
-      SUBROUTINE SGBTRS( TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB,
-     $                   INFO )
+      SUBROUTINE SGBTRS( TRANS, N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,8 +39,7 @@
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $    LSAME( TRANS, 'C' ) ) THEN
+      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -63,8 +61,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       KD = KU + KL + 1
       LNOTI = KL.GT.0
@@ -84,10 +81,7 @@
             DO 10 J = 1, N - 1
                LM = MIN( KL, N-J )
                L = IPIV( J )
-               IF( L.NE.J )
-     $            CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
-               CALL SGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ),
-     $                    LDB, B( J+1, 1 ), LDB )
+               IF( L.NE.J ) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL SGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB )
    10       CONTINUE
          END IF
 *
@@ -95,8 +89,7 @@
 *
 *           Solve U*X = B, overwriting B with X.
 *
-            CALL STBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU,
-     $                  AB, LDAB, B( 1, I ), 1 )
+            CALL STBSV( 'Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    20    CONTINUE
 *
       ELSE
@@ -107,8 +100,7 @@
 *
 *           Solve U**T*X = B, overwriting B with X.
 *
-            CALL STBSV( 'Upper', 'Transpose', 'Non-unit', N, KL+KU, AB,
-     $                  LDAB, B( 1, I ), 1 )
+            CALL STBSV( 'Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 )
    30    CONTINUE
 *
 *        Solve L**T*X = B, overwriting B with X.
@@ -116,11 +108,9 @@
          IF( LNOTI ) THEN
             DO 40 J = N - 1, 1, -1
                LM = MIN( KL, N-J )
-               CALL SGEMV( 'Transpose', LM, NRHS, -ONE, B( J+1, 1 ),
-     $                     LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
+               CALL SGEMV( 'Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB )
                L = IPIV( J )
-               IF( L.NE.J )
-     $            CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
+               IF( L.NE.J ) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
    40       CONTINUE
          END IF
       END IF

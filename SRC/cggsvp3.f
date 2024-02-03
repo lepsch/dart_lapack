@@ -1,6 +1,4 @@
-      SUBROUTINE CGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB,
-     $                    TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ,
-     $                    IWORK, RWORK, TAU, WORK, LWORK, INFO )
+      SUBROUTINE CGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, TAU, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,23 +8,20 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P,
-     $                   LWORK
+      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
       REAL               TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FORWRD, WANTQ, WANTU, WANTV, LQUERY
@@ -37,8 +32,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQP3, CGEQR2, CGERQ2, CLACPY, CLAPMT,
-     $                   CLASET, CUNG2R, CUNM2R, CUNMR2, XERBLA
+      EXTERNAL           CGEQP3, CGEQR2, CGERQ2, CLACPY, CLAPMT, CLASET, CUNG2R, CUNM2R, CUNMR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, MAX, MIN, REAL
@@ -126,8 +120,7 @@
 *
       L = 0
       DO 20 I = 1, MIN( P, N )
-         IF( ABS( B( I, I ) ).GT.TOLB )
-     $      L = L + 1
+         IF( ABS( B( I, I ) ).GT.TOLB ) L = L + 1
    20 CONTINUE
 *
       IF( WANTV ) THEN
@@ -135,9 +128,7 @@
 *        Copy the details of V, and form V.
 *
          CALL CLASET( 'Full', P, P, CZERO, CZERO, V, LDV )
-         IF( P.GT.1 )
-     $      CALL CLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ),
-     $                   LDV )
+         IF( P.GT.1 ) CALL CLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
          CALL CUNG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
       END IF
 *
@@ -148,8 +139,7 @@
             B( I, J ) = CZERO
    30    CONTINUE
    40 CONTINUE
-      IF( P.GT.L )
-     $   CALL CLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB )
+      IF( P.GT.L ) CALL CLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB )
 *
       IF( WANTQ ) THEN
 *
@@ -167,14 +157,12 @@
 *
 *        Update A := A*Z**H
 *
-         CALL CUNMR2( 'Right', 'Conjugate transpose', M, N, L, B, LDB,
-     $                TAU, A, LDA, WORK, INFO )
+         CALL CUNMR2( 'Right', 'Conjugate transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
          IF( WANTQ ) THEN
 *
 *           Update Q := Q*Z**H
 *
-            CALL CUNMR2( 'Right', 'Conjugate transpose', N, N, L, B,
-     $                   LDB, TAU, Q, LDQ, WORK, INFO )
+            CALL CUNMR2( 'Right', 'Conjugate transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
 *        Clean up B
@@ -199,30 +187,25 @@
       DO 70 I = 1, N - L
          IWORK( I ) = 0
    70 CONTINUE
-      CALL CGEQP3( M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, RWORK,
-     $             INFO )
+      CALL CGEQP3( M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, RWORK, INFO )
 *
 *     Determine the effective rank of A11
 *
       K = 0
       DO 80 I = 1, MIN( M, N-L )
-         IF( ABS( A( I, I ) ).GT.TOLA )
-     $      K = K + 1
+         IF( ABS( A( I, I ) ).GT.TOLA ) K = K + 1
    80 CONTINUE
 *
 *     Update A12 := U**H*A12, where A12 = A( 1:M, N-L+1:N )
 *
-      CALL CUNM2R( 'Left', 'Conjugate transpose', M, L, MIN( M, N-L ),
-     $             A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
+      CALL CUNM2R( 'Left', 'Conjugate transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
 *
       IF( WANTU ) THEN
 *
 *        Copy the details of U, and form U
 *
          CALL CLASET( 'Full', M, M, CZERO, CZERO, U, LDU )
-         IF( M.GT.1 )
-     $      CALL CLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ),
-     $                   LDU )
+         IF( M.GT.1 ) CALL CLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
          CALL CUNG2R( M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO )
       END IF
 *
@@ -241,8 +224,7 @@
             A( I, J ) = CZERO
    90    CONTINUE
   100 CONTINUE
-      IF( M.GT.K )
-     $   CALL CLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA )
+      IF( M.GT.K ) CALL CLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA )
 *
       IF( N-L.GT.K ) THEN
 *
@@ -254,8 +236,7 @@
 *
 *           Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**H
 *
-            CALL CUNMR2( 'Right', 'Conjugate transpose', N, N-L, K, A,
-     $                   LDA, TAU, Q, LDQ, WORK, INFO )
+            CALL CUNMR2( 'Right', 'Conjugate transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
 *        Clean up A
@@ -279,9 +260,7 @@
 *
 *           Update U(:,K+1:M) := U(:,K+1:M)*U1
 *
-            CALL CUNM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ),
-     $                   A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU,
-     $                   WORK, INFO )
+            CALL CUNM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
          END IF
 *
 *        Clean up

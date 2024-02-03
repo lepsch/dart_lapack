@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV,
-     $                   JPIV )
+      SUBROUTINE ZLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,8 +33,7 @@
       COMPLEX*16         WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP,
-     $                   ZSCAL
+      EXTERNAL           ZAXPY, ZCOPY, ZGECON, ZGESC2, ZLASSQ, ZLASWP, ZSCAL
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DZASUM
@@ -64,8 +62,7 @@
 *           Look-ahead for L- part RHS(1:N-1) = +-1
 *           SPLUS and SMIN computed more efficiently than in BSOLVE[1].
 *
-            SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1,
-     $              J ), 1 ) )
+            SPLUS = SPLUS + DBLE( ZDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) )
             SMINU = DBLE( ZDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) )
             SPLUS = SPLUS*DBLE( RHS( J ) )
             IF( SPLUS.GT.SMINU ) THEN
@@ -111,8 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
    30    CONTINUE
-         IF( SPLUS.GT.SMINU )
-     $      CALL ZCOPY( N, WORK, 1, RHS, 1 )
+         IF( SPLUS.GT.SMINU ) CALL ZCOPY( N, WORK, 1, RHS, 1 )
 *
 *        Apply the permutations JPIV to the computed solution (RHS)
 *
@@ -141,8 +137,7 @@
       CALL ZAXPY( N, -CONE, XM, 1, RHS, 1 )
       CALL ZGESC2( N, Z, LDZ, RHS, IPIV, JPIV, SCALE )
       CALL ZGESC2( N, Z, LDZ, XP, IPIV, JPIV, SCALE )
-      IF( DZASUM( N, XP, 1 ).GT.DZASUM( N, RHS, 1 ) )
-     $   CALL ZCOPY( N, XP, 1, RHS, 1 )
+      IF( DZASUM( N, XP, 1 ).GT.DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 )
 *
 *     Compute the sum of squares
 *

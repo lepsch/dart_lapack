@@ -1,5 +1,4 @@
-      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND,
-     $                   SFMIN, T
+      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMAX, RMIN, RND, SFMIN, T
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH

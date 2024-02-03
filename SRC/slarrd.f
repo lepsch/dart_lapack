@@ -1,7 +1,4 @@
-      SUBROUTINE SLARRD( RANGE, ORDER, N, VL, VU, IL, IU, GERS,
-     $                    RELTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT,
-     $                    M, W, WERR, WL, WU, IBLOCK, INDEXW,
-     $                    WORK, IWORK, INFO )
+      SUBROUTINE SLARRD( RANGE, ORDER, N, VL, VU, IL, IU, GERS, RELTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, M, W, WERR, WL, WU, IBLOCK, INDEXW, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,30 +10,21 @@
       REAL                PIVMIN, RELTOL, VL, VU, WL, WU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), INDEXW( * ),
-     $                   ISPLIT( * ), IWORK( * )
-      REAL               D( * ), E( * ), E2( * ),
-     $                   GERS( * ), W( * ), WERR( * ), WORK( * )
+      INTEGER            IBLOCK( * ), INDEXW( * ), ISPLIT( * ), IWORK( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ), WERR( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, HALF, FUDGE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0,
-     $                     TWO = 2.0E0, HALF = ONE/TWO,
-     $                     FUDGE = TWO )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, HALF = ONE/TWO, FUDGE = TWO )
       INTEGER   ALLRNG, VALRNG, INDRNG
       PARAMETER ( ALLRNG = 1, VALRNG = 2, INDRNG = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NCNVRG, TOOFEW
-      INTEGER            I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO,
-     $                   IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1,
-     $                   ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB,
-     $                   NWL, NWU
-      REAL               ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2,
-     $                   TNORM, UFLOW, WKILL, WLU, WUL
+      INTEGER            I, IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IOUT, IRANGE, ITMAX, ITMP1, ITMP2, IW, IWOFF, J, JBLK, JDISC, JE, JEE, NB, NWL, NWU
+      REAL               ATOLI, EPS, GL, GU, RTOLI, TMP1, TMP2, TNORM, UFLOW, WKILL, WLU, WUL
 
 *     ..
 *     .. Local Arrays ..
@@ -86,13 +74,9 @@
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
       ELSE IF( IRANGE.EQ.VALRNG ) THEN
-         IF( VL.GE.VU )
-     $      INFO = -5
-      ELSE IF( IRANGE.EQ.INDRNG .AND.
-     $        ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) THEN
+         IF( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.INDRNG .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) THEN
          INFO = -6
-      ELSE IF( IRANGE.EQ.INDRNG .AND.
-     $        ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
+      ELSE IF( IRANGE.EQ.INDRNG .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
          INFO = -7
       END IF
 *
@@ -115,9 +99,7 @@
 *     Special Case when N=1
 *     Treat case of 1x1 matrix for quick return
       IF( N.EQ.1 ) THEN
-         IF( (IRANGE.EQ.ALLRNG).OR.
-     $       ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR.
-     $       ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
+         IF( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
             M = 1
             W(1) = D(1)
 *           The computation error of the eigenvalue is zero
@@ -163,8 +145,7 @@
 *        RANGE='I': Compute an interval containing eigenvalues
 *        IL through IU. The initial interval [GL,GU] from the global
 *        Gerschgorin bounds GL and GU is refined by SLAEBZ.
-         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) /
-     $           LOG( TWO ) ) + 2
+         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          WORK( N+1 ) = GL
          WORK( N+2 ) = GL
          WORK( N+3 ) = GU
@@ -178,9 +159,7 @@
          IWORK( 5 ) = IL - 1
          IWORK( 6 ) = IU
 *
-         CALL SLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN,
-     $         D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT,
-     $                IWORK, W, IBLOCK, IINFO )
+         CALL SLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, E2, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
          IF( IINFO .NE. 0 ) THEN
             INFO = IINFO
             RETURN
@@ -236,13 +215,7 @@
 *
          IF( IN.EQ.1 ) THEN
 *           1x1 block
-            IF( WL.GE.D( IBEGIN )-PIVMIN )
-     $         NWL = NWL + 1
-            IF( WU.GE.D( IBEGIN )-PIVMIN )
-     $         NWU = NWU + 1
-            IF( IRANGE.EQ.ALLRNG .OR.
-     $           ( WL.LT.D( IBEGIN )-PIVMIN
-     $             .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
+            IF( WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.ALLRNG .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -329,17 +302,13 @@
 *              refine search interval if possible, only range (WL,WU] matters
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               IF( GL.GE.GU )
-     $            GO TO 70
+               IF( GL.GE.GU ) GO TO 70
             END IF
 
 *           Find negcount of initial interval boundaries GL and GU
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
-            CALL SLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN,
-     $                   D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ),
-     $                   IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM,
-     $                   IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
+            CALL SLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
             IF( IINFO .NE. 0 ) THEN
                INFO = IINFO
                RETURN
@@ -350,12 +319,7 @@
             IWOFF = M - IWORK( 1 )
 
 *           Compute Eigenvalues
-            ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) /
-     $              LOG( TWO ) ) + 2
-            CALL SLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN,
-     $                   D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ),
-     $                   IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT,
-     $                   IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
+            ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL SLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), E2( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
             IF( IINFO .NE. 0 ) THEN
                INFO = IINFO
                RETURN
@@ -376,8 +340,7 @@
                ELSE
                   IB = JBLK
                END IF
-               DO 50 JE = IWORK( J ) + 1 + IWOFF,
-     $                 IWORK( J+IN ) + IWOFF
+               DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
                   W( JE ) = TMP1
                   WERR( JE ) = TMP2
                   INDEXW( JE ) = JE - IWOFF
@@ -450,8 +413,7 @@
                DO 100 JDISC = 1, IDISCL
                   IW = 0
                   DO 90 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND.
-     $                    ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) THEN
+                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) THEN
                         IW = JE
                         WKILL = W( JE )
                      END IF
@@ -464,8 +426,7 @@
                DO 120 JDISC = 1, IDISCU
                   IW = 0
                   DO 110 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND.
-     $                    ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) THEN
+                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GE.WKILL .OR. IW.EQ.0 ) ) THEN
                         IW = JE
                         WKILL = W( JE )
                      END IF
@@ -491,8 +452,7 @@
          END IF
       END IF
 *
-      IF(( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR.
-     $   ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) THEN
+      IF(( IRANGE.EQ.ALLRNG .AND. M.NE.N ).OR. ( IRANGE.EQ.INDRNG .AND. M.NE.IU-IL+1 ) ) THEN
          TOOFEW = .TRUE.
       END IF
 
@@ -527,10 +487,7 @@
       END IF
 *
       INFO = 0
-      IF( NCNVRG )
-     $   INFO = INFO + 1
-      IF( TOOFEW )
-     $   INFO = INFO + 2
+      IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
 *
 *     End of SLARRD

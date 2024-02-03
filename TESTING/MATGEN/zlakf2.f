@@ -8,8 +8,7 @@
       INTEGER            LDA, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDA, * ), D( LDA, * ),
-     $                   E( LDA, * ), Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * )
 *     ..
 *
 *  ====================================================================

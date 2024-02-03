@@ -20,10 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE,
-     $                   LLWORK, LWKOPT, NB
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWKOPT, NB       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -32,8 +29,7 @@
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASCL, SORGTR, SSCAL, SSTEQR, SSTERF, SSYTRD,
-     $                   XERBLA
+      EXTERNAL           SLASCL, SORGTR, SSCAL, SSTEQR, SSTERF, SSYTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -62,8 +58,7 @@
          LWKOPT = MAX( 1, ( NB+2 )*N )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 *
-         IF( LWORK.LT.MAX( 1, 3*N-1 ) .AND. .NOT.LQUERY )
-     $      INFO = -8
+         IF( LWORK.LT.MAX( 1, 3*N-1 ) .AND. .NOT.LQUERY ) INFO = -8
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -82,8 +77,7 @@
       IF( N.EQ.1 ) THEN
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
-         IF( WANTZ )
-     $      A( 1, 1 ) = ONE
+         IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -107,8 +101,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 *
@@ -116,8 +109,7 @@
       INDTAU = INDE + N
       INDWRK = INDTAU + N
       LLWORK = LWORK - INDWRK + 1
-      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ),
-     $             WORK( INDWRK ), LLWORK, IINFO )
+      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, first call
 *     SORGTR to generate the orthogonal matrix, then call SSTEQR.
@@ -125,10 +117,7 @@
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-         CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ),
-     $                LLWORK, IINFO )
-         CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ),
-     $                INFO )
+         CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

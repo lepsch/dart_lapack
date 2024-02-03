@@ -1,5 +1,4 @@
-      SUBROUTINE SGBT01( M, N, KL, KU, A, LDA, AFAC, LDAFAC, IPIV, WORK,
-     $                   RESID )
+      SUBROUTINE SGBT01( M, N, KL, KU, A, LDA, AFAC, LDAFAC, IPIV, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,8 +38,7 @@
 *     Quick exit if M = 0 or N = 0.
 *
       RESID = ZERO
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
 *     Determine EPS and the norm of A.
 *
@@ -50,8 +48,7 @@
       DO 10 J = 1, N
          I1 = MAX( KD+1-J, 1 )
          I2 = MIN( KD+M-J, KL+KD )
-         IF( I2.GE.I1 )
-     $      ANORM = MAX( ANORM, SASUM( I2-I1+1, A( I1, J ), 1 ) )
+         IF( I2.GE.I1 ) ANORM = MAX( ANORM, SASUM( I2-I1+1, A( I1, J ), 1 ) )
    10 CONTINUE
 *
 *     Compute one column at a time of L*U - A.
@@ -78,8 +75,7 @@
                IF( IL.GT.0 ) THEN
                   IW = I - J + JU + 1
                   T = WORK( IW )
-                  CALL SAXPY( IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ),
-     $                        1 )
+                  CALL SAXPY( IL, T, AFAC( KD+1, I ), 1, WORK( IW+1 ), 1 )
                   IP = IPIV( I )
                   IF( I.NE.IP ) THEN
                      IP = IP - J + JU + 1
@@ -92,9 +88,7 @@
 *           Subtract the corresponding column of A.
 *
             JUA = MIN( JU, KU )
-            IF( JUA+JL+1.GT.0 )
-     $         CALL SAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1,
-     $                     WORK( JU+1-JUA ), 1 )
+            IF( JUA+JL+1.GT.0 ) CALL SAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 )
 *
 *           Compute the 1-norm of the column.
 *
@@ -105,8 +99,7 @@
 *     Compute norm(L*U - A) / ( N * norm(A) * EPS )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF

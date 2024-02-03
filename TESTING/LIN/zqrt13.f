@@ -38,16 +38,14 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
 *     benign matrix
 *
       DO 10 J = 1, N
          CALL ZLARNV( 2, ISEED, M, A( 1, J ) )
          IF( J.LE.M ) THEN
-            A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ),
-     $                  1 ), DBLE( A( J, J ) ) ) )
+            A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), DBLE( A( J, J ) ) ) )
          END IF
    10 CONTINUE
 *
@@ -64,14 +62,12 @@
 *
 *           matrix scaled up
 *
-            CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA,
-     $                   INFO )
+            CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )
          ELSE IF( SCALE.EQ.3 ) THEN
 *
 *           matrix scaled down
 *
-            CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA,
-     $                   INFO )
+            CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )
          END IF
       END IF
 *

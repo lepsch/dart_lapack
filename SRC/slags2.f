@@ -1,5 +1,4 @@
-      SUBROUTINE SLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV,
-     $                   SNV, CSQ, SNQ )
+      SUBROUTINE SLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -7,8 +6,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            UPPER
-      REAL               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ,
-     $                   SNU, SNV
+      REAL               A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, SNQ, SNU, SNV
 *     ..
 *
 *  =====================================================================
@@ -18,10 +16,7 @@
       PARAMETER          ( ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12,
-     $                   AVB21, AVB22, CSL, CSR, D, S1, S2, SNL,
-     $                   SNR, UA11R, UA22R, VB11R, VB22R, B, C, R, UA11,
-     $                   UA12, UA21, UA22, VB11, VB12, VB21, VB22
+      REAL               A, AUA11, AUA12, AUA21, AUA22, AVB11, AVB12, AVB21, AVB22, CSL, CSR, D, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R, B, C, R, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLARTG, SLASV2
@@ -49,8 +44,7 @@
 *
          CALL SLASV2( A, B, D, S1, S2, SNR, CSR, SNL, CSL )
 *
-         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) )
-     $        THEN
+         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) THEN
 *
 *           Compute the (1,1) and (1,2) elements of U**T *A and V**T *B,
 *           and (1,2) element of |U|**T *|A| and |V|**T *|B|.
@@ -67,8 +61,7 @@
 *           zero (1,2) elements of U**T *A and V**T *B
 *
             IF( ( ABS( UA11R )+ABS( UA12 ) ).NE.ZERO ) THEN
-               IF( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 /
-     $             ( ABS( VB11R )+ABS( VB12 ) ) ) THEN
+               IF( AUA12 / ( ABS( UA11R )+ABS( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS( VB12 ) ) ) THEN
                   CALL SLARTG( -UA11R, UA12, CSQ, SNQ, R )
                ELSE
                   CALL SLARTG( -VB11R, VB12, CSQ, SNQ, R )
@@ -99,8 +92,7 @@
 *           zero (2,2) elements of U**T*A and V**T*B, and then swap.
 *
             IF( ( ABS( UA21 )+ABS( UA22 ) ).NE.ZERO ) THEN
-               IF( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 /
-     $             ( ABS( VB21 )+ABS( VB22 ) ) ) THEN
+               IF( AUA22 / ( ABS( UA21 )+ABS( UA22 ) ).LE.AVB22 / ( ABS( VB21 )+ABS( VB22 ) ) ) THEN
                   CALL SLARTG( -UA21, UA22, CSQ, SNQ, R )
                ELSE
                   CALL SLARTG( -VB21, VB22, CSQ, SNQ, R )
@@ -134,8 +126,7 @@
 *
          CALL SLASV2( A, C, D, S1, S2, SNR, CSR, SNL, CSL )
 *
-         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) )
-     $        THEN
+         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) THEN
 *
 *           Compute the (2,1) and (2,2) elements of U**T *A and V**T *B,
 *           and (2,1) element of |U|**T *|A| and |V|**T *|B|.
@@ -152,8 +143,7 @@
 *           zero (2,1) elements of U**T *A and V**T *B.
 *
             IF( ( ABS( UA21 )+ABS( UA22R ) ).NE.ZERO ) THEN
-               IF( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 /
-     $             ( ABS( VB21 )+ABS( VB22R ) ) ) THEN
+               IF( AUA21 / ( ABS( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS( VB21 )+ABS( VB22R ) ) ) THEN
                   CALL SLARTG( UA22R, UA21, CSQ, SNQ, R )
                ELSE
                   CALL SLARTG( VB22R, VB21, CSQ, SNQ, R )
@@ -184,8 +174,7 @@
 *           zero (1,1) elements of U**T*A and V**T*B, and then swap.
 *
             IF( ( ABS( UA11 )+ABS( UA12 ) ).NE.ZERO ) THEN
-               IF( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 /
-     $             ( ABS( VB11 )+ABS( VB12 ) ) ) THEN
+               IF( AUA11 / ( ABS( UA11 )+ABS( UA12 ) ).LE.AVB11 / ( ABS( VB11 )+ABS( VB12 ) ) ) THEN
                   CALL SLARTG( UA12, UA11, CSQ, SNQ, R )
                ELSE
                   CALL SLARTG( VB12, VB11, CSQ, SNQ, R )

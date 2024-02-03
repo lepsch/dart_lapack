@@ -1,5 +1,4 @@
-      SUBROUTINE ZSYCON( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK,
-     $                   INFO )
+      SUBROUTINE ZSYCON( UPLO, N, A, LDA, IPIV, ANORM, RCOND, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -76,16 +75,14 @@
 *        Upper triangular storage: examine D from bottom to top
 *
          DO 10 I = N, 1, -1
-            IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO ) RETURN
    10    CONTINUE
       ELSE
 *
 *        Lower triangular storage: examine D from top to bottom.
 *
          DO 20 I = 1, N
-            IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO ) RETURN
    20    CONTINUE
       END IF
 *
@@ -104,8 +101,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *

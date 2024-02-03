@@ -1,6 +1,4 @@
-      SUBROUTINE DGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF,
-     $                   DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE DGTSVX( FACT, TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,9 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ),
-     $                   DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ),
-     $                   FERR( * ), WORK( * ), X( LDX, * )
+      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -35,8 +31,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANGT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGTCON, DGTRFS, DGTTRF, DGTTRS, DLACPY,
-     $                   XERBLA
+      EXTERNAL           DCOPY, DGTCON, DGTRFS, DGTTRF, DGTTRS, DLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -48,8 +43,7 @@
       NOTRAN = LSAME( TRANS, 'N' )
       IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -95,25 +89,21 @@
 *
 *     Compute the reciprocal of the condition number of A.
 *
-      CALL DGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK,
-     $             IWORK, INFO )
+      CALL DGTCON( NORM, N, DLF, DF, DUF, DU2, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *     Compute the solution vectors X.
 *
       CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL DGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX,
-     $             INFO )
+      CALL DGTTRS( TRANS, N, NRHS, DLF, DF, DUF, DU2, IPIV, X, LDX, INFO )
 *
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL DGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV,
-     $             B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      CALL DGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.DLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

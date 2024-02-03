@@ -1,5 +1,4 @@
-      SUBROUTINE SGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK,
-     $                   WORK, INFO )
+      SUBROUTINE SGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,21 +19,18 @@
       INTEGER            IMAX, IMIN
       PARAMETER          ( IMAX = 1, IMIN = 2 )
       REAL               ZERO, ONE, DONE, NTDONE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, DONE = ZERO,
-     $                   NTDONE = ONE )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, DONE = ZERO, NTDONE = ONE )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN
-      REAL               ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX,
-     $                   SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2
+      REAL               ANRM, BIGNUM, BNRM, C1, C2, S1, S2, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, T1, T2
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
       EXTERNAL           SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQPF, SLAIC1, SLASCL, SLASET, SLATZM,
-     $                   SORM2R, STRSM, STZRQF, XERBLA
+      EXTERNAL           SGEQPF, SLAIC1, SLASCL, SLASET, SLATZM, SORM2R, STRSM, STZRQF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -143,10 +139,7 @@
    10 CONTINUE
       IF( RANK.LT.MN ) THEN
          I = RANK + 1
-         CALL SLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ),
-     $                A( I, I ), SMINPR, S1, C1 )
-         CALL SLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ),
-     $                A( I, I ), SMAXPR, S2, C2 )
+         CALL SLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL SLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
 *
          IF( SMAXPR*RCOND.LE.SMINPR ) THEN
             DO 20 I = 1, RANK
@@ -168,22 +161,19 @@
 *
 *     [R11,R12] = [ T11, 0 ] * Y
 *
-      IF( RANK.LT.N )
-     $   CALL STZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO )
+      IF( RANK.LT.N ) CALL STZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO )
 *
 *     Details of Householder rotations stored in WORK(MN+1:2*MN)
 *
 *     B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 *
-      CALL SORM2R( 'Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ),
-     $             B, LDB, WORK( 2*MN+1 ), INFO )
+      CALL SORM2R( 'Left', 'Transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), INFO )
 *
 *     workspace NRHS
 *
 *     B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 *
-      CALL STRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK,
-     $            NRHS, ONE, A, LDA, B, LDB )
+      CALL STRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, ONE, A, LDA, B, LDB )
 *
       DO 40 I = RANK + 1, N
          DO 30 J = 1, NRHS
@@ -195,9 +185,7 @@
 *
       IF( RANK.LT.N ) THEN
          DO 50 I = 1, RANK
-            CALL SLATZM( 'Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA,
-     $                   WORK( MN+I ), B( I, 1 ), B( RANK+1, 1 ), LDB,
-     $                   WORK( 2*MN+1 ) )
+            CALL SLATZM( 'Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, WORK( MN+I ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) )
    50    CONTINUE
       END IF
 *
@@ -221,8 +209,7 @@
                   T1 = T2
                   K = JPVT( K )
                   T2 = B( JPVT( K ), J )
-                  IF( JPVT( K ).NE.I )
-     $               GO TO 70
+                  IF( JPVT( K ).NE.I ) GO TO 70
                   B( I, J ) = T1
                   WORK( 2*MN+K ) = DONE
                END IF
@@ -234,12 +221,10 @@
 *
       IF( IASCL.EQ.1 ) THEN
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL SLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL SLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
          CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )

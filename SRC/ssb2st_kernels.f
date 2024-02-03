@@ -1,6 +1,4 @@
-      SUBROUTINE  SSB2ST_KERNELS( UPLO, WANTZ, TTYPE,
-     $                            ST, ED, SWEEP, N, NB, IB,
-     $                            A, LDA, V, TAU, LDVT, WORK)
+      SUBROUTINE  SSB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK)
 *
       IMPLICIT NONE
 *
@@ -14,21 +12,18 @@
       INTEGER            TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), V( * ),
-     $                   TAU( * ), WORK( * )
+      REAL               A( LDA, * ), V( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               ZERO, ONE
-      PARAMETER          ( ZERO = 0.0E+0,
-     $                   ONE = 1.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, J1, J2, LM, LN, VPOS, TAUPOS,
-     $                   DPOS, OFDPOS, AJETER
+      INTEGER            I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
       REAL               CTMP
 *     ..
 *     .. External Subroutines ..
@@ -76,22 +71,17 @@
                   A( OFDPOS-I, ST+I ) = ZERO
    10         CONTINUE
               CTMP = ( A( OFDPOS, ST ) )
-              CALL SLARFG( LM, CTMP, V( VPOS+1 ), 1,
-     $                                       TAU( TAUPOS ) )
+              CALL SLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
               A( OFDPOS, ST ) = CTMP
 *
               LM = ED - ST + 1
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     ( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 *
           IF( TTYPE.EQ.3 ) THEN
 *
               LM = ED - ST + 1
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     ( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 *
           IF( TTYPE.EQ.2 ) THEN
@@ -100,9 +90,7 @@
               LN = ED-ST+1
               LM = J2-J1+1
               IF( LM.GT.0) THEN
-                  CALL SLARFX( 'Left', LN, LM, V( VPOS ),
-     $                         ( TAU( TAUPOS ) ),
-     $                         A( DPOS-NB, J1 ), LDA-1, WORK)
+                  CALL SLARFX( 'Left', LN, LM, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK)
 *
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -114,17 +102,14 @@
 *
                   V( VPOS ) = ONE
                   DO 30 I = 1, LM-1
-                      V( VPOS+I )          =
-     $                                    ( A( DPOS-NB-I, J1+I ) )
+                      V( VPOS+I )          = ( A( DPOS-NB-I, J1+I ) )
                       A( DPOS-NB-I, J1+I ) = ZERO
    30             CONTINUE
                   CTMP = ( A( DPOS-NB, J1 ) )
                   CALL SLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
                   A( DPOS-NB, J1 ) = CTMP
 *
-                  CALL SLARFX( 'Right', LN-1, LM, V( VPOS ),
-     $                         TAU( TAUPOS ),
-     $                         A( DPOS-NB+1, J1 ), LDA-1, WORK)
+                  CALL SLARFX( 'Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK)
               ENDIF
           ENDIF
 *
@@ -148,23 +133,18 @@
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
    20         CONTINUE
-              CALL SLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1,
-     $                                       TAU( TAUPOS ) )
+              CALL SLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
 *
               LM = ED - ST + 1
 *
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     ( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
 
           ENDIF
 *
           IF( TTYPE.EQ.3 ) THEN
               LM = ED - ST + 1
 *
-              CALL SLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     ( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL SLARFY( UPLO, LM, V( VPOS ), 1, ( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
 
           ENDIF
 *
@@ -175,9 +155,7 @@
               LM = J2-J1+1
 *
               IF( LM.GT.0) THEN
-                  CALL SLARFX( 'Right', LM, LN, V( VPOS ),
-     $                         TAU( TAUPOS ), A( DPOS+NB, ST ),
-     $                         LDA-1, WORK)
+                  CALL SLARFX( 'Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK)
 *
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -192,12 +170,9 @@
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
    40             CONTINUE
-                  CALL SLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1,
-     $                                        TAU( TAUPOS ) )
+                  CALL SLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
 *
-                  CALL SLARFX( 'Left', LM, LN-1, V( VPOS ),
-     $                         ( TAU( TAUPOS ) ),
-     $                         A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
+                  CALL SLARFX( 'Left', LM, LN-1, V( VPOS ), ( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
 
               ENDIF
           ENDIF

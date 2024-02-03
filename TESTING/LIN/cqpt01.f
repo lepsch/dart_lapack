@@ -1,5 +1,4 @@
-      REAL             FUNCTION CQPT01( M, N, K, A, AF, LDA, TAU, JPVT,
-     $                 WORK, LWORK )
+      REAL             FUNCTION CQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            JPVT( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ),
-     $                   WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -50,8 +48,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
@@ -67,21 +64,16 @@
          CALL CCOPY( M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 )
       END DO
 *
-      CALL CUNMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK,
-     $             M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      CALL CUNMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
       DO J = 1, N
 *
 *        Compare i-th column of QR and jpvt(i)-th column of A
 *
-         CALL CAXPY( M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1,
-     $               WORK( ( J-1 )*M+1 ), 1 )
+         CALL CAXPY( M, CMPLX( -ONE ), A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 )
       END DO
 *
-      CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) /
-     $         ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )
-      IF( NORMA.NE.ZERO )
-     $   CQPT01 = CQPT01 / NORMA
+      CQPT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( REAL( MAX( M, N ) )*SLAMCH( 'Epsilon' ) )       IF( NORMA.NE.ZERO ) CQPT01 = CQPT01 / NORMA
 *
       RETURN
 *

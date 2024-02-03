@@ -60,8 +60,7 @@
 *     Check that D(1:N) is positive.
 *
       DO 10 I = 1, N
-         IF( D( I ).LE.ZERO )
-     $      RETURN
+         IF( D( I ).LE.ZERO ) RETURN
    10 CONTINUE
 *
 *     Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
@@ -92,8 +91,7 @@
 *
 *     Compute the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *

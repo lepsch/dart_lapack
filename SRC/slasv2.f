@@ -25,8 +25,7 @@
 *     .. Local Scalars ..
       LOGICAL            GASMAL, SWAP
       INTEGER            PMAX
-      REAL               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M,
-     $                   MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT
+      REAL               A, CLT, CRT, D, FA, FT, GA, GT, HA, HT, L, M, MM, R, S, SLT, SRT, T, TEMP, TSIGN, TT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, SIGN, SQRT
@@ -171,12 +170,7 @@
 *
 *     Correct signs of SSMAX and SSMIN
 *
-      IF( PMAX.EQ.1 )
-     $   TSIGN = SIGN( ONE, CSR )*SIGN( ONE, CSL )*SIGN( ONE, F )
-      IF( PMAX.EQ.2 )
-     $   TSIGN = SIGN( ONE, SNR )*SIGN( ONE, CSL )*SIGN( ONE, G )
-      IF( PMAX.EQ.3 )
-     $   TSIGN = SIGN( ONE, SNR )*SIGN( ONE, SNL )*SIGN( ONE, H )
+      IF( PMAX.EQ.1 ) TSIGN = SIGN( ONE, CSR )*SIGN( ONE, CSL )*SIGN( ONE, F )       IF( PMAX.EQ.2 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, CSL )*SIGN( ONE, G )       IF( PMAX.EQ.3 ) TSIGN = SIGN( ONE, SNR )*SIGN( ONE, SNL )*SIGN( ONE, H )
       SSMAX = SIGN( SSMAX, TSIGN )
       SSMIN = SIGN( SSMIN, TSIGN*SIGN( ONE, F )*SIGN( ONE, H ) )
       RETURN

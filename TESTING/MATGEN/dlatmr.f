@@ -1,7 +1,4 @@
-      SUBROUTINE DLATMR( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX,
-     $                   RSIGN, GRADE, DL, MODEL, CONDL, DR, MODER,
-     $                   CONDR, PIVTNG, IPIVOT, KL, KU, SPARSE, ANORM,
-     $                   PACK, A, LDA, IWORK, INFO )
+      SUBROUTINE DLATMR( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX, RSIGN, GRADE, DL, MODEL, CONDL, DR, MODER, CONDR, PIVTNG, IPIVOT, KL, KU, SPARSE, ANORM, PACK, A, LDA, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -27,9 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADPVT, DZERO, FULBND
-      INTEGER            I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN,
-     $                   ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN,
-     $                   MNSUB, MXSUB, NPVTS
+      INTEGER            I, IDIST, IGRADE, IISUB, IPACK, IPVTNG, IRSIGN, ISUB, ISYM, J, JJSUB, JSUB, K, KLL, KUU, MNMIN, MNSUB, MXSUB, NPVTS
       DOUBLE PRECISION   ALPHA, ONORM, TEMP
 *     ..
 *     .. Local Arrays ..
@@ -37,10 +32,7 @@
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      DOUBLE PRECISION   DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2,
-     $                   DLATM3
-      EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY,
-     $                   DLATM2, DLATM3
+      DOUBLE PRECISION   DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3       EXTERNAL           LSAME, DLANGB, DLANGE, DLANSB, DLANSP, DLANSY, DLATM2, DLATM3
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLATM1, DSCAL, XERBLA
@@ -57,8 +49,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Decode DIST
 *
@@ -167,8 +158,7 @@
       DZERO = .FALSE.
       IF( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) THEN
          DO 10 I = 1, M
-            IF( DL( I ).EQ.ZERO )
-     $         DZERO = .TRUE.
+            IF( DL( I ).EQ.ZERO ) DZERO = .TRUE.
    10    CONTINUE
       END IF
 *
@@ -177,8 +167,7 @@
       BADPVT = .FALSE.
       IF( IPVTNG.GT.0 ) THEN
          DO 20 J = 1, NPVTS
-            IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS )
-     $         BADPVT = .TRUE.
+            IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = .TRUE.
    20    CONTINUE
       END IF
 *
@@ -196,36 +185,23 @@
          INFO = -5
       ELSE IF( MODE.LT.-6 .OR. MODE.GT.6 ) THEN
          INFO = -7
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND.
-     $         COND.LT.ONE ) THEN
+      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) THEN
          INFO = -8
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND.
-     $         IRSIGN.EQ.-1 ) THEN
+      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.-1 ) THEN
          INFO = -10
-      ELSE IF( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR.
-     $         ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM.EQ.0 ) )
-     $          THEN
+      ELSE IF( IGRADE.EQ.-1 .OR. ( IGRADE.EQ.4 .AND. M.NE.N ) .OR. ( ( IGRADE.GE.1 .AND. IGRADE.LE.4 ) .AND. ISYM.EQ.0 ) ) THEN
          INFO = -11
       ELSE IF( IGRADE.EQ.4 .AND. DZERO ) THEN
          INFO = -12
-      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR.
-     $         IGRADE.EQ.5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) )
-     $          THEN
+      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.LT.-6 .OR. MODEL.GT.6 ) ) THEN
          INFO = -13
-      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR.
-     $         IGRADE.EQ.5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND.
-     $         MODEL.NE.6 ) .AND. CONDL.LT.ONE ) THEN
+      ELSE IF( ( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.5 ) .AND. ( MODEL.NE.-6 .AND. MODEL.NE.0 .AND. MODEL.NE.6 ) .AND. CONDL.LT.ONE ) THEN
          INFO = -14
-      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND.
-     $         ( MODER.LT.-6 .OR. MODER.GT.6 ) ) THEN
+      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.LT.-6 .OR. MODER.GT.6 ) ) THEN
          INFO = -16
-      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND.
-     $         ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND.
-     $         CONDR.LT.ONE ) THEN
+      ELSE IF( ( IGRADE.EQ.2 .OR. IGRADE.EQ.3 ) .AND. ( MODER.NE.-6 .AND. MODER.NE.0 .AND. MODER.NE.6 ) .AND. CONDR.LT.ONE ) THEN
          INFO = -17
-      ELSE IF( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR.
-     $         ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ISYM.EQ.0 ) )
-     $          THEN
+      ELSE IF( IPVTNG.EQ.-1 .OR. ( IPVTNG.EQ.3 .AND. M.NE.N ) .OR. ( ( IPVTNG.EQ.1 .OR. IPVTNG.EQ.2 ) .AND. ISYM.EQ.0 ) ) THEN
          INFO = -18
       ELSE IF( IPVTNG.NE.0 .AND. BADPVT ) THEN
          INFO = -19
@@ -235,17 +211,9 @@
          INFO = -21
       ELSE IF( SPARSE.LT.ZERO .OR. SPARSE.GT.ONE ) THEN
          INFO = -22
-      ELSE IF( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR.
-     $         IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR.
-     $         ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE.
-     $         N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE.
-     $         0 .OR. M.NE.N ) ) ) THEN
+      ELSE IF( IPACK.EQ.-1 .OR. ( ( IPACK.EQ.1 .OR. IPACK.EQ.2 .OR. IPACK.EQ.5 .OR. IPACK.EQ.6 ) .AND. ISYM.EQ.1 ) .OR. ( IPACK.EQ.3 .AND. ISYM.EQ.1 .AND. ( KL.NE.0 .OR. M.NE. N ) ) .OR. ( IPACK.EQ.4 .AND. ISYM.EQ.1 .AND. ( KU.NE. 0 .OR. M.NE.N ) ) ) THEN
          INFO = -24
-      ELSE IF( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND.
-     $         LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ.
-     $         4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ.
-     $         6 ) .AND. LDA.LT.KUU+1 ) .OR.
-     $         ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) THEN
+      ELSE IF( ( ( IPACK.EQ.0 .OR. IPACK.EQ.1 .OR. IPACK.EQ.2 ) .AND. LDA.LT.MAX( 1, M ) ) .OR. ( ( IPACK.EQ.3 .OR. IPACK.EQ. 4 ) .AND. LDA.LT.1 ) .OR. ( ( IPACK.EQ.5 .OR. IPACK.EQ. 6 ) .AND. LDA.LT.KUU+1 ) .OR. ( IPACK.EQ.7 .AND. LDA.LT.KLL+KUU+1 ) ) THEN
          INFO = -26
       END IF
 *
@@ -257,8 +225,7 @@
 *     Decide if we can pivot consistently
 *
       FULBND = .FALSE.
-      IF( KUU.EQ.N-1 .AND. KLL.EQ.M-1 )
-     $   FULBND = .TRUE.
+      IF( KUU.EQ.N-1 .AND. KLL.EQ.M-1 ) FULBND = .TRUE.
 *
 *     Initialize random number generator
 *
@@ -302,8 +269,7 @@
 *
 *     Compute DL if grading set
 *
-      IF( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ.
-     $    5 ) THEN
+      IF( IGRADE.EQ.1 .OR. IGRADE.EQ.3 .OR. IGRADE.EQ.4 .OR. IGRADE.EQ. 5 ) THEN
          CALL DLATM1( MODEL, CONDL, 0, IDIST, ISEED, DL, M, INFO )
          IF( INFO.NE.0 ) THEN
             INFO = 3
@@ -358,9 +324,7 @@
             IF( ISYM.EQ.0 ) THEN
                DO 100 J = 1, N
                   DO 90 I = 1, J
-                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                      IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                      IWORK, SPARSE )
+                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
                      A( JSUB, ISUB ) = TEMP
    90             CONTINUE
@@ -368,9 +332,7 @@
             ELSE IF( ISYM.EQ.1 ) THEN
                DO 120 J = 1, N
                   DO 110 I = 1, M
-                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                      IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                      IWORK, SPARSE )
+                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
   110             CONTINUE
   120          CONTINUE
@@ -380,14 +342,11 @@
 *
             DO 140 J = 1, N
                DO 130 I = 1, J
-                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST,
-     $                   ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                   SPARSE )
+                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MNSUB, MXSUB ) = TEMP
-                  IF( MNSUB.NE.MXSUB )
-     $               A( MXSUB, MNSUB ) = ZERO
+                  IF( MNSUB.NE.MXSUB ) A( MXSUB, MNSUB ) = ZERO
   130          CONTINUE
   140       CONTINUE
 *
@@ -395,14 +354,11 @@
 *
             DO 160 J = 1, N
                DO 150 I = 1, J
-                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST,
-     $                   ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                   SPARSE )
+                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MXSUB, MNSUB ) = TEMP
-                  IF( MNSUB.NE.MXSUB )
-     $               A( MNSUB, MXSUB ) = ZERO
+                  IF( MNSUB.NE.MXSUB ) A( MNSUB, MXSUB ) = ZERO
   150          CONTINUE
   160       CONTINUE
 *
@@ -410,9 +366,7 @@
 *
             DO 180 J = 1, N
                DO 170 I = 1, J
-                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST,
-     $                   ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                   SPARSE )
+                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
 *                 Compute K = location of (ISUB,JSUB) entry in packed
 *                 array
@@ -434,9 +388,7 @@
 *
             DO 200 J = 1, N
                DO 190 I = 1, J
-                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST,
-     $                   ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                   SPARSE )
+                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
 *                 Compute K = location of (I,J) entry in packed array
 *
@@ -445,8 +397,7 @@
                   IF( MNSUB.EQ.1 ) THEN
                      K = MXSUB
                   ELSE
-                     K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) /
-     $                   2 + MXSUB - MNSUB + 1
+                     K = N*( N+1 ) / 2 - ( N-MNSUB+1 )*( N-MNSUB+2 ) / 2 + MXSUB - MNSUB + 1
                   END IF
 *
 *                 Convert K to (IISUB,JJSUB) location
@@ -465,9 +416,7 @@
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = ZERO
                   ELSE
-                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                      IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                      IWORK, SPARSE )
+                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MXSUB-MNSUB+1, MNSUB ) = TEMP
@@ -479,9 +428,7 @@
 *
             DO 240 J = 1, N
                DO 230 I = J - KUU, J
-                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST,
-     $                   ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK,
-     $                   SPARSE )
+                  TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
@@ -493,24 +440,17 @@
             IF( ISYM.EQ.0 ) THEN
                DO 260 J = 1, N
                   DO 250 I = J - KUU, J
-                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                      IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                      IWORK, SPARSE )
+                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      MNSUB = MIN( ISUB, JSUB )
                      MXSUB = MAX( ISUB, JSUB )
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
-                     IF( I.LT.1 )
-     $                  A( J-I+1+KUU, I+N ) = ZERO
-                     IF( I.GE.1 .AND. MNSUB.NE.MXSUB )
-     $                  A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP
+                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP
   250             CONTINUE
   260          CONTINUE
             ELSE IF( ISYM.EQ.1 ) THEN
                DO 280 J = 1, N
                   DO 270 I = J - KUU, J + KLL
-                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU,
-     $                      IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                      IWORK, SPARSE )
+                     TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB-JSUB+KUU+1, JSUB ) = TEMP
   270             CONTINUE
   280          CONTINUE
@@ -526,18 +466,14 @@
             IF( ISYM.EQ.0 ) THEN
                DO 300 J = 1, N
                   DO 290 I = 1, J
-                     A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST,
-     $                           ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                           IWORK, SPARSE )
+                     A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = A( I, J )
   290             CONTINUE
   300          CONTINUE
             ELSE IF( ISYM.EQ.1 ) THEN
                DO 320 J = 1, N
                   DO 310 I = 1, M
-                     A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST,
-     $                           ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                           IWORK, SPARSE )
+                     A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   310             CONTINUE
   320          CONTINUE
             END IF
@@ -546,10 +482,7 @@
 *
             DO 340 J = 1, N
                DO 330 I = 1, J
-                  A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED,
-     $                        D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                  IF( I.NE.J )
-     $               A( J, I ) = ZERO
+                  A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( J, I ) = ZERO
   330          CONTINUE
   340       CONTINUE
 *
@@ -557,10 +490,7 @@
 *
             DO 360 J = 1, N
                DO 350 I = 1, J
-                  A( J, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED,
-     $                        D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-                  IF( I.NE.J )
-     $               A( I, J ) = ZERO
+                  A( J, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( I, J ) = ZERO
   350          CONTINUE
   360       CONTINUE
 *
@@ -575,9 +505,7 @@
                      ISUB = 1
                      JSUB = JSUB + 1
                   END IF
-                  A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST,
-     $                              ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                              IWORK, SPARSE )
+                  A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   370          CONTINUE
   380       CONTINUE
 *
@@ -592,8 +520,7 @@
                      IF( I.EQ.1 ) THEN
                         K = J
                      ELSE
-                        K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 +
-     $                      J - I + 1
+                        K = N*( N+1 ) / 2 - ( N-I+1 )*( N-I+2 ) / 2 + J - I + 1
                      END IF
 *
 *                    Convert K to (ISUB,JSUB) location
@@ -601,9 +528,7 @@
                      JSUB = ( K-1 ) / LDA + 1
                      ISUB = K - LDA*( JSUB-1 )
 *
-                     A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU,
-     $                                 IDIST, ISEED, D, IGRADE, DL, DR,
-     $                                 IPVTNG, IWORK, SPARSE )
+                     A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   390             CONTINUE
   400          CONTINUE
             ELSE
@@ -616,9 +541,7 @@
                         ISUB = 1
                         JSUB = JSUB + 1
                      END IF
-                     A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU,
-     $                                 IDIST, ISEED, D, IGRADE, DL, DR,
-     $                                 IPVTNG, IWORK, SPARSE )
+                     A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   410             CONTINUE
   420          CONTINUE
             END IF
@@ -630,9 +553,7 @@
                   IF( I.LT.1 ) THEN
                      A( J-I+1, I+N ) = ZERO
                   ELSE
-                     A( J-I+1, I ) = DLATM2( M, N, I, J, KL, KU, IDIST,
-     $                               ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                               IWORK, SPARSE )
+                     A( J-I+1, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   END IF
   430          CONTINUE
   440       CONTINUE
@@ -641,9 +562,7 @@
 *
             DO 460 J = 1, N
                DO 450 I = J - KUU, J
-                  A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST,
-     $                                ISEED, D, IGRADE, DL, DR, IPVTNG,
-     $                                IWORK, SPARSE )
+                  A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   450          CONTINUE
   460       CONTINUE
 *
@@ -652,21 +571,14 @@
             IF( ISYM.EQ.0 ) THEN
                DO 480 J = 1, N
                   DO 470 I = J - KUU, J
-                     A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU,
-     $                                   IDIST, ISEED, D, IGRADE, DL,
-     $                                   DR, IPVTNG, IWORK, SPARSE )
-                     IF( I.LT.1 )
-     $                  A( J-I+1+KUU, I+N ) = ZERO
-                     IF( I.GE.1 .AND. I.NE.J )
-     $                  A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
+                     A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
+                     IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
   470             CONTINUE
   480          CONTINUE
             ELSE IF( ISYM.EQ.1 ) THEN
                DO 500 J = 1, N
                   DO 490 I = J - KUU, J + KLL
-                     A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU,
-     $                                   IDIST, ISEED, D, IGRADE, DL,
-     $                                   DR, IPVTNG, IWORK, SPARSE )
+                     A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
   490             CONTINUE
   500          CONTINUE
             END IF
@@ -704,8 +616,7 @@
             INFO = 5
             RETURN
 *
-         ELSE IF( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR.
-     $            ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) THEN
+         ELSE IF( ( ANORM.GT.ONE .AND. ONORM.LT.ONE ) .OR. ( ANORM.LT.ONE .AND. ONORM.GT.ONE ) ) THEN
 *
 *           Scale carefully to avoid over / underflow
 *

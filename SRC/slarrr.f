@@ -16,14 +16,12 @@
 *
 *     .. Parameters ..
       REAL               ZERO, RELCOND
-      PARAMETER          ( ZERO = 0.0E0,
-     $                     RELCOND = 0.999E0 )
+      PARAMETER          ( ZERO = 0.0E0, RELCOND = 0.999E0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I
       LOGICAL            YESREL
-      REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2,
-     $          OFFDIG, OFFDIG2
+      REAL               EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
 
 *     ..
 *     .. External Functions ..

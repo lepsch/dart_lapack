@@ -60,15 +60,12 @@
 *              T(i+1:k,i) = - tau(i) * V(i+1:k,1:n) * V(i,1:n)**H
 *
                CALL ZLACGV( N, V( I, 1 ), LDV )
-               CALL ZGEMV( 'No transpose', K-I, N, -TAU( I ),
-     $                     V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO,
-     $                     T( I+1, I ), 1 )
+               CALL ZGEMV( 'No transpose', K-I, N, -TAU( I ), V( I+1, 1 ), LDV, V( I, 1 ), LDV, ZERO, T( I+1, I ), 1 )
                CALL ZLACGV( N, V( I, 1 ), LDV )
 *
 *              T(i+1:k,i) = T(i+1:k,i+1:k) * T(i+1:k,i)
 *
-               CALL ZTRMV( 'Lower', 'No transpose', 'Non-unit', K-I,
-     $                     T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
+               CALL ZTRMV( 'Lower', 'No transpose', 'Non-unit', K-I, T( I+1, I+1 ), LDT, T( I+1, I ), 1 )
             END IF
             T( I, I ) = TAU( I )
          END IF

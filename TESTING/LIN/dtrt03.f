@@ -1,5 +1,4 @@
-      SUBROUTINE DTRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE,
-     $                   CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
+      SUBROUTINE DTRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID, SCALE, TSCAL
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), CNORM( * ),
-     $                   WORK( * ), X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), CNORM( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -80,18 +78,14 @@
          IX = IDAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
          IF( ERR*SMLNUM.LE.XNORM ) THEN
-            IF( XNORM.GT.ZERO )
-     $         ERR = ERR / XNORM
+            IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          IF( ERR*SMLNUM.LE.TNORM ) THEN
-            IF( TNORM.GT.ZERO )
-     $         ERR = ERR / TNORM
+            IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          RESID = MAX( RESID, ERR )
    30 CONTINUE

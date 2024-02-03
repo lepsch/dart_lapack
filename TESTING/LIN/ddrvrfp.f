@@ -1,9 +1,4 @@
-      SUBROUTINE DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL,
-     +              THRESH, A, ASAV, AFAC, AINV, B,
-     +              BSAV, XACT, X, ARF, ARFINV,
-     +              D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02,
-     +              D_TEMP_DPOT03, D_WORK_DLANSY,
-     +              D_WORK_DPOT02, D_WORK_DPOT03 )
+      SUBROUTINE DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, A, ASAV, AFAC, AINV, B, BSAV, XACT, X, ARF, ARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -44,9 +39,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ZEROT
-      INTEGER            I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL,
-     +                   NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN,
-     +                   IIT, IIS
+      INTEGER            I, INFO, IUPLO, LDA, LDB, IMAT, NERRS, NFAIL, NRHS, NRUN, IZERO, IOFF, K, NT, N, IFORM, IIN, IIT, IIS
       CHARACTER          DIST, CTYPE, UPLO, CFORM
       INTEGER            KL, KU, MODE
       DOUBLE PRECISION   ANORM, AINVNM, CNDNUM, RCONDC
@@ -61,9 +54,7 @@
       EXTERNAL           DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY,
-     +                   DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS,
-     +                   DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
+      EXTERNAL           ALADHD, ALAERH, ALASVM, DGET04, DTFTTR, DLACPY, DLARHS, DLATB4, DLATMS, DPFTRI, DPFTRF, DPFTRS, DPOT01, DPOT02, DPOT03, DPOTRI, DPOTRF, DTRTTF
 *     ..
 *     .. Scalars in Common ..
       CHARACTER*32       SRNAMT
@@ -123,21 +114,15 @@
 *                    Set up parameters with DLATB4 and generate a test
 *                    matrix with DLATMS.
 *
-                     CALL DLATB4( 'DPO', IMAT, N, N, CTYPE, KL, KU,
-     +                            ANORM, MODE, CNDNUM, DIST )
+                     CALL DLATB4( 'DPO', IMAT, N, N, CTYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                      SRNAMT = 'DLATMS'
-                     CALL DLATMS( N, N, DIST, ISEED, CTYPE,
-     +                            D_WORK_DLATMS,
-     +                            MODE, CNDNUM, ANORM, KL, KU, UPLO, A,
-     +                            LDA, D_WORK_DLATMS, INFO )
+                     CALL DLATMS( N, N, DIST, ISEED, CTYPE, D_WORK_DLATMS, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, D_WORK_DLATMS, INFO )
 *
 *                    Check error code from DLATMS.
 *
                      IF( INFO.NE.0 ) THEN
-                        CALL ALAERH( 'DPF', 'DLATMS', INFO, 0, UPLO, N,
-     +                               N, -1, -1, -1, IIT, NFAIL, NERRS,
-     +                               NOUT )
+                        CALL ALAERH( 'DPF', 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IIT, NFAIL, NERRS, NOUT )
                         GO TO 100
                      END IF
 *
@@ -193,8 +178,7 @@
 *
 *                       Compute the 1-norm of A.
 *
-                        ANORM = DLANSY( '1', UPLO, N, A, LDA,
-     +                         D_WORK_DLANSY )
+                        ANORM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY )
 *
 *                       Factor the matrix A.
 *
@@ -208,8 +192,7 @@
 *
 *                          Compute the 1-norm condition number of A.
 *
-                           AINVNM = DLANSY( '1', UPLO, N, A, LDA,
-     +                           D_WORK_DLANSY )
+                           AINVNM = DLANSY( '1', UPLO, N, A, LDA, D_WORK_DLANSY )
                            RCONDC = ( ONE / ANORM ) / AINVNM
 *
 *                          Restore the matrix A.
@@ -222,9 +205,7 @@
 *                    Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'DLARHS'
-                     CALL DLARHS( 'DPO', 'N', UPLO, ' ', N, N, KL, KU,
-     +                            NRHS, A, LDA, XACT, LDA, B, LDA,
-     +                            ISEED, INFO )
+                     CALL DLARHS( 'DPO', 'N', UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 *
 *                    Compute the L*L' or U'*U factorization of the
@@ -246,9 +227,7 @@
 *                       always be INFO however if INFO is ZERO, ALAERH does not
 *                       complain.
 *
-                         CALL ALAERH( 'DPF', 'DPFSV ', INFO, IZERO,
-     +                                UPLO, N, N, -1, -1, NRHS, IIT,
-     +                                NFAIL, NERRS, NOUT )
+                         CALL ALAERH( 'DPF', 'DPFSV ', INFO, IZERO, UPLO, N, N, -1, -1, NRHS, IIT, NFAIL, NERRS, NOUT )
                          GO TO 100
                       END IF
 *
@@ -259,8 +238,7 @@
                      END IF
 *
                      SRNAMT = 'DPFTRS'
-                     CALL DPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB,
-     +                            INFO )
+                     CALL DPFTRS( CFORM, UPLO, N, NRHS, ARF, X, LDB, INFO )
 *
                      SRNAMT = 'DTFTTR'
                      CALL DTFTTR( CFORM, UPLO, N, ARF, AFAC, LDA, INFO )
@@ -269,50 +247,35 @@
 *                    residual.
 *
                      CALL DLACPY( UPLO, N, N, AFAC, LDA, ASAV, LDA )
-                     CALL DPOT01( UPLO, N, A, LDA, AFAC, LDA,
-     +                             D_WORK_DPOT01, RESULT( 1 ) )
+                     CALL DPOT01( UPLO, N, A, LDA, AFAC, LDA, D_WORK_DPOT01, RESULT( 1 ) )
                      CALL DLACPY( UPLO, N, N, ASAV, LDA, AFAC, LDA )
 *
 *                    Form the inverse and compute the residual.
 *
                      IF(MOD(N,2).EQ.0)THEN
-                        CALL DLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV,
-     +                               N+1 )
+                        CALL DLACPY( 'A', N+1, N/2, ARF, N+1, ARFINV, N+1 )
                      ELSE
-                        CALL DLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV,
-     +                               N )
+                        CALL DLACPY( 'A', N, (N+1)/2, ARF, N, ARFINV, N )
                      END IF
 *
                      SRNAMT = 'DPFTRI'
                      CALL DPFTRI( CFORM, UPLO, N, ARFINV , INFO )
 *
                      SRNAMT = 'DTFTTR'
-                     CALL DTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA,
-     +                            INFO )
+                     CALL DTFTTR( CFORM, UPLO, N, ARFINV, AINV, LDA, INFO )
 *
 *                    Check error code from DPFTRI.
 *
-                     IF( INFO.NE.0 )
-     +                  CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N,
-     +                               N, -1, -1, -1, IMAT, NFAIL, NERRS,
-     +                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL DPOT03( UPLO, N, A, LDA, AINV, LDA,
-     +                            D_TEMP_DPOT03, LDA, D_WORK_DPOT03,
-     +                            RCONDC, RESULT( 2 ) )
+                     CALL DPOT03( UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) )
 *
 *                    Compute residual of the computed solution.
 *
-                     CALL DLACPY( 'Full', N, NRHS, B, LDA,
-     +                            D_TEMP_DPOT02, LDA )
-                     CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA,
-     +                            D_TEMP_DPOT02, LDA, D_WORK_DPOT02,
-     +                            RESULT( 3 ) )
+                     CALL DLACPY( 'Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA )                      CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) )
 *
 *                    Check solution from generated exact solution.
-
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     +                         RESULT( 4 ) )
+                      CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
                      NT = 4
 *
 *                    Print information about the tests that did not
@@ -320,10 +283,7 @@
 *
                      DO 60 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     +                        CALL ALADHD( NOUT, 'DPF' )
-                           WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO,
-     +                            N, IIT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, 'DPF' )                            WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
    60                CONTINUE

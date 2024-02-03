@@ -1,5 +1,4 @@
-      SUBROUTINE DLARRK( N, IW, GL, GU,
-     $                    D, E2, PIVMIN, RELTOL, W, WERR, INFO)
+      SUBROUTINE DLARRK( N, IW, GL, GU, D, E2, PIVMIN, RELTOL, W, WERR, INFO)
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,13 +16,11 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   FUDGE, HALF, TWO, ZERO
-      PARAMETER          ( HALF = 0.5D0, TWO = 2.0D0,
-     $                     FUDGE = TWO, ZERO = 0.0D0 )
+      PARAMETER          ( HALF = 0.5D0, TWO = 2.0D0, FUDGE = TWO, ZERO = 0.0D0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER   I, IT, ITMAX, NEGCNT
-      DOUBLE PRECISION   ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1,
-     $                   TMP2, TNORM
+      DOUBLE PRECISION   ATOLI, EPS, LEFT, MID, RIGHT, RTOLI, TMP1, TMP2, TNORM
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
@@ -47,9 +44,7 @@
       TNORM = MAX( ABS( GL ), ABS( GU ) )
       RTOLI = RELTOL
       ATOLI = FUDGE*TWO*PIVMIN
-
-      ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) /
-     $           LOG( TWO ) ) + 2
+       ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
 
       INFO = -1
 
@@ -67,8 +62,7 @@
          INFO = 0
          GOTO 30
       ENDIF
-      IF(IT.GT.ITMAX)
-     $   GOTO 30
+      IF(IT.GT.ITMAX) GOTO 30
 
 *
 *     Count number of negative pivots for mid-point
@@ -77,17 +71,11 @@
       MID = HALF * (LEFT + RIGHT)
       NEGCNT = 0
       TMP1 = D( 1 ) - MID
-      IF( ABS( TMP1 ).LT.PIVMIN )
-     $   TMP1 = -PIVMIN
-      IF( TMP1.LE.ZERO )
-     $   NEGCNT = NEGCNT + 1
+      IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN       IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
 *
       DO 20 I = 2, N
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID
-         IF( ABS( TMP1 ).LT.PIVMIN )
-     $      TMP1 = -PIVMIN
-         IF( TMP1.LE.ZERO )
-     $      NEGCNT = NEGCNT + 1
+         IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
  20   CONTINUE
 
       IF(NEGCNT.GE.IW) THEN

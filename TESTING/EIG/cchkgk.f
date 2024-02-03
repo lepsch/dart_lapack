@@ -14,13 +14,11 @@
       INTEGER            LDA, LDB, LDVL, LDVR
       PARAMETER          ( LDA = 50, LDB = 50, LDVL = 50, LDVR = 50 )
       INTEGER            LDE, LDF, LDWORK, LRWORK
-      PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50,
-     $                   LRWORK = 6*50 )
+      PARAMETER          ( LDE = 50, LDF = 50, LDWORK = 50, LRWORK = 6*50 )
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, IHI, ILO, INFO, J, KNT, M, N, NINFO
@@ -30,11 +28,7 @@
 *     .. Local Arrays ..
       INTEGER            LMAX( 4 )
       REAL               LSCALE( LDA ), RSCALE( LDA ), RWORK( LRWORK )
-      COMPLEX            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ),
-     $                   BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ),
-     $                   VL( LDVL, LDVL ), VLF( LDVL, LDVL ),
-     $                   VR( LDVR, LDVR ), VRF( LDVR, LDVR ),
-     $                   WORK( LDWORK, LDWORK )
+      COMPLEX            A( LDA, LDA ), AF( LDA, LDA ), B( LDB, LDB ), BF( LDB, LDB ), E( LDE, LDE ), F( LDF, LDF ), VL( LDVL, LDVL ), VLF( LDVL, LDVL ), VR( LDVR, LDVR ), VRF( LDVR, LDVR ), WORK( LDWORK, LDWORK )
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
@@ -66,8 +60,7 @@
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, M
-      IF( N.EQ.0 )
-     $   GO TO 100
+      IF( N.EQ.0 ) GO TO 100
 *
       DO 20 I = 1, N
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
@@ -93,8 +86,7 @@
       CALL CLACPY( 'FULL', N, N, A, LDA, AF, LDA )
       CALL CLACPY( 'FULL', N, N, B, LDB, BF, LDB )
 *
-      CALL CGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE,
-     $             RWORK, INFO )
+      CALL CGGBAL( 'B', N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, INFO )
       IF( INFO.NE.0 ) THEN
          NINFO = NINFO + 1
          LMAX( 1 ) = KNT
@@ -103,15 +95,13 @@
       CALL CLACPY( 'FULL', N, M, VL, LDVL, VLF, LDVL )
       CALL CLACPY( 'FULL', N, M, VR, LDVR, VRF, LDVR )
 *
-      CALL CGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL,
-     $             INFO )
+      CALL CGGBAK( 'B', 'L', N, ILO, IHI, LSCALE, RSCALE, M, VL, LDVL, INFO )
       IF( INFO.NE.0 ) THEN
          NINFO = NINFO + 1
          LMAX( 2 ) = KNT
       END IF
 *
-      CALL CGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR,
-     $             INFO )
+      CALL CGGBAK( 'B', 'R', N, ILO, IHI, LSCALE, RSCALE, M, VR, LDVR, INFO )
       IF( INFO.NE.0 ) THEN
          NINFO = NINFO + 1
          LMAX( 3 ) = KNT
@@ -122,15 +112,9 @@
 *     Check tilde(VL)'*A*tilde(VR) - VL'*tilde(A)*VR
 *     where tilde(A) denotes the transformed matrix.
 *
-      CALL CGEMM( 'N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO,
-     $            WORK, LDWORK )
-      CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK,
-     $            CZERO, E, LDE )
+      CALL CGEMM( 'N', 'N', N, M, N, CONE, AF, LDA, VR, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
-      CALL CGEMM( 'N', 'N', N, M, N, CONE, A, LDA, VRF, LDVR, CZERO,
-     $            WORK, LDWORK )
-      CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK,
-     $            CZERO, F, LDF )
+      CALL CGEMM( 'N', 'N', N, M, N, CONE, A, LDA, VRF, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF )
 *
       VMAX = ZERO
       DO 70 J = 1, M
@@ -146,15 +130,9 @@
 *
 *     Check tilde(VL)'*B*tilde(VR) - VL'*tilde(B)*VR
 *
-      CALL CGEMM( 'N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO,
-     $            WORK, LDWORK )
-      CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK,
-     $            CZERO, E, LDE )
+      CALL CGEMM( 'N', 'N', N, M, N, CONE, BF, LDB, VR, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VL, LDVL, WORK, LDWORK, CZERO, E, LDE )
 *
-      CALL CGEMM( 'n', 'n', N, M, N, CONE, B, LDB, VRF, LDVR, CZERO,
-     $            WORK, LDWORK )
-      CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK,
-     $            CZERO, F, LDF )
+      CALL CGEMM( 'n', 'n', N, M, N, CONE, B, LDB, VRF, LDVR, CZERO, WORK, LDWORK )       CALL CGEMM( 'C', 'N', M, M, N, CONE, VLF, LDVL, WORK, LDWORK, CZERO, F, LDF )
 *
       VMAX = ZERO
       DO 90 J = 1, M

@@ -21,8 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            J
-      DOUBLE PRECISION   SUM, T1, T10, T2, T3, T4, T5, T6, T7, T8, T9,
-     $                   V1, V10, V2, V3, V4, V5, V6, V7, V8, V9
+      DOUBLE PRECISION   SUM, T1, T10, T2, T3, T4, T5, T6, T7, T8, T9, V1, V10, V2, V3, V4, V5, V6, V7, V8, V9
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -33,14 +32,12 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( TAU.EQ.ZERO )
-     $   RETURN
+      IF( TAU.EQ.ZERO ) RETURN
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
 *        Form  H * C, where H has order m.
 *
-         GO TO ( 10, 30, 50, 70, 90, 110, 130, 150,
-     $           170, 190 )M
+         GO TO ( 10, 30, 50, 70, 90, 110, 130, 150, 170, 190 )M
 *
 *        Code for general M
 *
@@ -99,8 +96,7 @@
          V4 = V( 4 )
          T4 = TAU*V4
          DO 80 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -122,8 +118,7 @@
          V5 = V( 5 )
          T5 = TAU*V5
          DO 100 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -148,8 +143,7 @@
          V6 = V( 6 )
          T6 = TAU*V6
          DO 120 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -177,9 +171,7 @@
          V7 = V( 7 )
          T7 = TAU*V7
          DO 140 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) +
-     $            V7*C( 7, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -210,9 +202,7 @@
          V8 = V( 8 )
          T8 = TAU*V8
          DO 160 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) +
-     $            V7*C( 7, J ) + V8*C( 8, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -246,9 +236,7 @@
          V9 = V( 9 )
          T9 = TAU*V9
          DO 180 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) +
-     $            V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -285,10 +273,7 @@
          V10 = V( 10 )
          T10 = TAU*V10
          DO 200 J = 1, N
-            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) +
-     $            V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) +
-     $            V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J ) +
-     $            V10*C( 10, J )
+            SUM = V1*C( 1, J ) + V2*C( 2, J ) + V3*C( 3, J ) + V4*C( 4, J ) + V5*C( 5, J ) + V6*C( 6, J ) + V7*C( 7, J ) + V8*C( 8, J ) + V9*C( 9, J ) + V10*C( 10, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
@@ -305,8 +290,7 @@
 *
 *        Form  C * H, where H has order n.
 *
-         GO TO ( 210, 230, 250, 270, 290, 310, 330, 350,
-     $           370, 390 )N
+         GO TO ( 210, 230, 250, 270, 290, 310, 330, 350, 370, 390 )N
 *
 *        Code for general N
 *
@@ -365,8 +349,7 @@
          V4 = V( 4 )
          T4 = TAU*V4
          DO 280 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -388,8 +371,7 @@
          V5 = V( 5 )
          T5 = TAU*V5
          DO 300 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -414,8 +396,7 @@
          V6 = V( 6 )
          T6 = TAU*V6
          DO 320 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -443,9 +424,7 @@
          V7 = V( 7 )
          T7 = TAU*V7
          DO 340 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) +
-     $            V7*C( J, 7 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -476,9 +455,7 @@
          V8 = V( 8 )
          T8 = TAU*V8
          DO 360 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) +
-     $            V7*C( J, 7 ) + V8*C( J, 8 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -512,9 +489,7 @@
          V9 = V( 9 )
          T9 = TAU*V9
          DO 380 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) +
-     $            V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
@@ -551,10 +526,7 @@
          V10 = V( 10 )
          T10 = TAU*V10
          DO 400 J = 1, M
-            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) +
-     $            V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) +
-     $            V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 ) +
-     $            V10*C( J, 10 )
+            SUM = V1*C( J, 1 ) + V2*C( J, 2 ) + V3*C( J, 3 ) + V4*C( J, 4 ) + V5*C( J, 5 ) + V6*C( J, 6 ) + V7*C( J, 7 ) + V8*C( J, 8 ) + V9*C( J, 9 ) + V10*C( J, 10 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3

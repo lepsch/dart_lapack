@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA,
-     $                   BETA, WX, WY, S, DIF )
+      SUBROUTINE ZLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA, BETA, WX, WY, S, DIF )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   DIF( * ), S( * )
-      COMPLEX*16         A( LDA, * ), B( LDA, * ), X( LDX, * ),
-     $                   Y( LDY, * )
+      COMPLEX*16         A( LDA, * ), B( LDA, * ), X( LDX, * ), Y( LDY, * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       DOUBLE PRECISION   RONE, TWO, THREE
       PARAMETER          ( RONE = 1.0D+0, TWO = 2.0D+0, THREE = 3.0D+0 )
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   ONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -98,25 +95,14 @@
 *
 *     Compute condition numbers
 *
-      S( 1 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) /
-     $         ( RONE+CDABS( A( 1, 1 ) )*CDABS( A( 1, 1 ) ) ) )
-      S( 2 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) /
-     $         ( RONE+CDABS( A( 2, 2 ) )*CDABS( A( 2, 2 ) ) ) )
-      S( 3 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) /
-     $         ( RONE+CDABS( A( 3, 3 ) )*CDABS( A( 3, 3 ) ) ) )
-      S( 4 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) /
-     $         ( RONE+CDABS( A( 4, 4 ) )*CDABS( A( 4, 4 ) ) ) )
-      S( 5 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) /
-     $         ( RONE+CDABS( A( 5, 5 ) )*CDABS( A( 5, 5 ) ) ) )
+      S( 1 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 1, 1 ) )*CDABS( A( 1, 1 ) ) ) )       S( 2 ) = RONE / SQRT( ( RONE+THREE*CDABS( WY )*CDABS( WY ) ) / ( RONE+CDABS( A( 2, 2 ) )*CDABS( A( 2, 2 ) ) ) )       S( 3 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 3, 3 ) )*CDABS( A( 3, 3 ) ) ) )       S( 4 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 4, 4 ) )*CDABS( A( 4, 4 ) ) ) )       S( 5 ) = RONE / SQRT( ( RONE+TWO*CDABS( WX )*CDABS( WX ) ) / ( RONE+CDABS( A( 5, 5 ) )*CDABS( A( 5, 5 ) ) ) )
 *
       CALL ZLAKF2( 1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 8 )
-      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1,
-     $             WORK( 3 ), 24, RWORK( 9 ), INFO )
+      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
       DIF( 1 ) = RWORK( 8 )
 *
       CALL ZLAKF2( 4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 8 )
-      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1,
-     $             WORK( 3 ), 24, RWORK( 9 ), INFO )
+      CALL ZGESVD( 'N', 'N', 8, 8, Z, 8, RWORK, WORK, 1, WORK( 2 ), 1, WORK( 3 ), 24, RWORK( 9 ), INFO )
       DIF( 5 ) = RWORK( 8 )
 *
       RETURN

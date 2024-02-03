@@ -1,27 +1,17 @@
-      SUBROUTINE DDRVVX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NIUNIT, NOUNIT, A, LDA, H, WR, WI, WR1, WI1,
-     $                   VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1,
-     $                   RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1,
-     $                   RESULT, WORK, NWORK, IWORK, INFO )
+      SUBROUTINE DDRVVX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NWORK, IWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT,
-     $                   NSIZES, NTYPES, NWORK
+      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NIUNIT, NOUNIT, NSIZES, NTYPES, NWORK
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ),
-     $                   RCDEIN( * ), RCDVIN( * ), RCNDE1( * ),
-     $                   RCNDV1( * ), RCONDE( * ), RCONDV( * ),
-     $                   RESULT( 11 ), SCALE( * ), SCALE1( * ),
-     $                   VL( LDVL, * ), VR( LDVR, * ), WI( * ),
-     $                   WI1( * ), WORK( * ), WR( * ), WR1( * )
+      DOUBLE PRECISION   A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), SCALE( * ), SCALE1( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WI1( * ), WORK( * ), WR( * ), WR1( * )
 *     ..
 *
 *  =====================================================================
@@ -36,35 +26,26 @@
       LOGICAL            BADNN
       CHARACTER          BALANC
       CHARACTER*3        PATH
-      INTEGER            I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL,
-     $                   JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX,
-     $                   NNWORK, NTEST, NTESTF, NTESTT
-      DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP,
-     $                   ULPINV, UNFL
+      INTEGER            I, IBAL, IINFO, IMODE, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
+      DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
       CHARACTER          ADUMMA( 1 ), BAL( 4 )
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGET23, DLASET, DLASUM, DLATME, DLATMR, DLATMS,
-     $                   XERBLA
+      EXTERNAL           DGET23, DLASET, DLASUM, DLATME, DLATMR, DLATMS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2,
-     $                   3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3,
-     $                   1, 5, 5, 5, 4, 3, 1 /
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
       DATA               BAL / 'N', 'P', 'S', 'B' /
 *     ..
@@ -89,8 +70,7 @@
       NMAX = 12
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -122,8 +102,7 @@
 *
 *     If nothing to do check on NIUNIT
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   GO TO 160
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) GO TO 160
 *
 *     More Important constants
 *
@@ -147,8 +126,7 @@
          END IF
 *
          DO 140 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 140
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
 *
 *           Save ISEED in case of an error.
 *
@@ -172,8 +150,7 @@
 *       =9                              random general
 *       =10                             random triangular
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -221,25 +198,20 @@
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 )
-     $               A( JCOL, JCOL-1 ) = ONE
+                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    80          CONTINUE
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Symmetric, eigenvalues specified
 *
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
@@ -254,55 +226,35 @@
                END IF
 *
                ADUMMA( 1 ) = ' '
-               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE,
-     $                      ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4,
-     $                      CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ),
-     $                      IINFO )
+               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Symmetric, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              General, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
                   CALL DLASET( 'Full', 2, N, ZERO, ZERO, A, LDA )
-                  CALL DLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ),
-     $                         LDA )
-                  CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ),
-     $                         LDA )
-                  CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ),
-     $                         LDA )
+                  CALL DLASET( 'Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA )
                END IF
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Triangular, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE
 *
@@ -310,8 +262,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -337,26 +288,17 @@
 *
 *                 Perform tests
 *
-                  CALL DGET23( .FALSE., BALANC, JTYPE, THRESH, IOLDSD,
-     $                         NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1,
-     $                         VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV,
-     $                         RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN,
-     $                         SCALE, SCALE1, RESULT, WORK, NNWORK,
-     $                         IWORK, INFO )
+                  CALL DGET23( .FALSE., BALANC, JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, NNWORK, IWORK, INFO )
 *
 *                 Check for RESULT(j) > THRESH
 *
                   NTEST = 0
                   NFAIL = 0
                   DO 100 J = 1, 9
-                     IF( RESULT( J ).GE.ZERO )
-     $                  NTEST = NTEST + 1
-                     IF( RESULT( J ).GE.THRESH )
-     $                  NFAIL = NFAIL + 1
+                     IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   100             CONTINUE
 *
-                  IF( NFAIL.GT.0 )
-     $               NTESTF = NTESTF + 1
+                  IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                   IF( NTESTF.EQ.1 ) THEN
                      WRITE( NOUNIT, FMT = 9999 )PATH
                      WRITE( NOUNIT, FMT = 9998 )
@@ -368,8 +310,7 @@
 *
                   DO 110 J = 1, 9
                      IF( RESULT( J ).GE.THRESH ) THEN
-                        WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK,
-     $                     IOLDSD, JTYPE, J, RESULT( J )
+                        WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                      END IF
   110             CONTINUE
 *
@@ -393,36 +334,26 @@
 *
 *     Read input data until N=0
 *
-      IF( N.EQ.0 )
-     $   GO TO 220
+      IF( N.EQ.0 ) GO TO 220
       JTYPE = JTYPE + 1
       ISEED( 1 ) = JTYPE
       DO 180 I = 1, N
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N )
   180 CONTINUE
       DO 190 I = 1, N
-         READ( NIUNIT, FMT = * )WR1( I ), WI1( I ), RCDEIN( I ),
-     $      RCDVIN( I )
+         READ( NIUNIT, FMT = * )WR1( I ), WI1( I ), RCDEIN( I ), RCDVIN( I )
   190 CONTINUE
-      CALL DGET23( .TRUE., 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H,
-     $             WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE,
-     $             RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN,
-     $             SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK,
-     $             INFO )
+      CALL DGET23( .TRUE., 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK, INFO )
 *
 *     Check for RESULT(j) > THRESH
 *
       NTEST = 0
       NFAIL = 0
       DO 200 J = 1, 11
-         IF( RESULT( J ).GE.ZERO )
-     $      NTEST = NTEST + 1
-         IF( RESULT( J ).GE.THRESH )
-     $      NFAIL = NFAIL + 1
+         IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   200 CONTINUE
 *
-      IF( NFAIL.GT.0 )
-     $   NTESTF = NTESTF + 1
+      IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
       IF( NTESTF.EQ.1 ) THEN
          WRITE( NOUNIT, FMT = 9999 )PATH
          WRITE( NOUNIT, FMT = 9998 )

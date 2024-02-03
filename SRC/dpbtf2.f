@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       KLD = MAX( 1, LDAB-1 )
 *
@@ -69,8 +68,7 @@
 *           Compute U(J,J) and test for non-positive-definiteness.
 *
             AJJ = AB( KD+1, J )
-            IF( AJJ.LE.ZERO )
-     $         GO TO 30
+            IF( AJJ.LE.ZERO ) GO TO 30
             AJJ = SQRT( AJJ )
             AB( KD+1, J ) = AJJ
 *
@@ -80,8 +78,7 @@
             KN = MIN( KD, N-J )
             IF( KN.GT.0 ) THEN
                CALL DSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
-               CALL DSYR( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD,
-     $                    AB( KD+1, J+1 ), KLD )
+               CALL DSYR( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
             END IF
    10    CONTINUE
       ELSE
@@ -93,8 +90,7 @@
 *           Compute L(J,J) and test for non-positive-definiteness.
 *
             AJJ = AB( 1, J )
-            IF( AJJ.LE.ZERO )
-     $         GO TO 30
+            IF( AJJ.LE.ZERO ) GO TO 30
             AJJ = SQRT( AJJ )
             AB( 1, J ) = AJJ
 *
@@ -104,8 +100,7 @@
             KN = MIN( KD, N-J )
             IF( KN.GT.0 ) THEN
                CALL DSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL DSYR( 'Lower', KN, -ONE, AB( 2, J ), 1,
-     $                    AB( 1, J+1 ), KLD )
+               CALL DSYR( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
             END IF
    20    CONTINUE
       END IF

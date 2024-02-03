@@ -1,8 +1,4 @@
-      SUBROUTINE SGESVXX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV,
-     $                    EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW,
-     $                    BERR, N_ERR_BNDS, ERR_BNDS_NORM,
-     $                    ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK,
-     $                    INFO )
+      SUBROUTINE SGESVXX( FACT, TRANS, N, NRHS, A, LDA, AF, LDAF, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,17 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, TRANS
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS,
-     $                   N_ERR_BNDS
+      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       REAL               RCOND, RPVGRW
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ),
-     $                   X( LDX , * ),WORK( * )
-      REAL               R( * ), C( * ), PARAMS( * ), BERR( * ),
-     $                   ERR_BNDS_NORM( NRHS, * ),
-     $                   ERR_BNDS_COMP( NRHS, * )
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX , * ),WORK( * )       REAL               R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
 *  ==================================================================
@@ -31,17 +22,14 @@
       INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
       INTEGER            CMP_ERR_I, PIV_GROWTH_I
-      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2,
-     $                   BERR_I = 3 )
+      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8,
-     $                   PIV_GROWTH_I = 9 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU
       INTEGER            INFEQU, J
-      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND,
-     $                   SMLNUM
+      REAL               AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, SLAMCH, SLA_GERPVGRW
@@ -49,8 +37,7 @@
       REAL               SLAMCH, SLA_GERPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEEQUB, SGETRF, SGETRS, SLACPY, SLAQGE,
-     $                   XERBLA, SLASCL2, SGERFSX
+      EXTERNAL           SGEEQUB, SGETRF, SGETRS, SLACPY, SLAQGE, XERBLA, SLASCL2, SGERFSX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -80,11 +67,9 @@
 *
 *     Test the input parameters.  PARAMS is not tested until SGERFSX.
 *
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.
-     $     LSAME( FACT, 'F' ) ) THEN
+      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $        LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -94,8 +79,7 @@
          INFO = -6
       ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT.
-     $        ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -10
       ELSE
          IF( ROWEQU ) THEN
@@ -146,14 +130,12 @@
 *
 *     Compute row and column scalings to equilibrate the matrix A.
 *
-         CALL SGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX,
-     $        INFEQU )
+         CALL SGEEQUB( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
 *     Equilibrate the matrix.
 *
-            CALL SLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX,
-     $           EQUED )
+            CALL SLAQGE( N, N, A, LDA, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
@@ -212,10 +194,7 @@
 *     Use iterative refinement to improve the computed solution and
 *     compute error bounds and backward error estimates for it.
 *
-      CALL SGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF,
-     $     IPIV, R, C, B, LDB, X, LDX, RCOND, BERR,
-     $     N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS,
-     $     WORK, IWORK, INFO )
+      CALL SGERFSX( TRANS, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 *
 *     Scale solutions.
 *

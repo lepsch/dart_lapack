@@ -53,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -75,17 +74,10 @@
 *
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL DTRMM( 'Right', 'Upper', 'Transpose', 'Non-unit',
-     $                     I-1, IB, ONE, A( I, I ), LDA, A( 1, I ),
-     $                     LDA )
+               CALL DTRMM( 'Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA )
                CALL DLAUU2( 'Upper', IB, A( I, I ), LDA, INFO )
                IF( I+IB.LE.N ) THEN
-                  CALL DGEMM( 'No transpose', 'Transpose', I-1, IB,
-     $                        N-I-IB+1, ONE, A( 1, I+IB ), LDA,
-     $                        A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )
-                  CALL DSYRK( 'Upper', 'No transpose', IB, N-I-IB+1,
-     $                        ONE, A( I, I+IB ), LDA, ONE, A( I, I ),
-     $                        LDA )
+                  CALL DGEMM( 'No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL DSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
                END IF
    10       CONTINUE
          ELSE
@@ -94,15 +86,11 @@
 *
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL DTRMM( 'Left', 'Lower', 'Transpose', 'Non-unit', IB,
-     $                     I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA )
+               CALL DTRMM( 'Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA )
                CALL DLAUU2( 'Lower', IB, A( I, I ), LDA, INFO )
                IF( I+IB.LE.N ) THEN
-                  CALL DGEMM( 'Transpose', 'No transpose', IB, I-1,
-     $                        N-I-IB+1, ONE, A( I+IB, I ), LDA,
-     $                        A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA )
-                  CALL DSYRK( 'Lower', 'Transpose', IB, N-I-IB+1, ONE,
-     $                        A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
+                  CALL DGEMM( 'Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA )
+                  CALL DSYRK( 'Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
                END IF
    20       CONTINUE
          END IF

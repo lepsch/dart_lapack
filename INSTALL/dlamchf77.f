@@ -17,8 +17,7 @@
 *     .. Local Scalars ..
       LOGICAL            FIRST, LRND
       INTEGER            BETA, IMAX, IMIN, IT
-      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN,
-     $                   RND, SFMIN, SMALL, T
+      DOUBLE PRECISION   BASE, EMAX, EMIN, EPS, PREC, RMACH, RMAX, RMIN, RND, SFMIN, SMALL, T
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -28,8 +27,7 @@
       EXTERNAL           DLAMC2
 *     ..
 *     .. Save statement ..
-      SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN,
-     $                   EMAX, RMAX, PREC
+      SAVE               FIRST, EPS, SFMIN, BASE, T, RND, EMIN, RMIN, EMAX, RMAX, PREC
 *     ..
 *     .. Data statements ..
       DATA               FIRST / .TRUE. /
@@ -237,8 +235,7 @@
          END IF
          F = DLAMC3( B / 2, B / 100 )
          C = DLAMC3( F, A )
-         IF( ( LRND ) .AND. ( C.EQ.A ) )
-     $      LRND = .FALSE.
+         IF( ( LRND ) .AND. ( C.EQ.A ) ) LRND = .FALSE.
 *
 *        Try and decide whether rounding is done in the  IEEE  'round to
 *        nearest' style. B/2 is half a unit in the last place of the two
@@ -366,10 +363,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            FIRST, IEEE, IWARN, LIEEE1, LRND
-      INTEGER            GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT,
-     $                   NGNMIN, NGPMIN
-      DOUBLE PRECISION   A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE,
-     $                   SIXTH, SMALL, THIRD, TWO, ZERO
+      INTEGER            GNMIN, GPMIN, I, LBETA, LEMAX, LEMIN, LT, NGNMIN, NGPMIN       DOUBLE PRECISION   A, B, C, HALF, LEPS, LRMAX, LRMIN, ONE, RBASE, SIXTH, SMALL, THIRD, TWO, ZERO
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMC3
@@ -382,8 +376,7 @@
       INTRINSIC          ABS, MAX, MIN
 *     ..
 *     .. Save statement ..
-      SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX,
-     $                   LRMIN, LT
+      SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT
 *     ..
 *     .. Data statements ..
       DATA               FIRST / .TRUE. / , IWARN / .FALSE. /
@@ -421,8 +414,7 @@
          B = DLAMC3( THIRD, -HALF )
          B = DLAMC3( B, SIXTH )
          B = ABS( B )
-         IF( B.LT.LEPS )
-     $      B = LEPS
+         IF( B.LT.LEPS ) B = LEPS
 *
          LEPS = 1
 *
@@ -439,8 +431,7 @@
          END IF
 *+       END WHILE
 *
-         IF( A.LT.LEPS )
-     $      LEPS = A
+         IF( A.LT.LEPS ) LEPS = A
 *
 *        Computation of EPS complete.
 *
@@ -487,8 +478,7 @@
                IWARN = .TRUE.
             END IF
 *
-         ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND.
-     $            ( GPMIN.EQ.GNMIN ) ) THEN
+         ELSE IF( ( ABS( NGPMIN-NGNMIN ).EQ.1 ) .AND. ( GPMIN.EQ.GNMIN ) ) THEN
             IF( ( GPMIN-MIN( NGPMIN, NGNMIN ) ).EQ.3 ) THEN
                LEMIN = MAX( NGPMIN, NGNMIN ) - 1 + LT
 *            ( Twos-complement machines with gradual underflow;
@@ -656,8 +646,7 @@
 *+    WHILE( ( C1.EQ.A ).AND.( C2.EQ.A ).AND.
 *    $       ( D1.EQ.A ).AND.( D2.EQ.A )      )LOOP
    10 CONTINUE
-      IF( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND.
-     $    ( D2.EQ.A ) ) THEN
+      IF( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND. ( D2.EQ.A ) ) THEN
          EMIN = EMIN - 1
          A = B1
          B1 = DLAMC3( A / BASE, ZERO )
@@ -833,12 +822,10 @@
       Y = ZERO
       DO 20 I = 1, P
          Z = Z*RECBAS
-         IF( Y.LT.ONE )
-     $      OLDY = Y
+         IF( Y.LT.ONE ) OLDY = Y
          Y = DLAMC3( Y, Z )
    20 CONTINUE
-      IF( Y.GE.ONE )
-     $   Y = OLDY
+      IF( Y.GE.ONE ) Y = OLDY
 *
 *     Now multiply by BETA**EMAX to get RMAX.
 *

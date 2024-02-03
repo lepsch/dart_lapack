@@ -24,8 +24,7 @@
 *     LOGICAL            FIRST
 
       INTEGER            COUNT, I, IC, IX, IY, J
-      DOUBLE PRECISION   CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN,
-     $                   SAFMN2, SAFMX2, SCALE
+      DOUBLE PRECISION   CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE
       COMPLEX*16         F, FF, FS, G, GS, R, SN
 *     ..
 *     .. External Functions ..
@@ -33,8 +32,7 @@
       EXTERNAL           DLAMCH, DLAPY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG,
-     $                   MAX, SQRT
+      INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, DIMAG, INT, LOG, MAX, SQRT
 *     ..
 *     .. Statement Functions ..
       DOUBLE PRECISION   ABS1, ABSSQ
@@ -55,8 +53,7 @@
 *        FIRST = .FALSE.
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
-         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) /
-     $            LOG( DLAMCH( 'B' ) ) / TWO )
+         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
 *     END IF
       IX = 1
@@ -78,8 +75,7 @@
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 )
-     $         GO TO 10
+            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 ) GO TO 10
          ELSE IF( SCALE.LE.SAFMN2 ) THEN
             IF( G.EQ.CZERO ) THEN
                CS = ONE
@@ -92,8 +88,7 @@
             FS = FS*SAFMX2
             GS = GS*SAFMX2
             SCALE = SCALE*SAFMX2
-            IF( SCALE.LE.SAFMN2 )
-     $         GO TO 20
+            IF( SCALE.LE.SAFMN2 ) GO TO 20
          END IF
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )

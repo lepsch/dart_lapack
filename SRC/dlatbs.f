@@ -1,5 +1,4 @@
-      SUBROUTINE DLATBS( UPLO, TRANS, DIAG, NORMIN, N, KD, AB, LDAB, X,
-     $                   SCALE, CNORM, INFO )
+      SUBROUTINE DLATBS( UPLO, TRANS, DIAG, NORMIN, N, KD, AB, LDAB, X, SCALE, CNORM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
       INTEGER            I, IMAX, J, JFIRST, JINC, JLAST, JLEN, MAIND
-      DOUBLE PRECISION   BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS,
-     $                   TMAX, TSCAL, USCAL, XBND, XJ, XMAX
+      DOUBLE PRECISION   BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -49,13 +47,11 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT.
-     $         LSAME( NORMIN, 'N' ) ) THEN
+      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -72,8 +68,7 @@
 *     Quick return if possible
 *
       SCALE = ONE
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine machine dependent parameters to control overflow.
 *
@@ -159,8 +154,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 50
+               IF( GROW.LE.SMLNUM ) GO TO 50
 *
 *              M(j) = G(j-1) / abs(A(j,j))
 *
@@ -190,8 +184,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 50
+               IF( GROW.LE.SMLNUM ) GO TO 50
 *
 *              G(j) = G(j-1)*( 1 + CNORM(j) )
 *
@@ -234,8 +227,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 80
+               IF( GROW.LE.SMLNUM ) GO TO 80
 *
 *              G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 *
@@ -245,8 +237,7 @@
 *              M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 *
                TJJ = ABS( AB( MAIND, J ) )
-               IF( XJ.GT.TJJ )
-     $            XBND = XBND*( TJJ / XJ )
+               IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
    60       CONTINUE
             GROW = MIN( GROW, XBND )
          ELSE
@@ -260,8 +251,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 80
+               IF( GROW.LE.SMLNUM ) GO TO 80
 *
 *              G(j) = ( 1 + CNORM(j) )*G(j-1)
 *
@@ -305,8 +295,7 @@
                   TJJS = AB( MAIND, J )*TSCAL
                ELSE
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE )
-     $               GO TO 100
+                  IF( TSCAL.EQ.ONE ) GO TO 100
                END IF
                TJJ = ABS( TJJS )
                IF( TJJ.GT.SMLNUM ) THEN
@@ -393,8 +382,7 @@
 *                                             x(j)* A(max(1,j-kd):j-1,j)
 *
                      JLEN = MIN( KD, J-1 )
-                     CALL DAXPY( JLEN, -X( J )*TSCAL,
-     $                           AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
+                     CALL DAXPY( JLEN, -X( J )*TSCAL, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
                      I = IDAMAX( J-1, X, 1 )
                      XMAX = ABS( X( I ) )
                   END IF
@@ -405,9 +393,7 @@
 *                                          x(j) * A(j+1:min(j+kd,n),j)
 *
                   JLEN = MIN( KD, N-J )
-                  IF( JLEN.GT.0 )
-     $               CALL DAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1,
-     $                           X( J+1 ), 1 )
+                  IF( JLEN.GT.0 ) CALL DAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 )
                   I = J + IDAMAX( N-J, X( J+1 ), 1 )
                   XMAX = ABS( X( I ) )
                END IF
@@ -458,12 +444,10 @@
 *
                   IF( UPPER ) THEN
                      JLEN = MIN( KD, J-1 )
-                     SUMJ = DDOT( JLEN, AB( KD+1-JLEN, J ), 1,
-     $                      X( J-JLEN ), 1 )
+                     SUMJ = DDOT( JLEN, AB( KD+1-JLEN, J ), 1, X( J-JLEN ), 1 )
                   ELSE
                      JLEN = MIN( KD, N-J )
-                     IF( JLEN.GT.0 )
-     $                  SUMJ = DDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 )
+                     IF( JLEN.GT.0 ) SUMJ = DDOT( JLEN, AB( 2, J ), 1, X( J+1 ), 1 )
                   END IF
                ELSE
 *
@@ -472,8 +456,7 @@
                   IF( UPPER ) THEN
                      JLEN = MIN( KD, J-1 )
                      DO 120 I = 1, JLEN
-                        SUMJ = SUMJ + ( AB( KD+I-JLEN, J )*USCAL )*
-     $                         X( J-JLEN-1+I )
+                        SUMJ = SUMJ + ( AB( KD+I-JLEN, J )*USCAL )* X( J-JLEN-1+I )
   120                CONTINUE
                   ELSE
                      JLEN = MIN( KD, N-J )
@@ -497,8 +480,7 @@
                      TJJS = AB( MAIND, J )*TSCAL
                   ELSE
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE )
-     $                  GO TO 150
+                     IF( TSCAL.EQ.ONE ) GO TO 150
                   END IF
                   TJJ = ABS( TJJS )
                   IF( TJJ.GT.SMLNUM ) THEN

@@ -18,17 +18,12 @@
       INTEGER            MAXIT
       PARAMETER          ( MAXIT = 400 )
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT, TEN
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0,
-     $                   THREE = 3.0E+0, FOUR = 4.0E+0, EIGHT = 8.0E+0,
-     $                   TEN = 10.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0, FOUR = 4.0E+0, EIGHT = 8.0E+0, TEN = 10.0E+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ORGATI, SWTCH, SWTCH3, GEOMAVG
       INTEGER            II, IIM1, IIP1, IP1, ITER, J, NITER
-      REAL               A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM,
-     $                   DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS,
-     $                   ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB,
-     $                   SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W
+      REAL               A, B, C, DELSQ, DELSQ2, SQ2, DPHI, DPSI, DTIIM, DTIIP, DTIPSQ, DTISQ, DTNSQ, DTNSQ1, DW, EPS, ERRETM, ETA, PHI, PREW, PSI, RHOINV, SGLB, SGUB, TAU, TAU2, TEMP, TEMP1, TEMP2, W
 *     ..
 *     .. Local Arrays ..
       REAL               DD( 3 ), ZZ( 3 )
@@ -99,14 +94,11 @@
    20    CONTINUE
 *
          C = RHOINV + PSI
-         W = C + Z( II )*Z( II ) / ( DELTA( II )*WORK( II ) ) +
-     $       Z( N )*Z( N ) / ( DELTA( N )*WORK( N ) )
+         W = C + Z( II )*Z( II ) / ( DELTA( II )*WORK( II ) ) + Z( N )*Z( N ) / ( DELTA( N )*WORK( N ) )
 *
          IF( W.LE.ZERO ) THEN
             TEMP1 = SQRT( D( N )*D( N )+RHO )
-            TEMP = Z( N-1 )*Z( N-1 ) / ( ( D( N-1 )+TEMP1 )*
-     $             ( D( N )-D( N-1 )+RHO / ( D( N )+TEMP1 ) ) ) +
-     $             Z( N )*Z( N ) / RHO
+            TEMP = Z( N-1 )*Z( N-1 ) / ( ( D( N-1 )+TEMP1 )* ( D( N )-D( N-1 )+RHO / ( D( N )+TEMP1 ) ) ) + Z( N )*Z( N ) / RHO
 *
 *           The following TAU2 is to approximate
 *           SIGMA_n^2 - D( N )*D( N )
@@ -196,8 +188,7 @@
          C = W - DTNSQ1*DPSI - DTNSQ*DPHI
          A = ( DTNSQ+DTNSQ1 )*W - DTNSQ*DTNSQ1*( DPSI+DPHI )
          B = DTNSQ*DTNSQ1*W
-         IF( C.LT.ZERO )
-     $      C = ABS( C )
+         IF( C.LT.ZERO ) C = ABS( C )
          IF( C.EQ.ZERO ) THEN
             ETA = RHO - SIGMA*SIGMA
          ELSE IF( A.GE.ZERO ) THEN
@@ -212,11 +203,9 @@
 *        we simply use one Newton step instead. This way
 *        will guarantee eta*w < 0.
 *
-         IF( W*ETA.GT.ZERO )
-     $      ETA = -W / ( DPSI+DPHI )
+         IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
          TEMP = ETA - DTNSQ
-         IF( TEMP.GT.RHO )
-     $      ETA = RHO + DTNSQ
+         IF( TEMP.GT.RHO ) ETA = RHO + DTNSQ
 *
          ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
          TAU = TAU + ETA
@@ -282,11 +271,9 @@
 *           we simply use one Newton step instead. This way
 *           will guarantee eta*w < 0.
 *
-            IF( W*ETA.GT.ZERO )
-     $         ETA = -W / ( DPSI+DPHI )
+            IF( W*ETA.GT.ZERO ) ETA = -W / ( DPSI+DPHI )
             TEMP = ETA - DTNSQ
-            IF( TEMP.LE.ZERO )
-     $         ETA = ETA / TWO
+            IF( TEMP.LE.ZERO ) ETA = ETA / TWO
 *
             ETA = ETA / ( SIGMA+SQRT( ETA+SIGMA*SIGMA ) )
             TAU = TAU + ETA
@@ -357,8 +344,7 @@
             PHI = PHI + Z( J )*Z( J ) / ( WORK( J )*DELTA( J ) )
   120    CONTINUE
          C = RHOINV + PSI + PHI
-         W = C + Z( I )*Z( I ) / ( WORK( I )*DELTA( I ) ) +
-     $       Z( IP1 )*Z( IP1 ) / ( WORK( IP1 )*DELTA( IP1 ) )
+         W = C + Z( I )*Z( I ) / ( WORK( I )*DELTA( I ) ) + Z( IP1 )*Z( IP1 ) / ( WORK( IP1 )*DELTA( IP1 ) )
 *
          GEOMAVG = .FALSE.
          IF( W.GT.ZERO ) THEN
@@ -385,8 +371,7 @@
 *
             TAU = TAU2 / ( D( I )+SQRT( D( I )*D( I )+TAU2 ) )
             TEMP = SQRT(EPS)
-            IF( (D(I).LE.TEMP*D(IP1)).AND.(ABS(Z(I)).LE.TEMP)
-     $                               .AND.(D(I).GT.ZERO) ) THEN
+            IF( (D(I).LE.TEMP*D(IP1)).AND.(ABS(Z(I)).LE.TEMP) .AND.(D(I).GT.ZERO) ) THEN
                TAU = MIN( TEN*D(I), SGUB )
                GEOMAVG = .TRUE.
             END IF
@@ -412,8 +397,7 @@
 *           following, however, is the corresponding estimation of
 *           SIGMA - D( IP1 ).
 *
-            TAU = TAU2 / ( D( IP1 )+SQRT( ABS( D( IP1 )*D( IP1 )+
-     $            TAU2 ) ) )
+            TAU = TAU2 / ( D( IP1 )+SQRT( ABS( D( IP1 )*D( IP1 )+ TAU2 ) ) )
          END IF
 *
          SIGMA = D( II ) + TAU
@@ -455,21 +439,17 @@
 *
          SWTCH3 = .FALSE.
          IF( ORGATI ) THEN
-            IF( W.LT.ZERO )
-     $         SWTCH3 = .TRUE.
+            IF( W.LT.ZERO ) SWTCH3 = .TRUE.
          ELSE
-            IF( W.GT.ZERO )
-     $         SWTCH3 = .TRUE.
+            IF( W.GT.ZERO ) SWTCH3 = .TRUE.
          END IF
-         IF( II.EQ.1 .OR. II.EQ.N )
-     $      SWTCH3 = .FALSE.
+         IF( II.EQ.1 .OR. II.EQ.N ) SWTCH3 = .FALSE.
 *
          TEMP = Z( II ) / ( WORK( II )*DELTA( II ) )
          DW = DPSI + DPHI + TEMP*TEMP
          TEMP = Z( II )*TEMP
          W = W + TEMP
-         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV
-     $          + THREE*ABS( TEMP )
+         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $          + ABS( TAU2 )*DW
 *
 *        Test for convergence
@@ -521,8 +501,7 @@
             IF( ORGATI ) THEN
                TEMP1 = Z( IIM1 ) / DTIIM
                TEMP1 = TEMP1*TEMP1
-               C = ( TEMP - DTIIP*( DPSI+DPHI ) ) -
-     $             ( D( IIM1 )-D( IIP1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
+               C = ( TEMP - DTIIP*( DPSI+DPHI ) ) - ( D( IIM1 )-D( IIP1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
                ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
                IF( DPSI.LT.TEMP1 ) THEN
                   ZZ( 3 ) = DTIIP*DTIIP*DPHI
@@ -532,8 +511,7 @@
             ELSE
                TEMP1 = Z( IIP1 ) / DTIIP
                TEMP1 = TEMP1*TEMP1
-               C = ( TEMP - DTIIM*( DPSI+DPHI ) ) -
-     $             ( D( IIP1 )-D( IIM1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
+               C = ( TEMP - DTIIM*( DPSI+DPHI ) ) - ( D( IIP1 )-D( IIM1 ) )*( D( IIM1 )+D( IIP1 ) )*TEMP1
                IF( DPHI.LT.TEMP1 ) THEN
                   ZZ( 1 ) = DTIIM*DTIIM*DPSI
                ELSE
@@ -586,8 +564,7 @@
 *        we simply use one Newton step instead. This way
 *        will guarantee eta*w < 0.
 *
-         IF( W*ETA.GE.ZERO )
-     $      ETA = -W / DW
+         IF( W*ETA.GE.ZERO ) ETA = -W / DW
 *
          ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
          TEMP = TAU + ETA
@@ -649,17 +626,14 @@
          DW = DPSI + DPHI + TEMP*TEMP
          TEMP = Z( II )*TEMP
          W = RHOINV + PHI + PSI + TEMP
-         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV
-     $          + THREE*ABS( TEMP )
+         ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $          + ABS( TAU2 )*DW
 *
          SWTCH = .FALSE.
          IF( ORGATI ) THEN
-            IF( -W.GT.ABS( PREW ) / TEN )
-     $         SWTCH = .TRUE.
+            IF( -W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
          ELSE
-            IF( W.GT.ABS( PREW ) / TEN )
-     $         SWTCH = .TRUE.
+            IF( W.GT.ABS( PREW ) / TEN ) SWTCH = .TRUE.
          END IF
 *
 *        Main loop to update the values of the array   DELTA and WORK
@@ -707,11 +681,9 @@
                   IF( A.EQ.ZERO ) THEN
                      IF( .NOT.SWTCH ) THEN
                         IF( ORGATI ) THEN
-                           A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*
-     $                         ( DPSI+DPHI )
+                           A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
                         ELSE
-                           A = Z( IP1 )*Z( IP1 ) +
-     $                         DTISQ*DTISQ*( DPSI+DPHI )
+                           A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI )
                         END IF
                      ELSE
                         A = DTISQ*DTISQ*DPSI + DTIPSQ*DTIPSQ*DPHI
@@ -738,8 +710,7 @@
                   IF( ORGATI ) THEN
                      TEMP1 = Z( IIM1 ) / DTIIM
                      TEMP1 = TEMP1*TEMP1
-                     TEMP2 = ( D( IIM1 )-D( IIP1 ) )*
-     $                       ( D( IIM1 )+D( IIP1 ) )*TEMP1
+                     TEMP2 = ( D( IIM1 )-D( IIP1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1
                      C = TEMP - DTIIP*( DPSI+DPHI ) - TEMP2
                      ZZ( 1 ) = Z( IIM1 )*Z( IIM1 )
                      IF( DPSI.LT.TEMP1 ) THEN
@@ -750,8 +721,7 @@
                   ELSE
                      TEMP1 = Z( IIP1 ) / DTIIP
                      TEMP1 = TEMP1*TEMP1
-                     TEMP2 = ( D( IIP1 )-D( IIM1 ) )*
-     $                       ( D( IIM1 )+D( IIP1 ) )*TEMP1
+                     TEMP2 = ( D( IIP1 )-D( IIM1 ) )* ( D( IIM1 )+D( IIP1 ) )*TEMP1
                      C = TEMP - DTIIM*( DPSI+DPHI ) - TEMP2
                      IF( DPHI.LT.TEMP1 ) THEN
                         ZZ( 1 ) = DTIIM*DTIIM*DPSI
@@ -796,11 +766,9 @@
                      IF( A.EQ.ZERO ) THEN
                         IF( .NOT.SWTCH ) THEN
                            IF( ORGATI ) THEN
-                              A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ*
-     $                            ( DPSI+DPHI )
+                              A = Z( I )*Z( I ) + DTIPSQ*DTIPSQ* ( DPSI+DPHI )
                            ELSE
-                              A = Z( IP1 )*Z( IP1 ) +
-     $                            DTISQ*DTISQ*( DPSI+DPHI )
+                              A = Z( IP1 )*Z( IP1 ) + DTISQ*DTISQ*( DPSI+DPHI )
                            END IF
                         ELSE
                            A = DTISQ*DTISQ*DPSI + DTIPSQ*DTIPSQ*DPHI
@@ -821,8 +789,7 @@
 *           we simply use one Newton step instead. This way
 *           will guarantee eta*w < 0.
 *
-            IF( W*ETA.GE.ZERO )
-     $         ETA = -W / DW
+            IF( W*ETA.GE.ZERO ) ETA = -W / DW
 *
             ETA = ETA / ( SIGMA+SQRT( SIGMA*SIGMA+ETA ) )
             TEMP=TAU+ETA
@@ -884,12 +851,10 @@
             DW = DPSI + DPHI + TEMP*TEMP
             TEMP = Z( II )*TEMP
             W = RHOINV + PHI + PSI + TEMP
-            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV
-     $             + THREE*ABS( TEMP )
+            ERRETM = EIGHT*( PHI-PSI ) + ERRETM + TWO*RHOINV + THREE*ABS( TEMP )
 *    $             + ABS( TAU2 )*DW
 *
-            IF( W*PREW.GT.ZERO .AND. ABS( W ).GT.ABS( PREW ) / TEN )
-     $         SWTCH = .NOT.SWTCH
+            IF( W*PREW.GT.ZERO .AND. ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
 *
   230    CONTINUE
 *

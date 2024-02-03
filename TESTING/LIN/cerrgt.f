@@ -22,19 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
-      REAL               D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   RW( NMAX )
-      COMPLEX            B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ),
-     $                   DU2( NMAX ), DUF( NMAX ), E( NMAX ),
-     $                   EF( NMAX ), W( NMAX ), X( NMAX )
+      REAL               D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ), RW( NMAX )       COMPLEX            B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CGTCON, CGTRFS, CGTTRF, CGTTRS, CHKXER,
-     $                   CPTCON, CPTRFS, CPTTRF, CPTTRS
+      EXTERNAL           ALAESM, CGTCON, CGTRFS, CGTTRF, CGTTRS, CHKXER, CPTCON, CPTRFS, CPTTRF, CPTTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -90,40 +85,32 @@
 *
          SRNAMT = 'CGTRFS'
          INFOT = 1
-         CALL CGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1,
-     $                X, 1, R1, R2, W, RW, INFO )
+         CALL CGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CGTRFS( 'N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B,
-     $                1, X, 1, R1, R2, W, RW, INFO )
+         CALL CGTRFS( 'N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CGTRFS( 'N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B,
-     $                1, X, 1, R1, R2, W, RW, INFO )
+         CALL CGTRFS( 'N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1,
-     $                X, 2, R1, R2, W, RW, INFO )
+         CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2,
-     $                X, 1, R1, R2, W, RW, INFO )
+         CALL CGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CGTRFS', INFOT, NOUT, LERR, OK )
 *
 *        CGTCON
 *
          SRNAMT = 'CGTCON'
          INFOT = 1
-         CALL CGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W,
-     $                INFO )
+         CALL CGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
          CALL CHKXER( 'CGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CGTCON( 'I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W,
-     $                INFO )
+         CALL CGTCON( 'I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
          CALL CHKXER( 'CGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W,
-     $                INFO )
+         CALL CGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'CGTCON', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
@@ -158,24 +145,19 @@
 *
          SRNAMT = 'CPTRFS'
          INFOT = 1
-         CALL CPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL CPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CPTRFS( 'U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL CPTRFS( 'U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CPTRFS( 'U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL CPTRFS( 'U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W,
-     $                RW, INFO )
+         CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL CPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'CPTRFS', INFOT, NOUT, LERR, OK )
 *
 *        CPTCON

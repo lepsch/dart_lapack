@@ -1,5 +1,4 @@
-      SUBROUTINE DSBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ,
-     $                          WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -24,11 +23,8 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS,
-     $                   LLWRK2
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, LLWRK2
+      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -37,8 +33,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANSB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLACPY, DLASCL, DSCAL, DSTEDC,
-     $                   DSTERF, XERBLA, DSYTRD_SB2ST
+      EXTERNAL           DGEMM, DLACPY, DLASCL, DSCAL, DSTEDC, DSTERF, XERBLA, DSYTRD_SB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          SQRT
@@ -101,13 +96,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = AB( 1, 1 )
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -148,26 +141,20 @@
       INDWK2  = INDWRK + N*N
       LLWRK2  = LWORK - INDWK2 + 1
 *
-      CALL DSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W,
-     $                    WORK( INDE ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL DSYTRD_SB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, WORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, call SSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-         CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N,
-     $                WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )
-         CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N,
-     $               ZERO, WORK( INDWK2 ), N )
+         CALL DSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL DGEMM( 'N', 'N', N, N, N, ONE, Z, LDZ, WORK( INDWRK ), N, ZERO, WORK( INDWK2 ), N )
          CALL DLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.
 *
-      IF( ISCALE.EQ.1 )
-     $   CALL DSCAL( N, ONE / SIGMA, W, 1 )
+      IF( ISCALE.EQ.1 ) CALL DSCAL( N, ONE / SIGMA, W, 1 )
 *
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN

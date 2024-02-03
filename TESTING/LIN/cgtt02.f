@@ -1,5 +1,4 @@
-      SUBROUTINE CGTT02( TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB,
-     $                   RESID )
+      SUBROUTINE CGTT02( TRANS, N, NRHS, DL, D, DU, X, LDX, B, LDB, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ),
-     $                   X( LDX, * )
+      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -41,8 +39,7 @@
 *     Quick exit if N = 0 or NRHS = 0
 *
       RESID = ZERO
-      IF( N.LE.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.LE.0 .OR. NRHS.EQ.0 ) RETURN
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
@@ -63,8 +60,7 @@
 *
 *     Compute B - op(A)*X and store in B.
 *
-      CALL CLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B,
-     $             LDB )
+      CALL CLAGTM( TRANS, N, NRHS, -ONE, DL, D, DU, X, LDX, ONE, B, LDB )
 *
       DO 10 J = 1, NRHS
          BNORM = SCASUM( N, B( 1, J ), 1 )

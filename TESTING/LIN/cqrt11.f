@@ -46,27 +46,23 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
       CALL CLASET( 'Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), WORK, M )
 *
 *     Form Q
 *
-      CALL CUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK,
-     $             M, WORK( M*M+1 ), INFO )
+      CALL CUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
 *     Form Q'*Q
 *
-      CALL CUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU,
-     $             WORK, M, WORK( M*M+1 ), INFO )
+      CALL CUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
       DO J = 1, M
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
       END DO
 *
-      CQRT11 = CLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) /
-     $         ( REAL( M )*SLAMCH( 'Epsilon' ) )
+      CQRT11 = CLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) )
 *
       RETURN
 *

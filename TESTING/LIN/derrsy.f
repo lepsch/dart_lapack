@@ -22,22 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX ), IW( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ),
-     $                   X( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI,
-     $                   DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS,
-     $                   DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF,
-     $                   DSYTRF_RK, DSYTRF_ROOK, DSYTRF_AA, DSYTRI,
-     $                   DSYTRI_3, DSYTRI_3X, DSYTRI_ROOK, DSYTRI2,
-     $                   DSYTRI2X, DSYTRS, DSYTRS_3, DSYTRS_ROOK,
-     $                   DSYTRS_AA, DSYTRF_AA_2STAGE, DSYTRS_AA_2STAGE
+      EXTERNAL           ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI, DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS, DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF, DSYTRF_RK, DSYTRF_ROOK, DSYTRF_AA, DSYTRI, DSYTRI_3, DSYTRI_3X, DSYTRI_ROOK, DSYTRI2, DSYTRI2X, DSYTRS, DSYTRS_3, DSYTRS_ROOK, DSYTRS_AA, DSYTRF_AA_2STAGE, DSYTRS_AA_2STAGE
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -177,32 +169,25 @@
 *
          SRNAMT = 'DSYRFS'
          INFOT = 1
-         CALL DSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
 *
 *        DSYCON
@@ -404,20 +389,16 @@
 *
          SRNAMT = 'DSYCON_3'
          INFOT = 1
-         CALL DSYCON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYCON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DSYCON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW,
-     $                   INFO)
+         CALL DSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW, INFO)
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
@@ -478,52 +459,41 @@
 *
          SRNAMT = 'DSYTRF_AA_2STAGE'
          INFOT = 1
-         CALL DSYTRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1,
-     $                          INFO )
+         CALL DSYTRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYTRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL DSYTRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1,
-     $                           INFO )
+         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'DSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0,
-     $                           INFO )
+         CALL DSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'DSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
 *        DSYTRS_AA_2STAGE
 *
          SRNAMT = 'DSYTRS_AA_2STAGE'
          INFOT = 1
-         CALL DSYTRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYTRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DSYTRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP,
-     $                          B, 1, INFO )
+         CALL DSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'DSYTRS_AA_STAGE', INFOT, NOUT, LERR, OK )
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
 *
@@ -571,24 +541,19 @@
 *
          SRNAMT = 'DSPRFS'
          INFOT = 1
-         CALL DSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
 *
 *        DSPCON

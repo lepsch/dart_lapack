@@ -22,18 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   R1( NMAX ), R2( NMAX ), RW( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), B( NMAX ), W( NMAX ),
-     $                   X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZLATBS, ZLATPS, ZLATRS,
-     $                   ZLATRS3, ZTBCON, ZTBRFS, ZTBTRS, ZTPCON,
-     $                   ZTPRFS, ZTPTRI, ZTPTRS, ZTRCON, ZTRRFS, ZTRTI2,
-     $                   ZTRTRI, ZTRTRS
+      EXTERNAL           ALAESM, CHKXER, ZLATBS, ZLATPS, ZLATRS, ZLATRS3, ZTBCON, ZTBRFS, ZTBTRS, ZTPCON, ZTPRFS, ZTPTRI, ZTPTRS, ZTRCON, ZTRRFS, ZTRTI2, ZTRTRI, ZTRTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -116,36 +112,28 @@
 *
          SRNAMT = 'ZTRRFS'
          INFOT = 1
-         CALL ZTRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZTRRFS( 'U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZTRRFS( 'U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZTRRFS( 'U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZTRRFS( 'U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTRRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZTRCON
@@ -193,40 +181,31 @@
 *
          SRNAMT = 'ZLATRS3'
          INFOT = 1
-         CALL ZLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZLATRS3( 'U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZLATRS3( 'U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZLATRS3( 'U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZLATRS3( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZLATRS3( 'U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES,
-     $                 RW, RW( 2 ), 1, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES, RW, RW( 2 ), 1, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES,
-     $                 RW, RW( 2 ), 0, INFO )
+         CALL ZLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, RW, RW( 2 ), 0, INFO )
          CALL CHKXER( 'ZLATRS3', INFOT, NOUT, LERR, OK )
 *
 *     Test error exits for the packed triangular routines.
@@ -272,32 +251,25 @@
 *
          SRNAMT = 'ZTPRFS'
          INFOT = 1
-         CALL ZTPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW,
-     $                INFO )
+         CALL ZTPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZTPRFS( 'U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW,
-     $                INFO )
+         CALL ZTPRFS( 'U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZTPRFS( 'U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, RW,
-     $                INFO )
+         CALL ZTPRFS( 'U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZTPRFS( 'U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTPRFS( 'U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZTPRFS( 'U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZTPRFS( 'U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZTPRFS( 'U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, RW,
-     $                INFO )
+         CALL ZTPRFS( 'U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZTPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, RW,
-     $                INFO )
+         CALL ZTPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTPRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZTPCON
@@ -371,40 +343,31 @@
 *
          SRNAMT = 'ZTBRFS'
          INFOT = 1
-         CALL ZTBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZTBRFS( 'U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZTBRFS( 'U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZTBRFS( 'U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZTBRFS( 'U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZTBRFS( 'U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2,
-     $                W, RW, INFO )
+         CALL ZTBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZTBRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZTBCON
@@ -433,32 +396,25 @@
 *
          SRNAMT = 'ZLATBS'
          INFOT = 1
-         CALL ZLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZLATBS( 'U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZLATBS( 'U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZLATBS( 'U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZLATBS( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZLATBS( 'U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW,
-     $                INFO )
+         CALL ZLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, RW, INFO )
          CALL CHKXER( 'ZLATBS', INFOT, NOUT, LERR, OK )
       END IF
 *

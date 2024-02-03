@@ -1,5 +1,4 @@
-      SUBROUTINE CGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB,
-     +         BETA,C,LDC)
+      SUBROUTINE CGEMM(TRANSA,TRANSB,M,N,K,ALPHA,A,LDA,B,LDB, BETA,C,LDC)
 *
 *  -- Reference BLAS level3 routine --
 *  -- Reference BLAS is a software package provided by Univ. of Tennessee,    --
@@ -61,11 +60,9 @@
 *     Test the input parameters.
 *
       INFO = 0
-      IF ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND.
-     +    (.NOT.LSAME(TRANSA,'T'))) THEN
+      IF ((.NOT.NOTA) .AND. (.NOT.CONJA) .AND. (.NOT.LSAME(TRANSA,'T'))) THEN
           INFO = 1
-      ELSE IF ((.NOT.NOTB) .AND. (.NOT.CONJB) .AND.
-     +         (.NOT.LSAME(TRANSB,'T'))) THEN
+      ELSE IF ((.NOT.NOTB) .AND. (.NOT.CONJB) .AND. (.NOT.LSAME(TRANSB,'T'))) THEN
           INFO = 2
       ELSE IF (M.LT.0) THEN
           INFO = 3
@@ -87,8 +84,7 @@
 *
 *     Quick return if possible.
 *
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR.
-     +    (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
 *     And when  alpha.eq.zero.
 *

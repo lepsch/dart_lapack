@@ -43,14 +43,12 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Invert the triangular Cholesky factor U or L.
 *
       CALL CTRTRI( UPLO, 'Non-unit', N, A, LDA, INFO )
-      IF( INFO.GT.0 )
-     $   RETURN
+      IF( INFO.GT.0 ) RETURN
 *
 *     Form inv(U) * inv(U)**H or inv(L)**H * inv(L).
 *

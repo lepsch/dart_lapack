@@ -8,8 +8,7 @@
       INTEGER            LDA, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDA, * ), D( LDA, * ),
-     $                   E( LDA, * ), Z( LDZ, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * )
 *     ..
 *
 *  ====================================================================

@@ -1,6 +1,4 @@
-      SUBROUTINE SCHKTR( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL,
-     $                   THRESH, TSTERR, NMAX, A, AINV, B, X, XACT,
-     $                   WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SCHKTR( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
-      REAL               A( * ), AINV( * ), B( * ), RWORK( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,10 +30,7 @@
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN,
-     $                   IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN
-      REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC,
-     $                   RCONDI, RCONDO, RES, SCALE, SLAMCH
+      INTEGER            I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, SLAMCH
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
@@ -49,10 +43,7 @@
       EXTERNAL           LSAME, SLANTR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04,
-     $                   SLACPY, SLARHS, SLATRS, SLATRS3, SLATTR, SSCAL,
-     $                   STRCON, STRRFS, STRT01, STRT02, STRT03, STRT05,
-     $                   STRT06, STRTRI, STRTRS, XLAENV, SLAMCH
+      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATRS, SLATRS3, SLATTR, SSCAL, STRCON, STRRFS, STRT01, STRT02, STRT03, STRT05, STRT06, STRTRI, STRTRS, XLAENV, SLAMCH
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -86,8 +77,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRTR( PATH, NOUT )
+      IF( TSTERR ) CALL SERRTR( PATH, NOUT )
       INFOT = 0
       CALL XLAENV( 2, 2 )
 *
@@ -103,8 +93,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 80
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
             DO 70 IUPLO = 1, 2
 *
@@ -115,8 +104,7 @@
 *              Call SLATTR to generate a triangular test matrix.
 *
                SRNAMT = 'SLATTR'
-               CALL SLATTR( IMAT, UPLO, 'No transpose', DIAG, ISEED, N,
-     $                      A, LDA, X, WORK, INFO )
+               CALL SLATTR( IMAT, UPLO, 'No transpose', DIAG, ISEED, N, A, LDA, X, WORK, INFO )
 *
 *              Set IDIAG = 1 for non-unit matrices, 2 for unit.
 *
@@ -142,16 +130,12 @@
 *
 *                 Check error code from STRTRI.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'STRTRI', INFO, 0, UPLO // DIAG,
-     $                            N, N, -1, -1, NB, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
 *                 Compute the infinity-norm condition number of A.
 *
                   ANORM = SLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
-                  AINVNM = SLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA,
-     $                     RWORK )
+                  AINVNM = SLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDI = ONE
                   ELSE
@@ -162,24 +146,19 @@
 *                 its inverse.  Also compute the 1-norm condition number
 *                 of A.
 *
-                  CALL STRT01( UPLO, DIAG, N, A, LDA, AINV, LDA, RCONDO,
-     $                         RWORK, RESULT( 1 ) )
+                  CALL STRT01( UPLO, DIAG, N, A, LDA, AINV, LDA, RCONDO, RWORK, RESULT( 1 ) )
 *
 *                 Print the test ratio if it is .GE. THRESH.
 *
                   IF( RESULT( 1 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT,
-     $                  1, RESULT( 1 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT, 1, RESULT( 1 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 1
 *
 *                 Skip remaining tests if not the first block size.
 *
-                  IF( INB.NE.1 )
-     $               GO TO 60
+                  IF( INB.NE.1 ) GO TO 60
 *
                   DO 40 IRHS = 1, NNS
                      NRHS = NSVAL( IRHS )
@@ -202,71 +181,47 @@
 *                       Solve and compute residual for op(A)*x = b.
 *
                         SRNAMT = 'SLARHS'
-                        CALL SLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0,
-     $                               IDIAG, NRHS, A, LDA, XACT, LDA, B,
-     $                               LDA, ISEED, INFO )
+                        CALL SLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                         XTYPE = 'C'
                         CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                         SRNAMT = 'STRTRS'
-                        CALL STRTRS( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               X, LDA, INFO )
+                        CALL STRTRS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, INFO )
 *
 *                       Check error code from STRTRS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'STRTRS', INFO, 0,
-     $                                  UPLO // TRANS // DIAG, N, N, -1,
-     $                                  -1, NRHS, IMAT, NFAIL, NERRS,
-     $                                  NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                       This line is needed on a Sun SPARCstation.
 *
-                        IF( N.GT.0 )
-     $                     DUMMY = A( 1 )
+                        IF( N.GT.0 ) DUMMY = A( 1 )
 *
-                        CALL STRT02( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               X, LDA, B, LDA, WORK, RESULT( 2 ) )
+                        CALL STRT02( UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RESULT( 2 ) )
 *
 *+    TEST 3
 *                       Check solution from generated exact solution.
 *
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 3 ) )
+                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *                       Use iterative refinement to improve the solution
 *                       and compute error bounds.
 *
                         SRNAMT = 'STRRFS'
-                        CALL STRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               B, LDA, X, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), WORK, IWORK,
-     $                               INFO )
+                        CALL STRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
 *
 *                       Check error code from STRRFS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'STRRFS', INFO, 0,
-     $                                  UPLO // TRANS // DIAG, N, N, -1,
-     $                                  -1, NRHS, IMAT, NFAIL, NERRS,
-     $                                  NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 4 ) )
-                        CALL STRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               B, LDA, X, LDA, XACT, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), RESULT( 5 ) )
+                        CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL STRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *                       Print information about the tests that did not
 *                       pass the threshold.
 *
                         DO 20 K = 2, 6
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )UPLO, TRANS,
-     $                           DIAG, N, NRHS, IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    20                   CONTINUE
@@ -286,26 +241,18 @@
                         RCONDC = RCONDI
                      END IF
                      SRNAMT = 'STRCON'
-                     CALL STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND,
-     $                            WORK, IWORK, INFO )
+                     CALL STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO )
 *
 *                       Check error code from STRCON.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'STRCON', INFO, 0,
-     $                               NORM // UPLO // DIAG, N, N, -1, -1,
-     $                               -1, IMAT, NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL STRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA,
-     $                            RWORK, RESULT( 7 ) )
+                     CALL STRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RESULT( 7 ) )
 *
 *                    Print the test ratio if it is .GE. THRESH.
 *
                      IF( RESULT( 7 ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT,
-     $                     7, RESULT( 7 )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
                      END IF
                      NRUN = NRUN + 1
@@ -320,8 +267,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 110
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
             DO 100 IUPLO = 1, 2
 *
@@ -337,45 +283,32 @@
 *                 Call SLATTR to generate a triangular test matrix.
 *
                   SRNAMT = 'SLATTR'
-                  CALL SLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A,
-     $                         LDA, X, WORK, INFO )
+                  CALL SLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, X, WORK, INFO )
 *
 *+    TEST 8
 *                 Solve the system op(A)*x = b.
 *
                   SRNAMT = 'SLATRS'
                   CALL SCOPY( N, X, 1, B, 1 )
-                  CALL SLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, B,
-     $                         SCALE, RWORK, INFO )
+                  CALL SLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, B, SCALE, RWORK, INFO )
 *
 *                 Check error code from SLATRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'SLATRS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'N', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE,
-     $                         RWORK, ONE, B, LDA, X, LDA, WORK,
-     $                         RESULT( 8 ) )
+                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
 *
 *+    TEST 9
 *                 Solve op(A)*X = b again with NORMIN = 'Y'.
 *
                   CALL SCOPY( N, X, 1, B( N+1 ), 1 )
-                  CALL SLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA,
-     $                         B( N+1 ), SCALE, RWORK, INFO )
+                  CALL SLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, B( N+1 ), SCALE, RWORK, INFO )
 *
 *                 Check error code from SLATRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'SLATRS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'Y', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE,
-     $                         RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK,
-     $                         RESULT( 9 ) )
+                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) )
 *
 *+    TEST 10
 *                 Solve op(A)*X = B
@@ -384,48 +317,30 @@
                   CALL SCOPY( N, X, 1, B, 1 )
                   CALL SCOPY( N, X, 1, B( N+1 ), 1 )
                   CALL SSCAL( N, BIGNUM, B( N+1 ), 1 )
-                  CALL SLATRS3( UPLO, TRANS, DIAG, 'N', N, 2, A, LDA,
-     $                          B, MAX(1, N), SCALE3, RWORK, WORK, NMAX,
-     $                          INFO )
+                  CALL SLATRS3( UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, MAX(1, N), SCALE3, RWORK, WORK, NMAX, INFO )
 *
 *                 Check error code from SLATRS3.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'SLATRS3', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'N', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA,
-     $                         SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA,
-     $                         X, LDA, WORK, RESULT( 10 ) )
+                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) )
                   CALL SSCAL( N, BIGNUM, X, 1 )
-                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA,
-     $                         SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA,
-     $                         X, LDA, WORK, RES )
+                  CALL STRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES )
                   RESULT( 10 ) = MAX( RESULT( 10 ), RES )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   IF( RESULT( 8 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'SLATRS', UPLO, TRANS,
-     $                  DIAG, 'N', N, IMAT, 8, RESULT( 8 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATRS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
                   END IF
                   IF( RESULT( 9 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'SLATRS', UPLO, TRANS,
-     $                  DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATRS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
                      NFAIL = NFAIL + 1
                   END IF
                   IF( RESULT( 10 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'SLATRS3', UPLO, TRANS,
-     $                  DIAG, 'N', N, IMAT, 10, RESULT( 10 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATRS3', UPLO, TRANS, DIAG, 'N', N, IMAT, 10, RESULT( 10 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 3

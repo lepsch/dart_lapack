@@ -1,29 +1,22 @@
-      SUBROUTINE DLAED8( ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO,
-     $                   CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, PERM, GIVPTR,
-     $                   GIVCOL, GIVNUM, INDXP, INDX, INFO )
+      SUBROUTINE DLAED8( ICOMPQ, K, N, QSIZ, D, Q, LDQ, INDXQ, RHO, CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, PERM, GIVPTR, GIVCOL, GIVNUM, INDXP, INDX, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            CUTPNT, GIVPTR, ICOMPQ, INFO, K, LDQ, LDQ2, N,
-     $                   QSIZ
+      INTEGER            CUTPNT, GIVPTR, ICOMPQ, INFO, K, LDQ, LDQ2, N, QSIZ
       DOUBLE PRECISION   RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( 2, * ), INDX( * ), INDXP( * ),
-     $                   INDXQ( * ), PERM( * )
-      DOUBLE PRECISION   D( * ), DLAMBDA( * ), GIVNUM( 2, * ),
-     $                   Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * )
+      INTEGER            GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DLAMBDA( * ), GIVNUM( 2, * ), Q( LDQ, * ), Q2( LDQ2, * ), W( * ), Z( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   MONE, ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0,
-     $                   TWO = 2.0D0, EIGHT = 8.0D0 )
+      PARAMETER          ( MONE = -1.0D0, ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0 )
 *     ..
 *     .. Local Scalars ..
 *
@@ -74,8 +67,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       N1 = CUTPNT
       N2 = N - N1
@@ -133,8 +125,7 @@
                PERM( J ) = INDXQ( INDX( J ) )
                CALL DCOPY( QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 )
    60       CONTINUE
-            CALL DLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ),
-     $                   LDQ )
+            CALL DLACPY( 'A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ )
          END IF
          RETURN
       END IF
@@ -154,8 +145,7 @@
 *
             K2 = K2 - 1
             INDXP( K2 ) = J
-            IF( J.EQ.N )
-     $         GO TO 110
+            IF( J.EQ.N ) GO TO 110
          ELSE
             JLAM = J
             GO TO 80
@@ -163,8 +153,7 @@
    70 CONTINUE
    80 CONTINUE
       J = J + 1
-      IF( J.GT.N )
-     $   GO TO 100
+      IF( J.GT.N ) GO TO 100
       IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
 *
 *        Deflate due to small z component.
@@ -200,8 +189,7 @@
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
             IF( ICOMPQ.EQ.1 ) THEN
-               CALL DROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1,
-     $                    Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
+               CALL DROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
             END IF
             T = D( JLAM )*C*C + D( J )*S*S
             D( J ) = D( JLAM )*S*S + D( J )*C*C
@@ -270,8 +258,7 @@
             CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
          ELSE
             CALL DCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
-            CALL DLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2,
-     $                   Q( 1, K+1 ), LDQ )
+            CALL DLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
          END IF
       END IF
 *

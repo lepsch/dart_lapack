@@ -50,16 +50,14 @@
 *
 *        Generate elementary reflector H(i) to annihilate A(i,i+1:n)
 *
-         CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA,
-     $                TAU( I ) )
+         CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
          IF( I.LT.M ) THEN
 *
 *           Apply H(i) to A(i+1:m,i:n) from the right
 *
             AII = A( I, I )
             A( I, I ) = ONE
-            CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ),
-     $                  A( I+1, I ), LDA, WORK )
+            CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
             A( I, I ) = AII
          END IF
    10 CONTINUE

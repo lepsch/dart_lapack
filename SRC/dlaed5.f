@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, FOUR
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   FOUR = 4.0D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   B, C, DEL, TAU, TEMP, W

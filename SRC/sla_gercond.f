@@ -1,5 +1,4 @@
-      REAL FUNCTION SLA_GERCOND( TRANS, N, A, LDA, AF, LDAF, IPIV,
-     $                           CMODE, C, INFO, WORK, IWORK )
+      REAL FUNCTION SLA_GERCOND( TRANS, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ),
-     $                   C( * )
+      REAL               A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *    ..
 *
 *  =====================================================================
@@ -41,8 +39,7 @@
 *
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T')
-     $     .AND. .NOT. LSAME(TRANS, 'C') ) THEN
+      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME(TRANS, 'C') ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -118,11 +115,9 @@
             END DO
 
             IF (NOTRANS) THEN
-               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by inv(C).
@@ -151,11 +146,9 @@
             END IF
 
             IF (NOTRANS) THEN
-               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL SGETRS( 'Transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL SGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -169,8 +162,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0 )
-     $   SLA_GERCOND = ( 1.0 / AINVNM )
+      IF( AINVNM .NE. 0.0 ) SLA_GERCOND = ( 1.0 / AINVNM )
 *
       RETURN
 *

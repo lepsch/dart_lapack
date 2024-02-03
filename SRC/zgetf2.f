@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   SFMIN
@@ -53,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Compute machine safe minimum
 *
@@ -70,13 +68,11 @@
 *
 *           Apply the interchange to columns 1:N.
 *
-            IF( JP.NE.J )
-     $         CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA )
+            IF( JP.NE.J ) CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA )
 *
 *           Compute elements J+1:M of J-th column.
 *
-            IF( J.LT.M )
-     $         CALL ZRSCL( M-J, A( J, J ), A( J+1, J ), 1 )
+            IF( J.LT.M ) CALL ZRSCL( M-J, A( J, J ), A( J+1, J ), 1 )
 *
          ELSE IF( INFO.EQ.0 ) THEN
 *
@@ -87,8 +83,7 @@
 *
 *           Update trailing submatrix.
 *
-            CALL ZGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ),
-     $                  LDA, A( J+1, J+1 ), LDA )
+            CALL ZGERU( M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA )
          END IF
    10 CONTINUE
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK,
-     $                  INFO )
+      SUBROUTINE SGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,8 +33,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGELQF, SGEQRF, SLASCL, SLASET, SORMLQ,
-     $                   SORMQR, STRTRS, XERBLA
+      EXTERNAL           SGELQF, SGEQRF, SLASCL, SLASET, SORMLQ, SORMQR, STRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -59,8 +57,7 @@
          INFO = -6
       ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.MAX( 1, MN + MAX( MN, NRHS ) ) .AND.
-     $   .NOT.LQUERY ) THEN
+      ELSE IF( LWORK.LT.MAX( 1, MN + MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) THEN
          INFO = -10
       END IF
 *
@@ -69,26 +66,21 @@
       IF( INFO.EQ.0 .OR. INFO.EQ.-10 ) THEN
 *
          TPSD = .TRUE.
-         IF( LSAME( TRANS, 'N' ) )
-     $      TPSD = .FALSE.
+         IF( LSAME( TRANS, 'N' ) ) TPSD = .FALSE.
 *
          IF( M.GE.N ) THEN
             NB = ILAENV( 1, 'SGEQRF', ' ', M, N, -1, -1 )
             IF( TPSD ) THEN
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N,
-     $              -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LN', M, NRHS, N, -1 ) )
             ELSE
-               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N,
-     $              -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMQR', 'LT', M, NRHS, N, -1 ) )
             END IF
          ELSE
             NB = ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )
             IF( TPSD ) THEN
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M,
-     $              -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LT', N, NRHS, M, -1 ) )
             ELSE
-               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M,
-     $              -1 ) )
+               NB = MAX( NB, ILAENV( 1, 'SORMLQ', 'LN', N, NRHS, M, -1 ) )
             END IF
          END IF
 *
@@ -141,23 +133,20 @@
       END IF
 *
       BROW = M
-      IF( TPSD )
-     $   BROW = N
+      IF( TPSD ) BROW = N
       BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
 *        Scale matrix norm up to SMLNUM
 *
-         CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
 *        Scale matrix norm down to BIGNUM
 *
-         CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
@@ -165,8 +154,7 @@
 *
 *        compute QR factorization of A
 *
-         CALL SGEQRF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN,
-     $                INFO )
+         CALL SGEQRF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
 *
 *        workspace at least N, optimally N*NB
 *
@@ -176,16 +164,13 @@
 *
 *           B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 *
-            CALL SORMQR( 'Left', 'Transpose', M, NRHS, N, A, LDA,
-     $                   WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN,
-     $                   INFO )
+            CALL SORMQR( 'Left', 'Transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
 *           B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 *
-            CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -199,8 +184,7 @@
 *
 *           B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 *
-            CALL STRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -216,9 +200,7 @@
 *
 *           B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 *
-            CALL SORMQR( 'Left', 'No transpose', M, NRHS, N, A, LDA,
-     $                   WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN,
-     $                   INFO )
+            CALL SORMQR( 'Left', 'No transpose', M, NRHS, N, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
@@ -230,8 +212,7 @@
 *
 *        Compute LQ factorization of A
 *
-         CALL SGELQF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN,
-     $                INFO )
+         CALL SGELQF( M, N, A, LDA, WORK( 1 ), WORK( MN+1 ), LWORK-MN, INFO )
 *
 *        workspace at least M, optimally M*NB.
 *
@@ -241,8 +222,7 @@
 *
 *           B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 *
-            CALL STRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -258,9 +238,7 @@
 *
 *           B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS)
 *
-            CALL SORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA,
-     $                   WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN,
-     $                   INFO )
+            CALL SORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
@@ -272,16 +250,13 @@
 *
 *           B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 *
-            CALL SORMLQ( 'Left', 'No transpose', N, NRHS, M, A, LDA,
-     $                   WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN,
-     $                   INFO )
+            CALL SORMLQ( 'Left', 'No transpose', N, NRHS, M, A, LDA, WORK( 1 ), B, LDB, WORK( MN+1 ), LWORK-MN, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
 *           B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 *
-            CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -296,18 +271,14 @@
 *     Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
-         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
-         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
-         CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IBSCL.EQ.2 ) THEN
-         CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
 *
    50 CONTINUE

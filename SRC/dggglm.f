@@ -1,5 +1,4 @@
-      SUBROUTINE DGGGLM( N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE DGGGLM( N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), D( * ), WORK( * ),
-     $                   X( * ), Y( * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * )
 *     ..
 *
 *  ===================================================================
@@ -21,12 +19,10 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3,
-     $                   NB4, NP
+      INTEGER            I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DGGQRF, DORMQR, DORMRQ, DTRTRS,
-     $                   XERBLA
+      EXTERNAL           DCOPY, DGEMV, DGGQRF, DORMQR, DORMRQ, DTRTRS, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -104,22 +100,19 @@
 *     where R11 and T22 are upper triangular, and Q and Z are
 *     orthogonal.
 *
-      CALL DGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ),
-     $             WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL DGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       LOPT = INT( WORK( M+NP+1 ) )
 *
 *     Update left-hand-side vector d = Q**T*d = ( d1 ) M
 *                                               ( d2 ) N-M
 *
-      CALL DORMQR( 'Left', 'Transpose', N, 1, M, A, LDA, WORK, D,
-     $             MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL DORMQR( 'Left', 'Transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       LOPT = MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 *
 *     Solve T22*y2 = d2 for y2
 *
       IF( N.GT.M ) THEN
-         CALL DTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1,
-     $                B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
+         CALL DTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 1
@@ -137,14 +130,12 @@
 *
 *     Update d1 = d1 - T12*y2
 *
-      CALL DGEMV( 'No transpose', M, N-M, -ONE, B( 1, M+P-N+1 ), LDB,
-     $            Y( M+P-N+1 ), 1, ONE, D, 1 )
+      CALL DGEMV( 'No transpose', M, N-M, -ONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, ONE, D, 1 )
 *
 *     Solve triangular system: R11*x = d1
 *
       IF( M.GT.0 ) THEN
-         CALL DTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA,
-     $                D, M, INFO )
+         CALL DTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 2
@@ -158,9 +149,7 @@
 *
 *     Backward transformation y = Z**T *y
 *
-      CALL DORMRQ( 'Left', 'Transpose', P, 1, NP,
-     $             B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y,
-     $             MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL DORMRQ( 'Left', 'Transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 *
       RETURN

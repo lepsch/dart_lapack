@@ -30,8 +30,7 @@
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZGELS, ZGELSD, ZGELSS, ZGELST,
-     $                   ZGELSY, ZGETSLS
+      EXTERNAL           ALAESM, CHKXER, ZGELS, ZGELSD, ZGELSS, ZGELST, ZGELSY, ZGETSLS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -142,80 +141,63 @@
 *
          SRNAMT = 'ZGELSS'
          INFOT = 1
-         CALL ZGELSS( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW,
-     $                INFO )
+         CALL ZGELSS( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW, INFO )
          CALL CHKXER( 'ZGELSS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGELSS( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW,
-     $                INFO )
+         CALL ZGELSS( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW, INFO )
          CALL CHKXER( 'ZGELSS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGELSS( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW,
-     $                INFO )
+         CALL ZGELSS( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 1, RW, INFO )
          CALL CHKXER( 'ZGELSS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGELSS( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 2, RW,
-     $                INFO )
+         CALL ZGELSS( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 2, RW, INFO )
          CALL CHKXER( 'ZGELSS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZGELSS( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, RW,
-     $                INFO )
+         CALL ZGELSS( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 2, RW, INFO )
          CALL CHKXER( 'ZGELSS', INFOT, NOUT, LERR, OK )
 *
 *        ZGELSY
 *
          SRNAMT = 'ZGELSY'
          INFOT = 1
-         CALL ZGELSY( -1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW,
-     $                INFO )
+         CALL ZGELSY( -1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGELSY( 0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW,
-     $                INFO )
+         CALL ZGELSY( 0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGELSY( 0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW,
-     $                INFO )
+         CALL ZGELSY( 0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGELSY( 2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, RW,
-     $                INFO )
+         CALL ZGELSY( 2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZGELSY( 2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, RW,
-     $                INFO )
+         CALL ZGELSY( 2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZGELSY( 0, 3, 0, A, 1, B, 3, IP, RCOND, IRNK, W, 1, RW,
-     $                INFO )
+         CALL ZGELSY( 0, 3, 0, A, 1, B, 3, IP, RCOND, IRNK, W, 1, RW, INFO )
          CALL CHKXER( 'ZGELSY', INFOT, NOUT, LERR, OK )
 *
 *        ZGELSD
 *
          SRNAMT = 'ZGELSD'
          INFOT = 1
-         CALL ZGELSD( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW,
-     $                IP, INFO )
+         CALL ZGELSD( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGELSD( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW,
-     $                IP, INFO )
+         CALL ZGELSD( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGELSD( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW,
-     $                IP, INFO )
+         CALL ZGELSD( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGELSD( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, RW,
-     $                IP, INFO )
+         CALL ZGELSD( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZGELSD( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, RW,
-     $                IP, INFO )
+         CALL ZGELSD( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, RW, IP,
-     $                INFO )
+         CALL ZGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, RW, IP, INFO )
          CALL CHKXER( 'ZGELSD', INFOT, NOUT, LERR, OK )
       END IF
 *

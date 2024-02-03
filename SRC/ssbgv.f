@@ -1,5 +1,4 @@
-      SUBROUTINE SSBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z,
-     $                  LDZ, WORK, INFO )
+      SUBROUTINE SSBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, KA, KB, LDAB, LDBB, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      REAL               AB( LDAB, * ), BB( LDBB, * ), W( * ),
-     $                   WORK( * ), Z( LDZ, * )
+      REAL               AB( LDAB, * ), BB( LDBB, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -60,8 +58,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -75,8 +72,7 @@
 *
       INDE = 1
       INDWRK = INDE + N
-      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ,
-     $             WORK( INDWRK ), IINFO )
+      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK( INDWRK ), IINFO )
 *
 *     Reduce to tridiagonal form.
 *
@@ -85,16 +81,14 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ,
-     $             WORK( INDWRK ), IINFO )
+      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, call SSTEQR.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-         CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ),
-     $                INFO )
+         CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDWRK ), INFO )
       END IF
       RETURN
 *

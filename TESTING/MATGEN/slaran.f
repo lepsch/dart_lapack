@@ -40,8 +40,7 @@
       IT2 = IT2 + ISEED( 2 )*M4 + ISEED( 3 )*M3 + ISEED( 4 )*M2
       IT1 = IT2 / IPW2
       IT2 = IT2 - IPW2*IT1
-      IT1 = IT1 + ISEED( 1 )*M4 + ISEED( 2 )*M3 + ISEED( 3 )*M2 +
-     $      ISEED( 4 )*M1
+      IT1 = IT1 + ISEED( 1 )*M4 + ISEED( 2 )*M3 + ISEED( 3 )*M2 + ISEED( 4 )*M1
       IT1 = MOD( IT1, IPW2 )
 *
 *     return updated seed
@@ -53,8 +52,7 @@
 *
 *     convert 48-bit integer to a real number in the interval (0,1)
 *
-      RNDOUT = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R*
-     $         ( REAL( IT4 ) ) ) ) )
+      RNDOUT = R*( REAL( IT1 )+R*( REAL( IT2 )+R*( REAL( IT3 )+R* ( REAL( IT4 ) ) ) ) )
 *
       IF (RNDOUT.EQ.1.0) THEN
 *        If a real number has n bits of precision, and the first

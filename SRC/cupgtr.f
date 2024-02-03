@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -53,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -107,8 +105,7 @@
 *
 *           Generate Q(2:n,2:n)
 *
-            CALL CUNG2R( N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK,
-     $                   IINFO )
+            CALL CUNG2R( N-1, N-1, N-1, Q( 2, 2 ), LDQ, TAU, WORK, IINFO )
          END IF
       END IF
       RETURN

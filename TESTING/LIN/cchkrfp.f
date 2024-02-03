@@ -52,8 +52,7 @@
       EXTERNAL           SLAMCH, SECOND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, CDRVRFP, CDRVRF1, CDRVRF2, CDRVRF3,
-     +                   CDRVRF4
+      EXTERNAL           ILAVER, CDRVRFP, CDRVRF1, CDRVRF2, CDRVRF3, CDRVRF4
 *     ..
 *     .. Executable Statements ..
 *
@@ -91,8 +90,7 @@
             FATAL = .TRUE.
          END IF
    10 CONTINUE
-      IF( NN.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
 *     Read the values of NRHS
 *
@@ -116,8 +114,7 @@
             FATAL = .TRUE.
          END IF
    30 CONTINUE
-      IF( NNS.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
 *     Read the matrix types
 *
@@ -141,8 +138,7 @@
             FATAL = .TRUE.
          END IF
   320 CONTINUE
-      IF( NNT.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
+      IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
 *     Read the threshold value for the test ratios.
 *
@@ -170,41 +166,30 @@
 *
 *     Test the error exit of:
 *
-      IF( TSTERR )
-     $   CALL CERRRFP( NOUT )
+      IF( TSTERR ) CALL CERRRFP( NOUT )
 *
 *    Test the routines: cpftrf, cpftri, cpftrs (as in CDRVPO).
 *    This also tests the routines: ctfsm, ctftri, ctfttr, ctrttf.
 *
-      CALL CDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH,
-     $              WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB,
-     $              WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV,
-     $              C_WORK_CLATMS, C_WORK_CPOT02,
-     $              C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE,
-     $              S_WORK_CPOT01, S_WORK_CPOT02, S_WORK_CPOT03 )
+      CALL CDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, C_WORK_CLATMS, C_WORK_CPOT02, C_WORK_CPOT03, S_WORK_CLATMS, S_WORK_CLANHE, S_WORK_CPOT01, S_WORK_CPOT02, S_WORK_CPOT03 )
 *
 *    Test the routine: clanhf
 *
-      CALL CDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              S_WORK_CLANHE )
+      CALL CDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, S_WORK_CLANHE )
 *
 *    Test the conversion routines:
 *       chfttp, ctpthf, ctfttr, ctrttf, ctrttp and ctpttr.
 *
-      CALL CDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF,
-     +              WORKAP, WORKASAV )
+      CALL CDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
 *    Test the routine: ctfsm
 *
-      CALL CDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              WORKAINV, WORKAFAC, S_WORK_CLANHE,
-     +              C_WORK_CPOT03, C_WORK_CPOT02 )
+      CALL CDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, S_WORK_CLANHE, C_WORK_CPOT03, C_WORK_CPOT02 )
 *
 *
 *    Test the routine: chfrk
 *
-      CALL CDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX,
-     +              WORKARF, WORKAINV, NMAX, S_WORK_CLANHE)
+      CALL CDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, S_WORK_CLANHE)
 *
       CLOSE ( NIN )
       S2 = SECOND( )

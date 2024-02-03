@@ -1,5 +1,4 @@
-      SUBROUTINE ZGET08( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE ZGET08( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -74,8 +73,7 @@
 *
 *     Compute  B - A*X  (or  B - A'*X ) and store in B.
 *
-      CALL ZGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X,
-     $            LDX, CONE, B, LDB )
+      CALL ZGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .

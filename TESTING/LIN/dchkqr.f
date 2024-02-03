@@ -1,6 +1,4 @@
-      SUBROUTINE DCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL,
-     $                   NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC,
-     $                   B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE DCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC, B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,11 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ),
-     $                   NXVAL( * )
-      DOUBLE PRECISION   A( * ), AC( * ), AF( * ), AQ( * ), AR( * ),
-     $                   B( * ), RWORK( * ), TAU( * ), WORK( * ),
-     $                   X( * ), XACT( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,9 +27,7 @@
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA,
-     $                   LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK,
-     $                   NRUN, NT, NX
+      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -47,9 +39,7 @@
       EXTERNAL           DGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRQR, DGELS, DGET02,
-     $                   DLACPY, DLARHS, DLATB4, DLATMS, DQRT01,
-     $                   DQRT01P, DQRT02, DQRT03, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRQR, DGELS, DGET02, DLACPY, DLARHS, DLATB4, DLATMS, DQRT01, DQRT01P, DQRT02, DQRT03, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -81,8 +71,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL DERRQR( PATH, NOUT )
+      IF( TSTERR ) CALL DERRQR( PATH, NOUT )
       INFOT = 0
       CALL XLAENV( 2, 2 )
 *
@@ -103,25 +92,20 @@
 *
 *              Do the tests only if DOTYPE( IMAT ) is true.
 *
-               IF( .NOT.DOTYPE( IMAT ) )
-     $            GO TO 50
+               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
 *
 *              Set up parameters with DLATB4 and generate a test matrix
 *              with DLATMS.
 *
-               CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'DLATMS'
-               CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, 'No packing', A, LDA,
-     $                      WORK, INFO )
+               CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *              Check error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
                END IF
 *
@@ -163,33 +147,27 @@
 *
 *                       Test DGEQRF
 *
-                        CALL DQRT01( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL DQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
 
 *
 *                       Test DGEQRFP
 *
-                        CALL DQRT01P( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 8 ) )
-
-                         IF( .NOT. DGENND( M, N, AF, LDA ) )
-     $                       RESULT( 9 ) = 2*THRESH
+                        CALL DQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
+                          IF( .NOT. DGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      ELSE IF( M.GE.N ) THEN
 *
 *                       Test DORGQR, using factorization
 *                       returned by DQRT01
 *
-                        CALL DQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL DQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
                      END IF
                      IF( M.GE.K ) THEN
 *
 *                       Test DORMQR, using factorization returned
 *                       by DQRT01
 *
-                        CALL DQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 3 ) )
+                        CALL DQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
                         NT = NT + 4
 *
 *                       If M>=N and K=N, call DGELS to solve a system
@@ -202,13 +180,9 @@
 *                          hand side.
 *
                            SRNAMT = 'DLARHS'
-                           CALL DLARHS( PATH, 'New', 'Full',
-     $                                  'No transpose', M, N, 0, 0,
-     $                                  NRHS, A, LDA, XACT, LDA, B, LDA,
-     $                                  ISEED, INFO )
+                           CALL DLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
 *
-                           CALL DLACPY( 'Full', M, NRHS, B, LDA, X,
-     $                                  LDA )
+                           CALL DLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
 *
 *                          Reset AF. DGELS overwrites the matrix with
 *                          its factorization.
@@ -216,19 +190,13 @@
                            CALL DLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
                            SRNAMT = 'DGELS'
-                           CALL DGELS( 'No transpose', M, N, NRHS, AF,
-     $                                 LDA, X, LDA, WORK, LWORK, INFO )
+                           CALL DGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
 *
 *                          Check error code from DGELS.
 *
-                           IF( INFO.NE.0 )
-     $                        CALL ALAERH( PATH, 'DGELS', INFO, 0, 'N',
-     $                                     M, N, NRHS, -1, NB, IMAT,
-     $                                     NFAIL, NERRS, NOUT )
+                           IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
-                           CALL DGET02( 'No transpose', M, N, NRHS, A,
-     $                                  LDA, X, LDA, B, LDA, RWORK,
-     $                                  RESULT( 7 ) )
+                           CALL DGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
                            NT = NT + 1
                         END IF
                      END IF
@@ -238,10 +206,7 @@
 *
                      DO 20 I = 1, NTESTS
                         IF( RESULT( I ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX,
-     $                        IMAT, I, RESULT( I )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
                         END IF
    20                CONTINUE

@@ -1,5 +1,4 @@
-      SUBROUTINE SSYGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK,
-     $                   LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE SSYGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -91,8 +90,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a Cholesky factorization of B.
 *
@@ -105,8 +103,7 @@
 *     Transform problem to standard eigenvalue problem and solve.
 *
       CALL SSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL SSYEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK,
-     $             INFO )
+      CALL SSYEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO )
       LOPT = INT( MAX( REAL( LOPT ), REAL( WORK( 1 ) ) ) )
       LIOPT = INT( MAX( REAL( LIOPT ), REAL( IWORK( 1 ) ) ) )
 *
@@ -125,8 +122,7 @@
                TRANS = 'T'
             END IF
 *
-            CALL STRSM( 'Left', UPLO, TRANS, 'Non-unit', N, N, ONE,
-     $                  B, LDB, A, LDA )
+            CALL STRSM( 'Left', UPLO, TRANS, 'Non-unit', N, N, ONE, B, LDB, A, LDA )
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
@@ -139,8 +135,7 @@
                TRANS = 'N'
             END IF
 *
-            CALL STRMM( 'Left', UPLO, TRANS, 'Non-unit', N, N, ONE,
-     $                  B, LDB, A, LDA )
+            CALL STRMM( 'Left', UPLO, TRANS, 'Non-unit', N, N, ONE, B, LDB, A, LDA )
          END IF
       END IF
 *

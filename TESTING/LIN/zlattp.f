@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, B, WORK,
-     $                   RWORK, INFO )
+      SUBROUTINE ZLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, B, WORK, RWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,11 +24,7 @@
       LOGICAL            UPPER
       CHARACTER          DIST, PACKIT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX,
-     $                   KL, KU, MODE
-      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP,
-     $                   SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL,
-     $                   X, Y, Z
+      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
       COMPLEX*16         CTEMP, PLUS1, PLUS2, RA, RB, S, STAR1
 *     ..
 *     .. External Functions ..
@@ -40,8 +35,7 @@
       EXTERNAL           LSAME, IZAMAX, DLAMCH, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARNV, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT,
-     $                   ZROTG
+      EXTERNAL           DLARNV, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT
@@ -63,27 +57,23 @@
 *
 *     Quick return if N.LE.0.
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Call ZLATB4 to set parameters for CLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
-         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'C'
       ELSE
-         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'R'
       END IF
 *
 *     IMAT <= 6:  Non-unit triangular matrix
 *
       IF( IMAT.LE.6 ) THEN
-         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM,
-     $                ANORM, KL, KU, PACKIT, AP, N, WORK, INFO )
+         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AP, N, WORK, INFO )
 *
 *     IMAT > 6:  Unit triangular matrix
 *     The diagonal is deliberately set to something other than 1.
@@ -232,10 +222,7 @@
             JC = 1
             DO 100 J = 2, N
                AP( JC+1 ) = Y
-               IF( J.GT.2 )
-     $            AP( JC+J-1 ) = WORK( J-2 )
-               IF( J.GT.3 )
-     $            AP( JC+J-2 ) = WORK( N+J-3 )
+               IF( J.GT.2 ) AP( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) AP( JC+J-2 ) = WORK( N+J-3 )
                JC = JC + J
   100       CONTINUE
             JC = JC - N
@@ -255,8 +242,7 @@
             JC = N + 1
             DO 130 J = 2, N - 1
                AP( JC+1 ) = WORK( J-1 )
-               IF( J.LT.N-1 )
-     $            AP( JC+2 ) = WORK( N+J-1 )
+               IF( J.LT.N-1 ) AP( JC+2 ) = WORK( N+J-1 )
                AP( JC+N-J ) = Y
                JC = JC + N - J + 1
   130       CONTINUE
@@ -278,8 +264,7 @@
                   JX = JCNEXT + J
                   DO 140 I = J + 2, N
                      CTEMP = C*AP( JX+J ) + S*AP( JX+J+1 )
-                     AP( JX+J+1 ) = -DCONJG( S )*AP( JX+J ) +
-     $                              C*AP( JX+J+1 )
+                     AP( JX+J+1 ) = -DCONJG( S )*AP( JX+J ) + C*AP( JX+J+1 )
                      AP( JX+J ) = CTEMP
                      JX = JX + I
   140             CONTINUE
@@ -287,8 +272,7 @@
 *
 *              Multiply by [-c -s;  conjg(s) -c] on the right.
 *
-               IF( J.GT.1 )
-     $            CALL ZROT( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S )
+               IF( J.GT.1 ) CALL ZROT( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S )
 *
 *              Negate A(J,J+1).
 *
@@ -306,9 +290,7 @@
 *
 *              Multiply by [ c -s;  conjg(s) c] on the right.
 *
-               IF( N.GT.J+1 )
-     $            CALL ZROT( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C,
-     $                       -S )
+               IF( N.GT.J+1 ) CALL ZROT( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C, -S )
 *
 *              Multiply by [-c  s; -conjg(s) -c] on the left.
 *
@@ -316,8 +298,7 @@
                   JX = 1
                   DO 160 I = 1, J - 1
                      CTEMP = -C*AP( JX+J-I ) + S*AP( JX+J-I+1 )
-                     AP( JX+J-I+1 ) = -DCONJG( S )*AP( JX+J-I ) -
-     $                                C*AP( JX+J-I+1 )
+                     AP( JX+J-I+1 ) = -DCONJG( S )*AP( JX+J-I ) - C*AP( JX+J-I+1 )
                      AP( JX+J-I ) = CTEMP
                      JX = JX + N - I + 1
   160             CONTINUE
@@ -350,8 +331,7 @@
          ELSE
             JC = 1
             DO 190 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = ZLARND( 5, ISEED )*TWO
                JC = JC + N - J + 1
   190       CONTINUE
@@ -437,8 +417,7 @@
                   AP( JC+J-1 ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
   250       CONTINUE
          ELSE
@@ -454,8 +433,7 @@
                   AP( JC ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC + N - J + 1
   270       CONTINUE
          END IF
@@ -491,8 +469,7 @@
                DO 300 I = 1, J - 2
                   AP( JC+I-1 ) = ZERO
   300          CONTINUE
-               IF( J.GT.1 )
-     $            AP( JC+J-2 ) = DCMPLX( -ONE, -ONE )
+               IF( J.GT.1 ) AP( JC+J-2 ) = DCMPLX( -ONE, -ONE )
                AP( JC+J-1 ) = TSCAL*ZLARND( 5, ISEED )
                JC = JC + J
   310       CONTINUE
@@ -503,8 +480,7 @@
                DO 320 I = J + 2, N
                   AP( JC+I-J ) = ZERO
   320          CONTINUE
-               IF( J.LT.N )
-     $            AP( JC+1 ) = DCMPLX( -ONE, -ONE )
+               IF( J.LT.N ) AP( JC+1 ) = DCMPLX( -ONE, -ONE )
                AP( JC ) = TSCAL*ZLARND( 5, ISEED )
                JC = JC + N - J + 1
   330       CONTINUE
@@ -601,8 +577,7 @@
          ELSE
             JC = 1
             DO 400 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = ZERO
                JC = JC + N - J + 1
   400       CONTINUE
@@ -641,8 +616,7 @@
                CALL ZLARNV( 5, ISEED, N-J+1, AP( JC ) )
                CALL DLARNV( 1, ISEED, N-J+1, RWORK )
                DO 430 I = J, N
-                  AP( JC+I-J ) = AP( JC+I-J )*
-     $                           ( TLEFT+RWORK( I-J+1 )*TSCAL )
+                  AP( JC+I-J ) = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL )
   430          CONTINUE
                JC = JC + N - J + 1
   440       CONTINUE

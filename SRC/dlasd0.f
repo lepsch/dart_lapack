@@ -1,5 +1,4 @@
-      SUBROUTINE DLASD0( N, SQRE, D, E, U, LDU, VT, LDVT, SMLSIZ, IWORK,
-     $                   WORK, INFO )
+      SUBROUTINE DLASD0( N, SQRE, D, E, U, LDU, VT, LDVT, SMLSIZ, IWORK, WORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +9,13 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), U( LDU, * ), VT( LDVT, * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK,
-     $                   J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR,
-     $                   NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI
+      INTEGER            I, I1, IC, IDXQ, IDXQC, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQREI
       DOUBLE PRECISION   ALPHA, BETA
 *     ..
 *     .. External Subroutines ..
@@ -54,8 +50,7 @@
 *     If the input matrix is too small, call DLASDQ to find the SVD.
 *
       IF( N.LE.SMLSIZ ) THEN
-         CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U,
-     $                LDU, WORK, INFO )
+         CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK, INFO )
          RETURN
       END IF
 *
@@ -66,8 +61,7 @@
       NDIMR = NDIML + N
       IDXQ = NDIMR + N
       IWK = IDXQ + N
-      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ),
-     $             IWORK( NDIMR ), SMLSIZ )
+      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 *
 *     For the nodes on bottom level of the tree, solve
 *     their subproblems by DLASDQ.
@@ -91,9 +85,7 @@
          NLF = IC - NL
          NRF = IC + 1
          SQREI = 1
-         CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ),
-     $                VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU,
-     $                U( NLF, NLF ), LDU, WORK, INFO )
+         CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, NLF ), LDVT, U( NLF, NLF ), LDU, U( NLF, NLF ), LDU, WORK, INFO )
          IF( INFO.NE.0 ) THEN
             RETURN
          END IF
@@ -107,9 +99,7 @@
             SQREI = 1
          END IF
          NRP1 = NR + SQREI
-         CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ),
-     $                VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU,
-     $                U( NRF, NRF ), LDU, WORK, INFO )
+         CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, NRF ), LDVT, U( NRF, NRF ), LDU, U( NRF, NRF ), LDU, WORK, INFO )
          IF( INFO.NE.0 ) THEN
             RETURN
          END IF
@@ -147,9 +137,7 @@
             IDXQC = IDXQ + NLF - 1
             ALPHA = D( IC )
             BETA = E( IC )
-            CALL DLASD1( NL, NR, SQREI, D( NLF ), ALPHA, BETA,
-     $                   U( NLF, NLF ), LDU, VT( NLF, NLF ), LDVT,
-     $                   IWORK( IDXQC ), IWORK( IWK ), WORK, INFO )
+            CALL DLASD1( NL, NR, SQREI, D( NLF ), ALPHA, BETA, U( NLF, NLF ), LDU, VT( NLF, NLF ), LDVT, IWORK( IDXQC ), IWORK( IWK ), WORK, INFO )
 *
 *        Report the possible convergence failure.
 *

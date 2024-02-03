@@ -1,5 +1,4 @@
-      SUBROUTINE ZHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK,
-     $                  INFO )
+      SUBROUTINE ZHPEV( JOBZ, UPLO, N, AP, W, Z, LDZ, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,10 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK,
-     $                   ISCALE
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDRWK, INDTAU, INDWRK, ISCALE       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -33,8 +29,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZDSCAL, ZHPTRD, ZSTEQR,
-     $                   ZUPGTR
+      EXTERNAL           DSCAL, DSTERF, XERBLA, ZDSCAL, ZHPTRD, ZSTEQR, ZUPGTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          SQRT
@@ -48,8 +43,7 @@
       INFO = 0
       IF( .NOT.( WANTZ .OR. LSAME( JOBZ, 'N' ) ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) )
-     $          THEN
+      ELSE IF( .NOT.( LSAME( UPLO, 'L' ) .OR. LSAME( UPLO, 'U' ) ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -64,14 +58,12 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = DBLE( AP( 1 ) )
          RWORK( 1 ) = 1
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -103,8 +95,7 @@
 *
       INDE = 1
       INDTAU = 1
-      CALL ZHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ),
-     $             IINFO )
+      CALL ZHPTRD( UPLO, N, AP, W, RWORK( INDE ), WORK( INDTAU ), IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, first call
 *     ZUPGTR to generate the orthogonal matrix, then call ZSTEQR.
@@ -113,11 +104,9 @@
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
          INDWRK = INDTAU + N
-         CALL ZUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ,
-     $                WORK( INDWRK ), IINFO )
+         CALL ZUPGTR( UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )
          INDRWK = INDE + N
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ,
-     $                RWORK( INDRWK ), INFO )
+         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

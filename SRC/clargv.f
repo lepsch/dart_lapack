@@ -23,8 +23,7 @@
 *     .. Local Scalars ..
 *     LOGICAL            FIRST
       INTEGER            COUNT, I, IC, IX, IY, J
-      REAL               CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN,
-     $                   SAFMN2, SAFMX2, SCALE
+      REAL               CS, D, DI, DR, EPS, F2, F2S, G2, G2S, SAFMIN, SAFMN2, SAFMX2, SCALE
       COMPLEX            F, FF, FS, G, GS, R, SN
 *     ..
 *     .. External Functions ..
@@ -32,8 +31,7 @@
       EXTERNAL           SLAMCH, SLAPY2
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, INT, LOG, MAX, REAL,
-     $                   SQRT
+      INTRINSIC          ABS, AIMAG, CMPLX, CONJG, INT, LOG, MAX, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               ABS1, ABSSQ
@@ -54,8 +52,7 @@
 *        FIRST = .FALSE.
          SAFMIN = SLAMCH( 'S' )
          EPS = SLAMCH( 'E' )
-         SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) /
-     $            LOG( SLAMCH( 'B' ) ) / TWO )
+         SAFMN2 = SLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( SLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
 *     END IF
       IX = 1
@@ -77,8 +74,7 @@
             FS = FS*SAFMN2
             GS = GS*SAFMN2
             SCALE = SCALE*SAFMN2
-            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 )
-     $         GO TO 10
+            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 ) GO TO 10
          ELSE IF( SCALE.LE.SAFMN2 ) THEN
             IF( G.EQ.CZERO ) THEN
                CS = ONE
@@ -91,8 +87,7 @@
             FS = FS*SAFMX2
             GS = GS*SAFMX2
             SCALE = SCALE*SAFMX2
-            IF( SCALE.LE.SAFMN2 )
-     $         GO TO 20
+            IF( SCALE.LE.SAFMN2 ) GO TO 20
          END IF
          F2 = ABSSQ( FS )
          G2 = ABSSQ( GS )

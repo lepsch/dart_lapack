@@ -1,6 +1,4 @@
-      SUBROUTINE DTGSY2( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D,
-     $                   LDD, E, LDE, F, LDF, SCALE, RDSUM, RDSCAL,
-     $                   IWORK, PQ, INFO )
+      SUBROUTINE DTGSY2( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, RDSUM, RDSCAL, IWORK, PQ, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANS
-      INTEGER            IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N,
-     $                   PQ
+      INTEGER            IJOB, INFO, LDA, LDB, LDC, LDD, LDE, LDF, M, N, PQ
       DOUBLE PRECISION   RDSCAL, RDSUM, SCALE
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ),
-     $                   D( LDD, * ), E( LDE, * ), F( LDF, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
 *     ..
 *
 *  =====================================================================
@@ -30,8 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN
-      INTEGER            I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1,
-     $                   K, MB, NB, P, Q, ZDIM
+      INTEGER            I, IE, IERR, II, IS, ISP1, J, JE, JJ, JS, JSP1, K, MB, NB, P, Q, ZDIM
       DOUBLE PRECISION   ALPHA, SCALOC
 *     ..
 *     .. Local Arrays ..
@@ -43,8 +38,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGEMM, DGEMV, DGER, DGESC2,
-     $                   DGETC2, DLASET, DLATDF, DSCAL, XERBLA
+      EXTERNAL           DAXPY, DCOPY, DGEMM, DGEMV, DGER, DGESC2, DGETC2, DLASET, DLATDF, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -93,12 +87,10 @@
       P = 0
       I = 1
    10 CONTINUE
-      IF( I.GT.M )
-     $   GO TO 20
+      IF( I.GT.M ) GO TO 20
       P = P + 1
       IWORK( P ) = I
-      IF( I.EQ.M )
-     $   GO TO 20
+      IF( I.EQ.M ) GO TO 20
       IF( A( I+1, I ).NE.ZERO ) THEN
          I = I + 2
       ELSE
@@ -113,12 +105,10 @@
       Q = P + 1
       J = 1
    30 CONTINUE
-      IF( J.GT.N )
-     $   GO TO 40
+      IF( J.GT.N ) GO TO 40
       Q = Q + 1
       IWORK( Q ) = J
-      IF( J.EQ.N )
-     $   GO TO 40
+      IF( J.EQ.N ) GO TO 40
       IF( B( J+1, J ).NE.ZERO ) THEN
          J = J + 2
       ELSE
@@ -168,12 +158,10 @@
 *                 Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
 *
                   IF( IJOB.EQ.0 ) THEN
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV,
-     $                            SCALOC )
+                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                      IF( SCALOC.NE.ONE ) THEN
                         DO 50 K = 1, N
                            CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
@@ -182,8 +170,7 @@
                         SCALE = SCALE*SCALOC
                      END IF
                   ELSE
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM,
-     $                            RDSCAL, IPIV, JPIV )
+                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
 *                 Unpack solution vector(s)
@@ -196,16 +183,10 @@
 *
                   IF( I.GT.1 ) THEN
                      ALPHA = -RHS( 1 )
-                     CALL DAXPY( IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ),
-     $                           1 )
-                     CALL DAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ),
-     $                           1 )
+                     CALL DAXPY( IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 )                      CALL DAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 )
                   END IF
                   IF( J.LT.Q ) THEN
-                     CALL DAXPY( N-JE, RHS( 2 ), B( JS, JE+1 ), LDB,
-     $                           C( IS, JE+1 ), LDC )
-                     CALL DAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE,
-     $                           F( IS, JE+1 ), LDF )
+                     CALL DAXPY( N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
                   END IF
 *
                ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
@@ -242,12 +223,10 @@
 *                 Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
 *
                   IF( IJOB.EQ.0 ) THEN
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV,
-     $                            SCALOC )
+                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                      IF( SCALOC.NE.ONE ) THEN
                         DO 60 K = 1, N
                            CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
@@ -256,8 +235,7 @@
                         SCALE = SCALE*SCALOC
                      END IF
                   ELSE
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM,
-     $                            RDSCAL, IPIV, JPIV )
+                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
 *                 Unpack solution vector(s)
@@ -271,20 +249,10 @@
 *                 equation.
 *
                   IF( I.GT.1 ) THEN
-                     CALL DGER( IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ),
-     $                          1, C( 1, JS ), LDC )
-                     CALL DGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ),
-     $                          1, F( 1, JS ), LDF )
+                     CALL DGER( IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL DGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF )
                   END IF
                   IF( J.LT.Q ) THEN
-                     CALL DAXPY( N-JE, RHS( 3 ), B( JS, JE+1 ), LDB,
-     $                           C( IS, JE+1 ), LDC )
-                     CALL DAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE,
-     $                           F( IS, JE+1 ), LDF )
-                     CALL DAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB,
-     $                           C( IS, JE+1 ), LDC )
-                     CALL DAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE,
-     $                           F( IS, JE+1 ), LDF )
+                     CALL DAXPY( N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )                      CALL DAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF )
                   END IF
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
@@ -321,11 +289,9 @@
 *                 Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
                   IF( IJOB.EQ.0 ) THEN
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV,
-     $                            SCALOC )
+                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                      IF( SCALOC.NE.ONE ) THEN
                         DO 70 K = 1, N
                            CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
@@ -334,8 +300,7 @@
                         SCALE = SCALE*SCALOC
                      END IF
                   ELSE
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM,
-     $                            RDSCAL, IPIV, JPIV )
+                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
 *                 Unpack solution vector(s)
@@ -349,16 +314,10 @@
 *                 equation.
 *
                   IF( I.GT.1 ) THEN
-                     CALL DGEMV( 'N', IS-1, MB, -ONE, A( 1, IS ), LDA,
-     $                           RHS( 1 ), 1, ONE, C( 1, JS ), 1 )
-                     CALL DGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD,
-     $                           RHS( 1 ), 1, ONE, F( 1, JS ), 1 )
+                     CALL DGEMV( 'N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL DGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 )
                   END IF
                   IF( J.LT.Q ) THEN
-                     CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1,
-     $                          B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )
-                     CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1,
-     $                          E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
+                     CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL DGER( MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )
                   END IF
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
@@ -417,11 +376,9 @@
 *                 Solve Z * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
                   IF( IJOB.EQ.0 ) THEN
-                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV,
-     $                            SCALOC )
+                     CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                      IF( SCALOC.NE.ONE ) THEN
                         DO 90 K = 1, N
                            CALL DSCAL( M, SCALOC, C( 1, K ), 1 )
@@ -430,8 +387,7 @@
                         SCALE = SCALE*SCALOC
                      END IF
                   ELSE
-                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM,
-     $                            RDSCAL, IPIV, JPIV )
+                     CALL DLATDF( IJOB, ZDIM, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                   END IF
 *
 *                 Unpack solution vector(s)
@@ -449,21 +405,11 @@
 *                 equation.
 *
                   IF( I.GT.1 ) THEN
-                     CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE,
-     $                           A( 1, IS ), LDA, RHS( 1 ), MB, ONE,
-     $                           C( 1, JS ), LDC )
-                     CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE,
-     $                           D( 1, IS ), LDD, RHS( 1 ), MB, ONE,
-     $                           F( 1, JS ), LDF )
+                     CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL DGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF )
                   END IF
                   IF( J.LT.Q ) THEN
                      K = MB*NB + 1
-                     CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ),
-     $                           MB, B( JS, JE+1 ), LDB, ONE,
-     $                           C( IS, JE+1 ), LDC )
-                     CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ),
-     $                           MB, E( JS, JE+1 ), LDE, ONE,
-     $                           F( IS, JE+1 ), LDF )
+                     CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF )
                   END IF
 *
                END IF
@@ -509,8 +455,7 @@
 *                 Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
 *
                   CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                   IF( SCALOC.NE.ONE ) THEN
@@ -531,19 +476,15 @@
 *
                   IF( J.GT.P+2 ) THEN
                      ALPHA = RHS( 1 )
-                     CALL DAXPY( JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ),
-     $                           LDF )
+                     CALL DAXPY( JS-1, ALPHA, B( 1, JS ), 1, F( IS, 1 ), LDF )
                      ALPHA = RHS( 2 )
-                     CALL DAXPY( JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ),
-     $                           LDF )
+                     CALL DAXPY( JS-1, ALPHA, E( 1, JS ), 1, F( IS, 1 ), LDF )
                   END IF
                   IF( I.LT.P ) THEN
                      ALPHA = -RHS( 1 )
-                     CALL DAXPY( M-IE, ALPHA, A( IS, IE+1 ), LDA,
-     $                           C( IE+1, JS ), 1 )
+                     CALL DAXPY( M-IE, ALPHA, A( IS, IE+1 ), LDA, C( IE+1, JS ), 1 )
                      ALPHA = -RHS( 2 )
-                     CALL DAXPY( M-IE, ALPHA, D( IS, IE+1 ), LDD,
-     $                           C( IE+1, JS ), 1 )
+                     CALL DAXPY( M-IE, ALPHA, D( IS, IE+1 ), LDD, C( IE+1, JS ), 1 )
                   END IF
 *
                ELSE IF( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) THEN
@@ -580,8 +521,7 @@
 *                 Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
                   CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                   IF( SCALOC.NE.ONE ) THEN
                      DO 140 K = 1, N
@@ -602,20 +542,10 @@
 *                 equation.
 *
                   IF( J.GT.P+2 ) THEN
-                     CALL DAXPY( JS-1, RHS( 1 ), B( 1, JS ), 1,
-     $                           F( IS, 1 ), LDF )
-                     CALL DAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1,
-     $                           F( IS, 1 ), LDF )
-                     CALL DAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1,
-     $                           F( IS, 1 ), LDF )
-                     CALL DAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1,
-     $                           F( IS, 1 ), LDF )
+                     CALL DAXPY( JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF )
                   END IF
                   IF( I.LT.P ) THEN
-                     CALL DGER( M-IE, NB, -ONE, A( IS, IE+1 ), LDA,
-     $                          RHS( 1 ), 1, C( IE+1, JS ), LDC )
-                     CALL DGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD,
-     $                          RHS( 3 ), 1, C( IE+1, JS ), LDC )
+                     CALL DGER( M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC )                      CALL DGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC )
                   END IF
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) THEN
@@ -652,8 +582,7 @@
 *                 Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
 *
                   CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                   IF( SCALOC.NE.ONE ) THEN
@@ -675,18 +604,10 @@
 *                 equation.
 *
                   IF( J.GT.P+2 ) THEN
-                     CALL DGER( MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ),
-     $                          1, F( IS, 1 ), LDF )
-                     CALL DGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ),
-     $                          1, F( IS, 1 ), LDF )
+                     CALL DGER( MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL DGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF )
                   END IF
                   IF( I.LT.P ) THEN
-                     CALL DGEMV( 'T', MB, M-IE, -ONE, A( IS, IE+1 ),
-     $                           LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ),
-     $                           1 )
-                     CALL DGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ),
-     $                           LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ),
-     $                           1 )
+                     CALL DGEMV( 'T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 )                      CALL DGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 )
                   END IF
 *
                ELSE IF( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) THEN
@@ -746,8 +667,7 @@
 *                 Solve Z**T * x = RHS
 *
                   CALL DGETC2( ZDIM, Z, LDZ, IPIV, JPIV, IERR )
-                  IF( IERR.GT.0 )
-     $               INFO = IERR
+                  IF( IERR.GT.0 ) INFO = IERR
 *
                   CALL DGESC2( ZDIM, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                   IF( SCALOC.NE.ONE ) THEN
@@ -773,20 +693,10 @@
 *                 equation.
 *
                   IF( J.GT.P+2 ) THEN
-                     CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE,
-     $                           C( IS, JS ), LDC, B( 1, JS ), LDB, ONE,
-     $                           F( IS, 1 ), LDF )
-                     CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE,
-     $                           F( IS, JS ), LDF, E( 1, JS ), LDE, ONE,
-     $                           F( IS, 1 ), LDF )
+                     CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL DGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF )
                   END IF
                   IF( I.LT.P ) THEN
-                     CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE,
-     $                           A( IS, IE+1 ), LDA, C( IS, JS ), LDC,
-     $                           ONE, C( IE+1, JS ), LDC )
-                     CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE,
-     $                           D( IS, IE+1 ), LDD, F( IS, JS ), LDF,
-     $                           ONE, C( IE+1, JS ), LDC )
+                     CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                      CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC )
                   END IF
 *
                END IF

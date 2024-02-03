@@ -1,6 +1,4 @@
-      SUBROUTINE ZTGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB,
-     $                   ALPHA, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF,
-     $                   WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZTGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB, ALPHA, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,16 +6,14 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK,
-     $                   M, N
+      INTEGER            IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
       DOUBLE PRECISION   PL, PR
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
       DOUBLE PRECISION   DIF( * )
-      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -30,8 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SWAP, WANTD, WANTD1, WANTD2, WANTP
-      INTEGER            I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2,
-     $                   N1, N2
+      INTEGER            I, IERR, IJB, K, KASE, KS, LIWMIN, LWMIN, MN2, N1, N2
       DOUBLE PRECISION   DSCALE, DSUM, RDSCAL, SAFMIN
       COMPLEX*16         TEMP1, TEMP2
 *     ..
@@ -39,8 +34,7 @@
       INTEGER            ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZLASSQ, ZSCAL, ZTGEXC,
-     $                   ZTGSYL
+      EXTERNAL           XERBLA, ZLACN2, ZLACPY, ZLASSQ, ZSCAL, ZTGEXC, ZTGSYL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DCMPLX, DCONJG, MAX, SQRT
@@ -91,11 +85,9 @@
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
          IF( K.LT.N ) THEN
-            IF( SELECT( K ) )
-     $         M = M + 1
+            IF( SELECT( K ) ) M = M + 1
          ELSE
-            IF( SELECT( N ) )
-     $         M = M + 1
+            IF( SELECT( N ) ) M = M + 1
          END IF
    10 CONTINUE
       END IF
@@ -162,9 +154,7 @@
 *           Swap the K-th block to position KS. Compute unitary Q
 *           and Z that will swap adjacent diagonal blocks in (A, B).
 *
-            IF( K.NE.KS )
-     $         CALL ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                      LDZ, K, KS, IERR )
+            IF( K.NE.KS ) CALL ZTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, K, KS, IERR )
 *
             IF( IERR.GT.0 ) THEN
 *
@@ -193,13 +183,9 @@
          N2 = N - M
          I = N1 + 1
          CALL ZLACPY( 'Full', N1, N2, A( 1, I ), LDA, WORK, N1 )
-         CALL ZLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ),
-     $                N1 )
+         CALL ZLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )
          IJB = 0
-         CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK,
-     $                N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1,
-     $                DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ),
-     $                LWORK-2*N1*N2, IWORK, IERR )
+         CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
 *
 *        Estimate the reciprocal of norms of "projections" onto
 *        left and right eigenspaces
@@ -235,17 +221,11 @@
 *
 *           Frobenius norm-based Difu estimate.
 *
-            CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK,
-     $                   N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ),
-     $                   N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ),
-     $                   LWORK-2*N1*N2, IWORK, IERR )
+            CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
 *
 *           Frobenius norm-based Difl estimate.
 *
-            CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK,
-     $                   N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ),
-     $                   N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ),
-     $                   LWORK-2*N1*N2, IWORK, IERR )
+            CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
          ELSE
 *
 *           Compute 1-norm-based estimates of Difu and Difl using
@@ -263,27 +243,18 @@
 *           1-norm-based estimate of Difu.
 *
    40       CONTINUE
-            CALL ZLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE,
-     $                   ISAVE )
+            CALL ZLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE )
             IF( KASE.NE.0 ) THEN
                IF( KASE.EQ.1 ) THEN
 *
 *                 Solve generalized Sylvester equation
 *
-                  CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA,
-     $                         WORK, N1, B, LDB, B( I, I ), LDB,
-     $                         WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ),
-     $                         WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL ZTGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                ELSE
 *
 *                 Solve the transposed variant.
 *
-                  CALL ZTGSYL( 'C', IJB, N1, N2, A, LDA, A( I, I ), LDA,
-     $                         WORK, N1, B, LDB, B( I, I ), LDB,
-     $                         WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ),
-     $                         WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL ZTGSYL( 'C', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                END IF
                GO TO 40
             END IF
@@ -292,27 +263,18 @@
 *           1-norm-based estimate of Difl.
 *
    50       CONTINUE
-            CALL ZLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE,
-     $                   ISAVE )
+            CALL ZLACN2( MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE )
             IF( KASE.NE.0 ) THEN
                IF( KASE.EQ.1 ) THEN
 *
 *                 Solve generalized Sylvester equation
 *
-                  CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA,
-     $                         WORK, N2, B( I, I ), LDB, B, LDB,
-     $                         WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ),
-     $                         WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL ZTGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                ELSE
 *
 *                 Solve the transposed variant.
 *
-                  CALL ZTGSYL( 'C', IJB, N2, N1, A( I, I ), LDA, A, LDA,
-     $                         WORK, N2, B, LDB, B( I, I ), LDB,
-     $                         WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ),
-     $                         WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL ZTGSYL( 'C', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                END IF
                GO TO 50
             END IF
@@ -332,8 +294,7 @@
             B( K, K ) = DSCALE
             CALL ZSCAL( N-K, TEMP1, B( K, K+1 ), LDB )
             CALL ZSCAL( N-K+1, TEMP1, A( K, K ), LDA )
-            IF( WANTQ )
-     $         CALL ZSCAL( N, TEMP2, Q( 1, K ), 1 )
+            IF( WANTQ ) CALL ZSCAL( N, TEMP2, Q( 1, K ), 1 )
          ELSE
             B( K, K ) = DCMPLX( ZERO, ZERO )
          END IF

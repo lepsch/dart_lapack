@@ -65,8 +65,7 @@
                K = K + N - J + 1
    40       CONTINUE
          END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR.
-     $         ( NORM.EQ.'1' ) ) THEN
+      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
 *
 *        Find normI(A) ( = norm1(A), since A is hermitian).
 *

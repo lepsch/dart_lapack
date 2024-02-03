@@ -1,5 +1,4 @@
-      SUBROUTINE CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, IFST, ILST, INFO )
+      SUBROUTINE CTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -51,10 +49,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
-      IF( IFST.EQ.ILST )
-     $   RETURN
+      IF( N.LE.1 ) RETURN       IF( IFST.EQ.ILST ) RETURN
 *
       IF( IFST.LT.ILST ) THEN
 *
@@ -64,15 +59,13 @@
 *
 *        Swap with next one below
 *
-         CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ,
-     $                HERE, INFO )
+         CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
             ILST = HERE
             RETURN
          END IF
          HERE = HERE + 1
-         IF( HERE.LT.ILST )
-     $      GO TO 10
+         IF( HERE.LT.ILST ) GO TO 10
          HERE = HERE - 1
       ELSE
          HERE = IFST - 1
@@ -81,15 +74,13 @@
 *
 *        Swap with next one above
 *
-         CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ,
-     $                HERE, INFO )
+         CALL CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, INFO )
          IF( INFO.NE.0 ) THEN
             ILST = HERE
             RETURN
          END IF
          HERE = HERE - 1
-         IF( HERE.GE.ILST )
-     $      GO TO 20
+         IF( HERE.GE.ILST ) GO TO 20
          HERE = HERE + 1
       END IF
       ILST = HERE

@@ -1,5 +1,4 @@
-      SUBROUTINE DLAED0( ICOMPQ, QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE DLAED0( ICOMPQ, QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   D( * ), E( * ), Q( LDQ, * ), QSTORE( LDQS, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,15 +19,11 @@
       PARAMETER          ( ZERO = 0.D0, ONE = 1.D0, TWO = 2.D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM,
-     $                   IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM,
-     $                   J, K, LGN, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1,
-     $                   SPM2, SUBMAT, SUBPBS, TLVLS
+      INTEGER            CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMM, DLACPY, DLAED1, DLAED7, DSTEQR,
-     $                   XERBLA
+      EXTERNAL           DCOPY, DGEMM, DLACPY, DLAED1, DLAED7, DSTEQR, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -62,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       SMLSIZ = ILAENV( 9, 'DLAED0', ' ', 0, 0, 0, 0 )
 *
@@ -106,10 +99,7 @@
 *
          TEMP = LOG( DBLE( N ) ) / LOG( TWO )
          LGN = INT( TEMP )
-         IF( 2**LGN.LT.N )
-     $      LGN = LGN + 1
-         IF( 2**LGN.LT.N )
-     $      LGN = LGN + 1
+         IF( 2**LGN.LT.N ) LGN = LGN + 1          IF( 2**LGN.LT.N ) LGN = LGN + 1
          IPRMPT = INDXQ + N + 1
          IPERM = IPRMPT + N*LGN
          IQPTR = IPERM + N*LGN
@@ -142,21 +132,12 @@
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          END IF
          IF( ICOMPQ.EQ.2 ) THEN
-            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ),
-     $                   Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )
-            IF( INFO.NE.0 )
-     $         GO TO 130
+            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, WORK, INFO )             IF( INFO.NE.0 ) GO TO 130
          ELSE
-            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ),
-     $                   WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK,
-     $                   INFO )
-            IF( INFO.NE.0 )
-     $         GO TO 130
+            CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), WORK( IQ-1+IWORK( IQPTR+CURR ) ), MATSIZ, WORK, INFO )
+            IF( INFO.NE.0 ) GO TO 130
             IF( ICOMPQ.EQ.1 ) THEN
-               CALL DGEMM( 'N', 'N', QSIZ, MATSIZ, MATSIZ, ONE,
-     $                     Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+
-     $                     CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ),
-     $                     LDQS )
+               CALL DGEMM( 'N', 'N', QSIZ, MATSIZ, MATSIZ, ONE, Q( 1, SUBMAT ), LDQ, WORK( IQ-1+IWORK( IQPTR+ CURR ) ), MATSIZ, ZERO, QSTORE( 1, SUBMAT ), LDQS )
             END IF
             IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
             CURR = CURR + 1
@@ -199,22 +180,11 @@
 *     tridiagonal form) are desired.
 *
             IF( ICOMPQ.EQ.2 ) THEN
-               CALL DLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ),
-     $                      LDQ, IWORK( INDXQ+SUBMAT ),
-     $                      E( SUBMAT+MSD2-1 ), MSD2, WORK,
-     $                      IWORK( SUBPBS+1 ), INFO )
+               CALL DLAED1( MATSIZ, D( SUBMAT ), Q( SUBMAT, SUBMAT ), LDQ, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK, IWORK( SUBPBS+1 ), INFO )
             ELSE
-               CALL DLAED7( ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB,
-     $                      D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS,
-     $                      IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ),
-     $                      MSD2, WORK( IQ ), IWORK( IQPTR ),
-     $                      IWORK( IPRMPT ), IWORK( IPERM ),
-     $                      IWORK( IGIVPT ), IWORK( IGIVCL ),
-     $                      WORK( IGIVNM ), WORK( IWREM ),
-     $                      IWORK( SUBPBS+1 ), INFO )
+               CALL DLAED7( ICOMPQ, MATSIZ, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, IWORK( INDXQ+SUBMAT ), E( SUBMAT+MSD2-1 ), MSD2, WORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), WORK( IGIVNM ), WORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
             END IF
-            IF( INFO.NE.0 )
-     $         GO TO 130
+            IF( INFO.NE.0 ) GO TO 130
             IWORK( I / 2+1 ) = IWORK( I+2 )
    90    CONTINUE
          SUBPBS = SUBPBS / 2

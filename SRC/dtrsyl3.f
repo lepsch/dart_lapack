@@ -1,18 +1,14 @@
-      SUBROUTINE DTRSYL3( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C,
-     $                    LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK,
-     $                    INFO )
+      SUBROUTINE DTRSYL3( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO )
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
       CHARACTER          TRANA, TRANB
-      INTEGER            INFO, ISGN, LDA, LDB, LDC, M, N,
-     $                   LIWORK, LDSWORK
+      INTEGER            INFO, ISGN, LDA, LDB, LDC, M, N, LIWORK, LDSWORK
       DOUBLE PRECISION   SCALE
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ),
-     $                   SWORK( LDSWORK, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), SWORK( LDSWORK, * )
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
@@ -20,10 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB, LQUERY, SKIP
-      INTEGER            AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ,
-     $                   K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC,
-     $                   SCAMIN, SGN, XNRM, BUF, SMLNUM
+      INTEGER            AWRK, BWRK, I, I1, I2, IINFO, J, J1, J2, JJ, K, K1, K2, L, L1, L2, LL, NBA, NB, NBB, PC       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, CNRM, SCAL, SCALOC, SCAMIN, SGN, XNRM, BUF, SMLNUM
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WNRM( MAX( M, N ) )
@@ -69,11 +62,9 @@
 *
 *     Test the input arguments
 *
-      IF( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT.
-     $    LSAME( TRANA, 'C' ) ) THEN
+      IF( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT. LSAME( TRANA, 'C' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT.
-     $         LSAME( TRANB, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) THEN
          INFO = -2
       ELSE IF( ISGN.NE.1 .AND. ISGN.NE.-1 ) THEN
          INFO = -3
@@ -98,16 +89,12 @@
 *     Quick return if possible
 *
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Use unblocked code for small problems or if insufficient
 *     workspaces are provided
 *
-      IF( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) .OR.
-     $    LIWORK.LT.IWORK(1) ) THEN
-        CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB,
-     $               C, LDC, SCALE, INFO )
+      IF( MIN( NBA, NBB ).EQ.1 .OR. LDSWORK.LT.MAX( NBA, NBB ) .OR. LIWORK.LT.IWORK(1) ) THEN         CALL DTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
         RETURN
       END IF
 *
@@ -210,11 +197,9 @@
             L1 = IWORK( L )
             L2 = IWORK( L + 1 )
             IF( NOTRNA ) THEN
-               SWORK( K, AWRK + L ) = DLANGE( 'I', K2-K1, L2-L1,
-     $                                        A( K1, L1 ), LDA, WNRM )
+               SWORK( K, AWRK + L ) = DLANGE( 'I', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             ELSE
-               SWORK( L, AWRK + K ) = DLANGE( '1', K2-K1, L2-L1,
-     $                                        A( K1, L1 ), LDA, WNRM )
+               SWORK( L, AWRK + K ) = DLANGE( '1', K2-K1, L2-L1, A( K1, L1 ), LDA, WNRM )
             END IF
          END DO
       END DO
@@ -226,11 +211,9 @@
             L1 = IWORK( PC + L )
             L2 = IWORK( PC + L + 1 )
             IF( NOTRNB ) THEN
-               SWORK( K, BWRK + L ) = DLANGE( 'I', K2-K1, L2-L1,
-     $                                        B( K1, L1 ), LDB, WNRM )
+               SWORK( K, BWRK + L ) = DLANGE( 'I', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             ELSE
-               SWORK( L, BWRK + K ) = DLANGE( '1', K2-K1, L2-L1,
-     $                                        B( K1, L1 ), LDB, WNRM )
+               SWORK( L, BWRK + K ) = DLANGE( '1', K2-K1, L2-L1, B( K1, L1 ), LDB, WNRM )
             END IF
          END DO
       END DO
@@ -270,10 +253,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 *
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1,
-     $                      A( K1, K1 ), LDA,
-     $                      B( L1, L1 ), LDB,
-     $                      C( K1, L1 ), LDC, SCALOC, IINFO )
+               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 *
                IF ( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
@@ -292,14 +272,12 @@
 *                       Bound by BIGNUM to not introduce Inf. The value
 *                       is irrelevant; corresponding entries of the
 *                       solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
                END IF
                SWORK( K, L ) = SCALOC * SWORK( K, L )
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC,
-     $                        WNRM )
+               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 *
                DO I = K - 1, 1, -1
 *
@@ -311,8 +289,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -323,8 +300,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -355,9 +331,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE,
-     $                        A( I1, K1 ), LDA, C( K1, L1 ), LDC,
-     $                        ONE, C( I1, L1 ), LDC )
+                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
 *
                END DO
 *
@@ -371,8 +345,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -383,8 +356,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -415,9 +387,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN,
-     $                        C( K1, L1 ), LDC, B( L1, J1 ), LDB,
-     $                        ONE, C( K1, J1 ), LDC )
+                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC )
                END DO
             END DO
          END DO
@@ -454,10 +424,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 *
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1,
-     $                      A( K1, K1 ), LDA,
-     $                      B( L1, L1 ), LDB,
-     $                      C( K1, L1 ), LDC, SCALOC, IINFO )
+               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 *
                IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
@@ -476,14 +443,12 @@
 *                       Bound by BIGNUM to not introduce Inf. The value
 *                       is irrelevant; corresponding entries of the
 *                       solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
                END IF
                SWORK( K, L ) = SCALOC * SWORK( K, L )
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC,
-     $                        WNRM )
+               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 *
                DO I = K + 1, NBA
 *
@@ -495,8 +460,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -507,8 +471,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -539,9 +502,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE,
-     $                        A( K1, I1 ), LDA, C( K1, L1 ), LDC,
-     $                        ONE, C( I1, L1 ), LDC )
+                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
                END DO
 *
                DO J = L + 1, NBB
@@ -554,8 +515,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -566,8 +526,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -598,9 +557,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN,
-     $                        C( K1, L1 ), LDC, B( L1, J1 ), LDB,
-     $                        ONE, C( K1, J1 ), LDC )
+                  CALL DGEMM( 'N', 'N', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( L1, J1 ), LDB, ONE, C( K1, J1 ), LDC )
                END DO
             END DO
          END DO
@@ -637,10 +594,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 *
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1,
-     $                      A( K1, K1 ), LDA,
-     $                      B( L1, L1 ), LDB,
-     $                      C( K1, L1 ), LDC, SCALOC, IINFO )
+               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 *
                SWORK( K, L ) = SCALOC * SWORK( K, L )
@@ -660,13 +614,11 @@
 *                       Bound by BIGNUM to not introduce Inf. The value
 *                       is irrelevant; corresponding entries of the
 *                       solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
                END IF
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC,
-     $                        WNRM )
+               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 *
                DO I = K + 1, NBA
 *
@@ -678,8 +630,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -690,8 +641,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -722,9 +672,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE,
-     $                        A( K1, I1 ), LDA, C( K1, L1 ), LDC,
-     $                        ONE, C( I1, L1 ), LDC )
+                  CALL DGEMM( 'T', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( K1, I1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
                END DO
 *
                DO J = 1, L - 1
@@ -737,8 +685,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -749,8 +696,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -781,9 +727,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN,
-     $                        C( K1, L1 ), LDC, B( J1, L1 ), LDB,
-     $                        ONE, C( K1, J1 ), LDC )
+                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC )
                END DO
             END DO
          END DO
@@ -820,10 +764,7 @@
                L1 = IWORK( PC + L )
                L2 = IWORK( PC + L + 1 )
 *
-               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1,
-     $                      A( K1, K1 ), LDA,
-     $                      B( L1, L1 ), LDB,
-     $                      C( K1, L1 ), LDC, SCALOC, IINFO )
+               CALL DTRSYL( TRANA, TRANB, ISGN, K2-K1, L2-L1, A( K1, K1 ), LDA, B( L1, L1 ), LDB, C( K1, L1 ), LDC, SCALOC, IINFO )
                INFO = MAX( INFO, IINFO )
 *
                IF( SCALOC * SWORK( K, L ) .EQ. ZERO ) THEN
@@ -842,14 +783,12 @@
 *                       Bound by BIGNUM to not introduce Inf. The value
 *                       is irrelevant; corresponding entries of the
 *                       solution will be flushed in consistency scaling.
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                      END DO
                   END DO
                END IF
                SWORK( K, L ) = SCALOC * SWORK( K, L )
-               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC,
-     $                        WNRM )
+               XNRM = DLANGE( 'I', K2-K1, L2-L1, C( K1, L1 ), LDC, WNRM )
 *
                DO I = 1, K - 1
 *
@@ -861,8 +800,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', I2-I1, L2-L1, C( I1, L1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( I, L ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( I, L ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -873,8 +811,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -905,9 +842,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( I, L ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE,
-     $                        A( I1, K1 ), LDA, C( K1, L1 ), LDC,
-     $                        ONE, C( I1, L1 ), LDC )
+                  CALL DGEMM( 'N', 'N', I2-I1, L2-L1, K2-K1, -ONE, A( I1, K1 ), LDA, C( K1, L1 ), LDC, ONE, C( I1, L1 ), LDC )
 *
                END DO
 *
@@ -921,8 +856,7 @@
 *                 Compute scaling factor to survive the linear update
 *                 simulating consistent scaling.
 *
-                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ),
-     $                           LDC, WNRM )
+                  CNRM = DLANGE( 'I', K2-K1, J2-J1, C( K1, J1 ), LDC, WNRM )
                   SCAMIN = MIN( SWORK( K, J ), SWORK( K, L ) )
                   CNRM = CNRM * ( SCAMIN / SWORK( K, J ) )
                   XNRM = XNRM * ( SCAMIN / SWORK( K, L ) )
@@ -933,8 +867,7 @@
                      BUF = BUF*2.D0**EXPONENT( SCALOC )
                      DO JJ = 1, NBB
                         DO LL = 1, NBA
-                        SWORK( LL, JJ ) = MIN( BIGNUM,
-     $                     SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
+                        SWORK( LL, JJ ) = MIN( BIGNUM, SWORK( LL, JJ ) / 2.D0**EXPONENT( SCALOC ) )
                         END DO
                      END DO
                      SCAMIN = SCAMIN / 2.D0**EXPONENT( SCALOC )
@@ -965,9 +898,7 @@
                   SWORK( K, L ) = SCAMIN * SCALOC
                   SWORK( K, J ) = SCAMIN * SCALOC
 *
-                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN,
-     $                        C( K1, L1 ), LDC, B( J1, L1 ), LDB,
-     $                        ONE, C( K1, J1 ), LDC )
+                  CALL DGEMM( 'N', 'T', K2-K1, J2-J1, L2-L1, -SGN, C( K1, L1 ), LDC, B( J1, L1 ), LDB, ONE, C( K1, J1 ), LDC )
                END DO
             END DO
          END DO

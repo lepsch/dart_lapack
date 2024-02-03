@@ -1,5 +1,4 @@
-      SUBROUTINE DGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U,
-     $                   WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,9 +12,7 @@
 *
 *  ====================================================================
 *
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), D( * ), DF( * ), RWORK( * ),
-     $                   U( * ), WORK( LWORK ), X( * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), RWORK( * ), U( * ), WORK( LWORK ), X( * )
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
@@ -52,8 +49,7 @@
 *
 *     Solve GLM problem
 *
-      CALL DGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK,
-     $             INFO )
+      CALL DGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
 *
 *     Test the residual for the solution of LSE
 *

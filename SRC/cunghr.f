@@ -15,8 +15,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   ONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
@@ -104,8 +103,7 @@
 *
 *        Generate Q(ilo+1:ihi,ilo+1:ihi)
 *
-         CALL CUNGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ),
-     $                WORK, LWORK, IINFO )
+         CALL CUNGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
       END IF
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN

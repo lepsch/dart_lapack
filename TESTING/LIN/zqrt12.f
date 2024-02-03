@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZQRT12( M, N, A, LDA, S, WORK, LWORK,
-     $                 RWORK )
+      DOUBLE PRECISION FUNCTION ZQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +30,7 @@
       EXTERNAL           DASUM, DLAMCH, DNRM2, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DBDSQR, DLASCL, XERBLA, ZGEBD2, ZLASCL,
-     $                   ZLASET
+      EXTERNAL           DAXPY, DBDSQR, DLASCL, XERBLA, ZGEBD2, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX, MAX, MIN
@@ -51,15 +49,13 @@
 *     Quick return if possible
 *
       MN = MIN( M, N )
-      IF( MN.LE.ZERO )
-     $   RETURN
+      IF( MN.LE.ZERO ) RETURN
 *
       NRMSVL = DNRM2( MN, S, 1 )
 *
 *     Copy upper triangle of A into work
 *
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK,
-     $             M )
+      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M )
       DO J = 1, N
          DO I = 1, MIN( J, M )
             WORK( ( J-1 )*M+I ) = A( I, J )
@@ -93,21 +89,14 @@
 *
 *        Compute SVD of work
 *
-         CALL ZGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ),
-     $                WORK( M*N+1 ), WORK( M*N+MN+1 ),
-     $                WORK( M*N+2*MN+1 ), INFO )
-         CALL DBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ),
-     $                DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ),
-     $                INFO )
+         CALL ZGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL DBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO )
 *
          IF( ISCL.EQ.1 ) THEN
             IF( ANRM.GT.BIGNUM ) THEN
-               CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ),
-     $                      MN, INFO )
+               CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
             END IF
             IF( ANRM.LT.SMLNUM ) THEN
-               CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ),
-     $                      MN, INFO )
+               CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
             END IF
          END IF
 *
@@ -121,11 +110,9 @@
 *     Compare s and singular values of work
 *
       CALL DAXPY( MN, -ONE, S, 1, RWORK( 1 ), 1 )
-      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) /
-     $         ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
+      ZQRT12 = DASUM( MN, RWORK( 1 ), 1 ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
 *
-      IF( NRMSVL.NE.ZERO )
-     $   ZQRT12 = ZQRT12 / NRMSVL
+      IF( NRMSVL.NE.ZERO ) ZQRT12 = ZQRT12 / NRMSVL
 *
       RETURN
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE SPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND,
-     $                   RESID )
+      SUBROUTINE SPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RCOND, RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               A( * ), AINV( * ), RWORK( * ),
-     $                   WORK( LDWORK, * )
+      REAL               A( * ), AINV( * ), RWORK( * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -79,11 +77,9 @@
 *        Multiply by A
 *
          DO 20 J = 1, N - 1
-            CALL SSPMV( 'Upper', N, -ONE, A, WORK( 1, J+1 ), 1, ZERO,
-     $                  WORK( 1, J ), 1 )
+            CALL SSPMV( 'Upper', N, -ONE, A, WORK( 1, J+1 ), 1, ZERO, WORK( 1, J ), 1 )
    20    CONTINUE
-         CALL SSPMV( 'Upper', N, -ONE, A, AINV( JJ ), 1, ZERO,
-     $               WORK( 1, N ), 1 )
+         CALL SSPMV( 'Upper', N, -ONE, A, AINV( JJ ), 1, ZERO, WORK( 1, N ), 1 )
 *
 *     UPLO = 'L':
 *     Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
@@ -104,11 +100,9 @@
 *        Multiply by A
 *
          DO 40 J = N, 2, -1
-            CALL SSPMV( 'Lower', N, -ONE, A, WORK( 1, J-1 ), 1, ZERO,
-     $                  WORK( 1, J ), 1 )
+            CALL SSPMV( 'Lower', N, -ONE, A, WORK( 1, J-1 ), 1, ZERO, WORK( 1, J ), 1 )
    40    CONTINUE
-         CALL SSPMV( 'Lower', N, -ONE, A, AINV( 1 ), 1, ZERO,
-     $               WORK( 1, 1 ), 1 )
+         CALL SSPMV( 'Lower', N, -ONE, A, AINV( 1 ), 1, ZERO, WORK( 1, 1 ), 1 )
 *
       END IF
 *

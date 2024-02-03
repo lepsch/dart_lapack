@@ -15,21 +15,17 @@
 *
 *     .. Parameters ..
       INTEGER            NBMAX, LDT, TSIZE
-      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1,
-     $                     TSIZE = LDT*NBMAX )
+      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ),
-     $                     ONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB,
-     $                   NBMIN, NH, NX
+      INTEGER            I, IB, IINFO, IWT, J, LDWORK, LWKOPT, NB, NBMIN, NH, NX
       COMPLEX*16         EI
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZAXPY, ZGEHD2, ZGEMM, ZLAHR2, ZLARFB, ZTRMM,
-     $                   XERBLA
+      EXTERNAL           ZAXPY, ZGEHD2, ZGEMM, ZLAHR2, ZLARFB, ZTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -64,8 +60,7 @@
          IF( NH.LE.1 ) THEN
             LWKOPT = 1
          ELSE
-            NB = MIN( NBMAX, ILAENV( 1, 'ZGEHRD', ' ', N, ILO, IHI,
-     $                              -1 ) )
+            NB = MIN( NBMAX, ILAENV( 1, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
             LWKOPT = N*NB + TSIZE
          END IF
          WORK( 1 ) = LWKOPT
@@ -114,8 +109,7 @@
 *              minimum value of NB, and reduce NB or force use of
 *              unblocked code
 *
-               NBMIN = MAX( 2, ILAENV( 2, 'ZGEHRD', ' ', N, ILO, IHI,
-     $                 -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'ZGEHRD', ' ', N, ILO, IHI, -1 ) )
                IF( LWORK.GE.(N*NBMIN + TSIZE) ) THEN
                   NB = (LWORK-TSIZE) / N
                ELSE
@@ -144,8 +138,7 @@
 *           matrices V and T of the block reflector H = I - V*T*V**H
 *           which performs the reduction, and also the matrix Y = A*V*T
 *
-            CALL ZLAHR2( IHI, I, IB, A( 1, I ), LDA, TAU( I ),
-     $                   WORK( IWT ), LDT, WORK, LDWORK )
+            CALL ZLAHR2( IHI, I, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT, WORK, LDWORK )
 *
 *           Apply the block reflector H to A(1:ihi,i+ib:ihi) from the
 *           right, computing  A := A - Y * V**H. V(i+ib,ib-1) must be set
@@ -153,31 +146,21 @@
 *
             EI = A( I+IB, I+IB-1 )
             A( I+IB, I+IB-1 ) = ONE
-            CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $                  IHI, IHI-I-IB+1,
-     $                  IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE,
-     $                  A( 1, I+IB ), LDA )
+            CALL ZGEMM( 'No transpose', 'Conjugate transpose', IHI, IHI-I-IB+1, IB, -ONE, WORK, LDWORK, A( I+IB, I ), LDA, ONE, A( 1, I+IB ), LDA )
             A( I+IB, I+IB-1 ) = EI
 *
 *           Apply the block reflector H to A(1:i,i+1:i+ib-1) from the
 *           right
 *
-            CALL ZTRMM( 'Right', 'Lower', 'Conjugate transpose',
-     $                  'Unit', I, IB-1,
-     $                  ONE, A( I+1, I ), LDA, WORK, LDWORK )
+            CALL ZTRMM( 'Right', 'Lower', 'Conjugate transpose', 'Unit', I, IB-1, ONE, A( I+1, I ), LDA, WORK, LDWORK )
             DO 30 J = 0, IB-2
-               CALL ZAXPY( I, -ONE, WORK( LDWORK*J+1 ), 1,
-     $                     A( 1, I+J+1 ), 1 )
+               CALL ZAXPY( I, -ONE, WORK( LDWORK*J+1 ), 1, A( 1, I+J+1 ), 1 )
    30       CONTINUE
 *
 *           Apply the block reflector H to A(i+1:ihi,i+ib:n) from the
 *           left
 *
-            CALL ZLARFB( 'Left', 'Conjugate transpose', 'Forward',
-     $                   'Columnwise',
-     $                   IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA,
-     $                   WORK( IWT ), LDT, A( I+1, I+IB ), LDA,
-     $                   WORK, LDWORK )
+            CALL ZLARFB( 'Left', 'Conjugate transpose', 'Forward', 'Columnwise', IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA, WORK( IWT ), LDT, A( I+1, I+IB ), LDA, WORK, LDWORK )
    40    CONTINUE
       END IF
 *

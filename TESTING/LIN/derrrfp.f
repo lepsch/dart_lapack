@@ -19,9 +19,7 @@
       DOUBLE PRECISION   A( 1, 1), B( 1, 1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DTFSM, DTFTRI, DSFRK, DTFTTP, DTFTTR,
-     +                   DPFTRI, DPFTRF, DPFTRS, DTPTTF, DTPTTR, DTRTTF,
-     +                   DTRTTP
+      EXTERNAL           CHKXER, DTFSM, DTFTRI, DSFRK, DTFTTP, DTFTTR, DPFTRI, DPFTRF, DPFTRS, DTPTTF, DTPTTR, DTRTTF, DTRTTP
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

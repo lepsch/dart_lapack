@@ -1,5 +1,4 @@
-      SUBROUTINE SLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV,
-     $                   JPIV )
+      SUBROUTINE SLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +30,7 @@
       REAL               WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP,
-     $                   SSCAL
+      EXTERNAL           SAXPY, SCOPY, SGECON, SGESC2, SLASSQ, SLASWP, SSCAL
 *     ..
 *     .. External Functions ..
       REAL               SASUM, SDOT
@@ -108,8 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
    30    CONTINUE
-         IF( SPLUS.GT.SMINU )
-     $      CALL SCOPY( N, XP, 1, RHS, 1 )
+         IF( SPLUS.GT.SMINU ) CALL SCOPY( N, XP, 1, RHS, 1 )
 *
 *        Apply the permutations JPIV to the computed solution (RHS)
 *
@@ -136,8 +133,7 @@
          CALL SAXPY( N, -ONE, XM, 1, RHS, 1 )
          CALL SGESC2( N, Z, LDZ, RHS, IPIV, JPIV, TEMP )
          CALL SGESC2( N, Z, LDZ, XP, IPIV, JPIV, TEMP )
-         IF( SASUM( N, XP, 1 ).GT.SASUM( N, RHS, 1 ) )
-     $      CALL SCOPY( N, XP, 1, RHS, 1 )
+         IF( SASUM( N, XP, 1 ).GT.SASUM( N, RHS, 1 ) ) CALL SCOPY( N, XP, 1, RHS, 1 )
 *
 *        Compute the sum of squares
 *

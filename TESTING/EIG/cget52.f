@@ -1,5 +1,4 @@
-      SUBROUTINE CGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHA, BETA,
-     $                   WORK, RWORK, RESULT )
+      SUBROUTINE CGET52( LEFT, N, A, LDA, B, LDB, E, LDE, ALPHA, BETA, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), E( LDE, * ), WORK( * )
+      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), E( LDE, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,15 +19,12 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMAB, TRANS
       INTEGER            J, JVEC
-      REAL               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM,
-     $                   ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1,
-     $                   ULP
+      REAL               ABMAX, ALFMAX, ANORM, BETMAX, BNORM, ENORM, ENRMER, ERRNRM, SAFMAX, SAFMIN, SCALE, TEMP1, ULP
       COMPLEX            ACOEFF, ALPHAI, BCOEFF, BETAI, X
 *     ..
 *     .. External Functions ..
@@ -52,8 +47,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       SAFMAX = ONE / SAFMIN
@@ -82,24 +76,19 @@
          ALPHAI = ALPHA( JVEC )
          BETAI = BETA( JVEC )
          ABMAX = MAX( ABS1( ALPHAI ), ABS1( BETAI ) )
-         IF( ABS1( ALPHAI ).GT.ALFMAX .OR. ABS1( BETAI ).GT.BETMAX .OR.
-     $       ABMAX.LT.ONE ) THEN
+         IF( ABS1( ALPHAI ).GT.ALFMAX .OR. ABS1( BETAI ).GT.BETMAX .OR. ABMAX.LT.ONE ) THEN
             SCALE = ONE / MAX( ABMAX, SAFMIN )
             ALPHAI = SCALE*ALPHAI
             BETAI = SCALE*BETAI
          END IF
-         SCALE = ONE / MAX( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM,
-     $           SAFMIN )
+         SCALE = ONE / MAX( ABS1( ALPHAI )*BNORM, ABS1( BETAI )*ANORM, SAFMIN )
          ACOEFF = SCALE*BETAI
          BCOEFF = SCALE*ALPHAI
          IF( LEFT ) THEN
             ACOEFF = CONJG( ACOEFF )
             BCOEFF = CONJG( BCOEFF )
          END IF
-         CALL CGEMV( TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1,
-     $               CZERO, WORK( N*( JVEC-1 )+1 ), 1 )
-         CALL CGEMV( TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1,
-     $               CONE, WORK( N*( JVEC-1 )+1 ), 1 )
+         CALL CGEMV( TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1, CZERO, WORK( N*( JVEC-1 )+1 ), 1 )          CALL CGEMV( TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1, CONE, WORK( N*( JVEC-1 )+1 ), 1 )
    10 CONTINUE
 *
       ERRNRM = CLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM

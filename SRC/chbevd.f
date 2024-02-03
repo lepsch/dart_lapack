@@ -1,5 +1,4 @@
-      SUBROUTINE CHBEVD( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK,
-     $                   LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CHBEVD( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,15 +20,11 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ),
-     $                   CONE = ( 1.0E0, 0.0E0 ) )
+      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE,
-     $                   LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDWK2, INDWRK, ISCALE, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -37,8 +32,7 @@
       EXTERNAL           LSAME, CLANHB, SLAMCH, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CHBTRD, CLACPY, CLASCL, CSTEDC, SSCAL,
-     $                   SSTERF, XERBLA
+      EXTERNAL           CGEMM, CHBTRD, CLACPY, CLASCL, CSTEDC, SSCAL, SSTERF, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          SQRT
@@ -104,13 +98,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = REAL( AB( 1, 1 ) )
-         IF( WANTZ )
-     $      Z( 1, 1 ) = CONE
+         IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -149,19 +141,15 @@
       INDWK2 = 1 + N*N
       LLWK2 = LWORK - INDWK2 + 1
       LLRWK = LRWORK - INDWRK + 1
-      CALL CHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z,
-     $             LDZ, WORK, IINFO )
+      CALL CHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ),
-     $                LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK,
-     $                INFO )
-         CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO,
-     $               WORK( INDWK2 ), N )
+         CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
+         CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL CLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *

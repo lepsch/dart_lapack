@@ -1,5 +1,4 @@
-      INTEGER          FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3,
-     $                 N4 )
+      INTEGER          FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -94,8 +93,7 @@ C        ILAENV = 0
 *     End of ILAENV
 *
       END
-      INTEGER FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2,
-     $                               N3, N4 )
+      INTEGER FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *     .. Scalar Arguments ..
       CHARACTER*( * )    NAME, OPTS
       INTEGER            ISPEC, N1, N2, N3, N4
@@ -122,14 +120,13 @@ C        ILAENV = 0
 *
       IF(( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) THEN
 *
-*     1 <= ISPEC <= 5: 2stage eigenvalues SVD routines. 
+*     1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 *
          IF( ISPEC.EQ.1 ) THEN
              ILAENV2STAGE = IPARMS( 1 )
          ELSE
              IISPEC = 16 + ISPEC
-             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS,
-     $                                    N1, N2, N3, N4 ) 
+             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 *
       ELSE

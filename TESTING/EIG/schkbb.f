@@ -1,23 +1,17 @@
-      SUBROUTINE SCHKBB( NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE,
-     $                   NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB,
-     $                   BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK,
-     $                   LWORK, RESULT, INFO )
+      SUBROUTINE SCHKBB( NSIZES, MVAL, NVAL, NWDTHS, KK, NTYPES, DOTYPE, NRHS, ISEED, THRESH, NOUNIT, A, LDA, AB, LDAB, BD, BE, Q, LDQ, P, LDP, C, LDC, CC, WORK, LWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine (input) --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDAB, LDC, LDP, LDQ, LWORK, NOUNIT,
-     $                   NRHS, NSIZES, NTYPES, NWDTHS
+      INTEGER            INFO, LDA, LDAB, LDC, LDP, LDQ, LWORK, NOUNIT, NRHS, NSIZES, NTYPES, NWDTHS
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), KK( * ), MVAL( * ), NVAL( * )
-      REAL               A( LDA, * ), AB( LDAB, * ), BD( * ), BE( * ),
-     $                   C( LDC, * ), CC( LDC, * ), P( LDP, * ),
-     $                   Q( LDQ, * ), RESULT( * ), WORK( * )
+      REAL               A( LDA, * ), AB( LDAB, * ), BD( * ), BE( * ), C( LDC, * ), CC( LDC, * ), P( LDP, * ), Q( LDQ, * ), RESULT( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -30,24 +24,18 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADMM, BADNN, BADNNB
-      INTEGER            I, IINFO, IMODE, ITYPE, J, JCOL, JR, JSIZE,
-     $                   JTYPE, JWIDTH, K, KL, KMAX, KU, M, MMAX, MNMAX,
-     $                   MNMIN, MTYPES, N, NERRS, NMATS, NMAX, NTEST,
-     $                   NTESTT
-      REAL               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP,
-     $                   ULPINV, UNFL
+      INTEGER            I, IINFO, IMODE, ITYPE, J, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KL, KMAX, KU, M, MMAX, MNMAX, MNMIN, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      REAL               AMNINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ),
-     $                   KMODE( MAXTYP ), KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
       EXTERNAL           SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBDT01, SBDT02, SGBBRD, SLACPY, SLAHD2, SLASET,
-     $                   SLASUM, SLATMR, SLATMS, SORT01, XERBLA
+      EXTERNAL           SBDT01, SBDT02, SGBBRD, SLACPY, SLAHD2, SLASET, SLASUM, SLATMR, SLATMS, SORT01, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, REAL, SQRT
@@ -55,8 +43,7 @@
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*6, 3*9 /
       DATA               KMAGN / 2*1, 3*1, 2, 3, 3*1, 2, 3, 1, 2, 3 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0,
-     $                   0, 0 /
+      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -74,11 +61,9 @@
       MNMAX = 1
       DO 10 J = 1, NSIZES
          MMAX = MAX( MMAX, MVAL( J ) )
-         IF( MVAL( J ).LT.0 )
-     $      BADMM = .TRUE.
+         IF( MVAL( J ).LT.0 ) BADMM = .TRUE.
          NMAX = MAX( NMAX, NVAL( J ) )
-         IF( NVAL( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
    10 CONTINUE
 *
@@ -86,8 +71,7 @@
       KMAX = 0
       DO 20 J = 1, NWDTHS
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 )
-     $      BADNNB = .TRUE.
+         IF( KK( J ).LT.0 ) BADNNB = .TRUE.
    20 CONTINUE
 *
 *     Check for errors
@@ -127,8 +111,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -152,8 +135,7 @@
 *
          DO 150 JWIDTH = 1, NWDTHS
             K = KK( JWIDTH )
-            IF( K.GE.M .AND. K.GE.N )
-     $         GO TO 150
+            IF( K.GE.M .AND. K.GE.N ) GO TO 150
             KL = MAX( 0, MIN( M-1, K ) )
             KU = MAX( 0, MIN( N-1, K ) )
 *
@@ -164,8 +146,7 @@
             END IF
 *
             DO 140 JTYPE = 1, MTYPES
-               IF( .NOT.DOTYPE( JTYPE ) )
-     $            GO TO 140
+               IF( .NOT.DOTYPE( JTYPE ) ) GO TO 140
                NMATS = NMATS + 1
                NTEST = 0
 *
@@ -188,8 +169,7 @@
 *              =8                      (none)
 *              =9                      random nonhermitian
 *
-               IF( MTYPES.GT.MAXTYP )
-     $            GO TO 90
+               IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
@@ -236,27 +216,19 @@
 *
 *                 Diagonal Matrix, singular values specified
 *
-                  CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND,
-     $                         ANORM, 0, 0, 'N', A, LDA, WORK( M+1 ),
-     $                         IINFO )
+                  CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( M+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.6 ) THEN
 *
 *                 Nonhermitian, singular values specified
 *
-                  CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND,
-     $                         ANORM, KL, KU, 'N', A, LDA, WORK( M+1 ),
-     $                         IINFO )
+                  CALL SLATMS( M, N, 'S', ISEED, 'N', WORK, IMODE, COND, ANORM, KL, KU, 'N', A, LDA, WORK( M+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *                 Nonhermitian, random entries
 *
-                  CALL SLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                         'T', 'N', WORK( N+1 ), 1, ONE,
-     $                         WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, KL,
-     $                         KU, ZERO, ANORM, 'N', A, LDA, IDUMMA,
-     $                         IINFO )
+                  CALL SLATMR( M, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, KL, KU, ZERO, ANORM, 'N', A, LDA, IDUMMA, IINFO )
 *
                ELSE
 *
@@ -265,14 +237,10 @@
 *
 *              Generate Right-Hand Side
 *
-               CALL SLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( M+1 ), 1, ONE,
-     $                      WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS,
-     $                      ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO )
+               CALL SLATMR( M, NRHS, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( M+1 ), 1, ONE, WORK( 2*M+1 ), 1, ONE, 'N', IDUMMA, M, NRHS, ZERO, ONE, 'NO', C, LDC, IDUMMA, IINFO )
 *
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
                END IF
@@ -293,12 +261,10 @@
 *
 *              Call SGBBRD to compute B, Q and P, and to update C.
 *
-               CALL SGBBRD( 'B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE,
-     $                      Q, LDQ, P, LDP, CC, LDC, WORK, IINFO )
+               CALL SGBBRD( 'B', M, N, NRHS, KL, KU, AB, LDAB, BD, BE, Q, LDQ, P, LDP, CC, LDC, WORK, IINFO )
 *
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'SGBBRD', IINFO, N, JTYPE,
-     $               IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'SGBBRD', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -313,14 +279,7 @@
 *                   3:  Check the orthogonality of P
 *                   4:  Check the computation of Q' * C
 *
-               CALL SBDT01( M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP,
-     $                      WORK, RESULT( 1 ) )
-               CALL SORT01( 'Columns', M, M, Q, LDQ, WORK, LWORK,
-     $                      RESULT( 2 ) )
-               CALL SORT01( 'Rows', N, N, P, LDP, WORK, LWORK,
-     $                      RESULT( 3 ) )
-               CALL SBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK,
-     $                      RESULT( 4 ) )
+               CALL SBDT01( M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) )                CALL SORT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL SORT01( 'Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) )                CALL SBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) )
 *
 *              End of Loop -- Check for RESULT(j) > THRESH
 *
@@ -332,11 +291,9 @@
 *
                DO 130 JR = 1, NTEST
                   IF( RESULT( JR ).GE.THRESH ) THEN
-                     IF( NERRS.EQ.0 )
-     $                  CALL SLAHD2( NOUNIT, 'SBB' )
+                     IF( NERRS.EQ.0 ) CALL SLAHD2( NOUNIT, 'SBB' )
                      NERRS = NERRS + 1
-                     WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE,
-     $                  JR, RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   END IF
   130          CONTINUE
 *

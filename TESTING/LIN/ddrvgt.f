@@ -1,5 +1,4 @@
-      SUBROUTINE DDRVGT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, AF,
-     $                   B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE DDRVGT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, AF, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), AF( * ), B( * ), RWORK( * ), WORK( * ),
-     $                   X( * ), XACT( * )
+      DOUBLE PRECISION   A( * ), AF( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -31,11 +29,8 @@
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, FACT, TRANS, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J,
-     $                   K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS,
-     $                   NFAIL, NIMAT, NRUN, NT
-      DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND,
-     $                   RCONDC, RCONDI, RCONDO
+      INTEGER            I, IFACT, IMAT, IN, INFO, ITRAN, IX, IZERO, J, K, K1, KL, KOFF, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
+      DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, COND, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( 3 )
@@ -47,10 +42,7 @@
       EXTERNAL           DASUM, DGET06, DLANGT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04,
-     $                   DGTSV, DGTSVX, DGTT01, DGTT02, DGTT05, DGTTRF,
-     $                   DGTTRS, DLACPY, DLAGTM, DLARNV, DLASET, DLATB4,
-     $                   DLATMS, DSCAL
+      EXTERNAL           ALADHD, ALAERH, ALASVM, DCOPY, DERRVX, DGET04, DGTSV, DGTSVX, DGTT01, DGTT02, DGTT05, DGTTRF, DGTTRS, DLACPY, DLAGTM, DLARNV, DLASET, DLATB4, DLATMS, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -65,8 +57,7 @@
       COMMON             / SRNAMC / SRNAMT
 *     ..
 *     .. Data statements ..
-      DATA               ISEEDY / 0, 0, 0, 1 / , TRANSS / 'N', 'T',
-     $                   'C' /
+      DATA               ISEEDY / 0, 0, 0, 1 / , TRANSS / 'N', 'T', 'C' /
 *     ..
 *     .. Executable Statements ..
 *
@@ -81,8 +72,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL DERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 *
       DO 140 IN = 1, NN
@@ -93,20 +83,17 @@
          M = MAX( N-1, 0 )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 130 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 130
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 130
 *
 *           Set up parameters with DLATB4.
 *
-            CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                   COND, DIST )
+            CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
@@ -115,15 +102,12 @@
 *
                KOFF = MAX( 2-KU, 3-MAX( 1, N ) )
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND,
-     $                      ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK,
-     $                      INFO )
+               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'Z', AF( KOFF ), 3, WORK, INFO )
 *
 *              Check the error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL,
-     $                         KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 130
                END IF
                IZERO = 0
@@ -143,8 +127,7 @@
 *                 Generate a matrix with elements from [-1,1].
 *
                   CALL DLARNV( 2, ISEED, N+2*M, A )
-                  IF( ANORM.NE.ONE )
-     $               CALL DSCAL( N+2*M, ANORM, A, 1 )
+                  IF( ANORM.NE.ONE ) CALL DSCAL( N+2*M, ANORM, A, 1 )
                ELSE IF( IZERO.GT.0 ) THEN
 *
 *                 Reuse the last matrix by copying back the zeroed out
@@ -152,8 +135,7 @@
 *
                   IF( IZERO.EQ.1 ) THEN
                      A( N ) = Z( 2 )
-                     IF( N.GT.1 )
-     $                  A( 1 ) = Z( 3 )
+                     IF( N.GT.1 ) A( 1 ) = Z( 3 )
                   ELSE IF( IZERO.EQ.N ) THEN
                      A( 3*N-2 ) = Z( 1 )
                      A( 2*N-1 ) = Z( 2 )
@@ -205,8 +187,7 @@
 *              the value returned by DGTSVX.
 *
                IF( ZEROT ) THEN
-                  IF( IFACT.EQ.1 )
-     $               GO TO 120
+                  IF( IFACT.EQ.1 ) GO TO 120
                   RCONDO = ZERO
                   RCONDI = ZERO
 *
@@ -220,8 +201,7 @@
 *
 *                 Factor the matrix A.
 *
-                  CALL DGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ),
-     $                         AF( N+2*M+1 ), IWORK, INFO )
+                  CALL DGTTRF( N, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, INFO )
 *
 *                 Use DGTTRS to solve for one column at a time of
 *                 inv(A), computing the maximum column sum as we go.
@@ -232,9 +212,7 @@
                         X( J ) = ZERO
    30                CONTINUE
                      X( I ) = ONE
-                     CALL DGTTRS( 'No transpose', N, 1, AF, AF( M+1 ),
-     $                            AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X,
-     $                            LDA, INFO )
+                     CALL DGTTRS( 'No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    40             CONTINUE
 *
@@ -255,9 +233,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL DGTTRS( 'Transpose', N, 1, AF, AF( M+1 ),
-     $                            AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X,
-     $                            LDA, INFO )
+                     CALL DGTTRS( 'Transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO )
                      AINVNM = MAX( AINVNM, DASUM( N, X, 1 ) )
    60             CONTINUE
 *
@@ -288,8 +264,7 @@
 *
 *                 Set the right hand side.
 *
-                  CALL DLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ),
-     $                         A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
+                  CALL DLAGTM( TRANS, N, NRHS, ONE, A, A( M+1 ), A( N+M+1 ), XACT, LDA, ZERO, B, LDA )
 *
                   IF( IFACT.EQ.2 .AND. ITRAN.EQ.1 ) THEN
 *
@@ -302,30 +277,21 @@
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                      SRNAMT = 'DGTSV '
-                     CALL DGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X,
-     $                           LDA, INFO )
+                     CALL DGTSV( N, NRHS, AF, AF( M+1 ), AF( N+M+1 ), X, LDA, INFO )
 *
 *                    Check error code from DGTSV .
 *
-                     IF( INFO.NE.IZERO )
-     $                  CALL ALAERH( PATH, 'DGTSV ', INFO, IZERO, ' ',
-     $                               N, N, 1, 1, NRHS, IMAT, NFAIL,
-     $                               NERRS, NOUT )
+                     IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                      NT = 1
                      IF( IZERO.EQ.0 ) THEN
 *
 *                       Check residual of computed solution.
 *
-                        CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK,
-     $                               LDA )
-                        CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ),
-     $                               A( N+M+1 ), X, LDA, WORK, LDA,
-     $                               RESULT( 2 ) )
+                        CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *                       Check solution from generated exact solution.
 *
-                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 3 ) )
+                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         NT = 3
                      END IF
 *
@@ -334,10 +300,7 @@
 *
                      DO 80 K = 2, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT,
-     $                        K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
    80                CONTINUE
@@ -360,27 +323,18 @@
 *                 error bounds using DGTSVX.
 *
                   SRNAMT = 'DGTSVX'
-                  CALL DGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ),
-     $                         A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ),
-     $                         AF( N+2*M+1 ), IWORK, B, LDA, X, LDA,
-     $                         RCOND, RWORK, RWORK( NRHS+1 ), WORK,
-     $                         IWORK( N+1 ), INFO )
+                  CALL DGTSVX( FACT, TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
 *                 Check the error code from DGTSVX.
 *
-                  IF( INFO.NE.IZERO )
-     $               CALL ALAERH( PATH, 'DGTSVX', INFO, IZERO,
-     $                            FACT // TRANS, N, N, 1, 1, NRHS, IMAT,
-     $                            NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   IF( IFACT.GE.2 ) THEN
 *
 *                    Reconstruct matrix from factors and compute
 *                    residual.
 *
-                     CALL DGTT01( N, A, A( M+1 ), A( N+M+1 ), AF,
-     $                            AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ),
-     $                            IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
+                     CALL DGTT01( N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) )
                      K1 = 1
                   ELSE
                      K1 = 2
@@ -392,20 +346,15 @@
 *                    Check residual of computed solution.
 *
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ),
-     $                            A( N+M+1 ), X, LDA, WORK, LDA,
-     $                            RESULT( 2 ) )
+                     CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *                    Check solution from generated exact solution.
 *
-                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 3 ) )
+                     CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *                    Check the error bounds from iterative refinement.
 *
-                     CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ),
-     $                            A( N+M+1 ), B, LDA, X, LDA, XACT, LDA,
-     $                            RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                     CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                      NT = 5
                   END IF
 *
@@ -414,10 +363,7 @@
 *
                   DO 100 K = K1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALADHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS,
-     $                     N, IMAT, K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   100             CONTINUE
@@ -426,10 +372,7 @@
 *
                   RESULT( 6 ) = DGET06( RCOND, RCONDC )
                   IF( RESULT( 6 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALADHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N,
-     $                  IMAT, K, RESULT( K )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + NT - K1 + 2

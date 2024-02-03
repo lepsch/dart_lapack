@@ -1,5 +1,4 @@
-      SUBROUTINE CPBT01( UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK,
-     $                   RESID )
+      SUBROUTINE CPBT01( UPLO, N, KD, A, LDA, AFAC, LDAFAC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -84,16 +83,12 @@
 *
 *           Compute the (K,K) element of the result.
 *
-            AKK = REAL(
-     $         CDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) )
+            AKK = REAL( CDOTC( KLEN+1, AFAC( KC, K ), 1, AFAC( KC, K ), 1 ) )
             AFAC( KD+1, K ) = AKK
 *
 *           Compute the rest of column K.
 *
-            IF( KLEN.GT.0 )
-     $         CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', KLEN,
-     $                     AFAC( KD+1, K-KLEN ), LDAFAC-1,
-     $                     AFAC( KC, K ), 1 )
+            IF( KLEN.GT.0 ) CALL CTRMV( 'Upper', 'Conjugate', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 )
 *
    30    CONTINUE
 *
@@ -106,9 +101,7 @@
 *           Add a multiple of column K of the factor L to each of
 *           columns K+1 through N.
 *
-            IF( KLEN.GT.0 )
-     $         CALL CHER( 'Lower', KLEN, ONE, AFAC( 2, K ), 1,
-     $                    AFAC( 1, K+1 ), LDAFAC-1 )
+            IF( KLEN.GT.0 ) CALL CHER( 'Lower', KLEN, ONE, AFAC( 2, K ), 1, AFAC( 1, K+1 ), LDAFAC-1 )
 *
 *           Scale column K by the diagonal element.
 *

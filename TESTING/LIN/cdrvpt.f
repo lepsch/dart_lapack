@@ -1,5 +1,4 @@
-      SUBROUTINE CDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D,
-     $                   E, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE CDRVPT( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            NVAL( * )
       REAL               D( * ), RWORK( * )
-      COMPLEX            A( * ), B( * ), E( * ), WORK( * ), X( * ),
-     $                   XACT( * )
+      COMPLEX            A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -32,9 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K,
-     $                   K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT,
-     $                   NRUN, NT
+      INTEGER            I, IA, IFACT, IMAT, IN, INFO, IX, IZERO, J, K, K1, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRUN, NT
       REAL               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -47,10 +43,7 @@
       EXTERNAL           ISAMAX, CLANHT, SCASUM, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04,
-     $                   CLACPY, CLAPTM, CLARNV, CLASET, CLATB4, CLATMS,
-     $                   CPTSV, CPTSVX, CPTT01, CPTT02, CPTT05, CPTTRF,
-     $                   CPTTRS, CSSCAL, SCOPY, SLARNV, SSCAL
+      EXTERNAL           ALADHD, ALAERH, ALASVM, CCOPY, CERRVX, CGET04, CLACPY, CLAPTM, CLARNV, CLASET, CLATB4, CLATMS, CPTSV, CPTSVX, CPTT01, CPTT02, CPTT05, CPTTRF, CPTTRS, CSSCAL, SCOPY, SLARNV, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CMPLX, MAX
@@ -80,8 +73,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL CERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
 *
       DO 120 IN = 1, NN
@@ -91,20 +83,17 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 110 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) )
-     $         GO TO 110
+            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
 *           Set up parameters with CLATB4.
 *
-            CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                   COND, DIST )
+            CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
@@ -113,14 +102,12 @@
 *              known condition number in lower triangular band storage.
 *
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND,
-     $                      ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
 *              Check the error code from CLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL,
-     $                         KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
                END IF
                IZERO = 0
@@ -133,8 +120,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
    20          CONTINUE
-               IF( N.GT.0 )
-     $            D( N ) = REAL( A( IA ) )
+               IF( N.GT.0 ) D( N ) = REAL( A( IA ) )
             ELSE
 *
 *              Type 7-12:  generate a diagonally dominant matrix with
@@ -155,8 +141,7 @@
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
-                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) +
-     $                           ABS( E( I-1 ) )
+                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
                   END IF
 *
@@ -165,8 +150,7 @@
                   IX = ISAMAX( N, D, 1 )
                   DMAX = D( IX )
                   CALL SSCAL( N, ANORM / DMAX, D, 1 )
-                  IF( N.GT.1 )
-     $               CALL CSSCAL( N-1, ANORM / DMAX, E, 1 )
+                  IF( N.GT.1 ) CALL CSSCAL( N-1, ANORM / DMAX, E, 1 )
 *
                ELSE IF( IZERO.GT.0 ) THEN
 *
@@ -175,8 +159,7 @@
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = Z( 2 )
-                     IF( N.GT.1 )
-     $                  E( 1 ) = Z( 3 )
+                     IF( N.GT.1 ) E( 1 ) = Z( 3 )
                   ELSE IF( IZERO.EQ.N ) THEN
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
@@ -230,8 +213,7 @@
 *
 *           Set the right hand side.
 *
-            CALL CLAPTM( 'Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO,
-     $                   B, LDA )
+            CALL CLAPTM( 'Lower', N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
             DO 100 IFACT = 1, 2
                IF( IFACT.EQ.1 ) THEN
@@ -244,8 +226,7 @@
 *              the value returned by CPTSVX.
 *
                IF( ZEROT ) THEN
-                  IF( IFACT.EQ.1 )
-     $               GO TO 100
+                  IF( IFACT.EQ.1 ) GO TO 100
                   RCONDC = ZERO
 *
                ELSE IF( IFACT.EQ.1 ) THEN
@@ -255,8 +236,7 @@
                   ANORM = CLANHT( '1', N, D, E )
 *
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
-                  IF( N.GT.1 )
-     $               CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
+                  IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
 *                 Factor the matrix A.
 *
@@ -271,8 +251,7 @@
                         X( J ) = ZERO
    50                CONTINUE
                      X( I ) = ONE
-                     CALL CPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X,
-     $                            LDA, INFO )
+                     CALL CPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
    60             CONTINUE
 *
@@ -290,41 +269,33 @@
 *                 --- Test CPTSV --
 *
                   CALL SCOPY( N, D, 1, D( N+1 ), 1 )
-                  IF( N.GT.1 )
-     $               CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
+                  IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 )
                   CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
 *                 Factor A as L*D*L' and solve the system A*X = B.
 *
                   SRNAMT = 'CPTSV '
-                  CALL CPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA,
-     $                        INFO )
+                  CALL CPTSV( N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
 *
 *                 Check error code from CPTSV .
 *
-                  IF( INFO.NE.IZERO )
-     $               CALL ALAERH( PATH, 'CPTSV ', INFO, IZERO, ' ', N,
-     $                            N, 1, 1, NRHS, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                   NT = 0
                   IF( IZERO.EQ.0 ) THEN
 *
 *                    Check the factorization by computing the ratio
 *                       norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
-                     CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK,
-     $                            RESULT( 1 ) )
+                     CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
 *                    Compute the residual in the solution.
 *
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK,
-     $                            LDA, RESULT( 2 ) )
+                     CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *                    Check solution from generated exact solution.
 *
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 3 ) )
+                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
                   END IF
 *
@@ -333,10 +304,7 @@
 *
                   DO 70 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALADHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    70             CONTINUE
@@ -353,26 +321,20 @@
                      D( N+I ) = ZERO
                      E( N+I ) = ZERO
    80             CONTINUE
-                  IF( N.GT.0 )
-     $               D( N+N ) = ZERO
+                  IF( N.GT.0 ) D( N+N ) = ZERO
                END IF
 *
-               CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ),
-     $                      CMPLX( ZERO ), X, LDA )
+               CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA )
 *
 *              Solve the system and compute the condition number and
 *              error bounds using CPTSVX.
 *
                SRNAMT = 'CPTSVX'
-               CALL CPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B,
-     $                      LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ),
-     $                      WORK, RWORK( 2*NRHS+1 ), INFO )
+               CALL CPTSVX( FACT, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *              Check the error code from CPTSVX.
 *
-               IF( INFO.NE.IZERO )
-     $            CALL ALAERH( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N,
-     $                         1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                IF( IZERO.EQ.0 ) THEN
                   IF( IFACT.EQ.2 ) THEN
 *
@@ -380,8 +342,7 @@
 *                       norm(L*D*L' - A) / (n * norm(A) * EPS )
 *
                      K1 = 1
-                     CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK,
-     $                            RESULT( 1 ) )
+                     CALL CPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
                   ELSE
                      K1 = 2
                   END IF
@@ -389,18 +350,15 @@
 *                 Compute the residual in the solution.
 *
                   CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK,
-     $                         LDA, RESULT( 2 ) )
+                  CALL CPTT02( 'Lower', N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *                 Check solution from generated exact solution.
 *
-                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                         RESULT( 3 ) )
+                  CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *                 Check error bounds from iterative refinement.
 *
-                  CALL CPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA,
-     $                         RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
+                  CALL CPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                ELSE
                   K1 = 6
                END IF
@@ -414,10 +372,7 @@
 *
                DO 90 K = K1, 6
                   IF( RESULT( K ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALADHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT,
-     $                  K, RESULT( K )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   END IF
    90          CONTINUE

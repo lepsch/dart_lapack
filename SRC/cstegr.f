@@ -1,6 +1,4 @@
-      SUBROUTINE CSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU,
-     $           ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK,
-     $           LIWORK, INFO )
+      SUBROUTINE CSTEGR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,10 +26,7 @@
 *     .. Executable Statements ..
       INFO = 0
       TRYRAC = .FALSE.
-
-      CALL CSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU,
-     $                   M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK,
-     $                   IWORK, LIWORK, INFO )
+       CALL CSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *     End of CSTEGR
 *

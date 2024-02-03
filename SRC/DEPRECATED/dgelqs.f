@@ -1,5 +1,4 @@
-      SUBROUTINE DGELQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE DGELQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -40,8 +38,7 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 )
-     $          THEN
+      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) THEN
          INFO = -10
       END IF
       IF( INFO.NE.0 ) THEN
@@ -51,23 +48,19 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
 *
 *     Solve L*X = B(1:m,:)
 *
-      CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS,
-     $            ONE, A, LDA, B, LDB )
+      CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', M, NRHS, ONE, A, LDA, B, LDB )
 *
 *     Set B(m+1:n,:) to zero
 *
-      IF( M.LT.N )
-     $   CALL DLASET( 'Full', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB )
+      IF( M.LT.N ) CALL DLASET( 'Full', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB )
 *
 *     B := Q' * B
 *
-      CALL DORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB,
-     $             WORK, LWORK, INFO )
+      CALL DORMLQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
       RETURN
 *

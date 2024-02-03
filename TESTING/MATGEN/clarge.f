@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   ONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I
@@ -69,17 +68,11 @@
 *
 *        multiply A(i:n,1:n) by random reflection from the left
 *
-         CALL CGEMV( 'Conjugate transpose', N-I+1, N, ONE, A( I, 1 ),
-     $               LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
-         CALL CGERC( N-I+1, N, -TAU, WORK, 1, WORK( N+1 ), 1, A( I, 1 ),
-     $               LDA )
+         CALL CGEMV( 'Conjugate transpose', N-I+1, N, ONE, A( I, 1 ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )          CALL CGERC( N-I+1, N, -TAU, WORK, 1, WORK( N+1 ), 1, A( I, 1 ), LDA )
 *
 *        multiply A(1:n,i:n) by random reflection from the right
 *
-         CALL CGEMV( 'No transpose', N, N-I+1, ONE, A( 1, I ), LDA,
-     $               WORK, 1, ZERO, WORK( N+1 ), 1 )
-         CALL CGERC( N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ),
-     $               LDA )
+         CALL CGEMV( 'No transpose', N, N-I+1, ONE, A( 1, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )          CALL CGERC( N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA )
    10 CONTINUE
       RETURN
 *

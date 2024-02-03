@@ -62,8 +62,7 @@
          WORK(1)=MINSIZE
          RETURN
       END IF
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 
       IF( NBMAX .GE. N ) THEN
          CALL ZSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )

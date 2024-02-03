@@ -1,5 +1,4 @@
-      SUBROUTINE STPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK,
-     $                   INFO )
+      SUBROUTINE STPQRT( M, N, L, NB, A, LDA, B, LDB, T, LDT, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -62,16 +61,12 @@
             LB = MB-M+L-I+1
          END IF
 *
-         CALL STPQRT2( MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB,
-     $                 T(1, I ), LDT, IINFO )
+         CALL STPQRT2( MB, IB, LB, A(I,I), LDA, B( 1, I ), LDB, T(1, I ), LDT, IINFO )
 *
 *     Update by applying H^H to B(:,I+IB:N) from the left
 *
          IF( I+IB.LE.N ) THEN
-            CALL STPRFB( 'L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB,
-     $                    B( 1, I ), LDB, T( 1, I ), LDT,
-     $                    A( I, I+IB ), LDA, B( 1, I+IB ), LDB,
-     $                    WORK, IB )
+            CALL STPRFB( 'L', 'T', 'F', 'C', MB, N-I-IB+1, IB, LB, B( 1, I ), LDB, T( 1, I ), LDT, A( I, I+IB ), LDA, B( 1, I+IB ), LDB, WORK, IB )
          END IF
       END DO
       RETURN

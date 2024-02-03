@@ -1,5 +1,4 @@
-      SUBROUTINE ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, J1, INFO )
+      SUBROUTINE ZTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, J1, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +9,14 @@
       INTEGER            INFO, J1, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   TWENTY
       PARAMETER          ( TWENTY = 2.0D+1 )
       INTEGER            LDST
@@ -30,8 +27,7 @@
 *     .. Local Scalars ..
       LOGICAL            STRONG, WEAK
       INTEGER            I, M
-      DOUBLE PRECISION   CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM,
-     $                   THRESHA, THRESHB
+      DOUBLE PRECISION   CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB
       COMPLEX*16         CDUM, F, G, SQ, SZ
 *     ..
 *     .. Local Arrays ..
@@ -53,8 +49,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
       M = LDST
       WEAK = .FALSE.
@@ -113,10 +108,7 @@
 *     Weak stability test: |S21| <= O(EPS F-norm((A)))
 *                          and  |T21| <= O(EPS F-norm((B)))
 *
-      WEAK = ABS( S( 2, 1 ) ).LE.THRESHA .AND. 
-     $ ABS( T( 2, 1 ) ).LE.THRESHB
-      IF( .NOT.WEAK )
-     $   GO TO 20
+      WEAK = ABS( S( 2, 1 ) ).LE.THRESHA .AND.  ABS( T( 2, 1 ) ).LE.THRESHB       IF( .NOT.WEAK ) GO TO 20
 *
       IF( WANDS ) THEN
 *
@@ -146,17 +138,13 @@
          CALL ZLASSQ( M*M, WORK(M*M+1), 1, SCALE, SUM )
          SB = SCALE*SQRT( SUM )
          STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
-         IF( .NOT.STRONG )
-     $      GO TO 20
+         IF( .NOT.STRONG ) GO TO 20
       END IF
 *
 *     If the swap is accepted ("weakly" and "strongly"), apply the
 *     equivalence transformations to the original matrix pair (A,B)
 *
-      CALL ZROT( J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, CZ,
-     $           DCONJG( SZ ) )
-      CALL ZROT( J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, CZ,
-     $           DCONJG( SZ ) )
+      CALL ZROT( J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       CALL ZROT( J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )
       CALL ZROT( N-J1+1, A( J1, J1 ), LDA, A( J1+1, J1 ), LDA, CQ, SQ )
       CALL ZROT( N-J1+1, B( J1, J1 ), LDB, B( J1+1, J1 ), LDB, CQ, SQ )
 *
@@ -167,12 +155,7 @@
 *
 *     Accumulate transformations into Q and Z if requested.
 *
-      IF( WANTZ )
-     $   CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ,
-     $              DCONJG( SZ ) )
-      IF( WANTQ )
-     $   CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ,
-     $              DCONJG( SQ ) )
+      IF( WANTZ ) CALL ZROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, DCONJG( SZ ) )       IF( WANTQ ) CALL ZROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, DCONJG( SQ ) )
 *
 *     Exit with INFO = 0 if swap was successfully performed.
 *

@@ -1,6 +1,4 @@
-      SUBROUTINE CTGSY2( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D,
-     $                   LDD, E, LDE, F, LDF, SCALE, RDSUM, RDSCAL,
-     $                   INFO )
+      SUBROUTINE CTGSY2( TRANS, IJOB, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, SCALE, RDSUM, RDSCAL, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +10,7 @@
       REAL               RDSCAL, RDSUM, SCALE
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ),
-     $                   D( LDD, * ), E( LDE, * ), F( LDF, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * )
 *     ..
 *
 *  =====================================================================
@@ -108,22 +105,17 @@
 *              Solve Z * x = RHS
 *
                CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
-               IF( IERR.GT.0 )
-     $            INFO = IERR
+               IF( IERR.GT.0 ) INFO = IERR
                IF( IJOB.EQ.0 ) THEN
                   CALL CGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                   IF( SCALOC.NE.ONE ) THEN
                      DO 10 K = 1, N
-                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ),
-     $                              1 )
-                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ),
-     $                              1 )
+                        CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
    10                CONTINUE
                      SCALE = SCALE*SCALOC
                   END IF
                ELSE
-                  CALL CLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL,
-     $                         IPIV, JPIV )
+                  CALL CLATDF( IJOB, LDZ, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
                END IF
 *
 *              Unpack solution vector(s)
@@ -139,10 +131,7 @@
                   CALL CAXPY( I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 )
                END IF
                IF( J.LT.N ) THEN
-                  CALL CAXPY( N-J, RHS( 2 ), B( J, J+1 ), LDB,
-     $                        C( I, J+1 ), LDC )
-                  CALL CAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE,
-     $                        F( I, J+1 ), LDF )
+                  CALL CAXPY( N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL CAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF )
                END IF
 *
    20       CONTINUE
@@ -175,15 +164,11 @@
 *              Solve Z**H * x = RHS
 *
                CALL CGETC2( LDZ, Z, LDZ, IPIV, JPIV, IERR )
-               IF( IERR.GT.0 )
-     $            INFO = IERR
+               IF( IERR.GT.0 ) INFO = IERR
                CALL CGESC2( LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC )
                IF( SCALOC.NE.ONE ) THEN
                   DO 40 K = 1, N
-                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ),
-     $                           1 )
-                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ),
-     $                           1 )
+                     CALL CSCAL( M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 )
    40             CONTINUE
                   SCALE = SCALE*SCALOC
                END IF
@@ -196,12 +181,10 @@
 *              Substitute R(I, J) and L(I, J) into remaining equation.
 *
                DO 50 K = 1, J - 1
-                  F( I, K ) = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) +
-     $                        RHS( 2 )*CONJG( E( K, J ) )
+                  F( I, K ) = F( I, K ) + RHS( 1 )*CONJG( B( K, J ) ) + RHS( 2 )*CONJG( E( K, J ) )
    50          CONTINUE
                DO 60 K = I + 1, M
-                  C( K, J ) = C( K, J ) - CONJG( A( I, K ) )*RHS( 1 ) -
-     $                        CONJG( D( I, K ) )*RHS( 2 )
+                  C( K, J ) = C( K, J ) - CONJG( A( I, K ) )*RHS( 1 ) - CONJG( D( I, K ) )*RHS( 2 )
    60          CONTINUE
 *
    70       CONTINUE

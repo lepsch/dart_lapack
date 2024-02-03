@@ -1,5 +1,4 @@
-      SUBROUTINE ZTPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK,
-     $                   INFO )
+      SUBROUTINE ZTPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -107,14 +106,12 @@
 *
 *              Multiply by inv(A).
 *
-               CALL ZLATPS( UPLO, 'No transpose', DIAG, NORMIN, N, AP,
-     $                      WORK, SCALE, RWORK, INFO )
+               CALL ZLATPS( UPLO, 'No transpose', DIAG, NORMIN, N, AP, WORK, SCALE, RWORK, INFO )
             ELSE
 *
 *              Multiply by inv(A**H).
 *
-               CALL ZLATPS( UPLO, 'Conjugate transpose', DIAG, NORMIN,
-     $                      N, AP, WORK, SCALE, RWORK, INFO )
+               CALL ZLATPS( UPLO, 'Conjugate transpose', DIAG, NORMIN, N, AP, WORK, SCALE, RWORK, INFO )
             END IF
             NORMIN = 'Y'
 *
@@ -123,8 +120,7 @@
             IF( SCALE.NE.ONE ) THEN
                IX = IZAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO )
-     $            GO TO 20
+               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
                CALL ZDRSCL( N, SCALE, WORK, 1 )
             END IF
             GO TO 10
@@ -132,8 +128,7 @@
 *
 *        Compute the estimate of the reciprocal condition number.
 *
-         IF( AINVNM.NE.ZERO )
-     $      RCOND = ( ONE / ANORM ) / AINVNM
+         IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
 *
    20 CONTINUE

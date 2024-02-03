@@ -1,5 +1,4 @@
-      SUBROUTINE DDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2,
-     +                    D_WORK_DLANGE, D_WORK_DGEQRF, TAU )
+      SUBROUTINE DDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, D_WORK_DLANGE, D_WORK_DGEQRF, TAU )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,29 +10,24 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            NVAL( NN )
-      DOUBLE PRECISION   A( LDA, * ), ARF( * ), B1( LDA, * ),
-     +                   B2( LDA, * ), D_WORK_DGEQRF( * ),
-     +                   D_WORK_DLANGE( * ), TAU( * )
+      DOUBLE PRECISION   A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * ), D_WORK_DGEQRF( * ), D_WORK_DLANGE( * ), TAU( * )
 *     ..
 *
 *  =====================================================================
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) ,
-     +                     ONE  = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) , ONE  = ( 1.0D+0, 0.0D+0 ) )
       INTEGER            NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, DIAG, TRANS, SIDE
-      INTEGER            I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA,
-     +                   NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
+      INTEGER            I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
       DOUBLE PRECISION   EPS, ALPHA
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ),
-     +                   DIAGS( 2 ), SIDES( 2 )
+      CHARACTER          UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 )
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
@@ -155,9 +149,7 @@
 *                                -> QR factorization.
 *
                                  SRNAMT = 'DGEQRF'
-                                 CALL DGEQRF( NA, NA, A, LDA, TAU,
-     +                                        D_WORK_DGEQRF, LDA,
-     +                                        INFO )
+                                 CALL DGEQRF( NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO )
 *
 *                                Forcing main diagonal of test matrix to
 *                                be unit makes it ill-conditioned for
@@ -166,8 +158,7 @@
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO J = 1, NA
                                        DO I = 1, J
-                                          A( I, J ) = A( I, J ) /
-     +                                            ( 2.0 * A( J, J ) )
+                                          A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) )
                                        END DO
                                     END DO
                                  END IF
@@ -178,9 +169,7 @@
 *                                -> QL factorization.
 *
                                  SRNAMT = 'DGELQF'
-                                 CALL DGELQF( NA, NA, A, LDA, TAU,
-     +                                        D_WORK_DGEQRF, LDA,
-     +                                        INFO )
+                                 CALL DGELQF( NA, NA, A, LDA, TAU, D_WORK_DGEQRF, LDA, INFO )
 *
 *                                Forcing main diagonal of test matrix to
 *                                be unit makes it ill-conditioned for
@@ -189,8 +178,7 @@
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO I = 1, NA
                                        DO J = 1, I
-                                          A( I, J ) = A( I, J ) /
-     +                                            ( 2.0 * A( I, I ) )
+                                          A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) )
                                        END DO
                                     END DO
                                  END IF
@@ -200,8 +188,7 @@
 *                             Store a copy of A in RFP format (in ARF).
 *
                               SRNAMT = 'DTRTTF'
-                              CALL DTRTTF( CFORM, UPLO, NA, A, LDA, ARF,
-     +                                     INFO )
+                              CALL DTRTTF( CFORM, UPLO, NA, A, LDA, ARF, INFO )
 *
 *                             Generate B1 our M--by--N right-hand side
 *                             and store a copy in B2.
@@ -217,16 +204,13 @@
 *                             with DTRSM
 *
                               SRNAMT = 'DTRSM'
-                              CALL DTRSM( SIDE, UPLO, TRANS, DIAG, M, N,
-     +                               ALPHA, A, LDA, B1, LDA )
+                              CALL DTRSM( SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA )
 *
 *                             Solve op( A ) X = B or X op( A ) = B
 *                             with DTFSM
 *
                               SRNAMT = 'DTFSM'
-                              CALL DTFSM( CFORM, SIDE, UPLO, TRANS,
-     +                                    DIAG, M, N, ALPHA, ARF, B2,
-     +                                    LDA )
+                              CALL DTFSM( CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA )
 *
 *                             Check that the result agrees.
 *
@@ -236,20 +220,16 @@
                                  END DO
                               END DO
 *
-                              RESULT( 1 ) = DLANGE( 'I', M, N, B1, LDA,
-     +                                            D_WORK_DLANGE )
+                              RESULT( 1 ) = DLANGE( 'I', M, N, B1, LDA, D_WORK_DLANGE )
 *
-                              RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS )
-     +                                    / MAX ( MAX( M, N ), 1 )
+                              RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 )
 *
                               IF( RESULT( 1 ).GE.THRESH ) THEN
                                  IF( NFAIL.EQ.0 ) THEN
                                     WRITE( NOUT, * )
                                     WRITE( NOUT, FMT = 9999 )
                                  END IF
-                                 WRITE( NOUT, FMT = 9997 ) 'DTFSM',
-     +                              CFORM, SIDE, UPLO, TRANS, DIAG, M,
-     +                              N, RESULT( 1 )
+                                 WRITE( NOUT, FMT = 9997 ) 'DTFSM', CFORM, SIDE, UPLO, TRANS, DIAG, M, N, RESULT( 1 )
                                  NFAIL = NFAIL + 1
                               END IF
 *

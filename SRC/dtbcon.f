@@ -1,5 +1,4 @@
-      SUBROUTINE DTBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE DTBCON( NORM, UPLO, DIAG, N, KD, AB, LDAB, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -104,14 +103,12 @@
 *
 *              Multiply by inv(A).
 *
-               CALL DLATBS( UPLO, 'No transpose', DIAG, NORMIN, N, KD,
-     $                      AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
+               CALL DLATBS( UPLO, 'No transpose', DIAG, NORMIN, N, KD, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
             ELSE
 *
 *              Multiply by inv(A**T).
 *
-               CALL DLATBS( UPLO, 'Transpose', DIAG, NORMIN, N, KD, AB,
-     $                      LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
+               CALL DLATBS( UPLO, 'Transpose', DIAG, NORMIN, N, KD, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
             END IF
             NORMIN = 'Y'
 *
@@ -120,8 +117,7 @@
             IF( SCALE.NE.ONE ) THEN
                IX = IDAMAX( N, WORK, 1 )
                XNORM = ABS( WORK( IX ) )
-               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO )
-     $            GO TO 20
+               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
                CALL DRSCL( N, SCALE, WORK, 1 )
             END IF
             GO TO 10
@@ -129,8 +125,7 @@
 *
 *        Compute the estimate of the reciprocal condition number.
 *
-         IF( AINVNM.NE.ZERO )
-     $      RCOND = ( ONE / ANORM ) / AINVNM
+         IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
 *
    20 CONTINUE

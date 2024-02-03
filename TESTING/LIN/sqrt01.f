@@ -1,5 +1,4 @@
-      SUBROUTINE SQRT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE SQRT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ),
-     $                   R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ),
-     $                   WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -73,8 +70,7 @@
 *
 *     Compute R - Q'*A
 *
-      CALL SGEMM( 'Transpose', 'No transpose', M, N, M, -ONE, Q, LDA, A,
-     $            LDA, ONE, R, LDA )
+      CALL SGEMM( 'Transpose', 'No transpose', M, N, M, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 *
@@ -89,8 +85,7 @@
 *     Compute I - Q'*Q
 *
       CALL SLASET( 'Full', M, M, ZERO, ONE, R, LDA )
-      CALL SSYRK( 'Upper', 'Transpose', M, M, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL SSYRK( 'Upper', 'Transpose', M, M, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *

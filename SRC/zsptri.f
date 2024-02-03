@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -54,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check that the diagonal matrix D is nonsingular.
 *
@@ -65,8 +63,7 @@
 *
          KP = N*( N+1 ) / 2
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP - INFO
    10    CONTINUE
       ELSE
@@ -75,8 +72,7 @@
 *
          KP = 1
          DO 20 INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP + N - INFO + 1
    20    CONTINUE
       END IF
@@ -95,8 +91,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 50
+         IF( K.GT.N ) GO TO 50
 *
          KCNEXT = KC + K
          IF( IPIV( K ).GT.0 ) THEN
@@ -111,10 +106,7 @@
 *
             IF( K.GT.1 ) THEN
                CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ),
-     $                     1 )
-               AP( KC+K-1 ) = AP( KC+K-1 ) -
-     $                        ZDOTU( K-1, WORK, 1, AP( KC ), 1 )
+               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -136,18 +128,9 @@
 *
             IF( K.GT.1 ) THEN
                CALL ZCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ),
-     $                     1 )
-               AP( KC+K-1 ) = AP( KC+K-1 ) -
-     $                        ZDOTU( K-1, WORK, 1, AP( KC ), 1 )
-               AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) -
-     $                            ZDOTU( K-1, AP( KC ), 1, AP( KCNEXT ),
-     $                            1 )
+               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - ZDOTU( K-1, WORK, 1, AP( KC ), 1 )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - ZDOTU( K-1, AP( KC ), 1, AP( KCNEXT ), 1 )
                CALL ZCOPY( K-1, AP( KCNEXT ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO,
-     $                     AP( KCNEXT ), 1 )
-               AP( KCNEXT+K ) = AP( KCNEXT+K ) -
-     $                          ZDOTU( K-1, WORK, 1, AP( KCNEXT ), 1 )
+               CALL ZSPMV( UPLO, K-1, -ONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - ZDOTU( K-1, WORK, 1, AP( KCNEXT ), 1 )
             END IF
             KSTEP = 2
             KCNEXT = KCNEXT + K + 1
@@ -197,8 +180,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 80
+         IF( K.LT.1 ) GO TO 80
 *
          KCNEXT = KC - ( N-K+2 )
          IF( IPIV( K ).GT.0 ) THEN
@@ -213,10 +195,7 @@
 *
             IF( K.LT.N ) THEN
                CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1,
-     $                     ZERO, AP( KC+1 ), 1 )
-               AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ),
-     $                    1 )
+               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -238,18 +217,9 @@
 *
             IF( K.LT.N ) THEN
                CALL ZCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1,
-     $                     ZERO, AP( KC+1 ), 1 )
-               AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ),
-     $                    1 )
-               AP( KCNEXT+1 ) = AP( KCNEXT+1 ) -
-     $                          ZDOTU( N-K, AP( KC+1 ), 1,
-     $                          AP( KCNEXT+2 ), 1 )
+               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - ZDOTU( N-K, WORK, 1, AP( KC+1 ), 1 )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - ZDOTU( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 )
                CALL ZCOPY( N-K, AP( KCNEXT+2 ), 1, WORK, 1 )
-               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1,
-     $                     ZERO, AP( KCNEXT+2 ), 1 )
-               AP( KCNEXT ) = AP( KCNEXT ) -
-     $                        ZDOTU( N-K, WORK, 1, AP( KCNEXT+2 ), 1 )
+               CALL ZSPMV( UPLO, N-K, -ONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - ZDOTU( N-K, WORK, 1, AP( KCNEXT+2 ), 1 )
             END IF
             KSTEP = 2
             KCNEXT = KCNEXT - ( N-K+3 )
@@ -262,8 +232,7 @@
 *           submatrix A(k-1:n,k-1:n)
 *
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1
-            IF( KP.LT.N )
-     $         CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
+            IF( KP.LT.N ) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
             KX = KC + KP - K
             DO 70 J = K + 1, KP - 1
                KX = KX + N - J + 1

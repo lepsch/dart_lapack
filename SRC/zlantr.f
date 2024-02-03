@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLANTR( NORM, UPLO, DIAG, M, N, A, LDA,
-     $                 WORK )
+      DOUBLE PRECISION FUNCTION ZLANTR( NORM, UPLO, DIAG, M, N, A, LDA, WORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -191,8 +190,7 @@
                SCALE = ONE
                SUM = MIN( M, N )
                DO 310 J = 1, N
-                  CALL ZLASSQ( M-J, A( MIN( M, J+1 ), J ), 1, SCALE,
-     $                         SUM )
+                  CALL ZLASSQ( M-J, A( MIN( M, J+1 ), J ), 1, SCALE, SUM )
   310          CONTINUE
             ELSE
                SCALE = ZERO

@@ -21,8 +21,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
       DO 10 I = 1, N
          K( I ) = -K( I )
@@ -34,16 +33,14 @@
 *
          DO 60 I = 1, N
 *
-            IF( K( I ).GT.0 )
-     $         GO TO 40
+            IF( K( I ).GT.0 ) GO TO 40
 *
             J = I
             K( J ) = -K( J )
             IN = K( J )
 *
    20       CONTINUE
-            IF( K( IN ).GT.0 )
-     $         GO TO 40
+            IF( K( IN ).GT.0 ) GO TO 40
 *
             DO 30 II = 1, M
                TEMP = X( II, J )
@@ -66,14 +63,12 @@
 *
          DO 110 I = 1, N
 *
-            IF( K( I ).GT.0 )
-     $         GO TO 100
+            IF( K( I ).GT.0 ) GO TO 100
 *
             K( I ) = -K( I )
             J = K( I )
    80       CONTINUE
-            IF( J.EQ.I )
-     $         GO TO 100
+            IF( J.EQ.I ) GO TO 100
 *
             DO 90 II = 1, M
                TEMP = X( II, I )

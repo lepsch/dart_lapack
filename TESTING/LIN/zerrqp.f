@@ -22,8 +22,7 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       DOUBLE PRECISION   RW( 2*NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ),
-     $                   W( 2*NMAX+3*NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), TAU( NMAX ), W( 2*NMAX+3*NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN

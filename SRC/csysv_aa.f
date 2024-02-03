@@ -1,5 +1,4 @@
-      SUBROUTINE CSYSV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                        LWORK, INFO )
+      SUBROUTINE CSYSV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -55,8 +54,7 @@
       IF( INFO.EQ.0 ) THEN
          CALL CSYTRF_AA( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
          LWKOPT_SYTRF = INT( WORK(1) )
-         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                   -1, INFO )
+         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO )
          LWKOPT_SYTRS = INT( WORK(1) )
          LWKOPT = MAX( LWKOPT_SYTRF, LWKOPT_SYTRS )
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
@@ -76,8 +74,7 @@
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                      LWORK, INFO )
+         CALL CSYTRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 *
       END IF
 *

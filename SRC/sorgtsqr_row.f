@@ -1,5 +1,4 @@
-      SUBROUTINE SORGTSQR_ROW( M, N, MB, NB, A, LDA, T, LDT, WORK,
-     $                         LWORK, INFO )
+      SUBROUTINE SORGTSQR_ROW( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -21,9 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM,
-     $                   LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB,
-     $                   KB, KB_LAST, KNB, MB1
+      INTEGER            NBLOCAL, MB2, M_PLUS_ONE, ITMP, IB_BOTTOM, LWORKOPT, NUM_ALL_ROW_BLOCKS, JB_T, IB, IMB, KB, KB_LAST, KNB, MB1
 *     ..
 *     .. Local Arrays ..
       REAL               DUMMY( 1, 1 )
@@ -144,9 +141,7 @@
 *
                KNB = MIN( NBLOCAL, N - KB + 1 )
 *
-               CALL SLARFB_GETT( 'I', IMB, N-KB+1, KNB,
-     $                     T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA,
-     $                     A( IB, KB ), LDA, WORK, KNB )
+               CALL SLARFB_GETT( 'I', IMB, N-KB+1, KNB, T( 1, JB_T+KB-1 ), LDT, A( KB, KB ), LDA, A( IB, KB ), LDA, WORK, KNB )
 *
             END DO
 *
@@ -178,13 +173,9 @@
 *           does not exist, hence we need to pass a dummy array
 *           reference DUMMY(1,1) to B with LDDUMMY=1.
 *
-            CALL SLARFB_GETT( 'N', 0, N-KB+1, KNB,
-     $                        T( 1, KB ), LDT, A( KB, KB ), LDA,
-     $                        DUMMY( 1, 1 ), 1, WORK, KNB )
+            CALL SLARFB_GETT( 'N', 0, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, DUMMY( 1, 1 ), 1, WORK, KNB )
          ELSE
-            CALL SLARFB_GETT( 'N', MB1-KB-KNB+1, N-KB+1, KNB,
-     $                        T( 1, KB ), LDT, A( KB, KB ), LDA,
-     $                        A( KB+KNB, KB), LDA, WORK, KNB )
+            CALL SLARFB_GETT( 'N', MB1-KB-KNB+1, N-KB+1, KNB, T( 1, KB ), LDT, A( KB, KB ), LDA, A( KB+KNB, KB), LDA, WORK, KNB )
 
          END IF
 *

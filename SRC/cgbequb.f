@@ -1,5 +1,4 @@
-      SUBROUTINE CGBEQUB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $                    AMAX, INFO )
+      SUBROUTINE CGBEQUB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J, KD
-      REAL               BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX,
-     $                   LOGRDX
+      REAL               BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX
       COMPLEX            ZDUM
 *     ..
 *     .. External Functions ..

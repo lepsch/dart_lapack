@@ -22,21 +22,15 @@
       REAL               ANRM, RCOND, BERR
 *     ..
 *     .. Local Arrays ..
-      REAL               S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ),
-     $                   PARAMS( 1 )
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( 2*NMAX ), X( NMAX )
+      REAL               S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, CPBCON, CPBEQU, CPBRFS, CPBTF2,
-     $                   CPBTRF, CPBTRS, CPOCON, CPOEQU, CPORFS, CPOTF2,
-     $                   CPOTRF, CPOTRI, CPOTRS, CPPCON, CPPEQU, CPPRFS,
-     $                   CPPTRF, CPPTRI, CPPTRS, CPOEQUB, CPORFSX
+      EXTERNAL           ALAESM, CHKXER, CPBCON, CPBEQU, CPBRFS, CPBTF2, CPBTRF, CPBTRS, CPOCON, CPOEQU, CPORFS, CPOTF2, CPOTRF, CPOTRI, CPOTRS, CPPCON, CPPEQU, CPPRFS, CPPTRF, CPPTRI, CPPTRS, CPOEQUB, CPORFSX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -140,32 +134,25 @@
 *
          SRNAMT = 'CPORFS'
          INFOT = 1
-         CALL CPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL CPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPORFS', INFOT, NOUT, LERR, OK )
 *
 *        CPORFSX
@@ -174,45 +161,29 @@
          NPARAMS = 0
          SRNAMT = 'CPORFSX'
          INFOT = 1
-         CALL CPORFSX( '/', EQ, 0, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( '/', EQ, 0, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CPORFSX( 'U', '/', -1, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', '/', -1, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          EQ = 'N'
          INFOT = 3
-         CALL CPORFSX( 'U', EQ, -1, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, -1, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CPORFSX( 'U', EQ, 0, -1, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, 0, -1, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CPORFSX( 'U', EQ, 2, 1, A, 1, AF, 2, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, 2, 1, A, 1, AF, 2, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 1, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 1, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 1, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CPORFSX', INFOT, NOUT, LERR, OK )
 *
 *        CPOCON
@@ -299,12 +270,10 @@
          CALL CPPRFS( '/', 0, 0, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
          CALL CPPRFS( 'U', 2, 1, A, AF, B, 1, X, 2, R1, R2, W, R, INFO )
@@ -399,36 +368,28 @@
 *
          SRNAMT = 'CPBRFS'
          INFOT = 1
-         CALL CPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CPBRFS', INFOT, NOUT, LERR, OK )
 *
 *        CPBCON

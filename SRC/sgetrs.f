@@ -38,8 +38,7 @@
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $    LSAME( TRANS, 'C' ) ) THEN
+      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -57,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( NOTRAN ) THEN
 *
@@ -70,26 +68,22 @@
 *
 *        Solve L*X = B, overwriting B with X.
 *
-         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', N, NRHS,
-     $               ONE, A, LDA, B, LDB )
+         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
 *        Solve U*X = B, overwriting B with X.
 *
-         CALL STRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N,
-     $               NRHS, ONE, A, LDA, B, LDB )
+         CALL STRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       ELSE
 *
 *        Solve A**T * X = B.
 *
 *        Solve U**T *X = B, overwriting B with X.
 *
-         CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', N, NRHS,
-     $               ONE, A, LDA, B, LDB )
+         CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
 *        Solve L**T *X = B, overwriting B with X.
 *
-         CALL STRSM( 'Left', 'Lower', 'Transpose', 'Unit', N, NRHS, ONE,
-     $               A, LDA, B, LDB )
+         CALL STRSM( 'Left', 'Lower', 'Transpose', 'Unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
 *        Apply row interchanges to the solution vectors.
 *

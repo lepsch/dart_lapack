@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  L(:,:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), L(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
@@ -51,9 +49,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(N,N), L(LL,N), RWORK(LL),
-     $           WORK(LWORK), T(NB,N), C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(N,N), L(LL,N), RWORK(LL), WORK(LWORK), T(NB,N), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -70,8 +66,7 @@
 *     Generate the n-by-n matrix Q
 *
       CALL ZLASET( 'Full', N, N, CZERO, ONE, Q, N )
-      CALL ZGEMLQT( 'R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N,
-     $              WORK, INFO )
+      CALL ZGEMLQT( 'R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N, WORK, INFO )
 *
 *     Copy L
 *
@@ -106,8 +101,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL ZGEMLQT( 'L', 'N', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL ZGEMLQT( 'L', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |Q*D - Q*D| / |D|
 *
@@ -125,8 +119,7 @@
 *
 *     Apply Q to D as QT*D
 *
-      CALL ZGEMLQT( 'L', 'C', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL ZGEMLQT( 'L', 'C', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |QT*D - QT*D| / |D|
 *
@@ -148,8 +141,7 @@
 *
 *     Apply Q to C as C*Q
 *
-      CALL ZGEMLQT( 'R', 'N', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL ZGEMLQT( 'R', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |C*Q - C*Q| / |C|
 *
@@ -167,8 +159,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL ZGEMLQT( 'R', 'C', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL ZGEMLQT( 'R', 'C', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |C*QT - C*QT| / |C|
 *

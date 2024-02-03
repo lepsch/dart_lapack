@@ -45,8 +45,7 @@
 *
 *     Perform the factorization.
 *
-      IF( M.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 ) RETURN
       IF( M.EQ.N ) THEN
          DO 10 I = 1, N
             TAU( I ) = ZERO
@@ -73,15 +72,13 @@
 *
 *              Form   w = a( k ) + B*z( k )  in TAU.
 *
-               CALL SGEMV( 'No transpose', K-1, N-M, ONE, A( 1, M1 ),
-     $                     LDA, A( K, M1 ), LDA, ONE, TAU, 1 )
+               CALL SGEMV( 'No transpose', K-1, N-M, ONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, ONE, TAU, 1 )
 *
 *              Now form  a( k ) := a( k ) - tau*w
 *              and       B      := B      - tau*w*z( k )**T.
 *
                CALL SAXPY( K-1, -TAU( K ), TAU, 1, A( 1, K ), 1 )
-               CALL SGER( K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA,
-     $                    A( 1, M1 ), LDA )
+               CALL SGER( K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
             END IF
    20    CONTINUE
       END IF

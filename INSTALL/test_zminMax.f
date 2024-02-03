@@ -73,8 +73,7 @@
   30  continue
 *
       if( nFailingTests .gt. 0 ) then
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests,
-     $      " pass for intrinsic MIN and MAX,", nFailingTests," fail."
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail."
       else
          print *, "# All tests pass for intrinsic MIN and MAX."
       endif

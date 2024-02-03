@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Compute machine safe minimum
 *
@@ -85,8 +84,7 @@
          IPIVSTART = J
          JPIVSTART = J - NTOPIV
          DO WHILE ( NTOPIV .LT. KAHEAD )
-            CALL SLASWP( NTOPIV, A( 1, JPIVSTART ), LDA, IPIVSTART, J,
-     $           IPIV, 1 )
+            CALL SLASWP( NTOPIV, A( 1, JPIVSTART ), LDA, IPIVSTART, J, IPIV, 1 )
             IPIVSTART = IPIVSTART - NTOPIV;
             NTOPIV = NTOPIV * 2;
             JPIVSTART = JPIVSTART - NTOPIV;
@@ -109,13 +107,9 @@
          END IF
 
 !        Solve for U block.
-         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', KAHEAD,
-     $        KCOLS, ONE, A( KSTART, KSTART ), LDA,
-     $        A( KSTART, J+1 ), LDA )
+         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', KAHEAD, KCOLS, ONE, A( KSTART, KSTART ), LDA, A( KSTART, J+1 ), LDA )
 !        Schur complement.
-         CALL SGEMM( 'No transpose', 'No transpose', M-J,
-     $        KCOLS, KAHEAD, NEGONE, A( J+1, KSTART ), LDA,
-     $        A( KSTART, J+1 ), LDA, ONE, A( J+1, J+1 ), LDA )
+         CALL SGEMM( 'No transpose', 'No transpose', M-J, KCOLS, KAHEAD, NEGONE, A( J+1, KSTART ), LDA, A( KSTART, J+1 ), LDA, ONE, A( J+1, J+1 ), LDA )
       END DO
 
 !     Handle pivot permutations on the way out of the recursion
@@ -123,16 +117,14 @@
       J = NSTEP - NPIVED
       DO WHILE ( J .GT. 0 )
          NTOPIV = IAND( J, -J )
-         CALL SLASWP( NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP,
-     $        IPIV, 1 )
+         CALL SLASWP( NTOPIV, A( 1, J-NTOPIV+1 ), LDA, J+1, NSTEP, IPIV, 1 )
          J = J - NTOPIV
       END DO
 
 !     If short and wide, handle the rest of the columns.
       IF ( M .LT. N ) THEN
          CALL SLASWP( N-M, A( 1, M+KCOLS+1 ), LDA, 1, M, IPIV, 1 )
-         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', M,
-     $        N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA )
+         CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', M, N-M, ONE, A, LDA, A( 1,M+KCOLS+1 ), LDA )
       END IF
 
       RETURN

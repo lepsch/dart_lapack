@@ -1,5 +1,4 @@
-      SUBROUTINE CHET01_ROOK( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C,
-     $                        LDC, RWORK, RESID )
+      SUBROUTINE CHET01_ROOK( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -70,13 +68,11 @@
 *
 *     Call CLAVHE_ROOK to form the product D * U' (or D * L' ).
 *
-      CALL CLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL CLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     Call CLAVHE_ROOK again to multiply by U (or L ).
 *
-      CALL CLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL CLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     Compute the difference  C - A .
 *
@@ -101,8 +97,7 @@
       RESID = CLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
       END IF

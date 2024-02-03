@@ -25,8 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC,
-     $                   KSTEP, KX, NPP
+      INTEGER            I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP
       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, ROWMAX
       COMPLEX*16         D11, D12, D21, D22, R1, T, WK, WKM1, WKP1, ZDUM
 *     ..
@@ -81,8 +80,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 110
+         IF( K.LT.1 ) GO TO 110
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -104,8 +102,7 @@
 *
 *           Column K is zero: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -153,8 +150,7 @@
             END IF
 *
             KK = K - KSTEP + 1
-            IF( KSTEP.EQ.2 )
-     $         KNC = KNC - K + 1
+            IF( KSTEP.EQ.2 ) KNC = KNC - K + 1
             IF( KP.NE.KK ) THEN
 *
 *              Interchange rows and columns KK and KP in the leading
@@ -221,14 +217,9 @@
                   D12 = T / D12
 *
                   DO 50 J = K - 2, 1, -1
-                     WKM1 = D12*( D11*AP( J+( K-2 )*( K-1 ) / 2 )-
-     $                      AP( J+( K-1 )*K / 2 ) )
-                     WK = D12*( D22*AP( J+( K-1 )*K / 2 )-
-     $                    AP( J+( K-2 )*( K-1 ) / 2 ) )
+                     WKM1 = D12*( D11*AP( J+( K-2 )*( K-1 ) / 2 )- AP( J+( K-1 )*K / 2 ) )                      WK = D12*( D22*AP( J+( K-1 )*K / 2 )- AP( J+( K-2 )*( K-1 ) / 2 ) )
                      DO 40 I = J, 1, -1
-                        AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) -
-     $                     AP( I+( K-1 )*K / 2 )*WK -
-     $                     AP( I+( K-2 )*( K-1 ) / 2 )*WKM1
+                        AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*WK - AP( I+( K-2 )*( K-1 ) / 2 )*WKM1
    40                CONTINUE
                      AP( J+( K-1 )*K / 2 ) = WK
                      AP( J+( K-2 )*( K-1 ) / 2 ) = WKM1
@@ -268,8 +259,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 110
+         IF( K.GT.N ) GO TO 110
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -291,8 +281,7 @@
 *
 *           Column K is zero: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -342,16 +331,13 @@
             END IF
 *
             KK = K + KSTEP - 1
-            IF( KSTEP.EQ.2 )
-     $         KNC = KNC + N - K + 1
+            IF( KSTEP.EQ.2 ) KNC = KNC + N - K + 1
             IF( KP.NE.KK ) THEN
 *
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ),
-     $                        1 )
+               IF( KP.LT.N ) CALL ZSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
                KX = KNC + KP - KK
                DO 80 J = KK + 1, KP - 1
                   KX = KX + N - J + 1
@@ -386,8 +372,7 @@
 *                 A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 *
                   R1 = CONE / AP( KC )
-                  CALL ZSPR( UPLO, N-K, -R1, AP( KC+1 ), 1,
-     $                       AP( KC+N-K+1 ) )
+                  CALL ZSPR( UPLO, N-K, -R1, AP( KC+1 ), 1, AP( KC+N-K+1 ) )
 *
 *                 Store L(k) in column K
 *
@@ -419,14 +404,9 @@
                   D21 = T / D21
 *
                   DO 100 J = K + 2, N
-                     WK = D21*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-
-     $                    AP( J+K*( 2*N-K-1 ) / 2 ) )
-                     WKP1 = D21*( D22*AP( J+K*( 2*N-K-1 ) / 2 )-
-     $                      AP( J+( K-1 )*( 2*N-K ) / 2 ) )
+                     WK = D21*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )- AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D21*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- AP( J+( K-1 )*( 2*N-K ) / 2 ) )
                      DO 90 I = J, N
-                        AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )*
-     $                     ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) /
-     $                     2 )*WK - AP( I+K*( 2*N-K-1 ) / 2 )*WKP1
+                        AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*WK - AP( I+K*( 2*N-K-1 ) / 2 )*WKP1
    90                CONTINUE
                      AP( J+( K-1 )*( 2*N-K ) / 2 ) = WK
                      AP( J+K*( 2*N-K-1 ) / 2 ) = WKP1

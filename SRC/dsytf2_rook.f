@@ -23,10 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER, DONE
-      INTEGER            I, IMAX, J, JMAX, ITEMP, K, KK, KP, KSTEP,
-     $                   P, II
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22,
-     $                   ROWMAX, DTEMP, T, WK, WKM1, WKP1, SFMIN
+      INTEGER            I, IMAX, J, JMAX, ITEMP, K, KK, KP, KSTEP, P, II       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, ROWMAX, DTEMP, T, WK, WKM1, WKP1, SFMIN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -78,8 +75,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 70
+         IF( K.LT.1 ) GO TO 70
          KSTEP = 1
          P = K
 *
@@ -103,8 +99,7 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
 *
@@ -134,8 +129,7 @@
 *                 Determine both ROWMAX and JMAX.
 *
                   IF( IMAX.NE.K ) THEN
-                     JMAX = IMAX + IDAMAX( K-IMAX, A( IMAX, IMAX+1 ),
-     $                                    LDA )
+                     JMAX = IMAX + IDAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = ABS( A( IMAX, JMAX ) )
                   ELSE
                      ROWMAX = ZERO
@@ -153,8 +147,7 @@
 *                 Equivalent to testing for (used to handle NaN and Inf)
 *                 ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 *
-                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) )
-     $            THEN
+                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -197,11 +190,7 @@
 *              Interchange rows and column K and P in the leading
 *              submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 *
-               IF( P.GT.1 )
-     $            CALL DSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )
-               IF( P.LT.(K-1) )
-     $            CALL DSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ),
-     $                     LDA )
+               IF( P.GT.1 ) CALL DSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )                IF( P.LT.(K-1) ) CALL DSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA )
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -215,11 +204,7 @@
 *              Interchange rows and columns KK and KP in the leading
 *              submatrix A(1:k,1:k)
 *
-               IF( KP.GT.1 )
-     $            CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
-               IF( ( KK.GT.1 ) .AND. ( KP.LT.(KK-1) ) )
-     $            CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ),
-     $                     LDA )
+               IF( KP.GT.1 ) CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )                IF( ( KK.GT.1 ) .AND. ( KP.LT.(KK-1) ) ) CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -304,8 +289,7 @@
                      WK = T*( D22*A( J, K )-A( J, K-1 ) )
 *
                      DO 20 I = J, 1, -1
-                        A( I, J ) = A( I, J ) - (A( I, K ) / D12 )*WK -
-     $                              ( A( I, K-1 ) / D12 )*WKM1
+                        A( I, J ) = A( I, J ) - (A( I, K ) / D12 )*WK - ( A( I, K-1 ) / D12 )*WKM1
    20                CONTINUE
 *
 *                    Store U(k) and U(k-1) in cols k and k-1 for row J
@@ -346,8 +330,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 70
+         IF( K.GT.N ) GO TO 70
          KSTEP = 1
          P = K
 *
@@ -371,8 +354,7 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
 *
@@ -408,8 +390,7 @@
                   END IF
 *
                   IF( IMAX.LT.N ) THEN
-                     ITEMP = IMAX + IDAMAX( N-IMAX, A( IMAX+1, IMAX ),
-     $                                     1 )
+                     ITEMP = IMAX + IDAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = ABS( A( ITEMP, IMAX ) )
                      IF( DTEMP.GT.ROWMAX ) THEN
                         ROWMAX = DTEMP
@@ -420,8 +401,7 @@
 *                 Equivalent to testing for (used to handle NaN and Inf)
 *                 ABS( A( IMAX, IMAX ) ).GE.ALPHA*ROWMAX
 *
-                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) )
-     $            THEN
+                  IF( .NOT.( ABS( A( IMAX, IMAX ) ).LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -464,10 +444,7 @@
 *              Interchange rows and column K and P in the trailing
 *              submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 *
-               IF( P.LT.N )
-     $            CALL DSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
-               IF( P.GT.(K+1) )
-     $            CALL DSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA )
+               IF( P.LT.N ) CALL DSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )                IF( P.GT.(K+1) ) CALL DSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA )
                T = A( K, K )
                A( K, K ) = A( P, P )
                A( P, P ) = T
@@ -481,11 +458,7 @@
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
-               IF( ( KK.LT.N ) .AND. ( KP.GT.(KK+1) ) )
-     $            CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ),
-     $                     LDA )
+               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                IF( ( KK.LT.N ) .AND. ( KP.GT.(KK+1) ) ) CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -518,8 +491,7 @@
 *                       = A - W(k)*(1/D(k))*W(k)**T
 *
                      D11 = ONE / A( K, K )
-                     CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1,
-     $                          A( K+1, K+1 ), LDA )
+                     CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
 *
 *                    Store L(k) in column k
 *
@@ -538,8 +510,7 @@
 *                       = A - W(k)*(1/D(k))*W(k)**T
 *                       = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 *
-                     CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1,
-     $                          A( K+1, K+1 ), LDA )
+                     CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
                   END IF
                END IF
 *
@@ -577,8 +548,7 @@
 *                    Perform a rank-2 update of A(k+2:n,k+2:n)
 *
                      DO 50 I = J, N
-                        A( I, J ) = A( I, J ) - ( A( I, K ) / D21 )*WK -
-     $                              ( A( I, K+1 ) / D21 )*WKP1
+                        A( I, J ) = A( I, J ) - ( A( I, K ) / D21 )*WK - ( A( I, K+1 ) / D21 )*WKP1
    50                CONTINUE
 *
 *                    Store L(k) and L(k+1) in cols k and k+1 for row J

@@ -1,6 +1,4 @@
-      SUBROUTINE DLARRB( N, D, LLD, IFIRST, ILAST, RTOL1,
-     $                   RTOL2, OFFSET, W, WGAP, WERR, WORK, IWORK,
-     $                   PIVMIN, SPDIAM, TWIST, INFO )
+      SUBROUTINE DLARRB( N, D, LLD, IFIRST, ILAST, RTOL1, RTOL2, OFFSET, W, WGAP, WERR, WORK, IWORK, PIVMIN, SPDIAM, TWIST, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,23 +10,18 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   D( * ), LLD( * ), W( * ),
-     $                   WERR( * ), WGAP( * ), WORK( * )
+      DOUBLE PRECISION   D( * ), LLD( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, TWO, HALF
-      PARAMETER        ( ZERO = 0.0D0, TWO = 2.0D0,
-     $                   HALF = 0.5D0 )
+      PARAMETER        ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       INTEGER   MAXITR
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT,
-     $                   OLNINT, PREV, R
-      DOUBLE PRECISION   BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH,
-     $                   RGAP, RIGHT, TMP, WIDTH
+      INTEGER            I, I1, II, IP, ITER, K, NEGCNT, NEXT, NINT, OLNINT, PREV, R       DOUBLE PRECISION   BACK, CVRGD, GAP, LEFT, LGAP, MID, MNWDTH, RGAP, RIGHT, TMP, WIDTH
 *     ..
 *     .. External Functions ..
       INTEGER            DLANEG
@@ -48,8 +41,7 @@
          RETURN
       END IF
 *
-      MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) /
-     $           LOG( TWO ) ) + 2
+      MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
       MNWDTH = TWO * PIVMIN
 *
       R = TWIST
@@ -153,8 +145,7 @@
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
          CVRGD = MAX(RTOL1*GAP,RTOL2*TMP)
-         IF( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR.
-     $       ( ITER.EQ.MAXITR ) )THEN
+         IF( ( WIDTH.LE.CVRGD ) .OR. ( WIDTH.LE.MNWDTH ).OR. ( ITER.EQ.MAXITR ) )THEN
 *           reduce number of unconverged intervals
             NINT = NINT - 1
 *           Mark interval as converged.
@@ -201,8 +192,7 @@
       DO 111 I = IFIRST+1, ILAST
          K = 2*I
          II = I - OFFSET
-         WGAP( II-1 ) = MAX( ZERO,
-     $                     W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ))
+         WGAP( II-1 ) = MAX( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ))
  111  CONTINUE
 
       RETURN

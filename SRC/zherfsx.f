@@ -1,7 +1,4 @@
-      SUBROUTINE ZHERFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV,
-     $                    S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS,
-     $                    ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS,
-     $                    WORK, RWORK, INFO )
+      SUBROUTINE ZHERFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, IPIV, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,17 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          UPLO, EQUED
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS,
-     $                   N_ERR_BNDS
+      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ),
-     $                   X( LDX, * ), WORK( * )
-      DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), RWORK( * ),
-     $                   ERR_BNDS_NORM( NRHS, * ),
-     $                   ERR_BNDS_COMP( NRHS, * )
+      COMPLEX*16         A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), RWORK( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *
 *  ==================================================================
 *
@@ -34,13 +26,9 @@
       PARAMETER          ( COMPONENTWISE_DEFAULT = 1.0D+0 )
       PARAMETER          ( RTHRESH_DEFAULT = 0.5D+0 )
       PARAMETER          ( DZTHRESH_DEFAULT = 0.25D+0 )
-      INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I,
-     $                   LA_LINRX_CWISE_I
-      PARAMETER          ( LA_LINRX_ITREF_I = 1,
-     $                   LA_LINRX_ITHRESH_I = 2 )
+      INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I,
-     $                   LA_LINRX_RCOND_I
+      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
@@ -188,22 +176,14 @@
 *
       NORM = 'I'
       ANORM = ZLANHE( NORM, UPLO, N, A, LDA, RWORK )
-      CALL ZHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK,
-     $     INFO )
+      CALL ZHECON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, INFO )
 *
 *     Perform refinement on each right-hand side
 *
       IF ( REF_TYPE .NE. 0 ) THEN
 
          PREC_TYPE = ILAPREC( 'E' )
-
-         CALL ZLA_HERFSX_EXTENDED( PREC_TYPE, UPLO,  N,
-     $        NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B,
-     $        LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP,
-     $        WORK, RWORK, WORK(N+1),
-     $        TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND,
-     $        ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE,
-     $        INFO )
+          CALL ZLA_HERFSX_EXTENDED( PREC_TYPE, UPLO,  N, NRHS, A, LDA, AF, LDAF, IPIV, RCEQU, S, B, LDB, X, LDX, BERR, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, WORK, RWORK, WORK(N+1), TRANSFER (RWORK(1:2*N), (/ (ZERO, ZERO) /), N), RCOND, ITHRESH, RTHRESH, UNSTABLE_THRESH, IGNORE_CWISE, INFO )
       END IF
 
       ERR_LBND = MAX( 10.0D+0, SQRT( DBLE( N ) ) ) * DLAMCH( 'Epsilon' )
@@ -212,19 +192,15 @@
 *     Compute scaled normwise condition number cond(A*C).
 *
          IF ( RCEQU ) THEN
-            RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV,
-     $           S, .TRUE., INFO, WORK, RWORK )
+            RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .TRUE., INFO, WORK, RWORK )
          ELSE
-            RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV,
-     $           S, .FALSE., INFO, WORK, RWORK )
+            RCOND_TMP = ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, S, .FALSE., INFO, WORK, RWORK )
          END IF
          DO J = 1, NRHS
 *
 *     Cap the error at 1.0.
 *
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I
-     $           .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 )
-     $           ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
 *
 *     Threshold the error (see LAWN).
 *
@@ -232,8 +208,7 @@
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 0.0D+0
                IF ( INFO .LE. N ) INFO = N + J
-            ELSE IF ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND )
-     $              THEN
+            ELSE IF ( ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) THEN
                ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_NORM( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF
@@ -258,29 +233,21 @@
 *
          CWISE_WRONG = SQRT( DLAMCH( 'Epsilon' ) )
          DO J = 1, NRHS
-            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG )
-     $     THEN
-               RCOND_TMP = ZLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF,
-     $         IPIV, X( 1, J ), INFO, WORK, RWORK )
+            IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. CWISE_WRONG ) THEN                RCOND_TMP = ZLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X( 1, J ), INFO, WORK, RWORK )
             ELSE
                RCOND_TMP = 0.0D+0
             END IF
 *
 *     Cap the error at 1.0.
 *
-            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I
-     $           .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 )
-     $           ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
+            IF ( N_ERR_BNDS .GE. LA_LINRX_ERR_I .AND. ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .GT. 1.0D+0 ) ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
 *
 *     Threshold the error (see LAWN).
 *
             IF ( RCOND_TMP .LT. ILLRCOND_THRESH ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = 1.0D+0
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 0.0D+0
-               IF ( .NOT. IGNORE_CWISE
-     $              .AND. INFO.LT.N + J ) INFO = N + J
-            ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I )
-     $              .LT. ERR_LBND ) THEN
+               IF ( .NOT. IGNORE_CWISE .AND. INFO.LT.N + J ) INFO = N + J             ELSE IF ( ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) .LT. ERR_LBND ) THEN
                ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = ERR_LBND
                ERR_BNDS_COMP( J, LA_LINRX_TRUST_I ) = 1.0D+0
             END IF

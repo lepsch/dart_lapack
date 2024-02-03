@@ -1,5 +1,4 @@
-      SUBROUTINE DLAED3( K, N, N1, D, Q, LDQ, RHO, DLAMBDA, Q2, INDX,
-     $                   CTOT, W, S, INFO )
+      SUBROUTINE DLAED3( K, N, N1, D, Q, LDQ, RHO, DLAMBDA, Q2, INDX, CTOT, W, S, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            CTOT( * ), INDX( * )
-      DOUBLE PRECISION   D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ),
-     $                   S( * ), W( * )
+      DOUBLE PRECISION   D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), S( * ), W( * )
 *     ..
 *
 *  =====================================================================
@@ -55,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( K.EQ.0 )
-     $   RETURN
+      IF( K.EQ.0 ) RETURN
 *
 *
       DO 20 J = 1, K
@@ -64,12 +61,10 @@
 *
 *        If the zero finder fails, the computation is terminated.
 *
-         IF( INFO.NE.0 )
-     $      GO TO 120
+         IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
 *
-      IF( K.EQ.1 )
-     $   GO TO 110
+      IF( K.EQ.1 ) GO TO 110
       IF( K.EQ.2 ) THEN
          DO 30 J = 1, K
             W( 1 ) = Q( 1, J )
@@ -125,16 +120,14 @@
       CALL DLACPY( 'A', N23, K, Q( CTOT( 1 )+1, 1 ), LDQ, S, N23 )
       IQ2 = N1*N12 + 1
       IF( N23.NE.0 ) THEN
-         CALL DGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23,
-     $               ZERO, Q( N1+1, 1 ), LDQ )
+         CALL DGEMM( 'N', 'N', N2, K, N23, ONE, Q2( IQ2 ), N2, S, N23, ZERO, Q( N1+1, 1 ), LDQ )
       ELSE
          CALL DLASET( 'A', N2, K, ZERO, ZERO, Q( N1+1, 1 ), LDQ )
       END IF
 *
       CALL DLACPY( 'A', N12, K, Q, LDQ, S, N12 )
       IF( N12.NE.0 ) THEN
-         CALL DGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q,
-     $               LDQ )
+         CALL DGEMM( 'N', 'N', N1, K, N12, ONE, Q2, N1, S, N12, ZERO, Q, LDQ )
       ELSE
          CALL DLASET( 'A', N1, K, ZERO, ZERO, Q( 1, 1 ), LDQ )
       END IF

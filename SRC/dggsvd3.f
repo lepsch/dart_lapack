@@ -1,6 +1,4 @@
-      SUBROUTINE DGGSVD3( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B,
-     $                    LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ,
-     $                    WORK, LWORK, IWORK, INFO )
+      SUBROUTINE DGGSVD3( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P,
-     $                   LWORK
+      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), Q( LDQ, * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -78,9 +73,7 @@
 *     Compute workspace
 *
       IF( INFO.EQ.0 ) THEN
-         CALL DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA,
-     $                 TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK,
-     $                 WORK, -1, INFO )
+         CALL DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK, -1, INFO )
          LWKOPT = N + INT( WORK( 1 ) )
          LWKOPT = MAX( 2*N, LWKOPT )
          LWKOPT = MAX( 1, LWKOPT )
@@ -110,15 +103,11 @@
 *
 *     Preprocessing
 *
-      CALL DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA,
-     $              TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK,
-     $              WORK( N+1 ), LWORK-N, INFO )
+      CALL DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), LWORK-N, INFO )
 *
 *     Compute the GSVD of two upper "triangular" matrices
 *
-      CALL DTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB,
-     $             TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ,
-     $             WORK, NCYCLE, INFO )
+      CALL DTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
 *     Sort the singular values and store the pivot indices in IWORK
 *     Copy ALPHA to WORK, then sort ALPHA in WORK

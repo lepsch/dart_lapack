@@ -1,6 +1,4 @@
-      SUBROUTINE DCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T,
-     $                   LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE DCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       DOUBLE PRECISION   RESULT( 15 ), RWORK( * ), THETA( * )
-      DOUBLE PRECISION   U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ),
-     $                   V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ),
-     $                   XF( LDX, * )
+      DOUBLE PRECISION   U1( LDU1, * ), U2( LDU2, * ), V1T( LDV1T, * ), V2T( LDV2T, * ), WORK( LWORK ), X( LDX, * ), XF( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -36,8 +32,7 @@
       EXTERNAL           DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLACPY, DLASET, DORCSD, DORCSD2BY1,
-     $                   DSYRK
+      EXTERNAL           DGEMM, DLACPY, DLASET, DORCSD, DORCSD2BY1, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          COS, DBLE, MAX, MIN, SIN
@@ -50,11 +45,9 @@
 *     The first half of the routine checks the 2-by-2 CSD
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDX )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX,
-     $            ONE, WORK, LDX )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', M, M, -ONE, X, LDX, ONE, WORK, LDX )
       IF (M.GT.0) THEN
-         EPS2 = MAX( ULP,
-     $               DLANGE( '1', M, M, WORK, LDX, RWORK ) / DBLE( M ) )
+         EPS2 = MAX( ULP, DLANGE( '1', M, M, WORK, LDX, RWORK ) / DBLE( M ) )
       ELSE
          EPS2 = ULP
       END IF
@@ -66,72 +59,54 @@
 *
 *     Compute the CSD
 *
-      CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'D', M, P, Q, XF(1,1), LDX,
-     $             XF(1,Q+1), LDX, XF(P+1,1), LDX, XF(P+1,Q+1), LDX,
-     $             THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T,
-     $             WORK, LWORK, IWORK, INFO )
+      CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'D', M, P, Q, XF(1,1), LDX, XF(1,Q+1), LDX, XF(P+1,1), LDX, XF(P+1,Q+1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, WORK, LWORK, IWORK, INFO )
 *
 *     Compute XF := diag(U1,U2)'*X*diag(V1,V2) - [D11 D12; D21 D22]
 *
       CALL DLACPY( 'Full', M, M, X, LDX, XF, LDX )
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE,
-     $            XF, LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE, XF, LDX, V1T, LDV1T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE,
-     $            U1, LDU1, WORK, LDX, ZERO, XF, LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF, LDX )
 *
       DO I = 1, MIN(P,Q)-R
          XF(I,I) = XF(I,I) - ONE
       END DO
       DO I = 1, R
-         XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) =
-     $           XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
+         XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = XF(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
       END DO
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, M-Q, M-Q,
-     $            ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, M-Q, M-Q, ONE, XF(1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, M-Q, P,
-     $            ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, M-Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, XF(1,Q+1), LDX )
 *
       DO I = 1, MIN(P,M-Q)-R
          XF(P-I+1,M-I+1) = XF(P-I+1,M-I+1) + ONE
       END DO
       DO I = 1, R
-         XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) =
-     $      XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) +
-     $      SIN(THETA(R-I+1))
+         XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = XF(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) + SIN(THETA(R-I+1))
       END DO
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE,
-     $            XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, XF(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P,
-     $            ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,1), LDX )
 *
       DO I = 1, MIN(M-P,Q)-R
          XF(M-I+1,Q-I+1) = XF(M-I+1,Q-I+1) - ONE
       END DO
       DO I = 1, R
-         XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) =
-     $             XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) -
-     $             SIN(THETA(R-I+1))
+         XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = XF(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1))
       END DO
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, M-Q, M-Q,
-     $            ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, M-Q, M-Q, ONE, XF(P+1,Q+1), LDX, V2T, LDV2T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, M-Q, M-P,
-     $            ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, M-Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, XF(P+1,Q+1), LDX )
 *
       DO I = 1, MIN(M-P,M-Q)-R
          XF(P+I,Q+I) = XF(P+I,Q+I) - ONE
       END DO
       DO I = 1, R
-         XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) =
-     $      XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) -
-     $      COS(THETA(I))
+         XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = XF(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) - COS(THETA(I))
       END DO
 *
 *     Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
@@ -157,8 +132,7 @@
 *     Compute I - U1'*U1
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1,
-     $            ONE, WORK, LDU1 )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
 *
 *     Compute norm( I - U'*U ) / ( MAX(1,P) * ULP ) .
 *
@@ -168,8 +142,7 @@
 *     Compute I - U2'*U2
 *
       CALL DLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2,
-     $            LDU2, ONE, WORK, LDU2 )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
 *
 *     Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 *
@@ -179,8 +152,7 @@
 *     Compute I - V1T*V1T'
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
-      CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE,
-     $            WORK, LDV1T )
+      CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
 *
 *     Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 *
@@ -190,8 +162,7 @@
 *     Compute I - V2T*V2T'
 *
       CALL DLASET( 'Full', M-Q, M-Q, ZERO, ONE, WORK, LDV2T )
-      CALL DSYRK( 'Upper', 'No transpose', M-Q, M-Q, -ONE, V2T, LDV2T,
-     $            ONE, WORK, LDV2T )
+      CALL DSYRK( 'Upper', 'No transpose', M-Q, M-Q, -ONE, V2T, LDV2T, ONE, WORK, LDV2T )
 *
 *     Compute norm( I - V2T*V2T' ) / ( MAX(1,M-Q) * ULP ) .
 *
@@ -215,11 +186,9 @@
 *     The second half of the routine checks the 2-by-1 CSD
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDX )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX,
-     $            ONE, WORK, LDX )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', Q, M, -ONE, X, LDX, ONE, WORK, LDX )
       IF( M.GT.0 ) THEN
-         EPS2 = MAX( ULP,
-     $               DLANGE( '1', Q, Q, WORK, LDX, RWORK ) / DBLE( M ) )
+         EPS2 = MAX( ULP, DLANGE( '1', Q, Q, WORK, LDX, RWORK ) / DBLE( M ) )
       ELSE
          EPS2 = ULP
       END IF
@@ -231,39 +200,30 @@
 *
 *     Compute the CSD
 *
-      CALL DORCSD2BY1( 'Y', 'Y', 'Y', M, P, Q, XF(1,1), LDX, XF(P+1,1),
-     $                 LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK,
-     $                 LWORK, IWORK, INFO )
+      CALL DORCSD2BY1( 'Y', 'Y', 'Y', M, P, Q, XF(1,1), LDX, XF(P+1,1), LDX, THETA, U1, LDU1, U2, LDU2, V1T, LDV1T, WORK, LWORK, IWORK, INFO )
 *
 *     Compute [X11;X21] := diag(U1,U2)'*[X11;X21]*V1 - [D11;D21]
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE,
-     $            X, LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', P, Q, Q, ONE, X, LDX, V1T, LDV1T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE,
-     $            U1, LDU1, WORK, LDX, ZERO, X, LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', P, Q, P, ONE, U1, LDU1, WORK, LDX, ZERO, X, LDX )
 *
       DO I = 1, MIN(P,Q)-R
          X(I,I) = X(I,I) - ONE
       END DO
       DO I = 1, R
-         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) =
-     $           X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
+         X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) = X(MIN(P,Q)-R+I,MIN(P,Q)-R+I) - COS(THETA(I))
       END DO
 *
-      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE,
-     $            X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
+      CALL DGEMM( 'No transpose', 'Conjugate transpose', M-P, Q, Q, ONE, X(P+1,1), LDX, V1T, LDV1T, ZERO, WORK, LDX )
 *
-      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P,
-     $            ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX )
+      CALL DGEMM( 'Conjugate transpose', 'No transpose', M-P, Q, M-P, ONE, U2, LDU2, WORK, LDX, ZERO, X(P+1,1), LDX )
 *
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = X(M-I+1,Q-I+1) - ONE
       END DO
       DO I = 1, R
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) =
-     $             X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) -
-     $             SIN(THETA(R-I+1))
+         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) - SIN(THETA(R-I+1))
       END DO
 *
 *     Compute norm( U1'*X11*V1 - D11 ) / ( MAX(1,P,Q)*EPS2 ) .
@@ -279,8 +239,7 @@
 *     Compute I - U1'*U1
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDU1 )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1,
-     $            ONE, WORK, LDU1 )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', P, P, -ONE, U1, LDU1, ONE, WORK, LDU1 )
 *
 *     Compute norm( I - U1'*U1 ) / ( MAX(1,P) * ULP ) .
 *
@@ -290,8 +249,7 @@
 *     Compute I - U2'*U2
 *
       CALL DLASET( 'Full', M-P, M-P, ZERO, ONE, WORK, LDU2 )
-      CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2,
-     $            LDU2, ONE, WORK, LDU2 )
+      CALL DSYRK( 'Upper', 'Conjugate transpose', M-P, M-P, -ONE, U2, LDU2, ONE, WORK, LDU2 )
 *
 *     Compute norm( I - U2'*U2 ) / ( MAX(1,M-P) * ULP ) .
 *
@@ -301,8 +259,7 @@
 *     Compute I - V1T*V1T'
 *
       CALL DLASET( 'Full', Q, Q, ZERO, ONE, WORK, LDV1T )
-      CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE,
-     $            WORK, LDV1T )
+      CALL DSYRK( 'Upper', 'No transpose', Q, Q, -ONE, V1T, LDV1T, ONE, WORK, LDV1T )
 *
 *     Compute norm( I - V1T*V1T' ) / ( MAX(1,Q) * ULP ) .
 *

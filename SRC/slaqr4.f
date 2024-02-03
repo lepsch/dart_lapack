@@ -1,5 +1,4 @@
-      SUBROUTINE SLAQR4( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI,
-     $                   ILOZ, IHIZ, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE SLAQR4( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
-      REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ),
-     $                   Z( LDZ, * )
+      REAL               H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )
 *     ..
 *
 *  ================================================================
@@ -45,10 +43,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               AA, BB, CC, CS, DD, SN, SS, SWAP
-      INTEGER            I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS,
-     $                   KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS,
-     $                   LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS,
-     $                   NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
+      INTEGER            I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
       LOGICAL            SORTED
       CHARACTER          JBCMPZ*2
 *     ..
@@ -81,9 +76,7 @@
 *        ==== Tiny matrices must use SLAHQR. ====
 *
          LWKOPT = 1
-         IF( LWORK.NE.-1 )
-     $      CALL SLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI,
-     $                   ILOZ, IHIZ, Z, LDZ, INFO )
+         IF( LWORK.NE.-1 ) CALL SLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILOZ, IHIZ, Z, LDZ, INFO )
       ELSE
 *
 *        ==== Use small bulge multi-shift QR with aggressive early
@@ -129,9 +122,7 @@
 *
 *        ==== Workspace query call to SLAQR2 ====
 *
-         CALL SLAQR2( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ,
-     $                IHIZ, Z, LDZ, LS, LD, WR, WI, H, LDH, N, H, LDH,
-     $                N, H, LDH, WORK, -1 )
+         CALL SLAQR2( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 )
 *
 *        ==== Optimal workspace = MAX(SLAQR5, SLAQR2) ====
 *
@@ -191,14 +182,12 @@
 *
 *           ==== Done when KBOT falls below ILO ====
 *
-            IF( KBOT.LT.ILO )
-     $         GO TO 90
+            IF( KBOT.LT.ILO ) GO TO 90
 *
 *           ==== Locate active block ====
 *
             DO 10 K = KBOT, ILO + 1, -1
-               IF( H( K, K-1 ).EQ.ZERO )
-     $            GO TO 20
+               IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
    10       CONTINUE
             K = ILO
    20       CONTINUE
@@ -232,16 +221,14 @@
                   NW = NH
                ELSE
                   KWTOP = KBOT - NW + 1
-                  IF( ABS( H( KWTOP, KWTOP-1 ) ).GT.
-     $                ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
+                  IF( ABS( H( KWTOP, KWTOP-1 ) ).GT. ABS( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
                END IF
             END IF
             IF( NDFL.LT.KEXNW ) THEN
                NDEC = -1
             ELSE IF( NDEC.GE.0 .OR. NW.GE.NWUPBD ) THEN
                NDEC = NDEC + 1
-               IF( NW-NDEC.LT.2 )
-     $            NDEC = 0
+               IF( NW-NDEC.LT.2 ) NDEC = 0
                NW = NW - NDEC
             END IF
 *
@@ -264,10 +251,7 @@
 *
 *           ==== Aggressive early deflation ====
 *
-            CALL SLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ,
-     $                   IHIZ, Z, LDZ, LS, LD, WR, WI, H( KV, 1 ), LDH,
-     $                   NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH,
-     $                   WORK, LWORK )
+            CALL SLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, WR, WI, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK )
 *
 *           ==== Adjust KBOT accounting for new deflations. ====
 *
@@ -283,8 +267,7 @@
 *           .    skipped if many eigenvalues have just been deflated
 *           .    or if the remaining active block is small.
 *
-            IF( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT-
-     $          KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) THEN
+            IF( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) THEN
 *
 *              ==== NS = nominal number of simultaneous shifts.
 *              .    This may be lowered (slightly) if SLAQR2
@@ -308,8 +291,7 @@
                      BB = SS
                      CC = WILK2*SS
                      DD = AA
-                     CALL SLANV2( AA, BB, CC, DD, WR( I-1 ), WI( I-1 ),
-     $                            WR( I ), WI( I ), CS, SN )
+                     CALL SLANV2( AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN )
    30             CONTINUE
                   IF( KS.EQ.KTOP ) THEN
                      WR( KS+1 ) = H( KS+1, KS+1 )
@@ -328,11 +310,7 @@
                   IF( KBOT-KS+1.LE.NS / 2 ) THEN
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     CALL SLACPY( 'A', NS, NS, H( KS, KS ), LDH,
-     $                            H( KT, 1 ), LDH )
-                     CALL SLAHQR( .false., .false., NS, 1, NS,
-     $                            H( KT, 1 ), LDH, WR( KS ), WI( KS ),
-     $                            1, 1, ZDUM, 1, INF )
+                     CALL SLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL SLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF )
                      KS = KS + INF
 *
 *                    ==== In case of a rare QR failure use
@@ -344,9 +322,7 @@
                         CC = H( KBOT, KBOT-1 )
                         BB = H( KBOT-1, KBOT )
                         DD = H( KBOT, KBOT )
-                        CALL SLANV2( AA, BB, CC, DD, WR( KBOT-1 ),
-     $                               WI( KBOT-1 ), WR( KBOT ),
-     $                               WI( KBOT ), CS, SN )
+                        CALL SLANV2( AA, BB, CC, DD, WR( KBOT-1 ), WI( KBOT-1 ), WR( KBOT ), WI( KBOT ), CS, SN )
                         KS = KBOT - 1
                      END IF
                   END IF
@@ -359,12 +335,10 @@
 *
                      SORTED = .false.
                      DO 50 K = KBOT, KS + 1, -1
-                        IF( SORTED )
-     $                     GO TO 60
+                        IF( SORTED ) GO TO 60
                         SORTED = .true.
                         DO 40 I = KS, K - 1
-                           IF( ABS( WR( I ) )+ABS( WI( I ) ).LT.
-     $                         ABS( WR( I+1 ) )+ABS( WI( I+1 ) ) ) THEN
+                           IF( ABS( WR( I ) )+ABS( WI( I ) ).LT. ABS( WR( I+1 ) )+ABS( WI( I+1 ) ) ) THEN
                               SORTED = .false.
 *
                               SWAP = WR( I )
@@ -407,8 +381,7 @@
 *
                IF( KBOT-KS+1.EQ.2 ) THEN
                   IF( WI( KBOT ).EQ.ZERO ) THEN
-                     IF( ABS( WR( KBOT )-H( KBOT, KBOT ) ).LT.
-     $                   ABS( WR( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
+                     IF( ABS( WR( KBOT )-H( KBOT, KBOT ) ).LT. ABS( WR( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
                         WR( KBOT-1 ) = WR( KBOT )
                      ELSE
                         WR( KBOT ) = WR( KBOT-1 )
@@ -445,10 +418,7 @@
 *
 *              ==== Small-bulge multi-shift QR sweep ====
 *
-               CALL SLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS,
-     $                      WR( KS ), WI( KS ), H, LDH, ILOZ, IHIZ, Z,
-     $                      LDZ, WORK, 3, H( KU, 1 ), LDH, NVE,
-     $                      H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
+               CALL SLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, WR( KS ), WI( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
             END IF
 *
 *           ==== Note progress (or the lack of it). ====

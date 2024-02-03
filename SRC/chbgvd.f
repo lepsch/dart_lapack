@@ -1,6 +1,4 @@
-      SUBROUTINE CHBGVD( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W,
-     $                   Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK,
-     $                   LIWORK, INFO )
+      SUBROUTINE CHBGVD( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,28 +6,24 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, UPLO
-      INTEGER            INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LRWORK,
-     $                   LWORK, N
+      INTEGER            INFO, KA, KB, LDAB, LDBB, LDZ, LIWORK, LRWORK, LWORK, N
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       REAL               RWORK( * ), W( * )
-      COMPLEX            AB( LDAB, * ), BB( LDBB, * ), WORK( * ),
-     $                   Z( LDZ, * )
+      COMPLEX            AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER, WANTZ
       CHARACTER          VECT
-      INTEGER            IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLRWK,
-     $                   LLWK2, LRWMIN, LWMIN
+      INTEGER            IINFO, INDE, INDWK2, INDWRK, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -37,8 +31,7 @@
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSTERF, XERBLA, CGEMM, CHBGST, CHBTRD, CLACPY,
-     $                   CPBSTF, CSTEDC
+      EXTERNAL           SSTERF, XERBLA, CGEMM, CHBGST, CHBTRD, CLACPY, CPBSTF, CSTEDC
 *     ..
 *     .. Executable Statements ..
 *
@@ -103,8 +96,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -121,8 +113,7 @@
       INDWK2 = 1 + N*N
       LLWK2 = LWORK - INDWK2 + 2
       LLRWK = LRWORK - INDWRK + 2
-      CALL CHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ,
-     $             WORK, RWORK, IINFO )
+      CALL CHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK, IINFO )
 *
 *     Reduce Hermitian band matrix to tridiagonal form.
 *
@@ -131,19 +122,15 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z,
-     $             LDZ, WORK, IINFO )
+      CALL CHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ),
-     $                LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK,
-     $                INFO )
-         CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO,
-     $               WORK( INDWK2 ), N )
+         CALL CSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDWRK ), LLRWK, IWORK, LIWORK, INFO )
+         CALL CGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL CLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *

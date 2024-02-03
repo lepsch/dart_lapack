@@ -1,5 +1,4 @@
-      SUBROUTINE ZPOT06( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE ZPOT06( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -69,8 +68,7 @@
 *     Compute  B - A*X  and store in B.
       IFAIL=0
 *
-      CALL ZHEMM( 'Left', UPLO, N, NRHS, NEGCONE, A, LDA, X,
-     $            LDX, CONE, B, LDB )
+      CALL ZHEMM( 'Left', UPLO, N, NRHS, NEGCONE, A, LDA, X, LDX, CONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .

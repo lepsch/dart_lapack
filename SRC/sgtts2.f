@@ -22,8 +22,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( ITRANS.EQ.0 ) THEN
 *
@@ -46,12 +45,9 @@
 *           Solve U*x = b.
 *
             B( N, J ) = B( N, J ) / D( N )
-            IF( N.GT.1 )
-     $         B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) /
-     $                       D( N-1 )
+            IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
             DO 30 I = N - 2, 1, -1
-               B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )*
-     $                     B( I+2, J ) ) / D( I )
+               B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
    30       CONTINUE
             IF( J.LT.NRHS ) THEN
                J = J + 1
@@ -75,12 +71,9 @@
 *              Solve U*x = b.
 *
                B( N, J ) = B( N, J ) / D( N )
-               IF( N.GT.1 )
-     $            B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) /
-     $                          D( N-1 )
+               IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
                DO 50 I = N - 2, 1, -1
-                  B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )*
-     $                        B( I+2, J ) ) / D( I )
+                  B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I )
    50          CONTINUE
    60       CONTINUE
          END IF
@@ -95,11 +88,9 @@
             J = 1
    70       CONTINUE
             B( 1, J ) = B( 1, J ) / D( 1 )
-            IF( N.GT.1 )
-     $         B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
+            IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
             DO 80 I = 3, N
-               B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )*
-     $                     B( I-2, J ) ) / D( I )
+               B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-DU2( I-2 )* B( I-2, J ) ) / D( I )
    80       CONTINUE
 *
 *           Solve L**T*x = b.
@@ -121,11 +112,9 @@
 *              Solve U**T*x = b.
 *
                B( 1, J ) = B( 1, J ) / D( 1 )
-               IF( N.GT.1 )
-     $            B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
+               IF( N.GT.1 ) B( 2, J ) = ( B( 2, J )-DU( 1 )*B( 1, J ) ) / D( 2 )
                DO 100 I = 3, N
-                  B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )-
-     $                        DU2( I-2 )*B( I-2, J ) ) / D( I )
+                  B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I )
   100          CONTINUE
                DO 110 I = N - 1, 1, -1
                   IF( IPIV( I ).EQ.I ) THEN

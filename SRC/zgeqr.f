@@ -1,5 +1,4 @@
-      SUBROUTINE ZGEQR( M, N, A, LDA, T, TSIZE, WORK, LWORK,
-     $                  INFO )
+      SUBROUTINE ZGEQR( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,8 +38,7 @@
 *
       INFO = 0
 *
-      LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR.
-     $           LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
+      LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR. LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
 *
       MINT = .FALSE.
       MINW = .FALSE.
@@ -76,9 +74,7 @@
       LWMIN = MAX( 1, N )
       LWREQ = MAX( 1, N*NB )
       LMINWS = .FALSE.
-      IF( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .OR. LWORK.LT.LWREQ )
-     $    .AND. ( LWORK.GE.N ) .AND. ( TSIZE.GE.MINTSZ )
-     $    .AND. ( .NOT.LQUERY ) ) THEN
+      IF( ( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .OR. LWORK.LT.LWREQ ) .AND. ( LWORK.GE.N ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) THEN
         IF( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) ) THEN
           LMINWS = .TRUE.
           NB = 1
@@ -96,11 +92,9 @@
         INFO = -2
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
         INFO = -4
-      ELSE IF( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 )
-     $   .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      ELSE IF( TSIZE.LT.MAX( 1, NB*N*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
         INFO = -6
-      ELSE IF( ( LWORK.LT.LWREQ ) .AND. ( .NOT.LQUERY )
-     $   .AND. ( .NOT.LMINWS ) ) THEN
+      ELSE IF( ( LWORK.LT.LWREQ ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
         INFO = -8
       END IF
 *
@@ -136,8 +130,7 @@
       IF( ( M.LE.N ) .OR. ( MB.LE.N ) .OR. ( MB.GE.M ) ) THEN
         CALL ZGEQRT( M, N, NB, A, LDA, T( 6 ), NB, WORK, INFO )
       ELSE
-        CALL ZLATSQR( M, N, MB, NB, A, LDA, T( 6 ), NB, WORK,
-     $                LWORK, INFO )
+        CALL ZLATSQR( M, N, MB, NB, A, LDA, T( 6 ), NB, WORK, LWORK, INFO )
       END IF
 *
       WORK( 1 ) = LWREQ

@@ -1,8 +1,4 @@
-      SUBROUTINE SLATME( N, DIST, ISEED, D, MODE, COND, DMAX, EI,
-     $  RSIGN,
-     $                   UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM,
-     $  A,
-     $                   LDA, WORK, INFO )
+      SUBROUTINE SLATME( N, DIST, ISEED, D, MODE, COND, DMAX, EI, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADEI, BADS, USEEI
-      INTEGER            I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN,
-     $                   ISIM, IUPPER, J, JC, JCR, JR
+      INTEGER            I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR, JR
       REAL               ALPHA, TAU, TEMP, XNORMS
 *     ..
 *     .. Local Arrays ..
@@ -44,8 +39,7 @@
       EXTERNAL           LSAME, SLANGE, SLARAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV,
-     $                   SLATM1, SLASET, SSCAL, XERBLA
+      EXTERNAL           SCOPY, SGEMV, SGER, SLARFG, SLARGE, SLARNV, SLATM1, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MOD
@@ -59,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Decode DIST
 *
@@ -84,11 +77,9 @@
          IF( LSAME( EI( 1 ), 'R' ) ) THEN
             DO 10 J = 2, N
                IF( LSAME( EI( J ), 'I' ) ) THEN
-                  IF( LSAME( EI( J-1 ), 'I' ) )
-     $               BADEI = .TRUE.
+                  IF( LSAME( EI( J-1 ), 'I' ) ) BADEI = .TRUE.
                ELSE
-                  IF( .NOT.LSAME( EI( J ), 'R' ) )
-     $               BADEI = .TRUE.
+                  IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = .TRUE.
                END IF
    10       CONTINUE
          ELSE
@@ -131,8 +122,7 @@
       BADS = .FALSE.
       IF( MODES.EQ.0 .AND. ISIM.EQ.1 ) THEN
          DO 20 J = 1, N
-            IF( DS( J ).EQ.ZERO )
-     $         BADS = .TRUE.
+            IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
    20    CONTINUE
       END IF
 *
@@ -144,8 +134,7 @@
          INFO = -2
       ELSE IF( ABS( MODE ).GT.6 ) THEN
          INFO = -5
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE )
-     $          THEN
+      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
          INFO = -6
       ELSE IF( BADEI ) THEN
          INFO = -8
@@ -180,8 +169,7 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    30 CONTINUE
 *
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 )
-     $   ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
 *     2)      Set up diagonal of A
 *
@@ -318,19 +306,12 @@
             CALL SLARFG( IROWS, XNORMS, WORK( 2 ), 1, TAU )
             WORK( 1 ) = ONE
 *
-            CALL SGEMV( 'T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA,
-     $                  WORK, 1, ZERO, WORK( IROWS+1 ), 1 )
-            CALL SGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1,
-     $                 A( JCR, IC+1 ), LDA )
+            CALL SGEMV( 'T', IROWS, ICOLS, ONE, A( JCR, IC+1 ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
 *
-            CALL SGEMV( 'N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1,
-     $                  ZERO, WORK( IROWS+1 ), 1 )
-            CALL SGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1,
-     $                 A( 1, JCR ), LDA )
+            CALL SGEMV( 'N', N, IROWS, ONE, A( 1, JCR ), LDA, WORK, 1, ZERO, WORK( IROWS+1 ), 1 )             CALL SGER( N, IROWS, -TAU, WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
 *
             A( JCR, IC ) = XNORMS
-            CALL SLASET( 'Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ),
-     $                   LDA )
+            CALL SLASET( 'Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA )
    90    CONTINUE
       ELSE IF( KU.LT.N-1 ) THEN
 *
@@ -346,19 +327,12 @@
             CALL SLARFG( ICOLS, XNORMS, WORK( 2 ), 1, TAU )
             WORK( 1 ) = ONE
 *
-            CALL SGEMV( 'N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA,
-     $                  WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )
-            CALL SGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1,
-     $                 A( IR+1, JCR ), LDA )
+            CALL SGEMV( 'N', IROWS, ICOLS, ONE, A( IR+1, JCR ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
 *
-            CALL SGEMV( 'C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1,
-     $                  ZERO, WORK( ICOLS+1 ), 1 )
-            CALL SGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1,
-     $                 A( JCR, 1 ), LDA )
+            CALL SGEMV( 'C', ICOLS, N, ONE, A( JCR, 1 ), LDA, WORK, 1, ZERO, WORK( ICOLS+1 ), 1 )             CALL SGER( ICOLS, N, -TAU, WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
 *
             A( IR, JCR ) = XNORMS
-            CALL SLASET( 'Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ),
-     $                   LDA )
+            CALL SLASET( 'Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA )
   100    CONTINUE
       END IF
 *

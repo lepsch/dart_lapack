@@ -1,5 +1,4 @@
-      SUBROUTINE CHPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX,
-     $                   FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CHPRFS( UPLO, N, NRHS, AP, AFP, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX            AFP( * ), AP( * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -137,8 +135,7 @@
                   S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
                   IK = IK + 1
    40          CONTINUE
-               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK+K-1 ) ) )*
-     $                      XK + S
+               RWORK( K ) = RWORK( K ) + ABS( REAL( AP( KK+K-1 ) ) )* XK + S
                KK = KK + K
    50       CONTINUE
          ELSE
@@ -161,8 +158,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
          BERR( J ) = S
@@ -173,8 +169,7 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
@@ -211,8 +206,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    90    CONTINUE
 *
@@ -246,8 +240,7 @@
          DO 130 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   130    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   140 CONTINUE
 *

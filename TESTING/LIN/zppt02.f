@@ -1,5 +1,4 @@
-      SUBROUTINE ZPPT02( UPLO, N, NRHS, A, X, LDX, B, LDB, RWORK,
-     $                   RESID )
+      SUBROUTINE ZPPT02( UPLO, N, NRHS, A, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -58,8 +57,7 @@
 *     Compute  B - A*X  for the matrix of right hand sides B.
 *
       DO 10 J = 1, NRHS
-         CALL ZHPMV( UPLO, N, -CONE, A, X( 1, J ), 1, CONE, B( 1, J ),
-     $               1 )
+         CALL ZHPMV( UPLO, N, -CONE, A, X( 1, J ), 1, CONE, B( 1, J ), 1 )
    10 CONTINUE
 *
 *     Compute the maximum over the number of right hand sides of

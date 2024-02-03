@@ -1,5 +1,4 @@
-      SUBROUTINE SLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, N,
-     $                   RANK, INFO )
+      SUBROUTINE SLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, N, RANK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -46,21 +45,17 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Set INFO if an error
 *
       IF( MODE.LT.-6 .OR. MODE.GT.6 ) THEN
          INFO = -1
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND.
-     $         ( IRSIGN.NE.0 .AND. IRSIGN.NE.1 ) ) THEN
+      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. ( IRSIGN.NE.0 .AND. IRSIGN.NE.1 ) ) THEN
          INFO = -2
-      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND.
-     $         COND.LT.ONE ) THEN
+      ELSE IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. COND.LT.ONE ) THEN
          INFO = -3
-      ELSE IF( ( MODE.EQ.6 .OR. MODE.EQ.-6 ) .AND.
-     $         ( IDIST.LT.1 .OR. IDIST.GT.3 ) ) THEN
+      ELSE IF( ( MODE.EQ.6 .OR. MODE.EQ.-6 ) .AND. ( IDIST.LT.1 .OR. IDIST.GT.3 ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -7
@@ -147,12 +142,10 @@
 *        If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
 *        random signs to D
 *
-         IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND.
-     $       IRSIGN.EQ.1 ) THEN
+         IF( ( MODE.NE.-6 .AND. MODE.NE.0 .AND. MODE.NE.6 ) .AND. IRSIGN.EQ.1 ) THEN
             DO 250 I = 1, N
                TEMP = SLARAN( ISEED )
-               IF( TEMP.GT.HALF )
-     $            D( I ) = -D( I )
+               IF( TEMP.GT.HALF ) D( I ) = -D( I )
   250       CONTINUE
          END IF
 *

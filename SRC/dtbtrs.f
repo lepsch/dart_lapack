@@ -1,5 +1,4 @@
-      SUBROUTINE DTBTRS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B,
-     $                   LDB, INFO )
+      SUBROUTINE DTBTRS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,8 +41,7 @@
       UPPER = LSAME( UPLO, 'U' )
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.
-     $         LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
@@ -65,21 +63,18 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check for singularity.
 *
       IF( NOUNIT ) THEN
          IF( UPPER ) THEN
             DO 10 INFO = 1, N
-               IF( AB( KD+1, INFO ).EQ.ZERO )
-     $            RETURN
+               IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
    10       CONTINUE
          ELSE
             DO 20 INFO = 1, N
-               IF( AB( 1, INFO ).EQ.ZERO )
-     $            RETURN
+               IF( AB( 1, INFO ).EQ.ZERO ) RETURN
    20       CONTINUE
          END IF
       END IF

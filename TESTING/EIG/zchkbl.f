@@ -17,8 +17,7 @@
       PARAMETER          ( ZERO = 0.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N,
-     $                   NINFO
+      INTEGER            I, IHI, IHIIN, ILO, ILOIN, INFO, J, KNT, N, NINFO
       DOUBLE PRECISION   ANORM, MEPS, RMAX, SFMIN, TEMP, VMAX
       COMPLEX*16         CDUM
 *     ..
@@ -58,8 +57,7 @@
    10 CONTINUE
 *
       READ( NIN, FMT = * )N
-      IF( N.EQ.0 )
-     $   GO TO 70
+      IF( N.EQ.0 ) GO TO 70
       DO 20 I = 1, N
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
    20 CONTINUE

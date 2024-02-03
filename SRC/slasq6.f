@@ -1,5 +1,4 @@
-      SUBROUTINE SLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN,
-     $                   DNM1, DNM2 )
+      SUBROUTINE SLASQ6( I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2 )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,8 +31,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( ( N0-I0-1 ).LE.0 )
-     $   RETURN
+      IF( ( N0-I0-1 ).LE.0 ) RETURN
 *
       SAFMIN = SLAMCH( 'Safe minimum' )
       J4 = 4*I0 + PP - 3
@@ -49,8 +47,7 @@
                D = Z( J4+1 )
                DMIN = D
                EMIN = ZERO
-            ELSE IF( SAFMIN*Z( J4+1 ).LT.Z( J4-2 ) .AND.
-     $               SAFMIN*Z( J4-2 ).LT.Z( J4+1 ) ) THEN
+            ELSE IF( SAFMIN*Z( J4+1 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4+1 ) ) THEN
                TEMP = Z( J4+1 ) / Z( J4-2 )
                Z( J4 ) = Z( J4-1 )*TEMP
                D = D*TEMP
@@ -69,8 +66,7 @@
                D = Z( J4+2 )
                DMIN = D
                EMIN = ZERO
-            ELSE IF( SAFMIN*Z( J4+2 ).LT.Z( J4-3 ) .AND.
-     $               SAFMIN*Z( J4-3 ).LT.Z( J4+2 ) ) THEN
+            ELSE IF( SAFMIN*Z( J4+2 ).LT.Z( J4-3 ) .AND. SAFMIN*Z( J4-3 ).LT.Z( J4+2 ) ) THEN
                TEMP = Z( J4+2 ) / Z( J4-3 )
                Z( J4-1 ) = Z( J4 )*TEMP
                D = D*TEMP
@@ -95,8 +91,7 @@
          DNM1 = Z( J4P2+2 )
          DMIN = DNM1
          EMIN = ZERO
-      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND.
-     $         SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
+      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DNM1 = DNM2*TEMP
@@ -115,8 +110,7 @@
          DN = Z( J4P2+2 )
          DMIN = DN
          EMIN = ZERO
-      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND.
-     $         SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
+      ELSE IF( SAFMIN*Z( J4P2+2 ).LT.Z( J4-2 ) .AND. SAFMIN*Z( J4-2 ).LT.Z( J4P2+2 ) ) THEN
          TEMP = Z( J4P2+2 ) / Z( J4-2 )
          Z( J4 ) = Z( J4P2 )*TEMP
          DN = DNM1*TEMP

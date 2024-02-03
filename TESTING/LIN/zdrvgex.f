@@ -1,6 +1,4 @@
-      SUBROUTINE ZDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX,
-     $                   A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK,
-     $                   RWORK, IWORK, NOUT )
+      SUBROUTINE ZDRVGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * ), S( * )
-      COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ),
-     $                   BSAV( * ), WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         A( * ), AFAC( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -35,31 +32,21 @@
       LOGICAL            EQUIL, NOFACT, PREFAC, TRFCON, ZEROT
       CHARACTER          DIST, EQUED, FACT, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN,
-     $                   IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB,
-     $                   NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT,
-     $                   N_ERR_BNDS
-      DOUBLE PRECISION   AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM,
-     $                   COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC,
-     $                   ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX
+      INTEGER            I, IEQUED, IFACT, IMAT, IN, INFO, IOFF, ITRAN, IZERO, K, K1, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NRUN, NT, N_ERR_BNDS
+      DOUBLE PRECISION   AINVNM, AMAX, ANORM, ANORMI, ANORMO, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX
 *     ..
 *     .. Local Arrays ..
       CHARACTER          EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN )
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ),
-     $                   ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 )
+      DOUBLE PRECISION   RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS, 3 ), ERRBNDS_C( NRHS, 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       DOUBLE PRECISION   DGET06, DLAMCH, ZLANGE, ZLANTR, ZLA_GERPVGRW
-      EXTERNAL           LSAME, DGET06, DLAMCH, ZLANGE, ZLANTR,
-     $                   ZLA_GERPVGRW
+      EXTERNAL           LSAME, DGET06, DLAMCH, ZLANGE, ZLANTR, ZLA_GERPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGEEQU,
-     $                   ZGESV, ZGESVX, ZGET01, ZGET02, ZGET04, ZGET07,
-     $                   ZGETRF, ZGETRI, ZLACPY, ZLAQGE, ZLARHS, ZLASET,
-     $                   ZLATB4, ZLATMS, ZGESVXX
+      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, ZERRVX, ZGEEQU, ZGESV, ZGESVX, ZGET01, ZGET02, ZGET04, ZGET07, ZGETRF, ZGETRI, ZLACPY, ZLAQGE, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZGESVXX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DCMPLX, MAX, DBLE, DIMAG
@@ -94,8 +81,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRVX( PATH, NOUT )
       INFOT = 0
 *
 *     Set the block size and minimum block size for testing.
@@ -112,39 +98,32 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 80 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 80
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
 *           Skip types 5, 6, or 7 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            IF( ZEROT .AND. N.LT.IMAT-4 )
-     $         GO TO 80
+            IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 80
 *
 *           Set up parameters with ZLATB4 and generate a test matrix
 *           with ZLATMS.
 *
-            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                   CNDNUM, DIST )
+            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
             RCONDC = ONE / CNDNUM
 *
             SRNAMT = 'ZLATMS'
-            CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM,
-     $                   ANORM, KL, KU, 'No packing', A, LDA, WORK,
-     $                   INFO )
+            CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *           Check error code from ZLATMS.
 *
             IF( INFO.NE.0 ) THEN
-               CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, -1, -1,
-     $                      -1, IMAT, NFAIL, NERRS, NOUT )
+               CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 80
             END IF
 *
@@ -165,8 +144,7 @@
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                ELSE
-                  CALL ZLASET( 'Full', N, N-IZERO+1, DCMPLX( ZERO ),
-     $                         DCMPLX( ZERO ), A( IOFF+1 ), LDA )
+                  CALL ZLASET( 'Full', N, N-IZERO+1, DCMPLX( ZERO ), DCMPLX( ZERO ), A( IOFF+1 ), LDA )
                END IF
             ELSE
                IZERO = 0
@@ -191,8 +169,7 @@
                   EQUIL = LSAME( FACT, 'E' )
 *
                   IF( ZEROT ) THEN
-                     IF( PREFAC )
-     $                  GO TO 60
+                     IF( PREFAC ) GO TO 60
                      RCONDO = ZERO
                      RCONDI = ZERO
 *
@@ -209,8 +186,7 @@
 *                       Compute row and column scale factors to
 *                       equilibrate the matrix A.
 *
-                        CALL ZGEEQU( N, N, AFAC, LDA, S, S( N+1 ),
-     $                               ROWCND, COLCND, AMAX, INFO )
+                        CALL ZGEEQU( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
                         IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                            IF( LSAME( EQUED, 'R' ) ) THEN
                               ROWCND = ZERO
@@ -225,8 +201,7 @@
 *
 *                          Equilibrate the matrix.
 *
-                           CALL ZLAQGE( N, N, AFAC, LDA, S, S( N+1 ),
-     $                                  ROWCND, COLCND, AMAX, EQUED )
+                           CALL ZLAQGE( N, N, AFAC, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                         END IF
                      END IF
 *
@@ -290,9 +265,7 @@
 *                    Form an exact solution and set the right hand side.
 *
                      SRNAMT = 'ZLARHS'
-                     CALL ZLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL,
-     $                            KU, NRHS, A, LDA, XACT, LDA, B, LDA,
-     $                            ISEED, INFO )
+                     CALL ZLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      XTYPE = 'C'
                      CALL ZLACPY( 'Full', N, NRHS, B, LDA, BSAV, LDA )
 *
@@ -307,36 +280,26 @@
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                         SRNAMT = 'ZGESV '
-                        CALL ZGESV( N, NRHS, AFAC, LDA, IWORK, X, LDA,
-     $                              INFO )
+                        CALL ZGESV( N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
 *
 *                       Check error code from ZGESV .
 *
-                        IF( INFO.NE.IZERO )
-     $                     CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO,
-     $                                  ' ', N, N, -1, -1, NRHS, IMAT,
-     $                                  NFAIL, NERRS, NOUT )
+                        IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                       Reconstruct matrix from factors and compute
 *                       residual.
 *
-                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK,
-     $                               RWORK, RESULT( 1 ) )
+                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK, RESULT( 1 ) )
                         NT = 1
                         IF( IZERO.EQ.0 ) THEN
 *
 *                          Compute residual of the computed solution.
 *
-                           CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK,
-     $                                  LDA )
-                           CALL ZGET02( 'No transpose', N, N, NRHS, A,
-     $                                  LDA, X, LDA, WORK, LDA, RWORK,
-     $                                  RESULT( 2 ) )
+                           CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                            CALL ZGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
 *                          Check solution from generated exact solution.
 *
-                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA,
-     $                                  RCONDC, RESULT( 3 ) )
+                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                            NT = 3
                         END IF
 *
@@ -345,10 +308,7 @@
 *
                         DO 30 K = 1, NT
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALADHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9999 )'ZGESV ', N,
-     $                           IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    30                   CONTINUE
@@ -357,70 +317,52 @@
 *
 *                    --- Test ZGESVX ---
 *
-                     IF( .NOT.PREFAC )
-     $                  CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ),
-     $                               DCMPLX( ZERO ), AFAC, LDA )
-                     CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ),
-     $                            DCMPLX( ZERO ), X, LDA )
+                     IF( .NOT.PREFAC ) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA )
+                     CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
 *                       Equilibrate the matrix if FACT = 'F' and
 *                       EQUED = 'R', 'C', or 'B'.
 *
-                        CALL ZLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND,
-     $                               COLCND, AMAX, EQUED )
+                        CALL ZLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
 *                    Solve the system and compute the condition number
 *                    and error bounds using ZGESVX.
 *
                      SRNAMT = 'ZGESVX'
-                     CALL ZGESVX( FACT, TRANS, N, NRHS, A, LDA, AFAC,
-     $                            LDA, IWORK, EQUED, S, S( N+1 ), B,
-     $                            LDA, X, LDA, RCOND, RWORK,
-     $                            RWORK( NRHS+1 ), WORK,
-     $                            RWORK( 2*NRHS+1 ), INFO )
+                     CALL ZGESVX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *                    Check the error code from ZGESVX.
 *
-                     IF( INFO.NE.IZERO )
-     $                  CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO,
-     $                               FACT // TRANS, N, N, -1, -1, NRHS,
-     $                               IMAT, NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                    Compare RWORK(2*NRHS+1) from ZGESVX with the
 *                    computed reciprocal pivot growth factor RPVGRW
 *
                      IF( INFO.NE.0 ) THEN
-                        RPVGRW = ZLANTR( 'M', 'U', 'N', INFO, INFO,
-     $                           AFAC, LDA, RDUM )
+                        RPVGRW = ZLANTR( 'M', 'U', 'N', INFO, INFO, AFAC, LDA, RDUM )
                         IF( RPVGRW.EQ.ZERO ) THEN
                            RPVGRW = ONE
                         ELSE
-                           RPVGRW = ZLANGE( 'M', N, INFO, A, LDA,
-     $                              RDUM ) / RPVGRW
+                           RPVGRW = ZLANGE( 'M', N, INFO, A, LDA, RDUM ) / RPVGRW
                         END IF
                      ELSE
-                        RPVGRW = ZLANTR( 'M', 'U', 'N', N, N, AFAC, LDA,
-     $                           RDUM )
+                        RPVGRW = ZLANTR( 'M', 'U', 'N', N, N, AFAC, LDA, RDUM )
                         IF( RPVGRW.EQ.ZERO ) THEN
                            RPVGRW = ONE
                         ELSE
-                           RPVGRW = ZLANGE( 'M', N, N, A, LDA, RDUM ) /
-     $                              RPVGRW
+                           RPVGRW = ZLANGE( 'M', N, N, A, LDA, RDUM ) / RPVGRW
                         END IF
                      END IF
-                     RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) /
-     $                             MAX( RWORK( 2*NRHS+1 ), RPVGRW ) /
-     $                             DLAMCH( 'E' )
+                     RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / MAX( RWORK( 2*NRHS+1 ), RPVGRW ) / DLAMCH( 'E' )
 *
                      IF( .NOT.PREFAC ) THEN
 *
 *                       Reconstruct matrix from factors and compute
 *                       residual.
 *
-                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK,
-     $                               RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
                      ELSE
                         K1 = 2
@@ -431,34 +373,24 @@
 *
 *                       Compute residual of the computed solution.
 *
-                        CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK,
-     $                               LDA )
-                        CALL ZGET02( TRANS, N, N, NRHS, ASAV, LDA, X,
-     $                               LDA, WORK, LDA, RWORK( 2*NRHS+1 ),
-     $                               RESULT( 2 ) )
+                        CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL ZGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
 *                       Check solution from generated exact solution.
 *
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED,
-     $                      'N' ) ) ) THEN
-                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA,
-     $                                  RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
                            IF( ITRAN.EQ.1 ) THEN
                               ROLDC = ROLDO
                            ELSE
                               ROLDC = ROLDI
                            END IF
-                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA,
-     $                                  ROLDC, RESULT( 3 ) )
+                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
 *
 *                       Check the error bounds from iterative
 *                       refinement.
 *
-                        CALL ZGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA,
-     $                               X, LDA, XACT, LDA, RWORK, .TRUE.,
-     $                               RWORK( NRHS+1 ), RESULT( 4 ) )
+                        CALL ZGET07( TRANS, N, NRHS, ASAV, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 4 ) )
                      ELSE
                         TRFCON = .TRUE.
                      END IF
@@ -474,57 +406,42 @@
                      IF( .NOT.TRFCON ) THEN
                         DO 40 K = K1, NTESTS
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALADHD( NOUT, PATH )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
-                                 WRITE( NOUT, FMT = 9997 )'ZGESVX',
-     $                              FACT, TRANS, N, EQUED, IMAT, K,
-     $                              RESULT( K )
+                                 WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               ELSE
-                                 WRITE( NOUT, FMT = 9998 )'ZGESVX',
-     $                              FACT, TRANS, N, IMAT, K, RESULT( K )
+                                 WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1
                            END IF
    40                   CONTINUE
                         NRUN = NRUN + 7 - K1
                      ELSE
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC )
-     $                       THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT,
-     $                           TRANS, N, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT, TRANS, N, IMAT, 1, RESULT( 1 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 6 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT,
-     $                           TRANS, N, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT, TRANS, N, IMAT, 6, RESULT( 6 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 7 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT,
-     $                           TRANS, N, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVX', FACT, TRANS, N, IMAT, 7, RESULT( 7 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
@@ -539,19 +456,14 @@
 
                      CALL ZLACPY( 'Full', N, N, ASAV, LDA, A, LDA )
                      CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, B, LDA )
-
-                     IF( .NOT.PREFAC )
-     $                  CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ),
-     $                               DCMPLX( ZERO ), AFAC, LDA )
-                     CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ),
-     $                            DCMPLX( ZERO ), X, LDA )
+                      IF( .NOT.PREFAC ) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA )
+                     CALL ZLASET( 'Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
 *                       Equilibrate the matrix if FACT = 'F' and
 *                       EQUED = 'R', 'C', or 'B'.
 *
-                        CALL ZLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND,
-     $                               COLCND, AMAX, EQUED )
+                        CALL ZLAQGE( N, N, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
 *                    Solve the system and compute the condition number
@@ -559,19 +471,13 @@
 *
                      SRNAMT = 'ZGESVXX'
                      N_ERR_BNDS = 3
-                     CALL ZGESVXX( FACT, TRANS, N, NRHS, A, LDA, AFAC,
-     $                    LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X,
-     $                    LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS,
-     $                    ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK,
-     $                    RWORK, INFO )
+                     CALL ZGESVXX( FACT, TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, EQUED, S, S( N+1 ), B, LDA, X, LDA, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK, INFO )
 *
 *                    Check the error code from ZGESVXX.
 *
                      IF( INFO.EQ.N+1 ) GOTO 50
                      IF( INFO.NE.IZERO ) THEN
-                        CALL ALAERH( PATH, 'ZGESVXX', INFO, IZERO,
-     $                               FACT // TRANS, N, N, -1, -1, NRHS,
-     $                               IMAT, NFAIL, NERRS, NOUT )
+                        CALL ALAERH( PATH, 'ZGESVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GOTO 50
                      END IF
 *
@@ -580,24 +486,18 @@
 *
 
                      IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
-                        RPVGRW = ZLA_GERPVGRW
-     $                               (N, INFO, A, LDA, AFAC, LDA)
+                        RPVGRW = ZLA_GERPVGRW (N, INFO, A, LDA, AFAC, LDA)
                      ELSE
-                        RPVGRW = ZLA_GERPVGRW
-     $                               (N, N, A, LDA, AFAC, LDA)
+                        RPVGRW = ZLA_GERPVGRW (N, N, A, LDA, AFAC, LDA)
                      ENDIF
-
-                     RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) /
-     $                             MAX( rpvgrw_svxx, RPVGRW ) /
-     $                             DLAMCH( 'E' )
+                      RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / MAX( rpvgrw_svxx, RPVGRW ) / DLAMCH( 'E' )
 *
                      IF( .NOT.PREFAC ) THEN
 *
 *                       Reconstruct matrix from factors and compute
 *                       residual.
 *
-                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK,
-     $                               RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        CALL ZGET01( N, N, A, LDA, AFAC, LDA, IWORK, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
                      ELSE
                         K1 = 2
@@ -608,26 +508,18 @@
 *
 *                       Compute residual of the computed solution.
 *
-                        CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK,
-     $                               LDA )
-                        CALL ZGET02( TRANS, N, N, NRHS, ASAV, LDA, X,
-     $                               LDA, WORK, LDA, RWORK( 2*NRHS+1 ),
-     $                               RESULT( 2 ) )
+                        CALL ZLACPY( 'Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL ZGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
 *                       Check solution from generated exact solution.
 *
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED,
-     $                      'N' ) ) ) THEN
-                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA,
-     $                                  RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                         ELSE
                            IF( ITRAN.EQ.1 ) THEN
                               ROLDC = ROLDO
                            ELSE
                               ROLDC = ROLDI
                            END IF
-                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA,
-     $                                  ROLDC, RESULT( 3 ) )
+                           CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) )
                         END IF
                      ELSE
                         TRFCON = .TRUE.
@@ -644,57 +536,42 @@
                      IF( .NOT.TRFCON ) THEN
                         DO 45 K = K1, NTESTS
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALADHD( NOUT, PATH )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
-                                 WRITE( NOUT, FMT = 9997 )'ZGESVXX',
-     $                              FACT, TRANS, N, EQUED, IMAT, K,
-     $                              RESULT( K )
+                                 WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K )
                               ELSE
-                                 WRITE( NOUT, FMT = 9998 )'ZGESVXX',
-     $                              FACT, TRANS, N, IMAT, K, RESULT( K )
+                                 WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT, TRANS, N, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1
                            END IF
  45                     CONTINUE
                         NRUN = NRUN + 7 - K1
                      ELSE
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC )
-     $                       THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT,
-     $                           TRANS, N, IMAT, 1, RESULT( 1 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT, TRANS, N, IMAT, 1, RESULT( 1 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 6 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT,
-     $                           TRANS, N, IMAT, 6, RESULT( 6 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT, TRANS, N, IMAT, 6, RESULT( 6 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 7 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT,
-     $                           TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9997 )'ZGESVXX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 )
                            ELSE
-                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT,
-     $                           TRANS, N, IMAT, 7, RESULT( 7 )
+                              WRITE( NOUT, FMT = 9998 )'ZGESVXX', FACT, TRANS, N, IMAT, 7, RESULT( 7 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1

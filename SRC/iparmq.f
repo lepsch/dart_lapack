@@ -11,11 +11,9 @@
 *  ================================================================
 *     .. Parameters ..
       INTEGER            INMIN, INWIN, INIBL, ISHFTS, IACC22, ICOST
-      PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14,
-     $                   ISHFTS = 15, IACC22 = 16, ICOST = 17 )
+      PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16, ICOST = 17 )
       INTEGER            NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP, RCOST
-      PARAMETER          ( NMIN = 75, K22MIN = 14, KACMIN = 14,
-     $                   NIBBLE = 14, KNWSWP = 500, RCOST = 10 )
+      PARAMETER          ( NMIN = 75, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500, RCOST = 10 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0 )
 *     ..
@@ -28,25 +26,13 @@
       INTRINSIC          LOG, MAX, MOD, NINT, REAL
 *     ..
 *     .. Executable Statements ..
-      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR.
-     $    ( ISPEC.EQ.IACC22 ) ) THEN
+      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN
 *
 *        ==== Set the number simultaneous shifts ====
 *
          NH = IHI - ILO + 1
          NS = 2
-         IF( NH.GE.30 )
-     $      NS = 4
-         IF( NH.GE.60 )
-     $      NS = 10
-         IF( NH.GE.150 )
-     $      NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )
-         IF( NH.GE.590 )
-     $      NS = 64
-         IF( NH.GE.3000 )
-     $      NS = 128
-         IF( NH.GE.6000 )
-     $      NS = 256
+         IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       END IF
 *
@@ -107,8 +93,7 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.97 .AND. IC.LE.122 )
-     $               SUBNAM( I: I ) = CHAR( IC-32 )
+                  IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
                END DO
             END IF
 *
@@ -116,16 +101,11 @@
 *
 *           EBCDIC character set
 *
-            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $          ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $          ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+            IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
                SUBNAM( 1: 1 ) = CHAR( IC+64 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $                ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $                ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I:
-     $                I ) = CHAR( IC+64 )
+                  IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
                END DO
             END IF
 *
@@ -137,28 +117,16 @@
                SUBNAM( 1: 1 ) = CHAR( IC-32 )
                DO I = 2, 6
                   IC = ICHAR( SUBNAM( I: I ) )
-                  IF( IC.GE.225 .AND. IC.LE.250 )
-     $               SUBNAM( I: I ) = CHAR( IC-32 )
+                  IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
                END DO
             END IF
          END IF
 *
-         IF( SUBNAM( 2:6 ).EQ.'GGHRD' .OR.
-     $       SUBNAM( 2:6 ).EQ.'GGHD3' ) THEN
+         IF( SUBNAM( 2:6 ).EQ.'GGHRD' .OR. SUBNAM( 2:6 ).EQ.'GGHD3' ) THEN
             IPARMQ = 1
-            IF( NH.GE.K22MIN )
-     $         IPARMQ = 2
+            IF( NH.GE.K22MIN ) IPARMQ = 2
          ELSE IF ( SUBNAM( 4:6 ).EQ.'EXC' ) THEN
-            IF( NH.GE.KACMIN )
-     $         IPARMQ = 1
-            IF( NH.GE.K22MIN )
-     $         IPARMQ = 2
-         ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR.
-     $             SUBNAM( 2:5 ).EQ.'LAQR' ) THEN
-            IF( NS.GE.KACMIN )
-     $         IPARMQ = 1
-            IF( NS.GE.K22MIN )
-     $         IPARMQ = 2
+            IF( NH.GE.KACMIN ) IPARMQ = 1             IF( NH.GE.K22MIN ) IPARMQ = 2          ELSE IF ( SUBNAM( 2:6 ).EQ.'HSEQR' .OR. SUBNAM( 2:5 ).EQ.'LAQR' ) THEN             IF( NS.GE.KACMIN ) IPARMQ = 1             IF( NS.GE.K22MIN ) IPARMQ = 2
          END IF
 *
       ELSE IF( ISPEC.EQ.ICOST ) THEN

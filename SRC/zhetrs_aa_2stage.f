@@ -1,5 +1,4 @@
-      SUBROUTINE ZHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                             IPIV, IPIV2, B, LDB, INFO )
+      SUBROUTINE ZHETRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -59,8 +58,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
 *     Read NB and compute LDTB
 *
@@ -79,21 +77,18 @@
 *
 *           Compute (U**H \ B) -> B    [ (U**H \P**T * B) ]
 *
-            CALL ZTRSM( 'L', 'U', 'C', 'U', N-NB, NRHS, ONE, A(1, NB+1),
-     $                 LDA, B(NB+1, 1), LDB)
+            CALL ZTRSM( 'L', 'U', 'C', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
 *
          END IF
 *
 *        Compute T \ B -> B   [ T \ (U**H \P**T * B) ]
 *
-         CALL ZGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB,
-     $               INFO)
+         CALL ZGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
          IF( N.GT.NB ) THEN
 *
 *           Compute (U \ B) -> B   [ U \ (T \ (U**H \P**T * B) ) ]
 *
-            CALL ZTRSM( 'L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1),
-     $                  LDA, B(NB+1, 1), LDB)
+            CALL ZTRSM( 'L', 'U', 'N', 'U', N-NB, NRHS, ONE, A(1, NB+1), LDA, B(NB+1, 1), LDB)
 *
 *           Pivot, P * B -> B  [ P * (U \ (T \ (U**H \P**T * B) )) ]
 *
@@ -113,21 +108,18 @@
 *
 *           Compute (L \ B) -> B    [ (L \P**T * B) ]
 *
-            CALL ZTRSM( 'L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1),
-     $                 LDA, B(NB+1, 1), LDB)
+            CALL ZTRSM( 'L', 'L', 'N', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
 *
          END IF
 *
 *        Compute T \ B -> B   [ T \ (L \P**T * B) ]
 *
-         CALL ZGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB,
-     $               INFO)
+         CALL ZGBTRS( 'N', N, NB, NB, NRHS, TB, LDTB, IPIV2, B, LDB, INFO)
          IF( N.GT.NB ) THEN
 *
 *           Compute (L**H \ B) -> B   [ L**H \ (T \ (L \P**T * B) ) ]
 *
-            CALL ZTRSM( 'L', 'L', 'C', 'U', N-NB, NRHS, ONE, A(NB+1, 1),
-     $                  LDA, B(NB+1, 1), LDB)
+            CALL ZTRSM( 'L', 'L', 'C', 'U', N-NB, NRHS, ONE, A(NB+1, 1), LDA, B(NB+1, 1), LDB)
 *
 *           Pivot, P * B -> B  [ P * (L**H \ (T \ (L \P**T * B) )) ]
 *

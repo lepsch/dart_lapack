@@ -46,8 +46,7 @@
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB,
-     $                INFO )
+         CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, B, LDB, INFO )
       END IF
       RETURN
 *

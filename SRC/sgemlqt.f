@@ -1,5 +1,4 @@
-      SUBROUTINE SGEMLQT( SIDE, TRANS, M, N, K, MB, V, LDV, T, LDT,
-     $                   C, LDC, WORK, INFO )
+      SUBROUTINE SGEMLQT( SIDE, TRANS, M, N, K, MB, V, LDV, T, LDT, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -80,18 +79,14 @@
 *
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
-            CALL SLARFB( 'L', 'T', 'F', 'R', M-I+1, N, IB,
-     $                   V( I, I ), LDV, T( 1, I ), LDT,
-     $                   C( I, 1 ), LDC, WORK, LDWORK )
+            CALL SLARFB( 'L', 'T', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
          END DO
 *
       ELSE IF( RIGHT .AND. TRAN ) THEN
 *
          DO I = 1, K, MB
             IB = MIN( MB, K-I+1 )
-            CALL SLARFB( 'R', 'N', 'F', 'R', M, N-I+1, IB,
-     $                   V( I, I ), LDV, T( 1, I ), LDT,
-     $                   C( 1, I ), LDC, WORK, LDWORK )
+            CALL SLARFB( 'R', 'N', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
          END DO
 *
       ELSE IF( LEFT .AND. TRAN ) THEN
@@ -99,9 +94,7 @@
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
-            CALL SLARFB( 'L', 'N', 'F', 'R', M-I+1, N, IB,
-     $                   V( I, I ), LDV, T( 1, I ), LDT,
-     $                   C( I, 1 ), LDC, WORK, LDWORK )
+            CALL SLARFB( 'L', 'N', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK )
          END DO
 *
       ELSE IF( RIGHT .AND. NOTRAN ) THEN
@@ -109,9 +102,7 @@
          KF = ((K-1)/MB)*MB+1
          DO I = KF, 1, -MB
             IB = MIN( MB, K-I+1 )
-            CALL SLARFB( 'R', 'T', 'F', 'R', M, N-I+1, IB,
-     $                   V( I, I ), LDV, T( 1, I ), LDT,
-     $                   C( 1, I ), LDC, WORK, LDWORK )
+            CALL SLARFB( 'R', 'T', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK )
          END DO
 *
       END IF

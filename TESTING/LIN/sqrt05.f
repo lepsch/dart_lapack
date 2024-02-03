@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      REAL, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), RWORK(:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      REAL, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
 *
 *     .. Parameters ..
       REAL ZERO, ONE
@@ -30,8 +28,7 @@
       INTEGER            ISEED( 4 )
 *     ..
 *     .. External Subroutine ..
-      EXTERNAL SGEMM, SLARNV, STPMQRT, STPQRT, SGEMQRT, SSYRK, SLACPY,
-     $         SLASET
+      EXTERNAL SGEMM, SLARNV, STPMQRT, STPQRT, SGEMQRT, SSYRK, SLACPY, SLASET
 *     ..
 *     .. External Functions ..
       REAL SLAMCH
@@ -54,9 +51,7 @@
 *
 *     Dynamically allocate all arrays
 *
-      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2),
-     $           WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N),
-     $           D(N,M2),DF(N,M2) )
+      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2), WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N), D(N,M2),DF(N,M2) )
 *
 *     Put random stuff into A
 *
@@ -88,8 +83,7 @@
 *     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL SLASET( 'Full', M2, M2, ZERO, ONE, Q, M2 )
-      CALL SGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2,
-     $              WORK, INFO )
+      CALL SGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2, WORK, INFO )
 *
 *     Copy R
 *
@@ -110,8 +104,7 @@
 *     Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL SLASET( 'Full', M2, M2, ZERO, ONE, R, M2 )
-      CALL SSYRK( 'U', 'C', M2, M2, -ONE, Q, M2, ONE,
-     $            R, M2 )
+      CALL SSYRK( 'U', 'C', M2, M2, -ONE, Q, M2, ONE, R, M2 )
       RESID = SLANSY( '1', 'Upper', M2, R, M2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M2))
 *
@@ -125,8 +118,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL STPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,
-     $ M2,CF(NP1,1),M2,WORK,INFO)
+      CALL STPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF, M2,CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -144,8 +136,7 @@
 *
 *     Apply Q to C as QT*C
 *
-      CALL STPMQRT('L','T',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2,
-     $              CF(NP1,1),M2,WORK,INFO)
+      CALL STPMQRT('L','T',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -167,8 +158,7 @@
 *
 *     Apply Q to D as D*Q
 *
-      CALL STPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL STPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -186,8 +176,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL STPMQRT('R','T',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL STPMQRT('R','T',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 
 *
 *     Compute |D*QT - D*QT| / |D|

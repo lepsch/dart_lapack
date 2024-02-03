@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      COMPLEX, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       REAL, ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
@@ -52,9 +50,7 @@
 *
 *     Dynamically allocate all arrays
 *
-      ALLOCATE(A(M,N2),AF(M,N2),Q(N2,N2),R(N2,N2),RWORK(N2),
-     $           WORK(LWORK),T(NB,M),C(N2,M),CF(N2,M),
-     $           D(M,N2),DF(M,N2) )
+      ALLOCATE(A(M,N2),AF(M,N2),Q(N2,N2),R(N2,N2),RWORK(N2), WORK(LWORK),T(NB,M),C(N2,M),CF(N2,M), D(M,N2),DF(M,N2) )
 *
 *     Put random stuff into A
 *
@@ -71,8 +67,7 @@
       END IF
       IF( L.GT.0 ) THEN
          DO J=1,L
-            CALL CLARNV( 2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1)
-     $          + J - 1 ) )
+            CALL CLARNV( 2, ISEED, M-J+1, A( J, MIN(N+M,N+M-L+1) + J - 1 ) )
          END DO
       END IF
 *
@@ -87,8 +82,7 @@
 *     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL CLASET( 'Full', N2, N2, CZERO, ONE, Q, N2 )
-      CALL CGEMLQT( 'L', 'N', N2, N2, K, NB, AF, M, T, LDT, Q, N2,
-     $              WORK, INFO )
+      CALL CGEMLQT( 'L', 'N', N2, N2, K, NB, AF, M, T, LDT, Q, N2, WORK, INFO )
 *
 *     Copy L
 *
@@ -109,8 +103,7 @@
 *     Compute |I - Q*Q'| and store in RESULT(2)
 *
       CALL CLASET( 'Full', N2, N2, CZERO, ONE, R, N2 )
-      CALL CHERK( 'U', 'N', N2, N2, REAL(-ONE), Q, N2, REAL(ONE),
-     $               R, N2 )
+      CALL CHERK( 'U', 'N', N2, N2, REAL(-ONE), Q, N2, REAL(ONE), R, N2 )
       RESID = CLANSY( '1', 'Upper', N2, R, N2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,N2))
 *
@@ -125,8 +118,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL CTPMLQT( 'L','N', N,M,K,L,NB,AF(1, NP1),M,T,LDT,CF,N2,
-     $               CF(NP1,1),N2,WORK,INFO)
+      CALL CTPMLQT( 'L','N', N,M,K,L,NB,AF(1, NP1),M,T,LDT,CF,N2, CF(NP1,1),N2,WORK,INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -145,8 +137,7 @@
 *
 *     Apply Q to C as QT*C
 *
-      CALL CTPMLQT( 'L','C',N,M,K,L,NB,AF(1,NP1),M,T,LDT,CF,N2,
-     $              CF(NP1,1),N2,WORK,INFO)
+      CALL CTPMLQT( 'L','C',N,M,K,L,NB,AF(1,NP1),M,T,LDT,CF,N2, CF(NP1,1),N2,WORK,INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -169,8 +160,7 @@
 *
 *     Apply Q to D as D*Q
 *
-      CALL CTPMLQT('R','N',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M,
-     $             DF(1,NP1),M,WORK,INFO)
+      CALL CTPMLQT('R','N',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M, DF(1,NP1),M,WORK,INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -188,8 +178,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL CTPMLQT('R','C',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M,
-     $             DF(1,NP1),M,WORK,INFO)
+      CALL CTPMLQT('R','C',M,N,K,L,NB,AF(1,NP1),M,T,LDT,DF,M, DF(1,NP1),M,WORK,INFO)
 
 *
 *     Compute |D*QT - D*QT| / |D|

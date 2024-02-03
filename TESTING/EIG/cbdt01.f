@@ -1,5 +1,4 @@
-      SUBROUTINE CBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK,
-     $                   RWORK, RESID )
+      SUBROUTINE CBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -61,8 +59,7 @@
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    10          CONTINUE
                WORK( M+N ) = D( N )*PT( N, J )
-               CALL CGEMV( 'No transpose', M, N, -CMPLX( ONE ), Q, LDQ,
-     $                     WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
+               CALL CGEMV( 'No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    20       CONTINUE
          ELSE IF( KD.LT.0 ) THEN
@@ -75,8 +72,7 @@
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    30          CONTINUE
                WORK( M+M ) = D( M )*PT( M, J )
-               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ,
-     $                     WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
+               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    40       CONTINUE
          ELSE
@@ -87,11 +83,9 @@
                CALL CCOPY( M, A( 1, J ), 1, WORK, 1 )
                WORK( M+1 ) = D( 1 )*PT( 1, J )
                DO 50 I = 2, M
-                  WORK( M+I ) = E( I-1 )*PT( I-1, J ) +
-     $                          D( I )*PT( I, J )
+                  WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J )
    50          CONTINUE
-               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ,
-     $                     WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
+               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    60       CONTINUE
          END IF
@@ -105,8 +99,7 @@
                DO 70 I = 1, N
                   WORK( M+I ) = D( I )*PT( I, J )
    70          CONTINUE
-               CALL CGEMV( 'No transpose', M, N, -CMPLX( ONE ), Q, LDQ,
-     $                     WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
+               CALL CGEMV( 'No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
    80       CONTINUE
          ELSE
@@ -115,8 +108,7 @@
                DO 90 I = 1, M
                   WORK( M+I ) = D( I )*PT( I, J )
    90          CONTINUE
-               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ,
-     $                     WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
+               CALL CGEMV( 'No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 )
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
   100       CONTINUE
          END IF
@@ -128,18 +120,15 @@
       EPS = SLAMCH( 'Precision' )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( ANORM.GE.RESID ) THEN
             RESID = ( RESID / ANORM ) / ( REAL( N )*EPS )
          ELSE
             IF( ANORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) /
-     $                 ( REAL( N )*EPS )
+               RESID = ( MIN( RESID, REAL( N )*ANORM ) / ANORM ) / ( REAL( N )*EPS )
             ELSE
-               RESID = MIN( RESID / ANORM, REAL( N ) ) /
-     $                 ( REAL( N )*EPS )
+               RESID = MIN( RESID / ANORM, REAL( N ) ) / ( REAL( N )*EPS )
             END IF
          END IF
       END IF

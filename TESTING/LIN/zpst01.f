@@ -1,5 +1,4 @@
-      SUBROUTINE ZPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM,
-     $                   PIV, RWORK, RESID, RANK )
+      SUBROUTINE ZPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM, PIV, RWORK, RESID, RANK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ),
-     $                   PERM( LDPERM, * )
+      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * )
       DOUBLE PRECISION   RWORK( * )
       INTEGER            PIV( * )
 *     ..
@@ -91,8 +89,7 @@
 *
 *           Compute the rest of column K.
 *
-            CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC,
-     $                  LDAFAC, AFAC( 1, K ), 1 )
+            CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
   130    CONTINUE
 *
@@ -112,9 +109,7 @@
 *           Add a multiple of column K of the factor L to each of
 *           columns K+1 through N.
 *
-            IF( K+1.LE.N )
-     $         CALL ZHER( 'Lower', N-K, ONE, AFAC( K+1, K ), 1,
-     $                    AFAC( K+1, K+1 ), LDAFAC )
+            IF( K+1.LE.N ) CALL ZHER( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
 *           Scale column K by the diagonal element.
 *

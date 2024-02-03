@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_GERCOND_X( TRANS, N, A, LDA, AF,
-     $                                         LDAF, IPIV, X, INFO,
-     $                                         WORK, RWORK )
+      DOUBLE PRECISION FUNCTION ZLA_GERCOND_X( TRANS, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -50,8 +48,7 @@
 *
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.
-     $     LSAME( TRANS, 'C' ) ) THEN
+      IF ( .NOT. NOTRANS .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -112,11 +109,9 @@
             END DO
 *
             IF ( NOTRANS ) THEN
-               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(X).
@@ -133,11 +128,9 @@
             END DO
 *
             IF ( NOTRANS ) THEN
-               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -151,8 +144,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   ZLA_GERCOND_X = 1.0D+0 / AINVNM
+      IF( AINVNM .NE. 0.0D+0 ) ZLA_GERCOND_X = 1.0D+0 / AINVNM
 *
       RETURN
 *

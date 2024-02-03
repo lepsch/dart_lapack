@@ -1,6 +1,4 @@
-      SUBROUTINE CSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                            IPIV, IPIV2, B, LDB, WORK, LWORK,
-     $                            INFO )
+      SUBROUTINE CSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -29,8 +27,7 @@
       EXTERNAL           LSAME, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CSYTRF_AA_2STAGE, 
-     $                   CSYTRS_AA_2STAGE, XERBLA
+      EXTERNAL           CSYTRF_AA_2STAGE,  CSYTRS_AA_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -60,8 +57,7 @@
       END IF
 *
       IF( INFO.EQ.0 ) THEN
-         CALL CSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV,
-     $                          IPIV2, WORK, -1, INFO )
+         CALL CSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = INT( WORK(1) )
       END IF
 *
@@ -75,14 +71,12 @@
 *
 *     Compute the factorization A = U**T*T*U or A = L*T*L**T.
 *
-      CALL CSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2,
-     $                       WORK, LWORK, INFO )
+      CALL CSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL CSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV,
-     $                          IPIV2, B, LDB, INFO )
+         CALL CSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
       END IF
 *

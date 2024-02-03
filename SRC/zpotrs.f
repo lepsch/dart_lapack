@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -64,26 +63,22 @@
 *
 *        Solve U**H *X = B, overwriting B with X.
 *
-         CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit',
-     $               N, NRHS, ONE, A, LDA, B, LDB )
+         CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
 *        Solve U*X = B, overwriting B with X.
 *
-         CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N,
-     $               NRHS, ONE, A, LDA, B, LDB )
+         CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       ELSE
 *
 *        Solve A*X = B where A = L*L**H.
 *
 *        Solve L*X = B, overwriting B with X.
 *
-         CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N,
-     $               NRHS, ONE, A, LDA, B, LDB )
+         CALL ZTRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
 *
 *        Solve L**H *X = B, overwriting B with X.
 *
-         CALL ZTRSM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit',
-     $               N, NRHS, ONE, A, LDA, B, LDB )
+         CALL ZTRSM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', N, NRHS, ONE, A, LDA, B, LDB )
       END IF
 *
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE DHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, WR, WI, Z,
-     $                   LDZ, WORK, LWORK, INFO )
+      SUBROUTINE DHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, WR, WI, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       CHARACTER          COMPZ, JOB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   H( LDH, * ), WI( * ), WORK( * ), WR( * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   H( LDH, * ), WI( * ), WORK( * ), WR( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -99,8 +97,7 @@
 *
 *        ==== Quick return in case of a workspace query ====
 *
-         CALL DLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO,
-     $                IHI, Z, LDZ, WORK, LWORK, INFO )
+         CALL DLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 *        ==== Ensure reported workspace size is backward-compatible with
 *        .    previous LAPACK versions. ====
          WORK( 1 ) = MAX( DBLE( MAX( 1, N ) ), WORK( 1 ) )
@@ -121,8 +118,7 @@
 *
 *        ==== Initialize Z, if requested ====
 *
-         IF( INITZ )
-     $      CALL DLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
+         IF( INITZ ) CALL DLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
 *
 *        ==== Quick return if possible ====
 *
@@ -134,21 +130,18 @@
 *
 *        ==== DLAHQR/DLAQR0 crossover point ====
 *
-         NMIN = ILAENV( 12, 'DHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N,
-     $          ILO, IHI, LWORK )
+         NMIN = ILAENV( 12, 'DHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK )
          NMIN = MAX( NTINY, NMIN )
 *
 *        ==== DLAQR0 for big matrices; DLAHQR for small ones ====
 *
          IF( N.GT.NMIN ) THEN
-            CALL DLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO,
-     $                   IHI, Z, LDZ, WORK, LWORK, INFO )
+            CALL DLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
          ELSE
 *
 *           ==== Small matrix ====
 *
-            CALL DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO,
-     $                   IHI, Z, LDZ, INFO )
+            CALL DLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, WR, WI, ILO, IHI, Z, LDZ, INFO )
 *
             IF( INFO.GT.0 ) THEN
 *
@@ -162,8 +155,7 @@
 *                 ==== Larger matrices have enough subdiagonal scratch
 *                 .    space to call DLAQR0 directly. ====
 *
-                  CALL DLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR,
-     $                         WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+                  CALL DLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, WR, WI, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 *
                ELSE
 *
@@ -174,20 +166,14 @@
 *
                   CALL DLACPY( 'A', N, N, H, LDH, HL, NL )
                   HL( N+1, N ) = ZERO
-                  CALL DLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ),
-     $                         NL )
-                  CALL DLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR,
-     $                         WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )
-                  IF( WANTT .OR. INFO.NE.0 )
-     $               CALL DLACPY( 'A', N, N, HL, NL, H, LDH )
+                  CALL DLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL DLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL DLACPY( 'A', N, N, HL, NL, H, LDH )
                END IF
             END IF
          END IF
 *
 *        ==== Clear out the trash, if necessary. ====
 *
-         IF( ( WANTT .OR. INFO.NE.0 ) .AND. N.GT.2 )
-     $      CALL DLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT .OR. INFO.NE.0 ) .AND. N.GT.2 ) CALL DLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 *
 *        ==== Ensure reported workspace size is backward-compatible with
 *        .    previous LAPACK versions. ====

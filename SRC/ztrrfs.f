@@ -1,5 +1,4 @@
-      SUBROUTINE ZTRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, X,
-     $                   LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZTRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -61,8 +59,7 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
@@ -218,8 +215,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
          BERR( J ) = S
@@ -250,8 +246,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
   200    CONTINUE
 *
@@ -285,8 +280,7 @@
          DO 240 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   240    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   250 CONTINUE
 *

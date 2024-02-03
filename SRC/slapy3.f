@@ -36,8 +36,7 @@
 *     NaN will not disappear.
          SLAPY3 =  XABS + YABS + ZABS
       ELSE
-         SLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+
-     $            ( ZABS / W )**2 )
+         SLAPY3 = W*SQRT( ( XABS / W )**2+( YABS / W )**2+ ( ZABS / W )**2 )
       END IF
       RETURN
 *

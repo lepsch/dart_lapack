@@ -1,6 +1,4 @@
-      SUBROUTINE ZHEEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU,
-     $                   ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK,
-     $                   RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHEEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,8 +6,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK,
-     $                   M, N
+      INTEGER            IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK, M, N
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
@@ -25,16 +22,10 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG,
-     $                   WANTZ, TRYRAC
+      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP,
-     $                   INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK,
-     $                   INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ,
-     $                   LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN,
-     $                   LWKOPT, LWMIN, NB, NSPLIT
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP, INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK, INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ, LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN, LWKOPT, LWMIN, NB, NSPLIT
+      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -43,8 +34,7 @@
       EXTERNAL           LSAME, ILAENV, DLAMCH, ZLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL,
-     $                   ZHETRD, ZSTEMR, ZSTEIN, ZSWAP, ZUNMTR
+      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZDSCAL, ZHETRD, ZSTEMR, ZSTEIN, ZSWAP, ZUNMTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN, SQRT
@@ -61,8 +51,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 *
-      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR.
-     $         ( LIWORK.EQ.-1 ) )
+      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
 *
       IF( N.LE.1 ) THEN
          LWMIN  = 1
@@ -87,8 +76,7 @@
          INFO = -6
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -8
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -9
@@ -141,8 +129,7 @@
             M = 1
             W( 1 ) = DBLE( A( 1, 1 ) )
          ELSE
-            IF( VL.LT.DBLE( A( 1, 1 ) ) .AND. VU.GE.DBLE( A( 1, 1 ) ) )
-     $           THEN
+            IF( VL.LT.DBLE( A( 1, 1 ) ) .AND. VU.GE.DBLE( A( 1, 1 ) ) ) THEN
                M = 1
                W( 1 ) = DBLE( A( 1, 1 ) )
             END IF
@@ -190,8 +177,7 @@
                CALL ZDSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -243,8 +229,7 @@
 *
 *     Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 *
-      CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ),
-     $             WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
+      CALL ZHETRD( UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
 *
 *     If all eigenvalues are desired
 *     then call DSTERF or ZSTEMR and ZUNMTR.
@@ -269,11 +254,7 @@
             ELSE
                TRYRAC = .FALSE.
             END IF
-            CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ),
-     $                   RWORK( INDREE ), VL, VU, IL, IU, M, W,
-     $                   Z, LDZ, N, ISUPPZ, TRYRAC,
-     $                   RWORK( INDRWK ), LLRWORK,
-     $                   IWORK, LIWORK, INFO )
+            CALL ZSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
 *
 *           Apply unitary matrix used in reduction to tridiagonal
 *           form to eigenvectors returned by ZSTEMR.
@@ -281,9 +262,7 @@
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
-               CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA,
-     $                      WORK( INDTAU ), Z, LDZ, WORK( INDWKN ),
-     $                      LLWRKN, IINFO )
+               CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
 *
@@ -303,25 +282,17 @@
       ELSE
          ORDER = 'E'
       END IF
-
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ),
-     $             IWORK( INDIWO ), INFO )
+       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL ZSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ),
-     $                INFO )
+         CALL ZSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
 *        Apply unitary matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by ZSTEIN.
 *
          INDWKN = INDWK
          LLWRKN = LWORK - INDWKN + 1
-         CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z,
-     $                LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         CALL ZUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

@@ -1,5 +1,4 @@
-      SUBROUTINE SPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR,
-     $                   BERR, WORK, INFO )
+      SUBROUTINE SPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ),
-     $                   E( * ), EF( * ), FERR( * ), WORK( * ),
-     $                   X( LDX, * )
+      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -30,8 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            COUNT, I, IX, J, NZ
-      REAL               BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2,
-     $                   SAFMIN
+      REAL               BI, CX, DX, EPS, EX, LSTRES, S, SAFE1, SAFE2, SAFMIN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SAXPY, SPTTRS, XERBLA
@@ -134,8 +130,7 @@
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             ELSE
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) /
-     $             ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    40    CONTINUE
          BERR( J ) = S
@@ -146,8 +141,7 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
@@ -220,8 +214,7 @@
          DO 80 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
    80    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
    90 CONTINUE
 *

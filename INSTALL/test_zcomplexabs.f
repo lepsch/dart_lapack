@@ -10,23 +10,14 @@
       integer           N, nNaN, nInf
       parameter       ( N = 4, nNaN = 3, nInf = 5 )
       double precision  threeFourth, fiveFourth, oneHalf
-      parameter       ( threeFourth = 3.0d0 / 4,
-     $                  fiveFourth = 5.0d0 / 4,
-     $                  oneHalf = 1.0d0 / 2 )
+      parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4, oneHalf = 1.0d0 / 2 )
 *     ..
 *     .. Local Variables ..
-      integer           i, min, Max, m, subnormalTreatedAs0,
-     $                  caseAFails, caseBFails, caseCFails, caseDFails,
-     $                  caseEFails, caseFFails, nFailingTests, nTests
-      double precision  X( N ), R, answerC,
-     $                  answerD, aInf, aNaN, relDiff, b,
-     $                  eps, blueMin, blueMax, Xj, stepX(N), limX(N)
+      integer           i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, nFailingTests, nTests       double precision  X( N ), R, answerC, answerD, aInf, aNaN, relDiff, b, eps, blueMin, blueMax, Xj, stepX(N), limX(N)
       double complex    Y, cInf( nInf ), cNaN( nNaN )
 *
 *     .. Intrinsic Functions ..
-      intrinsic         ABS, DBLE, RADIX, CEILING, TINY, DIGITS, SQRT,
-     $                  MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX,
-     $                  EPSILON
+      intrinsic         ABS, DBLE, RADIX, CEILING, TINY, DIGITS, SQRT, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
 
 *
 *     .. Initialize error counts ..
@@ -180,11 +171,9 @@
                 if( R .ne. answerC ) then
                     caseCFails = caseCFails + 1
                     if( caseCFails .eq. 1 ) then
-                        print *, 
-     $              "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
+                        print *,  "!! Some ABS(x*(3/4+I)) differ from (5/4)*ABS(x)"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R,
-     $                                      answerC
+                    WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(3/4+I)', R, answerC
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -219,16 +208,14 @@
                     if( relDiff .ge. (0.5*eps) ) then
                         caseDFails = caseDFails + 1
                         if( caseDFails .eq. 1 ) then
-                            print *, 
-     $                "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"
+                            print *,  "!! Some ABS(x*(1+I)) differ from sqrt(2)*ABS(x)"
                         endif
-                        WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj),
-     $                                  '(1+1*I)', R, answerD
+                        WRITE( 0, FMT = 9999 ) 'd',i, (oneHalf*Xj), '(1+1*I)', R, answerD
                     endif
                 endif
                 Xj = Xj * stepX(i)
             end do
-        endif 
+        endif
   40  continue
 *
 *     Test (e) Infs
@@ -254,18 +241,15 @@
   60  continue
 *
 *     If any test fails, displays a message
-      nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails
-     $                + caseEFails + caseFFails
+      nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails
       if( nFailingTests .gt. 0 ) then
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests,
-     $            " pass for ABS(a+b*I),", nFailingTests, " tests fail."
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for ABS(a+b*I),", nFailingTests, " tests fail."
       else
          print *, "# All tests pass for ABS(a+b*I)"
       endif
 *
 *     If anything was written to stderr, print the message
-      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or.
-     $    (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) then
+      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) ) then
          print *, "# Please check the failed ABS(a+b*I) in [stderr]"
       endif
 *

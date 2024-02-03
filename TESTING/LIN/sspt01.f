@@ -55,13 +55,11 @@
 *
 *     Call SLAVSP to form the product D * U' (or D * L' ).
 *
-      CALL SLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C,
-     $             LDC, INFO )
+      CALL SLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
 *     Call SLAVSP again to multiply by U ( or L ).
 *
-      CALL SLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C,
-     $             LDC, INFO )
+      CALL SLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
 *     Compute the difference  C - A .
 *
@@ -88,8 +86,7 @@
       RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF

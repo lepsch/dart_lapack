@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
       STKPNT = 1
       STACK( 1, 1 ) = 1
@@ -140,12 +139,10 @@
    60       CONTINUE
    70       CONTINUE
             J = J - 1
-            IF( D( J ).LT.DMNMX )
-     $         GO TO 70
+            IF( D( J ).LT.DMNMX ) GO TO 70
    80       CONTINUE
             I = I + 1
-            IF( D( I ).GT.DMNMX )
-     $         GO TO 80
+            IF( D( I ).GT.DMNMX ) GO TO 80
             IF( I.LT.J ) THEN
                TMP = D( I )
                D( I ) = D( J )
@@ -176,12 +173,10 @@
    90       CONTINUE
   100       CONTINUE
             J = J - 1
-            IF( D( J ).GT.DMNMX )
-     $         GO TO 100
+            IF( D( J ).GT.DMNMX ) GO TO 100
   110       CONTINUE
             I = I + 1
-            IF( D( I ).LT.DMNMX )
-     $         GO TO 110
+            IF( D( I ).LT.DMNMX ) GO TO 110
             IF( I.LT.J ) THEN
                TMP = D( I )
                D( I ) = D( J )
@@ -205,8 +200,7 @@
             END IF
          END IF
       END IF
-      IF( STKPNT.GT.0 )
-     $   GO TO 10
+      IF( STKPNT.GT.0 ) GO TO 10
       RETURN
 *
 *     End of DLASRT

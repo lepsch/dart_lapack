@@ -44,9 +44,7 @@
          INFO = -1
       ELSE IF( M.LT.0 ) THEN
          INFO = -2
-      ELSE IF( N.LT.0 .OR. ( WANTQ .AND. ( N.GT.M .OR. N.LT.MIN( M,
-     $         K ) ) ) .OR. ( .NOT.WANTQ .AND. ( M.GT.N .OR. M.LT.
-     $         MIN( N, K ) ) ) ) THEN
+      ELSE IF( N.LT.0 .OR. ( WANTQ .AND. ( N.GT.M .OR. N.LT.MIN( M, K ) ) ) .OR. ( .NOT.WANTQ .AND. ( M.GT.N .OR. M.LT. MIN( N, K ) ) ) ) THEN
          INFO = -3
       ELSE IF( K.LT.0 ) THEN
          INFO = -4
@@ -63,8 +61,7 @@
                CALL DORGQR( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
             ELSE
                IF( M.GT.1 ) THEN
-                  CALL DORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1,
-     $                         IINFO )
+                  CALL DORGQR( M-1, M-1, M-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
             END IF
          ELSE
@@ -72,8 +69,7 @@
                CALL DORGLQ( M, N, K, A, LDA, TAU, WORK, -1, IINFO )
             ELSE
                IF( N.GT.1 ) THEN
-                  CALL DORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1,
-     $                         IINFO )
+                  CALL DORGLQ( N-1, N-1, N-1, A, LDA, TAU, WORK, -1, IINFO )
                END IF
             END IF
          END IF
@@ -129,8 +125,7 @@
 *
 *              Form Q(2:m,2:m)
 *
-               CALL DORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK,
-     $                      LWORK, IINFO )
+               CALL DORGQR( M-1, M-1, M-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
       ELSE
@@ -166,8 +161,7 @@
 *
 *              Form P**T(2:n,2:n)
 *
-               CALL DORGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK,
-     $                      LWORK, IINFO )
+               CALL DORGLQ( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
             END IF
          END IF
       END IF

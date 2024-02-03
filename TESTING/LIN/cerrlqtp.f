@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   B( NMAX, NMAX ), C( NMAX, NMAX )
+      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, CTPLQT2, CTPLQT,
-     $                   CTPMLQT
+      EXTERNAL           ALAESM, CHKXER, CTPLQT2, CTPLQT, CTPMLQT
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -115,47 +113,36 @@
 *
       SRNAMT = 'CTPMLQT'
       INFOT = 1
-      CALL CTPMLQT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL CTPMLQT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL CTPMLQT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL CTPMLQT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL CTPMLQT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       INFOT = 6
-      CALL CTPMLQT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL CTPMLQT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL CTPMLQT( 'R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL CTPMLQT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL CTPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 15
-      CALL CTPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0,
-     $              W, INFO )
+      CALL CTPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
       CALL CHKXER( 'CTPMLQT', INFOT, NOUT, LERR, OK )
 *
 *     Print a summary line.

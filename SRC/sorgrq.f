@@ -19,8 +19,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, II, IINFO, IWS, J, KK, L, LDWORK,
-     $                   LWKOPT, NB, NBMIN, NX
+      INTEGER            I, IB, II, IINFO, IWS, J, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLARFB, SLARFT, SORGR2, XERBLA
@@ -135,20 +134,16 @@
 *              Form the triangular factor of the block reflector
 *              H = H(i+ib-1) . . . H(i+1) H(i)
 *
-               CALL SLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB,
-     $                      A( II, 1 ), LDA, TAU( I ), WORK, LDWORK )
+               CALL SLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H**T to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
 *
-               CALL SLARFB( 'Right', 'Transpose', 'Backward', 'Rowwise',
-     $                      II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK,
-     $                      LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
+               CALL SLARFB( 'Right', 'Transpose', 'Backward', 'Rowwise', II-1, N-K+I+IB-1, IB, A( II, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
             END IF
 *
 *           Apply H**T to columns 1:n-k+i+ib-1 of current block
 *
-            CALL SORGR2( IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ),
-     $                   WORK, IINFO )
+            CALL SORGR2( IB, N-K+I+IB-1, IB, A( II, 1 ), LDA, TAU( I ), WORK, IINFO )
 *
 *           Set columns n-k+i+ib:n of current block to zero
 *

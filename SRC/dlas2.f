@@ -36,8 +36,7 @@
          IF( FHMX.EQ.ZERO ) THEN
             SSMAX = GA
          ELSE
-            SSMAX = MAX( FHMX, GA )*SQRT( ONE+
-     $              ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 )
+            SSMAX = MAX( FHMX, GA )*SQRT( ONE+ ( MIN( FHMX, GA ) / MAX( FHMX, GA ) )**2 )
          END IF
       ELSE
          IF( GA.LT.FHMX ) THEN
@@ -60,8 +59,7 @@
             ELSE
                AS = ONE + FHMN / FHMX
                AT = ( FHMX-FHMN ) / FHMX
-               C = ONE / ( SQRT( ONE+( AS*AU )**2 )+
-     $             SQRT( ONE+( AT*AU )**2 ) )
+               C = ONE / ( SQRT( ONE+( AS*AU )**2 )+ SQRT( ONE+( AT*AU )**2 ) )
                SSMIN = ( FHMN*C )*AU
                SSMIN = SSMIN + SSMIN
                SSMAX = GA / ( C+C )

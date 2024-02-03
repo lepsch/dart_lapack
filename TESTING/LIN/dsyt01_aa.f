@@ -1,5 +1,4 @@
-      SUBROUTINE DSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C,
-     $                         LDC, RWORK, RESID )
+      SUBROUTINE DSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ),
-     $                   RWORK( * )
+      DOUBLE PRECISION   A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * )
 *     ..
 *
 *  =====================================================================
@@ -57,35 +55,25 @@
       CALL DLACPY( 'F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 )
       IF( N.GT.1 ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL DLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ELSE
-            CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL DLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ENDIF
 *
 *        Call DTRMM to form the product U' * D (or L * D ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL DTRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N,
-     $                  ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
+            CALL DTRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N, ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
          ELSE
-            CALL DTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N,
-     $                  ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
+            CALL DTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 *
 *        Call DTRMM again to multiply by U (or L ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL DTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1,
-     $                  ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
+            CALL DTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
          ELSE
-            CALL DTRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1,
-     $                  ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
+            CALL DTRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1, ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
       ENDIF
 *
@@ -93,13 +81,11 @@
 *
       DO J = N, 1, -1
          I = IPIV( J )
-         IF( I.NE.J )
-     $      CALL DSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
+         IF( I.NE.J ) CALL DSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
       END DO
       DO J = N, 1, -1
          I = IPIV( J )
-         IF( I.NE.J )
-     $      CALL DSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
+         IF( I.NE.J ) CALL DSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
       END DO
 *
 *
@@ -124,8 +110,7 @@
       RESID = DLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF

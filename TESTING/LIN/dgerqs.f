@@ -1,5 +1,4 @@
-      SUBROUTINE DGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE DGERQS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -40,8 +38,7 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 )
-     $          THEN
+      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) THEN
          INFO = -10
       END IF
       IF( INFO.NE.0 ) THEN
@@ -51,13 +48,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
 *
 *     Solve R*X = B(n-m+1:n,:)
 *
-      CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS,
-     $            ONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
+      CALL DTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', M, NRHS, ONE, A( 1, N-M+1 ), LDA, B( N-M+1, 1 ), LDB )
 *
 *     Set B(1:n-m,:) to zero
 *
@@ -65,8 +60,7 @@
 *
 *     B := Q' * B
 *
-      CALL DORMRQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB,
-     $             WORK, LWORK, INFO )
+      CALL DORMRQ( 'Left', 'Transpose', N, NRHS, M, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
       RETURN
 *

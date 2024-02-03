@@ -1,5 +1,4 @@
-      SUBROUTINE CSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK,
-     $                   RESULT )
+      SUBROUTINE CSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ),
-     $                   SD( * ), SE( * )
+      REAL               AD( * ), AE( * ), RESULT( 2 ), RWORK( * ), SD( * ), SE( * )
       COMPLEX            U( LDU, * ), WORK( * )
 *     ..
 *
@@ -20,8 +18,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            J
@@ -43,8 +40,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
@@ -77,8 +73,7 @@
 *
       IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
          DO 30 J = 1, N - 1
-            CALL CHER2( 'L', N, -CMPLX( SE( J ) ), U( 1, J ), 1,
-     $                  U( 1, J+1 ), 1, WORK, N )
+            CALL CHER2( 'L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
    30    CONTINUE
       END IF
 *
@@ -98,15 +93,13 @@
 *
 *     Compute  U U**H - I
 *
-      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK,
-     $            N )
+      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
       DO 40 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    40 CONTINUE
 *
-      RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N,
-     $              RWORK ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP )
 *
       RETURN
 *

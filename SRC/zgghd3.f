@@ -1,5 +1,4 @@
-      SUBROUTINE ZGGHD3( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q,
-     $                   LDQ, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE ZGGHD3( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,26 +11,21 @@
       INTEGER            IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N, LWORK
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ),
-     $                     CZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BLK22, INITQ, INITZ, LQUERY, WANTQ, WANTZ
       CHARACTER*1        COMPQ2, COMPZ2
-      INTEGER            COLA, I, IERR, J, J0, JCOL, JJ, JROW, K,
-     $                   KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN,
-     $                   NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
+      INTEGER            COLA, I, IERR, J, J0, JCOL, JJ, JROW, K, KACC22, LEN, LWKOPT, N2NB, NB, NBLST, NBMIN, NH, NNB, NX, PPW, PPWO, PW, TOP, TOPQ
       DOUBLE PRECISION   C
-      COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2,
-     $                   TEMP3
+      COMPLEX*16         C1, C2, CTEMP, S, S1, S2, TEMP, TEMP1, TEMP2, TEMP3
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -39,8 +33,7 @@
       EXTERNAL           ILAENV, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGGHRD, ZLARTG, ZLASET, ZUNM22, ZROT, ZGEMM,
-     $                   ZGEMV, ZTRMV, ZLACPY, XERBLA
+      EXTERNAL           ZGGHRD, ZLARTG, ZLASET, ZUNM22, ZROT, ZGEMM, ZGEMV, ZTRMV, ZLACPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX, DCONJG, MAX
@@ -94,15 +87,11 @@
 *
 *     Initialize Q and Z if desired.
 *
-      IF( INITQ )
-     $   CALL ZLASET( 'All', N, N, CZERO, CONE, Q, LDQ )
-      IF( INITZ )
-     $   CALL ZLASET( 'All', N, N, CZERO, CONE, Z, LDZ )
+      IF( INITQ ) CALL ZLASET( 'All', N, N, CZERO, CONE, Q, LDQ )       IF( INITZ ) CALL ZLASET( 'All', N, N, CZERO, CONE, Z, LDZ )
 *
 *     Zero out lower triangle of B.
 *
-      IF( N.GT.1 )
-     $   CALL ZLASET( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB )
+      IF( N.GT.1 ) CALL ZLASET( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB )
 *
 *     Quick return if possible
 *
@@ -129,8 +118,7 @@
 *              minimum value of NB, and reduce NB or force use of
 *              unblocked code.
 *
-               NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI,
-     $                 -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'ZGGHD3', ' ', N, ILO, IHI, -1 ) )
                IF( LWORK.GE.6*N*NBMIN ) THEN
                   NB = LWORK / ( 6*N )
                ELSE
@@ -166,8 +154,7 @@
             CALL ZLASET( 'All', NBLST, NBLST, CZERO, CONE, WORK, NBLST )
             PW = NBLST * NBLST + 1
             DO I = 1, N2NB
-               CALL ZLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE,
-     $                      WORK( PW ), 2*NNB )
+               CALL ZLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB )
                PW = PW + 4*NNB*NNB
             END DO
 *
@@ -249,11 +236,9 @@
 *
                   IF( JJ.LT.IHI ) THEN
                      TEMP = B( JJ+1, JJ+1 )
-                     CALL ZLARTG( TEMP, B( JJ+1, JJ ), C, S,
-     $                            B( JJ+1, JJ+1 ) )
+                     CALL ZLARTG( TEMP, B( JJ+1, JJ ), C, S, B( JJ+1, JJ+1 ) )
                      B( JJ+1, JJ ) = CZERO
-                     CALL ZROT( JJ-TOP, B( TOP+1, JJ+1 ), 1,
-     $                          B( TOP+1, JJ ), 1, C, S )
+                     CALL ZROT( JJ-TOP, B( TOP+1, JJ+1 ), 1, B( TOP+1, JJ ), 1, C, S )
                      A( JJ+1, J ) = DCMPLX( C )
                      B( JJ+1, J ) = -DCONJG( S )
                   END IF
@@ -287,9 +272,7 @@
                IF( JJ.GT.0 ) THEN
                   DO I = JJ, 1, -1
                      C = DBLE( A( J+1+I, J ) )
-                     CALL ZROT( IHI-TOP, A( TOP+1, J+I+1 ), 1,
-     $                          A( TOP+1, J+I ), 1, C,
-     $                          -DCONJG( B( J+1+I, J ) ) )
+                     CALL ZROT( IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, C, -DCONJG( B( J+1+I, J ) ) )
                   END DO
                END IF
 *
@@ -309,21 +292,13 @@
 *                 triangular.
 *
                   JROW = IHI - NBLST + 1
-                  CALL ZGEMV( 'Conjugate', NBLST, LEN, CONE, WORK,
-     $                        NBLST, A( JROW, J+1 ), 1, CZERO,
-     $                        WORK( PW ), 1 )
+                  CALL ZGEMV( 'Conjugate', NBLST, LEN, CONE, WORK, NBLST, A( JROW, J+1 ), 1, CZERO, WORK( PW ), 1 )
                   PPW = PW + LEN
                   DO I = JROW, JROW+NBLST-LEN-1
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   END DO
-                  CALL ZTRMV( 'Lower', 'Conjugate', 'Non-unit',
-     $                        NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST,
-     $                        WORK( PW+LEN ), 1 )
-                  CALL ZGEMV( 'Conjugate', LEN, NBLST-LEN, CONE,
-     $                        WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST,
-     $                        A( JROW+NBLST-LEN, J+1 ), 1, CONE,
-     $                        WORK( PW+LEN ), 1 )
+                  CALL ZTRMV( 'Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL ZGEMV( 'Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 )
                   PPW = PW
                   DO I = JROW, JROW+NBLST-1
                      A( I, J+1 ) = WORK( PPW )
@@ -356,19 +331,7 @@
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      END DO
-                     CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', LEN,
-     $                           WORK( PPWO + NNB ), 2*NNB, WORK( PW ),
-     $                           1 )
-                     CALL ZTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB,
-     $                           WORK( PPWO + 2*LEN*NNB ),
-     $                           2*NNB, WORK( PW + LEN ), 1 )
-                     CALL ZGEMV( 'Conjugate', NNB, LEN, CONE,
-     $                           WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1,
-     $                           CONE, WORK( PW ), 1 )
-                     CALL ZGEMV( 'Conjugate', LEN, NNB, CONE,
-     $                           WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB,
-     $                           A( JROW+NNB, J+1 ), 1, CONE,
-     $                           WORK( PW+LEN ), 1 )
+                     CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL ZTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL ZGEMV( 'Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 )                      CALL ZGEMV( 'Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 )
                      PPW = PW
                      DO I = JROW, JROW+LEN+NNB-1
                         A( I, J+1 ) = WORK( PPW )
@@ -383,12 +346,8 @@
 *
             COLA = N - JCOL - NNB + 1
             J = IHI - NBLST + 1
-            CALL ZGEMM( 'Conjugate', 'No Transpose', NBLST,
-     $                  COLA, NBLST, CONE, WORK, NBLST,
-     $                  A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ),
-     $                  NBLST )
-            CALL ZLACPY( 'All', NBLST, COLA, WORK( PW ), NBLST,
-     $                   A( J, JCOL+NNB ), LDA )
+            CALL ZGEMM( 'Conjugate', 'No Transpose', NBLST, COLA, NBLST, CONE, WORK, NBLST, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), NBLST )
+            CALL ZLACPY( 'All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA )
             PPWO = NBLST*NBLST + 1
             J0 = J - NNB
             DO J = J0, JCOL+1, -NNB
@@ -403,20 +362,13 @@
 *                 where all blocks are NNB-by-NNB, U21 is upper
 *                 triangular and U12 is lower triangular.
 *
-                  CALL ZUNM22( 'Left', 'Conjugate', 2*NNB, COLA, NNB,
-     $                         NNB, WORK( PPWO ), 2*NNB,
-     $                         A( J, JCOL+NNB ), LDA, WORK( PW ),
-     $                         LWORK-PW+1, IERR )
+                  CALL ZUNM22( 'Left', 'Conjugate', 2*NNB, COLA, NNB, NNB, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, WORK( PW ), LWORK-PW+1, IERR )
                ELSE
 *
 *                 Ignore the structure of U.
 *
-                  CALL ZGEMM( 'Conjugate', 'No Transpose', 2*NNB,
-     $                        COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB,
-     $                        A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ),
-     $                        2*NNB )
-                  CALL ZLACPY( 'All', 2*NNB, COLA, WORK( PW ), 2*NNB,
-     $                         A( J, JCOL+NNB ), LDA )
+                  CALL ZGEMM( 'Conjugate', 'No Transpose', 2*NNB, COLA, 2*NNB, CONE, WORK( PPWO ), 2*NNB, A( J, JCOL+NNB ), LDA, CZERO, WORK( PW ), 2*NNB )
+                  CALL ZLACPY( 'All', 2*NNB, COLA, WORK( PW ), 2*NNB, A( J, JCOL+NNB ), LDA )
                END IF
                PPWO = PPWO + 4*NNB*NNB
             END DO
@@ -432,11 +384,8 @@
                   TOPQ = 1
                   NH = N
                END IF
-               CALL ZGEMM( 'No Transpose', 'No Transpose', NH,
-     $                     NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ,
-     $                     WORK, NBLST, CZERO, WORK( PW ), NH )
-               CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH,
-     $                      Q( TOPQ, J ), LDQ )
+               CALL ZGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Q( TOPQ, J ), LDQ, WORK, NBLST, CZERO, WORK( PW ), NH )
+               CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -448,20 +397,13 @@
 *
 *                    Exploit the structure of U.
 *
-                     CALL ZUNM22( 'Right', 'No Transpose', NH, 2*NNB,
-     $                            NNB, NNB, WORK( PPWO ), 2*NNB,
-     $                            Q( TOPQ, J ), LDQ, WORK( PW ),
-     $                            LWORK-PW+1, IERR )
+                     CALL ZUNM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Q( TOPQ, J ), LDQ, WORK( PW ), LWORK-PW+1, IERR )
                   ELSE
 *
 *                    Ignore the structure of U.
 *
-                     CALL ZGEMM( 'No Transpose', 'No Transpose', NH,
-     $                           2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ,
-     $                           WORK( PPWO ), 2*NNB, CZERO, WORK( PW ),
-     $                           NH )
-                     CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH,
-     $                            Q( TOPQ, J ), LDQ )
+                     CALL ZGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Q( TOPQ, J ), LDQ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
+                     CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Q( TOPQ, J ), LDQ )
                   END IF
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -474,12 +416,10 @@
 *              Initialize small unitary factors that will hold the
 *              accumulated Givens rotations in workspace.
 *
-               CALL ZLASET( 'All', NBLST, NBLST, CZERO, CONE, WORK,
-     $                      NBLST )
+               CALL ZLASET( 'All', NBLST, NBLST, CZERO, CONE, WORK, NBLST )
                PW = NBLST * NBLST + 1
                DO I = 1, N2NB
-                  CALL ZLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE,
-     $                         WORK( PW ), 2*NNB )
+                  CALL ZLASET( 'All', 2*NNB, 2*NNB, CZERO, CONE, WORK( PW ), 2*NNB )
                   PW = PW + 4*NNB*NNB
                END DO
 *
@@ -496,8 +436,7 @@
                      B( I, J ) = CZERO
                      DO JJ = PPW, PPW+LEN-1
                         TEMP = WORK( JJ + NBLST )
-                        WORK( JJ + NBLST ) = CTEMP*TEMP -
-     $                                       DCONJG( S )*WORK( JJ )
+                        WORK( JJ + NBLST ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ )
                         WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
                      END DO
                      LEN = LEN + 1
@@ -516,8 +455,7 @@
                         B( I, J ) = CZERO
                         DO JJ = PPW, PPW+LEN-1
                            TEMP = WORK( JJ + 2*NNB )
-                           WORK( JJ + 2*NNB ) = CTEMP*TEMP -
-     $                                          DCONJG( S )*WORK( JJ )
+                           WORK( JJ + 2*NNB ) = CTEMP*TEMP - DCONJG( S )*WORK( JJ )
                            WORK( JJ ) = S*TEMP + CTEMP*WORK( JJ )
                         END DO
                         LEN = LEN + 1
@@ -528,21 +466,15 @@
                END DO
             ELSE
 *
-               CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO,
-     $                      A( JCOL + 2, JCOL ), LDA )
-               CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO,
-     $                      B( JCOL + 2, JCOL ), LDB )
+               CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB )
             END IF
 *
 *           Apply accumulated unitary matrices to A and B.
 *
             IF ( TOP.GT.0 ) THEN
                J = IHI - NBLST + 1
-               CALL ZGEMM( 'No Transpose', 'No Transpose', TOP,
-     $                     NBLST, NBLST, CONE, A( 1, J ), LDA,
-     $                     WORK, NBLST, CZERO, WORK( PW ), TOP )
-               CALL ZLACPY( 'All', TOP, NBLST, WORK( PW ), TOP,
-     $                      A( 1, J ), LDA )
+               CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, A( 1, J ), LDA, WORK, NBLST, CZERO, WORK( PW ), TOP )
+               CALL ZLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -550,30 +482,20 @@
 *
 *                    Exploit the structure of U.
 *
-                     CALL ZUNM22( 'Right', 'No Transpose', TOP, 2*NNB,
-     $                            NNB, NNB, WORK( PPWO ), 2*NNB,
-     $                            A( 1, J ), LDA, WORK( PW ),
-     $                            LWORK-PW+1, IERR )
+                     CALL ZUNM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, A( 1, J ), LDA, WORK( PW ), LWORK-PW+1, IERR )
                   ELSE
 *
 *                    Ignore the structure of U.
 *
-                     CALL ZGEMM( 'No Transpose', 'No Transpose', TOP,
-     $                           2*NNB, 2*NNB, CONE, A( 1, J ), LDA,
-     $                           WORK( PPWO ), 2*NNB, CZERO,
-     $                           WORK( PW ), TOP )
-                     CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP,
-     $                            A( 1, J ), LDA )
+                     CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, A( 1, J ), LDA, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
+                     CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, A( 1, J ), LDA )
                   END IF
                   PPWO = PPWO + 4*NNB*NNB
                END DO
 *
                J = IHI - NBLST + 1
-               CALL ZGEMM( 'No Transpose', 'No Transpose', TOP,
-     $                     NBLST, NBLST, CONE, B( 1, J ), LDB,
-     $                     WORK, NBLST, CZERO, WORK( PW ), TOP )
-               CALL ZLACPY( 'All', TOP, NBLST, WORK( PW ), TOP,
-     $                      B( 1, J ), LDB )
+               CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, NBLST, NBLST, CONE, B( 1, J ), LDB, WORK, NBLST, CZERO, WORK( PW ), TOP )
+               CALL ZLACPY( 'All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -581,20 +503,13 @@
 *
 *                    Exploit the structure of U.
 *
-                     CALL ZUNM22( 'Right', 'No Transpose', TOP, 2*NNB,
-     $                            NNB, NNB, WORK( PPWO ), 2*NNB,
-     $                            B( 1, J ), LDB, WORK( PW ),
-     $                            LWORK-PW+1, IERR )
+                     CALL ZUNM22( 'Right', 'No Transpose', TOP, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, B( 1, J ), LDB, WORK( PW ), LWORK-PW+1, IERR )
                   ELSE
 *
 *                    Ignore the structure of U.
 *
-                     CALL ZGEMM( 'No Transpose', 'No Transpose', TOP,
-     $                           2*NNB, 2*NNB, CONE, B( 1, J ), LDB,
-     $                           WORK( PPWO ), 2*NNB, CZERO,
-     $                           WORK( PW ), TOP )
-                     CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP,
-     $                            B( 1, J ), LDB )
+                     CALL ZGEMM( 'No Transpose', 'No Transpose', TOP, 2*NNB, 2*NNB, CONE, B( 1, J ), LDB, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), TOP )
+                     CALL ZLACPY( 'All', TOP, 2*NNB, WORK( PW ), TOP, B( 1, J ), LDB )
                   END IF
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -611,11 +526,8 @@
                   TOPQ = 1
                   NH = N
                END IF
-               CALL ZGEMM( 'No Transpose', 'No Transpose', NH,
-     $                     NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ,
-     $                     WORK, NBLST, CZERO, WORK( PW ), NH )
-               CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH,
-     $                      Z( TOPQ, J ), LDZ )
+               CALL ZGEMM( 'No Transpose', 'No Transpose', NH, NBLST, NBLST, CONE, Z( TOPQ, J ), LDZ, WORK, NBLST, CZERO, WORK( PW ), NH )
+               CALL ZLACPY( 'All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
                PPWO = NBLST*NBLST + 1
                J0 = J - NNB
                DO J = J0, JCOL+1, -NNB
@@ -627,20 +539,13 @@
 *
 *                    Exploit the structure of U.
 *
-                     CALL ZUNM22( 'Right', 'No Transpose', NH, 2*NNB,
-     $                            NNB, NNB, WORK( PPWO ), 2*NNB,
-     $                            Z( TOPQ, J ), LDZ, WORK( PW ),
-     $                            LWORK-PW+1, IERR )
+                     CALL ZUNM22( 'Right', 'No Transpose', NH, 2*NNB, NNB, NNB, WORK( PPWO ), 2*NNB, Z( TOPQ, J ), LDZ, WORK( PW ), LWORK-PW+1, IERR )
                   ELSE
 *
 *                    Ignore the structure of U.
 *
-                     CALL ZGEMM( 'No Transpose', 'No Transpose', NH,
-     $                           2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ,
-     $                           WORK( PPWO ), 2*NNB, CZERO, WORK( PW ),
-     $                           NH )
-                     CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH,
-     $                            Z( TOPQ, J ), LDZ )
+                     CALL ZGEMM( 'No Transpose', 'No Transpose', NH, 2*NNB, 2*NNB, CONE, Z( TOPQ, J ), LDZ, WORK( PPWO ), 2*NNB, CZERO, WORK( PW ), NH )
+                     CALL ZLACPY( 'All', NH, 2*NNB, WORK( PW ), NH, Z( TOPQ, J ), LDZ )
                   END IF
                   PPWO = PPWO + 4*NNB*NNB
                END DO
@@ -654,15 +559,10 @@
       COMPQ2 = COMPQ
       COMPZ2 = COMPZ
       IF ( JCOL.NE.ILO ) THEN
-         IF ( WANTQ )
-     $      COMPQ2 = 'V'
-         IF ( WANTZ )
-     $      COMPZ2 = 'V'
+         IF ( WANTQ ) COMPQ2 = 'V'          IF ( WANTZ ) COMPZ2 = 'V'
       END IF
 *
-      IF ( JCOL.LT.IHI )
-     $   CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q,
-     $                LDQ, Z, LDZ, IERR )
+      IF ( JCOL.LT.IHI ) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR )
 *
       WORK( 1 ) = DCMPLX( LWKOPT )
 *

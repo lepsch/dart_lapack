@@ -66,20 +66,15 @@
                T( I, J+N1 ) = A( I, J+N1 )
             END DO
          END DO
-         CALL CTRMM( 'L', 'L', 'C', 'U', N1, N2, ONE,
-     &               A, LDA, T( 1, J1 ), LDT )
+         CALL CTRMM( 'L', 'L', 'C', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT )
 *
-         CALL CGEMM( 'C', 'N', N1, N2, M-N1, ONE, A( J1, 1 ), LDA,
-     &               A( J1, J1 ), LDA, ONE, T( 1, J1 ), LDT)
+         CALL CGEMM( 'C', 'N', N1, N2, M-N1, ONE, A( J1, 1 ), LDA, A( J1, J1 ), LDA, ONE, T( 1, J1 ), LDT)
 *
-         CALL CTRMM( 'L', 'U', 'C', 'N', N1, N2, ONE,
-     &               T, LDT, T( 1, J1 ), LDT )
+         CALL CTRMM( 'L', 'U', 'C', 'N', N1, N2, ONE, T, LDT, T( 1, J1 ), LDT )
 *
-         CALL CGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( J1, 1 ), LDA,
-     &               T( 1, J1 ), LDT, ONE, A( J1, J1 ), LDA )
+         CALL CGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( J1, 1 ), LDA, T( 1, J1 ), LDT, ONE, A( J1, J1 ), LDA )
 *
-         CALL CTRMM( 'L', 'L', 'N', 'U', N1, N2, ONE,
-     &               A, LDA, T( 1, J1 ), LDT )
+         CALL CTRMM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, T( 1, J1 ), LDT )
 *
          DO J=1,N2
             DO I=1,N1
@@ -89,8 +84,7 @@
 *
 *        Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2**H
 *
-         CALL CGEQRT3( M-N1, N2, A( J1, J1 ), LDA,
-     &                T( J1, J1 ), LDT, IINFO )
+         CALL CGEQRT3( M-N1, N2, A( J1, J1 ), LDA, T( J1, J1 ), LDT, IINFO )
 *
 *        Compute T3 = T(1:N1,J1:N) = -T1 Y1**H Y2 T2
 *
@@ -100,17 +94,13 @@
             END DO
          END DO
 *
-         CALL CTRMM( 'R', 'L', 'N', 'U', N1, N2, ONE,
-     &               A( J1, J1 ), LDA, T( 1, J1 ), LDT )
+         CALL CTRMM( 'R', 'L', 'N', 'U', N1, N2, ONE, A( J1, J1 ), LDA, T( 1, J1 ), LDT )
 *
-         CALL CGEMM( 'C', 'N', N1, N2, M-N, ONE, A( I1, 1 ), LDA,
-     &               A( I1, J1 ), LDA, ONE, T( 1, J1 ), LDT )
+         CALL CGEMM( 'C', 'N', N1, N2, M-N, ONE, A( I1, 1 ), LDA, A( I1, J1 ), LDA, ONE, T( 1, J1 ), LDT )
 *
-         CALL CTRMM( 'L', 'U', 'N', 'N', N1, N2, -ONE, T, LDT,
-     &               T( 1, J1 ), LDT )
+         CALL CTRMM( 'L', 'U', 'N', 'N', N1, N2, -ONE, T, LDT, T( 1, J1 ), LDT )
 *
-         CALL CTRMM( 'R', 'U', 'N', 'N', N1, N2, ONE,
-     &               T( J1, J1 ), LDT, T( 1, J1 ), LDT )
+         CALL CTRMM( 'R', 'U', 'N', 'N', N1, N2, ONE, T( J1, J1 ), LDT, T( 1, J1 ), LDT )
 *
 *        Y = (Y1,Y2); R = [ R1  A(1:N1,J1:N) ];  T = [T1 T3]
 *                         [  0        R2     ]       [ 0 T2]

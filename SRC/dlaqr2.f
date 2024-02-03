@@ -1,20 +1,15 @@
-      SUBROUTINE DLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ,
-     $                   IHIZ, Z, LDZ, NS, ND, SR, SI, V, LDV, NH, T,
-     $                   LDT, NV, WV, LDWV, WORK, LWORK )
+      SUBROUTINE DLAQR2( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SR, SI, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV,
-     $                   LDZ, LWORK, N, ND, NH, NS, NV, NW
+      INTEGER            IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   H( LDH, * ), SI( * ), SR( * ), T( LDT, * ),
-     $                   V( LDV, * ), WORK( * ), WV( LDWV, * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   H( LDH, * ), SI( * ), SR( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )
 *     ..
 *
 *  ================================================================
@@ -23,11 +18,7 @@
       PARAMETER          ( ZERO = 0.0d0, ONE = 1.0d0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S,
-     $                   SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP
-      INTEGER            I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL,
-     $                   KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2,
-     $                   LWKOPT
+      DOUBLE PRECISION   AA, BB, BETA, CC, CS, DD, EVI, EVK, FOO, S, SAFMAX, SAFMIN, SMLNUM, SN, TAU, ULP       INTEGER            I, IFST, ILST, INFO, INFQR, J, JW, K, KCOL, KEND, KLN, KROW, KWTOP, LTOP, LWK1, LWK2, LWKOPT
       LOGICAL            BULGE, SORTED
 *     ..
 *     .. External Functions ..
@@ -35,8 +26,7 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEHRD, DGEMM, DLACPY, DLAHQR,
-     $                   DLANV2, DLARF, DLARFG, DLASET, DORMHR, DTREXC
+      EXTERNAL           DCOPY, DGEHRD, DGEMM, DLACPY, DLAHQR, DLANV2, DLARF, DLARFG, DLASET, DORMHR, DTREXC
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, INT, MAX, MIN, SQRT
@@ -57,8 +47,7 @@
 *
 *        ==== Workspace query call to DORMHR ====
 *
-         CALL DORMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV,
-     $                WORK, -1, INFO )
+         CALL DORMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
          LWK2 = INT( WORK( 1 ) )
 *
 *        ==== Optimal workspace ====
@@ -78,11 +67,9 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      IF( KTOP.GT.KBOT )
-     $   RETURN
+      IF( KTOP.GT.KBOT ) RETURN
 *     ... nor for an empty deflation window. ====
-      IF( NW.LT.1 )
-     $   RETURN
+      IF( NW.LT.1 ) RETURN
 *
 *     ==== Machine constants ====
 *
@@ -109,12 +96,10 @@
          SI( KWTOP ) = ZERO
          NS = 1
          ND = 0
-         IF( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) )
-     $        THEN
+         IF( ABS( S ).LE.MAX( SMLNUM, ULP*ABS( H( KWTOP, KWTOP ) ) ) ) THEN
             NS = 0
             ND = 1
-            IF( KWTOP.GT.KTOP )
-     $         H( KWTOP, KWTOP-1 ) = ZERO
+            IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
          END IF
          WORK( 1 ) = ONE
          RETURN
@@ -130,8 +115,7 @@
       CALL DCOPY( JW-1, H( KWTOP+1, KWTOP ), LDH+1, T( 2, 1 ), LDT+1 )
 *
       CALL DLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
-      CALL DLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ),
-     $             SI( KWTOP ), 1, JW, V, LDV, INFQR )
+      CALL DLAHQR( .true., .true., JW, 1, JW, T, LDT, SR( KWTOP ), SI( KWTOP ), 1, JW, V, LDV, INFQR )
 *
 *     ==== DTREXC needs a clean margin near the diagonal ====
 *
@@ -139,8 +123,7 @@
          T( J+2, J ) = ZERO
          T( J+3, J ) = ZERO
    10 CONTINUE
-      IF( JW.GT.2 )
-     $   T( JW, JW-2 ) = ZERO
+      IF( JW.GT.2 ) T( JW, JW-2 ) = ZERO
 *
 *     ==== Deflation detection loop ====
 *
@@ -161,8 +144,7 @@
 *           ==== Real eigenvalue ====
 *
             FOO = ABS( T( NS, NS ) )
-            IF( FOO.EQ.ZERO )
-     $         FOO = ABS( S )
+            IF( FOO.EQ.ZERO ) FOO = ABS( S )
             IF( ABS( S*V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) THEN
 *
 *              ==== Deflatable ====
@@ -174,20 +156,14 @@
 *              .    (DTREXC can not fail in this case.) ====
 *
                IFST = NS
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK,
-     $                      INFO )
+               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                ILST = ILST + 1
             END IF
          ELSE
 *
 *           ==== Complex conjugate pair ====
 *
-            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )*
-     $            SQRT( ABS( T( NS-1, NS ) ) )
-            IF( FOO.EQ.ZERO )
-     $         FOO = ABS( S )
-            IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ).LE.
-     $          MAX( SMLNUM, ULP*FOO ) ) THEN
+            FOO = ABS( T( NS, NS ) ) + SQRT( ABS( T( NS, NS-1 ) ) )* SQRT( ABS( T( NS-1, NS ) ) )             IF( FOO.EQ.ZERO ) FOO = ABS( S )             IF( MAX( ABS( S*V( 1, NS ) ), ABS( S*V( 1, NS-1 ) ) ).LE. MAX( SMLNUM, ULP*FOO ) ) THEN
 *
 *              ==== Deflatable ====
 *
@@ -199,8 +175,7 @@
 *              .    ILST in case of a rare exchange failure. ====
 *
                IFST = NS
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK,
-     $                      INFO )
+               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                ILST = ILST + 2
             END IF
          END IF
@@ -212,8 +187,7 @@
 *
 *        ==== Return to Hessenberg form ====
 *
-      IF( NS.EQ.0 )
-     $   S = ZERO
+      IF( NS.EQ.0 ) S = ZERO
 *
       IF( NS.LT.JW ) THEN
 *
@@ -224,8 +198,7 @@
          SORTED = .false.
          I = NS + 1
    30    CONTINUE
-         IF( SORTED )
-     $      GO TO 50
+         IF( SORTED ) GO TO 50
          SORTED = .true.
 *
          KEND = I - 1
@@ -242,8 +215,7 @@
             IF( K.EQ.I+1 ) THEN
                EVI = ABS( T( I, I ) )
             ELSE
-               EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )*
-     $               SQRT( ABS( T( I, I+1 ) ) )
+               EVI = ABS( T( I, I ) ) + SQRT( ABS( T( I+1, I ) ) )* SQRT( ABS( T( I, I+1 ) ) )
             END IF
 *
             IF( K.EQ.KEND ) THEN
@@ -251,8 +223,7 @@
             ELSE IF( T( K+1, K ).EQ.ZERO ) THEN
                EVK = ABS( T( K, K ) )
             ELSE
-               EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )*
-     $               SQRT( ABS( T( K, K+1 ) ) )
+               EVK = ABS( T( K, K ) ) + SQRT( ABS( T( K+1, K ) ) )* SQRT( ABS( T( K, K+1 ) ) )
             END IF
 *
             IF( EVI.GE.EVK ) THEN
@@ -261,8 +232,7 @@
                SORTED = .false.
                IFST = I
                ILST = K
-               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK,
-     $                      INFO )
+               CALL DTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, WORK, INFO )
                IF( INFO.EQ.0 ) THEN
                   I = ILST
                ELSE
@@ -300,9 +270,7 @@
             CC = T( I, I-1 )
             BB = T( I-1, I )
             DD = T( I, I )
-            CALL DLANV2( AA, BB, CC, DD, SR( KWTOP+I-2 ),
-     $                   SI( KWTOP+I-2 ), SR( KWTOP+I-1 ),
-     $                   SI( KWTOP+I-1 ), CS, SN )
+            CALL DLANV2( AA, BB, CC, DD, SR( KWTOP+I-2 ), SI( KWTOP+I-2 ), SR( KWTOP+I-1 ), SI( KWTOP+I-1 ), CS, SN )
             I = I - 2
          END IF
          GO TO 60
@@ -320,31 +288,21 @@
 *
             CALL DLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
 *
-            CALL DLARF( 'L', NS, JW, WORK, 1, TAU, T, LDT,
-     $                  WORK( JW+1 ) )
-            CALL DLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT,
-     $                  WORK( JW+1 ) )
-            CALL DLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV,
-     $                  WORK( JW+1 ) )
+            CALL DLARF( 'L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL DLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
 *
-            CALL DGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ),
-     $                   LWORK-JW, INFO )
+            CALL DGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
          END IF
 *
 *        ==== Copy updated reduced window into place ====
 *
-         IF( KWTOP.GT.1 )
-     $      H( KWTOP, KWTOP-1 ) = S*V( 1, 1 )
+         IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*V( 1, 1 )
          CALL DLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL DCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ),
-     $               LDH+1 )
+         CALL DCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
 *
 *        ==== Accumulate orthogonal matrix in order update
 *        .    H and Z, if requested.  ====
 *
-         IF( NS.GT.1 .AND. S.NE.ZERO )
-     $      CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV,
-     $                   WORK( JW+1 ), LWORK-JW, INFO )
+         IF( NS.GT.1 .AND. S.NE.ZERO ) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO )
 *
 *        ==== Update vertical slab in H ====
 *
@@ -355,8 +313,7 @@
          END IF
          DO 70 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ),
-     $                  LDH, V, LDV, ZERO, WV, LDWV )
+            CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
             CALL DLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
    70    CONTINUE
 *
@@ -365,10 +322,7 @@
          IF( WANTT ) THEN
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL DGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV,
-     $                     H( KWTOP, KCOL ), LDH, ZERO, T, LDT )
-               CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ),
-     $                      LDH )
+               CALL DGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
    80       CONTINUE
          END IF
 *
@@ -377,10 +331,7 @@
          IF( WANTZ ) THEN
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ),
-     $                     LDZ, V, LDV, ZERO, WV, LDWV )
-               CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ),
-     $                      LDZ )
+               CALL DGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
    90       CONTINUE
          END IF
       END IF

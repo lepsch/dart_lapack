@@ -1,5 +1,4 @@
-      SUBROUTINE ZHBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z,
-     $                  LDZ, WORK, RWORK, INFO )
+      SUBROUTINE ZHBGV( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, W, Z, LDZ, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RWORK( * ), W( * )
-      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ),
-     $                   Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -61,8 +59,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -76,8 +73,7 @@
 *
       INDE = 1
       INDWRK = INDE + N
-      CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ,
-     $             WORK, RWORK( INDWRK ), IINFO )
+      CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Z, LDZ, WORK, RWORK( INDWRK ), IINFO )
 *
 *     Reduce to tridiagonal form.
 *
@@ -86,16 +82,14 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z,
-     $             LDZ, WORK, IINFO )
+      CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ,
-     $                RWORK( INDWRK ), INFO )
+         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDWRK ), INFO )
       END IF
       RETURN
 *

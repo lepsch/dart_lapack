@@ -15,24 +15,15 @@
 *     .. Local Scalars ..
       LOGICAL            OK
       CHARACTER*3        PATH
-      INTEGER            KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC,
-     $                   KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC,
-     $                   LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL,
-     $                   NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC,
-     $                   LTGEXC
-      REAL               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2,
-     $                   RTREXC, SFMIN, RTGEXC
+      INTEGER            KLAEXC, KLALN2, KLANV2, KLAQTR, KLASY2, KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LLAEXC, LLALN2, LLANV2, LLAQTR, LLASY2, LTREXC, LTRSYL, NLANV2, NLAQTR, NLASY2, NTESTS, NTRSYL, KTGEXC, LTGEXC
+      REAL               EPS, RLAEXC, RLALN2, RLANV2, RLAQTR, RLASY2, RTREXC, SFMIN, RTGEXC
 *     ..
 *     .. Local Arrays ..
-      INTEGER            FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ),
-     $                   LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ),
-     $                   NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ),
-     $                   NTRSNA( 3 )
+      INTEGER            FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NLAEXC( 2 ), NLALN2( 2 ), NTGEXC( 2 ), NTREXC( 3 ), NTRSEN( 3 ), NTRSNA( 3 )
       REAL               RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SERREC, SGET31, SGET32, SGET33, SGET34, SGET35,
-     $                   SGET36, SGET37, SGET38, SGET39, SGET40, SSYL01
+      EXTERNAL           SERREC, SGET31, SGET32, SGET33, SGET34, SGET35, SGET36, SGET37, SGET38, SGET39, SGET40, SSYL01
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -53,8 +44,7 @@
 *
 *     Test error exits if TSTERR is .TRUE.
 *
-      IF( TSTERR )
-     $   CALL SERREC( PATH, NOUT )
+      IF( TSTERR ) CALL SERREC( PATH, NOUT )
 *
       OK = .TRUE.
       CALL SGET31( RLALN2, LLALN2, NLALN2, KLALN2 )
@@ -108,17 +98,13 @@
       END IF
 *
       CALL SGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
-      IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR.
-     $    NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 )
-     $     THEN
+      IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9993 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       END IF
 *
       CALL SGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
-      IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR.
-     $    NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 )
-     $     THEN
+      IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9992 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       END IF
@@ -135,10 +121,7 @@
          WRITE( NOUT, FMT = 9986 )RTGEXC, LTGEXC, NTGEXC, KTGEXC
       END IF
 *
-      NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC +
-     $         KTRSNA + KTRSEN + KLAQTR
-      IF( OK )
-     $   WRITE( NOUT, FMT = 9990 )PATH, NTESTS
+      NTESTS = KLALN2 + KLASY2 + KLANV2 + KLAEXC + KTRSYL + KTREXC + KTRSNA + KTRSEN + KLAQTR       IF( OK ) WRITE( NOUT, FMT = 9990 )PATH, NTESTS
 *
       RETURN
  9999 FORMAT( ' Error in SLALN2: RMAX =', E12.3, / ' LMAX = ', I8, ' N',

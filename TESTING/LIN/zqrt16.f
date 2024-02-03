@@ -1,5 +1,4 @@
-      SUBROUTINE ZQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE ZQRT16( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -61,8 +60,7 @@
 *
 *     Compute  B - A*X  (or  B - A'*X ) and store in B.
 *
-      CALL ZGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X,
-     $            LDX, CONE, B, LDB )
+      CALL ZGEMM( TRANS, 'No transpose', N1, NRHS, N2, -CONE, A, LDA, X, LDX, CONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - A*X) / ( max(m,n) * norm(A) * norm(X) * EPS ) .
@@ -76,8 +74,7 @@
          ELSE IF( ANORM.LE.ZERO .OR. XNORM.LE.ZERO ) THEN
             RESID = ONE / EPS
          ELSE
-            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) /
-     $              ( MAX( M, N )*EPS ) )
+            RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
          END IF
    10 CONTINUE
 *

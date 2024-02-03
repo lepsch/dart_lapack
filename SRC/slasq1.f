@@ -78,8 +78,7 @@
       SCALE = SQRT( EPS / SAFMIN )
       CALL SCOPY( N, D, 1, WORK( 1 ), 2 )
       CALL SCOPY( N-1, E, 1, WORK( 2 ), 2 )
-      CALL SLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1,
-     $             IINFO )
+      CALL SLASCL( 'G', 0, 0, SIGMX, SCALE, 2*N-1, 1, WORK, 2*N-1, IINFO )
 *
 *     Compute the q's and e's.
 *

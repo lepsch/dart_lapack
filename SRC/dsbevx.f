@@ -1,6 +1,4 @@
-      SUBROUTINE DSBEVX( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL,
-     $                   VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK,
-     $                   IFAIL, INFO )
+      SUBROUTINE DSBEVX( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
-      DOUBLE PRECISION   AB( LDAB, * ), Q( LDQ, * ), W( * ), WORK( * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   AB( LDAB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -26,11 +23,8 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ
       CHARACTER          ORDER
-      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL,
-     $                   INDISP, INDIWO, INDWRK, ISCALE, ITMP1, J, JJ,
-     $                   NSPLIT
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWO, INDWRK, ISCALE, ITMP1, J, JJ, NSPLIT
+      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +32,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANSB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DLACPY, DLASCL, DSBTRD, DSCAL,
-     $                   DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
+      EXTERNAL           DCOPY, DGEMV, DLACPY, DLASCL, DSBTRD, DSCAL, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -71,8 +64,7 @@
          INFO = -9
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -11
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -12
@@ -82,8 +74,7 @@
          END IF
       END IF
       IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) )
-     $      INFO = -18
+         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -94,8 +85,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          M = 1
@@ -105,13 +95,11 @@
             TMP1 = AB( KD+1, 1 )
          END IF
          IF( VALEIG ) THEN
-            IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) )
-     $         M = 0
+            IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
          END IF
          IF( M.EQ.1 ) THEN
             W( 1 ) = TMP1
-            IF( WANTZ )
-     $         Z( 1, 1 ) = ONE
+            IF( WANTZ ) Z( 1, 1 ) = ONE
          END IF
          RETURN
       END IF
@@ -150,8 +138,7 @@
          ELSE
             CALL DLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -163,8 +150,7 @@
       INDD = 1
       INDE = INDD + N
       INDWRK = INDE + N
-      CALL DSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ),
-     $             WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      CALL DSBTRD( JOBZ, UPLO, N, KD, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -185,8 +171,7 @@
          ELSE
             CALL DLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
-            CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ,
-     $                   WORK( INDWRK ), INFO )
+            CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -210,23 +195,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWO = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             WORK( INDD ), WORK( INDE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ),
-     $             IWORK( INDIWO ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
 *        Apply orthogonal matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by DSTEIN.
 *
          DO 20 J = 1, M
             CALL DCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL DGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO,
-     $                  Z( 1, J ), 1 )
+            CALL DGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

@@ -1,6 +1,4 @@
-      SUBROUTINE SCHKSY_AA_2STAGE( DOTYPE, NN, NVAL, NNB, NBVAL, NNS,
-     $                      NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV,
-     $                      B, X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SCHKSY_AA_2STAGE( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -16,8 +14,7 @@
 *     .. Array Arguments ..
       LOGICAL      DOTYPE( * )
       INTEGER      IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
-      REAL         A( * ), AFAC( * ), AINV( * ), B( * ),
-     $             RWORK( * ), WORK( * ), X( * ), XACT( * )
+      REAL         A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -34,9 +31,7 @@
       LOGICAL      ZEROT
       CHARACTER    DIST, TYPE, UPLO, XTYPE
       CHARACTER*3  PATH, MATPATH
-      INTEGER      I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS,
-     $             IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE,
-     $             N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      INTEGER      I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
       REAL         ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -45,10 +40,7 @@
       REAL         RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRSY, SLACPY, SLARHS,
-     $                   SLATB4, SLATMS, SPOT02, SSYT01_AA, 
-     $                   SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE,
-     $                   XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRSY, SLACPY, SLARHS, SLATB4, SLATMS, SPOT02, SSYT01_AA, SSYTRF_AA_2STAGE, SSYTRS_AA_2STAGE, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC    MAX, MIN
@@ -89,8 +81,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRSY( PATH, NOUT )
+      IF( TSTERR ) CALL SERRSY( PATH, NOUT )
       INFOT = 0
 *
 *     Set the minimum block size for which the block routine should
@@ -110,8 +101,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          IZERO = 0
 *
@@ -121,14 +111,12 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 170
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 170
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -141,21 +129,17 @@
 *              Set up parameters with SLATB4 for the matrix generator
 *              based on the type of matrix to be generated.
 *
-               CALL SLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU,
-     $                      ANORM, MODE, CNDNUM, DIST )
+               CALL SLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *              Generate a matrix with SLATMS.
 *
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK,
-     $                      INFO )
+               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
 *              Check error code from SLATMS and handle error.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *                    Skip all tests for this generated matrix
 *
@@ -257,11 +241,7 @@
 *
                   SRNAMT = 'SSYTRF_AA_2STAGE'
                   LWORK = MIN( MAX( 1, N*NB ), 3*NMAX*NMAX )
-                  CALL SSYTRF_AA_2STAGE( UPLO, N, AFAC, LDA, 
-     $                                   AINV, MAX( 1, (3*NB+1)*N ),
-     $                                   IWORK, IWORK( 1+N ),
-     $                                   WORK, LWORK,
-     $                                   INFO )
+                  CALL SSYTRF_AA_2STAGE( UPLO, N, AFAC, LDA,  AINV, MAX( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), WORK, LWORK, INFO )
 *
 *                 Adjust the expected value of INFO to account for
 *                 pivoting.
@@ -286,9 +266,7 @@
 *                 Check error code from SSYTRF and handle error.
 *
                   IF( INFO.NE.K ) THEN
-                     CALL ALAERH( PATH, 'SSYTRF_AA_2STAGE', INFO, K,
-     $                            UPLO, N, N, -1, -1, NB, IMAT, NFAIL,
-     $                            NERRS, NOUT )
+                     CALL ALAERH( PATH, 'SSYTRF_AA_2STAGE', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
                   END IF
 *
 *+    TEST 1
@@ -305,10 +283,7 @@
 *
                   DO 110 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   110             CONTINUE
@@ -332,32 +307,24 @@
 *                    stored in XACT and set up the right hand side B
 *
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( MATPATH, XTYPE, UPLO, ' ', N, N,
-     $                            KL, KU, NRHS, A, LDA, XACT, LDA,
-     $                            B, LDA, ISEED, INFO )
+                     CALL SLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                      SRNAMT = 'SSYTRS_AA_2STAGE'
-                     CALL SSYTRS_AA_2STAGE( UPLO, N, NRHS, AFAC, LDA,
-     $                            AINV, (3*NB+1)*N, IWORK, IWORK( 1+N ),
-     $                            X, LDA, INFO )
+                     CALL SSYTRS_AA_2STAGE( UPLO, N, NRHS, AFAC, LDA, AINV, (3*NB+1)*N, IWORK, IWORK( 1+N ), X, LDA, INFO )
 *
 *                    Check error code from SSYTRS and handle error.
 *
                      IF( INFO.NE.0 ) THEN
                         IF( IZERO.EQ.0 ) THEN
-                           CALL ALAERH( PATH, 'SSYTRS_AA_2STAGE',
-     $                                  INFO, 0, UPLO, N, N, -1, -1,
-     $                                  NRHS, IMAT, NFAIL, NERRS, NOUT )
+                           CALL ALAERH( PATH, 'SSYTRS_AA_2STAGE', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         END IF
                      ELSE
-                        CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA
-     $                              )
+                        CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
 *
 *                       Compute the residual for the solution
 *
-                        CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA,
-     $                               WORK, LDA, RWORK, RESULT( 2 ) )
+                        CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
 *
 *                    Print information about the tests that did not pass
@@ -365,10 +332,7 @@
 *
                         DO 120 K = 2, 2
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS,
-     $                           IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
   120                   CONTINUE

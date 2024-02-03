@@ -1,23 +1,15 @@
-      SUBROUTINE SLASD6( ICOMPQ, NL, NR, SQRE, D, VF, VL, ALPHA, BETA,
-     $                   IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM,
-     $                   LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE SLASD6( ICOMPQ, NL, NR, SQRE, D, VF, VL, ALPHA, BETA, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL,
-     $                   NR, SQRE
+      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
       REAL               ALPHA, BETA, C, S
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ),
-     $                   PERM( * )
-      REAL               D( * ), DIFL( * ), DIFR( * ),
-     $                   GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ),
-     $                   VF( * ), VL( * ), WORK( * ), Z( * )
+      INTEGER            GIVCOL( LDGCOL, * ), IDXQ( * ), IWORK( * ), PERM( * )       REAL               D( * ), DIFL( * ), DIFR( * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), VF( * ), VL( * ), WORK( * ), Z( * )
 *     ..
 *
 *  =====================================================================
@@ -27,8 +19,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M,
-     $                   N, N1, N2
+      INTEGER            I, IDX, IDXC, IDXP, ISIGMA, IVFW, IVLW, IW, M, N, N1, N2
       REAL               ORGNRM
 *     ..
 *     .. External Subroutines ..
@@ -91,16 +82,11 @@
 *
 *     Sort and Deflate singular values.
 *
-      CALL SLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, WORK( IW ), VF,
-     $             WORK( IVFW ), VL, WORK( IVLW ), ALPHA, BETA,
-     $             WORK( ISIGMA ), IWORK( IDX ), IWORK( IDXP ), IDXQ,
-     $             PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S,
-     $             INFO )
+      CALL SLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, WORK( IW ), VF, WORK( IVFW ), VL, WORK( IVLW ), ALPHA, BETA, WORK( ISIGMA ), IWORK( IDX ), IWORK( IDXP ), IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO )
 *
 *     Solve Secular Equation, compute DIFL, DIFR, and update VF, VL.
 *
-      CALL SLASD8( ICOMPQ, K, D, Z, VF, VL, DIFL, DIFR, LDGNUM,
-     $             WORK( ISIGMA ), WORK( IW ), INFO )
+      CALL SLASD8( ICOMPQ, K, D, Z, VF, VL, DIFL, DIFR, LDGNUM, WORK( ISIGMA ), WORK( IW ), INFO )
 *
 *     Report the possible convergence failure.
 *

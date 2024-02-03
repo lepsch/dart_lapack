@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      REAL, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), RWORK(:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      REAL, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
 *
 *     .. Parameters ..
       REAL ONE, ZERO
@@ -51,9 +49,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(M,M), R(M,L), RWORK(L),
-     $           WORK(LWORK), T(NB,N), C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(M,M), R(M,L), RWORK(L), WORK(LWORK), T(NB,N), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -70,8 +66,7 @@
 *     Generate the m-by-m matrix Q
 *
       CALL SLASET( 'Full', M, M, ZERO, ONE, Q, M )
-      CALL SGEMQRT( 'R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M,
-     $              WORK, INFO )
+      CALL SGEMQRT( 'R', 'N', M, M, K, NB, AF, M, T, LDT, Q, M, WORK, INFO )
 *
 *     Copy R
 *
@@ -106,8 +101,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL SGEMQRT( 'L', 'N', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL SGEMQRT( 'L', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -125,8 +119,7 @@
 *
 *     Apply Q to C as QT*C
 *
-      CALL SGEMQRT( 'L', 'T', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL SGEMQRT( 'L', 'T', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -148,8 +141,7 @@
 *
 *     Apply Q to D as D*Q
 *
-      CALL SGEMQRT( 'R', 'N', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL SGEMQRT( 'R', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -167,8 +159,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL SGEMQRT( 'R', 'T', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL SGEMQRT( 'R', 'T', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |D*QT - D*QT| / |D|
 *

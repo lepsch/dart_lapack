@@ -1,6 +1,4 @@
-      SUBROUTINE ZHSEIN( SIDE, EIGSRC, INITV, SELECT, N, H, LDH, W, VL,
-     $                   LDVL, VR, LDVR, MM, M, WORK, RWORK, IFAILL,
-     $                   IFAILR, INFO )
+      SUBROUTINE ZHSEIN( SIDE, EIGSRC, INITV, SELECT, N, H, LDH, W, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, IFAILL, IFAILR, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
       LOGICAL            SELECT( * )
       INTEGER            IFAILL( * ), IFAILR( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   W( * ), WORK( * )
+      COMPLEX*16         H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -66,8 +63,7 @@
 *
       M = 0
       DO 10 K = 1, N
-         IF( SELECT( K ) )
-     $      M = M + 1
+         IF( SELECT( K ) ) M = M + 1
    10 CONTINUE
 *
       INFO = 0
@@ -95,8 +91,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Set machine-dependent constants.
 *
@@ -134,15 +129,13 @@
 *              the submatrix H(1:KR,1:KR) for a right eigenvector.
 *
                DO 20 I = K, KL + 1, -1
-                  IF( H( I, I-1 ).EQ.ZERO )
-     $               GO TO 30
+                  IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
    20          CONTINUE
    30          CONTINUE
                KL = I
                IF( K.GT.KR ) THEN
                   DO 40 I = K, N - 1
-                     IF( H( I+1, I ).EQ.ZERO )
-     $                  GO TO 50
+                     IF( H( I+1, I ).EQ.ZERO ) GO TO 50
    40             CONTINUE
    50             CONTINUE
                   KR = I
@@ -184,9 +177,7 @@
 *
 *              Compute left eigenvector.
 *
-               CALL ZLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH,
-     $                      WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3,
-     $                      SMLNUM, IINFO )
+               CALL ZLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WK, VL( KL, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   INFO = INFO + 1
                   IFAILL( KS ) = K
@@ -201,8 +192,7 @@
 *
 *              Compute right eigenvector.
 *
-               CALL ZLAEIN( .TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ),
-     $                      WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
+               CALL ZLAEIN( .TRUE., NOINIT, KR, H, LDH, WK, VR( 1, KS ), WORK, LDWORK, RWORK, EPS3, SMLNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   INFO = INFO + 1
                   IFAILR( KS ) = K

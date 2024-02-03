@@ -1,5 +1,4 @@
-      SUBROUTINE DGET08( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE DGET08( TRANS, M, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -65,8 +63,7 @@
 *
 *     Compute  B - A*X  (or  B - A'*X ) and store in B.
 *
-      CALL DGEMM( TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X,
-     $            LDX, ONE, B, LDB )
+      CALL DGEMM( TRANS, 'No transpose', N1, NRHS, N2, -ONE, A, LDA, X, LDX, ONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .

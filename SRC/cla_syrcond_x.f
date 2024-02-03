@@ -1,5 +1,4 @@
-      REAL FUNCTION CLA_SYRCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X,
-     $                             INFO, WORK, RWORK )
+      REAL FUNCTION CLA_SYRCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -120,11 +119,9 @@
             END DO
 *
             IF ( UP ) THEN
-               CALL CSYTRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL CSYTRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(X).
@@ -141,11 +138,9 @@
             END DO
 *
             IF ( UP ) THEN
-               CALL CSYTRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL CSYTRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -159,8 +154,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0E+0 )
-     $   CLA_SYRCOND_X = 1.0E+0 / AINVNM
+      IF( AINVNM .NE. 0.0E+0 ) CLA_SYRCOND_X = 1.0E+0 / AINVNM
 *
       RETURN
 *

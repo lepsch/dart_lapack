@@ -1,5 +1,4 @@
-      SUBROUTINE CTBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B,
-     $                   LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CTBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -61,8 +59,7 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
@@ -143,16 +140,14 @@
                   DO 40 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 30 I = MAX( 1, K-KD ), K
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AB( KD+1+I-K, K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK
    30                CONTINUE
    40             CONTINUE
                ELSE
                   DO 60 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 50 I = MAX( 1, K-KD ), K - 1
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AB( KD+1+I-K, K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( KD+1+I-K, K ) )*XK
    50                CONTINUE
                      RWORK( K ) = RWORK( K ) + XK
    60             CONTINUE
@@ -162,16 +157,14 @@
                   DO 80 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 70 I = K, MIN( N, K+KD )
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AB( 1+I-K, K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK
    70                CONTINUE
    80             CONTINUE
                ELSE
                   DO 100 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 90 I = K + 1, MIN( N, K+KD )
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AB( 1+I-K, K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AB( 1+I-K, K ) )*XK
    90                CONTINUE
                      RWORK( K ) = RWORK( K ) + XK
   100             CONTINUE
@@ -186,8 +179,7 @@
                   DO 120 K = 1, N
                      S = ZERO
                      DO 110 I = MAX( 1, K-KD ), K
-                        S = S + CABS1( AB( KD+1+I-K, K ) )*
-     $                      CABS1( X( I, J ) )
+                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) )
   110                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
   120             CONTINUE
@@ -195,8 +187,7 @@
                   DO 140 K = 1, N
                      S = CABS1( X( K, J ) )
                      DO 130 I = MAX( 1, K-KD ), K - 1
-                        S = S + CABS1( AB( KD+1+I-K, K ) )*
-     $                      CABS1( X( I, J ) )
+                        S = S + CABS1( AB( KD+1+I-K, K ) )* CABS1( X( I, J ) )
   130                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
   140             CONTINUE
@@ -206,8 +197,7 @@
                   DO 160 K = 1, N
                      S = ZERO
                      DO 150 I = K, MIN( N, K+KD )
-                        S = S + CABS1( AB( 1+I-K, K ) )*
-     $                      CABS1( X( I, J ) )
+                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) )
   150                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
   160             CONTINUE
@@ -215,8 +205,7 @@
                   DO 180 K = 1, N
                      S = CABS1( X( K, J ) )
                      DO 170 I = K + 1, MIN( N, K+KD )
-                        S = S + CABS1( AB( 1+I-K, K ) )*
-     $                      CABS1( X( I, J ) )
+                        S = S + CABS1( AB( 1+I-K, K ) )* CABS1( X( I, J ) )
   170                CONTINUE
                      RWORK( K ) = RWORK( K ) + S
   180             CONTINUE
@@ -228,8 +217,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
          BERR( J ) = S
@@ -260,8 +248,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
   200    CONTINUE
 *
@@ -273,8 +260,7 @@
 *
 *              Multiply by diag(W)*inv(op(A)**H).
 *
-               CALL CTBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK,
-     $                     1 )
+               CALL CTBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK, 1 )
                DO 220 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   220          CONTINUE
@@ -285,8 +271,7 @@
                DO 230 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
   230          CONTINUE
-               CALL CTBSV( UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK,
-     $                     1 )
+               CALL CTBSV( UPLO, TRANSN, DIAG, N, KD, AB, LDAB, WORK, 1 )
             END IF
             GO TO 210
          END IF
@@ -297,8 +282,7 @@
          DO 240 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   240    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   250 CONTINUE
 *

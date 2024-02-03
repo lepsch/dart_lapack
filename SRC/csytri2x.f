@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX              ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -62,8 +61,7 @@
          CALL XERBLA( 'CSYTRI2X', -INFO )
          RETURN
       END IF
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Convert A
 *     Workspace got Non-diag elements of D
@@ -77,16 +75,14 @@
 *        Upper triangular storage: examine D from bottom to top
 *
          DO INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
       ELSE
 *
 *        Lower triangular storage: examine D from top to bottom.
 *
          DO INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
          END DO
       END IF
       INFO = 0
@@ -185,10 +181,7 @@
                 DO J=1,NNB
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I+1,J)
-                   WORK(I,J)=WORK(I,INVD)*U01_I_J+
-     $                      WORK(I,INVD+1)*U01_IP1_J
-                   WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+
-     $                      WORK(I+1,INVD+1)*U01_IP1_J
+                   WORK(I,J)=WORK(I,INVD)*U01_I_J+ WORK(I,INVD+1)*U01_IP1_J                    WORK(I+1,J)=WORK(I+1,INVD)*U01_I_J+ WORK(I+1,INVD+1)*U01_IP1_J
                 END DO
                 I=I+2
              END IF
@@ -207,10 +200,7 @@
                 DO J=I,NNB
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I+1,J)
-                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) +
-     $                      WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)
-                WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+
-     $                      WORK(CUT+I+1,INVD+1)*U11_IP1_J
+                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*WORK(U11+I+1,J)                 WORK(U11+I+1,J)=WORK(CUT+I+1,INVD)*U11_I_J+ WORK(CUT+I+1,INVD+1)*U11_IP1_J
                 END DO
                 I=I+2
              END IF
@@ -218,8 +208,7 @@
 *
 *       U11**T*invD1*U11->U11
 *
-        CALL CTRMM('L','U','T','U',NNB, NNB,
-     $             ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
+        CALL CTRMM('L','U','T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
 *
          DO I=1,NNB
             DO J=I,NNB
@@ -229,8 +218,7 @@
 *
 *          U01**T*invD*U01->A(CUT+I,CUT+J)
 *
-         CALL CGEMM('T','N',NNB,NNB,CUT,ONE,A(1,CUT+1),LDA,
-     $              WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
+         CALL CGEMM('T','N',NNB,NNB,CUT,ONE,A(1,CUT+1),LDA, WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
 *
 *        U11 =  U11**T*invD1*U11 + U01**T*invD*U01
 *
@@ -242,8 +230,7 @@
 *
 *        U01 =  U00**T*invD0*U01
 *
-         CALL CTRMM('L',UPLO,'T','U',CUT, NNB,
-     $             ONE,A,LDA,WORK,N+NB+1)
+         CALL CTRMM('L',UPLO,'T','U',CUT, NNB, ONE,A,LDA,WORK,N+NB+1)
 
 *
 *        Update U01
@@ -269,10 +256,7 @@
                ELSE
                  IP=-IPIV(I)
                  I=I+1
-                 IF ( (I-1) .LT. IP)
-     $                  CALL CSYSWAPR( UPLO, N, A, LDA, I-1 ,IP )
-                 IF ( (I-1) .GT. IP)
-     $                  CALL CSYSWAPR( UPLO, N, A, LDA, IP ,I-1 )
+                 IF ( (I-1) .LT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, I-1 ,IP )                  IF ( (I-1) .GT. IP) CALL CSYSWAPR( UPLO, N, A, LDA, IP ,I-1 )
               ENDIF
                I=I+1
             END DO
@@ -356,10 +340,7 @@
                 DO J=1,NNB
                    U01_I_J = WORK(I,J)
                    U01_IP1_J = WORK(I-1,J)
-                   WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+
-     $                        WORK(CUT+NNB+I,INVD+1)*U01_IP1_J
-                   WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+
-     $                        WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
+                   WORK(I,J)=WORK(CUT+NNB+I,INVD)*U01_I_J+ WORK(CUT+NNB+I,INVD+1)*U01_IP1_J                    WORK(I-1,J)=WORK(CUT+NNB+I-1,INVD+1)*U01_I_J+ WORK(CUT+NNB+I-1,INVD)*U01_IP1_J
                 END DO
                 I=I-2
              END IF
@@ -378,10 +359,7 @@
                 DO J=1,NNB
                    U11_I_J = WORK(U11+I,J)
                    U11_IP1_J = WORK(U11+I-1,J)
-                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) +
-     $                      WORK(CUT+I,INVD+1)*U11_IP1_J
-                WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+
-     $                      WORK(CUT+I-1,INVD)*U11_IP1_J
+                WORK(U11+I,J)=WORK(CUT+I,INVD)*WORK(U11+I,J) + WORK(CUT+I,INVD+1)*U11_IP1_J                 WORK(U11+I-1,J)=WORK(CUT+I-1,INVD+1)*U11_I_J+ WORK(CUT+I-1,INVD)*U11_IP1_J
                 END DO
                 I=I-2
              END IF
@@ -389,8 +367,7 @@
 *
 *       L11**T*invD1*L11->L11
 *
-        CALL CTRMM('L',UPLO,'T','U',NNB, NNB,
-     $             ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
+        CALL CTRMM('L',UPLO,'T','U',NNB, NNB, ONE,A(CUT+1,CUT+1),LDA,WORK(U11+1,1),N+NB+1)
 *
          DO I=1,NNB
             DO J=1,I
@@ -402,8 +379,7 @@
 *
 *          L21**T*invD2*L21->A(CUT+I,CUT+J)
 *
-         CALL CGEMM('T','N',NNB,NNB,N-NNB-CUT,ONE,A(CUT+NNB+1,CUT+1)
-     $             ,LDA,WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
+         CALL CGEMM('T','N',NNB,NNB,N-NNB-CUT,ONE,A(CUT+NNB+1,CUT+1) ,LDA,WORK,N+NB+1, ZERO, WORK(U11+1,1), N+NB+1)
 
 *
 *        L11 =  L11**T*invD1*L11 + U01**T*invD*U01
@@ -416,8 +392,7 @@
 *
 *        L01 =  L22**T*invD2*L21
 *
-         CALL CTRMM('L',UPLO,'T','U', N-NNB-CUT, NNB,
-     $             ONE,A(CUT+NNB+1,CUT+NNB+1),LDA,WORK,N+NB+1)
+         CALL CTRMM('L',UPLO,'T','U', N-NNB-CUT, NNB, ONE,A(CUT+NNB+1,CUT+NNB+1),LDA,WORK,N+NB+1)
 
 *      Update L21
          DO I=1,N-CUT-NNB

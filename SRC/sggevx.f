@@ -1,7 +1,4 @@
-      SUBROUTINE SGGEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB,
-     $                   ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, ILO,
-     $                   IHI, LSCALE, RSCALE, ABNRM, BBNRM, RCONDE,
-     $                   RCONDV, WORK, LWORK, IWORK, BWORK, INFO )
+      SUBROUTINE SGGEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, ILO, IHI, LSCALE, RSCALE, ABNRM, BBNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,10 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       INTEGER            IWORK( * )
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ),
-     $                   B( LDB, * ), BETA( * ), LSCALE( * ),
-     $                   RCONDE( * ), RCONDV( * ), RSCALE( * ),
-     $                   VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -28,22 +22,16 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL,
-     $                   PAIR, WANTSB, WANTSE, WANTSN, WANTSV
+      LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, PAIR, WANTSB, WANTSE, WANTSN, WANTSV
       CHARACTER          CHTEMP
-      INTEGER            I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS,
-     $                   ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK,
-     $                   MINWRK, MM
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS,
-     $                   SMLNUM, TEMP
+      INTEGER            I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK, MM
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LDUMMA( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY,
-     $                   SLASCL, SLASET, SORGQR, SORMQR, STGEVC, STGSNA,
-     $                   XERBLA
+      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGEVC, STGSNA, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -91,15 +79,13 @@
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.( NOSCL .OR. LSAME( BALANC, 'S' ) .OR.
-     $    LSAME( BALANC, 'B' ) ) ) THEN
+      IF( .NOT.( NOSCL .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
          INFO = -1
       ELSE IF( IJOBVL.LE.0 ) THEN
          INFO = -2
       ELSE IF( IJOBVR.LE.0 ) THEN
          INFO = -3
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) )
-     $          THEN
+      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -137,13 +123,9 @@
                MINWRK = 2*N*( N + 4 ) + 16
             END IF
             MAXWRK = MINWRK
-            MAXWRK = MAX( MAXWRK,
-     $                    N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 ) )
-            MAXWRK = MAX( MAXWRK,
-     $                    N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, 0 ) )
+            MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, 0 ) )
             IF( ILVL ) THEN
-               MAXWRK = MAX( MAXWRK, N +
-     $                       N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, 0 ) )
+               MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, 0 ) )
             END IF
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
@@ -162,8 +144,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *
 *     Get machine constants
@@ -185,8 +166,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-      IF( ILASCL )
-     $   CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -199,30 +179,26 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-      IF( ILBSCL )
-     $   CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute and/or balance the matrix pair (A,B)
 *     (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 *
-      CALL SGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE,
-     $             WORK, IERR )
+      CALL SGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, IERR )
 *
 *     Compute ABNRM and BBNRM
 *
       ABNRM = SLANGE( '1', N, N, A, LDA, WORK( 1 ) )
       IF( ILASCL ) THEN
          WORK( 1 ) = ABNRM
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1,
-     $                IERR )
+         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, WORK( 1 ), 1, IERR )
          ABNRM = WORK( 1 )
       END IF
 *
       BBNRM = SLANGE( '1', N, N, B, LDB, WORK( 1 ) )
       IF( ILBSCL ) THEN
          WORK( 1 ) = BBNRM
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1,
-     $                IERR )
+         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, WORK( 1 ), 1, IERR )
          BBNRM = WORK( 1 )
       END IF
 *
@@ -237,15 +213,12 @@
       END IF
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the orthogonal transformation to A
 *     (Workspace: need N, prefer N*NB)
 *
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VL and/or VR
 *     (Workspace: need N, prefer N*NB)
@@ -253,15 +226,12 @@
       IF( ILVL ) THEN
          CALL SLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VL( ILO+1, ILO ), LDVL )
+            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
          END IF
-         CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL SORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-      IF( ILVR )
-     $   CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
+      IF( ILVR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
 *
 *     Reduce to generalized Hessenberg form
 *     (Workspace: none needed)
@@ -270,11 +240,9 @@
 *
 *        Eigenvectors requested -- work on whole matrix.
 *
-         CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL,
-     $                LDVL, VR, LDVR, IERR )
+         CALL SGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       ELSE
-         CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA,
-     $                B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         CALL SGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
 *
 *     Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -287,9 +255,7 @@
          CHTEMP = 'E'
       END IF
 *
-      CALL SHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK,
-     $             LWORK, IERR )
+      CALL SHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -318,8 +284,7 @@
                CHTEMP = 'R'
             END IF
 *
-            CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL,
-     $                   LDVL, VR, LDVR, N, IN, WORK, IERR )
+            CALL STGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK, IERR )
             IF( IERR.NE.0 ) THEN
                INFO = N + 2
                GO TO 130
@@ -368,19 +333,14 @@
 *              (compute workspace: need up to 4*N + 6*N)
 *
                IF( WANTSE .OR. WANTSB ) THEN
-                  CALL STGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB,
-     $                         WORK( 1 ), N, WORK( IWRK ), N, MM, M,
-     $                         WORK( IWRK1 ), IERR )
+                  CALL STGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, MM, M, WORK( IWRK1 ), IERR )
                   IF( IERR.NE.0 ) THEN
                      INFO = N + 2
                      GO TO 130
                   END IF
                END IF
 *
-               CALL STGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB,
-     $                      WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ),
-     $                      RCONDV( I ), MM, M, WORK( IWRK1 ),
-     $                      LWORK-IWRK1+1, IWORK, IERR )
+               CALL STGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
 *
    20       CONTINUE
          END IF
@@ -390,12 +350,10 @@
 *     (Workspace: none needed)
 *
       IF( ILVL ) THEN
-         CALL SGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL,
-     $                LDVL, IERR )
+         CALL SGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
 *
          DO 70 JC = 1, N
-            IF( ALPHAI( JC ).LT.ZERO )
-     $         GO TO 70
+            IF( ALPHAI( JC ).LT.ZERO ) GO TO 70
             TEMP = ZERO
             IF( ALPHAI( JC ).EQ.ZERO ) THEN
                DO 30 JR = 1, N
@@ -403,12 +361,10 @@
    30          CONTINUE
             ELSE
                DO 40 JR = 1, N
-                  TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+
-     $                   ABS( VL( JR, JC+1 ) ) )
+                  TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    40          CONTINUE
             END IF
-            IF( TEMP.LT.SMLNUM )
-     $         GO TO 70
+            IF( TEMP.LT.SMLNUM ) GO TO 70
             TEMP = ONE / TEMP
             IF( ALPHAI( JC ).EQ.ZERO ) THEN
                DO 50 JR = 1, N
@@ -423,11 +379,9 @@
    70    CONTINUE
       END IF
       IF( ILVR ) THEN
-         CALL SGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR,
-     $                LDVR, IERR )
+         CALL SGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
          DO 120 JC = 1, N
-            IF( ALPHAI( JC ).LT.ZERO )
-     $         GO TO 120
+            IF( ALPHAI( JC ).LT.ZERO ) GO TO 120
             TEMP = ZERO
             IF( ALPHAI( JC ).EQ.ZERO ) THEN
                DO 80 JR = 1, N
@@ -435,12 +389,10 @@
    80          CONTINUE
             ELSE
                DO 90 JR = 1, N
-                  TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+
-     $                   ABS( VR( JR, JC+1 ) ) )
+                  TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    90          CONTINUE
             END IF
-            IF( TEMP.LT.SMLNUM )
-     $         GO TO 120
+            IF( TEMP.LT.SMLNUM ) GO TO 120
             TEMP = ONE / TEMP
             IF( ALPHAI( JC ).EQ.ZERO ) THEN
                DO 100 JR = 1, N

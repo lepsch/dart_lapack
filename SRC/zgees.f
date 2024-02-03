@@ -1,5 +1,4 @@
-      SUBROUTINE ZGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, W, VS,
-     $                  LDVS, WORK, LWORK, RWORK, BWORK, INFO )
+      SUBROUTINE ZGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, W, VS, LDVS, WORK, LWORK, RWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -27,16 +26,14 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SCALEA, WANTST, WANTVS
-      INTEGER            HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO,
-     $                   ITAU, IWRK, MAXWRK, MINWRK
+      INTEGER            HSWORK, I, IBAL, ICOND, IERR, IEVAL, IHI, ILO, ITAU, IWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZCOPY, ZGEBAK, ZGEBAL, ZGEHRD,
-     $                   ZHSEQR, ZLACPY, ZLASCL, ZTRSEN, ZUNGHR
+      EXTERNAL           XERBLA, ZCOPY, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZTRSEN, ZUNGHR
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -86,15 +83,13 @@
             MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 2*N
 *
-            CALL ZHSEQR( 'S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS,
-     $             WORK, -1, IEVAL )
+            CALL ZHSEQR( 'S', JOBVS, N, 1, N, A, LDA, W, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
 *
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, HSWORK )
             ELSE
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR',
-     $                       ' ', N, 1, N, -1 ) )
+               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, HSWORK )
             END IF
          END IF
@@ -138,8 +133,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       END IF
-      IF( SCALEA )
-     $   CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *     Permute the matrix to make it more nearly triangular
 *     (CWorkspace: none)
@@ -154,8 +148,7 @@
 *
       ITAU = 1
       IWRK = N + ITAU
-      CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ),
-     $             LWORK-IWRK+1, IERR )
+      CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
       IF( WANTVS ) THEN
 *
@@ -167,8 +160,7 @@
 *        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
 *        (RWorkspace: none)
 *
-         CALL ZUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL ZUNGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
 *
       SDIM = 0
@@ -178,16 +170,12 @@
 *     (RWorkspace: none)
 *
       IWRK = ITAU
-      CALL ZHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS,
-     $             WORK( IWRK ), LWORK-IWRK+1, IEVAL )
-      IF( IEVAL.GT.0 )
-     $   INFO = IEVAL
+      CALL ZHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, W, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
 *
 *     Sort eigenvalues if desired
 *
       IF( WANTST .AND. INFO.EQ.0 ) THEN
-         IF( SCALEA )
-     $      CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
+         IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
          DO 10 I = 1, N
             BWORK( I ) = SELECT( W( I ) )
    10    CONTINUE
@@ -196,8 +184,7 @@
 *        (CWorkspace: none)
 *        (RWorkspace: none)
 *
-         CALL ZTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM,
-     $                S, SEP, WORK( IWRK ), LWORK-IWRK+1, ICOND )
+         CALL ZTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, W, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, ICOND )
       END IF
 *
       IF( WANTVS ) THEN
@@ -206,8 +193,7 @@
 *        (CWorkspace: none)
 *        (RWorkspace: need N)
 *
-         CALL ZGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS,
-     $                IERR )
+         CALL ZGEBAK( 'P', 'R', N, ILO, IHI, RWORK( IBAL ), N, VS, LDVS, IERR )
       END IF
 *
       IF( SCALEA ) THEN

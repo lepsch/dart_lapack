@@ -19,9 +19,7 @@
       PARAMETER          ( ZERO = 0.0, ONE = 1.0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               ABSW, ANORM, BNORM, CI11, CI12, CI22, CNORM,
-     $                   CR11, CR12, CR21, CR22, CSCALE, DETI, DETR, S1,
-     $                   SAFMIN, SCALES, SIGMIN, TEMP, ULP, WIS, WRS
+      REAL               ABSW, ANORM, BNORM, CI11, CI12, CI22, CNORM, CR11, CR12, CR21, CR22, CSCALE, DETI, DETR, S1, SAFMIN, SCALES, SIGMIN, TEMP, ULP, WIS, WRS
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -45,10 +43,7 @@
       SAFMIN = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
       ABSW = ABS( WRS ) + ABS( WIS )
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ),
-     $        ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
-      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ),
-     $        SAFMIN )
+      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )       BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN )
 *
 *     Check for possible overflow.
 *
@@ -64,8 +59,7 @@
          WIS = WIS*TEMP
          ABSW = ABS( WRS ) + ABS( WIS )
       END IF
-      S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ),
-     $     SAFMIN*MAX( SCALES, ABSW ) )
+      S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ), SAFMIN*MAX( SCALES, ABSW ) )
 *
 *     Check for W and SCALE essentially zero.
 *
@@ -84,8 +78,7 @@
          WRS = WRS*TEMP
          WIS = WIS*TEMP
          ABSW = ABS( WRS ) + ABS( WIS )
-         S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ),
-     $        SAFMIN*MAX( SCALES, ABSW ) )
+         S1 = MAX( ULP*MAX( SCALES*ANORM, ABSW*BNORM ), SAFMIN*MAX( SCALES, ABSW ) )
          IF( S1.LT.SAFMIN ) THEN
             INFO = 3
             RESULT = ONE / ULP
@@ -109,15 +102,9 @@
 *     sigma_min = ------------------
 *                 norm( s A - w B )
 *
-      CNORM = MAX( ABS( CR11 )+ABS( CI11 )+ABS( CR21 ),
-     $        ABS( CR12 )+ABS( CI12 )+ABS( CR22 )+ABS( CI22 ), SAFMIN )
+      CNORM = MAX( ABS( CR11 )+ABS( CI11 )+ABS( CR21 ), ABS( CR12 )+ABS( CI12 )+ABS( CR22 )+ABS( CI22 ), SAFMIN )
       CSCALE = ONE / SQRT( CNORM )
-      DETR = ( CSCALE*CR11 )*( CSCALE*CR22 ) -
-     $       ( CSCALE*CI11 )*( CSCALE*CI22 ) -
-     $       ( CSCALE*CR12 )*( CSCALE*CR21 )
-      DETI = ( CSCALE*CR11 )*( CSCALE*CI22 ) +
-     $       ( CSCALE*CI11 )*( CSCALE*CR22 ) -
-     $       ( CSCALE*CI12 )*( CSCALE*CR21 )
+      DETR = ( CSCALE*CR11 )*( CSCALE*CR22 ) - ( CSCALE*CI11 )*( CSCALE*CI22 ) - ( CSCALE*CR12 )*( CSCALE*CR21 )       DETI = ( CSCALE*CR11 )*( CSCALE*CI22 ) + ( CSCALE*CI11 )*( CSCALE*CR22 ) - ( CSCALE*CI12 )*( CSCALE*CR21 )
       SIGMIN = ABS( DETR ) + ABS( DETI )
       RESULT = SIGMIN / S1
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE CTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK,
-     $                   RWORK, INFO )
+      SUBROUTINE CTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -109,14 +108,12 @@
 *
 *              Multiply by inv(A).
 *
-               CALL CLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A,
-     $                      LDA, WORK, SCALE, RWORK, INFO )
+               CALL CLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
             ELSE
 *
 *              Multiply by inv(A**H).
 *
-               CALL CLATRS( UPLO, 'Conjugate transpose', DIAG, NORMIN,
-     $                      N, A, LDA, WORK, SCALE, RWORK, INFO )
+               CALL CLATRS( UPLO, 'Conjugate transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, RWORK, INFO )
             END IF
             NORMIN = 'Y'
 *
@@ -125,8 +122,7 @@
             IF( SCALE.NE.ONE ) THEN
                IX = ICAMAX( N, WORK, 1 )
                XNORM = CABS1( WORK( IX ) )
-               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO )
-     $            GO TO 20
+               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
                CALL CSRSCL( N, SCALE, WORK, 1 )
             END IF
             GO TO 10
@@ -134,8 +130,7 @@
 *
 *        Compute the estimate of the reciprocal condition number.
 *
-         IF( AINVNM.NE.ZERO )
-     $      RCOND = ( ONE / ANORM ) / AINVNM
+         IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
 *
    20 CONTINUE

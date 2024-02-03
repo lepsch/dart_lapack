@@ -1,5 +1,4 @@
-      SUBROUTINE CCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB,
-     $                     NBVAL, NOUT )
+      SUBROUTINE CCHKTSQR( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
       IMPLICIT NONE
 *
 *  -- LAPACK test routine --
@@ -23,15 +22,13 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB,
-     $                   MINMN, MB, IMB
+      INTEGER            I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, INB, MINMN, MB, IMB
 *
 *     .. Local Arrays ..
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRTSQR,
-     $                   CTSQR01, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRTSQR, CTSQR01, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -58,7 +55,7 @@
 *     Test the error exits
 *
       CALL XLAENV( 1, 0 )
-      CALL XLAENV( 2, 0 ) 
+      CALL XLAENV( 2, 0 )
       IF( TSTERR ) CALL CERRTSQR( PATH, NOUT )
       INFOT = 0
 *
@@ -88,10 +85,7 @@
 *
                     DO T = 1, NTESTS
                       IF( RESULT( T ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )M, N, MB, NB,
-     $                       T, RESULT( T )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
                       END IF
                     END DO
@@ -128,10 +122,7 @@
 *
                     DO T = 1, NTESTS
                       IF( RESULT( T ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9998 )M, N, MB, NB,
-     $                       T, RESULT( T )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )M, N, MB, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
                       END IF
                     END DO

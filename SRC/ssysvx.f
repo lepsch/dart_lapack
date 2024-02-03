@@ -1,6 +1,4 @@
-      SUBROUTINE SSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B,
-     $                   LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK,
-     $                   IWORK, INFO )
+      SUBROUTINE SSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ),
-     $                   BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
+      REAL               A( LDA, * ), AF( LDAF, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -50,8 +47,7 @@
       LWKMIN = MAX( 1, 3*N )
       IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) )
-     $          THEN
+      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -106,8 +102,7 @@
 *
 *     Compute the reciprocal of the condition number of A.
 *
-      CALL SSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK,
-     $             INFO )
+      CALL SSYCON( UPLO, N, AF, LDAF, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *     Compute the solution vectors X.
 *
@@ -117,13 +112,11 @@
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL SSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X,
-     $             LDX, FERR, BERR, WORK, IWORK, INFO )
+      CALL SSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 *

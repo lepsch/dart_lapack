@@ -22,8 +22,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( IOUNIT.LE.0 )
-     $   RETURN
+      IF( IOUNIT.LE.0 ) RETURN
       SORD = LSAME( PATH, 'S' ) .OR. LSAME( PATH, 'D' )
       CORZ = LSAME( PATH, 'C' ) .OR. LSAME( PATH, 'Z' )
       IF( .NOT.SORD .AND. .NOT.CORZ ) THEN
@@ -42,14 +41,12 @@
 *
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
-            WRITE( IOUNIT, FMT = 9986 )'pairs ', 'pairs ', 'prs.',
-     $         'prs.'
+            WRITE( IOUNIT, FMT = 9986 )'pairs ', 'pairs ', 'prs.', 'prs.'
             WRITE( IOUNIT, FMT = 9985 )
 *
 *           Tests performed
 *
-            WRITE( IOUNIT, FMT = 9984 )'orthogonal', '''=transpose',
-     $         ( '''', J = 1, 6 )
+            WRITE( IOUNIT, FMT = 9984 )'orthogonal', '''=transpose', ( '''', J = 1, 6 )
 *
          ELSE
 *
@@ -61,14 +58,12 @@
 *
             WRITE( IOUNIT, FMT = 9988 )
             WRITE( IOUNIT, FMT = 9987 )
-            WRITE( IOUNIT, FMT = 9986 )'e.vals', 'e.vals', 'e.vs',
-     $         'e.vs'
+            WRITE( IOUNIT, FMT = 9986 )'e.vals', 'e.vals', 'e.vs', 'e.vs'
             WRITE( IOUNIT, FMT = 9985 )
 *
 *           Tests performed
 *
-            WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.',
-     $         ( '*', J = 1, 6 )
+            WRITE( IOUNIT, FMT = 9984 )'unitary', '*=conj.transp.', ( '*', J = 1, 6 )
          END IF
 *
       ELSE IF( LSAMEN( 2, C2, 'ST' ) ) THEN

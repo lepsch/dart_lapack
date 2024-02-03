@@ -48,8 +48,7 @@
          RETURN
       END IF
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       DO 30 K = 1, N - 1
          IF( DL( K ).EQ.ZERO ) THEN
@@ -73,8 +72,7 @@
             DO 10 J = 1, NRHS
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J )
    10       CONTINUE
-            IF( K.LT.( N-1 ) )
-     $         DL( K ) = ZERO
+            IF( K.LT.( N-1 ) ) DL( K ) = ZERO
          ELSE
 *
 *           Interchange rows K and K+1
@@ -104,11 +102,9 @@
 *
       DO 50 J = 1, NRHS
          B( N, J ) = B( N, J ) / D( N )
-         IF( N.GT.1 )
-     $      B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
+         IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
          DO 40 K = N - 2, 1, -1
-            B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )*
-     $                  B( K+2, J ) ) / D( K )
+            B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K )
    40    CONTINUE
    50 CONTINUE
 *

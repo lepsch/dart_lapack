@@ -1,5 +1,4 @@
-      SUBROUTINE CUNT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RWORK,
-     $                   RESID )
+      SUBROUTINE CUNT01( ROWCOL, M, N, U, LDU, WORK, LWORK, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -51,8 +50,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       EPS = SLAMCH( 'Precision' )
       IF( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) THEN
@@ -73,10 +71,7 @@
 *
 *        Compute I - U*U' or I - U'*U.
 *
-         CALL CLASET( 'Upper', MNMIN, MNMIN, CMPLX( ZERO ),
-     $                CMPLX( ONE ), WORK, LDWORK )
-         CALL CHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK,
-     $               LDWORK )
+         CALL CLASET( 'Upper', MNMIN, MNMIN, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDWORK )          CALL CHERK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
 *        Compute norm( I - U*U' ) / ( K * EPS ) .
 *

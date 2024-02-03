@@ -1,5 +1,4 @@
-      SUBROUTINE DSYTRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU,
-     $                          HOUS2, LHOUS2, WORK, LWORK, INFO )
+      SUBROUTINE DSYTRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU, HOUS2, LHOUS2, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -13,8 +12,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
-      DOUBLE PRECISION   A( LDA, * ), TAU( * ),
-     $                   HOUS2( * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -91,15 +89,12 @@
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
-      CALL DSYTRD_SY2SB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB,
-     $                   TAU, WORK( WPOS ), LWRK, INFO )
+      CALL DSYTRD_SY2SB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRD_SY2SB', -INFO )
          RETURN
       END IF
-      CALL DSYTRD_SB2ST( 'Y', VECT, UPLO, N, KD,
-     $                   WORK( ABPOS ), LDAB, D, E,
-     $                   HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
+      CALL DSYTRD_SB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DSYTRD_SB2ST', -INFO )
          RETURN

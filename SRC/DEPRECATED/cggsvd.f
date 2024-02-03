@@ -1,6 +1,4 @@
-      SUBROUTINE CGGSVD( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B,
-     $                   LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK,
-     $                   RWORK, IWORK, INFO )
+      SUBROUTINE CGGSVD( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, RWORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       REAL               ALPHA( * ), BETA( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   U( LDU, * ), V( LDV, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -85,15 +82,11 @@
       TOLA = MAX( M, N )*MAX( ANORM, UNFL )*ULP
       TOLB = MAX( P, N )*MAX( BNORM, UNFL )*ULP
 *
-      CALL CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA,
-     $             TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK,
-     $             WORK, WORK( N+1 ), INFO )
+      CALL CGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, RWORK, WORK, WORK( N+1 ), INFO )
 *
 *     Compute the GSVD of two upper "triangular" matrices
 *
-      CALL CTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB,
-     $             TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ,
-     $             WORK, NCYCLE, INFO )
+      CALL CTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
 *     Sort the singular values and store the pivot indices in IWORK
 *     Copy ALPHA to RWORK, then sort ALPHA in RWORK

@@ -52,8 +52,7 @@
 *
 *        Apply H(i) to A(1:i-1,i:n) from the right
 *
-         CALL CLARZ( 'Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA,
-     $               CONJG( TAU( I ) ), A( 1, I ), LDA, WORK )
+         CALL CLARZ( 'Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, CONJG( TAU( I ) ), A( 1, I ), LDA, WORK )
          A( I, I ) = CONJG( ALPHA )
 *
    20 CONTINUE

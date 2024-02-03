@@ -23,20 +23,14 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       DOUBLE PRECISION   R( NMAX ), R1( NMAX ), R2( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), W( 2*NMAX ), X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZSPCON, ZSPRFS, ZSPTRF, ZSPTRI,
-     $                   ZSPTRS, ZSYCON, ZSYCON_3, ZSYCON_ROOK, ZSYRFS,
-     $                   ZSYTF2, ZSYTF2_RK, ZSYTF2_ROOK, ZSYTRF,
-     $                   ZSYTRF_RK, ZSYTRF_ROOK, ZSYTRI, ZSYTRI_3,
-     $                   ZSYTRI_3X, ZSYTRI_ROOK, ZSYTRI2, ZSYTRI2X,
-     $                   ZSYTRS, ZSYTRS_3, ZSYTRS_ROOK
+      EXTERNAL           ALAESM, CHKXER, ZSPCON, ZSPRFS, ZSPTRF, ZSPTRI, ZSPTRS, ZSYCON, ZSYCON_3, ZSYCON_ROOK, ZSYRFS, ZSYTF2, ZSYTF2_RK, ZSYTF2_ROOK, ZSYTRF, ZSYTRF_RK, ZSYTRF_ROOK, ZSYTRI, ZSYTRI_3, ZSYTRI_3X, ZSYTRI_ROOK, ZSYTRI2, ZSYTRI2X, ZSYTRS, ZSYTRS_3, ZSYTRS_ROOK
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -60,10 +54,7 @@
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
-            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                  -1.D0 / DBLE( I+J ) )
-            AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                   -1.D0 / DBLE( I+J ) )
+            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
    10    CONTINUE
          B( J ) = 0.D0
          E( J ) = 0.D0
@@ -176,32 +167,25 @@
 *
          SRNAMT = 'ZSYRFS'
          INFOT = 1
-         CALL ZSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSYRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZSYCON
@@ -461,24 +445,19 @@
 *
          SRNAMT = 'ZSPRFS'
          INFOT = 1
-         CALL ZSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZSPRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZSPCON
@@ -546,52 +525,41 @@
 *
          SRNAMT = 'ZSYTRF_AA_2STAGE'
          INFOT = 1
-         CALL ZSYTRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1,
-     $                          INFO )
+         CALL ZSYTRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSYTRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZSYTRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0,
-     $                           INFO )
+         CALL ZSYTRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'ZSYTRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
 *        CHETRS_AA_2STAGE
 *
          SRNAMT = 'ZSYTRS_AA_2STAGE'
          INFOT = 1
-         CALL ZSYTRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSYTRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSYTRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZSYTRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZSYTRS_AA_STAGE', INFOT, NOUT, LERR, OK )
 *
       END IF

@@ -1,5 +1,4 @@
-      SUBROUTINE SLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T,
-     $                     LDT, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE SLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( * ), C( LDC, * ),
-     $                   T( LDT, * )
+      REAL               A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * )
 *     ..
 *
 * =====================================================================
@@ -92,8 +90,7 @@
       END IF
 *
       IF((NB.LE.K).OR.(NB.GE.MAX(M,N,K))) THEN
-        CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA,
-     $        T, LDT, C, LDC, WORK, INFO)
+        CALL SGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T, LDT, C, LDC, WORK, INFO)
         RETURN
       END IF
 *
@@ -106,9 +103,7 @@
 *
           IF (KK.GT.0) THEN
             II=M-KK+1
-            CALL STPMLQT('L','T',KK , N, K, 0, MB, A(1,II), LDA,
-     $        T(1,CTR*K+1), LDT, C(1,1), LDC,
-     $        C(II,1), LDC, WORK, INFO )
+            CALL STPMLQT('L','T',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
           ELSE
             II=M+1
           END IF
@@ -118,15 +113,12 @@
 *         Multiply Q to the current block of C (1:M,I:I+NB)
 *
             CTR = CTR - 1
-            CALL STPMLQT('L','T',NB-K , N, K, 0,MB, A(1,I), LDA,
-     $          T(1,CTR*K+1),LDT, C(1,1), LDC,
-     $          C(I,1), LDC, WORK, INFO )
+            CALL STPMLQT('L','T',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
           END DO
 *
 *         Multiply Q to the first block of C (1:M,1:NB)
 *
-          CALL SGEMLQT('L','T',NB , N, K, MB, A(1,1), LDA, T
-     $              ,LDT ,C(1,1), LDC, WORK, INFO )
+          CALL SGEMLQT('L','T',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (LEFT.AND.NOTRAN) THEN
 *
@@ -135,16 +127,13 @@
          KK = MOD((M-K),(NB-K))
          II=M-KK+1
          CTR = 1
-         CALL SGEMLQT('L','N',NB , N, K, MB, A(1,1), LDA, T
-     $              ,LDT ,C(1,1), LDC, WORK, INFO )
+         CALL SGEMLQT('L','N',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
          DO I=NB+1,II-NB+K,(NB-K)
 *
 *         Multiply Q to the current block of C (I:I+NB,1:N)
 *
-          CALL STPMLQT('L','N',NB-K , N, K, 0,MB, A(1,I), LDA,
-     $         T(1,CTR * K+1), LDT, C(1,1), LDC,
-     $         C(I,1), LDC, WORK, INFO )
+          CALL STPMLQT('L','N',NB-K , N, K, 0,MB, A(1,I), LDA, T(1,CTR * K+1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
           CTR = CTR + 1
 *
          END DO
@@ -152,9 +141,7 @@
 *
 *         Multiply Q to the last block of C
 *
-          CALL STPMLQT('L','N',KK , N, K, 0, MB, A(1,II), LDA,
-     $        T(1,CTR*K+1), LDT, C(1,1), LDC,
-     $        C(II,1), LDC, WORK, INFO )
+          CALL STPMLQT('L','N',KK , N, K, 0, MB, A(1,II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
 *
          END IF
 *
@@ -166,9 +153,7 @@
           CTR = (N-K)/(NB-K)
           IF (KK.GT.0) THEN
             II=N-KK+1
-            CALL STPMLQT('R','N',M , KK, K, 0, MB, A(1, II), LDA,
-     $        T(1,CTR*K+1), LDT, C(1,1), LDC,
-     $        C(1,II), LDC, WORK, INFO )
+            CALL STPMLQT('R','N',M , KK, K, 0, MB, A(1, II), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
           ELSE
             II=N+1
           END IF
@@ -178,16 +163,13 @@
 *         Multiply Q to the current block of C (1:M,I:I+MB)
 *
              CTR = CTR - 1
-             CALL STPMLQT('R','N', M, NB-K, K, 0, MB, A(1, I), LDA,
-     $            T(1,CTR*K+1), LDT, C(1,1), LDC,
-     $            C(1,I), LDC, WORK, INFO )
+             CALL STPMLQT('R','N', M, NB-K, K, 0, MB, A(1, I), LDA, T(1,CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
 
           END DO
 *
 *         Multiply Q to the first block of C (1:M,1:MB)
 *
-          CALL SGEMLQT('R','N',M , NB, K, MB, A(1,1), LDA, T
-     $            ,LDT ,C(1,1), LDC, WORK, INFO )
+          CALL SGEMLQT('R','N',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (RIGHT.AND.TRAN) THEN
 *
@@ -196,16 +178,13 @@
          KK = MOD((N-K),(NB-K))
          II=N-KK+1
          CTR = 1
-         CALL SGEMLQT('R','T',M , NB, K, MB, A(1,1), LDA, T
-     $            ,LDT ,C(1,1), LDC, WORK, INFO )
+         CALL SGEMLQT('R','T',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
          DO I=NB+1,II-NB+K,(NB-K)
 *
 *         Multiply Q to the current block of C (1:M,I:I+MB)
 *
-          CALL STPMLQT('R','T',M , NB-K, K, 0,MB, A(1,I), LDA,
-     $       T(1, CTR*K+1), LDT, C(1,1), LDC,
-     $       C(1,I), LDC, WORK, INFO )
+          CALL STPMLQT('R','T',M , NB-K, K, 0,MB, A(1,I), LDA, T(1, CTR*K+1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
           CTR = CTR + 1
 *
          END DO
@@ -213,9 +192,7 @@
 *
 *       Multiply Q to the last block of C
 *
-          CALL STPMLQT('R','T',M , KK, K, 0,MB, A(1,II), LDA,
-     $      T(1,CTR*K+1),LDT, C(1,1), LDC,
-     $      C(1,II), LDC, WORK, INFO )
+          CALL STPMLQT('R','T',M , KK, K, 0,MB, A(1,II), LDA, T(1,CTR*K+1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
 *
          END IF
 *

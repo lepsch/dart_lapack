@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   B( NMAX, NMAX ), C( NMAX, NMAX )
+      COMPLEX            A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, CTPQRT2, CTPQRT,
-     $                   CTPMQRT
+      EXTERNAL           ALAESM, CHKXER, CTPQRT2, CTPQRT, CTPMQRT
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -115,51 +113,39 @@
 *
       SRNAMT = 'CTPMQRT'
       INFOT = 1
-      CALL CTPMQRT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL CTPMQRT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL CTPMQRT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL CTPMQRT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL CTPMQRT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       INFOT = 6
-      CALL CTPMQRT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL CTPMQRT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL CTPMQRT( 'R', 'N', 1, 2, 1, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'R', 'N', 1, 2, 1, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL CTPMQRT( 'L', 'N', 2, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 2, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL CTPMQRT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL CTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 15
-      CALL CTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0,
-     $              W, INFO )
+      CALL CTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
       CALL CHKXER( 'CTPMQRT', INFOT, NOUT, LERR, OK )
 *
 *     Print a summary line.

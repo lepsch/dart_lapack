@@ -23,20 +23,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX ), IW( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   W( LW ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ),
-     $                   ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( LW ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGBCON, DGBEQU, DGBRFS, DGBTF2,
-     $                   DGBTRF, DGBTRS, DGECON, DGEEQU, DGERFS, DGETF2,
-     $                   DGETRF, DGETRI, DGETRS, DGEEQUB, DGERFSX,
-     $                   DGBEQUB, DGBRFSX
+      EXTERNAL           ALAESM, CHKXER, DGBCON, DGBEQU, DGBRFS, DGBTF2, DGBTRF, DGBTRS, DGECON, DGEEQU, DGERFS, DGETF2, DGETRF, DGETRI, DGETRS, DGEEQUB, DGERFSX, DGBEQUB, DGBRFSX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -139,32 +133,25 @@
 *
          SRNAMT = 'DGERFS'
          INFOT = 1
-         CALL DGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGERFS', INFOT, NOUT, LERR, OK )
 *
 *        DGERFSX
@@ -173,47 +160,31 @@
          NPARAMS = 0
          SRNAMT = 'DGERFSX'
          INFOT = 1
-         CALL DGERFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, R, C, B, 1, X,
-     $        1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
          EQ = '/'
-         CALL DGERFSX( 'N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X,
-     $        2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 3
          EQ = 'R'
-         CALL DGERFSX( 'N', EQ, -1, 0, A, 1, AF, 1, IP, R, C, B, 1, X,
-     $        1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, -1, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGERFSX( 'N', EQ, 0, -1, A, 1, AF, 1, IP, R, C, B, 1, X,
-     $        1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 0, -1, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGERFSX( 'N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X,
-     $        2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 2, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 1, IP, R, C, B, 2, X,
-     $        2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 1, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'C'
-         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 1, X,
-     $        2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 2, X,
-     $        1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGERFSX( 'N', EQ, 2, 1, A, 2, AF, 2, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGERFSX', INFOT, NOUT, LERR, OK )
 *
 *        DGECON
@@ -327,40 +298,31 @@
 *
          SRNAMT = 'DGBRFS'
          INFOT = 1
-         CALL DGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1,
-     $                R2, W, IW, INFO )
+         CALL DGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGBRFS', INFOT, NOUT, LERR, OK )
 *
 *        DGBRFSX
@@ -369,59 +331,39 @@
          NPARAMS = 0
          SRNAMT = 'DGBRFSX'
          INFOT = 1
-         CALL DGBRFSX( '/', EQ, 0, 0, 0, 0, A, 1, AF, 1, IP, R, C, B, 1,
-     $        X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS,  W, IW, INFO )
+         CALL DGBRFSX( '/', EQ, 0, 0, 0, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS,  W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
          EQ = '/'
-         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B, 2,
-     $        X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 3
          EQ = 'R'
-         CALL DGBRFSX( 'N', EQ, -1, 1, 1, 0, A, 1, AF, 1, IP, R, C, B,
-     $        1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, -1, 1, 1, 0, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
          EQ = 'R'
-         CALL DGBRFSX( 'N', EQ, 2, -1, 1, 1, A, 3, AF, 4, IP, R, C, B,
-     $        1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, -1, 1, 1, A, 3, AF, 4, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 5
          EQ = 'R'
-         CALL DGBRFSX( 'N', EQ, 2, 1, -1, 1, A, 3, AF, 4, IP, R, C, B,
-     $        1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, -1, 1, A, 3, AF, 4, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGBRFSX( 'N', EQ, 0, 0, 0, -1, A, 1, AF, 1, IP, R, C, B,
-     $        1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 0, 0, 0, -1, A, 1, AF, 1, IP, R, C, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B,
-     $        2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 1, AF, 2, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 3, IP, R, C, B, 2,
-     $        X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 3, IP, R, C, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'C'
-         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B,
-     $        1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 2,
-     $        X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C,
-     $        NPARAMS, PARAMS, W, IW, INFO )
+         CALL DGBRFSX( 'N', EQ, 2, 1, 1, 1, A, 3, AF, 5, IP, R, C, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DGBRFSX', INFOT, NOUT, LERR, OK )
 *
 *        DGBCON
@@ -431,16 +373,13 @@
          CALL DGBCON( '/', 0, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGBCON', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGBCON( '1', -1, 0, 0, A, 1, IP, ANRM, RCOND, W, IW,
-     $                INFO )
+         CALL DGBCON( '1', -1, 0, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGBCON', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGBCON( '1', 1, -1, 0, A, 1, IP, ANRM, RCOND, W, IW,
-     $                INFO )
+         CALL DGBCON( '1', 1, -1, 0, A, 1, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGBCON', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGBCON( '1', 1, 0, -1, A, 1, IP, ANRM, RCOND, W, IW,
-     $                INFO )
+         CALL DGBCON( '1', 1, 0, -1, A, 1, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGBCON', INFOT, NOUT, LERR, OK )
          INFOT = 6
          CALL DGBCON( '1', 2, 1, 1, A, 3, IP, ANRM, RCOND, W, IW, INFO )
@@ -450,48 +389,38 @@
 *
          SRNAMT = 'DGBEQU'
          INFOT = 1
-         CALL DGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQU', INFOT, NOUT, LERR, OK )
 *
 *        DGBEQUB
 *
          SRNAMT = 'DGBEQUB'
          INFOT = 1
-         CALL DGBEQUB( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQUB( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGBEQUB( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQUB( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGBEQUB( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQUB( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGBEQUB( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQUB( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGBEQUB( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL DGBEQUB( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'DGBEQUB', INFOT, NOUT, LERR, OK )
       END IF
 *

@@ -1,8 +1,4 @@
-      SUBROUTINE ZGET23( COMP, ISRT, BALANC, JTYPE, THRESH, ISEED,
-     $                   NOUNIT, N, A, LDA, H, W, W1, VL, LDVL, VR,
-     $                   LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN,
-     $                   RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT,
-     $                   WORK, LWORK, RWORK, INFO )
+      SUBROUTINE ZGET23( COMP, ISRT, BALANC, JTYPE, THRESH, ISEED, NOUNIT, N, A, LDA, H, W, W1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,19 +7,13 @@
 *     .. Scalar Arguments ..
       LOGICAL            COMP
       CHARACTER          BALANC
-      INTEGER            INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR,
-     $                   LWORK, N, NOUNIT
+      INTEGER            INFO, ISRT, JTYPE, LDA, LDLRE, LDVL, LDVR, LWORK, N, NOUNIT
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       INTEGER            ISEED( 4 )
-      DOUBLE PRECISION   RCDEIN( * ), RCDVIN( * ), RCNDE1( * ),
-     $                   RCNDV1( * ), RCONDE( * ), RCONDV( * ),
-     $                   RESULT( 11 ), RWORK( * ), SCALE( * ),
-     $                   SCALE1( * )
-      COMPLEX*16         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ),
-     $                   VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   RCDEIN( * ), RCDVIN( * ), RCNDE1( * ), RCNDV1( * ), RCONDE( * ), RCONDV( * ), RESULT( 11 ), RWORK( * ), SCALE( * ), SCALE1( * )
+      COMPLEX*16         A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -37,11 +27,7 @@
 *     .. Local Scalars ..
       LOGICAL            BALOK, NOBAL
       CHARACTER          SENSE
-      INTEGER            I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM,
-     $                   J, JJ, KMIN
-      DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN,
-     $                   ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN,
-     $                   VRMX, VTST
+      INTEGER            I, IHI, IHI1, IINFO, ILO, ILO1, ISENS, ISENSM, J, JJ, KMIN       DOUBLE PRECISION   ABNRM, ABNRM1, EPS, SMLNUM, TNRM, TOL, TOLIN, ULP, ULPINV, V, VMAX, VMX, VRICMP, VRIMIN, VRMX, VTST
       COMPLEX*16         CTMP
 *     ..
 *     .. Local Arrays ..
@@ -68,8 +54,7 @@
 *     Check for errors
 *
       NOBAL = LSAME( BALANC, 'N' )
-      BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR.
-     $        LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
+      BALOK = NOBAL .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'B' )
       INFO = 0
       IF( ISRT.NE.0 .AND. ISRT.NE.1 ) THEN
          INFO = -2
@@ -104,8 +89,7 @@
          RESULT( I ) = -ONE
    10 CONTINUE
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -123,14 +107,11 @@
          ISENSM = 1
       END IF
       CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-      CALL ZGEEVX( BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR,
-     $             LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK,
-     $             LWORK, RWORK, IINFO )
+      CALL ZGEEVX( BALANC, 'V', 'V', SENSE, N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
       IF( IINFO.NE.0 ) THEN
          RESULT( 1 ) = ULPINV
          IF( JTYPE.NE.22 ) THEN
-            WRITE( NOUNIT, FMT = 9998 )'ZGEEVX1', IINFO, N, JTYPE,
-     $         BALANC, ISEED
+            WRITE( NOUNIT, FMT = 9998 )'ZGEEVX1', IINFO, N, JTYPE, BALANC, ISEED
          ELSE
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX1', IINFO, N, ISEED( 1 )
          END IF
@@ -140,54 +121,40 @@
 *
 *     Do Test (1)
 *
-      CALL ZGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK,
-     $             RES )
+      CALL ZGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
       RESULT( 1 ) = RES( 1 )
 *
 *     Do Test (2)
 *
-      CALL ZGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK,
-     $             RES )
+      CALL ZGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
       RESULT( 2 ) = RES( 1 )
 *
 *     Do Test (3)
 *
       DO 30 J = 1, N
          TNRM = DZNRM2( N, VR( 1, J ), 1 )
-         RESULT( 3 ) = MAX( RESULT( 3 ),
-     $                 MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
+         RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
          VMX = ZERO
          VRMX = ZERO
          DO 20 JJ = 1, N
             VTST = ABS( VR( JJ, J ) )
-            IF( VTST.GT.VMX )
-     $         VMX = VTST
-            IF( DIMAG( VR( JJ, J ) ).EQ.ZERO .AND.
-     $          ABS( DBLE( VR( JJ, J ) ) ).GT.VRMX )
-     $          VRMX = ABS( DBLE( VR( JJ, J ) ) )
+            IF( VTST.GT.VMX ) VMX = VTST             IF( DIMAG( VR( JJ, J ) ).EQ.ZERO .AND. ABS( DBLE( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( DBLE( VR( JJ, J ) ) )
    20    CONTINUE
-         IF( VRMX / VMX.LT.ONE-TWO*ULP )
-     $      RESULT( 3 ) = ULPINV
+         IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
    30 CONTINUE
 *
 *     Do Test (4)
 *
       DO 50 J = 1, N
          TNRM = DZNRM2( N, VL( 1, J ), 1 )
-         RESULT( 4 ) = MAX( RESULT( 4 ),
-     $                 MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
+         RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
          VMX = ZERO
          VRMX = ZERO
          DO 40 JJ = 1, N
             VTST = ABS( VL( JJ, J ) )
-            IF( VTST.GT.VMX )
-     $         VMX = VTST
-            IF( DIMAG( VL( JJ, J ) ).EQ.ZERO .AND.
-     $          ABS( DBLE( VL( JJ, J ) ) ).GT.VRMX )
-     $          VRMX = ABS( DBLE( VL( JJ, J ) ) )
+            IF( VTST.GT.VMX ) VMX = VTST             IF( DIMAG( VL( JJ, J ) ).EQ.ZERO .AND. ABS( DBLE( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( DBLE( VL( JJ, J ) ) )
    40    CONTINUE
-         IF( VRMX / VMX.LT.ONE-TWO*ULP )
-     $      RESULT( 4 ) = ULPINV
+         IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
    50 CONTINUE
 *
 *     Test for all options of computing condition numbers
@@ -199,17 +166,13 @@
 *        Compute eigenvalues only, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1,
-     $                CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1,
-     $                RCNDV1, WORK, LWORK, RWORK, IINFO )
+         CALL ZGEEVX( BALANC, 'N', 'N', SENSE, N, H, LDA, W1, CDUM, 1, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX2', IINFO, N, JTYPE,
-     $            BALANC, ISEED
+               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX2', IINFO, N, JTYPE, BALANC, ISEED
             ELSE
-               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX2', IINFO, N,
-     $            ISEED( 1 )
+               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX2', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
             GO TO 190
@@ -218,48 +181,36 @@
 *        Do Test (5)
 *
          DO 60 J = 1, N
-            IF( W( J ).NE.W1( J ) )
-     $         RESULT( 5 ) = ULPINV
+            IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
    60    CONTINUE
 *
 *        Do Test (8)
 *
          IF( .NOT.NOBAL ) THEN
             DO 70 J = 1, N
-               IF( SCALE( J ).NE.SCALE1( J ) )
-     $            RESULT( 8 ) = ULPINV
+               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
    70       CONTINUE
-            IF( ILO.NE.ILO1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( IHI.NE.IHI1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( ABNRM.NE.ABNRM1 )
-     $         RESULT( 8 ) = ULPINV
+            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
 *        Do Test (9)
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 80 J = 1, N
-               IF( RCONDV( J ).NE.RCNDV1( J ) )
-     $            RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
    80       CONTINUE
          END IF
 *
 *        Compute eigenvalues and right eigenvectors, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1,
-     $                LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1,
-     $                RCNDV1, WORK, LWORK, RWORK, IINFO )
+         CALL ZGEEVX( BALANC, 'N', 'V', SENSE, N, H, LDA, W1, CDUM, 1, LRE, LDLRE, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX3', IINFO, N, JTYPE,
-     $            BALANC, ISEED
+               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX3', IINFO, N, JTYPE, BALANC, ISEED
             ELSE
-               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX3', IINFO, N,
-     $            ISEED( 1 )
+               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX3', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
             GO TO 190
@@ -268,16 +219,14 @@
 *        Do Test (5) again
 *
          DO 90 J = 1, N
-            IF( W( J ).NE.W1( J ) )
-     $         RESULT( 5 ) = ULPINV
+            IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
    90    CONTINUE
 *
 *        Do Test (6)
 *
          DO 110 J = 1, N
             DO 100 JJ = 1, N
-               IF( VR( J, JJ ).NE.LRE( J, JJ ) )
-     $            RESULT( 6 ) = ULPINV
+               IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
   100       CONTINUE
   110    CONTINUE
 *
@@ -285,40 +234,29 @@
 *
          IF( .NOT.NOBAL ) THEN
             DO 120 J = 1, N
-               IF( SCALE( J ).NE.SCALE1( J ) )
-     $            RESULT( 8 ) = ULPINV
+               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   120       CONTINUE
-            IF( ILO.NE.ILO1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( IHI.NE.IHI1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( ABNRM.NE.ABNRM1 )
-     $         RESULT( 8 ) = ULPINV
+            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
 *        Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 130 J = 1, N
-               IF( RCONDV( J ).NE.RCNDV1( J ) )
-     $            RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   130       CONTINUE
          END IF
 *
 *        Compute eigenvalues and left eigenvectors, and test them
 *
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE,
-     $                LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1,
-     $                RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
+         CALL ZGEEVX( BALANC, 'V', 'N', SENSE, N, H, LDA, W1, LRE, LDLRE, CDUM, 1, ILO1, IHI1, SCALE1, ABNRM1, RCNDE1, RCNDV1, WORK, LWORK, RWORK, IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = ULPINV
             IF( JTYPE.NE.22 ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX4', IINFO, N, JTYPE,
-     $            BALANC, ISEED
+               WRITE( NOUNIT, FMT = 9998 )'ZGEEVX4', IINFO, N, JTYPE, BALANC, ISEED
             ELSE
-               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX4', IINFO, N,
-     $            ISEED( 1 )
+               WRITE( NOUNIT, FMT = 9999 )'ZGEEVX4', IINFO, N, ISEED( 1 )
             END IF
             INFO = ABS( IINFO )
             GO TO 190
@@ -327,16 +265,14 @@
 *        Do Test (5) again
 *
          DO 140 J = 1, N
-            IF( W( J ).NE.W1( J ) )
-     $         RESULT( 5 ) = ULPINV
+            IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
   140    CONTINUE
 *
 *        Do Test (7)
 *
          DO 160 J = 1, N
             DO 150 JJ = 1, N
-               IF( VL( J, JJ ).NE.LRE( J, JJ ) )
-     $            RESULT( 7 ) = ULPINV
+               IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
   150       CONTINUE
   160    CONTINUE
 *
@@ -344,23 +280,16 @@
 *
          IF( .NOT.NOBAL ) THEN
             DO 170 J = 1, N
-               IF( SCALE( J ).NE.SCALE1( J ) )
-     $            RESULT( 8 ) = ULPINV
+               IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
   170       CONTINUE
-            IF( ILO.NE.ILO1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( IHI.NE.IHI1 )
-     $         RESULT( 8 ) = ULPINV
-            IF( ABNRM.NE.ABNRM1 )
-     $         RESULT( 8 ) = ULPINV
+            IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          END IF
 *
 *        Do Test (9) again
 *
          IF( ISENS.EQ.2 .AND. N.GT.1 ) THEN
             DO 180 J = 1, N
-               IF( RCONDV( J ).NE.RCNDV1( J ) )
-     $            RESULT( 9 ) = ULPINV
+               IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
   180       CONTINUE
          END IF
 *
@@ -372,9 +301,7 @@
 *
       IF( COMP ) THEN
          CALL ZLACPY( 'F', N, N, A, LDA, H, LDA )
-         CALL ZGEEVX( 'N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR,
-     $                LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV,
-     $                WORK, LWORK, RWORK, IINFO )
+         CALL ZGEEVX( 'N', 'V', 'V', 'B', N, H, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = ULPINV
             WRITE( NOUNIT, FMT = 9999 )'ZGEEVX5', IINFO, N, ISEED( 1 )
@@ -420,8 +347,7 @@
          RESULT( 10 ) = ZERO
          EPS = MAX( EPSIN, ULP )
          V = MAX( DBLE( N )*EPS*ABNRM, SMLNUM )
-         IF( ABNRM.EQ.ZERO )
-     $      V = ONE
+         IF( ABNRM.EQ.ZERO ) V = ONE
          DO 230 I = 1, N
             IF( V.GT.RCONDV( I )*RCONDE( I ) ) THEN
                TOL = RCONDV( I )

@@ -1,5 +1,4 @@
-      SUBROUTINE CPBT05( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX,
-     $                   XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE CPBT05( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX            AB( LDAB, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -97,14 +95,11 @@
             TMP = CABS1( B( I, K ) )
             IF( UPPER ) THEN
                DO 40 J = MAX( I-KD, 1 ), I - 1
-                  TMP = TMP + CABS1( AB( KD+1-I+J, I ) )*
-     $                  CABS1( X( J, K ) )
+                  TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) )
    40          CONTINUE
-               TMP = TMP + ABS( REAL( AB( KD+1, I ) ) )*
-     $               CABS1( X( I, K ) )
+               TMP = TMP + ABS( REAL( AB( KD+1, I ) ) )* CABS1( X( I, K ) )
                DO 50 J = I + 1, MIN( I+KD, N )
-                  TMP = TMP + CABS1( AB( KD+1+I-J, J ) )*
-     $                  CABS1( X( J, K ) )
+                  TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) )
    50          CONTINUE
             ELSE
                DO 60 J = MAX( I-KD, 1 ), I - 1

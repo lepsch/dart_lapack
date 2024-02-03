@@ -50,8 +50,7 @@
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL ZGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV,
-     $                B, LDB, INFO )
+         CALL ZGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
       END IF
       RETURN
 *

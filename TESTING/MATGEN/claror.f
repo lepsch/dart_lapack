@@ -17,11 +17,9 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TOOSML
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0,
-     $                   TOOSML = 1.0E-20 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TOOSML = 1.0E-20 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
@@ -43,8 +41,7 @@
 *     .. Executable Statements ..
 *
       INFO = 0
-      IF( N.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 *
       ITYPE = 0
       IF( LSAME( SIDE, 'L' ) ) THEN
@@ -81,8 +78,7 @@
 *
 *     Initialize A to the identity matrix if desired
 *
-      IF( LSAME( INIT, 'I' ) )
-     $   CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
+      IF( LSAME( INIT, 'I' ) ) CALL CLASET( 'Full', M, N, CZERO, CONE, A, LDA )
 *
 *     If no rotation possible, still multiply by
 *     a random complex number from the circle |x| = 1
@@ -131,10 +127,7 @@
 *
 *           Apply H(k) on the left of A
 *
-            CALL CGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA,
-     $                  X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )
-            CALL CGERC( IXFRM, N, -CMPLX( FACTOR ), X( KBEG ), 1,
-     $                  X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
+            CALL CGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( IXFRM, N, -CMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 *
          END IF
 *
@@ -146,10 +139,7 @@
                CALL CLACGV( IXFRM, X( KBEG ), 1 )
             END IF
 *
-            CALL CGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA,
-     $                  X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )
-            CALL CGERC( M, IXFRM, -CMPLX( FACTOR ), X( 2*NXFRM+1 ), 1,
-     $                  X( KBEG ), 1, A( 1, KBEG ), LDA )
+            CALL CGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( M, IXFRM, -CMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 *
          END IF
    60 CONTINUE

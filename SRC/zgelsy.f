@@ -1,5 +1,4 @@
-      SUBROUTINE ZGELSY( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK,
-     $                   WORK, LWORK, RWORK, INFO )
+      SUBROUTINE ZGELSY( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,20 +22,15 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN,
-     $                   NB, NB1, NB2, NB3, NB4
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR,
-     $                   SMLNUM, WSIZE
+      INTEGER            I, IASCL, IBSCL, ISMAX, ISMIN, J, LWKOPT, MN, NB, NB1, NB2, NB3, NB4       DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM, WSIZE
       COMPLEX*16         C1, C2, S1, S2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZCOPY, ZGEQP3, ZLAIC1, ZLASCL,
-     $                   ZLASET, ZTRSM, ZTZRZF, ZUNMQR, ZUNMRZ
+      EXTERNAL           XERBLA, ZCOPY, ZGEQP3, ZLAIC1, ZLASCL, ZLASET, ZTRSM, ZTZRZF, ZUNMQR, ZUNMRZ
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -73,8 +67,7 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
          INFO = -7
-      ELSE IF( LWORK.LT.( MN+MAX( 2*MN, N+1, MN+NRHS ) ) .AND. .NOT.
-     $         LQUERY ) THEN
+      ELSE IF( LWORK.LT.( MN+MAX( 2*MN, N+1, MN+NRHS ) ) .AND. .NOT. LQUERY ) THEN
          INFO = -12
       END IF
 *
@@ -141,8 +134,7 @@
 *     Compute QR factorization with column pivoting of A:
 *        A * P = Q * R
 *
-      CALL ZGEQP3( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ),
-     $             LWORK-MN, RWORK, INFO )
+      CALL ZGEQP3( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), LWORK-MN, RWORK, INFO )
       WSIZE = MN + DBLE( WORK( MN+1 ) )
 *
 *     complex workspace: MN+NB*(N+1). real workspace 2*N.
@@ -165,10 +157,7 @@
    10 CONTINUE
       IF( RANK.LT.MN ) THEN
          I = RANK + 1
-         CALL ZLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ),
-     $                A( I, I ), SMINPR, S1, C1 )
-         CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ),
-     $                A( I, I ), SMAXPR, S2, C2 )
+         CALL ZLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
 *
          IF( SMAXPR*RCOND.LE.SMINPR ) THEN
             DO 20 I = 1, RANK
@@ -192,25 +181,21 @@
 *
 *     [R11,R12] = [ T11, 0 ] * Y
 *
-      IF( RANK.LT.N )
-     $   CALL ZTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ),
-     $                LWORK-2*MN, INFO )
+      IF( RANK.LT.N ) CALL ZTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO )
 *
 *     complex workspace: 2*MN.
 *     Details of Householder rotations stored in WORK(MN+1:2*MN)
 *
 *     B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 *
-      CALL ZUNMQR( 'Left', 'Conjugate transpose', M, NRHS, MN, A, LDA,
-     $             WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
+      CALL ZUNMQR( 'Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
       WSIZE = MAX( WSIZE, 2*MN+DBLE( WORK( 2*MN+1 ) ) )
 *
 *     complex workspace: 2*MN+NB*NRHS.
 *
 *     B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 *
-      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK,
-     $            NRHS, CONE, A, LDA, B, LDB )
+      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB )
 *
       DO 40 J = 1, NRHS
          DO 30 I = RANK + 1, N
@@ -221,9 +206,7 @@
 *     B(1:N,1:NRHS) := Y**H * B(1:N,1:NRHS)
 *
       IF( RANK.LT.N ) THEN
-         CALL ZUNMRZ( 'Left', 'Conjugate transpose', N, NRHS, RANK,
-     $                N-RANK, A, LDA, WORK( MN+1 ), B, LDB,
-     $                WORK( 2*MN+1 ), LWORK-2*MN, INFO )
+         CALL ZUNMRZ( 'Left', 'Conjugate transpose', N, NRHS, RANK, N-RANK, A, LDA, WORK( MN+1 ), B, LDB, WORK( 2*MN+1 ), LWORK-2*MN, INFO )
       END IF
 *
 *     complex workspace: 2*MN+NRHS.
@@ -243,12 +226,10 @@
 *
       IF( IASCL.EQ.1 ) THEN
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL ZLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL ZLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL ZLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL ZLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
          CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )

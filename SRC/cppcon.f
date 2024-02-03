@@ -89,26 +89,22 @@
 *
 *           Multiply by inv(U**H).
 *
-            CALL CLATPS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                   NORMIN, N, AP, WORK, SCALEL, RWORK, INFO )
+            CALL CLATPS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL CLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEU, RWORK, INFO )
+            CALL CLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL CLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEL, RWORK, INFO )
+            CALL CLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**H).
 *
-            CALL CLATPS( 'Lower', 'Conjugate transpose', 'Non-unit',
-     $                   NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
+            CALL CLATPS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, RWORK, INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -116,8 +112,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = ICAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL CSRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -125,8 +120,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
       RETURN

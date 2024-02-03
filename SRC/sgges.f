@@ -1,6 +1,4 @@
-      SUBROUTINE SGGES( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB,
-     $                  SDIM, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR,
-     $                  LDVSR, WORK, LWORK, BWORK, INFO )
+      SUBROUTINE SGGES( JOBVSL, JOBVSR, SORT, SELCTG, N, A, LDA, B, LDB, SDIM, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK, LWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ),
-     $                   B( LDB, * ), BETA( * ), VSL( LDVSL, * ),
-     $                   VSR( LDVSR, * ), WORK( * )
+      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VSL( LDVSL, * ), VSR( LDVSR, * ), WORK( * )
 *     ..
 *     .. Function Arguments ..
       LOGICAL            SELCTG
@@ -28,21 +24,15 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL,
-     $                   LQUERY, LST2SL, WANTST
-      INTEGER            I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT,
-     $                   ILO, IP, IRIGHT, IROWS, ITAU, IWRK, MAXWRK,
-     $                   MINWRK
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL,
-     $                   PVSR, SAFMAX, SAFMIN, SMLNUM
+      LOGICAL            CURSL, ILASCL, ILBSCL, ILVSL, ILVSR, LASTSL, LQUERY, LST2SL, WANTST       INTEGER            I, ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IP, IRIGHT, IROWS, ITAU, IWRK, MAXWRK, MINWRK
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, PVSL, PVSR, SAFMAX, SAFMIN, SMLNUM
 *     ..
 *     .. Local Arrays ..
       INTEGER            IDUM( 1 )
       REAL               DIF( 2 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY,
-     $                   SLASCL, SLASET, SORGQR, SORMQR, STGSEN
+      EXTERNAL           SGEQRF, SGGBAK, SGGBAL, SGGHRD, SHGEQZ, SLACPY, SLASCL, SLASET, SORGQR, SORMQR, STGSEN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -113,13 +103,9 @@
       IF( INFO.EQ.0 ) THEN
          IF( N.GT.0 )THEN
             MINWRK = MAX( 8*N, 6*N + 16 )
-            MAXWRK = MINWRK - N +
-     $               N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )
-            MAXWRK = MAX( MAXWRK, MINWRK - N +
-     $                    N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) )
+            MAXWRK = MINWRK - N + N*ILAENV( 1, 'SGEQRF', ' ', N, 1, N, 0 )             MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORMQR', ' ', N, 1, N, -1 ) )
             IF( ILVSL ) THEN
-               MAXWRK = MAX( MAXWRK, MINWRK - N +
-     $                       N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) )
+               MAXWRK = MAX( MAXWRK, MINWRK - N + N*ILAENV( 1, 'SORGQR', ' ', N, 1, N, -1 ) )
             END IF
          ELSE
             MINWRK = 1
@@ -127,8 +113,7 @@
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 *
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY )
-     $      INFO = -19
+         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) INFO = -19
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -164,8 +149,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-      IF( ILASCL )
-     $   CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -178,8 +162,7 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-      IF( ILBSCL )
-     $   CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute the matrix to make it more nearly triangular
 *     (Workspace: need 6*N + 2*N space for storing balancing factors)
@@ -187,8 +170,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWRK = IRIGHT + N
-      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ),
-     $             WORK( IRIGHT ), WORK( IWRK ), IERR )
+      CALL SGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWRK ), IERR )
 *
 *     Reduce B to triangular form (QR decomposition of B)
 *     (Workspace: need N, prefer N*NB)
@@ -197,15 +179,12 @@
       ICOLS = N + 1 - ILO
       ITAU = IWRK
       IWRK = ITAU + IROWS
-      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL SGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the orthogonal transformation to matrix A
 *     (Workspace: need N, prefer N*NB)
 *
-      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL SORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VSL
 *     (Workspace: need N, prefer N*NB)
@@ -213,31 +192,25 @@
       IF( ILVSL ) THEN
          CALL SLASET( 'Full', N, N, ZERO, ONE, VSL, LDVSL )
          IF( IROWS.GT.1 ) THEN
-            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VSL( ILO+1, ILO ), LDVSL )
+            CALL SLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )
          END IF
-         CALL SORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL SORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
 *     Initialize VSR
 *
-      IF( ILVSR )
-     $   CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
+      IF( ILVSR ) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR )
 *
 *     Reduce to generalized Hessenberg form
 *     (Workspace: none needed)
 *
-      CALL SGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL,
-     $             LDVSL, VSR, LDVSR, IERR )
+      CALL SGGHRD( JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, VSL, LDVSL, VSR, LDVSR, IERR )
 *
 *     Perform QZ algorithm, computing Schur vectors if desired
 *     (Workspace: need N)
 *
       IWRK = ITAU
-      CALL SHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR,
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL SHGEQZ( 'S', JOBVSL, JOBVSR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -258,13 +231,9 @@
 *        Undo scaling on eigenvalues before SELCTGing
 *
          IF( ILASCL ) THEN
-            CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N,
-     $                   IERR )
-            CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N,
-     $                   IERR )
+            CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR )
          END IF
-         IF( ILBSCL )
-     $      CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+         IF( ILBSCL ) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
 *        Select eigenvalues
 *
@@ -272,25 +241,17 @@
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
    10    CONTINUE
 *
-         CALL STGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR,
-     $                ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL,
-     $                PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1,
-     $                IERR )
-         IF( IERR.EQ.1 )
-     $      INFO = N + 3
+         CALL STGSEN( 0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR )
+         IF( IERR.EQ.1 ) INFO = N + 3
 *
       END IF
 *
 *     Apply back-permutation to VSL and VSR
 *     (Workspace: none needed)
 *
-      IF( ILVSL )
-     $   CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ),
-     $                WORK( IRIGHT ), N, VSL, LDVSL, IERR )
+      IF( ILVSL ) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR )
 *
-      IF( ILVSR )
-     $   CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ),
-     $                WORK( IRIGHT ), N, VSR, LDVSR, IERR )
+      IF( ILVSR ) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR )
 *
 *     Check if unscaling would cause over/underflow, if so, rescale
 *     (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of
@@ -299,14 +260,12 @@
       IF( ILASCL )THEN
          DO 50 I = 1, N
             IF( ALPHAI( I ).NE.ZERO ) THEN
-               IF( ( ALPHAR( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR.
-     $             ( SAFMIN/ALPHAR( I ) ).GT.( ANRM/ANRMTO ) ) THEN
+               IF( ( ALPHAR( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR. ( SAFMIN/ALPHAR( I ) ).GT.( ANRM/ANRMTO ) ) THEN
                   WORK( 1 ) = ABS( A( I, I )/ALPHAR( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
-               ELSE IF( ( ALPHAI( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR.
-     $             ( SAFMIN/ALPHAI( I ) ).GT.( ANRM/ANRMTO ) ) THEN
+               ELSE IF( ( ALPHAI( I )/SAFMAX ).GT.( ANRMTO/ANRM ) .OR. ( SAFMIN/ALPHAI( I ) ).GT.( ANRM/ANRMTO ) ) THEN
                   WORK( 1 ) = ABS( A( I, I+1 )/ALPHAI( I ) )
                   BETA( I ) = BETA( I )*WORK( 1 )
                   ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -319,8 +278,7 @@
       IF( ILBSCL )THEN
          DO 60 I = 1, N
             IF( ALPHAI( I ).NE.ZERO ) THEN
-                IF( ( BETA( I )/SAFMAX ).GT.( BNRMTO/BNRM ) .OR.
-     $              ( SAFMIN/BETA( I ) ).GT.( BNRM/BNRMTO ) ) THEN
+                IF( ( BETA( I )/SAFMAX ).GT.( BNRMTO/BNRM ) .OR. ( SAFMIN/BETA( I ) ).GT.( BNRM/BNRMTO ) ) THEN
                    WORK( 1 ) = ABS(B( I, I )/BETA( I ))
                    BETA( I ) = BETA( I )*WORK( 1 )
                    ALPHAR( I ) = ALPHAR( I )*WORK( 1 )
@@ -354,11 +312,9 @@
          DO 30 I = 1, N
             CURSL = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
             IF( ALPHAI( I ).EQ.ZERO ) THEN
-               IF( CURSL )
-     $            SDIM = SDIM + 1
+               IF( CURSL ) SDIM = SDIM + 1
                IP = 0
-               IF( CURSL .AND. .NOT.LASTSL )
-     $            INFO = N + 2
+               IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             ELSE
                IF( IP.EQ.1 ) THEN
 *
@@ -366,11 +322,9 @@
 *
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
-                  IF( CURSL )
-     $               SDIM = SDIM + 2
+                  IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
-                  IF( CURSL .AND. .NOT.LST2SL )
-     $               INFO = N + 2
+                  IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
                ELSE
 *
 *                 First eigenvalue of conjugate pair

@@ -1,29 +1,24 @@
-      SUBROUTINE DCHKSB( NSIZES, NN, NWDTHS, KK, NTYPES, DOTYPE, ISEED,
-     $                   THRESH, NOUNIT, A, LDA, SD, SE, U, LDU, WORK,
-     $                   LWORK, RESULT, INFO )
+      SUBROUTINE DCHKSB( NSIZES, NN, NWDTHS, KK, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, SD, SE, U, LDU, WORK, LWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES,
-     $                   NWDTHS
+      INTEGER            INFO, LDA, LDU, LWORK, NOUNIT, NSIZES, NTYPES, NWDTHS
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), KK( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), RESULT( * ), SD( * ), SE( * ),
-     $                   U( LDU, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), RESULT( * ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, TEN
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   TEN = 10.0D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, TEN = 10.0D0 )
       DOUBLE PRECISION   HALF
       PARAMETER          ( HALF = ONE / TWO )
       INTEGER            MAXTYP
@@ -31,33 +26,25 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, BADNNB
-      INTEGER            I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE,
-     $                   JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS,
-     $                   NMATS, NMAX, NTEST, NTESTT
-      DOUBLE PRECISION   ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL,
-     $                   TEMP1, ULP, ULPINV, UNFL
+      INTEGER            I, IINFO, IMODE, ITYPE, J, JC, JCOL, JR, JSIZE, JTYPE, JWIDTH, K, KMAX, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      DOUBLE PRECISION   ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ),
-     $                   KMODE( MAXTYP ), KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACPY, DLASET, DLASUM, DLATMR, DLATMS, DSBT21,
-     $                   DSBTRD, XERBLA
+      EXTERNAL           DLACPY, DLASET, DLASUM, DLATMR, DLATMS, DSBT21, DSBTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8 /
-      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1,
-     $                   2, 3 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0,
-     $                   0, 0 /
+      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -72,16 +59,14 @@
       NMAX = 1
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
       BADNNB = .FALSE.
       KMAX = 0
       DO 20 J = 1, NSIZES
          KMAX = MAX( KMAX, KK( J ) )
-         IF( KK( J ).LT.0 )
-     $      BADNNB = .TRUE.
+         IF( KK( J ).LT.0 ) BADNNB = .TRUE.
    20 CONTINUE
       KMAX = MIN( NMAX-1, KMAX )
 *
@@ -112,8 +97,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 .OR. NWDTHS.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -135,8 +119,7 @@
 *
          DO 180 JWIDTH = 1, NWDTHS
             K = KK( JWIDTH )
-            IF( K.GT.N )
-     $         GO TO 180
+            IF( K.GT.N ) GO TO 180
             K = MAX( 0, MIN( N-1, K ) )
 *
             IF( NSIZES.NE.1 ) THEN
@@ -146,8 +129,7 @@
             END IF
 *
             DO 170 JTYPE = 1, MTYPES
-               IF( .NOT.DOTYPE( JTYPE ) )
-     $            GO TO 170
+               IF( .NOT.DOTYPE( JTYPE ) ) GO TO 170
                NMATS = NMATS + 1
                NTEST = 0
 *
@@ -172,8 +154,7 @@
 *              =9                      positive definite
 *              =10                     diagonally dominant tridiagonal
 *
-               IF( MTYPES.GT.MAXTYP )
-     $            GO TO 100
+               IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
                ITYPE = KTYPE( JTYPE )
                IMODE = KMODE( JTYPE )
@@ -223,60 +204,41 @@
 *
 *                 Diagonal Matrix, [Eigen]values Specified
 *
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                         ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA,
-     $                         WORK( N+1 ), IINFO )
+                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'Q', A( K+1, 1 ), LDA, WORK( N+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *                 Symmetric, eigenvalues specified
 *
-                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                         ANORM, K, K, 'Q', A, LDA, WORK( N+1 ),
-     $                         IINFO )
+                  CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *                 Diagonal, random eigenvalues
 *
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                         'T', 'N', WORK( N+1 ), 1, ONE,
-     $                         WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                         ZERO, ANORM, 'Q', A( K+1, 1 ), LDA,
-     $                         IDUMMA, IINFO )
+                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'Q', A( K+1, 1 ), LDA, IDUMMA, IINFO )
 *
                ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *                 Symmetric, random eigenvalues
 *
-                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                         'T', 'N', WORK( N+1 ), 1, ONE,
-     $                         WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K,
-     $                         ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
+                  CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, K, K, ZERO, ANORM, 'Q', A, LDA, IDUMMA, IINFO )
 *
                ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *                 Positive definite, eigenvalues specified.
 *
-                  CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND,
-     $                         ANORM, K, K, 'Q', A, LDA, WORK( N+1 ),
-     $                         IINFO )
+                  CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, K, K, 'Q', A, LDA, WORK( N+1 ), IINFO )
 *
                ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *                 Positive definite tridiagonal, eigenvalues specified.
 *
-                  IF( N.GT.1 )
-     $               K = MAX( 1, K )
-                  CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND,
-     $                         ANORM, 1, 1, 'Q', A( K, 1 ), LDA,
-     $                         WORK( N+1 ), IINFO )
+                  IF( N.GT.1 ) K = MAX( 1, K )                   CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO )
                   DO 90 I = 2, N
-                     TEMP1 = ABS( A( K, I ) ) /
-     $                       SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
+                     TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      IF( TEMP1.GT.HALF ) THEN
-                        A( K, I ) = HALF*SQRT( ABS( A( K+1,
-     $                              I-1 )*A( K+1, I ) ) )
+                        A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      END IF
    90             CONTINUE
 *
@@ -286,8 +248,7 @@
                END IF
 *
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   RETURN
                END IF
@@ -299,12 +260,10 @@
                CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
 *
                NTEST = 1
-               CALL DSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU,
-     $                      WORK( LDA*N+1 ), IINFO )
+               CALL DSBTRD( 'V', 'U', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
 *
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'DSBTRD(U)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -316,8 +275,7 @@
 *
 *              Do tests 1 and 2
 *
-               CALL DSBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU,
-     $                      WORK, RESULT( 1 ) )
+               CALL DSBT21( 'Upper', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 1 ) )
 *
 *              Convert A from Upper-Triangle-Only storage to
 *              Lower-Triangle-Only storage.
@@ -338,12 +296,10 @@
                CALL DLACPY( ' ', K+1, N, A, LDA, WORK, LDA )
 *
                NTEST = 3
-               CALL DSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU,
-     $                      WORK( LDA*N+1 ), IINFO )
+               CALL DSBTRD( 'V', 'L', N, K, WORK, LDA, SD, SE, U, LDU, WORK( LDA*N+1 ), IINFO )
 *
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'DSBTRD(L)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -356,8 +312,7 @@
 *
 *              Do tests 3 and 4
 *
-               CALL DSBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU,
-     $                      WORK, RESULT( 3 ) )
+               CALL DSBT21( 'Lower', N, K, 1, A, LDA, SD, SE, U, LDU, WORK, RESULT( 3 ) )
 *
 *              End of Loop -- Check for RESULT(j) > THRESH
 *
@@ -377,12 +332,10 @@
                         WRITE( NOUNIT, FMT = 9997 )
                         WRITE( NOUNIT, FMT = 9996 )
                         WRITE( NOUNIT, FMT = 9995 )'Symmetric'
-                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''',
-     $                     'transpose', ( '''', J = 1, 4 )
+                        WRITE( NOUNIT, FMT = 9994 )'orthogonal', '''', 'transpose', ( '''', J = 1, 4 )
                      END IF
                      NERRS = NERRS + 1
-                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE,
-     $                  JR, RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   END IF
   160          CONTINUE
 *

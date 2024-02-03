@@ -1,5 +1,4 @@
-      SUBROUTINE CTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, W, M, S,
-     $                   SEP, WORK, LWORK, INFO )
+      SUBROUTINE CTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, W, M, S, SEP, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -54,8 +53,7 @@
 *
       M = 0
       DO 10 K = 1, N
-         IF( SELECT( K ) )
-     $      M = M + 1
+         IF( SELECT( K ) ) M = M + 1
    10 CONTINUE
 *
       N1 = M
@@ -73,8 +71,7 @@
          LWMIN = MAX( 1, NN )
       END IF
 *
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP )
-     $     THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
          INFO = -2
@@ -102,10 +99,7 @@
 *     Quick return if possible
 *
       IF( M.EQ.N .OR. M.EQ.0 ) THEN
-         IF( WANTS )
-     $      S = ONE
-         IF( WANTSP )
-     $      SEP = CLANGE( '1', N, N, T, LDT, RWORK )
+         IF( WANTS ) S = ONE          IF( WANTSP ) SEP = CLANGE( '1', N, N, T, LDT, RWORK )
          GO TO 40
       END IF
 *
@@ -118,8 +112,7 @@
 *
 *           Swap the K-th eigenvalue to position KS.
 *
-            IF( K.NE.KS )
-     $         CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
+            IF( K.NE.KS ) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
          END IF
    20 CONTINUE
 *
@@ -130,8 +123,7 @@
 *           T11*R - R*T22 = scale*T12
 *
          CALL CLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
-         CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ),
-     $                LDT, WORK, N1, SCALE, IERR )
+         CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
 *
 *        Estimate the reciprocal of the condition number of the cluster
 *        of eigenvalues.
@@ -140,8 +132,7 @@
          IF( RNORM.EQ.ZERO ) THEN
             S = ONE
          ELSE
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )*
-     $          SQRT( RNORM ) )
+            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
          END IF
       END IF
 *
@@ -158,16 +149,12 @@
 *
 *              Solve T11*R - R*T22 = scale*X.
 *
-               CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT,
-     $                      T( N1+1, N1+1 ), LDT, WORK, N1, SCALE,
-     $                      IERR )
+               CALL CTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             ELSE
 *
 *              Solve T11**H*R - R*T22**H = scale*X.
 *
-               CALL CTRSYL( 'C', 'C', -1, N1, N2, T, LDT,
-     $                      T( N1+1, N1+1 ), LDT, WORK, N1, SCALE,
-     $                      IERR )
+               CALL CTRSYL( 'C', 'C', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             END IF
             GO TO 30
          END IF

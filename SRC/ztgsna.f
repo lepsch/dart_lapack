@@ -1,6 +1,4 @@
-      SUBROUTINE ZTGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL,
-     $                   LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK,
-     $                   IWORK, INFO )
+      SUBROUTINE ZTGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
       DOUBLE PRECISION   DIF( * ), S( * )
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), VL( LDVL, * ),
-     $                   VR( LDVR, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -81,8 +78,7 @@
          IF( SOMCON ) THEN
             M = 0
             DO 10 K = 1, N
-               IF( SELECT( K ) )
-     $            M = M + 1
+               IF( SELECT( K ) ) M = M + 1
    10       CONTINUE
          ELSE
             M = N
@@ -113,8 +109,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -128,8 +123,7 @@
 *        eigenpair.
 *
          IF( SOMCON ) THEN
-            IF( .NOT.SELECT( K ) )
-     $         GO TO 20
+            IF( .NOT.SELECT( K ) ) GO TO 20
          END IF
 *
          KS = KS + 1
@@ -141,11 +135,9 @@
 *
             RNRM = DZNRM2( N, VR( 1, KS ), 1 )
             LNRM = DZNRM2( N, VL( 1, KS ), 1 )
-            CALL ZGEMV( 'N', N, N, DCMPLX( ONE, ZERO ), A, LDA,
-     $                  VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 )
+            CALL ZGEMV( 'N', N, N, DCMPLX( ONE, ZERO ), A, LDA, VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 )
             YHAX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 )
-            CALL ZGEMV( 'N', N, N, DCMPLX( ONE, ZERO ), B, LDB,
-     $                  VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 )
+            CALL ZGEMV( 'N', N, N, DCMPLX( ONE, ZERO ), B, LDB, VR( 1, KS ), 1, DCMPLX( ZERO, ZERO ), WORK, 1 )
             YHBX = ZDOTC( N, WORK, 1, VL( 1, KS ), 1 )
             COND = DLAPY2( ABS( YHAX ), ABS( YHBX ) )
             IF( COND.EQ.ZERO ) THEN
@@ -171,8 +163,7 @@
                IFST = K
                ILST = 1
 *
-               CALL ZTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ),
-     $                      N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR )
+               CALL ZTGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, IERR )
 *
                IF( IERR.GT.0 ) THEN
 *
@@ -190,11 +181,7 @@
                   N1 = 1
                   N2 = N - N1
                   I = N*N + 1
-                  CALL ZTGSYL( 'N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ),
-     $                         N, WORK, N, WORK( N1+1 ), N,
-     $                         WORK( N*N1+N1+I ), N, WORK( I ), N,
-     $                         WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY,
-     $                         1, IWORK, IERR )
+                  CALL ZTGSYL( 'N', IDIFJB, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), DUMMY, 1, IWORK, IERR )
                END IF
             END IF
          END IF

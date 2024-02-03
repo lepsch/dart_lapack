@@ -46,8 +46,7 @@
          RETURN
       END IF
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       EPS = SLAMCH( 'Epsilon' )
       SFMIN = SLAMCH( 'Safe minimum' )
@@ -56,15 +55,12 @@
       IF( JOB.LT.0 ) THEN
          IF( TOL.LE.ZERO ) THEN
             TOL = ABS( A( 1 ) )
-            IF( N.GT.1 )
-     $         TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
+            IF( N.GT.1 ) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
             DO 10 K = 3, N
-               TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ),
-     $               ABS( D( K-2 ) ) )
+               TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
    10       CONTINUE
             TOL = TOL*EPS
-            IF( TOL.EQ.ZERO )
-     $         TOL = EPS
+            IF( TOL.EQ.ZERO ) TOL = EPS
          END IF
       END IF
 *
@@ -91,8 +87,7 @@
                ABSAK = ABS( AK )
                IF( ABSAK.LT.ONE ) THEN
                   IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK )
-     $                    THEN
+                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         INFO = K
                         RETURN
                      ELSE
@@ -121,8 +116,7 @@
                ABSAK = ABS( AK )
                IF( ABSAK.LT.ONE ) THEN
                   IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK )
-     $                    THEN
+                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 40
@@ -156,8 +150,7 @@
                ABSAK = ABS( AK )
                IF( ABSAK.LT.ONE ) THEN
                   IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK )
-     $                    THEN
+                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         INFO = K
                         RETURN
                      ELSE
@@ -186,8 +179,7 @@
                ABSAK = ABS( AK )
                IF( ABSAK.LT.ONE ) THEN
                   IF( ABSAK.LT.SFMIN ) THEN
-                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK )
-     $                    THEN
+                     IF( ABSAK.EQ.ZERO .OR. ABS( TEMP )*SFMIN.GT.ABSAK ) THEN
                         AK = AK + PERT
                         PERT = 2*PERT
                         GO TO 70

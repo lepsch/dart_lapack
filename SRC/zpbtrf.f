@@ -44,8 +44,7 @@
 *     Test the input parameters.
 *
       INFO = 0
-      IF( ( .NOT.LSAME( UPLO, 'U' ) ) .AND.
-     $    ( .NOT.LSAME( UPLO, 'L' ) ) ) THEN
+      IF( ( .NOT.LSAME( UPLO, 'U' ) ) .AND. ( .NOT.LSAME( UPLO, 'L' ) ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -61,8 +60,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment
 *
@@ -131,16 +129,11 @@
 *
 *                    Update A12
 *
-                     CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose',
-     $                           'Non-unit', IB, I2, CONE,
-     $                           AB( KD+1, I ), LDAB-1,
-     $                           AB( KD+1-IB, I+IB ), LDAB-1 )
+                     CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I2, CONE, AB( KD+1, I ), LDAB-1, AB( KD+1-IB, I+IB ), LDAB-1 )
 *
 *                    Update A22
 *
-                     CALL ZHERK( 'Upper', 'Conjugate transpose', I2, IB,
-     $                           -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE,
-     $                           AB( KD+1, I+IB ), LDAB-1 )
+                     CALL ZHERK( 'Upper', 'Conjugate transpose', I2, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, ONE, AB( KD+1, I+IB ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
@@ -155,24 +148,15 @@
 *
 *                    Update A13 (in the work array).
 *
-                     CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose',
-     $                           'Non-unit', IB, I3, CONE,
-     $                           AB( KD+1, I ), LDAB-1, WORK, LDWORK )
+                     CALL ZTRSM( 'Left', 'Upper', 'Conjugate transpose', 'Non-unit', IB, I3, CONE, AB( KD+1, I ), LDAB-1, WORK, LDWORK )
 *
 *                    Update A23
 *
-                     IF( I2.GT.0 )
-     $                  CALL ZGEMM( 'Conjugate transpose',
-     $                              'No transpose', I2, I3, IB, -CONE,
-     $                              AB( KD+1-IB, I+IB ), LDAB-1, WORK,
-     $                              LDWORK, CONE, AB( 1+IB, I+KD ),
-     $                              LDAB-1 )
+                     IF( I2.GT.0 ) CALL ZGEMM( 'Conjugate transpose', 'No transpose', I2, I3, IB, -CONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, CONE, AB( 1+IB, I+KD ), LDAB-1 )
 *
 *                    Update A33
 *
-                     CALL ZHERK( 'Upper', 'Conjugate transpose', I3, IB,
-     $                           -ONE, WORK, LDWORK, ONE,
-     $                           AB( KD+1, I+KD ), LDAB-1 )
+                     CALL ZHERK( 'Upper', 'Conjugate transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( KD+1, I+KD ), LDAB-1 )
 *
 *                    Copy the lower triangle of A13 back into place.
 *
@@ -233,16 +217,11 @@
 *
 *                    Update A21
 *
-                     CALL ZTRSM( 'Right', 'Lower',
-     $                           'Conjugate transpose', 'Non-unit', I2,
-     $                           IB, CONE, AB( 1, I ), LDAB-1,
-     $                           AB( 1+IB, I ), LDAB-1 )
+                     CALL ZTRSM( 'Right', 'Lower', 'Conjugate transpose', 'Non-unit', I2, IB, CONE, AB( 1, I ), LDAB-1, AB( 1+IB, I ), LDAB-1 )
 *
 *                    Update A22
 *
-                     CALL ZHERK( 'Lower', 'No transpose', I2, IB, -ONE,
-     $                           AB( 1+IB, I ), LDAB-1, ONE,
-     $                           AB( 1, I+IB ), LDAB-1 )
+                     CALL ZHERK( 'Lower', 'No transpose', I2, IB, -ONE, AB( 1+IB, I ), LDAB-1, ONE, AB( 1, I+IB ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
@@ -257,25 +236,15 @@
 *
 *                    Update A31 (in the work array).
 *
-                     CALL ZTRSM( 'Right', 'Lower',
-     $                           'Conjugate transpose', 'Non-unit', I3,
-     $                           IB, CONE, AB( 1, I ), LDAB-1, WORK,
-     $                           LDWORK )
+                     CALL ZTRSM( 'Right', 'Lower', 'Conjugate transpose', 'Non-unit', I3, IB, CONE, AB( 1, I ), LDAB-1, WORK, LDWORK )
 *
 *                    Update A32
 *
-                     IF( I2.GT.0 )
-     $                  CALL ZGEMM( 'No transpose',
-     $                              'Conjugate transpose', I3, I2, IB,
-     $                              -CONE, WORK, LDWORK, AB( 1+IB, I ),
-     $                              LDAB-1, CONE, AB( 1+KD-IB, I+IB ),
-     $                              LDAB-1 )
+                     IF( I2.GT.0 ) CALL ZGEMM( 'No transpose', 'Conjugate transpose', I3, I2, IB, -CONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, CONE, AB( 1+KD-IB, I+IB ), LDAB-1 )
 *
 *                    Update A33
 *
-                     CALL ZHERK( 'Lower', 'No transpose', I3, IB, -ONE,
-     $                           WORK, LDWORK, ONE, AB( 1, I+KD ),
-     $                           LDAB-1 )
+                     CALL ZHERK( 'Lower', 'No transpose', I3, IB, -ONE, WORK, LDWORK, ONE, AB( 1, I+KD ), LDAB-1 )
 *
 *                    Copy the upper triangle of A31 back into place.
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE CQRT01P( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE CQRT01P( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ),
-     $                   R( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -73,8 +71,7 @@
 *
 *     Compute R - Q'*A
 *
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', M, N, M,
-     $            CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA )
+      CALL CGEMM( 'Conjugate transpose', 'No transpose', M, N, M, CMPLX( -ONE ), Q, LDA, A, LDA, CMPLX( ONE ), R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 *
@@ -89,8 +86,7 @@
 *     Compute I - Q'*Q
 *
       CALL CLASET( 'Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), R, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA,
-     $            ONE, R, LDA )
+      CALL CHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *

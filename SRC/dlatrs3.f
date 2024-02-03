@@ -1,5 +1,4 @@
-      SUBROUTINE DLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA,
-     $                    X, LDX, SCALE, CNORM, WORK, LWORK, INFO )
+      SUBROUTINE DLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO )
       IMPLICIT NONE
 *
 *     .. Scalar Arguments ..
@@ -7,8 +6,7 @@
       INTEGER            INFO, LDA, LWORK, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), CNORM( * ), X( LDX, * ),
-     $                   SCALE( * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), CNORM( * ), X( LDX, * ), SCALE( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -25,11 +23,8 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, NOTRAN, NOUNIT, UPPER
-      INTEGER            AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J,
-     $                   JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2,
-     $                   LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC,
-     $                   SCAMIN, SMLNUM, TMAX
+      INTEGER            AWRK, I, IFIRST, IINC, ILAST, II, I1, I2, J, JFIRST, JINC, JLAST, J1, J2, K, KK, K1, K2, LANRM, LDS, LSCALE, NB, NBA, NBX, RHS, LWMIN
+      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, RSCAL, SCAL, SCALOC, SCAMIN, SMLNUM, TMAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -89,13 +84,11 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT.
-     $         LSAME( NORMIN, 'N' ) ) THEN
+      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -123,8 +116,7 @@
 *
 *     Quick return if possible
 *
-      IF( MIN( N, NRHS ).EQ.0 )
-     $   RETURN
+      IF( MIN( N, NRHS ).EQ.0 ) RETURN
 *
 *     Determine machine dependent constant to control overflow.
 *
@@ -134,11 +126,9 @@
 *     Use unblocked code for small problems
 *
       IF( NRHS.LT.NRHSMIN ) THEN
-         CALL DLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1),
-     $                SCALE( 1 ), CNORM, INFO )
+         CALL DLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X( 1, 1), SCALE( 1 ), CNORM, INFO )
          DO K = 2, NRHS
-            CALL DLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ),
-     $                   SCALE( K ), CNORM, INFO )
+            CALL DLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
          END DO
          RETURN
       END IF
@@ -184,8 +174,7 @@
 *        in the computation of the column norms CNORM.
 *
          DO K = 1, NRHS
-            CALL DLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ),
-     $                   SCALE( K ), CNORM, INFO )
+            CALL DLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, X( 1, K ), SCALE( K ), CNORM, INFO )
          END DO
          RETURN
       END IF
@@ -253,19 +242,14 @@
             DO KK = 1, K2-K1
                RHS = K1 + KK - 1
                IF( KK.EQ.1 ) THEN
-                  CALL DLATRS( UPLO, TRANS, DIAG, 'N', J2-J1,
-     $                         A( J1, J1 ), LDA, X( J1, RHS ),
-     $                         SCALOC, CNORM, INFO )
+                  CALL DLATRS( UPLO, TRANS, DIAG, 'N', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
                ELSE
-                  CALL DLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1,
-     $                         A( J1, J1 ), LDA, X( J1, RHS ),
-     $                         SCALOC, CNORM, INFO )
+                  CALL DLATRS( UPLO, TRANS, DIAG, 'Y', J2-J1, A( J1, J1 ), LDA, X( J1, RHS ), SCALOC, CNORM, INFO )
                END IF
 *              Find largest absolute value entry in the vector segment
 *              X( J1:J2-1, RHS ) as an upper bound for the worst case
 *              growth in the linear updates.
-               XNRM( KK ) = DLANGE( 'I', J2-J1, 1, X( J1, RHS ),
-     $                              LDX, W )
+               XNRM( KK ) = DLANGE( 'I', J2-J1, 1, X( J1, RHS ), LDX, W )
 *
                IF( SCALOC .EQ. ZERO ) THEN
 *                 LATRS found that A is singular through A(j,j) = 0.
@@ -394,16 +378,12 @@
 *
 *                 B( I, K ) := B( I, K ) - A( I, J ) * X( J, K )
 *
-                  CALL DGEMM( 'N', 'N', I2-I1, K2-K1, J2-J1, -ONE,
-     $                        A( I1, J1 ), LDA, X( J1, K1 ), LDX,
-     $                        ONE, X( I1, K1 ), LDX )
+                  CALL DGEMM( 'N', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( I1, J1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX )
                ELSE
 *
 *                 B( I, K ) := B( I, K ) - A( J, I )**T * X( J, K )
 *
-                  CALL DGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -ONE,
-     $                        A( J1, I1 ), LDA, X( J1, K1 ), LDX,
-     $                        ONE, X( I1, K1 ), LDX )
+                  CALL DGEMM( 'T', 'N', I2-I1, K2-K1, J2-J1, -ONE, A( J1, I1 ), LDA, X( J1, K1 ), LDX, ONE, X( I1, K1 ), LDX )
                END IF
             END DO
          END DO
@@ -426,8 +406,7 @@
                   I1 = (I-1)*NB + 1
                   I2 = MIN( I*NB, N ) + 1
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS )
-                  IF( SCAL.NE.ONE )
-     $               CALL DSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
+                  IF( SCAL.NE.ONE ) CALL DSCAL( I2-I1, SCAL, X( I1, RHS ), 1 )
                END DO
             END IF
          END DO

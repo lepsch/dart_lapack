@@ -8,8 +8,7 @@
       integer           nNaN, nInf
       parameter       ( nNaN = 3, nInf = 5 )
       double complex    czero, cone
-      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ),
-     $                  cone  = DCMPLX( 1.0d0, 0.0d0 ) )
+      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
 *     ..
 *     .. Local Variables ..
       integer           i, nFailingTests, nTests
@@ -54,8 +53,7 @@
           R = cone * Y
           if( (R .ne. Y) .and. (R .eq. R) ) then
               nFailingTests = nFailingTests + 1
-              WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R,
-     $                               'the input and NaN'
+              WRITE( *, FMT = 9998 ) 'ib',i, cone, Y, R, 'the input and NaN'
           endif
           R = Y * Y
           if( (i.eq.1) .or. (i.eq.2) ) then
@@ -68,7 +66,7 @@
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, '-Inf and NaN'
               endif
-          else 
+          else
               if( R .eq. R ) then
                   nFailingTests = nFailingTests + 1
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
@@ -98,8 +96,7 @@
   20  continue
 *
       if( nFailingTests .gt. 0 ) then
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests,
-     $      " pass for complex multiplication,", nFailingTests," fail."
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail."
       else
          print *, "# All tests pass for complex multiplication."
       endif

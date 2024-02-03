@@ -1,6 +1,4 @@
-      SUBROUTINE DTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR,
-     $                   LDVR, S, SEP, MM, M, WORK, LDWORK, IWORK,
-     $                   INFO )
+      SUBROUTINE DTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ),
-     $                   VR( LDVR, * ), WORK( LDWORK, * )
+      DOUBLE PRECISION   S( * ), SEP( * ), T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -26,8 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            PAIR, SOMCON, WANTBH, WANTS, WANTSP
       INTEGER            I, IERR, IFST, ILST, J, K, KASE, KS, N2, NN
-      DOUBLE PRECISION   BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM,
-     $                   MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN
+      DOUBLE PRECISION   BIGNUM, COND, CS, DELTA, DUMM, EPS, EST, LNRM, MU, PROD, PROD1, PROD2, RNRM, SCALE, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
       INTEGER            ISAVE( 3 )
@@ -81,16 +77,13 @@
                ELSE
                   IF( K.LT.N ) THEN
                      IF( T( K+1, K ).EQ.ZERO ) THEN
-                        IF( SELECT( K ) )
-     $                     M = M + 1
+                        IF( SELECT( K ) ) M = M + 1
                      ELSE
                         PAIR = .TRUE.
-                        IF( SELECT( K ) .OR. SELECT( K+1 ) )
-     $                     M = M + 2
+                        IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      END IF
                   ELSE
-                     IF( SELECT( N ) )
-     $                  M = M + 1
+                     IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
@@ -111,18 +104,13 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( SOMCON ) THEN
-            IF( .NOT.SELECT( 1 ) )
-     $         RETURN
+            IF( .NOT.SELECT( 1 ) ) RETURN
          END IF
-         IF( WANTS )
-     $      S( 1 ) = ONE
-         IF( WANTSP )
-     $      SEP( 1 ) = ABS( T( 1, 1 ) )
+         IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
          RETURN
       END IF
 *
@@ -142,8 +130,7 @@
             PAIR = .FALSE.
             GO TO 60
          ELSE
-            IF( K.LT.N )
-     $         PAIR = T( K+1, K ).NE.ZERO
+            IF( K.LT.N ) PAIR = T( K+1, K ).NE.ZERO
          END IF
 *
 *        Determine whether condition numbers are required for the k-th
@@ -151,11 +138,9 @@
 *
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
-               IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) )
-     $            GO TO 60
+               IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 60
             ELSE
-               IF( .NOT.SELECT( K ) )
-     $            GO TO 60
+               IF( .NOT.SELECT( K ) ) GO TO 60
             END IF
          END IF
 *
@@ -179,15 +164,9 @@
 *              Complex eigenvalue.
 *
                PROD1 = DDOT( N, VR( 1, KS ), 1, VL( 1, KS ), 1 )
-               PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ),
-     $                 1 )
+               PROD1 = PROD1 + DDOT( N, VR( 1, KS+1 ), 1, VL( 1, KS+1 ), 1 )
                PROD2 = DDOT( N, VL( 1, KS ), 1, VR( 1, KS+1 ), 1 )
-               PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ),
-     $                 1 )
-               RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ),
-     $                DNRM2( N, VR( 1, KS+1 ), 1 ) )
-               LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ),
-     $                DNRM2( N, VL( 1, KS+1 ), 1 ) )
+               PROD2 = PROD2 - DDOT( N, VL( 1, KS+1 ), 1, VR( 1, KS ), 1 )                RNRM = DLAPY2( DNRM2( N, VR( 1, KS ), 1 ), DNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = DLAPY2( DNRM2( N, VL( 1, KS ), 1 ), DNRM2( N, VL( 1, KS+1 ), 1 ) )
                COND = DLAPY2( PROD1, PROD2 ) / ( RNRM*LNRM )
                S( KS ) = COND
                S( KS+1 ) = COND
@@ -205,8 +184,7 @@
             CALL DLACPY( 'Full', N, N, T, LDT, WORK, LDWORK )
             IFST = K
             ILST = 1
-            CALL DTREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST,
-     $                   WORK( 1, N+1 ), IERR )
+            CALL DTREXC( 'No Q', N, WORK, LDWORK, DUMMY, 1, IFST, ILST, WORK( 1, N+1 ), IERR )
 *
             IF( IERR.EQ.1 .OR. IERR.EQ.2 ) THEN
 *
@@ -237,8 +215,7 @@
 *                 position of WORK is the complex eigenvalue lambda
 *                 with negative imaginary  part.
 *
-                  MU = SQRT( ABS( WORK( 1, 2 ) ) )*
-     $                 SQRT( ABS( WORK( 2, 1 ) ) )
+                  MU = SQRT( ABS( WORK( 1, 2 ) ) )* SQRT( ABS( WORK( 2, 1 ) ) )
                   DELTA = DLAPY2( MU, WORK( 2, 1 ) )
                   CS = MU / DELTA
                   SN = -WORK( 2, 1 ) / DELTA
@@ -273,47 +250,33 @@
                EST = ZERO
                KASE = 0
    50          CONTINUE
-               CALL DLACN2( NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK,
-     $                      EST, KASE, ISAVE )
+               CALL DLACN2( NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE )
                IF( KASE.NE.0 ) THEN
                   IF( KASE.EQ.1 ) THEN
                      IF( N2.EQ.1 ) THEN
 *
 *                       Real eigenvalue: solve C**T*x = scale*c.
 *
-                        CALL DLAQTR( .TRUE., .TRUE., N-1, WORK( 2, 2 ),
-     $                               LDWORK, DUMMY, DUMM, SCALE,
-     $                               WORK( 1, N+4 ), WORK( 1, N+6 ),
-     $                               IERR )
+                        CALL DLAQTR( .TRUE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      ELSE
 *
 *                       Complex eigenvalue: solve
 *                       C**T*(p+iq) = scale*(c+id) in real arithmetic.
 *
-                        CALL DLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ),
-     $                               LDWORK, WORK( 1, N+1 ), MU, SCALE,
-     $                               WORK( 1, N+4 ), WORK( 1, N+6 ),
-     $                               IERR )
+                        CALL DLAQTR( .TRUE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      END IF
                   ELSE
                      IF( N2.EQ.1 ) THEN
 *
 *                       Real eigenvalue: solve C*x = scale*c.
 *
-                        CALL DLAQTR( .FALSE., .TRUE., N-1, WORK( 2, 2 ),
-     $                               LDWORK, DUMMY, DUMM, SCALE,
-     $                               WORK( 1, N+4 ), WORK( 1, N+6 ),
-     $                               IERR )
+                        CALL DLAQTR( .FALSE., .TRUE., N-1, WORK( 2, 2 ), LDWORK, DUMMY, DUMM, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
                      ELSE
 *
 *                       Complex eigenvalue: solve
 *                       C*(p+iq) = scale*(c+id) in real arithmetic.
 *
-                        CALL DLAQTR( .FALSE., .FALSE., N-1,
-     $                               WORK( 2, 2 ), LDWORK,
-     $                               WORK( 1, N+1 ), MU, SCALE,
-     $                               WORK( 1, N+4 ), WORK( 1, N+6 ),
-     $                               IERR )
+                        CALL DLAQTR( .FALSE., .FALSE., N-1, WORK( 2, 2 ), LDWORK, WORK( 1, N+1 ), MU, SCALE, WORK( 1, N+4 ), WORK( 1, N+6 ), IERR )
 *
                      END IF
                   END IF
@@ -323,12 +286,10 @@
             END IF
 *
             SEP( KS ) = SCALE / MAX( EST, SMLNUM )
-            IF( PAIR )
-     $         SEP( KS+1 ) = SEP( KS )
+            IF( PAIR ) SEP( KS+1 ) = SEP( KS )
          END IF
 *
-         IF( PAIR )
-     $      KS = KS + 1
+         IF( PAIR ) KS = KS + 1
 *
    60 CONTINUE
       RETURN

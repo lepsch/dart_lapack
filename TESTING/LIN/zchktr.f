@@ -1,6 +1,4 @@
-      SUBROUTINE ZCHKTR( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL,
-     $                   THRESH, TSTERR, NMAX, A, AINV, B, X, XACT,
-     $                   WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKTR( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AINV, B, X, XACT, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            NBVAL( * ), NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( * ), AINV( * ), B( * ), WORK( * ), X( * ),
-     $                   XACT( * )
+      COMPLEX*16         A( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -34,16 +31,12 @@
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN,
-     $                   IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN
-      DOUBLE PRECISION   AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC,
-     $                   RCONDI, RCONDO, RES, SCALE, DLAMCH
+      INTEGER            I, IDIAG, IMAT, IN, INB, INFO, IRHS, ITRAN, IUPLO, K, LDA, N, NB, NERRS, NFAIL, NRHS, NRUN       DOUBLE PRECISION   AINVNM, ANORM, BIGNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO, RES, SCALE, DLAMCH
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
-      DOUBLE PRECISION   RESULT( NTESTS ), RWORK2( 2*NMAX ),
-     $                   SCALE3( 2 )
+      DOUBLE PRECISION   RESULT( NTESTS ), RWORK2( 2*NMAX ), SCALE3( 2 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -51,10 +44,7 @@
       EXTERNAL           LSAME, ZLANTR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DLAMCH, XLAENV, ZCOPY,
-     $                   ZDSCAL, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATRS,
-     $                   ZLATRS3, ZLATTR, ZTRCON, ZTRRFS, ZTRT01,
-     $                   ZTRT02, ZTRT03, ZTRT05, ZTRT06, ZTRTRI, ZTRTRS
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DLAMCH, XLAENV, ZCOPY, ZDSCAL, ZERRTR, ZGET04, ZLACPY, ZLARHS, ZLATRS, ZLATRS3, ZLATTR, ZTRCON, ZTRRFS, ZTRT01, ZTRT02, ZTRT03, ZTRT05, ZTRT06, ZTRTRI, ZTRTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -88,8 +78,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRTR( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRTR( PATH, NOUT )
       INFOT = 0
 *
       DO 120 IN = 1, NN
@@ -104,8 +93,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 80
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 80
 *
             DO 70 IUPLO = 1, 2
 *
@@ -116,8 +104,7 @@
 *              Call ZLATTR to generate a triangular test matrix.
 *
                SRNAMT = 'ZLATTR'
-               CALL ZLATTR( IMAT, UPLO, 'No transpose', DIAG, ISEED, N,
-     $                      A, LDA, X, WORK, RWORK, INFO )
+               CALL ZLATTR( IMAT, UPLO, 'No transpose', DIAG, ISEED, N, A, LDA, X, WORK, RWORK, INFO )
 *
 *              Set IDIAG = 1 for non-unit matrices, 2 for unit.
 *
@@ -143,16 +130,12 @@
 *
 *                 Check error code from ZTRTRI.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZTRTRI', INFO, 0, UPLO // DIAG,
-     $                            N, N, -1, -1, NB, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
 *                 Compute the infinity-norm condition number of A.
 *
                   ANORM = ZLANTR( 'I', UPLO, DIAG, N, N, A, LDA, RWORK )
-                  AINVNM = ZLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA,
-     $                     RWORK )
+                  AINVNM = ZLANTR( 'I', UPLO, DIAG, N, N, AINV, LDA, RWORK )
                   IF( ANORM.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                      RCONDI = ONE
                   ELSE
@@ -163,23 +146,18 @@
 *                 its inverse.  Also compute the 1-norm condition number
 *                 of A.
 *
-                  CALL ZTRT01( UPLO, DIAG, N, A, LDA, AINV, LDA, RCONDO,
-     $                         RWORK, RESULT( 1 ) )
+                  CALL ZTRT01( UPLO, DIAG, N, A, LDA, AINV, LDA, RCONDO, RWORK, RESULT( 1 ) )
 *                 Print the test ratio if it is .GE. THRESH.
 *
                   IF( RESULT( 1 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT,
-     $                  1, RESULT( 1 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT, 1, RESULT( 1 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 1
 *
 *                 Skip remaining tests if not the first block size.
 *
-                  IF( INB.NE.1 )
-     $               GO TO 60
+                  IF( INB.NE.1 ) GO TO 60
 *
                   DO 40 IRHS = 1, NNS
                      NRHS = NSVAL( IRHS )
@@ -202,72 +180,47 @@
 *                       Solve and compute residual for op(A)*x = b.
 *
                         SRNAMT = 'ZLARHS'
-                        CALL ZLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0,
-     $                               IDIAG, NRHS, A, LDA, XACT, LDA, B,
-     $                               LDA, ISEED, INFO )
+                        CALL ZLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                         XTYPE = 'C'
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                         SRNAMT = 'ZTRTRS'
-                        CALL ZTRTRS( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               X, LDA, INFO )
+                        CALL ZTRTRS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, INFO )
 *
 *                       Check error code from ZTRTRS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZTRTRS', INFO, 0,
-     $                                  UPLO // TRANS // DIAG, N, N, -1,
-     $                                  -1, NRHS, IMAT, NFAIL, NERRS,
-     $                                  NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                       This line is needed on a Sun SPARCstation.
 *
-                        IF( N.GT.0 )
-     $                     DUMMY = DBLE( A( 1 ) )
+                        IF( N.GT.0 ) DUMMY = DBLE( A( 1 ) )
 *
-                        CALL ZTRT02( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               X, LDA, B, LDA, WORK, RWORK,
-     $                               RESULT( 2 ) )
+                        CALL ZTRT02( UPLO, TRANS, DIAG, N, NRHS, A, LDA, X, LDA, B, LDA, WORK, RWORK, RESULT( 2 ) )
 *
 *+    TEST 3
 *                       Check solution from generated exact solution.
 *
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 3 ) )
+                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *                       Use iterative refinement to improve the solution
 *                       and compute error bounds.
 *
                         SRNAMT = 'ZTRRFS'
-                        CALL ZTRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               B, LDA, X, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), WORK,
-     $                               RWORK( 2*NRHS+1 ), INFO )
+                        CALL ZTRRFS( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *                       Check error code from ZTRRFS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZTRRFS', INFO, 0,
-     $                                  UPLO // TRANS // DIAG, N, N, -1,
-     $                                  -1, NRHS, IMAT, NFAIL, NERRS,
-     $                                  NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 4 ) )
-                        CALL ZTRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA,
-     $                               B, LDA, X, LDA, XACT, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), RESULT( 5 ) )
+                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZTRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *                       Print information about the tests that did not
 *                       pass the threshold.
 *
                         DO 20 K = 2, 6
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )UPLO, TRANS,
-     $                           DIAG, N, NRHS, IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    20                   CONTINUE
@@ -287,26 +240,18 @@
                         RCONDC = RCONDI
                      END IF
                      SRNAMT = 'ZTRCON'
-                     CALL ZTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND,
-     $                            WORK, RWORK, INFO )
+                     CALL ZTRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, RWORK, INFO )
 *
 *                       Check error code from ZTRCON.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'ZTRCON', INFO, 0,
-     $                               NORM // UPLO // DIAG, N, N, -1, -1,
-     $                               -1, IMAT, NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZTRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL ZTRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA,
-     $                            RWORK, RESULT( 7 ) )
+                     CALL ZTRT06( RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RESULT( 7 ) )
 *
 *                    Print the test ratio if it is .GE. THRESH.
 *
                      IF( RESULT( 7 ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT,
-     $                     7, RESULT( 7 )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
                      END IF
                      NRUN = NRUN + 1
@@ -321,8 +266,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 110
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
             DO 100 IUPLO = 1, 2
 *
@@ -338,45 +282,32 @@
 *                 Call ZLATTR to generate a triangular test matrix.
 *
                   SRNAMT = 'ZLATTR'
-                  CALL ZLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A,
-     $                         LDA, X, WORK, RWORK, INFO )
+                  CALL ZLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, X, WORK, RWORK, INFO )
 *
 *+    TEST 8
 *                 Solve the system op(A)*x = b.
 *
                   SRNAMT = 'ZLATRS'
                   CALL ZCOPY( N, X, 1, B, 1 )
-                  CALL ZLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, B,
-     $                         SCALE, RWORK, INFO )
+                  CALL ZLATRS( UPLO, TRANS, DIAG, 'N', N, A, LDA, B, SCALE, RWORK, INFO )
 *
 *                 Check error code from ZLATRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZLATRS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'N', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE,
-     $                         RWORK, ONE, B, LDA, X, LDA, WORK,
-     $                         RESULT( 8 ) )
+                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
 *
 *+    TEST 9
 *                 Solve op(A)*X = b again with NORMIN = 'Y'.
 *
                   CALL ZCOPY( N, X, 1, B( N+1 ), 1 )
-                  CALL ZLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA,
-     $                         B( N+1 ), SCALE, RWORK, INFO )
+                  CALL ZLATRS( UPLO, TRANS, DIAG, 'Y', N, A, LDA, B( N+1 ), SCALE, RWORK, INFO )
 *
 *                 Check error code from ZLATRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZLATRS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'Y', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE,
-     $                         RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK,
-     $                         RESULT( 9 ) )
+                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) )
 *
 *+    TEST 10
 *                 Solve op(A)*X = B
@@ -385,47 +316,29 @@
                   CALL ZCOPY( N, X, 1, B, 1 )
                   CALL ZCOPY( N, X, 1, B( N+1 ), 1 )
                   CALL ZDSCAL( N, BIGNUM, B( N+1 ), 1 )
-                  CALL ZLATRS3( UPLO, TRANS, DIAG, 'N', N, 2, A, LDA,
-     $                          B, MAX(1, N), SCALE3, RWORK, RWORK2,
-     $                          2*NMAX, INFO )
+                  CALL ZLATRS3( UPLO, TRANS, DIAG, 'N', N, 2, A, LDA, B, MAX(1, N), SCALE3, RWORK, RWORK2, 2*NMAX, INFO )
 *
 *                 Check error code from ZLATRS3.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZLATRS3', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'N', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
-                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA,
-     $                         SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA,
-     $                         X, LDA, WORK, RESULT( 10 ) )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) )
                   CALL ZDSCAL( N, BIGNUM, X, 1 )
-                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA,
-     $                         SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA,
-     $                         X, LDA, WORK, RES )
+                  CALL ZTRT03( UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES )
                   RESULT( 10 ) = MAX( RESULT( 10 ), RES )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   IF( RESULT( 8 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'ZLATRS', UPLO, TRANS,
-     $                  DIAG, 'N', N, IMAT, 8, RESULT( 8 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATRS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
                   END IF
                   IF( RESULT( 9 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'ZLATRS', UPLO, TRANS,
-     $                  DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATRS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
                      NFAIL = NFAIL + 1
                   END IF
                   IF( RESULT( 10 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'ZLATRS3', UPLO, TRANS,
-     $                  DIAG, 'N', N, IMAT, 10, RESULT( 10 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'ZLATRS3', UPLO, TRANS, DIAG, 'N', N, IMAT, 10, RESULT( 10 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 3

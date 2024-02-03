@@ -22,21 +22,15 @@
       DOUBLE PRECISION   ANRM, RCOND, BERR
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ),
-     $                   PARAMS( 1 )
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( 2*NMAX ), X( NMAX )
+      DOUBLE PRECISION   S( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZPBCON, ZPBEQU, ZPBRFS, ZPBTF2,
-     $                   ZPBTRF, ZPBTRS, ZPOCON, ZPOEQU, ZPORFS, ZPOTF2,
-     $                   ZPOTRF, ZPOTRI, ZPOTRS, ZPPCON, ZPPEQU, ZPPRFS,
-     $                   ZPPTRF, ZPPTRI, ZPPTRS, ZPOEQUB, ZPORFSX
+      EXTERNAL           ALAESM, CHKXER, ZPBCON, ZPBEQU, ZPBRFS, ZPBTF2, ZPBTRF, ZPBTRS, ZPOCON, ZPOEQU, ZPORFS, ZPOTF2, ZPOTRF, ZPOTRI, ZPOTRS, ZPPCON, ZPPEQU, ZPPRFS, ZPPTRF, ZPPTRI, ZPPTRS, ZPOEQUB, ZPORFSX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -60,10 +54,7 @@
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
-            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                  -1.D0 / DBLE( I+J ) )
-            AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                   -1.D0 / DBLE( I+J ) )
+            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
    10    CONTINUE
          B( J ) = 0.D0
          R1( J ) = 0.D0
@@ -142,32 +133,25 @@
 *
          SRNAMT = 'ZPORFS'
          INFOT = 1
-         CALL ZPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPORFS', INFOT, NOUT, LERR, OK )
 *
 *        ZPORFSX
@@ -176,45 +160,29 @@
          NPARAMS = 0
          SRNAMT = 'ZPORFSX'
          INFOT = 1
-         CALL ZPORFSX( '/', EQ, 0, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( '/', EQ, 0, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPORFSX( 'U', "/", -1, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', "/", -1, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          EQ = 'N'
          INFOT = 3
-         CALL ZPORFSX( 'U', EQ, -1, 0, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, -1, 0, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZPORFSX( 'U', EQ, 0, -1, A, 1, AF, 1, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, 0, -1, A, 1, AF, 1, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZPORFSX( 'U', EQ, 2, 1, A, 1, AF, 2, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, 2, 1, A, 1, AF, 2, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 1, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 1, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 1, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL ZPORFSX( 'U', EQ, 2, 1, A, 2, AF, 2, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'ZPORFSX', INFOT, NOUT, LERR, OK )
 *
 *        ZPOCON
@@ -301,12 +269,10 @@
          CALL ZPPRFS( '/', 0, 0, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
          CALL ZPPRFS( 'U', 2, 1, A, AF, B, 1, X, 2, R1, R2, W, R, INFO )
@@ -401,36 +367,28 @@
 *
          SRNAMT = 'ZPBRFS'
          INFOT = 1
-         CALL ZPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZPBRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZPBCON

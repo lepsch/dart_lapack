@@ -24,27 +24,20 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, ICMP, INFO, ISCL, ISRT, J, KMIN, M, N
-      DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V,
-     $                   VCMIN, VMAX, VMIN, VMUL
+      DOUBLE PRECISION   BIGNUM, EPS, SMLNUM, TNRM, TOL, TOLIN, V, VCMIN, VMAX, VMIN, VMUL
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( LDT )
       INTEGER            LCMP( 3 )
-      DOUBLE PRECISION   DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ),
-     $                   SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ),
-     $                   STMP( LDT ), VAL( 3 ), WIIN( LDT ),
-     $                   WRIN( LDT ), WSRT( LDT )
-      COMPLEX*16         CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ),
-     $                   T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ),
-     $                   WORK( LWORK ), WTMP( LDT )
+      DOUBLE PRECISION   DUM( 1 ), RWORK( 2*LDT ), S( LDT ), SEP( LDT ), SEPIN( LDT ), SEPTMP( LDT ), SIN( LDT ), STMP( LDT ), VAL( 3 ), WIIN( LDT ), WRIN( LDT ), WSRT( LDT )
+      COMPLEX*16         CDUM( 1 ), LE( LDT, LDT ), RE( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH, ZLANGE
       EXTERNAL           DLAMCH, ZLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, ZCOPY, ZDSCAL, ZGEHRD, ZHSEQR,
-     $                   ZLACPY, ZTREVC, ZTRSNA
+      EXTERNAL           DCOPY, DSCAL, ZCOPY, ZDSCAL, ZGEHRD, ZHSEQR, ZLACPY, ZTREVC, ZTRSNA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DIMAG, MAX, SQRT
@@ -78,8 +71,7 @@
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, ISRT
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
    20 CONTINUE
@@ -97,13 +89,11 @@
          DO 40 I = 1, N
             CALL ZDSCAL( N, VMUL, T( 1, I ), 1 )
    40    CONTINUE
-         IF( TNRM.EQ.ZERO )
-     $      VMUL = ONE
+         IF( TNRM.EQ.ZERO ) VMUL = ONE
 *
 *        Compute eigenvalues and eigenvectors
 *
-         CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N,
-     $                INFO )
+         CALL ZGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -117,8 +107,7 @@
 *
 *        Compute Schur form
 *
-         CALL ZHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK,
-     $                LWORK, INFO )
+         CALL ZHSEQR( 'S', 'N', N, 1, N, T, LDT, W, CDUM, 1, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -130,13 +119,11 @@
          DO 70 I = 1, N
             SELECT( I ) = .TRUE.
    70    CONTINUE
-         CALL ZTREVC( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N,
-     $                M, WORK, RWORK, INFO )
+         CALL ZTREVC( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO )
 *
 *        Compute condition numbers
 *
-         CALL ZTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S,
-     $                SEP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, S, SEP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -191,8 +178,7 @@
 *        taking their condition numbers into account
 *
          V = MAX( TWO*DBLE( N )*EPS*TNRM, SMLNUM )
-         IF( TNRM.EQ.ZERO )
-     $      V = ONE
+         IF( TNRM.EQ.ZERO ) V = ONE
          DO 120 I = 1, N
             IF( V.GT.SEPTMP( I ) ) THEN
                TOL = ONE
@@ -219,8 +205,7 @@
             END IF
             IF( VMAX.GT.RMAX( 2 ) ) THEN
                RMAX( 2 ) = VMAX
-               IF( NINFO( 2 ).EQ.0 )
-     $            LMAX( 2 ) = KNT
+               IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             END IF
   120    CONTINUE
 *
@@ -253,8 +238,7 @@
             END IF
             IF( VMAX.GT.RMAX( 2 ) ) THEN
                RMAX( 2 ) = VMAX
-               IF( NINFO( 2 ).EQ.0 )
-     $            LMAX( 2 ) = KNT
+               IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             END IF
   130    CONTINUE
 *
@@ -262,8 +246,7 @@
 *        without taking their condition numbers into account
 *
          DO 140 I = 1, N
-            IF( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE.
-     $          DBLE( 2*N )*EPS ) THEN
+            IF( SIN( I ).LE.DBLE( 2*N )*EPS .AND. STMP( I ).LE. DBLE( 2*N )*EPS ) THEN
                VMAX = ONE
             ELSE IF( EPS*SIN( I ).GT.STMP( I ) ) THEN
                VMAX = ONE / EPS
@@ -278,8 +261,7 @@
             END IF
             IF( VMAX.GT.RMAX( 3 ) ) THEN
                RMAX( 3 ) = VMAX
-               IF( NINFO( 3 ).EQ.0 )
-     $            LMAX( 3 ) = KNT
+               IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             END IF
   140    CONTINUE
 *
@@ -302,8 +284,7 @@
             END IF
             IF( VMAX.GT.RMAX( 3 ) ) THEN
                RMAX( 3 ) = VMAX
-               IF( NINFO( 3 ).EQ.0 )
-     $            LMAX( 3 ) = KNT
+               IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             END IF
   150    CONTINUE
 *
@@ -313,36 +294,28 @@
          DUM( 1 ) = -ONE
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'E', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
          DO 160 I = 1, N
-            IF( STMP( I ).NE.S( I ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   160    CONTINUE
 *
 *        Compute eigenvector condition numbers only and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'V', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
          DO 170 I = 1, N
-            IF( STMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.SEP( I ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   170    CONTINUE
 *
 *        Compute all condition numbers using SELECT and compare
@@ -352,59 +325,46 @@
   180    CONTINUE
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
          DO 190 I = 1, N
-            IF( SEPTMP( I ).NE.SEP( I ) )
-     $         VMAX = ONE / EPS
-            IF( STMP( I ).NE.S( I ) )
-     $         VMAX = ONE / EPS
+            IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
   190    CONTINUE
 *
 *        Compute eigenvalue condition numbers using SELECT and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
          DO 200 I = 1, N
-            IF( STMP( I ).NE.S( I ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   200    CONTINUE
 *
 *        Compute eigenvector condition numbers using SELECT and compare
 *
          CALL DCOPY( N, DUM, 0, STMP, 1 )
          CALL DCOPY( N, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 260
          END IF
          DO 210 I = 1, N
-            IF( STMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.SEP( I ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
   210    CONTINUE
          IF( VMAX.GT.RMAX( 1 ) ) THEN
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 )
-     $         LMAX( 1 ) = KNT
+            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
 *        Select second and next to last eigenvalues
@@ -432,8 +392,7 @@
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -441,18 +400,14 @@
          END IF
          DO 230 I = 1, ICMP
             J = LCMP( I )
-            IF( SEPTMP( I ).NE.SEP( J ) )
-     $         VMAX = ONE / EPS
-            IF( STMP( I ).NE.S( J ) )
-     $         VMAX = ONE / EPS
+            IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
   230    CONTINUE
 *
 *        Compute selected eigenvalue condition numbers
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'E', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -460,18 +415,14 @@
          END IF
          DO 240 I = 1, ICMP
             J = LCMP( I )
-            IF( STMP( I ).NE.S( J ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
   240    CONTINUE
 *
 *        Compute selected eigenvector condition numbers
 *
          CALL DCOPY( ICMP, DUM, 0, STMP, 1 )
          CALL DCOPY( ICMP, DUM, 0, SEPTMP, 1 )
-         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT,
-     $                STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
+         CALL ZTRSNA( 'V', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -479,15 +430,11 @@
          END IF
          DO 250 I = 1, ICMP
             J = LCMP( I )
-            IF( STMP( I ).NE.DUM( 1 ) )
-     $         VMAX = ONE / EPS
-            IF( SEPTMP( I ).NE.SEP( J ) )
-     $         VMAX = ONE / EPS
+            IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
   250    CONTINUE
          IF( VMAX.GT.RMAX( 1 ) ) THEN
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 )
-     $         LMAX( 1 ) = KNT
+            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
   260 CONTINUE
       GO TO 10

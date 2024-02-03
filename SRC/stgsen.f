@@ -1,6 +1,4 @@
-      SUBROUTINE STGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB,
-     $                   ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, M, PL,
-     $                   PR, DIF, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE STGSEN( IJOB, WANTQ, WANTZ, SELECT, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, Q, LDQ, Z, LDZ, M, PL, PR, DIF, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,16 +6,13 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            WANTQ, WANTZ
-      INTEGER            IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK,
-     $                   M, N
+      INTEGER            IJOB, INFO, LDA, LDB, LDQ, LDZ, LIWORK, LWORK, M, N
       REAL               PL, PR
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
-      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ),
-     $                   B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ),
-     $                   WORK( * ), Z( LDZ, * )
+      REAL               A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), DIF( * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -29,18 +24,14 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2,
-     $                   WANTP
-      INTEGER            I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN,
-     $                   MN2, N1, N2
+      LOGICAL            LQUERY, PAIR, SWAP, WANTD, WANTD1, WANTD2, WANTP       INTEGER            I, IERR, IJB, K, KASE, KK, KS, LIWMIN, LWMIN, MN2, N1, N2
       REAL               DSCALE, DSUM, EPS, RDSCAL, SMLNUM
 *     ..
 *     .. Local Arrays ..
       INTEGER            ISAVE( 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACN2, SLACPY, SLAG2, SLASSQ, STGEXC, STGSYL,
-     $                   XERBLA
+      EXTERNAL           SLACN2, SLACPY, SLAG2, SLASSQ, STGEXC, STGSYL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SROUNDUP_LWORK
@@ -98,16 +89,13 @@
          ELSE
             IF( K.LT.N ) THEN
                IF( A( K+1, K ).EQ.ZERO ) THEN
-                  IF( SELECT( K ) )
-     $               M = M + 1
+                  IF( SELECT( K ) ) M = M + 1
                ELSE
                   PAIR = .TRUE.
-                  IF( SELECT( K ) .OR. SELECT( K+1 ) )
-     $               M = M + 2
+                  IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                END IF
             ELSE
-               IF( SELECT( N ) )
-     $            M = M + 1
+               IF( SELECT( N ) ) M = M + 1
             END IF
          END IF
    10 CONTINUE
@@ -186,9 +174,7 @@
 *              Q and Z accordingly (if requested):
 *
                KK = K
-               IF( K.NE.KS )
-     $            CALL STGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, KK, KS, WORK, LWORK, IERR )
+               IF( K.NE.KS ) CALL STGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR )
 *
                IF( IERR.GT.0 ) THEN
 *
@@ -206,8 +192,7 @@
                   GO TO 60
                END IF
 *
-               IF( PAIR )
-     $            KS = KS + 1
+               IF( PAIR ) KS = KS + 1
             END IF
          END IF
    30 CONTINUE
@@ -221,12 +206,7 @@
          I = N1 + 1
          IJB = 0
          CALL SLACPY( 'Full', N1, N2, A( 1, I ), LDA, WORK, N1 )
-         CALL SLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ),
-     $                N1 )
-         CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK,
-     $                N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1,
-     $                DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ),
-     $                LWORK-2*N1*N2, IWORK, IERR )
+         CALL SLACPY( 'Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )          CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR )
 *
 *        Estimate the reciprocal of norms of "projections" onto left
 *        and right eigenspaces.
@@ -263,17 +243,11 @@
 *
 *           Frobenius norm-based Difu-estimate.
 *
-            CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK,
-     $                   N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ),
-     $                   N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ),
-     $                   LWORK-2*N1*N2, IWORK, IERR )
+            CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
 *
 *           Frobenius norm-based Difl-estimate.
 *
-            CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK,
-     $                   N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ),
-     $                   N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ),
-     $                   LWORK-2*N1*N2, IWORK, IERR )
+            CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
          ELSE
 *
 *
@@ -292,27 +266,18 @@
 *           1-norm-based estimate of Difu.
 *
    40       CONTINUE
-            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ),
-     $                   KASE, ISAVE )
+            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ), KASE, ISAVE )
             IF( KASE.NE.0 ) THEN
                IF( KASE.EQ.1 ) THEN
 *
 *                 Solve generalized Sylvester equation.
 *
-                  CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA,
-     $                         WORK, N1, B, LDB, B( I, I ), LDB,
-     $                         WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ),
-     $                         WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                ELSE
 *
 *                 Solve the transposed variant.
 *
-                  CALL STGSYL( 'T', IJB, N1, N2, A, LDA, A( I, I ), LDA,
-     $                         WORK, N1, B, LDB, B( I, I ), LDB,
-     $                         WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ),
-     $                         WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL STGSYL( 'T', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                END IF
                GO TO 40
             END IF
@@ -321,27 +286,18 @@
 *           1-norm-based estimate of Difl.
 *
    50       CONTINUE
-            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ),
-     $                   KASE, ISAVE )
+            CALL SLACN2( MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ), KASE, ISAVE )
             IF( KASE.NE.0 ) THEN
                IF( KASE.EQ.1 ) THEN
 *
 *                 Solve generalized Sylvester equation.
 *
-                  CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA,
-     $                         WORK, N2, B( I, I ), LDB, B, LDB,
-     $                         WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ),
-     $                         WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL STGSYL( 'N', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                ELSE
 *
 *                 Solve the transposed variant.
 *
-                  CALL STGSYL( 'T', IJB, N2, N1, A( I, I ), LDA, A, LDA,
-     $                         WORK, N2, B( I, I ), LDB, B, LDB,
-     $                         WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ),
-     $                         WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK,
-     $                         IERR )
+                  CALL STGSYL( 'T', IJB, N2, N1, A( I, I ), LDA, A, LDA, WORK, N2, B( I, I ), LDB, B, LDB, WORK( N1*N2+1 ), N2, DSCALE, DIF( 2 ), WORK( 2*N1*N2+1 ), LWORK-2*N1*N2, IWORK, IERR )
                END IF
                GO TO 50
             END IF
@@ -379,9 +335,7 @@
                WORK( 6 ) = B( K+1, K )
                WORK( 7 ) = B( K, K+1 )
                WORK( 8 ) = B( K+1, K+1 )
-               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ),
-     $                     BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ),
-     $                     ALPHAI( K ) )
+               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA( K ), BETA( K+1 ), ALPHAR( K ), ALPHAR( K+1 ), ALPHAI( K ) )
                ALPHAI( K+1 ) = -ALPHAI( K )
 *
             ELSE

@@ -1,5 +1,4 @@
-      SUBROUTINE DSPOSV( UPLO, N, NRHS, A, LDA, B, LDB, X, LDX, WORK,
-     $                   SWORK, ITER, INFO )
+      SUBROUTINE DSPOSV( UPLO, N, NRHS, A, LDA, B, LDB, X, LDX, WORK, SWORK, ITER, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               SWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( N, * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -35,8 +33,7 @@
       DOUBLE PRECISION   ANRM, CTE, EPS, RNRM, XNRM
 *
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DSYMM, DLACPY, DLAT2S, DLAG2S, SLAG2D,
-     $                   SPOTRF, SPOTRS, DPOTRF, DPOTRS, XERBLA
+      EXTERNAL           DAXPY, DSYMM, DLACPY, DLAT2S, DLAG2S, SLAG2D, SPOTRF, SPOTRS, DPOTRF, DPOTRS, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            IDAMAX
@@ -74,8 +71,7 @@
 *
 *     Quick return if (N.EQ.0).
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Skip single precision iterative refinement if a priori slower
 *     than double precision factorization.
@@ -127,8 +123,7 @@
 *
 *     Solve the system SA*SX = SB.
 *
-      CALL SPOTRS( UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N,
-     $             INFO )
+      CALL SPOTRS( UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO )
 *
 *     Convert SX back to double precision
 *
@@ -138,8 +133,7 @@
 *
       CALL DLACPY( 'All', N, NRHS, B, LDB, WORK, N )
 *
-      CALL DSYMM( 'Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE,
-     $            WORK, N )
+      CALL DSYMM( 'Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
 *
 *     Check whether the NRHS normwise backward errors satisfy the
 *     stopping criterion. If yes, set ITER=0 and return.
@@ -147,8 +141,7 @@
       DO I = 1, NRHS
          XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
-         IF( RNRM.GT.XNRM*CTE )
-     $      GO TO 10
+         IF( RNRM.GT.XNRM*CTE ) GO TO 10
       END DO
 *
 *     If we are here, the NRHS normwise backward errors satisfy the
@@ -173,8 +166,7 @@
 *
 *        Solve the system SA*SX = SR.
 *
-         CALL SPOTRS( UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N,
-     $                INFO )
+         CALL SPOTRS( UPLO, N, NRHS, SWORK( PTSA ), N, SWORK( PTSX ), N, INFO )
 *
 *        Convert SX back to double precision and update the current
 *        iterate.
@@ -189,8 +181,7 @@
 *
          CALL DLACPY( 'All', N, NRHS, B, LDB, WORK, N )
 *
-         CALL DSYMM( 'L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE,
-     $               WORK, N )
+         CALL DSYMM( 'L', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
 *
 *        Check whether the NRHS normwise backward errors satisfy the
 *        stopping criterion. If yes, set ITER=IITER>0 and return.
@@ -198,8 +189,7 @@
          DO I = 1, NRHS
             XNRM = ABS( X( IDAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = ABS( WORK( IDAMAX( N, WORK( 1, I ), 1 ), I ) )
-            IF( RNRM.GT.XNRM*CTE )
-     $         GO TO 20
+            IF( RNRM.GT.XNRM*CTE ) GO TO 20
          END DO
 *
 *        If we are here, the NRHS normwise backward errors satisfy the
@@ -227,8 +217,7 @@
 *
       CALL DPOTRF( UPLO, N, A, LDA, INFO )
 *
-      IF( INFO.NE.0 )
-     $   RETURN
+      IF( INFO.NE.0 ) RETURN
 *
       CALL DLACPY( 'All', N, NRHS, B, LDB, X, LDX )
       CALL DPOTRS( UPLO, N, NRHS, A, LDA, X, LDX, INFO )

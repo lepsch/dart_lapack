@@ -1,5 +1,4 @@
-      SUBROUTINE CUNMHR( SIDE, TRANS, M, N, ILO, IHI, A, LDA, TAU, C,
-     $                   LDC, WORK, LWORK, INFO )
+      SUBROUTINE CUNMHR( SIDE, TRANS, M, N, ILO, IHI, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IHI, ILO, INFO, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -52,8 +50,7 @@
       END IF
       IF( .NOT.LEFT .AND. .NOT.LSAME( SIDE, 'R' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) )
-     $          THEN
+      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( M.LT.0 ) THEN
          INFO = -3
@@ -107,8 +104,7 @@
          I2 = ILO + 1
       END IF
 *
-      CALL CUNMQR( SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA,
-     $             TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO )
+      CALL CUNMQR( SIDE, TRANS, MI, NI, NH, A( ILO+1, ILO ), LDA, TAU( ILO ), C( I1, I2 ), LDC, WORK, LWORK, IINFO )
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE ZLALSD( UPLO, SMLSIZ, N, NRHS, D, E, B, LDB, RCOND,
-     $                   RANK, WORK, RWORK, IWORK, INFO )
+      SUBROUTINE ZLALSD( UPLO, SMLSIZ, N, NRHS, D, E, B, LDB, RCOND, RANK, WORK, RWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,12 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM,
-     $                   GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB,
-     $                   IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG,
-     $                   JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB,
-     $                   PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1,
-     $                   U, VT, Z
+      INTEGER            BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IRWB, IRWIB, IRWRB, IRWU, IRWVT, IRWWRK, IWK, J, JCOL, JIMAG, JREAL, JROW, K, NLVL, NM1, NRWORK, NSIZE, NSUB, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z
       DOUBLE PRECISION   CS, EPS, ORGNRM, RCND, R, SN, TOL
 *     ..
 *     .. External Functions ..
@@ -39,9 +33,7 @@
       EXTERNAL           IDAMAX, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET,
-     $                   DLASRT, XERBLA, ZCOPY, ZDROT, ZLACPY, ZLALSA,
-     $                   ZLASCL, ZLASET
+      EXTERNAL           DGEMM, DLARTG, DLASCL, DLASDA, DLASDQ, DLASET, DLASRT, XERBLA, ZCOPY, ZDROT, ZLACPY, ZLALSA, ZLASCL, ZLASET
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCMPLX, DIMAG, INT, LOG, SIGN
@@ -141,9 +133,7 @@
          IRWB = IRWIB + N*NRHS
          CALL DLASET( 'A', N, N, ZERO, ONE, RWORK( IRWU ), N )
          CALL DLASET( 'A', N, N, ZERO, ONE, RWORK( IRWVT ), N )
-         CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, RWORK( IRWVT ), N,
-     $                RWORK( IRWU ), N, RWORK( IRWWRK ), 1,
-     $                RWORK( IRWWRK ), INFO )
+         CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, RWORK( IRWVT ), N, RWORK( IRWU ), N, RWORK( IRWWRK ), 1, RWORK( IRWWRK ), INFO )
          IF( INFO.NE.0 ) THEN
             RETURN
          END IF
@@ -159,8 +149,7 @@
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
    40       CONTINUE
    50    CONTINUE
-         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N,
-     $               RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
+         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
          J = IRWB - 1
          DO 70 JCOL = 1, NRHS
             DO 60 JROW = 1, N
@@ -168,16 +157,14 @@
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
    60       CONTINUE
    70    CONTINUE
-         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N,
-     $               RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
+         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
          DO 90 JCOL = 1, NRHS
             DO 80 JROW = 1, N
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
-               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ),
-     $                           RWORK( JIMAG ) )
+               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
    80       CONTINUE
    90    CONTINUE
 *
@@ -186,8 +173,7 @@
             IF( D( I ).LE.TOL ) THEN
                CALL ZLASET( 'A', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB )
             ELSE
-               CALL ZLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ),
-     $                      LDB, INFO )
+               CALL ZLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
                RANK = RANK + 1
             END IF
   100    CONTINUE
@@ -206,8 +192,7 @@
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
   110       CONTINUE
   120    CONTINUE
-         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N,
-     $               RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
+         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N )
          J = IRWB - 1
          DO 140 JCOL = 1, NRHS
             DO 130 JROW = 1, N
@@ -215,16 +200,14 @@
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
   130       CONTINUE
   140    CONTINUE
-         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N,
-     $               RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
+         CALL DGEMM( 'T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N )
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
          DO 160 JCOL = 1, NRHS
             DO 150 JROW = 1, N
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
-               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ),
-     $                           RWORK( JIMAG ) )
+               B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   150       CONTINUE
   160    CONTINUE
 *
@@ -322,14 +305,7 @@
 *
 *              This is a small subproblem and is solved by DLASDQ.
 *
-               CALL DLASET( 'A', NSIZE, NSIZE, ZERO, ONE,
-     $                      RWORK( VT+ST1 ), N )
-               CALL DLASET( 'A', NSIZE, NSIZE, ZERO, ONE,
-     $                      RWORK( U+ST1 ), N )
-               CALL DLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ),
-     $                      E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ),
-     $                      N, RWORK( NRWORK ), 1, RWORK( NRWORK ),
-     $                      INFO )
+               CALL DLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL DLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL DLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
@@ -345,9 +321,7 @@
                      RWORK( J ) = DBLE( B( JROW, JCOL ) )
   180             CONTINUE
   190          CONTINUE
-               CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-     $                     RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE,
-     $                     ZERO, RWORK( IRWRB ), NSIZE )
+               CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE )
                J = IRWB - 1
                DO 210 JCOL = 1, NRHS
                   DO 200 JROW = ST, ST + NSIZE - 1
@@ -355,48 +329,28 @@
                      RWORK( J ) = DIMAG( B( JROW, JCOL ) )
   200             CONTINUE
   210          CONTINUE
-               CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-     $                     RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE,
-     $                     ZERO, RWORK( IRWIB ), NSIZE )
+               CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE )
                JREAL = IRWRB - 1
                JIMAG = IRWIB - 1
                DO 230 JCOL = 1, NRHS
                   DO 220 JROW = ST, ST + NSIZE - 1
                      JREAL = JREAL + 1
                      JIMAG = JIMAG + 1
-                     B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ),
-     $                                 RWORK( JIMAG ) )
+                     B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   220             CONTINUE
   230          CONTINUE
 *
-               CALL ZLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB,
-     $                      WORK( BX+ST1 ), N )
+               CALL ZLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE
 *
 *              A large problem. Solve it using divide and conquer.
 *
-               CALL DLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ),
-     $                      E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ),
-     $                      IWORK( K+ST1 ), RWORK( DIFL+ST1 ),
-     $                      RWORK( DIFR+ST1 ), RWORK( Z+ST1 ),
-     $                      RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ),
-     $                      IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ),
-     $                      RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ),
-     $                      RWORK( S+ST1 ), RWORK( NRWORK ),
-     $                      IWORK( IWK ), INFO )
+               CALL DLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
                BXST = BX + ST1
-               CALL ZLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ),
-     $                      LDB, WORK( BXST ), N, RWORK( U+ST1 ), N,
-     $                      RWORK( VT+ST1 ), IWORK( K+ST1 ),
-     $                      RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ),
-     $                      RWORK( Z+ST1 ), RWORK( POLES+ST1 ),
-     $                      IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N,
-     $                      IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ),
-     $                      RWORK( C+ST1 ), RWORK( S+ST1 ),
-     $                      RWORK( NRWORK ), IWORK( IWK ), INFO )
+               CALL ZLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
@@ -418,8 +372,7 @@
             CALL ZLASET( 'A', 1, NRHS, CZERO, CZERO, WORK( BX+I-1 ), N )
          ELSE
             RANK = RANK + 1
-            CALL ZLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS,
-     $                   WORK( BX+I-1 ), N, INFO )
+            CALL ZLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
          END IF
          D( I ) = ABS( D( I ) )
   250 CONTINUE
@@ -452,9 +405,7 @@
                   RWORK( JREAL ) = DBLE( WORK( J+JROW ) )
   260          CONTINUE
   270       CONTINUE
-            CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-     $                  RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO,
-     $                  RWORK( IRWRB ), NSIZE )
+            CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE )
             J = BXST - N - 1
             JIMAG = IRWB - 1
             DO 290 JCOL = 1, NRHS
@@ -464,29 +415,18 @@
                   RWORK( JIMAG ) = DIMAG( WORK( J+JROW ) )
   280          CONTINUE
   290       CONTINUE
-            CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-     $                  RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO,
-     $                  RWORK( IRWIB ), NSIZE )
+            CALL DGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE )
             JREAL = IRWRB - 1
             JIMAG = IRWIB - 1
             DO 310 JCOL = 1, NRHS
                DO 300 JROW = ST, ST + NSIZE - 1
                   JREAL = JREAL + 1
                   JIMAG = JIMAG + 1
-                  B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ),
-     $                              RWORK( JIMAG ) )
+                  B( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
   300          CONTINUE
   310       CONTINUE
          ELSE
-            CALL ZLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N,
-     $                   B( ST, 1 ), LDB, RWORK( U+ST1 ), N,
-     $                   RWORK( VT+ST1 ), IWORK( K+ST1 ),
-     $                   RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ),
-     $                   RWORK( Z+ST1 ), RWORK( POLES+ST1 ),
-     $                   IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N,
-     $                   IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ),
-     $                   RWORK( C+ST1 ), RWORK( S+ST1 ),
-     $                   RWORK( NRWORK ), IWORK( IWK ), INFO )
+            CALL ZLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO )
             IF( INFO.NE.0 ) THEN
                RETURN
             END IF

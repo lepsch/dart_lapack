@@ -1,37 +1,27 @@
-      SUBROUTINE ZCHKST( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, AP, SD, SE, D1, D2, D3, D4, D5,
-     $                   WA1, WA2, WA3, WR, U, LDU, V, VP, TAU, Z, WORK,
-     $                   LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT,
-     $                   INFO )
+      SUBROUTINE ZCHKST( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, AP, SD, SE, D1, D2, D3, D4, D5, WA1, WA2, WA3, WR, U, LDU, V, VP, TAU, Z, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT,
-     $                   NSIZES, NTYPES
+      INTEGER            INFO, LDA, LDU, LIWORK, LRWORK, LWORK, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
-      DOUBLE PRECISION   D1( * ), D2( * ), D3( * ), D4( * ), D5( * ),
-     $                   RESULT( * ), RWORK( * ), SD( * ), SE( * ),
-     $                   WA1( * ), WA2( * ), WA3( * ), WR( * )
-      COMPLEX*16         A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ),
-     $                   V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * )
+      DOUBLE PRECISION   D1( * ), D2( * ), D3( * ), D4( * ), D5( * ), RESULT( * ), RWORK( * ), SD( * ), SE( * ), WA1( * ), WA2( * ), WA3( * ), WR( * )
+      COMPLEX*16         A( LDA, * ), AP( * ), TAU( * ), U( LDU, * ), V( LDU, * ), VP( * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, EIGHT, TEN, HUN
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, EIGHT = 8.0D0, TEN = 10.0D0, HUN = 100.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   HALF
       PARAMETER          ( HALF = ONE / TWO )
       INTEGER            MAXTYP
@@ -43,19 +33,11 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, TRYRAC
-      INTEGER            I, IINFO, IL, IMODE, INDE, INDRWK, ITEMP,
-     $                   ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN,
-     $                   LIWEDC, LOG2UI, LRWEDC, LWEDC, M, M2, M3,
-     $                   MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX,
-     $                   NSPLIT, NTEST, NTESTT
-      DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL,
-     $                   RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP,
-     $                   ULPINV, UNFL, VL, VU
+      INTEGER            I, IINFO, IL, IMODE, INDE, INDRWK, ITEMP, ITYPE, IU, J, JC, JR, JSIZE, JTYPE, LGN, LIWEDC, LOG2UI, LRWEDC, LWEDC, M, M2, M3, MTYPES, N, NAP, NBLOCK, NERRS, NMATS, NMAX, NSPLIT, NTEST, NTESTT
+      DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, TEMP1, TEMP2, TEMP3, TEMP4, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       DOUBLE PRECISION   DUMMA( 1 )
 *     ..
 *     .. External Functions ..
@@ -64,21 +46,13 @@
       EXTERNAL           ILAENV, DLAMCH, DLARND, DSXT1
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLASUM, DSTEBZ, DSTECH, DSTERF, XERBLA,
-     $                   ZCOPY, ZHET21, ZHETRD, ZHPT21, ZHPTRD, ZLACPY,
-     $                   ZLASET, ZLATMR, ZLATMS, ZPTEQR, ZSTEDC, ZSTEMR,
-     $                   ZSTEIN, ZSTEQR, ZSTT21, ZSTT22, ZUNGTR, ZUPGTR
+      EXTERNAL           DCOPY, DLASUM, DSTEBZ, DSTECH, DSTERF, XERBLA, ZCOPY, ZHET21, ZHETRD, ZHPT21, ZHPTRD, ZLACPY, ZLASET, ZLATMR, ZLATMS, ZPTEQR, ZSTEDC, ZSTEMR, ZSTEIN, ZSTEQR, ZSTT21, ZSTT22, ZUNGTR, ZUPGTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCONJG, INT, LOG, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
-      DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8,
-     $                   8, 8, 9, 9, 9, 9, 9, 10 /
-      DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1,
-     $                   2, 3, 1, 1, 1, 2, 3, 1 /
-      DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0,
-     $                   0, 0, 4, 3, 1, 4, 4, 3 /
+      DATA               KTYPE / 1, 2, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 8, 8, 8, 9, 9, 9, 9, 9, 10 /       DATA               KMAGN / 1, 1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 1, 1, 1, 2, 3, 1 /       DATA               KMODE / 0, 0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 4, 3, 1, 4, 4, 3 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -97,8 +71,7 @@
       NMAX = 1
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
       NBLOCK = ILAENV( 1, 'ZHETRD', 'L', NMAX, -1, -1, -1 )
@@ -127,8 +100,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -152,10 +124,7 @@
          N = NN( JSIZE )
          IF( N.GT.0 ) THEN
             LGN = INT( LOG( DBLE( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N )
-     $         LGN = LGN + 1
-            IF( 2**LGN.LT.N )
-     $         LGN = LGN + 1
+            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWEDC = 1 + 4*N + 2*N*LGN + 4*N**2
             LRWEDC = 1 + 3*N + 2*N*LGN + 4*N**2
             LIWEDC = 6 + 6*N + 5*N*LGN
@@ -174,8 +143,7 @@
          END IF
 *
          DO 300 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 300
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 300
             NMATS = NMATS + 1
             NTEST = 0
 *
@@ -199,8 +167,7 @@
 *           =9                      positive definite
 *           =10                     diagonally dominant tridiagonal
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 100
+            IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -250,54 +217,43 @@
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK, IINFO )
 *
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Hermitian, eigenvalues specified
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Hermitian, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL ZLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              Positive definite, eigenvalues specified.
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK, IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Positive definite tridiagonal, eigenvalues specified.
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND,
-     $                      ANORM, 1, 1, 'N', A, LDA, WORK, IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'N', A, LDA, WORK, IINFO )
                DO 90 I = 2, N
                   TEMP1 = ABS( A( I-1, I ) )
                   TEMP2 = SQRT( ABS( A( I-1, I-1 )*A( I, I ) ) )
                   IF( TEMP1.GT.HALF*TEMP2 ) THEN
-                     A( I-1, I ) = A( I-1, I )*
-     $                             ( HALF*TEMP2 / ( UNFL+TEMP1 ) )
+                     A( I-1, I ) = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) )
                      A( I, I-1 ) = DCONJG( A( I-1, I ) )
                   END IF
    90          CONTINUE
@@ -308,8 +264,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -322,12 +277,10 @@
             CALL ZLACPY( 'U', N, N, A, LDA, V, LDU )
 *
             NTEST = 1
-            CALL ZHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK,
-     $                   IINFO )
+            CALL ZHETRD( 'U', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHETRD(U)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHETRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -342,8 +295,7 @@
             NTEST = 2
             CALL ZUNGTR( 'U', N, U, LDU, TAU, WORK, LWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(U)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -355,10 +307,7 @@
 *
 *           Do tests 1 and 2
 *
-            CALL ZHET21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V,
-     $                   LDU, TAU, WORK, RWORK, RESULT( 1 ) )
-            CALL ZHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V,
-     $                   LDU, TAU, WORK, RWORK, RESULT( 2 ) )
+            CALL ZHET21( 2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL ZHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) )
 *
 *           Call ZHETRD and ZUNGTR to compute S and U from
 *           lower triangle, do tests.
@@ -366,12 +315,10 @@
             CALL ZLACPY( 'L', N, N, A, LDA, V, LDU )
 *
             NTEST = 3
-            CALL ZHETRD( 'L', N, V, LDU, SD, SE, TAU, WORK, LWORK,
-     $                   IINFO )
+            CALL ZHETRD( 'L', N, V, LDU, SD, SE, TAU, WORK, LWORK, IINFO )
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHETRD(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHETRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -386,8 +333,7 @@
             NTEST = 4
             CALL ZUNGTR( 'L', N, U, LDU, TAU, WORK, LWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUNGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -397,10 +343,7 @@
                END IF
             END IF
 *
-            CALL ZHET21( 2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V,
-     $                   LDU, TAU, WORK, RWORK, RESULT( 3 ) )
-            CALL ZHET21( 3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V,
-     $                   LDU, TAU, WORK, RWORK, RESULT( 4 ) )
+            CALL ZHET21( 2, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 3 ) )             CALL ZHET21( 3, 'Lower', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 4 ) )
 *
 *           Store the upper triangle of A in AP
 *
@@ -420,8 +363,7 @@
             CALL ZHPTRD( 'U', N, VP, SD, SE, TAU, IINFO )
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(U)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -434,8 +376,7 @@
             NTEST = 6
             CALL ZUPGTR( 'U', N, VP, TAU, U, LDU, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(U)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(U)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -447,10 +388,7 @@
 *
 *           Do tests 5 and 6
 *
-            CALL ZHPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU,
-     $                   WORK, RWORK, RESULT( 5 ) )
-            CALL ZHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU,
-     $                   WORK, RWORK, RESULT( 6 ) )
+            CALL ZHPT21( 2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL ZHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) )
 *
 *           Store the lower triangle of A in AP
 *
@@ -470,8 +408,7 @@
             CALL ZHPTRD( 'L', N, VP, SD, SE, TAU, IINFO )
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHPTRD(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -484,8 +421,7 @@
             NTEST = 8
             CALL ZUPGTR( 'L', N, VP, TAU, U, LDU, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUPGTR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -495,26 +431,20 @@
                END IF
             END IF
 *
-            CALL ZHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU,
-     $                   WORK, RWORK, RESULT( 7 ) )
-            CALL ZHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU,
-     $                   WORK, RWORK, RESULT( 8 ) )
+            CALL ZHPT21( 2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL ZHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) )
 *
 *           Call ZSTEQR to compute D1, D2, and Z, do tests.
 *
 *           Compute D1 and Z
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
             CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
             NTEST = 9
-            CALL ZSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ),
-     $                   IINFO )
+            CALL ZSTEQR( 'V', N, D1, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(V)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -527,15 +457,12 @@
 *           Compute D2
 *
             CALL DCOPY( N, SD, 1, D2, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
             NTEST = 11
-            CALL ZSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ),
-     $                   IINFO )
+            CALL ZSTEQR( 'N', N, D2, RWORK, WORK, LDU, RWORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEQR(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -548,14 +475,12 @@
 *           Compute D3 (using PWK method)
 *
             CALL DCOPY( N, SD, 1, D3, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
             NTEST = 12
             CALL DSTERF( N, D3, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DSTERF', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -567,8 +492,7 @@
 *
 *           Do Tests 9 and 10
 *
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK,
-     $                   RESULT( 9 ) )
+            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 9 ) )
 *
 *           Do Tests 11 and 12
 *
@@ -595,8 +519,7 @@
 *
             DO 160 J = 0, LOG2UI
                CALL DSTECH( N, SD, SE, D1, TEMP1, RWORK, IINFO )
-               IF( IINFO.EQ.0 )
-     $            GO TO 170
+               IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
   160       CONTINUE
 *
@@ -611,16 +534,13 @@
 *              Compute D4 and Z4
 *
                CALL DCOPY( N, SD, 1, D4, 1 )
-               IF( N.GT.0 )
-     $            CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
                CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
                NTEST = 14
-               CALL ZPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ),
-     $                      IINFO )
+               CALL ZPTEQR( 'V', N, D4, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(V)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(V)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -632,21 +552,17 @@
 *
 *              Do Tests 14 and 15
 *
-               CALL ZSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK,
-     $                      RWORK, RESULT( 14 ) )
+               CALL ZSTT21( N, 0, SD, SE, D4, DUMMA, Z, LDU, WORK, RWORK, RESULT( 14 ) )
 *
 *              Compute D5
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
-               IF( N.GT.0 )
-     $            CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
                NTEST = 16
-               CALL ZPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ),
-     $                      IINFO )
+               CALL ZPTEQR( 'N', N, D5, RWORK, Z, LDU, RWORK( N+1 ), IINFO )
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(N)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'ZPTEQR(N)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -665,8 +581,7 @@
                   TEMP2 = MAX( TEMP2, ABS( D4( J )-D5( J ) ) )
   180          CONTINUE
 *
-               RESULT( 16 ) = TEMP2 / MAX( UNFL,
-     $                        HUN*ULP*MAX( TEMP1, TEMP2 ) )
+               RESULT( 16 ) = TEMP2 / MAX( UNFL, HUN*ULP*MAX( TEMP1, TEMP2 ) )
             ELSE
                RESULT( 14 ) = ZERO
                RESULT( 15 ) = ZERO
@@ -685,12 +600,9 @@
             IF( JTYPE.EQ.21 ) THEN
                NTEST = 17
                ABSTOL = UNFL + UNFL
-               CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE,
-     $                      M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ),
-     $                      RWORK, IWORK( 2*N+1 ), IINFO )
+               CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WR, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,rel)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -702,13 +614,11 @@
 *
 *              Do test 17
 *
-               TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) /
-     $                 ( ONE-HALF )**4
+               TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
                TEMP1 = ZERO
                DO 190 J = 1, N
-                  TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) /
-     $                    ( ABSTOL+ABS( D4( J ) ) ) )
+                  TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   190          CONTINUE
 *
                RESULT( 17 ) = TEMP1 / TEMP2
@@ -720,12 +630,9 @@
 *
             NTEST = 18
             ABSTOL = UNFL + UNFL
-            CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M,
-     $                   NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK,
-     $                   IWORK( 2*N+1 ), IINFO )
+            CALL DSTEBZ( 'A', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -763,12 +670,9 @@
                END IF
             END IF
 *
-            CALL DSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE,
-     $                   M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ),
-     $                   RWORK, IWORK( 2*N+1 ), IINFO )
+            CALL DSTEBZ( 'I', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M2, NSPLIT, WA2, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -783,30 +687,23 @@
 *
             IF( N.GT.0 ) THEN
                IF( IL.NE.1 ) THEN
-                  VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ),
-     $                 ULP*ANORM, TWO*RTUNFL )
+                  VL = WA1( IL ) - MAX( HALF*( WA1( IL )-WA1( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                ELSE
-                  VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ),
-     $                 ULP*ANORM, TWO*RTUNFL )
+                  VL = WA1( 1 ) - MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                END IF
                IF( IU.NE.N ) THEN
-                  VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ),
-     $                 ULP*ANORM, TWO*RTUNFL )
+                  VU = WA1( IU ) + MAX( HALF*( WA1( IU+1 )-WA1( IU ) ), ULP*ANORM, TWO*RTUNFL )
                ELSE
-                  VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ),
-     $                 ULP*ANORM, TWO*RTUNFL )
+                  VU = WA1( N ) + MAX( HALF*( WA1( N )-WA1( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                END IF
             ELSE
                VL = ZERO
                VU = ONE
             END IF
 *
-            CALL DSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE,
-     $                   M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ),
-     $                   RWORK, IWORK( 2*N+1 ), IINFO )
+            CALL DSTEBZ( 'V', 'E', N, VL, VU, IL, IU, ABSTOL, SD, SE, M3, NSPLIT, WA3, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -838,12 +735,9 @@
 *           it returns these eigenvalues in the correct order.)
 *
             NTEST = 21
-            CALL DSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M,
-     $                   NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK,
-     $                   IWORK( 2*N+1 ), IINFO )
+            CALL DSTEBZ( 'A', 'B', N, VL, VU, IL, IU, ABSTOL, SD, SE, M, NSPLIT, WA1, IWORK( 1 ), IWORK( N+1 ), RWORK, IWORK( 2*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DSTEBZ(A,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -854,12 +748,9 @@
                END IF
             END IF
 *
-            CALL ZSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z,
-     $                   LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ),
-     $                   IINFO )
+            CALL ZSTEIN( N, SD, SE, M, WA1, IWORK( 1 ), IWORK( N+1 ), Z, LDU, RWORK, IWORK( 2*N+1 ), IWORK( 3*N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEIN', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEIN', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -872,8 +763,7 @@
 *
 *           Do tests 20 and 21
 *
-            CALL ZSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK,
-     $                   RESULT( 20 ) )
+            CALL ZSTT21( N, 0, SD, SE, WA1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 20 ) )
 *
 *           Call ZSTEDC(I) to compute D1 and Z, do tests.
 *
@@ -882,16 +772,13 @@
             INDE = 1
             INDRWK = INDE + N
             CALL DCOPY( N, SD, 1, D1, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
             NTEST = 22
-            CALL ZSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC,
-     $                   RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            CALL ZSTEDC( 'I', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(I)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(I)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -903,24 +790,20 @@
 *
 *           Do Tests 22 and 23
 *
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK,
-     $                   RESULT( 22 ) )
+            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 22 ) )
 *
 *           Call ZSTEDC(V) to compute D1 and Z, do tests.
 *
 *           Compute D1 and Z
 *
             CALL DCOPY( N, SD, 1, D1, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
             NTEST = 24
-            CALL ZSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC,
-     $                   RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            CALL ZSTEDC( 'V', N, D1, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(V)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -932,24 +815,20 @@
 *
 *           Do Tests 24 and 25
 *
-            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK,
-     $                   RESULT( 24 ) )
+            CALL ZSTT21( N, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, RWORK, RESULT( 24 ) )
 *
 *           Call ZSTEDC(N) to compute D2, do tests.
 *
 *           Compute D2
 *
             CALL DCOPY( N, SD, 1, D2, 1 )
-            IF( N.GT.0 )
-     $         CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
+            IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK( INDE ), 1 )
             CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
             NTEST = 26
-            CALL ZSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC,
-     $                   RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
+            CALL ZSTEDC( 'N', N, D2, RWORK( INDE ), Z, LDU, WORK, LWEDC, RWORK( INDRWK ), LRWEDC, IWORK, LIWEDC, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(N)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZSTEDC(N)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                IF( IINFO.LT.0 ) THEN
                   RETURN
@@ -973,8 +852,7 @@
 *
 *           Only test ZSTEMR if IEEE compliant
 *
-            IF( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND.
-     $          ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) THEN
+            IF( ILAENV( 10, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 .AND. ILAENV( 11, 'ZSTEMR', 'VA', 1, 0, 0, 0 ).EQ.1 ) THEN
 *
 *           Call ZSTEMR, do test 27 (relative eigenvalue accuracy)
 *
@@ -988,13 +866,9 @@
                IF( JTYPE.EQ.21 .AND. CREL ) THEN
                   NTEST = 27
                   ABSTOL = UNFL + UNFL
-                  CALL ZSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU,
-     $                         M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                         RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N,
-     $                         IINFO )
+                  CALL ZSTEMR( 'V', 'A', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A,rel)',
-     $                  IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A,rel)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -1006,13 +880,11 @@
 *
 *              Do test 27
 *
-                  TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) /
-     $                    ( ONE-HALF )**4
+                  TEMP2 = TWO*( TWO*N-ONE )*ULP*( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
                   TEMP1 = ZERO
                   DO 220 J = 1, N
-                     TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) /
-     $                       ( ABSTOL+ABS( D4( J ) ) ) )
+                     TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
   220             CONTINUE
 *
                   RESULT( 27 ) = TEMP1 / TEMP2
@@ -1028,14 +900,10 @@
                   IF( CRANGE ) THEN
                      NTEST = 28
                      ABSTOL = UNFL + UNFL
-                     CALL ZSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU,
-     $                            M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                            RWORK, LRWORK, IWORK( 2*N+1 ),
-     $                            LWORK-2*N, IINFO )
+                     CALL ZSTEMR( 'V', 'I', N, SD, SE, VL, VU, IL, IU, M, WR, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK, LRWORK, IWORK( 2*N+1 ), LWORK-2*N, IINFO )
 *
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I,rel)',
-     $                     IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I,rel)', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -1048,13 +916,11 @@
 *
 *                 Do test 28
 *
-                     TEMP2 = TWO*( TWO*N-ONE )*ULP*
-     $                       ( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
+                     TEMP2 = TWO*( TWO*N-ONE )*ULP* ( ONE+EIGHT*HALF**2 ) / ( ONE-HALF )**4
 *
                      TEMP1 = ZERO
                      DO 230 J = IL, IU
-                        TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+
-     $                          1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) )
+                        TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) )
   230                CONTINUE
 *
                      RESULT( 28 ) = TEMP1 / TEMP2
@@ -1071,8 +937,7 @@
 *           Compute D1 and Z
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
-               IF( N.GT.0 )
-     $            CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
                CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
                IF( CRANGE ) THEN
@@ -1084,13 +949,9 @@
                      IU = IL
                      IL = ITEMP
                   END IF
-                  CALL ZSTEMR( 'V', 'I', N, D5, RWORK, VL, VU, IL, IU,
-     $                         M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                         RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                         LIWORK-2*N, IINFO )
+                  CALL ZSTEMR( 'V', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I)', IINFO,
-     $                  N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -1108,17 +969,12 @@
 *           Compute D2
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
-                  IF( N.GT.0 )
-     $               CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
                   NTEST = 31
-                  CALL ZSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU,
-     $                         M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                         RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                         LIWORK-2*N, IINFO )
+                  CALL ZSTEMR( 'N', 'I', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,I)', IINFO,
-     $                  N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,I)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -1134,13 +990,11 @@
                   TEMP2 = ZERO
 *
                   DO 240 J = 1, IU - IL + 1
-                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ),
-     $                       ABS( D2( J ) ) )
+                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   240             CONTINUE
 *
-                  RESULT( 31 ) = TEMP2 / MAX( UNFL,
-     $                           ULP*MAX( TEMP1, TEMP2 ) )
+                  RESULT( 31 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 *
 *
 *           Call ZSTEMR(V,V) to compute D1 and Z, do tests.
@@ -1148,41 +1002,30 @@
 *           Compute D1 and Z
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
-                  IF( N.GT.0 )
-     $               CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
                   CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDU )
 *
                   NTEST = 32
 *
                   IF( N.GT.0 ) THEN
                      IF( IL.NE.1 ) THEN
-                        VL = D2( IL ) - MAX( HALF*
-     $                       ( D2( IL )-D2( IL-1 ) ), ULP*ANORM,
-     $                       TWO*RTUNFL )
+                        VL = D2( IL ) - MAX( HALF* ( D2( IL )-D2( IL-1 ) ), ULP*ANORM, TWO*RTUNFL )
                      ELSE
-                        VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ),
-     $                       ULP*ANORM, TWO*RTUNFL )
+                        VL = D2( 1 ) - MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                      END IF
                      IF( IU.NE.N ) THEN
-                        VU = D2( IU ) + MAX( HALF*
-     $                       ( D2( IU+1 )-D2( IU ) ), ULP*ANORM,
-     $                       TWO*RTUNFL )
+                        VU = D2( IU ) + MAX( HALF* ( D2( IU+1 )-D2( IU ) ), ULP*ANORM, TWO*RTUNFL )
                      ELSE
-                        VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ),
-     $                       ULP*ANORM, TWO*RTUNFL )
+                        VU = D2( N ) + MAX( HALF*( D2( N )-D2( 1 ) ), ULP*ANORM, TWO*RTUNFL )
                      END IF
                   ELSE
                      VL = ZERO
                      VU = ONE
                   END IF
 *
-                  CALL ZSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU,
-     $                         M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC,
-     $                         RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                         LIWORK-2*N, IINFO )
+                  CALL ZSTEMR( 'V', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, M, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,V)', IINFO,
-     $                  N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -1194,25 +1037,19 @@
 *
 *           Do Tests 32 and 33
 *
-                  CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK,
-     $                         M, RWORK, RESULT( 32 ) )
+                  CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 32 ) )
 *
 *           Call ZSTEMR to compute D2, do tests.
 *
 *           Compute D2
 *
                   CALL DCOPY( N, SD, 1, D5, 1 )
-                  IF( N.GT.0 )
-     $               CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+                  IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
                   NTEST = 34
-                  CALL ZSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU,
-     $                         M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                         RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                         LIWORK-2*N, IINFO )
+                  CALL ZSTEMR( 'N', 'V', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,V)', IINFO,
-     $                  N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,V)', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -1228,13 +1065,11 @@
                   TEMP2 = ZERO
 *
                   DO 250 J = 1, IU - IL + 1
-                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ),
-     $                       ABS( D2( J ) ) )
+                     TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   250             CONTINUE
 *
-                  RESULT( 34 ) = TEMP2 / MAX( UNFL,
-     $                           ULP*MAX( TEMP1, TEMP2 ) )
+                  RESULT( 34 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
                ELSE
                   RESULT( 29 ) = ZERO
                   RESULT( 30 ) = ZERO
@@ -1250,18 +1085,13 @@
 *           Compute D1 and Z
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
-               IF( N.GT.0 )
-     $            CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
                NTEST = 35
 *
-               CALL ZSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU,
-     $                      M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                      RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                      LIWORK-2*N, IINFO )
+               CALL ZSTEMR( 'V', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D1, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(V,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -1273,25 +1103,19 @@
 *
 *           Do Tests 35 and 36
 *
-               CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M,
-     $                      RWORK, RESULT( 35 ) )
+               CALL ZSTT22( N, M, 0, SD, SE, D1, DUMMA, Z, LDU, WORK, M, RWORK, RESULT( 35 ) )
 *
 *           Call ZSTEMR to compute D2, do tests.
 *
 *           Compute D2
 *
                CALL DCOPY( N, SD, 1, D5, 1 )
-               IF( N.GT.0 )
-     $            CALL DCOPY( N-1, SE, 1, RWORK, 1 )
+               IF( N.GT.0 ) CALL DCOPY( N-1, SE, 1, RWORK, 1 )
 *
                NTEST = 37
-               CALL ZSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU,
-     $                      M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC,
-     $                      RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ),
-     $                      LIWORK-2*N, IINFO )
+               CALL ZSTEMR( 'N', 'A', N, D5, RWORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, RWORK( N+1 ), LRWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO )
                IF( IINFO.NE.0 ) THEN
-                  WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,A)', IINFO, N,
-     $               JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9999 )'ZSTEMR(N,A)', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   IF( IINFO.LT.0 ) THEN
                      RETURN
@@ -1311,8 +1135,7 @@
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
   260          CONTINUE
 *
-               RESULT( 37 ) = TEMP2 / MAX( UNFL,
-     $                        ULP*MAX( TEMP1, TEMP2 ) )
+               RESULT( 37 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             END IF
   270       CONTINUE
   280       CONTINUE
@@ -1342,11 +1165,9 @@
                   END IF
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0D0 ) THEN
-                     WRITE( NOUNIT, FMT = 9989 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9989 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   ELSE
-                     WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF
   290       CONTINUE

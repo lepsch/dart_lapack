@@ -47,8 +47,7 @@
 *
 *        Apply H(i) to A(1:i-1,i:n) from the right
 *
-         CALL SLARZ( 'Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA,
-     $               TAU( I ), A( 1, I ), LDA, WORK )
+         CALL SLARZ( 'Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, TAU( I ), A( 1, I ), LDA, WORK )
 *
    20 CONTINUE
 *

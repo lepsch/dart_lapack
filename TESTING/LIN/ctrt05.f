@@ -1,5 +1,4 @@
-      SUBROUTINE CTRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, X,
-     $                   LDX, XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE CTRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -94,8 +92,7 @@
 *     (*) = (n+1)*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 *
       IFU = 0
-      IF( UNIT )
-     $   IFU = 1
+      IF( UNIT ) IFU = 1
       DO 90 K = 1, NRHS
          DO 80 I = 1, N
             TMP = CABS1( B( I, K ) )
@@ -104,11 +101,9 @@
                   DO 40 J = 1, I - IFU
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
    40             CONTINUE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                ELSE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 50 J = I + IFU, N
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
    50             CONTINUE
@@ -118,11 +113,9 @@
                   DO 60 J = 1, I - IFU
                      TMP = TMP + CABS1( A( I, J ) )*CABS1( X( J, K ) )
    60             CONTINUE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                ELSE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 70 J = I + IFU, N
                      TMP = TMP + CABS1( A( J, I ) )*CABS1( X( J, K ) )
    70             CONTINUE
@@ -134,8 +127,7 @@
                AXBI = MIN( AXBI, TMP )
             END IF
    80    CONTINUE
-         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL /
-     $         MAX( AXBI, ( N+1 )*UNFL ) )
+         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
          ELSE

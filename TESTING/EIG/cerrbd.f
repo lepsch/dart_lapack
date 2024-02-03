@@ -21,16 +21,14 @@
 *     ..
 *     .. Local Arrays ..
       REAL               D( NMAX ), E( NMAX ), RW( 4*NMAX )
-      COMPLEX            A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ),
-     $                   U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
+      COMPLEX            A( NMAX, NMAX ), TP( NMAX ), TQ( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CBDSQR, CGEBD2, CGEBRD, CUNGBR,
-     $                   CUNMBR
+      EXTERNAL           CHKXER, CBDSQR, CGEBD2, CGEBRD, CUNGBR, CUNMBR
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -134,56 +132,43 @@
 *
          SRNAMT = 'CUNMBR'
          INFOT = 1
-         CALL CUNMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( '/', 'L', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CUNMBR( 'Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', '/', 'T', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CUNMBR( 'Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', '/', 0, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CUNMBR( 'Q', 'L', 'C', -1, 0, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', 'C', -1, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CUNMBR( 'Q', 'L', 'C', 0, -1, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', 'C', 0, -1, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CUNMBR( 'Q', 'L', 'C', 0, 0, -1, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', 'C', 0, 0, -1, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMBR( 'Q', 'L', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMBR( 'Q', 'R', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'R', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMBR( 'P', 'L', 'C', 2, 0, 2, A, 1, TQ, U, 2, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'P', 'L', 'C', 2, 0, 2, A, 1, TQ, U, 2, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMBR( 'P', 'R', 'C', 0, 2, 2, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'P', 'R', 'C', 0, 2, 2, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 1, W, 1,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CUNMBR( 'Q', 'L', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 0,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'L', 'C', 0, 2, 0, A, 1, TQ, U, 1, W, 0, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0,
-     $                INFO )
+         CALL CUNMBR( 'Q', 'R', 'C', 2, 0, 0, A, 1, TQ, U, 2, W, 0, INFO )
          CALL CHKXER( 'CUNMBR', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
@@ -191,36 +176,28 @@
 *
          SRNAMT = 'CBDSQR'
          INFOT = 1
-         CALL CBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( '/', 0, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CBDSQR( 'U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', -1, 0, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CBDSQR( 'U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 0, -1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CBDSQR( 'U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 0, 0, -1, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CBDSQR( 'U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 0, 0, 0, -1, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL CBDSQR( 'U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 2, 1, 0, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CBDSQR( 'U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 0, 0, 2, 0, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW,
-     $                INFO )
+         CALL CBDSQR( 'U', 2, 0, 0, 1, D, E, V, 1, U, 1, A, 1, RW, INFO )
          CALL CHKXER( 'CBDSQR', INFOT, NOUT, LERR, OK )
          NT = NT + 8
       END IF

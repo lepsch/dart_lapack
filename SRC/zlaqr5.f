@@ -1,6 +1,4 @@
-      SUBROUTINE ZLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NSHFTS, S,
-     $                   H, LDH, ILOZ, IHIZ, Z, LDZ, V, LDV, U, LDU, NV,
-     $                   WV, LDWV, NH, WH, LDWH )
+      SUBROUTINE ZLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NSHFTS, S, H, LDH, ILOZ, IHIZ, Z, LDZ, V, LDV, U, LDU, NV, WV, LDWV, NH, WH, LDWH )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -8,31 +6,23 @@
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV,
-     $                   LDWH, LDWV, LDZ, N, NH, NSHFTS, NV
+      INTEGER            IHIZ, ILOZ, KACC22, KBOT, KTOP, LDH, LDU, LDV, LDWH, LDWV, LDZ, N, NH, NSHFTS, NV
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         H( LDH, * ), S( * ), U( LDU, * ), V( LDV, * ),
-     $                   WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * )
+      COMPLEX*16         H( LDH, * ), S( * ), U( LDU, * ), V( LDV, * ), WH( LDWH, * ), WV( LDWV, * ), Z( LDZ, * )
 *     ..
 *
 *  ================================================================
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ),
-     $                   ONE = ( 1.0d0, 0.0d0 ) )
+      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
       DOUBLE PRECISION   RZERO, RONE
       PARAMETER          ( RZERO = 0.0d0, RONE = 1.0d0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX*16         ALPHA, BETA, CDUM, REFSUM, T1, T2, T3
-      DOUBLE PRECISION   H11, H12, H21, H22, SAFMAX, SAFMIN, SCL,
-     $                   SMLNUM, TST1, TST2, ULP
-      INTEGER            I2, I4, INCOL, J, JBOT, JCOL, JLEN,
-     $                   JROW, JTOP, K, K1, KDU, KMS, KRCOL,
-     $                   M, M22, MBOT, MTOP, NBMPS, NDCOL,
-     $                   NS, NU
+      DOUBLE PRECISION   H11, H12, H21, H22, SAFMAX, SAFMIN, SCL, SMLNUM, TST1, TST2, ULP       INTEGER            I2, I4, INCOL, J, JBOT, JCOL, JLEN, JROW, JTOP, K, K1, KDU, KMS, KRCOL, M, M22, MBOT, MTOP, NBMPS, NDCOL, NS, NU
       LOGICAL            ACCUM, BMP22
 *     ..
 *     .. External Functions ..
@@ -59,14 +49,12 @@
 *
 *     ==== If there are no shifts, then there is nothing to do. ====
 *
-      IF( NSHFTS.LT.2 )
-     $   RETURN
+      IF( NSHFTS.LT.2 ) RETURN
 *
 *     ==== If the active block is empty or 1-by-1, then there
 *     .    is nothing to do. ====
 *
-      IF( KTOP.GE.KBOT )
-     $   RETURN
+      IF( KTOP.GE.KBOT ) RETURN
 *
 *     ==== NSHFTS is supposed to be even, but if it is odd,
 *     .    then simply reduce it by one.  ====
@@ -87,8 +75,7 @@
 *
 *     ==== clear trash ====
 *
-      IF( KTOP+2.LE.KBOT )
-     $   H( KTOP+2, KTOP ) = ZERO
+      IF( KTOP+2.LE.KBOT ) H( KTOP+2, KTOP ) = ZERO
 *
 *     ==== NBMPS = number of 2-shift bulges in the chain ====
 *
@@ -113,8 +100,7 @@
          END IF
 *
          NDCOL = INCOL + KDU
-         IF( ACCUM )
-     $      CALL ZLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU )
+         IF( ACCUM ) CALL ZLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU )
 *
 *        ==== Near-the-diagonal bulge chase.  The following loop
 *        .    performs the near-the-diagonal part of a small bulge
@@ -140,8 +126,7 @@
             MTOP = MAX( 1, ( KTOP-KRCOL ) / 2+1 )
             MBOT = MIN( NBMPS, ( KBOT-KRCOL-1 ) / 2 )
             M22 = MBOT + 1
-            BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ).EQ.
-     $              ( KBOT-2 )
+            BMP22 = ( MBOT.LT.NBMPS ) .AND. ( KRCOL+2*( M22-1 ) ).EQ. ( KBOT-2 )
 *
 *           ==== Generate reflections to chase the chain right
 *           .    one column.  (The minimum value of K is KTOP-1.) ====
@@ -153,8 +138,7 @@
 *
                K = KRCOL + 2*( M22-1 )
                IF( K.EQ.KTOP-1 ) THEN
-                  CALL ZLAQR1( 2, H( K+1, K+1 ), LDH, S( 2*M22-1 ),
-     $                         S( 2*M22 ), V( 1, M22 ) )
+                  CALL ZLAQR1( 2, H( K+1, K+1 ), LDH, S( 2*M22-1 ), S( 2*M22 ), V( 1, M22 ) )
                   BETA = V( 1, M22 )
                   CALL ZLARFG( 2, BETA, V( 2, M22 ), 1, V( 1, M22 ) )
                ELSE
@@ -166,7 +150,7 @@
                END IF
 
 *
-*              ==== Perform update from right within 
+*              ==== Perform update from right within
 *              .    computational window. ====
 *
                T1 = V( 1, M22 )
@@ -177,7 +161,7 @@
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
    30          CONTINUE
 *
-*              ==== Perform update from left within 
+*              ==== Perform update from left within
 *              .    computational window. ====
 *
                IF( ACCUM ) THEN
@@ -190,8 +174,7 @@
                T1 = DCONJG( V( 1, M22 ) )
                T2 = T1*V( 2, M22 )
                DO 40 J = K+1, JBOT
-                  REFSUM = H( K+1, J ) +
-     $                     DCONJG( V( 2, M22 ) )*H( K+2, J )
+                  REFSUM = H( K+1, J ) + DCONJG( V( 2, M22 ) )*H( K+2, J )
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
    40          CONTINUE
@@ -209,34 +192,13 @@
                   IF( H( K+1, K ).NE.ZERO ) THEN
                      TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                      IF( TST1.EQ.RZERO ) THEN
-                        IF( K.GE.KTOP+1 )
-     $                     TST1 = TST1 + CABS1( H( K, K-1 ) )
-                        IF( K.GE.KTOP+2 )
-     $                     TST1 = TST1 + CABS1( H( K, K-2 ) )
-                        IF( K.GE.KTOP+3 )
-     $                     TST1 = TST1 + CABS1( H( K, K-3 ) )
-                        IF( K.LE.KBOT-2 )
-     $                     TST1 = TST1 + CABS1( H( K+2, K+1 ) )
-                        IF( K.LE.KBOT-3 )
-     $                     TST1 = TST1 + CABS1( H( K+3, K+1 ) )
-                        IF( K.LE.KBOT-4 )
-     $                     TST1 = TST1 + CABS1( H( K+4, K+1 ) )
+                        IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                         IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                         IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                         IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                         IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                         IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
                      END IF
-                     IF( CABS1( H( K+1, K ) )
-     $                   .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN
-                        H12 = MAX( CABS1( H( K+1, K ) ),
-     $                     CABS1( H( K, K+1 ) ) )
-                        H21 = MIN( CABS1( H( K+1, K ) ),
-     $                     CABS1( H( K, K+1 ) ) )
-                        H11 = MAX( CABS1( H( K+1, K+1 ) ),
-     $                     CABS1( H( K, K )-H( K+1, K+1 ) ) )
-                        H22 = MIN( CABS1( H( K+1, K+1 ) ),
-     $                     CABS1( H( K, K )-H( K+1, K+1 ) ) )
+                     IF( CABS1( H( K+1, K ) ) .LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                         H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                         H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                         H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                         SCL = H11 + H12
                         TST2 = H22*( H11 / SCL )
 *
-                        IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE.
-     $                      MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
+                        IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
                      END IF
                   END IF
                END IF
@@ -246,19 +208,15 @@
                IF( ACCUM ) THEN
                   KMS = K - INCOL
                   DO 50 J = MAX( 1, KTOP-INCOL ), KDU
-                     REFSUM = V( 1, M22 )*( U( J, KMS+1 )+
-     $                        V( 2, M22 )*U( J, KMS+2 ) )
+                     REFSUM = V( 1, M22 )*( U( J, KMS+1 )+ V( 2, M22 )*U( J, KMS+2 ) )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM
-                     U( J, KMS+2 ) = U( J, KMS+2 ) -
-     $                               REFSUM*DCONJG( V( 2, M22 ) )
+                     U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
   50                 CONTINUE
                ELSE IF( WANTZ ) THEN
                   DO 60 J = ILOZ, IHIZ
-                     REFSUM = V( 1, M22 )*( Z( J, K+1 )+V( 2, M22 )*
-     $                        Z( J, K+2 ) )
+                     REFSUM = V( 1, M22 )*( Z( J, K+1 )+V( 2, M22 )* Z( J, K+2 ) )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM
-                     Z( J, K+2 ) = Z( J, K+2 ) -
-     $                             REFSUM*DCONJG( V( 2, M22 ) )
+                     Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*DCONJG( V( 2, M22 ) )
   60              CONTINUE
                END IF
             END IF
@@ -268,8 +226,7 @@
             DO 80 M = MBOT, MTOP, -1
                K = KRCOL + 2*( M-1 )
                IF( K.EQ.KTOP-1 ) THEN
-                  CALL ZLAQR1( 3, H( KTOP, KTOP ), LDH, S( 2*M-1 ),
-     $                         S( 2*M ), V( 1, M ) )
+                  CALL ZLAQR1( 3, H( KTOP, KTOP ), LDH, S( 2*M-1 ), S( 2*M ), V( 1, M ) )
                   ALPHA = V( 1, M )
                   CALL ZLARFG( 3, ALPHA, V( 2, M ), 1, V( 1, M ) )
                ELSE
@@ -299,8 +256,7 @@
 *                 .    underflow case, try the two-small-subdiagonals
 *                 .    trick to try to reinflate the bulge.  ====
 *
-                  IF( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE.
-     $                ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) THEN
+                  IF( H( K+3, K ).NE.ZERO .OR. H( K+3, K+1 ).NE. ZERO .OR. H( K+3, K+2 ).EQ.ZERO ) THEN
 *
 *                    ==== Typical case: not collapsed (yet). ====
 *
@@ -315,8 +271,7 @@
 *                    .    reflector is too large, then abandon it.
 *                    .    Otherwise, use the new one. ====
 *
-                     CALL ZLAQR1( 3, H( K+1, K+1 ), LDH, S( 2*M-1 ),
-     $                            S( 2*M ), VT )
+                     CALL ZLAQR1( 3, H( K+1, K+1 ), LDH, S( 2*M-1 ), S( 2*M ), VT )
                      ALPHA = VT( 1 )
                      CALL ZLARFG( 3, ALPHA, VT( 2 ), 1, VT( 1 ) )
                      T1 = DCONJG( VT( 1 ) )
@@ -324,10 +279,7 @@
                      T3 = T1*VT( 3 )
                      REFSUM = H( K+1, K )+DCONJG( VT( 2 ) )*H( K+2, K )
 *
-                     IF( CABS1( H( K+2, K )-REFSUM*T2 )+
-     $                   CABS1( REFSUM*T3 ).GT.ULP*
-     $                   ( CABS1( H( K, K ) )+CABS1( H( K+1,
-     $                   K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) THEN
+                     IF( CABS1( H( K+2, K )-REFSUM*T2 )+ CABS1( REFSUM*T3 ).GT.ULP* ( CABS1( H( K, K ) )+CABS1( H( K+1, K+1 ) )+CABS1( H( K+2, K+2 ) ) ) ) THEN
 *
 *                       ==== Starting a new bulge here would
 *                       .    create non-negligible fill.  Use
@@ -363,8 +315,7 @@
                T2 = T1*DCONJG( V( 2, M ) )
                T3 = T1*DCONJG( V( 3, M ) )
                DO 70 J = JTOP, MIN( KBOT, K+3 )
-                  REFSUM = H( J, K+1 ) + V( 2, M )*H( J, K+2 )
-     $                     + V( 3, M )*H( J, K+3 )
+                  REFSUM = H( J, K+1 ) + V( 2, M )*H( J, K+2 ) + V( 3, M )*H( J, K+3 )
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
                   H( J, K+3 ) = H( J, K+3 ) - REFSUM*T3
@@ -376,9 +327,7 @@
                T1 = DCONJG( V( 1, M ) )
                T2 = T1*V( 2, M )
                T3 = T1*V( 3, M )
-               REFSUM = H( K+1, K+1 )
-     $                  + DCONJG( V( 2, M ) )*H( K+2, K+1 )
-     $                  + DCONJG( V( 3, M ) )*H( K+3, K+1 )
+               REFSUM = H( K+1, K+1 ) + DCONJG( V( 2, M ) )*H( K+2, K+1 ) + DCONJG( V( 3, M ) )*H( K+3, K+1 )
                H( K+1, K+1 ) = H( K+1, K+1 ) - REFSUM*T1
                H( K+2, K+1 ) = H( K+2, K+1 ) - REFSUM*T2
                H( K+3, K+1 ) = H( K+3, K+1 ) - REFSUM*T3
@@ -392,39 +341,17 @@
 *              .    is zero (as done here) is traditional but probably
 *              .    unnecessary. ====
 *
-               IF( K.LT.KTOP)
-     $              CYCLE
+               IF( K.LT.KTOP) CYCLE
                IF( H( K+1, K ).NE.ZERO ) THEN
                   TST1 = CABS1( H( K, K ) ) + CABS1( H( K+1, K+1 ) )
                   IF( TST1.EQ.RZERO ) THEN
-                     IF( K.GE.KTOP+1 )
-     $                  TST1 = TST1 + CABS1( H( K, K-1 ) )
-                     IF( K.GE.KTOP+2 )
-     $                  TST1 = TST1 + CABS1( H( K, K-2 ) )
-                     IF( K.GE.KTOP+3 )
-     $                  TST1 = TST1 + CABS1( H( K, K-3 ) )
-                     IF( K.LE.KBOT-2 )
-     $                  TST1 = TST1 + CABS1( H( K+2, K+1 ) )
-                     IF( K.LE.KBOT-3 )
-     $                  TST1 = TST1 + CABS1( H( K+3, K+1 ) )
-                     IF( K.LE.KBOT-4 )
-     $                  TST1 = TST1 + CABS1( H( K+4, K+1 ) )
+                     IF( K.GE.KTOP+1 ) TST1 = TST1 + CABS1( H( K, K-1 ) )                      IF( K.GE.KTOP+2 ) TST1 = TST1 + CABS1( H( K, K-2 ) )                      IF( K.GE.KTOP+3 ) TST1 = TST1 + CABS1( H( K, K-3 ) )                      IF( K.LE.KBOT-2 ) TST1 = TST1 + CABS1( H( K+2, K+1 ) )                      IF( K.LE.KBOT-3 ) TST1 = TST1 + CABS1( H( K+3, K+1 ) )                      IF( K.LE.KBOT-4 ) TST1 = TST1 + CABS1( H( K+4, K+1 ) )
                   END IF
-                  IF( CABS1( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) )
-     $                 THEN
-                     H12 = MAX( CABS1( H( K+1, K ) ),
-     $                     CABS1( H( K, K+1 ) ) )
-                     H21 = MIN( CABS1( H( K+1, K ) ),
-     $                     CABS1( H( K, K+1 ) ) )
-                     H11 = MAX( CABS1( H( K+1, K+1 ) ),
-     $                     CABS1( H( K, K )-H( K+1, K+1 ) ) )
-                     H22 = MIN( CABS1( H( K+1, K+1 ) ),
-     $                     CABS1( H( K, K )-H( K+1, K+1 ) ) )
+                  IF( CABS1( H( K+1, K ) ).LE.MAX( SMLNUM, ULP*TST1 ) ) THEN                      H12 = MAX( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H21 = MIN( CABS1( H( K+1, K ) ), CABS1( H( K, K+1 ) ) )                      H11 = MAX( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )                      H22 = MIN( CABS1( H( K+1, K+1 ) ), CABS1( H( K, K )-H( K+1, K+1 ) ) )
                      SCL = H11 + H12
                      TST2 = H22*( H11 / SCL )
 *
-                     IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE.
-     $                   MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
+                     IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
                   END IF
                END IF
    80       CONTINUE
@@ -445,8 +372,7 @@
                T2 = T1*V( 2, M )
                T3 = T1*V( 3, M )
                DO 90 J = MAX( KTOP, KRCOL + 2*M ), JBOT
-                  REFSUM = H( K+1, J ) + DCONJG( V( 2, M ) )*H( K+2, J )
-     $                     + DCONJG( V( 3, M ) )*H( K+3, J )
+                  REFSUM = H( K+1, J ) + DCONJG( V( 2, M ) )*H( K+2, J ) + DCONJG( V( 3, M ) )*H( K+3, J )
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
                   H( K+3, J ) = H( K+3, J ) - REFSUM*T3
@@ -471,8 +397,7 @@
                   T2 = T1*DCONJG( V( 2, M ) )
                   T3 = T1*DCONJG( V( 3, M ) )
                   DO 110 J = I2, I4
-                     REFSUM = U( J, KMS+1 ) + V( 2, M )*U( J, KMS+2 )
-     $                        + V( 3, M )*U( J, KMS+3 )
+                     REFSUM = U( J, KMS+1 ) + V( 2, M )*U( J, KMS+2 ) + V( 3, M )*U( J, KMS+3 )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2
                      U( J, KMS+3 ) = U( J, KMS+3 ) - REFSUM*T3
@@ -490,8 +415,7 @@
                   T2 = T1*DCONJG( V( 2, M ) )
                   T3 = T1*DCONJG( V( 3, M ) )
                   DO 130 J = ILOZ, IHIZ
-                     REFSUM = Z( J, K+1 ) + V( 2, M )*Z( J, K+2 )
-     $                        + V( 3, M )*Z( J, K+3 )
+                     REFSUM = Z( J, K+1 ) + V( 2, M )*Z( J, K+2 ) + V( 3, M )*Z( J, K+3 )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM*T1
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*T2
                      Z( J, K+3 ) = Z( J, K+3 ) - REFSUM*T3
@@ -522,22 +446,16 @@
 *
             DO 150 JCOL = MIN( NDCOL, KBOT ) + 1, JBOT, NH
                JLEN = MIN( NH, JBOT-JCOL+1 )
-               CALL ZGEMM( 'C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ),
-     $                     LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH,
-     $                     LDWH )
-               CALL ZLACPY( 'ALL', NU, JLEN, WH, LDWH,
-     $                      H( INCOL+K1, JCOL ), LDH )
+               CALL ZGEMM( 'C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH )
+               CALL ZLACPY( 'ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH )
   150       CONTINUE
 *
 *           ==== Vertical multiply ====
 *
             DO 160 JROW = JTOP, MAX( KTOP, INCOL ) - 1, NV
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
-               CALL ZGEMM( 'N', 'N', JLEN, NU, NU, ONE,
-     $                     H( JROW, INCOL+K1 ), LDH, U( K1, K1 ),
-     $                     LDU, ZERO, WV, LDWV )
-               CALL ZLACPY( 'ALL', JLEN, NU, WV, LDWV,
-     $                      H( JROW, INCOL+K1 ), LDH )
+               CALL ZGEMM( 'N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV )
+               CALL ZLACPY( 'ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH )
   160       CONTINUE
 *
 *           ==== Z multiply (also vertical) ====
@@ -545,11 +463,8 @@
             IF( WANTZ ) THEN
                DO 170 JROW = ILOZ, IHIZ, NV
                   JLEN = MIN( NV, IHIZ-JROW+1 )
-                  CALL ZGEMM( 'N', 'N', JLEN, NU, NU, ONE,
-     $                        Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ),
-     $                        LDU, ZERO, WV, LDWV )
-                  CALL ZLACPY( 'ALL', JLEN, NU, WV, LDWV,
-     $                         Z( JROW, INCOL+K1 ), LDZ )
+                  CALL ZGEMM( 'N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV )
+                  CALL ZLACPY( 'ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ )
   170          CONTINUE
             END IF
          END IF

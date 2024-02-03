@@ -1,5 +1,4 @@
-      SUBROUTINE SGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE SGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -100,24 +99,20 @@
 *
 *           Multiply by inv(L).
 *
-            CALL SLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A,
-     $                   LDA, WORK, SL, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
 *
 *           Multiply by inv(U).
 *
-            CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
+            CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(U**T).
 *
-            CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A,
-     $                   LDA, WORK, SU, WORK( 3*N+1 ), INFO )
+            CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, WORK( 3*N+1 ), INFO )
 *
 *           Multiply by inv(L**T).
 *
-            CALL SLATRS( 'Lower', 'Transpose', 'Unit', NORMIN, N, A,
-     $                   LDA, WORK, SL, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Lower', 'Transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, WORK( 2*N+1 ), INFO )
          END IF
 *
 *        Divide X by 1/(SL*SU) if doing so will not cause overflow.
@@ -126,8 +121,7 @@
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL SRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -144,8 +138,7 @@
 *
 *     Check for NaNs and Infs
 *
-      IF( SISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL )
-     $   INFO = 1
+      IF( SISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL ) INFO = 1
 *
    20 CONTINUE
       RETURN

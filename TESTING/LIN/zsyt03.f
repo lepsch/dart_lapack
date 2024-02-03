@@ -1,5 +1,4 @@
-      SUBROUTINE ZSYT03( UPLO, N, A, LDA, AINV, LDAINV, WORK, LDWORK,
-     $                   RWORK, RCOND, RESID )
+      SUBROUTINE ZSYT03( UPLO, N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( LDA, * ), AINV( LDAINV, * ),
-     $                   WORK( LDWORK, * )
+      COMPLEX*16         A( LDA, * ), AINV( LDAINV, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -23,8 +21,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J
@@ -79,8 +76,7 @@
    30       CONTINUE
    40    CONTINUE
       END IF
-      CALL ZSYMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV,
-     $            CZERO, WORK, LDWORK )
+      CALL ZSYMM( 'Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK )
 *
 *     Add the identity matrix to WORK .
 *

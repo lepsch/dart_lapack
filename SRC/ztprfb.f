@@ -1,5 +1,4 @@
-      SUBROUTINE ZTPRFB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L,
-     $                   V, LDV, T, LDT, A, LDA, B, LDB, WORK, LDWORK )
+      SUBROUTINE ZTPRFB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V, LDV, T, LDT, A, LDA, B, LDB, WORK, LDWORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER   K, L, LDA, LDB, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * ),
-     $          V( LDV, * ), WORK( LDWORK, * )
+      COMPLEX*16   A( LDA, * ), B( LDB, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
 *     ..
 *
 *  ==========================================================================
@@ -100,12 +98,7 @@
                WORK( I, J ) = B( M-L+I, J )
             END DO
          END DO
-         CALL ZTRMM( 'L', 'U', 'C', 'N', L, N, ONE, V( MP, 1 ), LDV,
-     $               WORK, LDWORK )
-         CALL ZGEMM( 'C', 'N', L, N, M-L, ONE, V, LDV, B, LDB,
-     $               ONE, WORK, LDWORK )
-         CALL ZGEMM( 'C', 'N', K-L, N, M, ONE, V( 1, KP ), LDV,
-     $               B, LDB, ZERO, WORK( KP, 1 ), LDWORK )
+         CALL ZTRMM( 'L', 'U', 'C', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK )          CALL ZGEMM( 'C', 'N', L, N, M-L, ONE, V, LDV, B, LDB, ONE, WORK, LDWORK )          CALL ZGEMM( 'C', 'N', K-L, N, M, ONE, V( 1, KP ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -113,8 +106,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'L', 'U', TRANS, 'N', K, N, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'L', 'U', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -122,12 +114,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK,
-     $               ONE, B, LDB )
-         CALL ZGEMM( 'N', 'N', L, N, K-L, -ONE, V( MP, KP ), LDV,
-     $               WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ),  LDB )
-         CALL ZTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV,
-     $               WORK, LDWORK )
+         CALL ZGEMM( 'N', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL ZGEMM( 'N', 'N', L, N, K-L, -ONE, V( MP, KP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ),  LDB )          CALL ZTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK )
          DO J = 1, N
             DO I = 1, L
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
@@ -160,12 +147,7 @@
                WORK( I, J ) = B( I, N-L+J )
             END DO
          END DO
-         CALL ZTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV,
-     $               WORK, LDWORK )
-         CALL ZGEMM( 'N', 'N', M, L, N-L, ONE, B, LDB,
-     $               V, LDV, ONE, WORK, LDWORK )
-         CALL ZGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB,
-     $               V( 1, KP ), LDV, ZERO, WORK( 1, KP ), LDWORK )
+         CALL ZTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK )          CALL ZGEMM( 'N', 'N', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL ZGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V( 1, KP ), LDV, ZERO, WORK( 1, KP ), LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -173,8 +155,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'R', 'U', TRANS, 'N', M, K, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'R', 'U', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -182,12 +163,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'C', M, N-L, K, -ONE, WORK, LDWORK,
-     $               V, LDV, ONE, B, LDB )
-         CALL ZGEMM( 'N', 'C', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK,
-     $               V( NP, KP ), LDV, ONE, B( 1, NP ), LDB )
-         CALL ZTRMM( 'R', 'U', 'C', 'N', M, L, ONE, V( NP, 1 ), LDV,
-     $               WORK, LDWORK )
+         CALL ZGEMM( 'N', 'C', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL ZGEMM( 'N', 'C', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( NP, KP ), LDV, ONE, B( 1, NP ), LDB )          CALL ZTRMM( 'R', 'U', 'C', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK )
          DO J = 1, L
             DO I = 1, M
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
@@ -222,12 +198,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'L', 'L', 'C', 'N', L, N, ONE, V( 1, KP ), LDV,
-     $               WORK( KP, 1 ), LDWORK )
-         CALL ZGEMM( 'C', 'N', L, N, M-L, ONE, V( MP, KP ), LDV,
-     $               B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )
-         CALL ZGEMM( 'C', 'N', K-L, N, M, ONE, V, LDV,
-     $               B, LDB, ZERO, WORK, LDWORK )
+         CALL ZTRMM( 'L', 'L', 'C', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK )          CALL ZGEMM( 'C', 'N', L, N, M-L, ONE, V( MP, KP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL ZGEMM( 'C', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -235,8 +206,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'L', 'L', TRANS, 'N', K, N, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'L', 'L', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -244,12 +214,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'N', M-L, N, K, -ONE, V( MP, 1 ), LDV,
-     $               WORK, LDWORK, ONE, B( MP, 1 ), LDB )
-         CALL ZGEMM( 'N', 'N', L, N, K-L, -ONE, V, LDV,
-     $               WORK, LDWORK, ONE, B,  LDB )
-         CALL ZTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV,
-     $               WORK( KP, 1 ), LDWORK )
+         CALL ZGEMM( 'N', 'N', M-L, N, K, -ONE, V( MP, 1 ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL ZGEMM( 'N', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B,  LDB )          CALL ZTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK )
          DO J = 1, N
             DO I = 1, L
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
@@ -282,12 +247,7 @@
                WORK( I, K-L+J ) = B( I, J )
             END DO
          END DO
-         CALL ZTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV,
-     $               WORK( 1, KP ), LDWORK )
-         CALL ZGEMM( 'N', 'N', M, L, N-L, ONE, B( 1, NP ), LDB,
-     $               V( NP, KP ), LDV, ONE, WORK( 1, KP ), LDWORK )
-         CALL ZGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB,
-     $               V, LDV, ZERO, WORK, LDWORK )
+         CALL ZTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK )          CALL ZGEMM( 'N', 'N', M, L, N-L, ONE, B( 1, NP ), LDB, V( NP, KP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL ZGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -295,8 +255,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'R', 'L', TRANS, 'N', M, K, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'R', 'L', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -304,12 +263,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'C', M, N-L, K, -ONE, WORK, LDWORK,
-     $               V( NP, 1 ), LDV, ONE, B( 1, NP ), LDB )
-         CALL ZGEMM( 'N', 'C', M, L, K-L, -ONE, WORK, LDWORK,
-     $               V, LDV, ONE, B, LDB )
-         CALL ZTRMM( 'R', 'L', 'C', 'N', M, L, ONE, V( 1, KP ), LDV,
-     $               WORK( 1, KP ), LDWORK )
+         CALL ZGEMM( 'N', 'C', M, N-L, K, -ONE, WORK, LDWORK, V( NP, 1 ), LDV, ONE, B( 1, NP ), LDB )          CALL ZGEMM( 'N', 'C', M, L, K-L, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL ZTRMM( 'R', 'L', 'C', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK )
          DO J = 1, L
             DO I = 1, M
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )
@@ -342,12 +296,7 @@
                WORK( I, J ) = B( M-L+I, J )
             END DO
          END DO
-         CALL ZTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV,
-     $               WORK, LDB )
-         CALL ZGEMM( 'N', 'N', L, N, M-L, ONE, V, LDV,B, LDB,
-     $               ONE, WORK, LDWORK )
-         CALL ZGEMM( 'N', 'N', K-L, N, M, ONE, V( KP, 1 ), LDV,
-     $               B, LDB, ZERO, WORK( KP, 1 ), LDWORK )
+         CALL ZTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDB )          CALL ZGEMM( 'N', 'N', L, N, M-L, ONE, V, LDV,B, LDB, ONE, WORK, LDWORK )          CALL ZGEMM( 'N', 'N', K-L, N, M, ONE, V( KP, 1 ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -355,8 +304,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'L', 'U', TRANS, 'N', K, N, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'L', 'U', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -364,12 +312,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'C', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK,
-     $               ONE, B, LDB )
-         CALL ZGEMM( 'C', 'N', L, N, K-L, -ONE, V( KP, MP ), LDV,
-     $               WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ), LDB )
-         CALL ZTRMM( 'L', 'L', 'C', 'N', L, N, ONE, V( 1, MP ), LDV,
-     $               WORK, LDWORK )
+         CALL ZGEMM( 'C', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL ZGEMM( 'C', 'N', L, N, K-L, -ONE, V( KP, MP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ), LDB )          CALL ZTRMM( 'L', 'L', 'C', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK )
          DO J = 1, N
             DO I = 1, L
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
@@ -401,12 +344,7 @@
                WORK( I, J ) = B( I, N-L+J )
             END DO
          END DO
-         CALL ZTRMM( 'R', 'L', 'C', 'N', M, L, ONE, V( 1, NP ), LDV,
-     $               WORK, LDWORK )
-         CALL ZGEMM( 'N', 'C', M, L, N-L, ONE, B, LDB, V, LDV,
-     $               ONE, WORK, LDWORK )
-         CALL ZGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB,
-     $               V( KP, 1 ), LDV, ZERO, WORK( 1, KP ), LDWORK )
+         CALL ZTRMM( 'R', 'L', 'C', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK )          CALL ZGEMM( 'N', 'C', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL ZGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB, V( KP, 1 ), LDV, ZERO, WORK( 1, KP ), LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -414,8 +352,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'R', 'U', TRANS, 'N', M, K, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'R', 'U', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -423,12 +360,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'N', M, N-L, K, -ONE, WORK, LDWORK,
-     $               V, LDV, ONE, B, LDB )
-         CALL ZGEMM( 'N', 'N', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK,
-     $               V( KP, NP ), LDV, ONE, B( 1, NP ), LDB )
-         CALL ZTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV,
-     $               WORK, LDWORK )
+         CALL ZGEMM( 'N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL ZGEMM( 'N', 'N', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( KP, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL ZTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK )
          DO J = 1, L
             DO I = 1, M
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
@@ -461,12 +393,7 @@
                WORK( K-L+I, J ) = B( I, J )
             END DO
          END DO
-         CALL ZTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV,
-     $               WORK( KP, 1 ), LDWORK )
-         CALL ZGEMM( 'N', 'N', L, N, M-L, ONE, V( KP, MP ), LDV,
-     $               B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )
-         CALL ZGEMM( 'N', 'N', K-L, N, M, ONE, V, LDV, B, LDB,
-     $               ZERO, WORK, LDWORK )
+         CALL ZTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK )          CALL ZGEMM( 'N', 'N', L, N, M-L, ONE, V( KP, MP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL ZGEMM( 'N', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -474,8 +401,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'L', 'L ', TRANS, 'N', K, N, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'L', 'L ', TRANS, 'N', K, N, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, N
             DO I = 1, K
@@ -483,12 +409,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'C', 'N', M-L, N, K, -ONE, V( 1, MP ), LDV,
-     $               WORK, LDWORK, ONE, B( MP, 1 ), LDB )
-         CALL ZGEMM( 'C', 'N', L, N, K-L, -ONE, V, LDV,
-     $               WORK, LDWORK, ONE, B, LDB )
-         CALL ZTRMM( 'L', 'U', 'C', 'N', L, N, ONE, V( KP, 1 ), LDV,
-     $               WORK( KP, 1 ), LDWORK )
+         CALL ZGEMM( 'C', 'N', M-L, N, K, -ONE, V( 1, MP ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL ZGEMM( 'C', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL ZTRMM( 'L', 'U', 'C', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK )
          DO J = 1, N
             DO I = 1, L
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
@@ -520,12 +441,7 @@
                WORK( I, K-L+J ) = B( I, J )
             END DO
          END DO
-         CALL ZTRMM( 'R', 'U', 'C', 'N', M, L, ONE, V( KP, 1 ), LDV,
-     $               WORK( 1, KP ), LDWORK )
-         CALL ZGEMM( 'N', 'C', M, L, N-L, ONE, B( 1, NP ), LDB,
-     $               V( KP, NP ), LDV, ONE, WORK( 1, KP ), LDWORK )
-         CALL ZGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB, V, LDV,
-     $               ZERO, WORK, LDWORK )
+         CALL ZTRMM( 'R', 'U', 'C', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK )          CALL ZGEMM( 'N', 'C', M, L, N-L, ONE, B( 1, NP ), LDB, V( KP, NP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL ZGEMM( 'N', 'C', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -533,8 +449,7 @@
             END DO
          END DO
 *
-         CALL ZTRMM( 'R', 'L', TRANS, 'N', M, K, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL ZTRMM( 'R', 'L', TRANS, 'N', M, K, ONE, T, LDT, WORK, LDWORK )
 *
          DO J = 1, K
             DO I = 1, M
@@ -542,12 +457,7 @@
             END DO
          END DO
 *
-         CALL ZGEMM( 'N', 'N', M, N-L, K, -ONE, WORK, LDWORK,
-     $               V( 1, NP ), LDV, ONE, B( 1, NP ), LDB )
-         CALL ZGEMM( 'N', 'N', M, L, K-L , -ONE, WORK, LDWORK,
-     $               V, LDV, ONE, B, LDB )
-         CALL ZTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV,
-     $               WORK( 1, KP ), LDWORK )
+         CALL ZGEMM( 'N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V( 1, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL ZGEMM( 'N', 'N', M, L, K-L , -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL ZTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK )
          DO J = 1, L
             DO I = 1, M
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )

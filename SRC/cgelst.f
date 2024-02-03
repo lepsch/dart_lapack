@@ -1,5 +1,4 @@
-      SUBROUTINE CGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE CGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, TPSD
-      INTEGER            BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS,
-     $                   NB, NBMIN, SCLLEN
+      INTEGER            BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -37,8 +35,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGELQT, CGEQRT, CGEMLQT, CGEMQRT,
-     $                   CLASCL, CLASET, CTRTRS, XERBLA
+      EXTERNAL           CGELQT, CGEQRT, CGEMLQT, CGEMQRT, CLASCL, CLASET, CTRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -62,8 +59,7 @@
          INFO = -6
       ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY )
-     $          THEN
+      ELSE IF( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) THEN
          INFO = -10
       END IF
 *
@@ -72,8 +68,7 @@
       IF( INFO.EQ.0 .OR. INFO.EQ.-10 ) THEN
 *
          TPSD = .TRUE.
-         IF( LSAME( TRANS, 'N' ) )
-     $      TPSD = .FALSE.
+         IF( LSAME( TRANS, 'N' ) ) TPSD = .FALSE.
 *
          NB = ILAENV( 1, 'CGELST', ' ', M, N, -1, -1 )
 *
@@ -147,23 +142,20 @@
       END IF
 *
       BROW = M
-      IF( TPSD )
-     $   BROW = N
+      IF( TPSD ) BROW = N
       BNRM = CLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
 *        Scale matrix norm up to SMLNUM
 *
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
 *        Scale matrix norm down to BIGNUM
 *
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
@@ -174,8 +166,7 @@
 *        using the compact WY representation of Q,
 *        workspace at least N, optimally N*NB.
 *
-         CALL CGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB,
-     $                WORK( MN*NB+1 ), INFO )
+         CALL CGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
@@ -187,14 +178,11 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL CGEMQRT( 'Left', 'Conjugate transpose', M, NRHS, N, NB,
-     $                    A, LDA, WORK( 1 ), NB, B, LDB,
-     $                    WORK( MN*NB+1 ), INFO )
+            CALL CGEMQRT( 'Left', 'Conjugate transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
 *           Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 *
-            CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -212,8 +200,7 @@
 *
 *           Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 *
-            CALL CTRTRS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                   N, NRHS, A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'Upper', 'Conjugate transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -232,9 +219,7 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL CGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB,
-     $                    A, LDA, WORK( 1 ), NB, B, LDB,
-     $                    WORK( MN*NB+1 ), INFO )
+            CALL CGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
             SCLLEN = M
 *
@@ -247,8 +232,7 @@
 *        using the compact WY representation of Q,
 *        workspace at least M, optimally M*NB.
 *
-         CALL CGELQT( M, N, NB, A, LDA, WORK( 1 ), NB,
-     $                WORK( MN*NB+1 ), INFO )
+         CALL CGELQT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
@@ -260,8 +244,7 @@
 *
 *           Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 *
-            CALL CTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -280,9 +263,7 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL CGEMLQT( 'Left', 'Conjugate transpose', N, NRHS, M, NB,
-     $                   A, LDA, WORK( 1 ), NB, B, LDB,
-     $                   WORK( MN*NB+1 ), INFO )
+            CALL CGEMLQT( 'Left', 'Conjugate transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
             SCLLEN = N
 *
@@ -296,14 +277,11 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL CGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB,
-     $                    A, LDA, WORK( 1 ), NB, B, LDB,
-     $                    WORK( MN*NB+1), INFO )
+            CALL CGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO )
 *
 *           Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 *
-            CALL CTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit',
-     $                   M, NRHS, A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'Lower', 'Conjugate transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -318,18 +296,14 @@
 *     Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
-         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
-         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
-         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IBSCL.EQ.2 ) THEN
-         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWOPT )

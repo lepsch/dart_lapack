@@ -15,8 +15,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, II, J, L
@@ -48,8 +47,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
@@ -59,8 +57,7 @@
             DO 10 L = 1, M - K
                A( L, J ) = ZERO
    10       CONTINUE
-            IF( J.GT.N-M .AND. J.LE.N-K )
-     $         A( M-N+J, J ) = ONE
+            IF( J.GT.N-M .AND. J.LE.N-K ) A( M-N+J, J ) = ONE
    20    CONTINUE
       END IF
 *
@@ -71,8 +68,7 @@
 *
          CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE
-         CALL ZLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA,
-     $               DCONJG( TAU( I ) ), A, LDA, WORK )
+         CALL ZLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA, DCONJG( TAU( I ) ), A, LDA, WORK )
          CALL ZSCAL( N-M+II-1, -TAU( I ), A( II, 1 ), LDA )
          CALL ZLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE - DCONJG( TAU( I ) )

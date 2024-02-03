@@ -28,18 +28,14 @@
       LERR = .TRUE.
       IF( INFO.NE.INFOT ) THEN
          IF( INFOT.NE.0 ) THEN
-            WRITE( NOUT, FMT = 9999 )
-     $     SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
+            WRITE( NOUT, FMT = 9999 ) SRNAMT( 1:LEN_TRIM( SRNAMT ) ), INFO, INFOT
          ELSE
-            WRITE( NOUT, FMT = 9997 )
-     $     SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
+            WRITE( NOUT, FMT = 9997 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), INFO
          END IF
          OK = .FALSE.
       END IF
       IF( SRNAME.NE.SRNAMT ) THEN
-         WRITE( NOUT, FMT = 9998 )
-     $     SRNAME( 1:LEN_TRIM( SRNAME ) ),
-     $     SRNAMT( 1:LEN_TRIM( SRNAMT ) )
+         WRITE( NOUT, FMT = 9998 ) SRNAME( 1:LEN_TRIM( SRNAME ) ), SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = .FALSE.
       END IF
       RETURN

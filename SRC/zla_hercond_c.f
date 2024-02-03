@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_HERCOND_C( UPLO, N, A, LDA, AF,
-     $                                         LDAF, IPIV, C, CAPPLY,
-     $                                         INFO, WORK, RWORK )
+      DOUBLE PRECISION FUNCTION ZLA_HERCOND_C( UPLO, N, A, LDA, AF, LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -139,11 +137,9 @@
             END DO
 *
             IF ( UP ) THEN
-               CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(C).
@@ -164,11 +160,9 @@
             END IF
 *
             IF ( UP ) THEN
-               CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZHETRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZHETRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -182,8 +176,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   ZLA_HERCOND_C = 1.0D+0 / AINVNM
+      IF( AINVNM .NE. 0.0D+0 ) ZLA_HERCOND_C = 1.0D+0 / AINVNM
 *
       RETURN
 *

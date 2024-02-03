@@ -1,5 +1,4 @@
-      SUBROUTINE CGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB,
-     $                    WORK, LWORK, INFO )
+      SUBROUTINE CGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,9 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, TRAN
-      INTEGER            I, IASCL, IBSCL, J, MAXMN, BROW,
-     $                   SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2,
-     $                   WSIZEO, WSIZEM, INFO2
+      INTEGER            I, IASCL, IBSCL, J, MAXMN, BROW, SCLLEN, TSZO, TSZM, LWO, LWM, LW1, LW2, WSIZEO, WSIZEM, INFO2
       REAL               ANRM, BIGNUM, BNRM, SMLNUM, DUM( 1 )
       COMPLEX            TQ( 5 ), WORKQ( 1 )
 *     ..
@@ -36,8 +33,7 @@
       EXTERNAL           LSAME, SLAMCH, CLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQR, CGEMQR, CLASCL, CLASET,
-     $                   CTRTRS, XERBLA, CGELQ, CGEMLQ
+      EXTERNAL           CGEQR, CGEMQR, CLASCL, CLASET, CTRTRS, XERBLA, CGELQ, CGEMLQ
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, INT
@@ -51,8 +47,7 @@
       TRAN  = LSAME( TRANS, 'C' )
 *
       LQUERY = ( LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
-      IF( .NOT.( LSAME( TRANS, 'N' ) .OR.
-     $    LSAME( TRANS, 'C' ) ) ) THEN
+      IF( .NOT.( LSAME( TRANS, 'N' ) .OR. LSAME( TRANS, 'C' ) ) ) THEN
          INFO = -1
       ELSE IF( M.LT.0 ) THEN
          INFO = -2
@@ -77,14 +72,12 @@
          CALL CGEQR( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
-         CALL CGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ,
-     $                TSZO, B, LDB, WORKQ, -1, INFO2 )
+         CALL CGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 )
          LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
          CALL CGEQR( M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 )
          TSZM = INT( TQ( 1 ) )
          LWM  = INT( WORKQ( 1 ) )
-         CALL CGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ,
-     $                TSZM, B, LDB, WORKQ, -1, INFO2 )
+         CALL CGEMQR( 'L', TRANS, M, NRHS, N, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 )
          LWM = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
@@ -92,14 +85,12 @@
          CALL CGELQ( M, N, A, LDA, TQ, -1, WORKQ, -1, INFO2 )
          TSZO = INT( TQ( 1 ) )
          LWO  = INT( WORKQ( 1 ) )
-         CALL CGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ,
-     $                TSZO, B, LDB, WORKQ, -1, INFO2 )
+         CALL CGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ, TSZO, B, LDB, WORKQ, -1, INFO2 )
          LWO  = MAX( LWO, INT( WORKQ( 1 ) ) )
          CALL CGELQ( M, N, A, LDA, TQ, -2, WORKQ, -2, INFO2 )
          TSZM = INT( TQ( 1 ) )
          LWM  = INT( WORKQ( 1 ) )
-         CALL CGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ,
-     $                TSZM, B, LDB, WORKQ, -1, INFO2 )
+         CALL CGEMLQ( 'L', TRANS, N, NRHS, M, A, LDA, TQ, TSZM, B, LDB, WORKQ, -1, INFO2 )
          LWM  = MAX( LWM, INT( WORKQ( 1 ) ) )
          WSIZEO = TSZO + LWO
          WSIZEM = TSZM + LWM
@@ -132,8 +123,7 @@
 *     Quick return if possible
 *
       IF( MIN( M, N, NRHS ).EQ.0 ) THEN
-           CALL CLASET( 'FULL', MAX( M, N ), NRHS, CZERO, CZERO,
-     $                  B, LDB )
+           CALL CLASET( 'FULL', MAX( M, N ), NRHS, CZERO, CZERO, B, LDB )
            RETURN
       END IF
 *
@@ -176,15 +166,13 @@
 *
 *        Scale matrix norm up to SMLNUM
 *
-         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
 *        Scale matrix norm down to BIGNUM
 *
-         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL CLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
@@ -192,22 +180,18 @@
 *
 *        compute QR factorization of A
 *
-        CALL CGEQR( M, N, A, LDA, WORK( LW2+1 ), LW1,
-     $              WORK( 1 ), LW2, INFO )
+        CALL CGEQR( M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO )
         IF ( .NOT.TRAN ) THEN
 *
 *           Least-Squares Problem min || A * X - B ||
 *
 *           B(1:M,1:NRHS) := Q**T * B(1:M,1:NRHS)
 *
-          CALL CGEMQR( 'L' , 'C', M, NRHS, N, A, LDA,
-     $                 WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2,
-     $                 INFO )
+          CALL CGEMQR( 'L' , 'C', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
 *
 *           B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 *
-          CALL CTRTRS( 'U', 'N', 'N', N, NRHS,
-     $                  A, LDA, B, LDB, INFO )
+          CALL CTRTRS( 'U', 'N', 'N', N, NRHS, A, LDA, B, LDB, INFO )
           IF( INFO.GT.0 ) THEN
             RETURN
           END IF
@@ -218,8 +202,7 @@
 *
 *           B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 *
-            CALL CTRTRS( 'U', 'C', 'N', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'U', 'C', 'N', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -235,9 +218,7 @@
 *
 *           B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 *
-            CALL CGEMQR( 'L', 'N', M, NRHS, N, A, LDA,
-     $                   WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2,
-     $                   INFO )
+            CALL CGEMQR( 'L', 'N', M, NRHS, N, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
 *
             SCLLEN = M
 *
@@ -247,8 +228,7 @@
 *
 *        Compute LQ factorization of A
 *
-         CALL CGELQ( M, N, A, LDA, WORK( LW2+1 ), LW1,
-     $               WORK( 1 ), LW2, INFO )
+         CALL CGELQ( M, N, A, LDA, WORK( LW2+1 ), LW1, WORK( 1 ), LW2, INFO )
 *
 *        workspace at least M, optimally M*NB.
 *
@@ -258,8 +238,7 @@
 *
 *           B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 *
-            CALL CTRTRS( 'L', 'N', 'N', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'L', 'N', 'N', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -275,9 +254,7 @@
 *
 *           B(1:N,1:NRHS) := Q(1:N,:)**T * B(1:M,1:NRHS)
 *
-            CALL CGEMLQ( 'L', 'C', N, NRHS, M, A, LDA,
-     $                   WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2,
-     $                   INFO )
+            CALL CGEMLQ( 'L', 'C', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
@@ -289,16 +266,13 @@
 *
 *           B(1:N,1:NRHS) := Q * B(1:N,1:NRHS)
 *
-            CALL CGEMLQ( 'L', 'N', N, NRHS, M, A, LDA,
-     $                   WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2,
-     $                   INFO )
+            CALL CGEMLQ( 'L', 'N', N, NRHS, M, A, LDA, WORK( LW2+1 ), LW1, B, LDB, WORK( 1 ), LW2, INFO )
 *
 *           workspace at least NRHS, optimally NRHS*NB
 *
 *           B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 *
-            CALL CTRTRS( 'L', 'C', 'N', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL CTRTRS( 'L', 'C', 'N', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -313,18 +287,14 @@
 *     Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
-        CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB,
-     $               INFO )
+        CALL CLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
-        CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB,
-     $               INFO )
+        CALL CLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
-        CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $               INFO )
+        CALL CLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IBSCL.EQ.2 ) THEN
-        CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $               INFO )
+        CALL CLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
 *
    50 CONTINUE

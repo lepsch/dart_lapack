@@ -24,8 +24,7 @@
 *     Quick return if possible
 *
       IF( N.LE.1 ) THEN
-         IF( N.EQ.1 )
-     $      CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
+         IF( N.EQ.1 ) CALL DSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
          RETURN
       END IF
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE ZPTRFS( UPLO, N, NRHS, D, E, DF, EF, B, LDB, X, LDX,
-     $                   FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZPTRFS( UPLO, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,10 +9,7 @@
       INTEGER            INFO, LDB, LDX, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ),
-     $                   RWORK( * )
-      COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -118,25 +114,20 @@
                DX = D( 1 )*X( 1, J )
                EX = E( 1 )*X( 2, J )
                WORK( 1 ) = BI - DX - EX
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) +
-     $                      CABS1( E( 1 ) )*CABS1( X( 2, J ) )
+               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) )
                DO 30 I = 2, N - 1
                   BI = B( I, J )
                   CX = DCONJG( E( I-1 ) )*X( I-1, J )
                   DX = D( I )*X( I, J )
                   EX = E( I )*X( I+1, J )
                   WORK( I ) = BI - CX - DX - EX
-                  RWORK( I ) = CABS1( BI ) +
-     $                         CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) +
-     $                         CABS1( DX ) + CABS1( E( I ) )*
-     $                         CABS1( X( I+1, J ) )
+                  RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) )
    30          CONTINUE
                BI = B( N, J )
                CX = DCONJG( E( N-1 ) )*X( N-1, J )
                DX = D( N )*X( N, J )
                WORK( N ) = BI - CX - DX
-               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )*
-     $                      CABS1( X( N-1, J ) ) + CABS1( DX )
+               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
             END IF
          ELSE
             IF( N.EQ.1 ) THEN
@@ -149,25 +140,20 @@
                DX = D( 1 )*X( 1, J )
                EX = DCONJG( E( 1 ) )*X( 2, J )
                WORK( 1 ) = BI - DX - EX
-               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) +
-     $                      CABS1( E( 1 ) )*CABS1( X( 2, J ) )
+               RWORK( 1 ) = CABS1( BI ) + CABS1( DX ) + CABS1( E( 1 ) )*CABS1( X( 2, J ) )
                DO 40 I = 2, N - 1
                   BI = B( I, J )
                   CX = E( I-1 )*X( I-1, J )
                   DX = D( I )*X( I, J )
                   EX = DCONJG( E( I ) )*X( I+1, J )
                   WORK( I ) = BI - CX - DX - EX
-                  RWORK( I ) = CABS1( BI ) +
-     $                         CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) +
-     $                         CABS1( DX ) + CABS1( E( I ) )*
-     $                         CABS1( X( I+1, J ) )
+                  RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) )
    40          CONTINUE
                BI = B( N, J )
                CX = E( N-1 )*X( N-1, J )
                DX = D( N )*X( N, J )
                WORK( N ) = BI - CX - DX
-               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )*
-     $                      CABS1( X( N-1, J ) ) + CABS1( DX )
+               RWORK( N ) = CABS1( BI ) + CABS1( E( N-1 ) )* CABS1( X( N-1, J ) ) + CABS1( DX )
             END IF
          END IF
 *
@@ -185,8 +171,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
          BERR( J ) = S
@@ -197,8 +182,7 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
@@ -231,8 +215,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    60    CONTINUE
          IX = IDAMAX( N, RWORK, 1 )
@@ -258,8 +241,7 @@
 *
          RWORK( N ) = RWORK( N ) / DF( N )
          DO 80 I = N - 1, 1, -1
-            RWORK( I ) = RWORK( I ) / DF( I ) +
-     $                   RWORK( I+1 )*ABS( EF( I ) )
+            RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*ABS( EF( I ) )
    80    CONTINUE
 *
 *        Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
@@ -273,8 +255,7 @@
          DO 90 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
    90    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   100 CONTINUE
 *

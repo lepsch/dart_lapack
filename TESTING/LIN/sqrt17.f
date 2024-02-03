@@ -1,5 +1,4 @@
-      REAL             FUNCTION SQRT17( TRANS, IRESID, M, N, NRHS, A,
-     $                 LDA, X, LDX, B, LDB, C, WORK, LWORK )
+      REAL             FUNCTION SQRT17( TRANS, IRESID, M, N, NRHS, A, LDA, X, LDX, B, LDB, C, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( LDB, * ),
-     $                   WORK( LWORK ), X( LDX, * )
+      REAL               A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -69,36 +67,29 @@
 *     compute residual and scale it
 *
       CALL SLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A,
-     $            LDA, X, LDX, ONE, C, LDB )
+      CALL SGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
       NORMRS = SLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       IF( NORMRS.GT.SMLNUM ) THEN
          ISCL = 1
-         CALL SLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB,
-     $                INFO )
+         CALL SLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
       END IF
 *
 *     compute R**T * op(A)
 *
-      CALL SGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB,
-     $            A, LDA, ZERO, WORK, NRHS )
+      CALL SGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS )
 *
 *     compute and properly scale error
 *
       ERR = SLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
-      IF( NORMA.NE.ZERO )
-     $   ERR = ERR / NORMA
+      IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
 *
-      IF( ISCL.EQ.1 )
-     $   ERR = ERR*NORMRS
+      IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
 *
       IF( IRESID.EQ.1 ) THEN
          NORMB = SLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
-         IF( NORMB.NE.ZERO )
-     $      ERR = ERR / NORMB
+         IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
       ELSE
-         IF( NORMRS.NE.ZERO )
-     $      ERR = ERR / NORMRS
+         IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
       END IF
 *
       SQRT17 = ERR / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N, NRHS ) ) )

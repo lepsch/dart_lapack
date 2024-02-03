@@ -1,6 +1,4 @@
-      SUBROUTINE DGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V,
-     $                    LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK,
-     $                    LWORK, RWORK, RESULT )
+      SUBROUTINE DGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V, LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,11 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), ALPHA( * ),
-     $                   B( LDB, * ), BETA( * ), BF( LDB, * ),
-     $                   Q( LDQ, * ), R( LDR, * ), RESULT( 6 ),
-     $                   RWORK( * ), U( LDU, * ), V( LDV, * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), RESULT( 6 ), RWORK( * ), U( LDU, * ), V( LDV, * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -54,9 +48,7 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL DGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB,
-     $              ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK,
-     $              IWORK, INFO )
+      CALL DGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, IWORK, INFO )
 *
 *     Copy R
 *
@@ -76,11 +68,9 @@
 *
 *     Compute A:= U'*A*Q - D1*R
 *
-      CALL DGEMM( 'No transpose', 'No transpose', M, N, N, ONE, A, LDA,
-     $            Q, LDQ, ZERO, WORK, LDA )
+      CALL DGEMM( 'No transpose', 'No transpose', M, N, N, ONE, A, LDA, Q, LDQ, ZERO, WORK, LDA )
 *
-      CALL DGEMM( 'Transpose', 'No transpose', M, N, M, ONE, U, LDU,
-     $            WORK, LDA, ZERO, A, LDA )
+      CALL DGEMM( 'Transpose', 'No transpose', M, N, M, ONE, U, LDU, WORK, LDA, ZERO, A, LDA )
 *
       DO 60 I = 1, K
          DO 50 J = I, K + L
@@ -99,19 +89,16 @@
       RESID = DLANGE( '1', M, N, A, LDA, RWORK )
 *
       IF( ANORM.GT.ZERO ) THEN
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) /
-     $                 ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       ELSE
          RESULT( 1 ) = ZERO
       END IF
 *
 *     Compute B := V'*B*Q - D2*R
 *
-      CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, B, LDB,
-     $            Q, LDQ, ZERO, WORK, LDB )
+      CALL DGEMM( 'No transpose', 'No transpose', P, N, N, ONE, B, LDB, Q, LDQ, ZERO, WORK, LDB )
 *
-      CALL DGEMM( 'Transpose', 'No transpose', P, N, P, ONE, V, LDV,
-     $            WORK, LDB, ZERO, B, LDB )
+      CALL DGEMM( 'Transpose', 'No transpose', P, N, P, ONE, V, LDV, WORK, LDB, ZERO, B, LDB )
 *
       DO 100 I = 1, L
          DO 90 J = I, L
@@ -123,8 +110,7 @@
 *
       RESID = DLANGE( '1', P, N, B, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) /
-     $                 ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
       ELSE
          RESULT( 2 ) = ZERO
       END IF
@@ -132,8 +118,7 @@
 *     Compute I - U'*U
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, WORK, LDQ )
-      CALL DSYRK( 'Upper', 'Transpose', M, M, -ONE, U, LDU, ONE, WORK,
-     $            LDU )
+      CALL DSYRK( 'Upper', 'Transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU )
 *
 *     Compute norm( I - U'*U ) / ( M * ULP ) .
 *
@@ -143,8 +128,7 @@
 *     Compute I - V'*V
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, WORK, LDV )
-      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, V, LDV, ONE, WORK,
-     $            LDV )
+      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV )
 *
 *     Compute norm( I - V'*V ) / ( P * ULP ) .
 *
@@ -154,8 +138,7 @@
 *     Compute I - Q'*Q
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, WORK, LDQ )
-      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDQ, ONE, WORK,
-     $            LDQ )
+      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -176,8 +159,7 @@
 *
       RESULT( 6 ) = ZERO
       DO 120 I = K + 1, MIN( K+L, M ) - 1
-         IF( WORK( I ).LT.WORK( I+1 ) )
-     $      RESULT( 6 ) = ULPINV
+         IF( WORK( I ).LT.WORK( I+1 ) ) RESULT( 6 ) = ULPINV
   120 CONTINUE
 *
       RETURN

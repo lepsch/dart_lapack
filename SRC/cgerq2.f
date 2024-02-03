@@ -53,14 +53,12 @@
 *
          CALL CLACGV( N-K+I, A( M-K+I, 1 ), LDA )
          ALPHA = A( M-K+I, N-K+I )
-         CALL CLARFG( N-K+I, ALPHA, A( M-K+I, 1 ), LDA,
-     $                TAU( I ) )
+         CALL CLARFG( N-K+I, ALPHA, A( M-K+I, 1 ), LDA, TAU( I ) )
 *
 *        Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 *
          A( M-K+I, N-K+I ) = ONE
-         CALL CLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA,
-     $               TAU( I ), A, LDA, WORK )
+         CALL CLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK )
          A( M-K+I, N-K+I ) = ALPHA
          CALL CLACGV( N-K+I-1, A( M-K+I, 1 ), LDA )
    10 CONTINUE

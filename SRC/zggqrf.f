@@ -1,5 +1,4 @@
-      SUBROUTINE ZGGQRF( N, M, P, A, LDA, TAUA, B, LDB, TAUB, WORK,
-     $                   LWORK, INFO )
+      SUBROUTINE ZGGQRF( N, M, P, A, LDA, TAUA, B, LDB, TAUB, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ),
-     $                   WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -68,8 +66,7 @@
 *
 *     Update B := Q**H*B.
 *
-      CALL ZUNMQR( 'Left', 'Conjugate Transpose', N, P, MIN( N, M ), A,
-     $             LDA, TAUA, B, LDB, WORK, LWORK, INFO )
+      CALL ZUNMQR( 'Left', 'Conjugate Transpose', N, P, MIN( N, M ), A, LDA, TAUA, B, LDB, WORK, LWORK, INFO )
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 *
 *     RQ factorization of N-by-P matrix B: B = T*Z.

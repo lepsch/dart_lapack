@@ -46,27 +46,23 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
       CALL SLASET( 'Full', M, M, ZERO, ONE, WORK, M )
 *
 *     Form Q
 *
-      CALL SORM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK,
-     $             M, WORK( M*M+1 ), INFO )
+      CALL SORM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
 *     Form Q'*Q
 *
-      CALL SORM2R( 'Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M,
-     $             WORK( M*M+1 ), INFO )
+      CALL SORM2R( 'Left', 'Transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
       DO J = 1, M
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
       END DO
 *
-      SQRT11 = SLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) /
-     $         ( REAL( M )*SLAMCH( 'Epsilon' ) )
+      SQRT11 = SLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( REAL( M )*SLAMCH( 'Epsilon' ) )
 *
       RETURN
 *

@@ -56,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 .OR. IFST.EQ.ILST )
-     $   RETURN
+      IF( N.LE.1 .OR. IFST.EQ.ILST ) RETURN
 *
       IF( IFST.LT.ILST ) THEN
 *
@@ -88,11 +87,8 @@
 *
 *        Apply transformation to the matrix T.
 *
-         IF( K+2.LE.N )
-     $      CALL ZROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS,
-     $                 SN )
-         CALL ZROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS,
-     $              DCONJG( SN ) )
+         IF( K+2.LE.N ) CALL ZROT( N-K-1, T( K, K+2 ), LDT, T( K+1, K+2 ), LDT, CS, SN )
+         CALL ZROT( K-1, T( 1, K ), 1, T( 1, K+1 ), 1, CS, DCONJG( SN ) )
 *
          T( K, K ) = T22
          T( K+1, K+1 ) = T11
@@ -101,8 +97,7 @@
 *
 *           Accumulate transformation in the matrix Q.
 *
-            CALL ZROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS,
-     $                 DCONJG( SN ) )
+            CALL ZROT( N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) )
          END IF
 *
    10 CONTINUE

@@ -15,8 +15,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWS, K, LDWORK, LWKOPT, NB,
-     $                   NBMIN, NX
+      INTEGER            I, IB, IINFO, IWS, K, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEQR2, SLARFB, SLARFT, XERBLA
@@ -44,8 +43,7 @@
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
          INFO = -4
       ELSE IF( .NOT.LQUERY ) THEN
-         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) )
-     $      INFO = -7
+         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGEQRF', -INFO )
@@ -61,7 +59,7 @@
       END IF
 *
 *     Quick return if possible
-*     
+*
       IF( K.EQ.0 ) THEN
          WORK( 1 ) = 1
          RETURN
@@ -87,8 +85,7 @@
 *              determine the minimum value of NB.
 *
                NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1,
-     $                 -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) )
             END IF
          END IF
       END IF
@@ -103,22 +100,17 @@
 *           Compute the QR factorization of the current block
 *           A(i:m,i:i+ib-1)
 *
-            CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK,
-     $                   IINFO )
+            CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
             IF( I+IB.LE.N ) THEN
 *
 *              Form the triangular factor of the block reflector
 *              H = H(i) H(i+1) . . . H(i+ib-1)
 *
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB,
-     $                      A( I, I ), LDA, TAU( I ), WORK, LDWORK )
+               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H**T to A(i:m,i+ib:n) from the left
 *
-               CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                      'Columnwise', M-I+1, N-I-IB+1, IB,
-     $                      A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ),
-     $                      LDA, WORK( IB+1 ), LDWORK )
+               CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
             END IF
    10    CONTINUE
       ELSE
@@ -127,9 +119,7 @@
 *
 *     Use unblocked code to factor the last or only block.
 *
-      IF( I.LE.K )
-     $   CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK,
-     $                IINFO )
+      IF( I.LE.K ) CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO )
 *
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

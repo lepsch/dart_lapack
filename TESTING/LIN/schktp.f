@@ -1,6 +1,4 @@
-      SUBROUTINE SCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR,
-     $                   NMAX, AP, AINVP, B, X, XACT, WORK, RWORK,
-     $                   IWORK, NOUT )
+      SUBROUTINE SCHKTP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, AP, AINVP, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NSVAL( * ), NVAL( * )
-      REAL               AINVP( * ), AP( * ), B( * ), RWORK( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      REAL               AINVP( * ), AP( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,10 +30,7 @@
 *     .. Local Scalars ..
       CHARACTER          DIAG, NORM, TRANS, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO,
-     $                   K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN
-      REAL               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO,
-     $                   SCALE
+      INTEGER            I, IDIAG, IMAT, IN, INFO, IRHS, ITRAN, IUPLO, K, LAP, LDA, N, NERRS, NFAIL, NRHS, NRUN       REAL               AINVNM, ANORM, RCOND, RCONDC, RCONDI, RCONDO, SCALE
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN ), UPLOS( 2 )
@@ -49,10 +43,7 @@
       EXTERNAL           LSAME, SLANTP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04,
-     $                   SLACPY, SLARHS, SLATPS, SLATTP, STPCON, STPRFS,
-     $                   STPT01, STPT02, STPT03, STPT05, STPT06, STPTRI,
-     $                   STPTRS
+      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRTR, SGET04, SLACPY, SLARHS, SLATPS, SLATTP, STPCON, STPRFS, STPT01, STPT02, STPT03, STPT05, STPT06, STPTRI, STPTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -85,8 +76,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRTR( PATH, NOUT )
+      IF( TSTERR ) CALL SERRTR( PATH, NOUT )
       INFOT = 0
 *
       DO 110 IN = 1, NN
@@ -102,8 +92,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 70
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 70
 *
             DO 60 IUPLO = 1, 2
 *
@@ -114,8 +103,7 @@
 *              Call SLATTP to generate a triangular test matrix.
 *
                SRNAMT = 'SLATTP'
-               CALL SLATTP( IMAT, UPLO, 'No transpose', DIAG, ISEED, N,
-     $                      AP, X, WORK, INFO )
+               CALL SLATTP( IMAT, UPLO, 'No transpose', DIAG, ISEED, N, AP, X, WORK, INFO )
 *
 *              Set IDIAG = 1 for non-unit matrices, 2 for unit.
 *
@@ -128,16 +116,13 @@
 *+    TEST 1
 *              Form the inverse of A.
 *
-               IF( N.GT.0 )
-     $            CALL SCOPY( LAP, AP, 1, AINVP, 1 )
+               IF( N.GT.0 ) CALL SCOPY( LAP, AP, 1, AINVP, 1 )
                SRNAMT = 'STPTRI'
                CALL STPTRI( UPLO, DIAG, N, AINVP, INFO )
 *
 *              Check error code from STPTRI.
 *
-               IF( INFO.NE.0 )
-     $            CALL ALAERH( PATH, 'STPTRI', INFO, 0, UPLO // DIAG, N,
-     $                         N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STPTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *              Compute the infinity-norm condition number of A.
 *
@@ -152,16 +137,12 @@
 *              Compute the residual for the triangular matrix times its
 *              inverse.  Also compute the 1-norm condition number of A.
 *
-               CALL STPT01( UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK,
-     $                      RESULT( 1 ) )
+               CALL STPT01( UPLO, DIAG, N, AP, AINVP, RCONDO, RWORK, RESULT( 1 ) )
 *
 *              Print the test ratio if it is .GE. THRESH.
 *
                IF( RESULT( 1 ).GE.THRESH ) THEN
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $               CALL ALAHD( NOUT, PATH )
-                  WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1,
-     $               RESULT( 1 )
+                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, IMAT, 1, RESULT( 1 )
                   NFAIL = NFAIL + 1
                END IF
                NRUN = NRUN + 1
@@ -187,64 +168,43 @@
 *                 Solve and compute residual for op(A)*x = b.
 *
                      SRNAMT = 'SLARHS'
-                     CALL SLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0,
-     $                            IDIAG, NRHS, AP, LAP, XACT, LDA, B,
-     $                            LDA, ISEED, INFO )
+                     CALL SLARHS( PATH, XTYPE, UPLO, TRANS, N, N, 0, IDIAG, NRHS, AP, LAP, XACT, LDA, B, LDA, ISEED, INFO )
                      XTYPE = 'C'
                      CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                      SRNAMT = 'STPTRS'
-                     CALL STPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, X,
-     $                            LDA, INFO )
+                     CALL STPTRS( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, INFO )
 *
 *                 Check error code from STPTRS.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'STPTRS', INFO, 0,
-     $                               UPLO // TRANS // DIAG, N, N, -1,
-     $                               -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STPTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL STPT02( UPLO, TRANS, DIAG, N, NRHS, AP, X,
-     $                            LDA, B, LDA, WORK, RESULT( 2 ) )
+                     CALL STPT02( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDA, B, LDA, WORK, RESULT( 2 ) )
 *
 *+    TEST 3
 *                 Check solution from generated exact solution.
 *
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 3 ) )
+                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *                 Use iterative refinement to improve the solution and
 *                 compute error bounds.
 *
                      SRNAMT = 'STPRFS'
-                     CALL STPRFS( UPLO, TRANS, DIAG, N, NRHS, AP, B,
-     $                            LDA, X, LDA, RWORK, RWORK( NRHS+1 ),
-     $                            WORK, IWORK, INFO )
+                     CALL STPRFS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK, INFO )
 *
 *                 Check error code from STPRFS.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'STPRFS', INFO, 0,
-     $                               UPLO // TRANS // DIAG, N, N, -1,
-     $                               -1, NRHS, IMAT, NFAIL, NERRS,
-     $                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 4 ) )
-                     CALL STPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B,
-     $                            LDA, X, LDA, XACT, LDA, RWORK,
-     $                            RWORK( NRHS+1 ), RESULT( 5 ) )
+                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL STPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *                    Print information about the tests that did not pass
 *                    the threshold.
 *
                      DO 20 K = 2, 6
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG,
-     $                        N, NRHS, IMAT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
    20                CONTINUE
@@ -265,26 +225,18 @@
                   END IF
 *
                   SRNAMT = 'STPCON'
-                  CALL STPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK,
-     $                         IWORK, INFO )
+                  CALL STPCON( NORM, UPLO, DIAG, N, AP, RCOND, WORK, IWORK, INFO )
 *
 *                 Check error code from STPCON.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'STPCON', INFO, 0,
-     $                            NORM // UPLO // DIAG, N, N, -1, -1,
-     $                            -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'STPCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STPT06( RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK,
-     $                         RESULT( 7 ) )
+                  CALL STPT06( RCOND, RCONDC, UPLO, DIAG, N, AP, RWORK, RESULT( 7 ) )
 *
 *                 Print the test ratio if it is .GE. THRESH.
 *
                   IF( RESULT( 7 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO,
-     $                  DIAG, N, IMAT, 7, RESULT( 7 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 ) 'STPCON', NORM, UPLO, DIAG, N, IMAT, 7, RESULT( 7 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 1
@@ -298,8 +250,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 100
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
             DO 90 IUPLO = 1, 2
 *
@@ -315,61 +266,42 @@
 *                 Call SLATTP to generate a triangular test matrix.
 *
                   SRNAMT = 'SLATTP'
-                  CALL SLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X,
-     $                         WORK, INFO )
+                  CALL SLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, AP, X, WORK, INFO )
 *
 *+    TEST 8
 *                 Solve the system op(A)*x = b.
 *
                   SRNAMT = 'SLATPS'
                   CALL SCOPY( N, X, 1, B, 1 )
-                  CALL SLATPS( UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE,
-     $                         RWORK, INFO )
+                  CALL SLATPS( UPLO, TRANS, DIAG, 'N', N, AP, B, SCALE, RWORK, INFO )
 *
 *                 Check error code from SLATPS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'SLATPS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'N', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATPS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE,
-     $                         RWORK, ONE, B, LDA, X, LDA, WORK,
-     $                         RESULT( 8 ) )
+                  CALL STPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) )
 *
 *+    TEST 9
 *                 Solve op(A)*x = b again with NORMIN = 'Y'.
 *
                   CALL SCOPY( N, X, 1, B( N+1 ), 1 )
-                  CALL SLATPS( UPLO, TRANS, DIAG, 'Y', N, AP, B( N+1 ),
-     $                         SCALE, RWORK, INFO )
+                  CALL SLATPS( UPLO, TRANS, DIAG, 'Y', N, AP, B( N+1 ), SCALE, RWORK, INFO )
 *
 *                 Check error code from SLATPS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'SLATPS', INFO, 0,
-     $                            UPLO // TRANS // DIAG // 'Y', N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SLATPS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL STPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE,
-     $                         RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK,
-     $                         RESULT( 9 ) )
+                  CALL STPT03( UPLO, TRANS, DIAG, N, 1, AP, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   IF( RESULT( 8 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS,
-     $                  DIAG, 'N', N, IMAT, 8, RESULT( 8 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 )
                      NFAIL = NFAIL + 1
                   END IF
                   IF( RESULT( 9 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS,
-     $                  DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9996 )'SLATPS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 2

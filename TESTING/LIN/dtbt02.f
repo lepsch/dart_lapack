@@ -1,5 +1,4 @@
-      SUBROUTINE DTBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X,
-     $                   LDX, B, LDB, WORK, RESID )
+      SUBROUTINE DTBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AB( LDAB, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================

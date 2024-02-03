@@ -19,8 +19,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWS, J, KI, KK, L, LDWORK,
-     $                   LWKOPT, NB, NBMIN, NX
+      INTEGER            I, IB, IINFO, IWS, J, KI, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLARFB, SLARFT, SORG2R, XERBLA
@@ -113,9 +112,7 @@
 *
 *     Use unblocked code for the last or only block.
 *
-      IF( KK.LT.N )
-     $   CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA,
-     $                TAU( KK+1 ), WORK, IINFO )
+      IF( KK.LT.N ) CALL SORG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO )
 *
       IF( KK.GT.0 ) THEN
 *
@@ -128,21 +125,16 @@
 *              Form the triangular factor of the block reflector
 *              H = H(i) H(i+1) . . . H(i+ib-1)
 *
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB,
-     $                      A( I, I ), LDA, TAU( I ), WORK, LDWORK )
+               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H to A(i:m,i+ib:n) from the left
 *
-               CALL SLARFB( 'Left', 'No transpose', 'Forward',
-     $                      'Columnwise', M-I+1, N-I-IB+1, IB,
-     $                      A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ),
-     $                      LDA, WORK( IB+1 ), LDWORK )
+               CALL SLARFB( 'Left', 'No transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK )
             END IF
 *
 *           Apply H to rows i:m of current block
 *
-            CALL SORG2R( M-I+1, IB, IB, A( I, I ), LDA, TAU( I ), WORK,
-     $                   IINFO )
+            CALL SORG2R( M-I+1, IB, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
 *
 *           Set rows 1:i-1 of current block to zero
 *

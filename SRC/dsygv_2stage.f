@@ -1,5 +1,4 @@
-      SUBROUTINE DSYGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W,
-     $                         WORK, LWORK, INFO )
+      SUBROUTINE DSYGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -32,8 +31,7 @@
       EXTERNAL           LSAME, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DPOTRF, DSYGST, DTRMM, DTRSM, XERBLA,
-     $                   DSYEV_2STAGE
+      EXTERNAL           DPOTRF, DSYGST, DTRMM, DTRSM, XERBLA, DSYEV_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -83,8 +81,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a Cholesky factorization of B.
 *
@@ -104,8 +101,7 @@
 *        Backtransform eigenvectors to the original problem.
 *
          NEIG = N
-         IF( INFO.GT.0 )
-     $      NEIG = INFO - 1
+         IF( INFO.GT.0 ) NEIG = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
 *           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
@@ -117,8 +113,7 @@
                TRANS = 'T'
             END IF
 *
-            CALL DTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE,
-     $                  B, LDB, A, LDA )
+            CALL DTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA )
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
@@ -131,8 +126,7 @@
                TRANS = 'N'
             END IF
 *
-            CALL DTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE,
-     $                  B, LDB, A, LDA )
+            CALL DTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, NEIG, ONE, B, LDB, A, LDA )
          END IF
       END IF
 *

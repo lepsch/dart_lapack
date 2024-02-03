@@ -56,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -67,8 +66,7 @@
 *
 *           Compute U(J,J) and test for non-positive-definiteness.
 *
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1,
-     $            A( 1, J ), 1 ) )
+            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( 1, J ), 1, A( 1, J ), 1 ) )
             IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
                A( J, J ) = AJJ
                GO TO 30
@@ -80,8 +78,7 @@
 *
             IF( J.LT.N ) THEN
                CALL ZLACGV( J-1, A( 1, J ), 1 )
-               CALL ZGEMV( 'Transpose', J-1, N-J, -CONE, A( 1, J+1 ),
-     $                     LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
+               CALL ZGEMV( 'Transpose', J-1, N-J, -CONE, A( 1, J+1 ), LDA, A( 1, J ), 1, CONE, A( J, J+1 ), LDA )
                CALL ZLACGV( J-1, A( 1, J ), 1 )
                CALL ZDSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
             END IF
@@ -94,8 +91,7 @@
 *
 *           Compute L(J,J) and test for non-positive-definiteness.
 *
-            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA,
-     $            A( J, 1 ), LDA ) )
+            AJJ = DBLE( A( J, J ) ) - DBLE( ZDOTC( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA ) )
             IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
                A( J, J ) = AJJ
                GO TO 30
@@ -107,8 +103,7 @@
 *
             IF( J.LT.N ) THEN
                CALL ZLACGV( J-1, A( J, 1 ), LDA )
-               CALL ZGEMV( 'No transpose', N-J, J-1, -CONE, A( J+1, 1 ),
-     $                     LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
+               CALL ZGEMV( 'No transpose', N-J, J-1, -CONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+1, J ), 1 )
                CALL ZLACGV( J-1, A( J, 1 ), LDA )
                CALL ZDSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
             END IF

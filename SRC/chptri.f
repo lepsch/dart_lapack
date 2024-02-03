@@ -18,8 +18,7 @@
 *     .. Parameters ..
       REAL               ONE
       COMPLEX            CONE, ZERO
-      PARAMETER          ( ONE = 1.0E+0, CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = 1.0E+0, CONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -56,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check that the diagonal matrix D is nonsingular.
 *
@@ -67,8 +65,7 @@
 *
          KP = N*( N+1 ) / 2
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP - INFO
    10    CONTINUE
       ELSE
@@ -77,8 +74,7 @@
 *
          KP = 1
          DO 20 INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP + N - INFO + 1
    20    CONTINUE
       END IF
@@ -97,8 +93,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 50
+         IF( K.GT.N ) GO TO 50
 *
          KCNEXT = KC + K
          IF( IPIV( K ).GT.0 ) THEN
@@ -113,10 +108,7 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO,
-     $                     AP( KC ), 1 )
-               AP( KC+K-1 ) = AP( KC+K-1 ) -
-     $                        REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )
+               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )
             END IF
             KSTEP = 1
          ELSE
@@ -138,19 +130,9 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, AP( KC ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO,
-     $                     AP( KC ), 1 )
-               AP( KC+K-1 ) = AP( KC+K-1 ) -
-     $                        REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )
-               AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) -
-     $                            CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ),
-     $                            1 )
+               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KC ), 1 )                AP( KC+K-1 ) = AP( KC+K-1 ) - REAL( CDOTC( K-1, WORK, 1, AP( KC ), 1 ) )                AP( KCNEXT+K-1 ) = AP( KCNEXT+K-1 ) - CDOTC( K-1, AP( KC ), 1, AP( KCNEXT ), 1 )
                CALL CCOPY( K-1, AP( KCNEXT ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO,
-     $                     AP( KCNEXT ), 1 )
-               AP( KCNEXT+K ) = AP( KCNEXT+K ) -
-     $                          REAL( CDOTC( K-1, WORK, 1, AP( KCNEXT ),
-     $                          1 ) )
+               CALL CHPMV( UPLO, K-1, -CONE, AP, WORK, 1, ZERO, AP( KCNEXT ), 1 )                AP( KCNEXT+K ) = AP( KCNEXT+K ) - REAL( CDOTC( K-1, WORK, 1, AP( KCNEXT ), 1 ) )
             END IF
             KSTEP = 2
             KCNEXT = KCNEXT + K + 1
@@ -201,8 +183,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 80
+         IF( K.LT.1 ) GO TO 80
 *
          KCNEXT = KC - ( N-K+2 )
          IF( IPIV( K ).GT.0 ) THEN
@@ -217,10 +198,7 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1,
-     $                     ZERO, AP( KC+1 ), 1 )
-               AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1,
-     $                    AP( KC+1 ), 1 ) )
+               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+N-K+1 ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )
             END IF
             KSTEP = 1
          ELSE
@@ -242,19 +220,9 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, AP( KC+1 ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK,
-     $                     1, ZERO, AP( KC+1 ), 1 )
-               AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1,
-     $                    AP( KC+1 ), 1 ) )
-               AP( KCNEXT+1 ) = AP( KCNEXT+1 ) -
-     $                          CDOTC( N-K, AP( KC+1 ), 1,
-     $                          AP( KCNEXT+2 ), 1 )
+               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KC+1 ), 1 )                AP( KC ) = AP( KC ) - REAL( CDOTC( N-K, WORK, 1, AP( KC+1 ), 1 ) )                AP( KCNEXT+1 ) = AP( KCNEXT+1 ) - CDOTC( N-K, AP( KC+1 ), 1, AP( KCNEXT+2 ), 1 )
                CALL CCOPY( N-K, AP( KCNEXT+2 ), 1, WORK, 1 )
-               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK,
-     $                     1, ZERO, AP( KCNEXT+2 ), 1 )
-               AP( KCNEXT ) = AP( KCNEXT ) -
-     $                        REAL( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ),
-     $                        1 ) )
+               CALL CHPMV( UPLO, N-K, -CONE, AP( KC+( N-K+1 ) ), WORK, 1, ZERO, AP( KCNEXT+2 ), 1 )                AP( KCNEXT ) = AP( KCNEXT ) - REAL( CDOTC( N-K, WORK, 1, AP( KCNEXT+2 ), 1 ) )
             END IF
             KSTEP = 2
             KCNEXT = KCNEXT - ( N-K+3 )
@@ -267,8 +235,7 @@
 *           submatrix A(k-1:n,k-1:n)
 *
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1
-            IF( KP.LT.N )
-     $         CALL CSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
+            IF( KP.LT.N ) CALL CSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 )
             KX = KC + KP - K
             DO 70 J = K + 1, KP - 1
                KX = KX + N - J + 1

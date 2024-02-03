@@ -50,16 +50,14 @@
 *
 *        Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 *
-         CALL ZLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1,
-     $                TAU( I ) )
+         CALL ZLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAU( I ) )
          IF( I.LT.N ) THEN
 *
 *           Apply H(i)**H to A(i:m,i+1:n) from the left
 *
             ALPHA = A( I, I )
             A( I, I ) = ONE
-            CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1,
-     $                  DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
+            CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
             A( I, I ) = ALPHA
          END IF
    10 CONTINUE

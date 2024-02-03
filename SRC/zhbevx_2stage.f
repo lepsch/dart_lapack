@@ -1,7 +1,4 @@
-      SUBROUTINE ZHBEVX_2STAGE( JOBZ, RANGE, UPLO, N, KD, AB, LDAB,
-     $                          Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W,
-     $                          Z, LDZ, WORK, LWORK, RWORK, IWORK,
-     $                          IFAIL, INFO )
+      SUBROUTINE ZHBEVX_2STAGE( JOBZ, RANGE, UPLO, N, KD, AB, LDAB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, RWORK, IWORK, IFAIL, INFO )
 *
       IMPLICIT NONE
 *
@@ -17,8 +14,7 @@
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
       DOUBLE PRECISION   RWORK( * ), W( * )
-      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * ),
-     $                   Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -27,19 +23,13 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ,
-     $                   LQUERY
+      LOGICAL            ALLEIG, INDEIG, LOWER, TEST, VALEIG, WANTZ, LQUERY
       CHARACTER          ORDER
-      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL,
-     $                   INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS,
-     $                   J, JJ, NSPLIT
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IINFO, IMAX, INDD, INDE, INDEE, INDIBL, INDISP, INDIWK, INDRWK, INDWRK, ISCALE, ITMP1, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS, J, JJ, NSPLIT
+      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
       COMPLEX*16         CTMP1
 *     ..
 *     .. External Functions ..
@@ -49,9 +39,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY,
-     $                   ZGEMV, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR,
-     $                   ZSWAP, ZHETRD_HB2ST
+      EXTERNAL           DCOPY, DSCAL, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZLACPY, ZLASCL, ZSTEIN, ZSTEQR, ZSWAP, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN, SQRT
@@ -84,8 +72,7 @@
          INFO = -9
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -11
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -12
@@ -95,8 +82,7 @@
          END IF
       END IF
       IF( INFO.EQ.0 ) THEN
-         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) )
-     $      INFO = -18
+         IF( LDZ.LT.1 .OR. ( WANTZ .AND. LDZ.LT.N ) ) INFO = -18
       END IF
 *
       IF( INFO.EQ.0 ) THEN
@@ -104,18 +90,12 @@
             LWMIN = 1
             WORK( 1 ) = LWMIN
          ELSE
-            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, -1, -1 )
-            LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
-            LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
+            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = LHTRD + LWTRD
             WORK( 1 )  = LWMIN
          ENDIF
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -20
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -20
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -128,8 +108,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          M = 1
@@ -140,13 +119,11 @@
          END IF
          TMP1 = DBLE( CTMP1 )
          IF( VALEIG ) THEN
-            IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) )
-     $         M = 0
+            IF( .NOT.( VL.LT.TMP1 .AND. VU.GE.TMP1 ) ) M = 0
          END IF
          IF( M.EQ.1 ) THEN
             W( 1 ) = DBLE( CTMP1 )
-            IF( WANTZ )
-     $         Z( 1, 1 ) = CONE
+            IF( WANTZ ) Z( 1, 1 ) = CONE
          END IF
          RETURN
       END IF
@@ -185,8 +162,7 @@
          ELSE
             CALL ZLASCL( 'Q', KD, KD, ONE, SIGMA, N, N, AB, LDAB, INFO )
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -203,9 +179,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL ZHETRD_HB2ST( 'N', JOBZ, UPLO, N, KD, AB, LDAB,
-     $                    RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ),
-     $                    LHTRD, WORK( INDWRK ), LLWORK, IINFO )
+      CALL ZHETRD_HB2ST( 'N', JOBZ, UPLO, N, KD, AB, LDAB, RWORK( INDD ), RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call DSTERF or ZSTEQR.  If this fails for some
@@ -226,8 +200,7 @@
          ELSE
             CALL ZLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
             CALL DCOPY( N-1, RWORK( INDE ), 1, RWORK( INDEE ), 1 )
-            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ,
-     $                   RWORK( INDRWK ), INFO )
+            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -251,23 +224,17 @@
       INDIBL = 1
       INDISP = INDIBL + N
       INDIWK = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ),
-     $             IWORK( INDIWK ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
 *        Apply unitary matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by ZSTEIN.
 *
          DO 20 J = 1, M
             CALL ZCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO,
-     $                  Z( 1, J ), 1 )
+            CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE CGET07( TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT,
-     $                   LDXACT, FERR, CHKFERR, BERR, RESLTS )
+      SUBROUTINE CGET07( TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, CHKFERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -112,8 +110,7 @@
                AXBI = MIN( AXBI, TMP )
             END IF
    60    CONTINUE
-         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL /
-     $         MAX( AXBI, ( N+1 )*UNFL ) )
+         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
          ELSE

@@ -1,5 +1,4 @@
-      SUBROUTINE DBDSQR( UPLO, N, NCVT, NRU, NCC, D, E, VT, LDVT, U,
-     $                   LDU, C, LDC, WORK, INFO )
+      SUBROUTINE DBDSQR( UPLO, N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      DOUBLE PRECISION   C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -36,12 +34,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, ROTATE
-      INTEGER            I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M,
-     $                   MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM
-      DOUBLE PRECISION   ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU,
-     $                   OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL,
-     $                   SINR, SLL, SMAX, SMIN, SMINOA,
-     $                   SN, THRESH, TOL, TOLMUL, UNFL
+      INTEGER            I, IDIR, ISUB, ITER, ITERDIVN, J, LL, LLL, M, MAXITDIVN, NM1, NM12, NM13, OLDLL, OLDM       DOUBLE PRECISION   ABSE, ABSS, COSL, COSR, CS, EPS, F, G, H, MU, OLDCS, OLDSN, R, SHIFT, SIGMN, SIGMX, SINL, SINR, SLL, SMAX, SMIN, SMINOA, SN, THRESH, TOL, TOLMUL, UNFL
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -49,8 +42,7 @@
       EXTERNAL           LSAME, DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARTG, DLAS2, DLASQ1, DLASR, DLASV2, DROT,
-     $                   DSCAL, DSWAP, XERBLA
+      EXTERNAL           DLARTG, DLAS2, DLASQ1, DLASR, DLASV2, DROT, DSCAL, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, MIN, SIGN, SQRT
@@ -71,23 +63,18 @@
          INFO = -4
       ELSE IF( NCC.LT.0 ) THEN
          INFO = -5
-      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR.
-     $         ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
          INFO = -9
       ELSE IF( LDU.LT.MAX( 1, NRU ) ) THEN
          INFO = -11
-      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR.
-     $         ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
          INFO = -13
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DBDSQR', -INFO )
          RETURN
       END IF
-      IF( N.EQ.0 )
-     $   RETURN
-      IF( N.EQ.1 )
-     $   GO TO 160
+      IF( N.EQ.0 ) RETURN       IF( N.EQ.1 ) GO TO 160
 *
 *     ROTATE is true if any singular vectors desired, false otherwise
 *
@@ -129,12 +116,7 @@
 *
 *        Update singular vectors if desired
 *
-         IF( NRU.GT.0 )
-     $      CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U,
-     $                  LDU )
-         IF( NCC.GT.0 )
-     $      CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C,
-     $                  LDC )
+         IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU )          IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC )
       END IF
 *
 *     Compute singular values to relative accuracy TOL
@@ -159,14 +141,12 @@
 *        Relative accuracy desired
 *
          SMINOA = ABS( D( 1 ) )
-         IF( SMINOA.EQ.ZERO )
-     $      GO TO 50
+         IF( SMINOA.EQ.ZERO ) GO TO 50
          MU = SMINOA
          DO 40 I = 2, N
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMINOA = MIN( SMINOA, MU )
-            IF( SMINOA.EQ.ZERO )
-     $         GO TO 50
+            IF( SMINOA.EQ.ZERO ) GO TO 50
    40    CONTINUE
    50    CONTINUE
          SMINOA = SMINOA / SQRT( DBLE( N ) )
@@ -198,29 +178,23 @@
 *
 *     Check for convergence or exceeding iteration count
 *
-      IF( M.LE.1 )
-     $   GO TO 160
+      IF( M.LE.1 ) GO TO 160
 *
       IF( ITER.GE.N ) THEN
          ITER = ITER - N
          ITERDIVN = ITERDIVN + 1
-         IF( ITERDIVN.GE.MAXITDIVN )
-     $      GO TO 200
+         IF( ITERDIVN.GE.MAXITDIVN ) GO TO 200
       END IF
 *
 *     Find diagonal block of matrix to work on
 *
-      IF( TOL.LT.ZERO .AND. ABS( D( M ) ).LE.THRESH )
-     $   D( M ) = ZERO
+      IF( TOL.LT.ZERO .AND. ABS( D( M ) ).LE.THRESH ) D( M ) = ZERO
       SMAX = ABS( D( M ) )
       DO 70 LLL = 1, M - 1
          LL = M - LLL
          ABSS = ABS( D( LL ) )
          ABSE = ABS( E( LL ) )
-         IF( TOL.LT.ZERO .AND. ABSS.LE.THRESH )
-     $      D( LL ) = ZERO
-         IF( ABSE.LE.THRESH )
-     $      GO TO 80
+         IF( TOL.LT.ZERO .AND. ABSS.LE.THRESH ) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80
          SMAX = MAX( SMAX, ABSS, ABSE )
    70 CONTINUE
       LL = 0
@@ -246,22 +220,14 @@
 *
 *        2 by 2 block, handle separately
 *
-         CALL DLASV2( D( M-1 ), E( M-1 ), D( M ), SIGMN, SIGMX, SINR,
-     $                COSR, SINL, COSL )
+         CALL DLASV2( D( M-1 ), E( M-1 ), D( M ), SIGMN, SIGMX, SINR, COSR, SINL, COSL )
          D( M-1 ) = SIGMX
          E( M-1 ) = ZERO
          D( M ) = SIGMN
 *
 *        Compute singular vectors, if desired
 *
-         IF( NCVT.GT.0 )
-     $      CALL DROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR,
-     $                 SINR )
-         IF( NRU.GT.0 )
-     $      CALL DROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL )
-         IF( NCC.GT.0 )
-     $      CALL DROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL,
-     $                 SINL )
+         IF( NCVT.GT.0 ) CALL DROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR )          IF( NRU.GT.0 ) CALL DROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL )          IF( NCC.GT.0 ) CALL DROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL )
          M = M - 2
          GO TO 60
       END IF
@@ -290,8 +256,7 @@
 *        Run convergence test in forward direction
 *        First apply standard test to bottom of matrix
 *
-         IF( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR.
-     $       ( TOL.LT.ZERO .AND. ABS( E( M-1 ) ).LE.THRESH ) ) THEN
+         IF( ABS( E( M-1 ) ).LE.ABS( TOL )*ABS( D( M ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( M-1 ) ).LE.THRESH ) ) THEN
             E( M-1 ) = ZERO
             GO TO 60
          END IF
@@ -318,8 +283,7 @@
 *        Run convergence test in backward direction
 *        First apply standard test to top of matrix
 *
-         IF( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR.
-     $       ( TOL.LT.ZERO .AND. ABS( E( LL ) ).LE.THRESH ) ) THEN
+         IF( ABS( E( LL ) ).LE.ABS( TOL )*ABS( D( LL ) ) .OR. ( TOL.LT.ZERO .AND. ABS( E( LL ) ).LE.THRESH ) ) THEN
             E( LL ) = ZERO
             GO TO 60
          END IF
@@ -347,8 +311,7 @@
 *     Compute shift.  First, test if shifting would ruin relative
 *     accuracy, and if so set the shift to zero.
 *
-      IF( TOL.GE.ZERO .AND. N*TOL*( SMIN / SMAX ).LE.
-     $    MAX( EPS, HNDRTH*TOL ) ) THEN
+      IF( TOL.GE.ZERO .AND. N*TOL*( SMIN / SMAX ).LE. MAX( EPS, HNDRTH*TOL ) ) THEN
 *
 *        Use a zero shift to avoid loss of relative accuracy
 *
@@ -368,8 +331,7 @@
 *        Test if shift negligible, and if so set to zero
 *
          IF( SLL.GT.ZERO ) THEN
-            IF( ( SHIFT / SLL )**2.LT.EPS )
-     $         SHIFT = ZERO
+            IF( ( SHIFT / SLL )**2.LT.EPS ) SHIFT = ZERO
          END IF
       END IF
 *
@@ -389,8 +351,7 @@
             OLDCS = ONE
             DO 120 I = LL, M - 1
                CALL DLARTG( D( I )*CS, E( I ), CS, SN, R )
-               IF( I.GT.LL )
-     $            E( I-1 ) = OLDSN*R
+               IF( I.GT.LL ) E( I-1 ) = OLDSN*R
                CALL DLARTG( OLDCS*R, D( I+1 )*SN, OLDCS, OLDSN, D( I ) )
                WORK( I-LL+1 ) = CS
                WORK( I-LL+1+NM1 ) = SN
@@ -403,20 +364,11 @@
 *
 *           Update singular vectors
 *
-            IF( NCVT.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ),
-     $                     WORK( N ), VT( LL, 1 ), LDVT )
-            IF( NRU.GT.0 )
-     $         CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), U( 1, LL ), LDU )
-            IF( NCC.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), C( LL, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC )
 *
 *           Test convergence
 *
-            IF( ABS( E( M-1 ) ).LE.THRESH )
-     $         E( M-1 ) = ZERO
+            IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
 *
          ELSE
 *
@@ -427,8 +379,7 @@
             OLDCS = ONE
             DO 130 I = M, LL + 1, -1
                CALL DLARTG( D( I )*CS, E( I-1 ), CS, SN, R )
-               IF( I.LT.M )
-     $            E( I ) = OLDSN*R
+               IF( I.LT.M ) E( I ) = OLDSN*R
                CALL DLARTG( OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) )
                WORK( I-LL ) = CS
                WORK( I-LL+NM1 ) = -SN
@@ -441,20 +392,11 @@
 *
 *           Update singular vectors
 *
-            IF( NCVT.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), VT( LL, 1 ), LDVT )
-            IF( NRU.GT.0 )
-     $         CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ),
-     $                     WORK( N ), U( 1, LL ), LDU )
-            IF( NCC.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ),
-     $                     WORK( N ), C( LL, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC )
 *
 *           Test convergence
 *
-            IF( ABS( E( LL ) ).LE.THRESH )
-     $         E( LL ) = ZERO
+            IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
          END IF
       ELSE
 *
@@ -465,13 +407,11 @@
 *           Chase bulge from top to bottom
 *           Save cosines and sines for later singular vector updates
 *
-            F = ( ABS( D( LL ) )-SHIFT )*
-     $          ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) )
+            F = ( ABS( D( LL ) )-SHIFT )* ( SIGN( ONE, D( LL ) )+SHIFT / D( LL ) )
             G = E( LL )
             DO 140 I = LL, M - 1
                CALL DLARTG( F, G, COSR, SINR, R )
-               IF( I.GT.LL )
-     $            E( I-1 ) = R
+               IF( I.GT.LL ) E( I-1 ) = R
                F = COSR*D( I ) + SINR*E( I )
                E( I ) = COSR*E( I ) - SINR*D( I )
                G = SINR*D( I+1 )
@@ -493,33 +433,22 @@
 *
 *           Update singular vectors
 *
-            IF( NCVT.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ),
-     $                     WORK( N ), VT( LL, 1 ), LDVT )
-            IF( NRU.GT.0 )
-     $         CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), U( 1, LL ), LDU )
-            IF( NCC.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), C( LL, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC )
 *
 *           Test convergence
 *
-            IF( ABS( E( M-1 ) ).LE.THRESH )
-     $         E( M-1 ) = ZERO
+            IF( ABS( E( M-1 ) ).LE.THRESH ) E( M-1 ) = ZERO
 *
          ELSE
 *
 *           Chase bulge from bottom to top
 *           Save cosines and sines for later singular vector updates
 *
-            F = ( ABS( D( M ) )-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT /
-     $          D( M ) )
+            F = ( ABS( D( M ) )-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) )
             G = E( M-1 )
             DO 150 I = M, LL + 1, -1
                CALL DLARTG( F, G, COSR, SINR, R )
-               IF( I.LT.M )
-     $            E( I ) = R
+               IF( I.LT.M ) E( I ) = R
                F = COSR*D( I ) + SINR*E( I-1 )
                E( I-1 ) = COSR*E( I-1 ) - SINR*D( I )
                G = SINR*D( I-1 )
@@ -541,20 +470,11 @@
 *
 *           Test convergence
 *
-            IF( ABS( E( LL ) ).LE.THRESH )
-     $         E( LL ) = ZERO
+            IF( ABS( E( LL ) ).LE.THRESH ) E( LL ) = ZERO
 *
 *           Update singular vectors if desired
 *
-            IF( NCVT.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ),
-     $                     WORK( NM13+1 ), VT( LL, 1 ), LDVT )
-            IF( NRU.GT.0 )
-     $         CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ),
-     $                     WORK( N ), U( 1, LL ), LDU )
-            IF( NCC.GT.0 )
-     $         CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ),
-     $                     WORK( N ), C( LL, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT )             IF( NRU.GT.0 ) CALL DLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU )             IF( NCC.GT.0 ) CALL DLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC )
          END IF
       END IF
 *
@@ -571,8 +491,7 @@
 *
 *           Change sign of singular vectors, if desired
 *
-            IF( NCVT.GT.0 )
-     $         CALL DSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT )
+            IF( NCVT.GT.0 ) CALL DSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT )
          END IF
   170 CONTINUE
 *
@@ -597,13 +516,8 @@
 *
             D( ISUB ) = D( N+1-I )
             D( N+1-I ) = SMIN
-            IF( NCVT.GT.0 )
-     $         CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ),
-     $                     LDVT )
-            IF( NRU.GT.0 )
-     $         CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )
-            IF( NCC.GT.0 )
-     $         CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL DSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT )
+            IF( NRU.GT.0 ) CALL DSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )             IF( NCC.GT.0 ) CALL DSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC )
          END IF
   190 CONTINUE
       GO TO 220
@@ -613,8 +527,7 @@
   200 CONTINUE
       INFO = 0
       DO 210 I = 1, N - 1
-         IF( E( I ).NE.ZERO )
-     $      INFO = INFO + 1
+         IF( E( I ).NE.ZERO ) INFO = INFO + 1
   210 CONTINUE
   220 CONTINUE
       RETURN

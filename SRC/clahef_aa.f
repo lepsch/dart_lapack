@@ -1,5 +1,4 @@
-      SUBROUTINE CLAHEF_AA( UPLO, J1, M, NB, A, LDA, IPIV,
-     $                      H, LDH, WORK )
+      SUBROUTINE CLAHEF_AA( UPLO, J1, M, NB, A, LDA, IPIV, H, LDH, WORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +30,7 @@
       EXTERNAL     LSAME, ILAENV, ICAMAX
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL     CLACGV, CGEMV, CSCAL, CAXPY, CCOPY, CSWAP, CLASET,
-     $             XERBLA
+      EXTERNAL     CLACGV, CGEMV, CSCAL, CAXPY, CCOPY, CSWAP, CLASET, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC    REAL, CONJG, MAX
@@ -53,8 +51,7 @@
 *        .....................................................
 *
  10      CONTINUE
-         IF ( J.GT.MIN(M, NB) )
-     $      GO TO 20
+         IF ( J.GT.MIN(M, NB) ) GO TO 20
 *
 *        K is the column to be factorized
 *         when being called from CHETRF_AA,
@@ -83,10 +80,7 @@
 *           first column
 *
             CALL CLACGV( J-K1, A( 1, J ), 1 )
-            CALL CGEMV( 'No transpose', MJ, J-K1,
-     $                 -ONE, H( J, K1 ), LDH,
-     $                       A( 1, J ), 1,
-     $                  ONE, H( J, J ), 1 )
+            CALL CGEMV( 'No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( 1, J ), 1, ONE, H( J, J ), 1 )
             CALL CLACGV( J-K1, A( 1, J ), 1 )
          END IF
 *
@@ -114,8 +108,7 @@
 *
             IF( K.GT.1 ) THEN
                ALPHA = -A( K, J )
-               CALL CAXPY( M-J, ALPHA, A( K-1, J+1 ), LDA,
-     $                                 WORK( 2 ), 1 )
+               CALL CAXPY( M-J, ALPHA, A( K-1, J+1 ), LDA, WORK( 2 ), 1 )
             ENDIF
 *
 *           Find max(|WORK(2:n)|)
@@ -137,16 +130,13 @@
 *
                I1 = I1+J-1
                I2 = I2+J-1
-               CALL CSWAP( I2-I1-1, A( J1+I1-1, I1+1 ), LDA,
-     $                              A( J1+I1, I2 ), 1 )
+               CALL CSWAP( I2-I1-1, A( J1+I1-1, I1+1 ), LDA, A( J1+I1, I2 ), 1 )
                CALL CLACGV( I2-I1, A( J1+I1-1, I1+1 ), LDA )
                CALL CLACGV( I2-I1-1, A( J1+I1, I2 ), 1 )
 *
 *              Swap A(I1, I2+1:N) with A(I2, I2+1:N)
 *
-               IF( I2.LT.M )
-     $            CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA,
-     $                              A( J1+I2-1, I2+1 ), LDA )
+               IF( I2.LT.M ) CALL CSWAP( M-I2, A( J1+I1-1, I2+1 ), LDA, A( J1+I2-1, I2+1 ), LDA )
 *
 *              Swap A(I1, I1) with A(I2,I2)
 *
@@ -164,8 +154,7 @@
 *                 Swap L(1:I1-1, I1) with L(1:I1-1, I2),
 *                  skipping the first column
 *
-                  CALL CSWAP( I1-K1+1, A( 1, I1 ), 1,
-     $                                 A( 1, I2 ), 1 )
+                  CALL CSWAP( I1-K1+1, A( 1, I1 ), 1, A( 1, I2 ), 1 )
                END IF
             ELSE
                IPIV( J+1 ) = J+1
@@ -179,8 +168,7 @@
 *
 *              Copy A(J+1:N, J+1) into H(J:N, J),
 *
-               CALL CCOPY( M-J, A( K+1, J+1 ), LDA,
-     $                          H( J+1, J+1 ), 1 )
+               CALL CCOPY( M-J, A( K+1, J+1 ), LDA, H( J+1, J+1 ), 1 )
             END IF
 *
 *           Compute L(J+2, J+1) = WORK( 3:N ) / T(J, J+1),
@@ -192,8 +180,7 @@
                   CALL CCOPY( M-J-1, WORK( 3 ), 1, A( K, J+2 ), LDA )
                   CALL CSCAL( M-J-1, ALPHA, A( K, J+2 ), LDA )
                ELSE
-                  CALL CLASET( 'Full', 1, M-J-1, ZERO, ZERO,
-     $                         A( K, J+2 ), LDA)
+                  CALL CLASET( 'Full', 1, M-J-1, ZERO, ZERO, A( K, J+2 ), LDA)
                END IF
             END IF
          END IF
@@ -208,8 +195,7 @@
 *        .....................................................
 *
  30      CONTINUE
-         IF( J.GT.MIN( M, NB ) )
-     $      GO TO 40
+         IF( J.GT.MIN( M, NB ) ) GO TO 40
 *
 *        K is the column to be factorized
 *         when being called from CHETRF_AA,
@@ -238,10 +224,7 @@
 *           first column
 *
             CALL CLACGV( J-K1, A( J, 1 ), LDA )
-            CALL CGEMV( 'No transpose', MJ, J-K1,
-     $                 -ONE, H( J, K1 ), LDH,
-     $                       A( J, 1 ), LDA,
-     $                  ONE, H( J, J ), 1 )
+            CALL CGEMV( 'No transpose', MJ, J-K1, -ONE, H( J, K1 ), LDH, A( J, 1 ), LDA, ONE, H( J, J ), 1 )
             CALL CLACGV( J-K1, A( J, 1 ), LDA )
          END IF
 *
@@ -269,8 +252,7 @@
 *
             IF( K.GT.1 ) THEN
                ALPHA = -A( J, K )
-               CALL CAXPY( M-J, ALPHA, A( J+1, K-1 ), 1,
-     $                                 WORK( 2 ), 1 )
+               CALL CAXPY( M-J, ALPHA, A( J+1, K-1 ), 1, WORK( 2 ), 1 )
             ENDIF
 *
 *           Find max(|WORK(2:n)|)
@@ -292,16 +274,13 @@
 *
                I1 = I1+J-1
                I2 = I2+J-1
-               CALL CSWAP( I2-I1-1, A( I1+1, J1+I1-1 ), 1,
-     $                              A( I2, J1+I1 ), LDA )
+               CALL CSWAP( I2-I1-1, A( I1+1, J1+I1-1 ), 1, A( I2, J1+I1 ), LDA )
                CALL CLACGV( I2-I1, A( I1+1, J1+I1-1 ), 1 )
                CALL CLACGV( I2-I1-1, A( I2, J1+I1 ), LDA )
 *
 *              Swap A(I2+1:N, I1) with A(I2+1:N, I2)
 *
-               IF( I2.LT.M )
-     $            CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1,
-     $                              A( I2+1, J1+I2-1 ), 1 )
+               IF( I2.LT.M ) CALL CSWAP( M-I2, A( I2+1, J1+I1-1 ), 1, A( I2+1, J1+I2-1 ), 1 )
 *
 *              Swap A(I1, I1) with A(I2, I2)
 *
@@ -319,8 +298,7 @@
 *                 Swap L(1:I1-1, I1) with L(1:I1-1, I2),
 *                  skipping the first column
 *
-                  CALL CSWAP( I1-K1+1, A( I1, 1 ), LDA,
-     $                                 A( I2, 1 ), LDA )
+                  CALL CSWAP( I1-K1+1, A( I1, 1 ), LDA, A( I2, 1 ), LDA )
                END IF
             ELSE
                IPIV( J+1 ) = J+1
@@ -334,8 +312,7 @@
 *
 *              Copy A(J+1:N, J+1) into H(J+1:N, J),
 *
-               CALL CCOPY( M-J, A( J+1, K+1 ), 1,
-     $                          H( J+1, J+1 ), 1 )
+               CALL CCOPY( M-J, A( J+1, K+1 ), 1, H( J+1, J+1 ), 1 )
             END IF
 *
 *           Compute L(J+2, J+1) = WORK( 3:N ) / T(J, J+1),
@@ -347,8 +324,7 @@
                   CALL CCOPY( M-J-1, WORK( 3 ), 1, A( J+2, K ), 1 )
                   CALL CSCAL( M-J-1, ALPHA, A( J+2, K ), 1 )
                ELSE
-                  CALL CLASET( 'Full', M-J-1, 1, ZERO, ZERO,
-     $                         A( J+2, K ), LDA )
+                  CALL CLASET( 'Full', M-J-1, 1, ZERO, ZERO, A( J+2, K ), LDA )
                END IF
             END IF
          END IF

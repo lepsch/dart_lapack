@@ -1,5 +1,4 @@
-      SUBROUTINE ZDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2,
-     +                    D_WORK_ZLANGE, Z_WORK_ZGEQRF, TAU )
+      SUBROUTINE ZDRVRF3( NOUT, NN, NVAL, THRESH, A, LDA, ARF, B1, B2, D_WORK_ZLANGE, Z_WORK_ZGEQRF, TAU )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            NVAL( NN )
       DOUBLE PRECISION   D_WORK_ZLANGE( * )
-      COMPLEX*16         A( LDA, * ), ARF( * ), B1( LDA, * ),
-     +                   B2( LDA, * )
+      COMPLEX*16         A( LDA, * ), ARF( * ), B1( LDA, * ), B2( LDA, * )
       COMPLEX*16         Z_WORK_ZGEQRF( * ), TAU( * )
 *     ..
 *
@@ -21,21 +19,18 @@
 *     ..
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) ,
-     +                     ONE  = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ) , ONE  = ( 1.0D+0, 0.0D+0 ) )
       INTEGER            NTESTS
       PARAMETER          ( NTESTS = 1 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, DIAG, TRANS, SIDE
-      INTEGER            I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA,
-     +                   NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
+      INTEGER            I, IFORM, IIM, IIN, INFO, IUPLO, J, M, N, NA, NFAIL, NRUN, ISIDE, IDIAG, IALPHA, ITRANS
       COMPLEX*16         ALPHA
       DOUBLE PRECISION   EPS
 *     ..
 *     .. Local Arrays ..
-      CHARACTER          UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ),
-     +                   DIAGS( 2 ), SIDES( 2 )
+      CHARACTER          UPLOS( 2 ), FORMS( 2 ), TRANSS( 2 ), DIAGS( 2 ), SIDES( 2 )
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
@@ -158,9 +153,7 @@
 *                                -> QR factorization.
 *
                                  SRNAMT = 'ZGEQRF'
-                                 CALL ZGEQRF( NA, NA, A, LDA, TAU,
-     +                                        Z_WORK_ZGEQRF, LDA,
-     +                                        INFO )
+                                 CALL ZGEQRF( NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO )
 *
 *                                Forcing main diagonal of test matrix to
 *                                be unit makes it ill-conditioned for
@@ -169,8 +162,7 @@
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO J = 1, NA
                                        DO I = 1, J
-                                          A( I, J ) = A( I, J ) /
-     +                                            ( 2.0 * A( J, J ) )
+                                          A( I, J ) = A( I, J ) / ( 2.0 * A( J, J ) )
                                        END DO
                                     END DO
                                  END IF
@@ -181,9 +173,7 @@
 *                                -> QL factorization.
 *
                                  SRNAMT = 'ZGELQF'
-                                 CALL ZGELQF( NA, NA, A, LDA, TAU,
-     +                                        Z_WORK_ZGEQRF, LDA,
-     +                                        INFO )
+                                 CALL ZGELQF( NA, NA, A, LDA, TAU, Z_WORK_ZGEQRF, LDA, INFO )
 *
 *                                Forcing main diagonal of test matrix to
 *                                be unit makes it ill-conditioned for
@@ -192,8 +182,7 @@
                                  IF ( LSAME( DIAG, 'U' ) ) THEN
                                     DO I = 1, NA
                                        DO J = 1, I
-                                          A( I, J ) = A( I, J ) /
-     +                                            ( 2.0 * A( I, I ) )
+                                          A( I, J ) = A( I, J ) / ( 2.0 * A( I, I ) )
                                        END DO
                                     END DO
                                  END IF
@@ -206,15 +195,13 @@
 *                             value 1.0E+00.
 *
                               DO J = 1, NA
-                                 A( J, J ) = A( J, J ) *
-     +                                   ZLARND( 5, ISEED )
+                                 A( J, J ) = A( J, J ) * ZLARND( 5, ISEED )
                               END DO
 *
 *                             Store a copy of A in RFP format (in ARF).
 *
                               SRNAMT = 'ZTRTTF'
-                              CALL ZTRTTF( CFORM, UPLO, NA, A, LDA, ARF,
-     +                                     INFO )
+                              CALL ZTRTTF( CFORM, UPLO, NA, A, LDA, ARF, INFO )
 *
 *                             Generate B1 our M--by--N right-hand side
 *                             and store a copy in B2.
@@ -230,16 +217,13 @@
 *                             with ZTRSM
 *
                               SRNAMT = 'ZTRSM'
-                              CALL ZTRSM( SIDE, UPLO, TRANS, DIAG, M, N,
-     +                               ALPHA, A, LDA, B1, LDA )
+                              CALL ZTRSM( SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, A, LDA, B1, LDA )
 *
 *                             Solve op( A ) X = B or X op( A ) = B
 *                             with ZTFSM
 *
                               SRNAMT = 'ZTFSM'
-                              CALL ZTFSM( CFORM, SIDE, UPLO, TRANS,
-     +                                    DIAG, M, N, ALPHA, ARF, B2,
-     +                                    LDA )
+                              CALL ZTFSM( CFORM, SIDE, UPLO, TRANS, DIAG, M, N, ALPHA, ARF, B2, LDA )
 *
 *                             Check that the result agrees.
 *
@@ -249,20 +233,16 @@
                                  END DO
                               END DO
 *
-                              RESULT( 1 ) = ZLANGE( 'I', M, N, B1, LDA,
-     +                                            D_WORK_ZLANGE )
+                              RESULT( 1 ) = ZLANGE( 'I', M, N, B1, LDA, D_WORK_ZLANGE )
 *
-                              RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS )
-     +                                    / MAX ( MAX( M, N ), 1 )
+                              RESULT( 1 ) = RESULT( 1 ) / SQRT( EPS ) / MAX ( MAX( M, N ), 1 )
 *
                               IF( RESULT( 1 ).GE.THRESH ) THEN
                                  IF( NFAIL.EQ.0 ) THEN
                                     WRITE( NOUT, * )
                                     WRITE( NOUT, FMT = 9999 )
                                  END IF
-                                 WRITE( NOUT, FMT = 9997 ) 'ZTFSM',
-     +                              CFORM, SIDE, UPLO, TRANS, DIAG, M,
-     +                              N, RESULT( 1 )
+                                 WRITE( NOUT, FMT = 9997 ) 'ZTFSM', CFORM, SIDE, UPLO, TRANS, DIAG, M, N, RESULT( 1 )
                                  NFAIL = NFAIL + 1
                               END IF
 *

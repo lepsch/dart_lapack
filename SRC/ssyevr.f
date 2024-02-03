@@ -1,6 +1,4 @@
-      SUBROUTINE SSYEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU,
-     $                   ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK,
-     $                   IWORK, LIWORK, INFO )
+      SUBROUTINE SSYEVR( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,15 +21,10 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG,
-     $                   WANTZ, TRYRAC
+      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE,
-     $                   INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU,
-     $                   INDWK, INDWKN, ISCALE, J, JJ, LIWMIN,
-     $                   LLWORK, LLWRKN, LWKOPT, LWMIN, NB, NSPLIT
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWKOPT, LWMIN, NB, NSPLIT
+      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -40,8 +33,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANSY, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SORMTR, SSCAL, SSTEBZ, SSTEMR, SSTEIN,
-     $                   SSTERF, SSWAP, SSYTRD, XERBLA
+      EXTERNAL           SCOPY, SORMTR, SSCAL, SSTEBZ, SSTEMR, SSTEIN, SSTERF, SSWAP, SSYTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -81,8 +73,7 @@
          INFO = -6
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -8
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -9
@@ -180,8 +171,7 @@
                CALL SSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -227,8 +217,7 @@
 *
 *     Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 *
-      CALL SSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ),
-     $             WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
+      CALL SSYTRD( UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDWK ), LLWORK, IINFO )
 *
 *     If all eigenvalues are desired
 *     then call SSTERF or SSTEMR and SORMTR.
@@ -253,10 +242,7 @@
             ELSE
                TRYRAC = .FALSE.
             END IF
-            CALL SSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ),
-     $                   VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ,
-     $                   TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK,
-     $                   INFO )
+            CALL SSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO )
 *
 *
 *
@@ -266,9 +252,7 @@
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
-               CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA,
-     $                      WORK( INDTAU ), Z, LDZ, WORK( INDWKN ),
-     $                      LLWRKN, IINFO )
+               CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
 *
@@ -290,25 +274,17 @@
       ELSE
          ORDER = 'E'
       END IF
-
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             WORK( INDD ), WORK( INDE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ),
-     $             IWORK( INDIWO ), INFO )
+       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ),
-     $                INFO )
+         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
 *        Apply orthogonal matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by SSTEIN.
 *
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
-         CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z,
-     $                LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         CALL SORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

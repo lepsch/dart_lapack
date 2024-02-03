@@ -1,24 +1,18 @@
-      SUBROUTINE CDRVEV( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, H, W, W1, VL, LDVL, VR, LDVR,
-     $                   LRE, LDLRE, RESULT, WORK, NWORK, RWORK, IWORK,
-     $                   INFO )
+      SUBROUTINE CDRVEV( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, W, W1, VL, LDVL, VR, LDVR, LRE, LDLRE, RESULT, WORK, NWORK, RWORK, IWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NOUNIT, NSIZES,
-     $                   NTYPES, NWORK
+      INTEGER            INFO, LDA, LDLRE, LDVL, LDVR, NOUNIT, NSIZES, NTYPES, NWORK
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
       REAL               RESULT( 7 ), RWORK( * )
-      COMPLEX            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ),
-     $                   VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), H( LDA, * ), LRE( LDLRE, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), W1( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -38,16 +32,11 @@
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER*3        PATH
-      INTEGER            IINFO, IMODE, ITYPE, IWK, J, JCOL, JJ, JSIZE,
-     $                   JTYPE, MTYPES, N, NERRS, NFAIL, NMAX,
-     $                   NNWORK, NTEST, NTESTF, NTESTT
-      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TNRM,
-     $                   ULP, ULPINV, UNFL, VMX, VRMX, VTST
+      INTEGER            IINFO, IMODE, ITYPE, IWK, J, JCOL, JJ, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT
+      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, TNRM, ULP, ULPINV, UNFL, VMX, VRMX, VTST
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       REAL               RES( 2 )
       COMPLEX            DUM( 1 )
 *     ..
@@ -56,18 +45,14 @@
       EXTERNAL           SCNRM2, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEEV, CGET22, CLACPY, CLATME, CLATMR, CLATMS,
-     $                   CLASET, SLASUM, XERBLA
+      EXTERNAL           CGEEV, CGET22, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, CMPLX, MAX, MIN, REAL, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2,
-     $                   3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3,
-     $                   1, 5, 5, 5, 4, 3, 1 /
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
 *     ..
 *     .. Executable Statements ..
@@ -87,8 +72,7 @@
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -122,8 +106,7 @@
 *
 *     Quick return if nothing to do
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -147,8 +130,7 @@
          END IF
 *
          DO 260 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 260
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
 *
 *           Save ISEED in case of an error.
 *
@@ -172,8 +154,7 @@
 *       =9                              random general
 *       =10                             random triangular
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -221,25 +202,20 @@
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = CMPLX( ANORM )
-                  IF( JCOL.GT.1 )
-     $               A( JCOL, JCOL-1 ) = CONE
+                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Hermitian, eigenvalues specified
 *
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
@@ -253,54 +229,35 @@
                   CONDS = ZERO
                END IF
 *
-               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE,
-     $                      'T', 'T', 'T', RWORK, 4, CONDS, N, N,
-     $                      ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
+               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Symmetric, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              General, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
                   CALL CLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ),
-     $                         LDA )
-                  CALL CLASET( 'Full', N-3, 2, CZERO, CZERO,
-     $                         A( 3, N-1 ), LDA )
-                  CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ),
-     $                         LDA )
+                  CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
                END IF
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Triangular, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE
 *
@@ -308,8 +265,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9993 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -335,77 +291,59 @@
 *              Compute eigenvalues and eigenvectors, and test them
 *
                CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR,
-     $                     WORK, NNWORK, RWORK, IINFO )
+               CALL CGEEV( 'V', 'V', N, H, LDA, W, VL, LDVL, VR, LDVR, WORK, NNWORK, RWORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   RESULT( 1 ) = ULPINV
-                  WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE,
-     $               IOLDSD
+                  WRITE( NOUNIT, FMT = 9993 )'CGEEV1', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
                END IF
 *
 *              Do Test (1)
 *
-               CALL CGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK,
-     $                      RWORK, RES )
+               CALL CGET22( 'N', 'N', 'N', N, A, LDA, VR, LDVR, W, WORK, RWORK, RES )
                RESULT( 1 ) = RES( 1 )
 *
 *              Do Test (2)
 *
-               CALL CGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK,
-     $                      RWORK, RES )
+               CALL CGET22( 'C', 'N', 'C', N, A, LDA, VL, LDVL, W, WORK, RWORK, RES )
                RESULT( 2 ) = RES( 1 )
 *
 *              Do Test (3)
 *
                DO 120 J = 1, N
                   TNRM = SCNRM2( N, VR( 1, J ), 1 )
-                  RESULT( 3 ) = MAX( RESULT( 3 ),
-     $                          MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
+                  RESULT( 3 ) = MAX( RESULT( 3 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
                   VMX = ZERO
                   VRMX = ZERO
                   DO 110 JJ = 1, N
                      VTST = ABS( VR( JJ, J ) )
-                     IF( VTST.GT.VMX )
-     $                  VMX = VTST
-                     IF( AIMAG( VR( JJ, J ) ).EQ.ZERO .AND.
-     $                   ABS( REAL( VR( JJ, J ) ) ).GT.VRMX )
-     $                   VRMX = ABS( REAL( VR( JJ, J ) ) )
+                     IF( VTST.GT.VMX ) VMX = VTST                      IF( AIMAG( VR( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) )
   110             CONTINUE
-                  IF( VRMX / VMX.LT.ONE-TWO*ULP )
-     $               RESULT( 3 ) = ULPINV
+                  IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
   120          CONTINUE
 *
 *              Do Test (4)
 *
                DO 140 J = 1, N
                   TNRM = SCNRM2( N, VL( 1, J ), 1 )
-                  RESULT( 4 ) = MAX( RESULT( 4 ),
-     $                          MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
+                  RESULT( 4 ) = MAX( RESULT( 4 ), MIN( ULPINV, ABS( TNRM-ONE ) / ULP ) )
                   VMX = ZERO
                   VRMX = ZERO
                   DO 130 JJ = 1, N
                      VTST = ABS( VL( JJ, J ) )
-                     IF( VTST.GT.VMX )
-     $                  VMX = VTST
-                     IF( AIMAG( VL( JJ, J ) ).EQ.ZERO .AND.
-     $                   ABS( REAL( VL( JJ, J ) ) ).GT.VRMX )
-     $                   VRMX = ABS( REAL( VL( JJ, J ) ) )
+                     IF( VTST.GT.VMX ) VMX = VTST                      IF( AIMAG( VL( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) )
   130             CONTINUE
-                  IF( VRMX / VMX.LT.ONE-TWO*ULP )
-     $               RESULT( 4 ) = ULPINV
+                  IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
   140          CONTINUE
 *
 *              Compute eigenvalues only, and test them
 *
                CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1,
-     $                     WORK, NNWORK, RWORK, IINFO )
+               CALL CGEEV( 'N', 'N', N, H, LDA, W1, DUM, 1, DUM, 1, WORK, NNWORK, RWORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   RESULT( 1 ) = ULPINV
-                  WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE,
-     $               IOLDSD
+                  WRITE( NOUNIT, FMT = 9993 )'CGEEV2', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
                END IF
@@ -413,19 +351,16 @@
 *              Do Test (5)
 *
                DO 150 J = 1, N
-                  IF( W( J ).NE.W1( J ) )
-     $               RESULT( 5 ) = ULPINV
+                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
   150          CONTINUE
 *
 *              Compute eigenvalues and right eigenvectors, and test them
 *
                CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE,
-     $                     WORK, NNWORK, RWORK, IINFO )
+               CALL CGEEV( 'N', 'V', N, H, LDA, W1, DUM, 1, LRE, LDLRE, WORK, NNWORK, RWORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   RESULT( 1 ) = ULPINV
-                  WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE,
-     $               IOLDSD
+                  WRITE( NOUNIT, FMT = 9993 )'CGEEV3', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
                END IF
@@ -433,28 +368,24 @@
 *              Do Test (5) again
 *
                DO 160 J = 1, N
-                  IF( W( J ).NE.W1( J ) )
-     $               RESULT( 5 ) = ULPINV
+                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
   160          CONTINUE
 *
 *              Do Test (6)
 *
                DO 180 J = 1, N
                   DO 170 JJ = 1, N
-                     IF( VR( J, JJ ).NE.LRE( J, JJ ) )
-     $                  RESULT( 6 ) = ULPINV
+                     IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
   170             CONTINUE
   180          CONTINUE
 *
 *              Compute eigenvalues and left eigenvectors, and test them
 *
                CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-               CALL CGEEV( 'V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1,
-     $                     WORK, NNWORK, RWORK, IINFO )
+               CALL CGEEV( 'V', 'N', N, H, LDA, W1, LRE, LDLRE, DUM, 1, WORK, NNWORK, RWORK, IINFO )
                IF( IINFO.NE.0 ) THEN
                   RESULT( 1 ) = ULPINV
-                  WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE,
-     $               IOLDSD
+                  WRITE( NOUNIT, FMT = 9993 )'CGEEV4', IINFO, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
                   GO TO 220
                END IF
@@ -462,16 +393,14 @@
 *              Do Test (5) again
 *
                DO 190 J = 1, N
-                  IF( W( J ).NE.W1( J ) )
-     $               RESULT( 5 ) = ULPINV
+                  IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
   190          CONTINUE
 *
 *              Do Test (7)
 *
                DO 210 J = 1, N
                   DO 200 JJ = 1, N
-                     IF( VL( J, JJ ).NE.LRE( J, JJ ) )
-     $                  RESULT( 7 ) = ULPINV
+                     IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
   200             CONTINUE
   210          CONTINUE
 *
@@ -482,14 +411,10 @@
                NTEST = 0
                NFAIL = 0
                DO 230 J = 1, 7
-                  IF( RESULT( J ).GE.ZERO )
-     $               NTEST = NTEST + 1
-                  IF( RESULT( J ).GE.THRESH )
-     $               NFAIL = NFAIL + 1
+                  IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   230          CONTINUE
 *
-               IF( NFAIL.GT.0 )
-     $            NTESTF = NTESTF + 1
+               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                IF( NTESTF.EQ.1 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
@@ -501,8 +426,7 @@
 *
                DO 240 J = 1, 7
                   IF( RESULT( J ).GE.THRESH ) THEN
-                     WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE,
-     $                  J, RESULT( J )
+                     WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   END IF
   240          CONTINUE
 *

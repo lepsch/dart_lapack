@@ -1,6 +1,4 @@
-      SUBROUTINE CDRVES( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, H, HT, W, WT, VS, LDVS, RESULT,
-     $                   WORK, NWORK, RWORK, IWORK, BWORK, INFO )
+      SUBROUTINE CDRVES( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, HT, W, WT, VS, LDVS, RESULT, WORK, NWORK, RWORK, IWORK, BWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
       LOGICAL            BWORK( * ), DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
       REAL               RESULT( 13 ), RWORK( * )
-      COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ),
-     $                   VS( LDVS, * ), W( * ), WORK( * ), WT( * )
+      COMPLEX            A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), W( * ), WORK( * ), WT( * )
 *     ..
 *
 *  =====================================================================
@@ -34,17 +31,11 @@
       LOGICAL            BADNN
       CHARACTER          SORT
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL,
-     $                   JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N,
-     $                   NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF,
-     $                   NTESTT, RSUB, SDIM
-      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP,
-     $                   ULPINV, UNFL
+      INTEGER            I, IINFO, IMODE, ISORT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, KNTEIG, LWORK, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NTEST, NTESTF, NTESTT, RSUB, SDIM
+      REAL               ANORM, COND, CONDS, OVFL, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       REAL               RES( 2 )
 *     ..
 *     .. Arrays in Common ..
@@ -63,18 +54,14 @@
       EXTERNAL           CSLECT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEES, CHST01, CLACPY, CLATME, CLATMR, CLATMS,
-     $                   CLASET, SLASUM, XERBLA
+      EXTERNAL           CGEES, CHST01, CLACPY, CLATME, CLATMR, CLATMS, CLASET, SLASUM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CMPLX, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2,
-     $                   3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3,
-     $                   1, 5, 5, 5, 4, 3, 1 /
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
 *     ..
 *     .. Executable Statements ..
@@ -95,8 +82,7 @@
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -126,8 +112,7 @@
 *
 *     Quick return if nothing to do
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -151,8 +136,7 @@
          END IF
 *
          DO 230 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 230
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
 *
 *           Save ISEED in case of an error.
 *
@@ -176,8 +160,7 @@
 *       =9                              random general
 *       =10                             random triangular
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -226,25 +209,20 @@
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = CMPLX( ANORM )
-                  IF( JCOL.GT.1 )
-     $               A( JCOL, JCOL-1 ) = CONE
+                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Symmetric, eigenvalues specified
 *
-               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL CLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
@@ -258,54 +236,35 @@
                   CONDS = ZERO
                END IF
 *
-               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE,
-     $                      'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM,
-     $                      A, LDA, WORK( 2*N+1 ), IINFO )
+               CALL CLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Symmetric, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              General, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
                IF( N.GE.4 ) THEN
                   CALL CLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ),
-     $                         LDA )
-                  CALL CLASET( 'Full', N-3, 2, CZERO, CZERO,
-     $                         A( 3, N-1 ), LDA )
-                  CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ),
-     $                         LDA )
+                  CALL CLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
                END IF
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Triangular, random eigenvalues
 *
-               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL CLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE
 *
@@ -313,8 +272,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9992 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -351,12 +309,10 @@
 *                 Compute Schur form and Schur vectors, and test them
 *
                   CALL CLACPY( 'F', N, N, A, LDA, H, LDA )
-                  CALL CGEES( 'V', SORT, CSLECT, N, H, LDA, SDIM, W, VS,
-     $                        LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
+                  CALL CGEES( 'V', SORT, CSLECT, N, H, LDA, SDIM, W, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      RESULT( 1+RSUB ) = ULPINV
-                     WRITE( NOUNIT, FMT = 9992 )'CGEES1', IINFO, N,
-     $                  JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9992 )'CGEES1', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      GO TO 190
                   END IF
@@ -366,16 +322,14 @@
                   RESULT( 1+RSUB ) = ZERO
                   DO 120 J = 1, N - 1
                      DO 110 I = J + 1, N
-                        IF( H( I, J ).NE.ZERO )
-     $                     RESULT( 1+RSUB ) = ULPINV
+                        IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
   110                CONTINUE
   120             CONTINUE
 *
 *                 Do Tests (2) and (3) or Tests (8) and (9)
 *
                   LWORK = MAX( 1, 2*N*N )
-                  CALL CHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK,
-     $                         LWORK, RWORK, RES )
+                  CALL CHST01( N, 1, N, A, LDA, H, LDA, VS, LDVS, WORK, LWORK, RWORK, RES )
                   RESULT( 2+RSUB ) = RES( 1 )
                   RESULT( 3+RSUB ) = RES( 2 )
 *
@@ -383,20 +337,16 @@
 *
                   RESULT( 4+RSUB ) = ZERO
                   DO 130 I = 1, N
-                     IF( H( I, I ).NE.W( I ) )
-     $                  RESULT( 4+RSUB ) = ULPINV
+                     IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
   130             CONTINUE
 *
 *                 Do Test (5) or Test (11)
 *
                   CALL CLACPY( 'F', N, N, A, LDA, HT, LDA )
-                  CALL CGEES( 'N', SORT, CSLECT, N, HT, LDA, SDIM, WT,
-     $                        VS, LDVS, WORK, NNWORK, RWORK, BWORK,
-     $                        IINFO )
+                  CALL CGEES( 'N', SORT, CSLECT, N, HT, LDA, SDIM, WT, VS, LDVS, WORK, NNWORK, RWORK, BWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      RESULT( 5+RSUB ) = ULPINV
-                     WRITE( NOUNIT, FMT = 9992 )'CGEES2', IINFO, N,
-     $                  JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9992 )'CGEES2', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      GO TO 190
                   END IF
@@ -404,8 +354,7 @@
                   RESULT( 5+RSUB ) = ZERO
                   DO 150 J = 1, N
                      DO 140 I = 1, N
-                        IF( H( I, J ).NE.HT( I, J ) )
-     $                     RESULT( 5+RSUB ) = ULPINV
+                        IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
   140                CONTINUE
   150             CONTINUE
 *
@@ -413,8 +362,7 @@
 *
                   RESULT( 6+RSUB ) = ZERO
                   DO 160 I = 1, N
-                     IF( W( I ).NE.WT( I ) )
-     $                  RESULT( 6+RSUB ) = ULPINV
+                     IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
   160             CONTINUE
 *
 *                 Do Test (13)
@@ -423,16 +371,12 @@
                      RESULT( 13 ) = ZERO
                      KNTEIG = 0
                      DO 170 I = 1, N
-                        IF( CSLECT( W( I ) ) )
-     $                     KNTEIG = KNTEIG + 1
+                        IF( CSLECT( W( I ) ) ) KNTEIG = KNTEIG + 1
                         IF( I.LT.N ) THEN
-                           IF( CSLECT( W( I+1 ) ) .AND.
-     $                         ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 )
-     $                         = ULPINV
+                           IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                         END IF
   170                CONTINUE
-                     IF( SDIM.NE.KNTEIG )
-     $                  RESULT( 13 ) = ULPINV
+                     IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
                   END IF
 *
   180          CONTINUE
@@ -444,14 +388,10 @@
                NTEST = 0
                NFAIL = 0
                DO 200 J = 1, 13
-                  IF( RESULT( J ).GE.ZERO )
-     $               NTEST = NTEST + 1
-                  IF( RESULT( J ).GE.THRESH )
-     $               NFAIL = NFAIL + 1
+                  IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   200          CONTINUE
 *
-               IF( NFAIL.GT.0 )
-     $            NTESTF = NTESTF + 1
+               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                IF( NTESTF.EQ.1 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
@@ -464,8 +404,7 @@
 *
                DO 210 J = 1, 13
                   IF( RESULT( J ).GE.THRESH ) THEN
-                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE,
-     $                  J, RESULT( J )
+                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   END IF
   210          CONTINUE
 *

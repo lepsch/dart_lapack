@@ -67,21 +67,16 @@
          INFO = -5
       ELSE IF( M.LT.0 ) THEN
          INFO = -6
-      ELSE IF( N.LT.0 .OR. ( ITYPE.EQ.4 .AND. N.NE.M ) .OR.
-     $         ( ITYPE.EQ.5 .AND. N.NE.M ) ) THEN
+      ELSE IF( N.LT.0 .OR. ( ITYPE.EQ.4 .AND. N.NE.M ) .OR. ( ITYPE.EQ.5 .AND. N.NE.M ) ) THEN
          INFO = -7
       ELSE IF( ITYPE.LE.3 .AND. LDA.LT.MAX( 1, M ) ) THEN
          INFO = -9
       ELSE IF( ITYPE.GE.4 ) THEN
          IF( KL.LT.0 .OR. KL.GT.MAX( M-1, 0 ) ) THEN
             INFO = -2
-         ELSE IF( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR.
-     $            ( ( ITYPE.EQ.4 .OR. ITYPE.EQ.5 ) .AND. KL.NE.KU ) )
-     $             THEN
+         ELSE IF( KU.LT.0 .OR. KU.GT.MAX( N-1, 0 ) .OR. ( ( ITYPE.EQ.4 .OR. ITYPE.EQ.5 ) .AND. KL.NE.KU ) ) THEN
             INFO = -3
-         ELSE IF( ( ITYPE.EQ.4 .AND. LDA.LT.KL+1 ) .OR.
-     $            ( ITYPE.EQ.5 .AND. LDA.LT.KU+1 ) .OR.
-     $            ( ITYPE.EQ.6 .AND. LDA.LT.2*KL+KU+1 ) ) THEN
+         ELSE IF( ( ITYPE.EQ.4 .AND. LDA.LT.KL+1 ) .OR. ( ITYPE.EQ.5 .AND. LDA.LT.KU+1 ) .OR. ( ITYPE.EQ.6 .AND. LDA.LT.2*KL+KU+1 ) ) THEN
             INFO = -9
          END IF
       END IF
@@ -93,8 +88,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 *
 *     Get machine parameters
 *
@@ -131,8 +125,7 @@
          ELSE
             MUL = CTOC / CFROMC
             DONE = .TRUE.
-            IF (MUL .EQ. ONE)
-     $         RETURN
+            IF (MUL .EQ. ONE) RETURN
          END IF
       END IF
 *
@@ -216,8 +209,7 @@
 *
       END IF
 *
-      IF( .NOT.DONE )
-     $   GO TO 10
+      IF( .NOT.DONE ) GO TO 10
 *
       RETURN
 *

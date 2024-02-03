@@ -1,5 +1,4 @@
-      SUBROUTINE STRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND,
-     $                   WORK, RESID )
+      SUBROUTINE STRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -69,13 +68,11 @@
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 J = 1, N
-            CALL STRMV( 'Upper', 'No transpose', DIAG, J, A, LDA,
-     $                  AINV( 1, J ), 1 )
+            CALL STRMV( 'Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 )
    20    CONTINUE
       ELSE
          DO 30 J = 1, N
-            CALL STRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ),
-     $                  LDA, AINV( J, J ), 1 )
+            CALL STRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 )
    30    CONTINUE
       END IF
 *

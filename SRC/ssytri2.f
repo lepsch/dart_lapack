@@ -67,8 +67,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( NBMAX.GE.N ) THEN
          CALL SSYTRI( UPLO, N, A, LDA, IPIV, WORK, INFO )

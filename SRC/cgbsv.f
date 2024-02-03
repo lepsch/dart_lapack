@@ -50,8 +50,7 @@
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL CGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV,
-     $                B, LDB, INFO )
+         CALL CGBTRS( 'No transpose', N, KL, KU, NRHS, AB, LDAB, IPIV, B, LDB, INFO )
       END IF
       RETURN
 *

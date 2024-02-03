@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DQRT14( TRANS, M, N, NRHS, A, LDA, X,
-     $                 LDX, WORK, LWORK )
+      DOUBLE PRECISION FUNCTION DQRT14( TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -68,8 +67,7 @@
 *
       CALL DLACPY( 'All', M, N, A, LDA, WORK, LDWORK )
       ANRM = DLANGE( 'M', M, N, WORK, LDWORK, RWORK )
-      IF( ANRM.NE.ZERO )
-     $   CALL DLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
+      IF( ANRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
 *
 *     Copy X or X' into the right place and scale it
 *
@@ -77,20 +75,11 @@
 *
 *        Copy X into columns n+1:n+nrhs of work
 *
-         CALL DLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ),
-     $                LDWORK )
-         XNRM = DLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK,
-     $          RWORK )
-         IF( XNRM.NE.ZERO )
-     $      CALL DLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS,
-     $                   WORK( N*LDWORK+1 ), LDWORK, INFO )
+         CALL DLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = DLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO )
 *
 *        Compute QR factorization of X
 *
-         CALL DGEQR2( M, N+NRHS, WORK, LDWORK,
-     $                WORK( LDWORK*( N+NRHS )+1 ),
-     $                WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ),
-     $                INFO )
+         CALL DGEQR2( M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO )
 *
 *        Compute largest entry in upper triangle of
 *        work(n+1:m,n+1:n+nrhs)
@@ -113,14 +102,11 @@
    40    CONTINUE
 *
          XNRM = DLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
-         IF( XNRM.NE.ZERO )
-     $      CALL DLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ),
-     $                   LDWORK, INFO )
+         IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO )
 *
 *        Compute LQ factorization of work
 *
-         CALL DGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ),
-     $                WORK( LDWORK*( N+1 )+1 ), INFO )
+         CALL DGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ), WORK( LDWORK*( N+1 )+1 ), INFO )
 *
 *        Compute largest entry in lower triangle in
 *        work(m+1:m+nrhs,m+1:n)

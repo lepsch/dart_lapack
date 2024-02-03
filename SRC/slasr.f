@@ -39,11 +39,9 @@
       INFO = 0
       IF( .NOT.( LSAME( SIDE, 'L' ) .OR. LSAME( SIDE, 'R' ) ) ) THEN
          INFO = 1
-      ELSE IF( .NOT.( LSAME( PIVOT, 'V' ) .OR. LSAME( PIVOT,
-     $         'T' ) .OR. LSAME( PIVOT, 'B' ) ) ) THEN
+      ELSE IF( .NOT.( LSAME( PIVOT, 'V' ) .OR. LSAME( PIVOT, 'T' ) .OR. LSAME( PIVOT, 'B' ) ) ) THEN
          INFO = 2
-      ELSE IF( .NOT.( LSAME( DIRECT, 'F' ) .OR. LSAME( DIRECT, 'B' ) ) )
-     $          THEN
+      ELSE IF( .NOT.( LSAME( DIRECT, 'F' ) .OR. LSAME( DIRECT, 'B' ) ) ) THEN
          INFO = 3
       ELSE IF( M.LT.0 ) THEN
          INFO = 4
@@ -59,8 +57,7 @@
 *
 *     Quick return if possible
 *
-      IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) )
-     $   RETURN
+      IF( ( M.EQ.0 ) .OR. ( N.EQ.0 ) ) RETURN
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
 *        Form  P * A

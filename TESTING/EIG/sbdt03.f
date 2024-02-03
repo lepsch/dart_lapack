@@ -1,5 +1,4 @@
-      SUBROUTINE SBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK,
-     $                   RESID )
+      SUBROUTINE SBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               D( * ), E( * ), S( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      REAL               D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 * ======================================================================
@@ -42,8 +40,7 @@
 *     Quick return if possible
 *
       RESID = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Compute B - U * S * V' one column at a time.
 *
@@ -60,8 +57,7 @@
                DO 10 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    10          CONTINUE
-               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU,
-     $                     WORK( N+1 ), 1, ZERO, WORK, 1 )
+               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
                IF( J.GT.1 ) THEN
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
@@ -79,8 +75,7 @@
                DO 30 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    30          CONTINUE
-               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU,
-     $                     WORK( N+1 ), 1, ZERO, WORK, 1 )
+               CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
                IF( J.LT.N ) THEN
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
@@ -99,8 +94,7 @@
             DO 50 I = 1, N
                WORK( N+I ) = S( I )*VT( I, J )
    50       CONTINUE
-            CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ),
-     $                  1, ZERO, WORK, 1 )
+            CALL SGEMV( 'No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 )
             WORK( J ) = WORK( J ) + D( J )
             RESID = MAX( RESID, SASUM( N, WORK, 1 ) )
    60    CONTINUE
@@ -113,18 +107,15 @@
       EPS = SLAMCH( 'Precision' )
 *
       IF( BNORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )
          ELSE
             IF( BNORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) /
-     $                 ( REAL( N )*EPS )
+               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS )
             ELSE
-               RESID = MIN( RESID / BNORM, REAL( N ) ) /
-     $                 ( REAL( N )*EPS )
+               RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS )
             END IF
          END IF
       END IF

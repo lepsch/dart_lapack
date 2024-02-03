@@ -1,6 +1,4 @@
-      SUBROUTINE SGGSVD( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B,
-     $                   LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE SGGSVD( JOBU, JOBV, JOBQ, M, N, P, K, L, A, LDA, B, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), Q( LDQ, * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      REAL               A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -87,15 +83,11 @@
 *
 *     Preprocessing
 *
-      CALL SGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA,
-     $             TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK,
-     $             WORK( N+1 ), INFO )
+      CALL SGGSVP( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, WORK, WORK( N+1 ), INFO )
 *
 *     Compute the GSVD of two upper "triangular" matrices
 *
-      CALL STGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB,
-     $             TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ,
-     $             WORK, NCYCLE, INFO )
+      CALL STGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
 *     Sort the singular values and store the pivot indices in IWORK
 *     Copy ALPHA to WORK, then sort ALPHA in WORK

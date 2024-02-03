@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -77,18 +76,11 @@
 *
             DO 10 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL ZTRMM( 'Right', 'Upper', 'Conjugate transpose',
-     $                     'Non-unit', I-1, IB, CONE, A( I, I ), LDA,
-     $                     A( 1, I ), LDA )
+               CALL ZTRMM( 'Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA )
                CALL ZLAUU2( 'Upper', IB, A( I, I ), LDA, INFO )
                IF( I+IB.LE.N ) THEN
-                  CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $                        I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ),
-     $                        LDA, A( I, I+IB ), LDA, CONE, A( 1, I ),
-     $                        LDA )
-                  CALL ZHERK( 'Upper', 'No transpose', IB, N-I-IB+1,
-     $                        ONE, A( I, I+IB ), LDA, ONE, A( I, I ),
-     $                        LDA )
+                  CALL ZGEMM( 'No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA )
+                  CALL ZHERK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA )
                END IF
    10       CONTINUE
          ELSE
@@ -97,17 +89,10 @@
 *
             DO 20 I = 1, N, NB
                IB = MIN( NB, N-I+1 )
-               CALL ZTRMM( 'Left', 'Lower', 'Conjugate transpose',
-     $                     'Non-unit', IB, I-1, CONE, A( I, I ), LDA,
-     $                     A( I, 1 ), LDA )
+               CALL ZTRMM( 'Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA )
                CALL ZLAUU2( 'Lower', IB, A( I, I ), LDA, INFO )
                IF( I+IB.LE.N ) THEN
-                  CALL ZGEMM( 'Conjugate transpose', 'No transpose', IB,
-     $                        I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA,
-     $                        A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA )
-                  CALL ZHERK( 'Lower', 'Conjugate transpose', IB,
-     $                        N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE,
-     $                        A( I, I ), LDA )
+                  CALL ZGEMM( 'Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA )                   CALL ZHERK( 'Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA )
                END IF
    20       CONTINUE
          END IF

@@ -46,20 +46,17 @@
 *     set noe = 1 if n is odd. if n is even set noe=0
 *
       NOE = 1
-      IF( MOD( N, 2 ).EQ.0 )
-     $   NOE = 0
+      IF( MOD( N, 2 ).EQ.0 ) NOE = 0
 *
 *     set ifm = 0 when form='T or 't' and 1 otherwise
 *
       IFM = 1
-      IF( LSAME( TRANSR, 'T' ) )
-     $   IFM = 0
+      IF( LSAME( TRANSR, 'T' ) ) IFM = 0
 *
 *     set ilu = 0 when uplo='U or 'u' and 1 otherwise
 *
       ILU = 1
-      IF( LSAME( UPLO, 'U' ) )
-     $   ILU = 0
+      IF( LSAME( UPLO, 'U' ) ) ILU = 0
 *
 *     set lda = (n+1)/2 when ifm = 0
 *     set lda = n when ifm = 1 and noe = 1
@@ -90,8 +87,7 @@
                DO J = 0, K - 1
                   DO I = 0, N - 1
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             ELSE
@@ -99,8 +95,7 @@
                DO J = 0, N - 1
                   DO I = 0, K - 1
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             END IF
@@ -111,8 +106,7 @@
                DO J = 0, K - 1
                   DO I = 0, N
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             ELSE
@@ -120,14 +114,12 @@
                DO J = 0, N
                   DO I = 0, K - 1
                      TEMP = ABS( A( I+J*LDA ) )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END DO
             END IF
          END IF
-      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR.
-     $         ( NORM.EQ.'1' ) ) THEN
+      ELSE IF( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) THEN
 *
 *        Find normI(A) ( = norm1(A), since A is symmetric).
 *
@@ -150,8 +142,7 @@
                      AA = ABS( A( I+J*LDA ) )
 *                    -> A(j+k,j+k)
                      WORK( J+K ) = S + AA
-                     IF( I.EQ.K+K )
-     $                  GO TO 10
+                     IF( I.EQ.K+K ) GO TO 10
                      I = I + 1
                      AA = ABS( A( I+J*LDA ) )
 *                    -> A(j,j)
@@ -170,8 +161,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                ELSE
 *                 ilu = 1
@@ -212,8 +202,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
             ELSE
@@ -250,8 +239,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                ELSE
 *                 ilu = 1
@@ -288,8 +276,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
             END IF
@@ -354,8 +341,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                ELSE
 *                 ilu=1
@@ -419,8 +405,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
             ELSE
@@ -492,8 +477,7 @@
                   VALUE = WORK ( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                ELSE
 *                 ilu=1
@@ -565,8 +549,7 @@
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )
-                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) )
-     $                    VALUE = TEMP
+                     IF( VALUE .LT. TEMP .OR. SISNAN( TEMP ) ) VALUE = TEMP
                   END DO
                END IF
             END IF
@@ -628,8 +611,7 @@
 *                    k by k-1 rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL SLASSQ( K-J-1, A( J+1+( J+K-1 )*LDA ), 1,
-     $                            SCALE, S )
+                     CALL SLASSQ( K-J-1, A( J+1+( J+K-1 )*LDA ), 1, SCALE, S )
 *                    L at A(0,k-1)
                   END DO
                   S = S + S
@@ -710,8 +692,7 @@
 *                    k by k rect. at A(0,0)
                   END DO
                   DO J = 0, K - 2
-                     CALL SLASSQ( K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE,
-     $                            S )
+                     CALL SLASSQ( K-J-1, A( J+1+( J+K )*LDA ), 1, SCALE, S )
 *                    L at A(0,k)
                   END DO
                   S = S + S

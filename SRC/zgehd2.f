@@ -56,13 +56,11 @@
 *
 *        Apply H(i) to A(1:ihi,i+1:ihi) from the right
 *
-         CALL ZLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ),
-     $               A( 1, I+1 ), LDA, WORK )
+         CALL ZLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ), A( 1, I+1 ), LDA, WORK )
 *
 *        Apply H(i)**H to A(i+1:ihi,i+1:n) from the left
 *
-         CALL ZLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1,
-     $               DCONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK )
+         CALL ZLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1, DCONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK )
 *
          A( I+1, I ) = ALPHA
    10 CONTINUE

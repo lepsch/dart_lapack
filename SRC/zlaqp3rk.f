@@ -1,7 +1,4 @@
-      SUBROUTINE ZLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL,
-     $                     RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB,
-     $                     MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU,
-     $                     VN1, VN2, AUXV, F, LDF, IWORK, INFO )
+      SUBROUTINE ZLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, AUXV, F, LDF, IWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -10,10 +7,7 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            DONE
-      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N,
-     $                   NB, NRHS
-      DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK,
-     $                   RELTOL
+      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * ), JPIV( * )
@@ -27,12 +21,10 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT,
-     $                   LSTICC, KP, I, IF
+      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
       DOUBLE PRECISION   HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z
       COMPLEX*16         AIK
 *     ..
@@ -137,9 +129,7 @@
 *                               A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 
                IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-                  CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $                  M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA,
-     $                  F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+                  CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -186,9 +176,7 @@
 *                               A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 *
                IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-                  CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $                  M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA,
-     $                  F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+                  CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -262,9 +250,7 @@
 *                             A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 *
                IF( KB.LT.MINMNUPDT ) THEN
-                  CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $                  M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA,
-     $                  F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
+                  CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB,-CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -321,8 +307,7 @@
             DO J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
             END DO
-            CALL ZGEMV( 'No transpose', M-I+1, K-1, -CONE, A( I, 1 ),
-     $                  LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 )
+            CALL ZGEMV( 'No transpose', M-I+1, K-1, -CONE, A( I, 1 ), LDA, F( K, 1 ), LDF, CONE, A( I, K ), 1 )
             DO J = 1, K - 1
                F( K, J ) = DCONJG( F( K, J ) )
             END DO
@@ -387,9 +372,7 @@
 *                            A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**H.
 *
             IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-               CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $               M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA,
-     $               F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
+               CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-IF, NRHS, KB, -CONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, CONE, A( IF+1, N+1 ), LDA )
             END IF
 *
 *           There is no need to recompute the 2-norm of the
@@ -414,9 +397,7 @@
 *          1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**H * A(I:M,K).
 *
          IF( K.LT.N+NRHS ) THEN
-            CALL ZGEMV( 'Conjugate transpose', M-I+1, N+NRHS-K,
-     $                  TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1,
-     $                  CZERO, F( K+1, K ), 1 )
+            CALL ZGEMV( 'Conjugate transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, CZERO, F( K+1, K ), 1 )
          END IF
 *
 *           2) Zero out elements above and on the diagonal of the
@@ -431,13 +412,9 @@
 *                    * A(I:M,K).
 *
          IF( K.GT.1 ) THEN
-            CALL ZGEMV( 'Conjugate Transpose', M-I+1, K-1, -TAU( K ),
-     $                   A( I, 1 ), LDA, A( I, K ), 1, CZERO,
-     $                   AUXV( 1 ), 1 )
+            CALL ZGEMV( 'Conjugate Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, CZERO, AUXV( 1 ), 1 )
 *
-            CALL ZGEMV( 'No transpose', N+NRHS, K-1, CONE,
-     $                  F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE,
-     $                  F( 1, K ), 1 )
+            CALL ZGEMV( 'No transpose', N+NRHS, K-1, CONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, CONE, F( 1, K ), 1 )
          END IF
 *
 *        ===============================================================
@@ -447,9 +424,7 @@
 *                         - A(I,1:K)*F(K+1:N+NRHS,1:K)**H.
 *
          IF( K.LT.N+NRHS ) THEN
-            CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $            1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA,
-     $            F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA )
+            CALL ZGEMM( 'No transpose', 'Conjugate transpose', 1, N+NRHS-K, K, -CONE, A( I, 1 ), LDA, F( K+1, 1 ), LDF, CONE, A( I, K+1 ), LDA )
          END IF
 *
          A( I, K ) = AIK
@@ -515,9 +490,7 @@
 *                         A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**H.
 *
       IF( KB.LT.MINMNUPDT ) THEN
-         CALL ZGEMM( 'No transpose', 'Conjugate transpose',
-     $         M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA,
-     $         F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
+         CALL ZGEMM( 'No transpose', 'Conjugate transpose', M-IF, N+NRHS-KB, KB, -CONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, CONE, A( IF+1, KB+1 ), LDA )
       END IF
 *
 *     Recompute the 2-norm of the difficult columns.

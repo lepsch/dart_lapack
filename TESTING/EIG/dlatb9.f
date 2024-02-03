@@ -1,6 +1,4 @@
-      SUBROUTINE DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB,
-     $                   ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB,
-     $                   DISTA, DISTB )
+      SUBROUTINE DLATB9( PATH, IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -64,8 +62,7 @@
 *
 *     Set the lower and upper bandwidths.
 *
-      IF( LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'LSE' ) .OR.
-     $    LSAMEN( 3, PATH, 'GSV' ) ) THEN
+      IF( LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'LSE' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) THEN
 *
 *        A: M by N, B: P by N
 *
@@ -107,8 +104,7 @@
 *
          END IF
 *
-      ELSE IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GLM' ) )
-     $          THEN
+      ELSE IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GLM' ) ) THEN
 *
 *        A: N by M, B: N by P
 *
@@ -154,8 +150,7 @@
 *
       CNDNMA = TEN*TEN
       CNDNMB = TEN
-      IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) .OR.
-     $    LSAMEN( 3, PATH, 'GSV' ) ) THEN
+      IF( LSAMEN( 3, PATH, 'GQR' ) .OR. LSAMEN( 3, PATH, 'GRQ' ) .OR. LSAMEN( 3, PATH, 'GSV' ) ) THEN
          IF( IMAT.EQ.5 ) THEN
             CNDNMA = BADC1
             CNDNMB = BADC1

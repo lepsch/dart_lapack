@@ -1,5 +1,4 @@
-      REAL FUNCTION CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV,
-     $                            WORK )
+      REAL FUNCTION CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -103,8 +102,7 @@
                WORK( N+KP ) = TMP
                DO I = 1, K-1
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-                  WORK( K-1 ) =
-     $                 MAX( CABS1( AF( I, K-1 ) ), WORK( K-1 ) )
+                  WORK( K-1 ) = MAX( CABS1( AF( I, K-1 ) ), WORK( K-1 ) )
                END DO
                WORK( K ) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
                K = K - 2
@@ -151,8 +149,7 @@
                WORK( N+KP ) = TMP
                DO I = K+1, N
                   WORK( K ) = MAX( CABS1( AF( I, K ) ), WORK( K ) )
-                  WORK( K+1 ) =
-     $                 MAX( CABS1( AF( I, K+1 ) ) , WORK( K+1 ) )
+                  WORK( K+1 ) = MAX( CABS1( AF( I, K+1 ) ) , WORK( K+1 ) )
                END DO
                WORK(K) = MAX( CABS1( AF( K, K ) ), WORK( K ) )
                K = K + 2

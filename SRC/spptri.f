@@ -49,14 +49,12 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Invert the triangular Cholesky factor U or L.
 *
       CALL STPTRI( UPLO, 'Non-unit', N, AP, INFO )
-      IF( INFO.GT.0 )
-     $   RETURN
+      IF( INFO.GT.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -66,8 +64,7 @@
          DO 10 J = 1, N
             JC = JJ + 1
             JJ = JJ + J
-            IF( J.GT.1 )
-     $         CALL SSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
+            IF( J.GT.1 ) CALL SSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = AP( JJ )
             CALL SSCAL( J, AJJ, AP( JC ), 1 )
    10    CONTINUE
@@ -80,9 +77,7 @@
          DO 20 J = 1, N
             JJN = JJ + N - J + 1
             AP( JJ ) = SDOT( N-J+1, AP( JJ ), 1, AP( JJ ), 1 )
-            IF( J.LT.N )
-     $         CALL STPMV( 'Lower', 'Transpose', 'Non-unit', N-J,
-     $                     AP( JJN ), AP( JJ+1 ), 1 )
+            IF( J.LT.N ) CALL STPMV( 'Lower', 'Transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )
             JJ = JJN
    20    CONTINUE
       END IF

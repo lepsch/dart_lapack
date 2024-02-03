@@ -1,6 +1,4 @@
-      SUBROUTINE SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL,
-     $                   ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1,
-     $                   DN2, G, TAU )
+      SUBROUTINE SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +7,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            IEEE
       INTEGER            I0, ITER, N0, NDIV, NFAIL, PP
-      REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G,
-     $                   QMAX, SIGMA, TAU
+      REAL               DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, G, QMAX, SIGMA, TAU
 *     ..
 *     .. Array Arguments ..
       REAL               Z( * )
@@ -22,8 +19,7 @@
       REAL               CBIAS
       PARAMETER          ( CBIAS = 1.50E0 )
       REAL               ZERO, QURTR, HALF, ONE, TWO, HUNDRD
-      PARAMETER          ( ZERO = 0.0E0, QURTR = 0.250E0, HALF = 0.5E0,
-     $                     ONE = 1.0E0, TWO = 2.0E0, HUNDRD = 100.0E0 )
+      PARAMETER          ( ZERO = 0.0E0, QURTR = 0.250E0, HALF = 0.5E0, ONE = 1.0E0, TWO = 2.0E0, HUNDRD = 100.0E0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            IPN4, J4, N0IN, NN, TTYPE
@@ -51,19 +47,13 @@
 *
    10 CONTINUE
 *
-      IF( N0.LT.I0 )
-     $   RETURN
-      IF( N0.EQ.I0 )
-     $   GO TO 20
+      IF( N0.LT.I0 ) RETURN       IF( N0.EQ.I0 ) GO TO 20
       NN = 4*N0 + PP
-      IF( N0.EQ.( I0+1 ) )
-     $   GO TO 40
+      IF( N0.EQ.( I0+1 ) ) GO TO 40
 *
 *     Check whether E(N0-1) is negligible, 1 eigenvalue.
 *
-      IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND.
-     $    Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) )
-     $   GO TO 30
+      IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND. Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
 *
    20 CONTINUE
 *
@@ -75,9 +65,7 @@
 *
    30 CONTINUE
 *
-      IF( Z( NN-9 ).GT.TOL2*SIGMA .AND.
-     $    Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) )
-     $   GO TO 50
+      IF( Z( NN-9 ).GT.TOL2*SIGMA .AND. Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
 *
    40 CONTINUE
 *
@@ -90,8 +78,7 @@
       IF( Z( NN-5 ).GT.Z( NN-3 )*TOL2.AND.T.NE.ZERO ) THEN
          S = Z( NN-3 )*( Z( NN-5 ) / T )
          IF( S.LE.T ) THEN
-            S = Z( NN-3 )*( Z( NN-5 ) /
-     $          ( T*( ONE+SQRT( ONE+S / T ) ) ) )
+            S = Z( NN-3 )*( Z( NN-5 ) / ( T*( ONE+SQRT( ONE+S / T ) ) ) )
          ELSE
             S = Z( NN-3 )*( Z( NN-5 ) / ( T+SQRT( T )*SQRT( T+S ) ) )
          END IF
@@ -105,8 +92,7 @@
       GO TO 10
 *
    50 CONTINUE
-      IF( PP.EQ.2 )
-     $   PP = 0
+      IF( PP.EQ.2 ) PP = 0
 *
 *     Reverse the qd-array, if warranted.
 *
@@ -132,10 +118,7 @@
                Z( 4*N0-PP ) = Z( 4*I0-PP )
             END IF
             DMIN2 = MIN( DMIN2, Z( 4*N0+PP-1 ) )
-            Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ),
-     $                            Z( 4*I0+PP+3 ) )
-            Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ),
-     $                          Z( 4*I0-PP+4 ) )
+            Z( 4*N0+PP-1 ) = MIN( Z( 4*N0+PP-1 ), Z( 4*I0+PP-1 ), Z( 4*I0+PP+3 ) )             Z( 4*N0-PP ) = MIN( Z( 4*N0-PP ), Z( 4*I0-PP ), Z( 4*I0-PP+4 ) )
             QMAX = MAX( QMAX, Z( 4*I0+PP-3 ), Z( 4*I0+PP+1 ) )
             DMIN = -ZERO
          END IF
@@ -143,15 +126,13 @@
 *
 *     Choose a shift.
 *
-      CALL SLASQ4( I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1,
-     $             DN2, TAU, TTYPE, G )
+      CALL SLASQ4( I0, N0, Z, PP, N0IN, DMIN, DMIN1, DMIN2, DN, DN1, DN2, TAU, TTYPE, G )
 *
 *     Call dqds until DMIN > 0.
 *
    70 CONTINUE
 *
-      CALL SLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN,
-     $             DN1, DN2, IEEE, EPS )
+      CALL SLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS )
 *
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
@@ -164,9 +145,7 @@
 *
          GO TO 90
 *
-      ELSE IF( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND.
-     $         Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND.
-     $         ABS( DN ).LT.TOL*SIGMA ) THEN
+      ELSE IF( DMIN.LT.ZERO .AND. DMIN1.GT.ZERO .AND. Z( 4*( N0-1 )-PP ).LT.TOL*( SIGMA+DN1 ) .AND. ABS( DN ).LT.TOL*SIGMA ) THEN
 *
 *        Convergence hidden by negative DN.
 *

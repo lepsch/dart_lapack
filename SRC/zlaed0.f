@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAED0( QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK,
-     $                   IWORK, INFO )
+      SUBROUTINE ZLAED0( QSIZ, N, D, E, Q, LDQ, QSTORE, LDQS, RWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,10 +22,7 @@
       PARAMETER          ( TWO = 2.D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM,
-     $                   IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM,
-     $                   J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1,
-     $                   SPM1, SPM2, SUBMAT, SUBPBS, TLVLS
+      INTEGER            CURLVL, CURPRB, CURR, I, IGIVCL, IGIVNM, IGIVPT, INDXQ, IPERM, IPRMPT, IQ, IQPTR, IWREM, J, K, LGN, LL, MATSIZ, MSD2, SMLSIZ, SMM1, SPM1, SPM2, SUBMAT, SUBPBS, TLVLS
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. External Subroutines ..
@@ -65,8 +61,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       SMLSIZ = ILAENV( 9, 'ZLAED0', ' ', 0, 0, 0, 0 )
 *
@@ -108,10 +103,7 @@
 *
       TEMP = LOG( DBLE( N ) ) / LOG( TWO )
       LGN = INT( TEMP )
-      IF( 2**LGN.LT.N )
-     $   LGN = LGN + 1
-      IF( 2**LGN.LT.N )
-     $   LGN = LGN + 1
+      IF( 2**LGN.LT.N ) LGN = LGN + 1       IF( 2**LGN.LT.N ) LGN = LGN + 1
       IPRMPT = INDXQ + N + 1
       IPERM = IPRMPT + N*LGN
       IQPTR = IPERM + N*LGN
@@ -141,11 +133,7 @@
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          END IF
          LL = IQ - 1 + IWORK( IQPTR+CURR )
-         CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ),
-     $                RWORK( LL ), MATSIZ, RWORK, INFO )
-         CALL ZLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ),
-     $                MATSIZ, QSTORE( 1, SUBMAT ), LDQS,
-     $                RWORK( IWREM ) )
+         CALL DSTEQR( 'I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO )          CALL ZLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) )
          IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
          CURR = CURR + 1
          IF( INFO.GT.0 ) THEN
@@ -188,14 +176,7 @@
 *
 *     I am free to use Q as a valuable working space until Loop 150.
 *
-            CALL ZLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB,
-     $                   D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS,
-     $                   E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ),
-     $                   RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ),
-     $                   IWORK( IPERM ), IWORK( IGIVPT ),
-     $                   IWORK( IGIVCL ), RWORK( IGIVNM ),
-     $                   Q( 1, SUBMAT ), RWORK( IWREM ),
-     $                   IWORK( SUBPBS+1 ), INFO )
+            CALL ZLAED7( MATSIZ, MSD2, QSIZ, TLVLS, CURLVL, CURPRB, D( SUBMAT ), QSTORE( 1, SUBMAT ), LDQS, E( SUBMAT+MSD2-1 ), IWORK( INDXQ+SUBMAT ), RWORK( IQ ), IWORK( IQPTR ), IWORK( IPRMPT ), IWORK( IPERM ), IWORK( IGIVPT ), IWORK( IGIVCL ), RWORK( IGIVNM ), Q( 1, SUBMAT ), RWORK( IWREM ), IWORK( SUBPBS+1 ), INFO )
             IF( INFO.GT.0 ) THEN
                INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
                RETURN

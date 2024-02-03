@@ -58,19 +58,12 @@
          INCR = .TRUE.
          DECR = .TRUE.
          DO 10 I = 1, K - 1
-            IF( INCR )
-     $         INCR = INCR .AND. D( I ).LE.D( I+1 )
-            IF( DECR )
-     $         DECR = DECR .AND. D( I ).GE.D( I+1 )
+            IF( INCR ) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 )
    10    CONTINUE
          IF( SING .AND. K.GT.0 ) THEN
-            IF( INCR )
-     $         INCR = INCR .AND. ZERO.LE.D( 1 )
-            IF( DECR )
-     $         DECR = DECR .AND. D( K ).GE.ZERO
+            IF( INCR ) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO
          END IF
-         IF( .NOT.( INCR .OR. DECR ) )
-     $      INFO = -4
+         IF( .NOT.( INCR .OR. DECR ) ) INFO = -4
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'DDISNA', -INFO )
@@ -79,8 +72,7 @@
 *
 *     Quick return if possible
 *
-      IF( K.EQ.0 )
-     $   RETURN
+      IF( K.EQ.0 ) RETURN
 *
 *     Compute reciprocal condition numbers
 *
@@ -98,10 +90,7 @@
       END IF
       IF( SING ) THEN
          IF( ( LEFT .AND. M.GT.N ) .OR. ( RIGHT .AND. M.LT.N ) ) THEN
-            IF( INCR )
-     $         SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )
-            IF( DECR )
-     $         SEP( K ) = MIN( SEP( K ), D( K ) )
+            IF( INCR ) SEP( 1 ) = MIN( SEP( 1 ), D( 1 ) )             IF( DECR ) SEP( K ) = MIN( SEP( K ), D( K ) )
          END IF
       END IF
 *

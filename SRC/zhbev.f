@@ -1,5 +1,4 @@
-      SUBROUTINE ZHBEV( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK,
-     $                  RWORK, INFO )
+      SUBROUTINE ZHBEV( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER, WANTZ
       INTEGER            IINFO, IMAX, INDE, INDRWK, ISCALE
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -66,8 +64,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( LOWER ) THEN
@@ -75,8 +72,7 @@
          ELSE
             W( 1 ) = DBLE( AB( KD+1, 1 ) )
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -111,8 +107,7 @@
 *     Call ZHBTRD to reduce Hermitian band matrix to tridiagonal form.
 *
       INDE = 1
-      CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z,
-     $             LDZ, WORK, IINFO )
+      CALL ZHBTRD( JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), Z, LDZ, WORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 *
@@ -120,8 +115,7 @@
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
          INDRWK = INDE + N
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ,
-     $                RWORK( INDRWK ), INFO )
+         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

@@ -29,8 +29,7 @@
       EPS = DLAMCH( 'Epsilon' )
       IF( RCOND.GT.ZERO ) THEN
          IF( RCONDC.GT.ZERO ) THEN
-            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) -
-     $            ( ONE-EPS )
+            RAT = MAX( RCOND, RCONDC ) / MIN( RCOND, RCONDC ) - ( ONE-EPS )
          ELSE
             RAT = RCOND / EPS
          END IF

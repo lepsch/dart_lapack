@@ -1,6 +1,4 @@
-      SUBROUTINE ZDRVLS( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB,
-     $                   NBVAL, NXVAL, THRESH, TSTERR, A, COPYA, B,
-     $                   COPYB, C, S, COPYS, NOUT )
+      SUBROUTINE ZDRVLS( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, TSTERR, A, COPYA, B, COPYB, C, S, COPYS, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            MVAL( * ), NBVAL( * ), NSVAL( * ),
-     $                   NVAL( * ), NXVAL( * )
+      INTEGER            MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * ), NXVAL( * )
       DOUBLE PRECISION   COPYS( * ), S( * )
       COMPLEX*16         A( * ), B( * ), C( * ), COPYA( * ), COPYB( * )
 *     ..
@@ -29,20 +26,12 @@
       DOUBLE PRECISION   ONE, ZERO
       PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0 )
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ),
-     $                   CZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANS
       CHARACTER*3        PATH
-      INTEGER            CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK,
-     $                   ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK,
-     $                   LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS,
-     $                   NFAIL, NRHS, NROWS, NRUN, RANK, MB,
-     $                   MMAX, NMAX, NSMAX, LIWORK, LRWORK,
-     $                   LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS,
-     $                   LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD,
-     $                   LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD
+      INTEGER            CRANK, I, IM, IMB, IN, INB, INFO, INS, IRANK, ISCALE, ITRAN, ITYPE, J, K, LDA, LDB, LDWORK, LWLSY, LWORK, M, MNMIN, N, NB, NCOLS, NERRS, NFAIL, NRHS, NROWS, NRUN, RANK, MB, MMAX, NMAX, NSMAX, LIWORK, LRWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSS, LWORK_ZGELSY, LWORK_ZGELSD, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD
       DOUBLE PRECISION   EPS, NORMA, NORMB, RCOND
 *     ..
 *     .. Local Arrays ..
@@ -60,10 +49,7 @@
       EXTERNAL           DASUM, DLAMCH, ZQRT12, ZQRT14, ZQRT17
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASVM, DAXPY, ZERRLS, ZGELS,
-     $                   ZGELSD, ZGELSS, ZGELST, ZGELSY, ZGEMM,
-     $                   ZGETSLS, ZLACPY, ZLARNV, ZQRT13, ZQRT15,
-     $                   ZQRT16, ZDSCAL, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASVM, DAXPY, ZERRLS, ZGELS, ZGELSD, ZGELSS, ZGELST, ZGELSY, ZGEMM, ZGETSLS, ZLACPY, ZLARNV, ZQRT13, ZQRT15, ZQRT16, ZDSCAL, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN, INT, SQRT
@@ -101,13 +87,11 @@
 *     Test the error exits
 *
       CALL XLAENV( 9, SMLSIZ )
-      IF( TSTERR )
-     $   CALL ZERRLS( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRLS( PATH, NOUT )
 *
 *     Print the header if NM = 0 or NN = 0 and THRESH = 0.
 *
-      IF( ( NM.EQ.0 .OR. NN.EQ.0 ) .AND. THRESH.EQ.ZERO )
-     $   CALL ALAHD( NOUT, PATH )
+      IF( ( NM.EQ.0 .OR. NN.EQ.0 ) .AND. THRESH.EQ.ZERO ) CALL ALAHD( NOUT, PATH )
       INFOT = 0
 *
 *     Compute maximal workspace needed for all routines
@@ -138,10 +122,7 @@
 *     Compute workspace needed for routines
 *     ZQRT14, ZQRT17 (two side cases), ZQRT15 and ZQRT12
 *
-      LWORK = MAX( 1, ( M+N )*NRHS,
-     $      ( N+NRHS )*( M+2 ), ( M+NRHS )*( N+2 ),
-     $      MAX( M+MNMIN, NRHS*MNMIN,2*N+M ),
-     $      MAX( M*N+4*MNMIN+MAX(M,N), M*N+2*MNMIN+4*N ) )
+      LWORK = MAX( 1, ( M+N )*NRHS, ( N+NRHS )*( M+2 ), ( M+NRHS )*( N+2 ), MAX( M+MNMIN, NRHS*MNMIN,2*N+M ), MAX( M*N+4*MNMIN+MAX(M,N), M*N+2*MNMIN+4*N ) )
       LRWORK = 1
       LIWORK = 1
 *
@@ -171,45 +152,34 @@
                               END IF
 *
 *                             Compute workspace needed for ZGELS
-                              CALL ZGELS( TRANS, M, N, NRHS, A, LDA,
-     $                                    B, LDB, WQ, -1, INFO )
+                              CALL ZGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
                               LWORK_ZGELS = INT ( WQ( 1 ) )
 *                             Compute workspace needed for ZGELST
-                              CALL ZGELST( TRANS, M, N, NRHS, A, LDA,
-     $                                    B, LDB, WQ, -1, INFO )
+                              CALL ZGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
                               LWORK_ZGELST = INT ( WQ ( 1 ) )
 *                             Compute workspace needed for ZGETSLS
-                              CALL ZGETSLS( TRANS, M, N, NRHS, A, LDA,
-     $                                      B, LDB, WQ, -1, INFO )
+                              CALL ZGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WQ, -1, INFO )
                               LWORK_ZGETSLS = INT( WQ( 1 ) )
                            ENDDO
                         END IF
 *                       Compute workspace needed for ZGELSY
-                        CALL ZGELSY( M, N, NRHS, A, LDA, B, LDB, IWQ,
-     $                               RCOND, CRANK, WQ, -1, RWQ, INFO )
+                        CALL ZGELSY( M, N, NRHS, A, LDA, B, LDB, IWQ, RCOND, CRANK, WQ, -1, RWQ, INFO )
                         LWORK_ZGELSY = INT( WQ( 1 ) )
                         LRWORK_ZGELSY = 2*N
 *                       Compute workspace needed for ZGELSS
-                        CALL ZGELSS( M, N, NRHS, A, LDA, B, LDB, S,
-     $                               RCOND, CRANK, WQ, -1 , RWQ,
-     $                               INFO )
+                        CALL ZGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1 , RWQ, INFO )
                         LWORK_ZGELSS = INT( WQ( 1 ) )
                         LRWORK_ZGELSS = 5*MNMIN
 *                       Compute workspace needed for ZGELSD
-                        CALL ZGELSD( M, N, NRHS, A, LDA, B, LDB, S,
-     $                               RCOND, CRANK, WQ, -1, RWQ, IWQ,
-     $                               INFO )
+                        CALL ZGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WQ, -1, RWQ, IWQ, INFO )
                         LWORK_ZGELSD = INT( WQ( 1 ) )
                         LRWORK_ZGELSD = INT( RWQ ( 1 ) )
 *                       Compute LIWORK workspace needed for ZGELSY and ZGELSD
                         LIWORK = MAX( LIWORK, N, IWQ( 1 ) )
 *                       Compute LRWORK workspace needed for ZGELSY, ZGELSS and ZGELSD
-                        LRWORK = MAX( LRWORK, LRWORK_ZGELSY,
-     $                                LRWORK_ZGELSS, LRWORK_ZGELSD )
+                        LRWORK = MAX( LRWORK, LRWORK_ZGELSY, LRWORK_ZGELSS, LRWORK_ZGELSD )
 *                       Compute LWORK workspace needed for all functions
-                        LWORK = MAX( LWORK, LWORK_ZGELS, LWORK_ZGELST,
-     $                               LWORK_ZGETSLS, LWORK_ZGELSY,
-     $                               LWORK_ZGELSS, LWORK_ZGELSD )
+                        LWORK = MAX( LWORK, LWORK_ZGELS, LWORK_ZGELST, LWORK_ZGETSLS, LWORK_ZGELSY, LWORK_ZGELSS, LWORK_ZGELSD )
                      END IF
                   ENDDO
                ENDDO
@@ -240,8 +210,7 @@
                DO 110 IRANK = 1, 2
                   DO 100 ISCALE = 1, 3
                      ITYPE = ( IRANK-1 )*3 + ISCALE
-                     IF( .NOT.DOTYPE( ITYPE ) )
-     $                  GO TO 100
+                     IF( .NOT.DOTYPE( ITYPE ) ) GO TO 100
 *                 =====================================================
 *                       Begin test ZGELS
 *                 =====================================================
@@ -249,8 +218,7 @@
 *
 *                       Generate a matrix of scaling type ISCALE
 *
-                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA,
-     $                               ISEED )
+                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
 *
 *                       Loop for testing different block sizes.
 *
@@ -276,67 +244,41 @@
 *                             Set up a consistent rhs
 *
                               IF( NCOLS.GT.0 ) THEN
-                                 CALL ZLARNV( 2, ISEED, NCOLS*NRHS,
-     $                                        WORK )
-                                 CALL ZDSCAL( NCOLS*NRHS,
-     $                                        ONE / DBLE( NCOLS ), WORK,
-     $                                        1 )
+                                 CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
                               END IF
-                              CALL ZGEMM( TRANS, 'No transpose', NROWS,
-     $                                    NRHS, NCOLS, CONE, COPYA, LDA,
-     $                                    WORK, LDWORK, CZERO, B, LDB )
-                              CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB,
-     $                                     COPYB, LDB )
+                              CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
+                              CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 *
 *                             Solve LS or overdetermined system
 *
                               IF( M.GT.0 .AND. N.GT.0 ) THEN
-                                 CALL ZLACPY( 'Full', M, N, COPYA, LDA,
-     $                                        A, LDA )
-                                 CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                        COPYB, LDB, B, LDB )
+                                 CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
                               END IF
                               SRNAMT = 'ZGELS '
-                              CALL ZGELS( TRANS, M, N, NRHS, A, LDA, B,
-     $                                    LDB, WORK, LWORK, INFO )
+                              CALL ZGELS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
-                              IF( INFO.NE.0 )
-     $                           CALL ALAERH( PATH, 'ZGELS ', INFO, 0,
-     $                                        TRANS, M, N, NRHS, -1, NB,
-     $                                        ITYPE, NFAIL, NERRS,
-     $                                        NOUT )
+                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                             Test 1: Check correctness of results
 *                             for ZGELS, compute the residual:
 *                             RESID = norm(B - A*X) /
 *                             / ( max(m,n) * norm(A) * norm(X) * EPS )
 *
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 )
-     $                           CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                        COPYB, LDB, C, LDB )
-                              CALL ZQRT16( TRANS, M, N, NRHS, COPYA,
-     $                                     LDA, B, LDB, C, LDB, RWORK,
-     $                                     RESULT( 1 ) )
+                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) )
 *
 *                             Test 2: Check correctness of results
 *                             for ZGELS.
 *
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR.
-     $                            ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
 *
 *                                Solving LS system
 *
-                                 RESULT( 2 ) = ZQRT17( TRANS, 1, M, N,
-     $                                         NRHS, COPYA, LDA, B, LDB,
-     $                                         COPYB, LDB, C, WORK,
-     $                                         LWORK )
+                                 RESULT( 2 ) = ZQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
                               ELSE
 *
 *                                Solving overdetermined system
 *
-                                 RESULT( 2 ) = ZQRT14( TRANS, M, N,
-     $                                         NRHS, COPYA, LDA, B, LDB,
-     $                                         WORK, LWORK )
+                                 RESULT( 2 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
                               END IF
 *
 *                             Print information about the tests that
@@ -344,11 +286,7 @@
 *
                               DO K = 1, 2
                                  IF( RESULT( K ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                                 CALL ALAHD( NOUT, PATH )
-                                    WRITE( NOUT, FMT = 9999 )TRANS, M,
-     $                                 N, NRHS, NB, ITYPE, K,
-     $                                 RESULT( K )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  END IF
                               END DO
@@ -366,8 +304,7 @@
 *
 *                       Generate a matrix of scaling type ISCALE
 *
-                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA,
-     $                               ISEED )
+                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
 *
 *                       Loop for testing different block sizes.
 *
@@ -393,67 +330,41 @@
 *                             Set up a consistent rhs
 *
                               IF( NCOLS.GT.0 ) THEN
-                                 CALL ZLARNV( 2, ISEED, NCOLS*NRHS,
-     $                                        WORK )
-                                 CALL ZDSCAL( NCOLS*NRHS,
-     $                                        ONE / DBLE( NCOLS ), WORK,
-     $                                        1 )
+                                 CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 )
                               END IF
-                              CALL ZGEMM( TRANS, 'No transpose', NROWS,
-     $                                    NRHS, NCOLS, CONE, COPYA, LDA,
-     $                                    WORK, LDWORK, CZERO, B, LDB )
-                              CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB,
-     $                                     COPYB, LDB )
+                              CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
+                              CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 *
 *                             Solve LS or overdetermined system
 *
                               IF( M.GT.0 .AND. N.GT.0 ) THEN
-                                 CALL ZLACPY( 'Full', M, N, COPYA, LDA,
-     $                                        A, LDA )
-                                 CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                        COPYB, LDB, B, LDB )
+                                 CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
                               END IF
                               SRNAMT = 'ZGELST'
-                              CALL ZGELST( TRANS, M, N, NRHS, A, LDA, B,
-     $                                    LDB, WORK, LWORK, INFO )
+                              CALL ZGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
-                              IF( INFO.NE.0 )
-     $                           CALL ALAERH( PATH, 'ZGELST', INFO, 0,
-     $                                        TRANS, M, N, NRHS, -1, NB,
-     $                                        ITYPE, NFAIL, NERRS,
-     $                                        NOUT )
+                              IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                             Test 3: Check correctness of results
 *                             for ZGELST, compute the residual:
 *                             RESID = norm(B - A*X) /
 *                             / ( max(m,n) * norm(A) * norm(X) * EPS )
 *
-                              IF( NROWS.GT.0 .AND. NRHS.GT.0 )
-     $                           CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                        COPYB, LDB, C, LDB )
-                              CALL ZQRT16( TRANS, M, N, NRHS, COPYA,
-     $                                     LDA, B, LDB, C, LDB, RWORK,
-     $                                     RESULT( 3 ) )
+                              IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) )
 *
 *                             Test 4: Check correctness of results
 *                             for ZGELST.
 *
-                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR.
-     $                            ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                              IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
 *
 *                                Solving LS system
 *
-                                 RESULT( 4 ) = ZQRT17( TRANS, 1, M, N,
-     $                                         NRHS, COPYA, LDA, B, LDB,
-     $                                         COPYB, LDB, C, WORK,
-     $                                         LWORK )
+                                 RESULT( 4 ) = ZQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
                               ELSE
 *
 *                                Solving overdetermined system
 *
-                                 RESULT( 4 ) = ZQRT14( TRANS, M, N,
-     $                                         NRHS, COPYA, LDA, B, LDB,
-     $                                         WORK, LWORK )
+                                 RESULT( 4 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
                               END IF
 *
 *                             Print information about the tests that
@@ -461,11 +372,7 @@
 *
                               DO K = 3, 4
                                  IF( RESULT( K ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                                 CALL ALAHD( NOUT, PATH )
-                                    WRITE( NOUT, FMT = 9999 )TRANS, M,
-     $                                 N, NRHS, NB, ITYPE, K,
-     $                                 RESULT( K )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  END IF
                               END DO
@@ -483,8 +390,7 @@
 *
 *                       Generate a matrix of scaling type ISCALE
 *
-                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA,
-     $                               ISEED )
+                        CALL ZQRT13( ISCALE, M, N, COPYA, LDA, NORMA, ISEED )
 *
 *                       Loop for testing different block sizes MB.
 *
@@ -516,71 +422,41 @@
 *                                Set up a consistent rhs
 *
                                  IF( NCOLS.GT.0 ) THEN
-                                    CALL ZLARNV( 2, ISEED, NCOLS*NRHS,
-     $                                           WORK )
-                                    CALL ZSCAL( NCOLS*NRHS,
-     $                                          CONE / DBLE( NCOLS ),
-     $                                          WORK, 1 )
+                                    CALL ZLARNV( 2, ISEED, NCOLS*NRHS, WORK )                                     CALL ZSCAL( NCOLS*NRHS, CONE / DBLE( NCOLS ), WORK, 1 )
                                  END IF
-                                 CALL ZGEMM( TRANS, 'No transpose',
-     $                                       NROWS, NRHS, NCOLS, CONE,
-     $                                       COPYA, LDA, WORK, LDWORK,
-     $                                       CZERO, B, LDB )
-                                 CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                        B, LDB, COPYB, LDB )
+                                 CALL ZGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB )
+                                 CALL ZLACPY( 'Full', NROWS, NRHS, B, LDB, COPYB, LDB )
 *
 *                                Solve LS or overdetermined system
 *
                                  IF( M.GT.0 .AND. N.GT.0 ) THEN
-                                    CALL ZLACPY( 'Full', M, N,
-     $                                           COPYA, LDA, A, LDA )
-                                    CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                           COPYB, LDB, B, LDB )
+                                    CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )                                     CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB )
                                  END IF
                                  SRNAMT = 'ZGETSLS '
-                                 CALL ZGETSLS( TRANS, M, N, NRHS, A,
-     $                                    LDA, B, LDB, WORK, LWORK,
-     $                                    INFO )
-                                 IF( INFO.NE.0 )
-     $                              CALL ALAERH( PATH, 'ZGETSLS ', INFO,
-     $                                           0, TRANS, M, N, NRHS,
-     $                                           -1, NB, ITYPE, NFAIL,
-     $                                           NERRS, NOUT )
+                                 CALL ZGETSLS( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                             Test 5: Check correctness of results
 *                             for ZGETSLS, compute the residual:
 *                             RESID = norm(B - A*X) /
 *                             / ( max(m,n) * norm(A) * norm(X) * EPS )
 *
-                                 IF( NROWS.GT.0 .AND. NRHS.GT.0 )
-     $                              CALL ZLACPY( 'Full', NROWS, NRHS,
-     $                                           COPYB, LDB, C, LDB )
-                                 CALL ZQRT16( TRANS, M, N, NRHS,
-     $                                        COPYA, LDA, B, LDB,
-     $                                        C, LDB, WORK2,
-     $                                        RESULT( 5 ) )
+                                 IF( NROWS.GT.0 .AND. NRHS.GT.0 ) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) )
 *
 *                             Test 6: Check correctness of results
 *                             for ZGETSLS.
 *
-                                 IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR.
-     $                               ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
+                                 IF( ( ITRAN.EQ.1 .AND. M.GE.N ) .OR. ( ITRAN.EQ.2 .AND. M.LT.N ) ) THEN
 *
 *                                   Solving LS system, compute:
 *                                   r = norm((B- A*X)**T * A) /
 *                                 / (norm(A)*norm(B)*max(M,N,NRHS)*EPS)
 *
-                                    RESULT( 6 ) = ZQRT17( TRANS, 1, M,
-     $                                             N, NRHS, COPYA, LDA,
-     $                                             B, LDB, COPYB, LDB,
-     $                                             C, WORK, LWORK )
+                                    RESULT( 6 ) = ZQRT17( TRANS, 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
                                  ELSE
 *
 *                                   Solving overdetermined system
 *
-                                    RESULT( 6 ) = ZQRT14( TRANS, M, N,
-     $                                             NRHS, COPYA, LDA, B,
-     $                                             LDB, WORK, LWORK )
+                                    RESULT( 6 ) = ZQRT14( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
                                  END IF
 *
 *                                Print information about the tests that
@@ -588,11 +464,7 @@
 *
                                  DO K = 5, 6
                                     IF( RESULT( K ).GE.THRESH ) THEN
-                                       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                                    CALL ALAHD( NOUT, PATH )
-                                       WRITE( NOUT, FMT = 9997 )TRANS,
-     $                                    M, N, NRHS, MB, NB, ITYPE, K,
-     $                                    RESULT( K )
+                                       IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K )
                                           NFAIL = NFAIL + 1
                                     END IF
                                  END DO
@@ -608,9 +480,7 @@
 *                    Generate a matrix of scaling type ISCALE and rank
 *                    type IRANK.
 *
-                     CALL ZQRT15( ISCALE, IRANK, M, N, NRHS, COPYA, LDA,
-     $                            COPYB, LDB, COPYS, RANK, NORMA, NORMB,
-     $                            ISEED, WORK, LWORK )
+                     CALL ZQRT15( ISCALE, IRANK, M, N, NRHS, COPYA, LDA, COPYB, LDB, COPYS, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
 *
 *                    workspace used: MAX(M+MIN(M,N),NRHS*MIN(M,N),2*N+M)
 *
@@ -631,8 +501,7 @@
 *                       factorization.
 *
                         CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B,
-     $                               LDB )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
 *
 *                       Initialize vector IWORK.
 *
@@ -641,49 +510,32 @@
    70                   CONTINUE
 *
                         SRNAMT = 'ZGELSY'
-                        CALL ZGELSY( M, N, NRHS, A, LDA, B, LDB, IWORK,
-     $                               RCOND, CRANK, WORK, LWLSY, RWORK,
-     $                               INFO )
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZGELSY', INFO, 0, ' ', M,
-     $                                  N, NRHS, -1, NB, ITYPE, NFAIL,
-     $                                  NERRS, NOUT )
+                        CALL ZGELSY( M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                       workspace used: 2*MNMIN+NB*NB+NB*MAX(N,NRHS)
 *
 *                       Test 7:  Compute relative error in svd
 *                                workspace: M*N + 4*MIN(M,N) + MAX(M,N)
 *
-                        RESULT( 7 ) = ZQRT12( CRANK, CRANK, A, LDA,
-     $                                COPYS, WORK, LWORK, RWORK )
+                        RESULT( 7 ) = ZQRT12( CRANK, CRANK, A, LDA, COPYS, WORK, LWORK, RWORK )
 *
 *                       Test 8:  Compute error in solution
 *                                workspace:  M*NRHS + M
 *
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK,
-     $                               LDWORK )
-                        CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA,
-     $                               LDA, B, LDB, WORK, LDWORK, RWORK,
-     $                               RESULT( 8 ) )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) )
 *
 *                       Test 9:  Check norm of r'*A
 *                                workspace: NRHS*(M+N)
 *
                         RESULT( 9 ) = ZERO
-                        IF( M.GT.CRANK )
-     $                     RESULT( 9 ) = ZQRT17( 'No transpose', 1, M,
-     $                                   N, NRHS, COPYA, LDA, B, LDB,
-     $                                   COPYB, LDB, C, WORK, LWORK )
+                        IF( M.GT.CRANK ) RESULT( 9 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
 *
 *                       Test 10:  Check if x is in the rowspace of A
 *                                workspace: (M+NRHS)*(N+2)
 *
                         RESULT( 10 ) = ZERO
 *
-                        IF( N.GT.CRANK )
-     $                     RESULT( 10 ) = ZQRT14( 'No transpose', M, N,
-     $                                   NRHS, COPYA, LDA, B, LDB,
-     $                                   WORK, LWORK )
+                        IF( N.GT.CRANK ) RESULT( 10 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
 *
 *                       Test ZGELSS
 *
@@ -692,17 +544,11 @@
 *                       using the SVD.
 *
                         CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B,
-     $                               LDB )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
                         SRNAMT = 'ZGELSS'
-                        CALL ZGELSS( M, N, NRHS, A, LDA, B, LDB, S,
-     $                               RCOND, CRANK, WORK, LWORK, RWORK,
-     $                               INFO )
+                        CALL ZGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, INFO )
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZGELSS', INFO, 0, ' ', M,
-     $                                  N, NRHS, -1, NB, ITYPE, NFAIL,
-     $                                  NERRS, NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                       workspace used: 3*min(m,n) +
 *                                       max(2*min(m,n),nrhs,max(m,n))
@@ -711,36 +557,24 @@
 *
                         IF( RANK.GT.0 ) THEN
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
-                           RESULT( 11 ) = DASUM( MNMIN, S, 1 ) /
-     $                                   DASUM( MNMIN, COPYS, 1 ) /
-     $                                   ( EPS*DBLE( MNMIN ) )
+                           RESULT( 11 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         ELSE
                            RESULT( 11 ) = ZERO
                         END IF
 *
 *                       Test 12:  Compute error in solution
 *
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK,
-     $                               LDWORK )
-                        CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA,
-     $                               LDA, B, LDB, WORK, LDWORK, RWORK,
-     $                               RESULT( 12 ) )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 12 ) )
 *
 *                       Test 13:  Check norm of r'*A
 *
                         RESULT( 13 ) = ZERO
-                        IF( M.GT.CRANK )
-     $                     RESULT( 13 ) = ZQRT17( 'No transpose', 1, M,
-     $                                   N, NRHS, COPYA, LDA, B, LDB,
-     $                                   COPYB, LDB, C, WORK, LWORK )
+                        IF( M.GT.CRANK ) RESULT( 13 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
 *
 *                       Test 14:  Check if x is in the rowspace of A
 *
                         RESULT( 14 ) = ZERO
-                        IF( N.GT.CRANK )
-     $                     RESULT( 14 ) = ZQRT14( 'No transpose', M, N,
-     $                                    NRHS, COPYA, LDA, B, LDB,
-     $                                    WORK, LWORK )
+                        IF( N.GT.CRANK ) RESULT( 14 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
 *
 *                       Test ZGELSD
 *
@@ -751,62 +585,40 @@
                         CALL XLAENV( 9, 25 )
 *
                         CALL ZLACPY( 'Full', M, N, COPYA, LDA, A, LDA )
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B,
-     $                               LDB )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, B, LDB )
 *
                         SRNAMT = 'ZGELSD'
-                        CALL ZGELSD( M, N, NRHS, A, LDA, B, LDB, S,
-     $                               RCOND, CRANK, WORK, LWORK, RWORK,
-     $                               IWORK, INFO )
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZGELSD', INFO, 0, ' ', M,
-     $                                  N, NRHS, -1, NB, ITYPE, NFAIL,
-     $                                  NERRS, NOUT )
+                        CALL ZGELSD( M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, IWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELSD', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT )
 *
 *                       Test 15:  Compute relative error in svd
 *
                         IF( RANK.GT.0 ) THEN
                            CALL DAXPY( MNMIN, -ONE, COPYS, 1, S, 1 )
-                           RESULT( 15 ) = DASUM( MNMIN, S, 1 ) /
-     $                                    DASUM( MNMIN, COPYS, 1 ) /
-     $                                    ( EPS*DBLE( MNMIN ) )
+                           RESULT( 15 ) = DASUM( MNMIN, S, 1 ) / DASUM( MNMIN, COPYS, 1 ) / ( EPS*DBLE( MNMIN ) )
                         ELSE
                            RESULT( 15 ) = ZERO
                         END IF
 *
 *                       Test 16:  Compute error in solution
 *
-                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK,
-     $                               LDWORK )
-                        CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA,
-     $                               LDA, B, LDB, WORK, LDWORK, RWORK,
-     $                               RESULT( 16 ) )
+                        CALL ZLACPY( 'Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 16 ) )
 *
 *                       Test 17:  Check norm of r'*A
 *
                         RESULT( 17 ) = ZERO
-                        IF( M.GT.CRANK )
-     $                     RESULT( 17 ) = ZQRT17( 'No transpose', 1, M,
-     $                                    N, NRHS, COPYA, LDA, B, LDB,
-     $                                    COPYB, LDB, C, WORK, LWORK )
+                        IF( M.GT.CRANK ) RESULT( 17 ) = ZQRT17( 'No transpose', 1, M, N, NRHS, COPYA, LDA, B, LDB, COPYB, LDB, C, WORK, LWORK )
 *
 *                       Test 18:  Check if x is in the rowspace of A
 *
                         RESULT( 18 ) = ZERO
-                        IF( N.GT.CRANK )
-     $                     RESULT( 18 ) = ZQRT14( 'No transpose', M, N,
-     $                                    NRHS, COPYA, LDA, B, LDB,
-     $                                    WORK, LWORK )
+                        IF( N.GT.CRANK ) RESULT( 18 ) = ZQRT14( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LWORK )
 *
 *                       Print information about the tests that did not
 *                       pass the threshold.
 *
                         DO 80 K = 7, 18
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB,
-     $                           ITYPE, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    80                   CONTINUE

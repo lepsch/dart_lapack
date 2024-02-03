@@ -14,8 +14,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      DOUBLE PRECISION DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP,
-     $                 DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO
+      DOUBLE PRECISION DFLAG,DH11,DH12,DH21,DH22,DP1,DP2,DQ1,DQ2,DTEMP, DU,GAM,GAMSQ,ONE,RGAMSQ,TWO,ZERO
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DABS

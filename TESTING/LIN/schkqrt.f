@@ -77,8 +77,7 @@
 *> \ingroup single_lin
 *
 *  =====================================================================
-      SUBROUTINE SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB,
-     $                    NBVAL, NOUT )
+      SUBROUTINE SCHKQRT( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
       IMPLICIT NONE
 *
 *  -- LAPACK test routine --
@@ -101,8 +100,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN,
-     $                   MINMN
+      INTEGER            I, J, K, T, M, N, NB, NFAIL, NERRS, NRUN, MINMN
 *     ..
 *     .. Local Arrays ..
       REAL               RESULT( NTESTS )
@@ -160,10 +158,7 @@
 *
                   DO T = 1, NTESTS
                      IF( RESULT( T ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                       CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )M, N, NB,
-     $                       T, RESULT( T )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T )
                         NFAIL = NFAIL + 1
                      END IF
                   END DO

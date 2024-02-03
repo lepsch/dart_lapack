@@ -1,6 +1,4 @@
-      SUBROUTINE DHSEIN( SIDE, EIGSRC, INITV, SELECT, N, H, LDH, WR, WI,
-     $                   VL, LDVL, VR, LDVR, MM, M, WORK, IFAILL,
-     $                   IFAILR, INFO )
+      SUBROUTINE DHSEIN( SIDE, EIGSRC, INITV, SELECT, N, H, LDH, WR, WI, VL, LDVL, VR, LDVR, MM, M, WORK, IFAILL, IFAILR, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IFAILL( * ), IFAILR( * )
-      DOUBLE PRECISION   H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WI( * ), WORK( * ), WR( * )
+      DOUBLE PRECISION   H( LDH, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
 *  =====================================================================
@@ -26,8 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            BOTHV, FROMQR, LEFTV, NOINIT, PAIR, RIGHTV
       INTEGER            I, IINFO, K, KL, KLN, KR, KSI, KSR, LDWORK
-      DOUBLE PRECISION   BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI,
-     $                   WKR
+      DOUBLE PRECISION   BIGNUM, EPS3, HNORM, SMLNUM, ULP, UNFL, WKI, WKR
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME, DISNAN
@@ -63,8 +59,7 @@
             SELECT( K ) = .FALSE.
          ELSE
             IF( WI( K ).EQ.ZERO ) THEN
-               IF( SELECT( K ) )
-     $            M = M + 1
+               IF( SELECT( K ) ) M = M + 1
             ELSE
                PAIR = .TRUE.
                IF( SELECT( K ) .OR. SELECT( K+1 ) ) THEN
@@ -100,8 +95,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Set machine-dependent constants.
 *
@@ -140,15 +134,13 @@
 *              the submatrix H(1:KR,1:KR) for a right eigenvector.
 *
                DO 20 I = K, KL + 1, -1
-                  IF( H( I, I-1 ).EQ.ZERO )
-     $               GO TO 30
+                  IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
    20          CONTINUE
    30          CONTINUE
                KL = I
                IF( K.GT.KR ) THEN
                   DO 40 I = K, N - 1
-                     IF( H( I+1, I ).EQ.ZERO )
-     $                  GO TO 50
+                     IF( H( I+1, I ).EQ.ZERO ) GO TO 50
    40             CONTINUE
    50             CONTINUE
                   KR = I
@@ -180,8 +172,7 @@
             WKI = WI( K )
    60       CONTINUE
             DO 70 I = K - 1, KL, -1
-               IF( SELECT( I ) .AND. ABS( WR( I )-WKR )+
-     $             ABS( WI( I )-WKI ).LT.EPS3 ) THEN
+               IF( SELECT( I ) .AND. ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) THEN
                   WKR = WKR + EPS3
                   GO TO 60
                END IF
@@ -198,10 +189,7 @@
 *
 *              Compute left eigenvector.
 *
-               CALL DLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH,
-     $                      WKR, WKI, VL( KL, KSR ), VL( KL, KSI ),
-     $                      WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM,
-     $                      BIGNUM, IINFO )
+               CALL DLAEIN( .FALSE., NOINIT, N-KL+1, H( KL, KL ), LDH, WKR, WKI, VL( KL, KSR ), VL( KL, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
                      INFO = INFO + 2
@@ -227,10 +215,7 @@
 *
 *              Compute right eigenvector.
 *
-               CALL DLAEIN( .TRUE., NOINIT, KR, H, LDH, WKR, WKI,
-     $                      VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK,
-     $                      WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM,
-     $                      IINFO )
+               CALL DLAEIN( .TRUE., NOINIT, KR, H, LDH, WKR, WKI, VR( 1, KSR ), VR( 1, KSI ), WORK, LDWORK, WORK( N*N+N+1 ), EPS3, SMLNUM, BIGNUM, IINFO )
                IF( IINFO.GT.0 ) THEN
                   IF( PAIR ) THEN
                      INFO = INFO + 2

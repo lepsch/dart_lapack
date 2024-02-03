@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAROT( LROWS, LLEFT, LRIGHT, NL, C, S, A, LDA, XLEFT,
-     $                   XRIGHT )
+      SUBROUTINE ZLAROT( LROWS, LLEFT, LRIGHT, NL, C, S, A, LDA, XLEFT, XRIGHT )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -77,8 +76,7 @@
 *
       DO 10 J = 0, NL - NT - 1
          TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC )
-         A( IY+J*IINC ) = -DCONJG( S )*A( IX+J*IINC ) +
-     $                    DCONJG( C )*A( IY+J*IINC )
+         A( IY+J*IINC ) = -DCONJG( S )*A( IX+J*IINC ) + DCONJG( C )*A( IY+J*IINC )
          A( IX+J*IINC ) = TEMPX
    10 CONTINUE
 *

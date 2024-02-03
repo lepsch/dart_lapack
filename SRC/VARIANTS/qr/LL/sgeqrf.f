@@ -15,8 +15,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWS, J, K, LWKOPT, NB,
-     $                   NBMIN, NX, LBWORK, NT, LLWORK
+      INTEGER            I, IB, IINFO, IWS, J, K, LWKOPT, NB, NBMIN, NX, LBWORK, NT, LLWORK
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEQR2, SLARFB, SLARFT, XERBLA
@@ -97,8 +96,7 @@
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
          INFO = -4
       ELSE IF ( .NOT.LQUERY ) THEN
-         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) )
-     $      INFO = -7
+         IF( LWORK.LE.0 .OR. ( M.GT.0 .AND. LWORK.LT.MAX( 1, N ) ) ) INFO = -7
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SGEQRF', -INFO )
@@ -135,9 +133,7 @@
                ELSE
                     NB = (LWORK-NT*NT)/(LBWORK+LLWORK)
                END IF
-
-               NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1,
-     $                 -1 ) )
+                NBMIN = MAX( 2, ILAENV( 2, 'SGEQRF', ' ', M, N, -1, -1 ) )
             END IF
          END IF
       END IF
@@ -155,28 +151,21 @@
 *
 *              Apply H' to A(J:M,I:I+IB-1) from the left
 *
-               CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                      'Columnwise', M-J+1, IB, NB,
-     $                      A( J, J ), LDA, WORK(J), LBWORK,
-     $                      A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1),
-     $                      IB)
+               CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, IB, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), IB)
 
 20          CONTINUE
 *
 *           Compute the QR factorization of the current block
 *           A(I:M,I:I+IB-1)
 *
-            CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ),
-     $                        WORK(LBWORK*NB+NT*NT+1), IINFO )
+            CALL SGEQR2( M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1), IINFO )
 
             IF( I+IB.LE.N ) THEN
 *
 *              Form the triangular factor of the block reflector
 *              H = H(i) H(i+1) . . . H(i+ib-1)
 *
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB,
-     $                      A( I, I ), LDA, TAU( I ),
-     $                      WORK(I), LBWORK )
+               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
 *
             END IF
    10    CONTINUE
@@ -194,22 +183,15 @@
 *
 *                Apply H' to A(J:M,I:K) from the left
 *
-                 CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                       'Columnwise', M-J+1, K-I+1, NB,
-     $                       A( J, J ), LDA, WORK(J), LBWORK,
-     $                       A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1),
-     $                       K-I+1)
+                 CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, K-I+1, NB, A( J, J ), LDA, WORK(J), LBWORK, A( J, I ), LDA, WORK(LBWORK*NB+NT*NT+1), K-I+1)
 30           CONTINUE
-
-             CALL SGEQR2( M-I+1, K-I+1, A( I, I ), LDA, TAU( I ),
-     $                   WORK(LBWORK*NB+NT*NT+1),IINFO )
+              CALL SGEQR2( M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+NT*NT+1),IINFO )
 
          ELSE
 *
 *        Use unblocked code to factor the last or only block.
 *
-         CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ),
-     $               WORK,IINFO )
+         CALL SGEQR2( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK,IINFO )
 
          END IF
       END IF
@@ -224,12 +206,9 @@
 *         H = H(i) H(i+1) . . . H(i+ib-1)
 *
           IF ( NT .LE. NB ) THEN
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1,
-     $                     A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
+               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK )
           ELSE
-               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1,
-     $                     A( I, I ), LDA, TAU( I ),
-     $                     WORK(LBWORK*NB+1), NT )
+               CALL SLARFT( 'Forward', 'Columnwise', M-I+1, K-I+1, A( I, I ), LDA, TAU( I ), WORK(LBWORK*NB+1), NT )
           END IF
 
 *
@@ -238,28 +217,14 @@
           DO 40 J = 1, K-NX, NB
 
                IB = MIN( K-J+1, NB )
-
-               CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                     'Columnwise', M-J+1, N-M, IB,
-     $                     A( J, J ), LDA, WORK(J), LBWORK,
-     $                     A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1),
-     $                     N-M)
+                CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, IB, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
 
 40       CONTINUE
 
          IF ( NT.LE.NB ) THEN
-             CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                   'Columnwise', M-J+1, N-M, K-J+1,
-     $                   A( J, J ), LDA, WORK(J), LBWORK,
-     $                   A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1),
-     $                   N-M)
+             CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
          ELSE
-             CALL SLARFB( 'Left', 'Transpose', 'Forward',
-     $                   'Columnwise', M-J+1, N-M, K-J+1,
-     $                   A( J, J ), LDA,
-     $                   WORK(LBWORK*NB+1),
-     $                   NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1),
-     $                   N-M)
+             CALL SLARFB( 'Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, K-J+1, A( J, J ), LDA, WORK(LBWORK*NB+1), NT, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M)
          END IF
 
       END IF

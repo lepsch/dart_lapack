@@ -1,5 +1,4 @@
-      SUBROUTINE CPTT05( N, NRHS, D, E, B, LDB, X, LDX, XACT, LDXACT,
-     $                   FERR, BERR, RESLTS )
+      SUBROUTINE CPTT05( N, NRHS, D, E, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), D( * ), FERR( * ), RESLTS( * )
-      COMPLEX            B( LDB, * ), E( * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX            B( LDB, * ), E( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -92,16 +90,12 @@
          IF( N.EQ.1 ) THEN
             AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) )
          ELSE
-            AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) ) +
-     $             CABS1( E( 1 ) )*CABS1( X( 2, K ) )
+            AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 )*X( 1, K ) ) + CABS1( E( 1 ) )*CABS1( X( 2, K ) )
             DO 40 I = 2, N - 1
-               TMP = CABS1( B( I, K ) ) + CABS1( E( I-1 ) )*
-     $               CABS1( X( I-1, K ) ) + CABS1( D( I )*X( I, K ) ) +
-     $               CABS1( E( I ) )*CABS1( X( I+1, K ) )
+               TMP = CABS1( B( I, K ) ) + CABS1( E( I-1 ) )* CABS1( X( I-1, K ) ) + CABS1( D( I )*X( I, K ) ) + CABS1( E( I ) )*CABS1( X( I+1, K ) )
                AXBI = MIN( AXBI, TMP )
    40       CONTINUE
-            TMP = CABS1( B( N, K ) ) + CABS1( E( N-1 ) )*
-     $            CABS1( X( N-1, K ) ) + CABS1( D( N )*X( N, K ) )
+            TMP = CABS1( B( N, K ) ) + CABS1( E( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N )*X( N, K ) )
             AXBI = MIN( AXBI, TMP )
          END IF
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )

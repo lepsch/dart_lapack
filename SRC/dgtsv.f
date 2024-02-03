@@ -42,8 +42,7 @@
          RETURN
       END IF
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( NRHS.EQ.1 ) THEN
          DO 10 I = 1, N - 2
@@ -175,11 +174,9 @@
          J = 1
    70    CONTINUE
          B( N, J ) = B( N, J ) / D( N )
-         IF( N.GT.1 )
-     $      B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
+         IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
          DO 80 I = N - 2, 1, -1
-            B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )*
-     $                  B( I+2, J ) ) / D( I )
+            B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
    80    CONTINUE
          IF( J.LT.NRHS ) THEN
             J = J + 1
@@ -188,12 +185,9 @@
       ELSE
          DO 100 J = 1, NRHS
             B( N, J ) = B( N, J ) / D( N )
-            IF( N.GT.1 )
-     $         B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) /
-     $                       D( N-1 )
+            IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
             DO 90 I = N - 2, 1, -1
-               B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )*
-     $                     B( I+2, J ) ) / D( I )
+               B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
    90       CONTINUE
   100    CONTINUE
       END IF

@@ -15,8 +15,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWS, K, KI, KK, LDWORK, LWKOPT,
-     $                   MU, NB, NBMIN, NU, NX
+      INTEGER            I, IB, IINFO, IWS, K, KI, KK, LDWORK, LWKOPT, MU, NB, NBMIN, NU, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGERQ2, CLARFB, CLARFT, XERBLA
@@ -54,8 +53,7 @@
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 *
          IF ( .NOT.LQUERY ) THEN
-            IF( LWORK.LE.0 .OR. ( N.GT.0 .AND. LWORK.LT.MAX( 1, M ) ) )
-     $         INFO = -7
+            IF( LWORK.LE.0 .OR. ( N.GT.0 .AND. LWORK.LT.MAX( 1, M ) ) ) INFO = -7
          END IF
       END IF
 *
@@ -92,8 +90,7 @@
 *              determine the minimum value of NB.
 *
                NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'CGERQF', ' ', M, N, -1,
-     $                 -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'CGERQF', ' ', M, N, -1, -1 ) )
             END IF
          END IF
       END IF
@@ -112,22 +109,17 @@
 *           Compute the RQ factorization of the current block
 *           A(m-k+i:m-k+i+ib-1,1:n-k+i+ib-1)
 *
-            CALL CGERQ2( IB, N-K+I+IB-1, A( M-K+I, 1 ), LDA, TAU( I ),
-     $                   WORK, IINFO )
+            CALL CGERQ2( IB, N-K+I+IB-1, A( M-K+I, 1 ), LDA, TAU( I ), WORK, IINFO )
             IF( M-K+I.GT.1 ) THEN
 *
 *              Form the triangular factor of the block reflector
 *              H = H(i+ib-1) . . . H(i+1) H(i)
 *
-               CALL CLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB,
-     $                      A( M-K+I, 1 ), LDA, TAU( I ), WORK, LDWORK )
+               CALL CLARFT( 'Backward', 'Rowwise', N-K+I+IB-1, IB, A( M-K+I, 1 ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H to A(1:m-k+i-1,1:n-k+i+ib-1) from the right
 *
-               CALL CLARFB( 'Right', 'No transpose', 'Backward',
-     $                      'Rowwise', M-K+I-1, N-K+I+IB-1, IB,
-     $                      A( M-K+I, 1 ), LDA, WORK, LDWORK, A, LDA,
-     $                      WORK( IB+1 ), LDWORK )
+               CALL CLARFB( 'Right', 'No transpose', 'Backward', 'Rowwise', M-K+I-1, N-K+I+IB-1, IB, A( M-K+I, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK )
             END IF
    10    CONTINUE
          MU = M - K + I + NB - 1
@@ -139,8 +131,7 @@
 *
 *     Use unblocked code to factor the last or only block
 *
-      IF( MU.GT.0 .AND. NU.GT.0 )
-     $   CALL CGERQ2( MU, NU, A, LDA, TAU, WORK, IINFO )
+      IF( MU.GT.0 .AND. NU.GT.0 ) CALL CGERQ2( MU, NU, A, LDA, TAU, WORK, IINFO )
 *
       WORK( 1 ) = SROUNDUP_LWORK(IWS)
       RETURN

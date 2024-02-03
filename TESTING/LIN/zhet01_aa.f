@@ -1,5 +1,4 @@
-      SUBROUTINE ZHET01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C,
-     $                      LDC, RWORK, RESID )
+      SUBROUTINE ZHET01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,8 +19,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                     CONE  = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE  = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
@@ -60,52 +58,38 @@
       CALL ZLACPY( 'F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 )
       IF( N.GT.1 ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL ZLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
             CALL ZLACGV( N-1, C( 2, 1 ), LDC+1 )
          ELSE
-            CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL ZLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
             CALL ZLACGV( N-1, C( 1, 2 ), LDC+1 )
          ENDIF
 *
 *        Call ZTRMM to form the product U' * D (or L * D ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL ZTRMM( 'Left', UPLO, 'Conjugate transpose', 'Unit',
-     $                  N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ),
-     $                  LDC )
+            CALL ZTRMM( 'Left', UPLO, 'Conjugate transpose', 'Unit', N-1, N, CONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
          ELSE
-            CALL ZTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N,
-     $                  CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
+            CALL ZTRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, CONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 *
 *        Call ZTRMM again to multiply by U (or L ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL ZTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1,
-     $                  CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
+            CALL ZTRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, CONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
          ELSE
-            CALL ZTRMM( 'Right', UPLO, 'Conjugate transpose', 'Unit', N,
-     $                  N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ),
-     $                  LDC )
+            CALL ZTRMM( 'Right', UPLO, 'Conjugate transpose', 'Unit', N, N-1, CONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
 *
 *        Apply hermitian pivots
 *
          DO J = N, 1, -1
             I = IPIV( J )
-            IF( I.NE.J )
-     $         CALL ZSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
+            IF( I.NE.J ) CALL ZSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
          END DO
          DO J = N, 1, -1
             I = IPIV( J )
-            IF( I.NE.J )
-     $         CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
+            IF( I.NE.J ) CALL ZSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
          END DO
       ENDIF
 *
@@ -131,8 +115,7 @@
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF

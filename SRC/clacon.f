@@ -20,8 +20,7 @@
       REAL               ONE, TWO
       PARAMETER          ( ONE = 1.0E0, TWO = 2.0E0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ),
-     $                   CONE = ( 1.0E0, 0.0E0 ) )
+      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, ITER, J, JLAST, JUMP
@@ -70,8 +69,7 @@
       DO 30 I = 1, N
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI,
-     $               AIMAG( X( I ) ) / ABSXI )
+            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          ELSE
             X( I ) = CONE
          END IF
@@ -107,14 +105,12 @@
       EST = SCSUM1( N, V, 1 )
 *
 *     TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD )
-     $   GO TO 100
+      IF( EST.LE.ESTOLD ) GO TO 100
 *
       DO 80 I = 1, N
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
-            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI,
-     $               AIMAG( X( I ) ) / ABSXI )
+            X( I ) = CMPLX( REAL( X( I ) ) / ABSXI, AIMAG( X( I ) ) / ABSXI )
          ELSE
             X( I ) = CONE
          END IF
@@ -129,8 +125,7 @@
    90 CONTINUE
       JLAST = J
       J = ICMAX1( N, X, 1 )
-      IF( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND.
-     $    ( ITER.LT.ITMAX ) ) THEN
+      IF( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) THEN
          ITER = ITER + 1
          GO TO 50
       END IF

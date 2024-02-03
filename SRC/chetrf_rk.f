@@ -1,5 +1,4 @@
-      SUBROUTINE CHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK,
-     $                      INFO )
+      SUBROUTINE CHETRF_RK( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,8 +17,7 @@
 *
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, IINFO, IP, IWS, K, KB, LDWORK, LWKOPT,
-     $                   NB, NBMIN
+      INTEGER            I, IINFO, IP, IWS, K, KB, LDWORK, LWKOPT, NB, NBMIN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -72,14 +70,12 @@
          IWS = LDWORK*NB
          IF( LWORK.LT.IWS ) THEN
             NB = MAX( LWORK / LDWORK, 1 )
-            NBMIN = MAX( 2, ILAENV( 2, 'CHETRF_RK',
-     $                              UPLO, N, -1, -1, -1 ) )
+            NBMIN = MAX( 2, ILAENV( 2, 'CHETRF_RK', UPLO, N, -1, -1, -1 ) )
          END IF
       ELSE
          IWS = 1
       END IF
-      IF( NB.LT.NBMIN )
-     $   NB = N
+      IF( NB.LT.NBMIN ) NB = N
 *
       IF( UPPER ) THEN
 *
@@ -94,16 +90,14 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 15
+         IF( K.LT.1 ) GO TO 15
 *
          IF( K.GT.NB ) THEN
 *
 *           Factorize columns k-kb+1:k of A and use blocked code to
 *           update columns 1:k-kb
 *
-            CALL CLAHEF_RK( UPLO, K, NB, KB, A, LDA, E,
-     $                      IPIV, WORK, LDWORK, IINFO )
+            CALL CLAHEF_RK( UPLO, K, NB, KB, A, LDA, E, IPIV, WORK, LDWORK, IINFO )
          ELSE
 *
 *           Use unblocked code to factorize columns 1:k of A
@@ -114,8 +108,7 @@
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO
+         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO
 *
 *        No need to adjust IPIV
 *
@@ -133,8 +126,7 @@
             DO I = K, ( K - KB + 1 ), -1
                IP = ABS( IPIV( I ) )
                IF( IP.NE.I ) THEN
-                  CALL CSWAP( N-K, A( I, K+1 ), LDA,
-     $                        A( IP, K+1 ), LDA )
+                  CALL CSWAP( N-K, A( I, K+1 ), LDA, A( IP, K+1 ), LDA )
                END IF
             END DO
          END IF
@@ -162,32 +154,28 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 35
+         IF( K.GT.N ) GO TO 35
 *
          IF( K.LE.N-NB ) THEN
 *
 *           Factorize columns k:k+kb-1 of A and use blocked code to
 *           update columns k+kb:n
 *
-            CALL CLAHEF_RK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ),
-     $                        IPIV( K ), WORK, LDWORK, IINFO )
+            CALL CLAHEF_RK( UPLO, N-K+1, NB, KB, A( K, K ), LDA, E( K ), IPIV( K ), WORK, LDWORK, IINFO )
 
 
          ELSE
 *
 *           Use unblocked code to factorize columns k:n of A
 *
-            CALL CHETF2_RK( UPLO, N-K+1, A( K, K ), LDA, E( K ),
-     $                      IPIV( K ), IINFO )
+            CALL CHETF2_RK( UPLO, N-K+1, A( K, K ), LDA, E( K ), IPIV( K ), IINFO )
             KB = N - K + 1
 *
          END IF
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO + K - 1
+         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + K - 1
 *
 *        Adjust IPIV
 *
@@ -212,8 +200,7 @@
             DO I = K, ( K + KB - 1 ), 1
                IP = ABS( IPIV( I ) )
                IF( IP.NE.I ) THEN
-                  CALL CSWAP( K-1, A( I, 1 ), LDA,
-     $                        A( IP, 1 ), LDA )
+                  CALL CSWAP( K-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
                END IF
             END DO
          END IF

@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
       DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
@@ -52,9 +50,7 @@
 *
 *     Dynamically allocate all arrays
 *
-      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2),
-     $           WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N),
-     $           D(N,M2),DF(N,M2) )
+      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2), WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N), D(N,M2),DF(N,M2) )
 *
 *     Put random stuff into A
 *
@@ -86,8 +82,7 @@
 *     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL ZLASET( 'Full', M2, M2, CZERO, ONE, Q, M2 )
-      CALL ZGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2,
-     $              WORK, INFO )
+      CALL ZGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2, WORK, INFO )
 *
 *     Copy R
 *
@@ -108,8 +103,7 @@
 *     Compute |I - Q'*Q| and store in RESULT(2)
 *
       CALL ZLASET( 'Full', M2, M2, CZERO, ONE, R, M2 )
-      CALL ZHERK( 'U', 'C', M2, M2, DREAL(-ONE), Q, M2, DREAL(ONE),
-     $            R, M2 )
+      CALL ZHERK( 'U', 'C', M2, M2, DREAL(-ONE), Q, M2, DREAL(ONE), R, M2 )
       RESID = ZLANSY( '1', 'Upper', M2, R, M2, RWORK )
       RESULT( 2 ) = RESID / (EPS*MAX(1,M2))
 *
@@ -123,8 +117,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL ZTPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2,
-     $               CF(NP1,1),M2,WORK,INFO)
+      CALL ZTPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -142,8 +135,7 @@
 *
 *     Apply Q to C as QT*C
 *
-      CALL ZTPMQRT( 'L','C',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2,
-     $              CF(NP1,1),M2,WORK,INFO)
+      CALL ZTPMQRT( 'L','C',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -165,8 +157,7 @@
 *
 *     Apply Q to D as D*Q
 *
-      CALL ZTPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL ZTPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -184,8 +175,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL ZTPMQRT('R','C',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL ZTPMQRT('R','C',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 
 *
 *     Compute |D*QT - D*QT| / |D|

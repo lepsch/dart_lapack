@@ -1,6 +1,4 @@
-      SUBROUTINE ZCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL,
-     $                   NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC,
-     $                   B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE ZCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC, B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,11 +11,9 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ),
-     $                   NXVAL( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( * ), AC( * ), AF( * ), AQ( * ), AR( * ),
-     $                   B( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,9 +29,7 @@
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA,
-     $                   LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK,
-     $                   NRUN, NT, NX
+      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -47,9 +41,7 @@
       EXTERNAL           ZGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRQR, ZGELS,
-     $                   ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQRT01,
-     $                   ZQRT01P, ZQRT02, ZQRT03
+      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZERRQR, ZGELS, ZGET02, ZLACPY, ZLARHS, ZLATB4, ZLATMS, ZQRT01, ZQRT01P, ZQRT02, ZQRT03
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -81,8 +73,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRQR( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRQR( PATH, NOUT )
       INFOT = 0
       CALL XLAENV( 2, 2 )
 *
@@ -103,25 +94,20 @@
 *
 *              Do the tests only if DOTYPE( IMAT ) is true.
 *
-               IF( .NOT.DOTYPE( IMAT ) )
-     $            GO TO 50
+               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
 *
 *              Set up parameters with ZLATB4 and generate a test matrix
 *              with ZLATMS.
 *
-               CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, 'No packing', A, LDA,
-     $                      WORK, INFO )
+               CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *              Check error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
                END IF
 *
@@ -163,32 +149,26 @@
 *
 *                       Test ZGEQRF
 *
-                        CALL ZQRT01( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL ZQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
 *
 *                       Test ZGEQRFP
 *
-                        CALL ZQRT01P( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 8 ) )
-
-                         IF( .NOT. ZGENND( M, N, AF, LDA ) )
-     $                       RESULT( 9 ) = 2*THRESH
+                        CALL ZQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
+                          IF( .NOT. ZGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                         NT = NT + 1
                      ELSE IF( M.GE.N ) THEN
 *
 *                       Test ZUNGQR, using factorization
 *                       returned by ZQRT01
 *
-                        CALL ZQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL ZQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
                      END IF
                      IF( M.GE.K ) THEN
 *
 *                       Test ZUNMQR, using factorization returned
 *                       by ZQRT01
 *
-                        CALL ZQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 3 ) )
+                        CALL ZQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
                         NT = NT + 4
 *
 *                       If M>=N and K=N, call ZGELS to solve a system
@@ -201,13 +181,9 @@
 *                          hand side.
 *
                            SRNAMT = 'ZLARHS'
-                           CALL ZLARHS( PATH, 'New', 'Full',
-     $                                  'No transpose', M, N, 0, 0,
-     $                                  NRHS, A, LDA, XACT, LDA, B, LDA,
-     $                                  ISEED, INFO )
+                           CALL ZLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
 *
-                           CALL ZLACPY( 'Full', M, NRHS, B, LDA, X,
-     $                                  LDA )
+                           CALL ZLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
 *
 *                          Reset AF to the original matrix. ZGELS
 *                          factors the matrix before solving the system.
@@ -215,19 +191,13 @@
                            CALL ZLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
                            SRNAMT = 'ZGELS'
-                           CALL ZGELS( 'No transpose', M, N, NRHS, AF,
-     $                                 LDA, X, LDA, WORK, LWORK, INFO )
+                           CALL ZGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
 *
 *                          Check error code from ZGELS.
 *
-                           IF( INFO.NE.0 )
-     $                        CALL ALAERH( PATH, 'ZGELS', INFO, 0, 'N',
-     $                                     M, N, NRHS, -1, NB, IMAT,
-     $                                     NFAIL, NERRS, NOUT )
+                           IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
-                           CALL ZGET02( 'No transpose', M, N, NRHS, A,
-     $                                  LDA, X, LDA, B, LDA, RWORK,
-     $                                  RESULT( 7 ) )
+                           CALL ZGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
                            NT = NT + 1
                         END IF
                      END IF
@@ -237,10 +207,7 @@
 *
                      DO 20 I = 1, NTESTS
                         IF( RESULT( I ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX,
-     $                        IMAT, I, RESULT( I )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
                         END IF
    20                CONTINUE

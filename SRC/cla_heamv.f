@@ -1,5 +1,4 @@
-      SUBROUTINE CLA_HEAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y,
-     $                      INCY )
+      SUBROUTINE CLA_HEAMV( UPLO, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -48,8 +47,7 @@
 *     Test the input parameters.
 *
       INFO = 0
-      IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND.
-     $         UPLO.NE.ILAUPLO( 'L' ) )THEN
+      IF     ( UPLO.NE.ILAUPLO( 'U' ) .AND. UPLO.NE.ILAUPLO( 'L' ) )THEN
          INFO = 1
       ELSE IF( N.LT.0 )THEN
          INFO = 2
@@ -67,8 +65,7 @@
 *
 *     Quick return if possible.
 *
-      IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) )
-     $   RETURN
+      IF( ( N.EQ.0 ).OR.( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
 *
 *     Set up the start points in  X  and  Y.
 *
@@ -111,22 +108,18 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, I
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
                   DO J = I+1, N
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
                END IF
-
-               IF (.NOT.SYMB_ZERO)
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -144,22 +137,18 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, I
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
                   DO J = I+1, N
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( J ) )*TEMP
                   END DO
                END IF
-
-               IF (.NOT.SYMB_ZERO)
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -180,24 +169,20 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, I
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                   DO J = I+1, N
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                END IF
-
-               IF ( .NOT.SYMB_ZERO )
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -216,24 +201,20 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, I
                      TEMP = CABS1( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                   DO J = I+1, N
                      TEMP = CABS1( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*CABS1( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                END IF
-
-               IF ( .NOT.SYMB_ZERO )
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO

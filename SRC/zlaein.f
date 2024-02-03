@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAEIN( RIGHTV, NOINIT, N, H, LDH, W, V, B, LDB, RWORK,
-     $                   EPS3, SMLNUM, INFO )
+      SUBROUTINE ZLAEIN( RIGHTV, NOINIT, N, H, LDH, W, V, B, LDB, RWORK, EPS3, SMLNUM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -106,8 +105,7 @@
 *
 *              Eliminate without interchange.
 *
-               IF( B( I, I ).EQ.ZERO )
-     $            B( I, I ) = EPS3
+               IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                X = ZLADIV( EI, B( I, I ) )
                IF( X.NE.ZERO ) THEN
                   DO 50 J = I + 1, N
@@ -116,8 +114,7 @@
                END IF
             END IF
    60    CONTINUE
-         IF( B( N, N ).EQ.ZERO )
-     $      B( N, N ) = EPS3
+         IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
 *
          TRANS = 'N'
 *
@@ -143,8 +140,7 @@
 *
 *              Eliminate without interchange.
 *
-               IF( B( J, J ).EQ.ZERO )
-     $            B( J, J ) = EPS3
+               IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                X = ZLADIV( EJ, B( J, J ) )
                IF( X.NE.ZERO ) THEN
                   DO 80 I = 1, J - 1
@@ -153,8 +149,7 @@
                END IF
             END IF
    90    CONTINUE
-         IF( B( 1, 1 ).EQ.ZERO )
-     $      B( 1, 1 ) = EPS3
+         IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
 *
          TRANS = 'C'
 *
@@ -167,15 +162,13 @@
 *          or U**H *x = scale*v for a left eigenvector,
 *        overwriting x on v.
 *
-         CALL ZLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V,
-     $                SCALE, RWORK, IERR )
+         CALL ZLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, V, SCALE, RWORK, IERR )
          NORMIN = 'Y'
 *
 *        Test for sufficient growth in the norm of v.
 *
          VNORM = DZASUM( N, V, 1 )
-         IF( VNORM.GE.GROWTO*SCALE )
-     $      GO TO 120
+         IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
 *
 *        Choose new orthogonal starting vector and try again.
 *

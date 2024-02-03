@@ -1,5 +1,4 @@
-      SUBROUTINE CGTT05( TRANS, N, NRHS, DL, D, DU, B, LDB, X, LDX,
-     $                   XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE CGTT05( TRANS, N, NRHS, DL, D, DU, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ),
-     $                   X( LDX, * ), XACT( LDXACT, * )
+      COMPLEX            B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -95,42 +93,26 @@
       DO 60 K = 1, NRHS
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
-               AXBI = CABS1( B( 1, K ) ) +
-     $                CABS1( D( 1 ) )*CABS1( X( 1, K ) )
+               AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             ELSE
-               AXBI = CABS1( B( 1, K ) ) +
-     $                CABS1( D( 1 ) )*CABS1( X( 1, K ) ) +
-     $                CABS1( DU( 1 ) )*CABS1( X( 2, K ) )
+               AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, K ) )
                DO 40 I = 2, N - 1
-                  TMP = CABS1( B( I, K ) ) +
-     $                  CABS1( DL( I-1 ) )*CABS1( X( I-1, K ) ) +
-     $                  CABS1( D( I ) )*CABS1( X( I, K ) ) +
-     $                  CABS1( DU( I ) )*CABS1( X( I+1, K ) )
+                  TMP = CABS1( B( I, K ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DU( I ) )*CABS1( X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
    40          CONTINUE
-               TMP = CABS1( B( N, K ) ) + CABS1( DL( N-1 ) )*
-     $               CABS1( X( N-1, K ) ) + CABS1( D( N ) )*
-     $               CABS1( X( N, K ) )
+               TMP = CABS1( B( N, K ) ) + CABS1( DL( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
          ELSE
             IF( N.EQ.1 ) THEN
-               AXBI = CABS1( B( 1, K ) ) +
-     $                CABS1( D( 1 ) )*CABS1( X( 1, K ) )
+               AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) )
             ELSE
-               AXBI = CABS1( B( 1, K ) ) +
-     $                CABS1( D( 1 ) )*CABS1( X( 1, K ) ) +
-     $                CABS1( DL( 1 ) )*CABS1( X( 2, K ) )
+               AXBI = CABS1( B( 1, K ) ) + CABS1( D( 1 ) )*CABS1( X( 1, K ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, K ) )
                DO 50 I = 2, N - 1
-                  TMP = CABS1( B( I, K ) ) +
-     $                  CABS1( DU( I-1 ) )*CABS1( X( I-1, K ) ) +
-     $                  CABS1( D( I ) )*CABS1( X( I, K ) ) +
-     $                  CABS1( DL( I ) )*CABS1( X( I+1, K ) )
+                  TMP = CABS1( B( I, K ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DL( I ) )*CABS1( X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
    50          CONTINUE
-               TMP = CABS1( B( N, K ) ) + CABS1( DU( N-1 ) )*
-     $               CABS1( X( N-1, K ) ) + CABS1( D( N ) )*
-     $               CABS1( X( N, K ) )
+               TMP = CABS1( B( N, K ) ) + CABS1( DU( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
          END IF

@@ -1,6 +1,4 @@
-      SUBROUTINE STGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL,
-     $                   LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK,
-     $                   IWORK, INFO )
+      SUBROUTINE STGSNA( JOB, HOWMNY, SELECT, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, S, DIF, MM, M, WORK, LWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
-      REAL               A( LDA, * ), B( LDB, * ), DIF( * ), S( * ),
-     $                   VL( LDVL, * ), VR( LDVR, * ), WORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), DIF( * ), S( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -23,16 +20,12 @@
       INTEGER            DIFDRI
       PARAMETER          ( DIFDRI = 3 )
       REAL               ZERO, ONE, TWO, FOUR
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0,
-     $                   FOUR = 4.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, FOUR = 4.0E+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, PAIR, SOMCON, WANTBH, WANTDF, WANTS
       INTEGER            I, IERR, IFST, ILST, IZ, K, KS, LWMIN, N1, N2
-      REAL               ALPHAI, ALPHAR, ALPRQT, BETA, C1, C2, COND,
-     $                   EPS, LNRM, RNRM, ROOT1, ROOT2, SCALE, SMLNUM,
-     $                   TMPII, TMPIR, TMPRI, TMPRR, UHAV, UHAVI, UHBV,
-     $                   UHBVI
+      REAL               ALPHAI, ALPHAR, ALPRQT, BETA, C1, C2, COND, EPS, LNRM, RNRM, ROOT1, ROOT2, SCALE, SMLNUM, TMPII, TMPIR, TMPRI, TMPRR, UHAV, UHAVI, UHBV, UHBVI
 *     ..
 *     .. Local Arrays ..
       REAL               DUMMY( 1 ), DUMMY1( 1 )
@@ -40,8 +33,7 @@
 *     .. External Functions ..
       LOGICAL            LSAME
       REAL               SDOT, SLAMCH, SLAPY2, SNRM2, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SDOT, SLAMCH, SLAPY2, SNRM2,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SDOT, SLAMCH, SLAPY2, SNRM2, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SGEMV, SLACPY, SLAG2, STGEXC, STGSYL, XERBLA
@@ -90,16 +82,13 @@
                ELSE
                   IF( K.LT.N ) THEN
                      IF( A( K+1, K ).EQ.ZERO ) THEN
-                        IF( SELECT( K ) )
-     $                     M = M + 1
+                        IF( SELECT( K ) ) M = M + 1
                      ELSE
                         PAIR = .TRUE.
-                        IF( SELECT( K ) .OR. SELECT( K+1 ) )
-     $                     M = M + 2
+                        IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                      END IF
                   ELSE
-                     IF( SELECT( N ) )
-     $                  M = M + 1
+                     IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
@@ -132,8 +121,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -150,8 +138,7 @@
             PAIR = .FALSE.
             GO TO 20
          ELSE
-            IF( K.LT.N )
-     $         PAIR = A( K+1, K ).NE.ZERO
+            IF( K.LT.N ) PAIR = A( K+1, K ).NE.ZERO
          END IF
 *
 *        Determine whether condition numbers are required for the k-th
@@ -159,11 +146,9 @@
 *
          IF( SOMCON ) THEN
             IF( PAIR ) THEN
-               IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) )
-     $            GO TO 20
+               IF( .NOT.SELECT( K ) .AND. .NOT.SELECT( K+1 ) ) GO TO 20
             ELSE
-               IF( .NOT.SELECT( K ) )
-     $            GO TO 20
+               IF( .NOT.SELECT( K ) ) GO TO 20
             END IF
          END IF
 *
@@ -178,26 +163,18 @@
 *
 *              Complex eigenvalue pair.
 *
-               RNRM = SLAPY2( SNRM2( N, VR( 1, KS ), 1 ),
-     $                SNRM2( N, VR( 1, KS+1 ), 1 ) )
-               LNRM = SLAPY2( SNRM2( N, VL( 1, KS ), 1 ),
-     $                SNRM2( N, VL( 1, KS+1 ), 1 ) )
-               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO,
-     $                     WORK, 1 )
+               RNRM = SLAPY2( SNRM2( N, VR( 1, KS ), 1 ), SNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = SLAPY2( SNRM2( N, VL( 1, KS ), 1 ), SNRM2( N, VL( 1, KS+1 ), 1 ) )                CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
                TMPRR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                TMPRI = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS+1 ), 1,
-     $                     ZERO, WORK, 1 )
+               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS+1 ), 1, ZERO, WORK, 1 )
                TMPII = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
                TMPIR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                UHAV = TMPRR + TMPII
                UHAVI = TMPIR - TMPRI
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO,
-     $                     WORK, 1 )
+               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 )
                TMPRR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                TMPRI = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS+1 ), 1,
-     $                     ZERO, WORK, 1 )
+               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS+1 ), 1, ZERO, WORK, 1 )
                TMPII = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
                TMPIR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                UHBV = TMPRR + TMPII
@@ -214,11 +191,9 @@
 *
                RNRM = SNRM2( N, VR( 1, KS ), 1 )
                LNRM = SNRM2( N, VL( 1, KS ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO,
-     $                     WORK, 1 )
+               CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
                UHAV = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
-               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO,
-     $                     WORK, 1 )
+               CALL SGEMV( 'N', N, N, ONE, B, LDB, VR( 1, KS ), 1, ZERO, WORK, 1 )
                UHBV = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                COND = SLAPY2( UHAV, UHBV )
                IF( COND.EQ.ZERO ) THEN
@@ -250,8 +225,7 @@
                WORK( 6 ) = B( K+1, K )
                WORK( 7 ) = B( K, K+1 )
                WORK( 8 ) = B( K+1, K+1 )
-               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA,
-     $                     DUMMY1( 1 ), ALPHAR, DUMMY( 1 ), ALPHAI )
+               CALL SLAG2( WORK, 2, WORK( 5 ), 2, SMLNUM*EPS, BETA, DUMMY1( 1 ), ALPHAR, DUMMY( 1 ), ALPHAI )
                ALPRQT = ONE
                C1 = TWO*( ALPHAR*ALPHAR+ALPHAI*ALPHAI+BETA*BETA )
                C2 = FOUR*BETA*BETA*ALPHAI*ALPHAI
@@ -269,9 +243,7 @@
             IFST = K
             ILST = 1
 *
-            CALL STGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N,
-     $                   DUMMY, 1, DUMMY1, 1, IFST, ILST,
-     $                   WORK( N*N*2+1 ), LWORK-2*N*N, IERR )
+            CALL STGEXC( .FALSE., .FALSE., N, WORK, N, WORK( N*N+1 ), N, DUMMY, 1, DUMMY1, 1, IFST, ILST, WORK( N*N*2+1 ), LWORK-2*N*N, IERR )
 *
             IF( IERR.GT.0 ) THEN
 *
@@ -287,30 +259,21 @@
 *              and compute estimate of Difl((A11,B11), (A22, B22)).
 *
                N1 = 1
-               IF( WORK( 2 ).NE.ZERO )
-     $            N1 = 2
+               IF( WORK( 2 ).NE.ZERO ) N1 = 2
                N2 = N - N1
                IF( N2.EQ.0 ) THEN
                   DIF( KS ) = COND
                ELSE
                   I = N*N + 1
                   IZ = 2*N*N + 1
-                  CALL STGSYL( 'N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ),
-     $                         N, WORK, N, WORK( N1+1 ), N,
-     $                         WORK( N*N1+N1+I ), N, WORK( I ), N,
-     $                         WORK( N1+I ), N, SCALE, DIF( KS ),
-     $                         WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR )
+                  CALL STGSYL( 'N', DIFDRI, N2, N1, WORK( N*N1+N1+1 ), N, WORK, N, WORK( N1+1 ), N, WORK( N*N1+N1+I ), N, WORK( I ), N, WORK( N1+I ), N, SCALE, DIF( KS ), WORK( IZ+1 ), LWORK-2*N*N, IWORK, IERR )
 *
-                  IF( PAIR )
-     $               DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ),
-     $                           COND )
+                  IF( PAIR ) DIF( KS ) = MIN( MAX( ONE, ALPRQT )*DIF( KS ), COND )
                END IF
             END IF
-            IF( PAIR )
-     $         DIF( KS+1 ) = DIF( KS )
+            IF( PAIR ) DIF( KS+1 ) = DIF( KS )
          END IF
-         IF( PAIR )
-     $      KS = KS + 1
+         IF( PAIR ) KS = KS + 1
 *
    20 CONTINUE
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)

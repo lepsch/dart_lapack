@@ -1,5 +1,4 @@
-      SUBROUTINE DTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, IFST, ILST, WORK, LWORK, INFO )
+      SUBROUTINE DTGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IFST, ILST, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IFST, ILST, INFO, LDA, LDB, LDQ, LDZ, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   WORK( * ), Z( LDZ, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -74,45 +72,36 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
 *     Determine the first row of the specified block and find out
 *     if it is 1-by-1 or 2-by-2.
 *
       IF( IFST.GT.1 ) THEN
-         IF( A( IFST, IFST-1 ).NE.ZERO )
-     $      IFST = IFST - 1
+         IF( A( IFST, IFST-1 ).NE.ZERO ) IFST = IFST - 1
       END IF
       NBF = 1
       IF( IFST.LT.N ) THEN
-         IF( A( IFST+1, IFST ).NE.ZERO )
-     $      NBF = 2
+         IF( A( IFST+1, IFST ).NE.ZERO ) NBF = 2
       END IF
 *
 *     Determine the first row of the final block
 *     and find out if it is 1-by-1 or 2-by-2.
 *
       IF( ILST.GT.1 ) THEN
-         IF( A( ILST, ILST-1 ).NE.ZERO )
-     $      ILST = ILST - 1
+         IF( A( ILST, ILST-1 ).NE.ZERO ) ILST = ILST - 1
       END IF
       NBL = 1
       IF( ILST.LT.N ) THEN
-         IF( A( ILST+1, ILST ).NE.ZERO )
-     $      NBL = 2
+         IF( A( ILST+1, ILST ).NE.ZERO ) NBL = 2
       END IF
-      IF( IFST.EQ.ILST )
-     $   RETURN
+      IF( IFST.EQ.ILST ) RETURN
 *
       IF( IFST.LT.ILST ) THEN
 *
 *        Update ILST.
 *
-         IF( NBF.EQ.2 .AND. NBL.EQ.1 )
-     $      ILST = ILST - 1
-         IF( NBF.EQ.1 .AND. NBL.EQ.2 )
-     $      ILST = ILST + 1
+         IF( NBF.EQ.2 .AND. NBL.EQ.1 ) ILST = ILST - 1          IF( NBF.EQ.1 .AND. NBL.EQ.2 ) ILST = ILST + 1
 *
          HERE = IFST
 *
@@ -126,11 +115,9 @@
 *
             NBNEXT = 1
             IF( HERE+NBF+1.LE.N ) THEN
-               IF( A( HERE+NBF+1, HERE+NBF ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( A( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO )
+            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBF, NBNEXT, WORK, LWORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -140,8 +127,7 @@
 *           Test if 2-by-2 block breaks into two 1-by-1 blocks.
 *
             IF( NBF.EQ.2 ) THEN
-               IF( A( HERE+1, HERE ).EQ.ZERO )
-     $            NBF = 3
+               IF( A( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 *
          ELSE
@@ -151,11 +137,9 @@
 *
             NBNEXT = 1
             IF( HERE+3.LE.N ) THEN
-               IF( A( HERE+3, HERE+2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( A( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO )
+            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE+1, 1, NBNEXT, WORK, LWORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -164,8 +148,7 @@
 *
 *              Swap two 1-by-1 blocks.
 *
-               CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                      LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+               CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
                IF( INFO.NE.0 ) THEN
                   ILST = HERE
                   RETURN
@@ -176,15 +159,12 @@
 *
 *              Recompute NBNEXT in case of 2-by-2 split.
 *
-               IF( A( HERE+2, HERE+1 ).EQ.ZERO )
-     $            NBNEXT = 1
+               IF( A( HERE+2, HERE+1 ).EQ.ZERO ) NBNEXT = 1
                IF( NBNEXT.EQ.2 ) THEN
 *
 *                 2-by-2 block did not split.
 *
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK,
-     $                         INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, NBNEXT, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -194,15 +174,13 @@
 *
 *                 2-by-2 block did split.
 *
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
                   END IF
                   HERE = HERE + 1
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -212,8 +190,7 @@
 *
             END IF
          END IF
-         IF( HERE.LT.ILST )
-     $      GO TO 10
+         IF( HERE.LT.ILST ) GO TO 10
       ELSE
          HERE = IFST
 *
@@ -227,12 +204,9 @@
 *
             NBNEXT = 1
             IF( HERE.GE.3 ) THEN
-               IF( A( HERE-1, HERE-2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK,
-     $                   INFO )
+            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, NBF, WORK, LWORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -242,8 +216,7 @@
 *           Test if 2-by-2 block breaks into two 1-by-1 blocks.
 *
             IF( NBF.EQ.2 ) THEN
-               IF( A( HERE+1, HERE ).EQ.ZERO )
-     $            NBF = 3
+               IF( A( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 *
          ELSE
@@ -253,12 +226,9 @@
 *
             NBNEXT = 1
             IF( HERE.GE.3 ) THEN
-               IF( A( HERE-1, HERE-2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( A( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK,
-     $                   INFO )
+            CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-NBNEXT, NBNEXT, 1, WORK, LWORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -267,8 +237,7 @@
 *
 *              Swap two 1-by-1 blocks.
 *
-               CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                      LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO )
+               CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, NBNEXT, 1, WORK, LWORK, INFO )
                IF( INFO.NE.0 ) THEN
                   ILST = HERE
                   RETURN
@@ -278,14 +247,12 @@
 *
 *             Recompute NBNEXT in case of 2-by-2 split.
 *
-               IF( A( HERE, HERE-1 ).EQ.ZERO )
-     $            NBNEXT = 1
+               IF( A( HERE, HERE-1 ).EQ.ZERO ) NBNEXT = 1
                IF( NBNEXT.EQ.2 ) THEN
 *
 *                 2-by-2 block did not split.
 *
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE-1, 2, 1, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -295,15 +262,13 @@
 *
 *                 2-by-2 block did split.
 *
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
                   END IF
                   HERE = HERE - 1
-                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ,
-     $                         Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
+                  CALL DTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, HERE, 1, 1, WORK, LWORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -312,8 +277,7 @@
                END IF
             END IF
          END IF
-         IF( HERE.GT.ILST )
-     $      GO TO 20
+         IF( HERE.GT.ILST ) GO TO 20
       END IF
       ILST = HERE
       WORK( 1 ) = LWMIN

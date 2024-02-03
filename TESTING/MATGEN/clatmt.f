@@ -1,5 +1,4 @@
-      SUBROUTINE CLATMT( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX,
-     $                   RANK, KL, KU, PACK, A, LDA, WORK, INFO )
+      SUBROUTINE CLATMT( M, N, DIST, ISEED, SYM, D, MODE, COND, DMAX, RANK, KL, KU, PACK, A, LDA, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,11 +30,7 @@
 *     .. Local Scalars ..
       COMPLEX            C, CT, CTEMP, DUMMY, EXTRA, S, ST
       REAL               ALPHA, ANGLE, REALC, TEMP
-      INTEGER            I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA,
-     $                   IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2,
-     $                   IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH,
-     $                   JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC,
-     $                   UUB
+      INTEGER            I, IC, ICOL, IDIST, IENDCH, IINFO, IL, ILDA, IOFFG, IOFFST, IPACK, IPACKG, IR, IR1, IR2, IROW, IRSIGN, ISKEW, ISYM, ISYMPK, J, JC, JCH, JKL, JKU, JR, K, LLB, MINLDA, MNMIN, MR, NC, UUB
       LOGICAL            CSYM, GIVENS, ILEXTR, ILTEMP, TOPDWN
 *     ..
 *     .. External Functions ..
@@ -45,12 +40,10 @@
       EXTERNAL           CLARND, SLARND, LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLAGGE, CLAGHE, CLAGSY, CLAROT, CLARTG, CLASET,
-     $                   SLATM7, SSCAL, XERBLA
+      EXTERNAL           CLAGGE, CLAGHE, CLAGSY, CLAROT, CLARTG, CLASET, SLATM7, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, CMPLX, CONJG, COS, MAX, MIN, MOD, REAL,
-     $                   SIN
+      INTRINSIC          ABS, CMPLX, CONJG, COS, MAX, MIN, MOD, REAL, SIN
 *     ..
 *     .. Executable Statements ..
 *
@@ -61,8 +54,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Decode DIST
 *
@@ -148,14 +140,11 @@
 *
       GIVENS = .FALSE.
       IF( ISYM.EQ.1 ) THEN
-         IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) )
-     $      GIVENS = .TRUE.
+         IF( REAL( LLB+UUB ).LT.0.3*REAL( MAX( 1, MR+NC ) ) ) GIVENS = .TRUE.
       ELSE
-         IF( 2*LLB.LT.M )
-     $      GIVENS = .TRUE.
+         IF( 2*LLB.LT.M ) GIVENS = .TRUE.
       END IF
-      IF( LDA.LT.M .AND. LDA.GE.MINLDA )
-     $   GIVENS = .TRUE.
+      IF( LDA.LT.M .AND. LDA.GE.MINLDA ) GIVENS = .TRUE.
 *
 *     Set INFO if an error
 *
@@ -171,17 +160,13 @@
          INFO = -5
       ELSE IF( ABS( MODE ).GT.6 ) THEN
          INFO = -7
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE )
-     $         THEN
+      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
          INFO = -8
       ELSE IF( KL.LT.0 ) THEN
          INFO = -10
       ELSE IF( KU.LT.0 .OR. ( ISYM.NE.1 .AND. KL.NE.KU ) ) THEN
          INFO = -11
-      ELSE IF( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR.
-     $         ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR.
-     $         ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR.
-     $         ( ISYMPK.NE.0 .AND. M.NE.N ) ) THEN
+      ELSE IF( IPACK.EQ.-1 .OR. ( ISYMPK.EQ.1 .AND. ISYM.EQ.1 ) .OR. ( ISYMPK.EQ.2 .AND. ISYM.EQ.1 .AND. KL.GT.0 ) .OR. ( ISYMPK.EQ.3 .AND. ISYM.EQ.1 .AND. KU.GT.0 ) .OR. ( ISYMPK.NE.0 .AND. M.NE.N ) ) THEN
          INFO = -12
       ELSE IF( LDA.LT.MAX( 1, MINLDA ) ) THEN
          INFO = -14
@@ -198,15 +183,13 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
   100 CONTINUE
 *
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 )
-     $   ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
 *     2)      Set up D  if indicated.
 *
 *             Compute D according to COND and MODE
 *
-      CALL SLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK,
-     $             IINFO )
+      CALL SLATM7( MODE, COND, IRSIGN, IDIST, ISEED, D, MNMIN, RANK, IINFO )
       IF( IINFO.NE.0 ) THEN
          INFO = 1
          RETURN
@@ -280,8 +263,7 @@
             A( ( 1-ISKEW )*J+IOFFST, J ) = CMPLX( D( J ) )
   120    CONTINUE
 *
-         IF( IPACK.LE.2 .OR. IPACK.GE.5 )
-     $      IPACKG = IPACK
+         IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
 *
       ELSE IF( GIVENS ) THEN
 *
@@ -319,9 +301,7 @@
                      ICOL = MAX( 1, JR-JKL )
                      IF( JR.LT.M ) THEN
                         IL = MIN( N, JR+JKU ) + 1 - ICOL
-                        CALL CLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C,
-     $                               S, A( JR-ISKEW*ICOL+IOFFST, ICOL ),
-     $                               ILDA, EXTRA, DUMMY )
+                        CALL CLAROT( .TRUE., JR.GT.JKL, .FALSE., IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, EXTRA, DUMMY )
                      END IF
 *
 *                    Chase "EXTRA" back up
@@ -330,8 +310,7 @@
                      IC = ICOL
                      DO 140 JCH = JR - JKL, 1, -JKL - JKU
                         IF( IR.LT.M ) THEN
-                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST,
-     $                                  IC+1 ), EXTRA, REALC, S, DUMMY )
+                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -340,12 +319,9 @@
                         IL = IR + 2 - IROW
                         CTEMP = CZERO
                         ILTEMP = JCH.GT.JKU
-                        CALL CLAROT( .FALSE., ILTEMP, .TRUE., IL, C, S,
-     $                               A( IROW-ISKEW*IC+IOFFST, IC ),
-     $                               ILDA, CTEMP, EXTRA )
+                        CALL CLAROT( .FALSE., ILTEMP, .TRUE., IL, C, S, A( IROW-ISKEW*IC+IOFFST, IC ), ILDA, CTEMP, EXTRA )
                         IF( ILTEMP ) THEN
-                           CALL CLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST,
-     $                                  IC+1 ), CTEMP, REALC, S, DUMMY )
+                           CALL CLARTG( A( IROW+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), CTEMP, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -353,10 +329,7 @@
                            ICOL = MAX( 1, JCH-JKU-JKL )
                            IL = IC + 2 - ICOL
                            EXTRA = CZERO
-                           CALL CLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE.,
-     $                                  IL, C, S, A( IROW-ISKEW*ICOL+
-     $                                  IOFFST, ICOL ), ILDA, EXTRA,
-     $                                  CTEMP )
+                           CALL CLAROT( .TRUE., JCH.GT.JKU+JKL, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP )
                            IC = ICOL
                            IR = IROW
                         END IF
@@ -377,9 +350,7 @@
                      IROW = MAX( 1, JC-JKU )
                      IF( JC.LT.N ) THEN
                         IL = MIN( M, JC+JKL ) + 1 - IROW
-                        CALL CLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C,
-     $                               S, A( IROW-ISKEW*JC+IOFFST, JC ),
-     $                               ILDA, EXTRA, DUMMY )
+                        CALL CLAROT( .FALSE., JC.GT.JKU, .FALSE., IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, EXTRA, DUMMY )
                      END IF
 *
 *                    Chase "EXTRA" back up
@@ -388,8 +359,7 @@
                      IR = IROW
                      DO 170 JCH = JC - JKU, 1, -JKL - JKU
                         IF( IC.LT.N ) THEN
-                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST,
-     $                                  IC+1 ), EXTRA, REALC, S, DUMMY )
+                           CALL CLARTG( A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
@@ -398,23 +368,16 @@
                         IL = IC + 2 - ICOL
                         CTEMP = CZERO
                         ILTEMP = JCH.GT.JKL
-                        CALL CLAROT( .TRUE., ILTEMP, .TRUE., IL, C, S,
-     $                               A( IR-ISKEW*ICOL+IOFFST, ICOL ),
-     $                               ILDA, CTEMP, EXTRA )
+                        CALL CLAROT( .TRUE., ILTEMP, .TRUE., IL, C, S, A( IR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA )
                         IF( ILTEMP ) THEN
-                           CALL CLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST,
-     $                                  ICOL+1 ), CTEMP, REALC, S,
-     $                                  DUMMY )
+                           CALL CLARTG( A( IR+1-ISKEW*( ICOL+1 )+IOFFST, ICOL+1 ), CTEMP, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = CONJG( REALC*DUMMY )
                            S = CONJG( -S*DUMMY )
                            IROW = MAX( 1, JCH-JKL-JKU )
                            IL = IR + 2 - IROW
                            EXTRA = CZERO
-                           CALL CLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE.,
-     $                                  IL, C, S, A( IROW-ISKEW*ICOL+
-     $                                  IOFFST, ICOL ), ILDA, EXTRA,
-     $                                  CTEMP )
+                           CALL CLAROT( .FALSE., JCH.GT.JKL+JKU, .TRUE., IL, C, S, A( IROW-ISKEW*ICOL+ IOFFST, ICOL ), ILDA, EXTRA, CTEMP )
                            IC = ICOL
                            IR = IROW
                         END IF
@@ -443,9 +406,7 @@
                      IROW = MAX( 1, JC-JKU+1 )
                      IF( JC.GT.0 ) THEN
                         IL = MIN( M, JC+JKL+1 ) + 1 - IROW
-                        CALL CLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL,
-     $                               C, S, A( IROW-ISKEW*JC+IOFFST,
-     $                               JC ), ILDA, DUMMY, EXTRA )
+                        CALL CLAROT( .FALSE., .FALSE., JC+JKL.LT.M, IL, C, S, A( IROW-ISKEW*JC+IOFFST, JC ), ILDA, DUMMY, EXTRA )
                      END IF
 *
 *                    Chase "EXTRA" back down
@@ -454,8 +415,7 @@
                      DO 200 JCH = JC + JKL, IENDCH, JKL + JKU
                         ILEXTR = IC.GT.0
                         IF( ILEXTR ) THEN
-                           CALL CLARTG( A( JCH-ISKEW*IC+IOFFST, IC ),
-     $                                  EXTRA, REALC, S, DUMMY )
+                           CALL CLARTG( A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -464,21 +424,15 @@
                         ICOL = MIN( N-1, JCH+JKU )
                         ILTEMP = JCH + JKU.LT.N
                         CTEMP = CZERO
-                        CALL CLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC,
-     $                               C, S, A( JCH-ISKEW*IC+IOFFST, IC ),
-     $                               ILDA, EXTRA, CTEMP )
+                        CALL CLAROT( .TRUE., ILEXTR, ILTEMP, ICOL+2-IC, C, S, A( JCH-ISKEW*IC+IOFFST, IC ), ILDA, EXTRA, CTEMP )
                         IF( ILTEMP ) THEN
-                           CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFST,
-     $                                  ICOL ), CTEMP, REALC, S, DUMMY )
+                           CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFST, ICOL ), CTEMP, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL CLAROT( .FALSE., .TRUE.,
-     $                                  JCH+JKL+JKU.LE.IENDCH, IL, C, S,
-     $                                  A( JCH-ISKEW*ICOL+IOFFST,
-     $                                  ICOL ), ILDA, CTEMP, EXTRA )
+                           CALL CLAROT( .FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA )
                            IC = ICOL
                         END IF
   200                CONTINUE
@@ -502,9 +456,7 @@
                      ICOL = MAX( 1, JR-JKL+1 )
                      IF( JR.GT.0 ) THEN
                         IL = MIN( N, JR+JKU+1 ) + 1 - ICOL
-                        CALL CLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL,
-     $                               C, S, A( JR-ISKEW*ICOL+IOFFST,
-     $                               ICOL ), ILDA, DUMMY, EXTRA )
+                        CALL CLAROT( .TRUE., .FALSE., JR+JKU.LT.N, IL, C, S, A( JR-ISKEW*ICOL+IOFFST, ICOL ), ILDA, DUMMY, EXTRA )
                      END IF
 *
 *                    Chase "EXTRA" back down
@@ -513,8 +465,7 @@
                      DO 230 JCH = JR + JKU, IENDCH, JKL + JKU
                         ILEXTR = IR.GT.0
                         IF( ILEXTR ) THEN
-                           CALL CLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ),
-     $                                  EXTRA, REALC, S, DUMMY )
+                           CALL CLARTG( A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
@@ -523,21 +474,15 @@
                         IROW = MIN( M-1, JCH+JKL )
                         ILTEMP = JCH + JKL.LT.M
                         CTEMP = CZERO
-                        CALL CLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR,
-     $                               C, S, A( IR-ISKEW*JCH+IOFFST,
-     $                               JCH ), ILDA, EXTRA, CTEMP )
+                        CALL CLAROT( .FALSE., ILEXTR, ILTEMP, IROW+2-IR, C, S, A( IR-ISKEW*JCH+IOFFST, JCH ), ILDA, EXTRA, CTEMP )
                         IF( ILTEMP ) THEN
-                           CALL CLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ),
-     $                                  CTEMP, REALC, S, DUMMY )
+                           CALL CLARTG( A( IROW-ISKEW*JCH+IOFFST, JCH ), CTEMP, REALC, S, DUMMY )
                            DUMMY = CLARND( 5, ISEED )
                            C = REALC*DUMMY
                            S = S*DUMMY
                            IL = MIN( IENDCH, JCH+JKL+JKU ) + 2 - JCH
                            EXTRA = CZERO
-                           CALL CLAROT( .TRUE., .TRUE.,
-     $                                  JCH+JKL+JKU.LE.IENDCH, IL, C, S,
-     $                                  A( IROW-ISKEW*JCH+IOFFST, JCH ),
-     $                                  ILDA, CTEMP, EXTRA )
+                           CALL CLAROT( .TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA )
                            IR = IROW
                         END IF
   230                CONTINUE
@@ -586,20 +531,13 @@
                         CT = CONJG( C )
                         ST = CONJG( S )
                      END IF
-                     CALL CLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S,
-     $                            A( IROW-ISKEW*JC+IOFFG, JC ), ILDA,
-     $                            EXTRA, CTEMP )
-                     CALL CLAROT( .TRUE., .TRUE., .FALSE.,
-     $                            MIN( K, N-JC )+1, CT, ST,
-     $                            A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA,
-     $                            CTEMP, DUMMY )
+                     CALL CLAROT( .FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, CTEMP )                      CALL CLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, CT, ST, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, DUMMY )
 *
 *                    Chase EXTRA back up the matrix
 *
                      ICOL = JC
                      DO 270 JCH = JC - K, 1, -K
-                        CALL CLARTG( A( JCH+1-ISKEW*( ICOL+1 )+IOFFG,
-     $                               ICOL+1 ), EXTRA, REALC, S, DUMMY )
+                        CALL CLARTG( A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY )
                         DUMMY = CLARND( 5, ISEED )
                         C = CONJG( REALC*DUMMY )
                         S = CONJG( -S*DUMMY )
@@ -612,15 +550,11 @@
                            CT = CONJG( C )
                            ST = CONJG( S )
                         END IF
-                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S,
-     $                               A( ( 1-ISKEW )*JCH+IOFFG, JCH ),
-     $                               ILDA, CTEMP, EXTRA )
+                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA )
                         IROW = MAX( 1, JCH-K )
                         IL = MIN( JCH+1, K+2 )
                         EXTRA = CZERO
-                        CALL CLAROT( .FALSE., JCH.GT.K, .TRUE., IL, CT,
-     $                               ST, A( IROW-ISKEW*JCH+IOFFG, JCH ),
-     $                               ILDA, EXTRA, CTEMP )
+                        CALL CLAROT( .FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP )
                         ICOL = JCH
   270                CONTINUE
   280             CONTINUE
@@ -638,8 +572,7 @@
   300                   CONTINUE
                      ELSE
                         DO 310 JR = JC, MIN( N, JC+UUB )
-                           A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+
-     $                                        IOFFG, JR ) )
+                           A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   310                   CONTINUE
                      END IF
   320             CONTINUE
@@ -662,8 +595,7 @@
 *
                IF( IPACK.GE.5 ) THEN
                   IPACKG = 5
-                  IF( IPACK.EQ.6 )
-     $               IOFFG = 1
+                  IF( IPACK.EQ.6 ) IOFFG = 1
                ELSE
                   IPACKG = 2
                END IF
@@ -688,20 +620,15 @@
                         CT = CONJG( C )
                         ST = CONJG( S )
                      END IF
-                     CALL CLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S,
-     $                            A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA,
-     $                            CTEMP, EXTRA )
+                     CALL CLAROT( .FALSE., .TRUE., N-JC.GT.K, IL, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, CTEMP, EXTRA )
                      ICOL = MAX( 1, JC-K+1 )
-                     CALL CLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL,
-     $                            CT, ST, A( JC-ISKEW*ICOL+IOFFG,
-     $                            ICOL ), ILDA, DUMMY, CTEMP )
+                     CALL CLAROT( .TRUE., .FALSE., .TRUE., JC+2-ICOL, CT, ST, A( JC-ISKEW*ICOL+IOFFG, ICOL ), ILDA, DUMMY, CTEMP )
 *
 *                    Chase EXTRA back down the matrix
 *
                      ICOL = JC
                      DO 360 JCH = JC + K, N - 1, K
-                        CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFG, ICOL ),
-     $                               EXTRA, REALC, S, DUMMY )
+                        CALL CLARTG( A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY )
                         DUMMY = CLARND( 5, ISEED )
                         C = REALC*DUMMY
                         S = S*DUMMY
@@ -714,14 +641,10 @@
                            CT = CONJG( C )
                            ST = CONJG( S )
                         END IF
-                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S,
-     $                               A( JCH-ISKEW*ICOL+IOFFG, ICOL ),
-     $                               ILDA, EXTRA, CTEMP )
+                        CALL CLAROT( .TRUE., .TRUE., .TRUE., K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, CTEMP )
                         IL = MIN( N+1-JCH, K+2 )
                         EXTRA = CZERO
-                        CALL CLAROT( .FALSE., .TRUE., N-JCH.GT.K, IL,
-     $                               CT, ST, A( ( 1-ISKEW )*JCH+IOFFG,
-     $                               JCH ), ILDA, CTEMP, EXTRA )
+                        CALL CLAROT( .FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA )
                         ICOL = JCH
   360                CONTINUE
   370             CONTINUE
@@ -739,8 +662,7 @@
   390                   CONTINUE
                      ELSE
                         DO 400 JR = JC, MAX( 1, JC-UUB ), -1
-                           A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+
-     $                                        IOFFG, JR ) )
+                           A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
   400                   CONTINUE
                      END IF
   410             CONTINUE
@@ -783,8 +705,7 @@
 *
 *           Non-symmetric -- A = U D V
 *
-            CALL CLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK,
-     $                   IINFO )
+            CALL CLAGGE( MR, NC, LLB, UUB, D, A, LDA, ISEED, WORK, IINFO )
          ELSE
 *
 *           Symmetric -- A = U D U' or
@@ -866,10 +787,7 @@
 *           'Q' -- The upper triangle is packed as a band matrix.
 *           'Z' -- The whole matrix is packed as a band matrix.
 *
-            IF( IPACK.EQ.5 )
-     $         UUB = 0
-            IF( IPACK.EQ.6 )
-     $         LLB = 0
+            IF( IPACK.EQ.5 ) UUB = 0             IF( IPACK.EQ.6 ) LLB = 0
 *
             DO 540 J = 1, UUB
                DO 530 I = MIN( J+LLB, M ), 1, -1

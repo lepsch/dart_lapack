@@ -1,5 +1,4 @@
-      SUBROUTINE ZUPMTR( SIDE, UPLO, TRANS, M, N, AP, TAU, C, LDC, WORK,
-     $                   INFO )
+      SUBROUTINE ZUPMTR( SIDE, UPLO, TRANS, M, N, AP, TAU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -70,15 +69,13 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
 *        Q was determined by a call to ZHPTRD with UPLO = 'U'
 *
-         FORWRD = ( LEFT .AND. NOTRAN ) .OR.
-     $            ( .NOT.LEFT .AND. .NOT.NOTRAN )
+         FORWRD = ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN )
 *
          IF( FORWRD ) THEN
             I1 = 1
@@ -120,8 +117,7 @@
             END IF
             AII = AP( II )
             AP( II ) = ONE
-            CALL ZLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC,
-     $                  WORK )
+            CALL ZLARF( SIDE, MI, NI, AP( II-I+1 ), 1, TAUI, C, LDC, WORK )
             AP( II ) = AII
 *
             IF( FORWRD ) THEN
@@ -134,8 +130,7 @@
 *
 *        Q was determined by a call to ZHPTRD with UPLO = 'L'.
 *
-         FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR.
-     $            ( .NOT.LEFT .AND. NOTRAN )
+         FORWRD = ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN )
 *
          IF( FORWRD ) THEN
             I1 = 1
@@ -181,8 +176,7 @@
             ELSE
                TAUI = DCONJG( TAU( I ) )
             END IF
-            CALL ZLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ),
-     $                  LDC, WORK )
+            CALL ZLARF( SIDE, MI, NI, AP( II ), 1, TAUI, C( IC, JC ), LDC, WORK )
             AP( II ) = AII
 *
             IF( FORWRD ) THEN

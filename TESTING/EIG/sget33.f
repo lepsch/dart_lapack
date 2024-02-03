@@ -19,12 +19,10 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I1, I2, I3, I4, IM1, IM2, IM3, IM4, J1, J2, J3
-      REAL               BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM,
-     $                   WI1, WI2, WR1, WR2
+      REAL               BIGNUM, CS, EPS, RES, SMLNUM, SN, SUM, TNRM, WI1, WI2, WR1, WR2
 *     ..
 *     .. Local Arrays ..
-      REAL               Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ),
-     $                   VAL( 4 ), VM( 3 )
+      REAL               Q( 2, 2 ), T( 2, 2 ), T1( 2, 2 ), T2( 2, 2 ), VAL( 4 ), VM( 3 )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -73,9 +71,7 @@
                               T( 1, 2 ) = VAL( I2 )*VM( IM2 )
                               T( 2, 1 ) = -VAL( I3 )*VM( IM3 )
                               T( 2, 2 ) = VAL( I4 )*VM( IM4 )
-                              TNRM = MAX( ABS( T( 1, 1 ) ),
-     $                               ABS( T( 1, 2 ) ), ABS( T( 2, 1 ) ),
-     $                               ABS( T( 2, 2 ) ) )
+                              TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 2, 1 ) ), ABS( T( 2, 2 ) ) )
                               T1( 1, 1 ) = T( 1, 1 )
                               T1( 1, 2 ) = T( 1, 2 )
                               T1( 2, 1 ) = T( 2, 1 )
@@ -85,30 +81,20 @@
                               Q( 2, 1 ) = ZERO
                               Q( 2, 2 ) = ONE
 *
-                              CALL SLANV2( T( 1, 1 ), T( 1, 2 ),
-     $                                     T( 2, 1 ), T( 2, 2 ), WR1,
-     $                                     WI1, WR2, WI2, CS, SN )
+                              CALL SLANV2( T( 1, 1 ), T( 1, 2 ), T( 2, 1 ), T( 2, 2 ), WR1, WI1, WR2, WI2, CS, SN )
                               DO 10 J1 = 1, 2
                                  RES = Q( J1, 1 )*CS + Q( J1, 2 )*SN
-                                 Q( J1, 2 ) = -Q( J1, 1 )*SN +
-     $                                        Q( J1, 2 )*CS
+                                 Q( J1, 2 ) = -Q( J1, 1 )*SN + Q( J1, 2 )*CS
                                  Q( J1, 1 ) = RES
    10                         CONTINUE
 *
                               RES = ZERO
-                              RES = RES + ABS( Q( 1, 1 )**2+
-     $                              Q( 1, 2 )**2-ONE ) / EPS
-                              RES = RES + ABS( Q( 2, 2 )**2+
-     $                              Q( 2, 1 )**2-ONE ) / EPS
-                              RES = RES + ABS( Q( 1, 1 )*Q( 2, 1 )+
-     $                              Q( 1, 2 )*Q( 2, 2 ) ) / EPS
+                              RES = RES + ABS( Q( 1, 1 )**2+ Q( 1, 2 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 2, 2 )**2+ Q( 2, 1 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 1, 1 )*Q( 2, 1 )+ Q( 1, 2 )*Q( 2, 2 ) ) / EPS
                               DO 40 J1 = 1, 2
                                  DO 30 J2 = 1, 2
                                     T2( J1, J2 ) = ZERO
                                     DO 20 J3 = 1, 2
-                                       T2( J1, J2 ) = T2( J1, J2 ) +
-     $                                                T1( J1, J3 )*
-     $                                                Q( J3, J2 )
+                                       T2( J1, J2 ) = T2( J1, J2 ) + T1( J1, J3 )* Q( J3, J2 )
    20                               CONTINUE
    30                            CONTINUE
    40                         CONTINUE
@@ -116,17 +102,12 @@
                                  DO 60 J2 = 1, 2
                                     SUM = T( J1, J2 )
                                     DO 50 J3 = 1, 2
-                                       SUM = SUM - Q( J3, J1 )*
-     $                                       T2( J3, J2 )
+                                       SUM = SUM - Q( J3, J1 )* T2( J3, J2 )
    50                               CONTINUE
                                     RES = RES + ABS( SUM ) / EPS / TNRM
    60                            CONTINUE
    70                         CONTINUE
-                              IF( T( 2, 1 ).NE.ZERO .AND.
-     $                            ( T( 1, 1 ).NE.T( 2,
-     $                            2 ) .OR. SIGN( ONE, T( 1,
-     $                            2 ) )*SIGN( ONE, T( 2,
-     $                            1 ) ).GT.ZERO ) )RES = RES + ONE / EPS
+                              IF( T( 2, 1 ).NE.ZERO .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ).GT.ZERO ) )RES = RES + ONE / EPS
                               KNT = KNT + 1
                               IF( RES.GT.RMAX ) THEN
                                  LMAX = KNT

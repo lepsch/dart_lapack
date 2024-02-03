@@ -31,16 +31,14 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( ( MIN( M, N ).EQ.0 ) .OR. ( TAU.EQ.ZERO ) )
-     $   RETURN
+      IF( ( MIN( M, N ).EQ.0 ) .OR. ( TAU.EQ.ZERO ) ) RETURN
 *
       IF( LSAME( SIDE, 'L' ) ) THEN
 *
 *        w :=  (C1 + v**T * C2)**T
 *
          CALL SCOPY( N, C1, LDC, WORK, 1 )
-         CALL SGEMV( 'Transpose', M-1, N, ONE, C2, LDC, V, INCV, ONE,
-     $               WORK, 1 )
+         CALL SGEMV( 'Transpose', M-1, N, ONE, C2, LDC, V, INCV, ONE, WORK, 1 )
 *
 *        [ C1 ] := [ C1 ] - tau* [ 1 ] * w**T
 *        [ C2 ]    [ C2 ]        [ v ]
@@ -53,8 +51,7 @@
 *        w := C1 + C2 * v
 *
          CALL SCOPY( M, C1, 1, WORK, 1 )
-         CALL SGEMV( 'No transpose', M, N-1, ONE, C2, LDC, V, INCV, ONE,
-     $               WORK, 1 )
+         CALL SGEMV( 'No transpose', M, N-1, ONE, C2, LDC, V, INCV, ONE, WORK, 1 )
 *
 *        [ C1, C2 ] := [ C1, C2 ] - tau* w * [ 1 , v**T]
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE SLAED2( K, N, N1, D, Q, LDQ, INDXQ, RHO, Z, DLAMBDA, W,
-     $                   Q2, INDX, INDXC, INDXP, COLTYP, INFO )
+      SUBROUTINE SLAED2( K, N, N1, D, Q, LDQ, INDXQ, RHO, Z, DLAMBDA, W, Q2, INDX, INDXC, INDXP, COLTYP, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,25 +9,20 @@
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ),
-     $                   INDXQ( * )
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ),
-     $                   W( * ), Z( * )
+      INTEGER            COLTYP( * ), INDX( * ), INDXC( * ), INDXP( * ), INDXQ( * )       REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), Q2( * ), W( * ), Z( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               MONE, ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0,
-     $                   TWO = 2.0E0, EIGHT = 8.0E0 )
+      PARAMETER          ( MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0 )
 *     ..
 *     .. Local Arrays ..
       INTEGER            CTOT( 4 ), PSM( 4 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1,
-     $                   N2, NJ, PJ
+      INTEGER            CT, I, IMAX, IQ1, IQ2, J, JMAX, JS, K2, N1P1, N2, NJ, PJ
       REAL               C, EPS, S, T, TAU, TOL
 *     ..
 *     .. External Functions ..
@@ -62,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       N2 = N - N1
       N1P1 = N1 + 1
@@ -148,8 +141,7 @@
             K2 = K2 - 1
             COLTYP( NJ ) = 4
             INDXP( K2 ) = NJ
-            IF( J.EQ.N )
-     $         GO TO 100
+            IF( J.EQ.N ) GO TO 100
          ELSE
             PJ = NJ
             GO TO 80
@@ -158,8 +150,7 @@
    80 CONTINUE
       J = J + 1
       NJ = INDX( J )
-      IF( J.GT.N )
-     $   GO TO 100
+      IF( J.GT.N ) GO TO 100
       IF( RHO*ABS( Z( NJ ) ).LE.TOL ) THEN
 *
 *        Deflate due to small z component.
@@ -187,8 +178,7 @@
 *
             Z( NJ ) = TAU
             Z( PJ ) = ZERO
-            IF( COLTYP( NJ ).NE.COLTYP( PJ ) )
-     $         COLTYP( NJ ) = 2
+            IF( COLTYP( NJ ).NE.COLTYP( PJ ) ) COLTYP( NJ ) = 2
             COLTYP( PJ ) = 4
             CALL SROT( N, Q( 1, PJ ), 1, Q( 1, NJ ), 1, C, S )
             T = D( PJ )*C**2 + D( NJ )*S**2
@@ -308,8 +298,7 @@
 *     into the last N - K slots of D and Q respectively.
 *
       IF( K.LT.N ) THEN
-         CALL SLACPY( 'A', N, CTOT( 4 ), Q2( IQ1 ), N,
-     $                Q( 1, K+1 ), LDQ )
+         CALL SLACPY( 'A', N, CTOT( 4 ), Q2( IQ1 ), N, Q( 1, K+1 ), LDQ )
          CALL SCOPY( N-K, Z( K+1 ), 1, D( K+1 ), 1 )
       END IF
 *

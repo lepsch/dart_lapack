@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -56,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check that the diagonal matrix D is nonsingular.
 *
@@ -66,16 +64,14 @@
 *        Upper triangular storage: examine D from bottom to top
 *
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
    10    CONTINUE
       ELSE
 *
 *        Lower triangular storage: examine D from top to bottom.
 *
          DO 20 INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
    20    CONTINUE
       END IF
       INFO = 0
@@ -92,8 +88,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 40
+         IF( K.GT.N ) GO TO 40
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -107,10 +102,7 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ),
-     $                     1 )
+               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -132,17 +124,9 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ),
-     $                     1 )
-               A( K, K+1 ) = A( K, K+1 ) -
-     $                       CDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
+               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - CDOTU( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - CDOTU( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
                CALL CCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K+1 ), 1 )
-               A( K+1, K+1 ) = A( K+1, K+1 ) -
-     $                         CDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 )
+               CALL CSYMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - CDOTU( K-1, WORK, 1, A( 1, K+1 ), 1 )
             END IF
             KSTEP = 2
          END IF
@@ -154,8 +138,7 @@
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $             CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL CSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -168,8 +151,7 @@
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $            CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL CSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
 *
                TEMP = A( K, K )
@@ -183,8 +165,7 @@
             K = K + 1
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $            CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL CSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -208,8 +189,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 60
+         IF( K.LT.1 ) GO TO 60
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -223,10 +203,7 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     CZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ),
-     $                     1 )
+               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -248,18 +225,9 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     CZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ),
-     $                     1 )
-               A( K, K-1 ) = A( K, K-1 ) -
-     $                       CDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ),
-     $                       1 )
+               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - CDOTU( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - CDOTU( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
                CALL CCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     CZERO, A( K+1, K-1 ), 1 )
-               A( K-1, K-1 ) = A( K-1, K-1 ) -
-     $                         CDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 )
+               CALL CSYMV( UPLO, N-K,-CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - CDOTU( N-K, WORK, 1, A( K+1, K-1 ), 1 )
             END IF
             KSTEP = 2
          END IF
@@ -271,8 +239,7 @@
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL CSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -285,8 +252,7 @@
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL CSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
 *
                TEMP = A( K, K )
@@ -300,8 +266,7 @@
             K = K - 1
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL CSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )

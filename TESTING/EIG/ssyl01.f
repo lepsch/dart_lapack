@@ -26,21 +26,15 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          TRANA, TRANB
-      INTEGER            I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA,
-     $                   KUA, KLB, KUB, LIWORK, M, N
-      REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL,
-     $                   SCALE, SCALE3, SMLNUM, TNRM, XNRM
+      INTEGER            I, INFO, IINFO, ISGN, ITRANA, ITRANB, J, KLA, KUA, KLB, KUB, LIWORK, M, N       REAL               ANRM, BNRM, BIGNUM, EPS, RES, RES1, RMUL, SCALE, SCALE3, SMLNUM, TNRM, XNRM
 *     ..
 *     .. Local Arrays ..
-      REAL               DUML( MAXM ), DUMR( MAXN ),
-     $                   D( MAX( MAXM, MAXN ) ), DUM( MAXN ),
-     $                   VM( 2 )
+      REAL               DUML( MAXM ), DUMR( MAXN ), D( MAX( MAXM, MAXN ) ), DUM( MAXN ), VM( 2 )
       INTEGER            ISEED( 4 ), IWORK( MAXM + MAXN + 2 )
 *     ..
 *     .. Allocatable Arrays ..
       INTEGER            AllocateStatus
-      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X,
-     $                   SWORK
+      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, C, CC, X, SWORK
 *     ..
 *     .. External Functions ..
       LOGICAL            SISNAN
@@ -103,11 +97,7 @@
             DO M = 32, MAXM, 71
                KLA = 0
                KUA = M - 1
-               CALL SLATMR( M, M, 'S', ISEED, 'N', D,
-     $                      6, ONE, ONE, 'T', 'N',
-     $                      DUML, 1, ONE, DUMR, 1, ONE,
-     $                      'N', IWORK, KLA, KUA, ZERO,
-     $                      ONE, 'NO', A, MAXM, IWORK, IINFO )
+               CALL SLATMR( M, M, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLA, KUA, ZERO, ONE, 'NO', A, MAXM, IWORK, IINFO )
                DO I = 1, M
                   A( I, I ) = A( I, I ) * VM( J )
                END DO
@@ -115,18 +105,10 @@
                DO N = 51, MAXN, 47
                   KLB = 0
                   KUB = N - 1
-                  CALL SLATMR( N, N, 'S', ISEED, 'N', D,
-     $                         6, ONE, ONE, 'T', 'N',
-     $                         DUML, 1, ONE, DUMR, 1, ONE,
-     $                         'N', IWORK, KLB, KUB, ZERO,
-     $                         ONE, 'NO', B, MAXN, IWORK, IINFO )
+                  CALL SLATMR( N, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, KLB, KUB, ZERO, ONE, 'NO', B, MAXN, IWORK, IINFO )
                   BNRM = SLANGE( 'M', N, N, B, MAXN, DUM )
                   TNRM = MAX( ANRM, BNRM )
-                  CALL SLATMR( M, N, 'S', ISEED, 'N', D,
-     $                         6, ONE, ONE, 'T', 'N',
-     $                         DUML, 1, ONE, DUMR, 1, ONE,
-     $                         'N', IWORK, M, N, ZERO, ONE,
-     $                         'NO', C, MAXM, IWORK, IINFO )
+                  CALL SLATMR( M, N, 'S', ISEED, 'N', D, 6, ONE, ONE, 'T', 'N', DUML, 1, ONE, DUMR, 1, ONE, 'N', IWORK, M, N, ZERO, ONE, 'NO', C, MAXM, IWORK, IINFO )
                   DO ITRANA = 1, 2
                      IF( ITRANA.EQ.1 ) THEN
                         TRANA = 'N'
@@ -145,11 +127,8 @@
 *
                         CALL SLACPY( 'All', M, N, C, MAXM, X, MAXM)
                         CALL SLACPY( 'All', M, N, C, MAXM, CC, MAXM)
-                        CALL STRSYL( TRANA, TRANB, ISGN, M, N, 
-     $                               A, MAXM, B, MAXN, X, MAXM,
-     $                               SCALE, IINFO )
-                        IF( IINFO.NE.0 )
-     $                     NINFO( 1 ) = NINFO( 1 ) + 1
+                        CALL STRSYL( TRANA, TRANB, ISGN, M, N,  A, MAXM, B, MAXN, X, MAXM, SCALE, IINFO )
+                        IF( IINFO.NE.0 ) NINFO( 1 ) = NINFO( 1 ) + 1
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
                         IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
@@ -157,28 +136,14 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            END IF
                         END IF
-                        CALL SGEMM( TRANA, 'N', M, N, M, RMUL,
-     $                              A, MAXM, X, MAXM, -SCALE*RMUL,
-     $                              C, MAXM )
-                        CALL SGEMM( 'N', TRANB, M, N, N,
-     $                               REAL( ISGN )*RMUL, X, MAXM, B,
-     $                               MAXN, ONE, C, MAXM )
+                        CALL SGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, C, MAXM )                         CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, C, MAXM )
                         RES1 = SLANGE( 'M', M, N, C, MAXM, DUM )
-                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM,
-     $                              ( ( RMUL*TNRM )*EPS )*XNRM )
-                        IF( RES.GT.THRESH )
-     $                     NFAIL( 1 ) = NFAIL( 1 ) + 1
-                        IF( RES.GT.RMAX( 1 ) )
-     $                     RMAX( 1 ) = RES
+                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
 *
                         CALL SLACPY( 'All', M, N, C, MAXM, X, MAXM )
                         CALL SLACPY( 'All', M, N, C, MAXM, CC, MAXM )
-                        CALL STRSYL3( TRANA, TRANB, ISGN, M, N,
-     $                                A, MAXM, B, MAXN, X, MAXM,
-     $                                SCALE3, IWORK, LIWORK,
-     $                                SWORK, LDSWORK, INFO)
-                        IF( INFO.NE.0 )
-     $                     NINFO( 2 ) = NINFO( 2 ) + 1
+                        CALL STRSYL3( TRANA, TRANB, ISGN, M, N, A, MAXM, B, MAXN, X, MAXM, SCALE3, IWORK, LIWORK, SWORK, LDSWORK, INFO)
+                        IF( INFO.NE.0 ) NINFO( 2 ) = NINFO( 2 ) + 1
                         XNRM = SLANGE( 'M', M, N, X, MAXM, DUM )
                         RMUL = ONE
                         IF( XNRM.GT.ONE .AND. TNRM.GT.ONE ) THEN
@@ -186,25 +151,15 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            END IF
                         END IF
-                        CALL SGEMM( TRANA, 'N', M, N, M, RMUL,
-     $                              A, MAXM, X, MAXM, -SCALE3*RMUL,
-     $                              CC, MAXM )
-                        CALL SGEMM( 'N', TRANB, M, N, N,
-     $                              REAL( ISGN )*RMUL, X, MAXM, B,
-     $                              MAXN, ONE, CC, MAXM )
+                        CALL SGEMM( TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM )
                         RES1 = SLANGE( 'M', M, N, CC, MAXM, DUM )
-                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM,
-     $                             ( ( RMUL*TNRM )*EPS )*XNRM )
+                        RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
 *                       Verify that TRSYL3 only flushes if TRSYL flushes (but
 *                       there may be cases where TRSYL3 avoid flushing).
-                        IF( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR. 
-     $                      IINFO.NE.INFO ) THEN
+                        IF( SCALE3.EQ.ZERO .AND. SCALE.GT.ZERO .OR.  IINFO.NE.INFO ) THEN
                            NFAIL( 3 ) = NFAIL( 3 ) + 1
                         END IF
-                        IF( RES.GT.THRESH .OR. SISNAN( RES ) )
-     $                     NFAIL( 2 ) = NFAIL( 2 ) + 1
-                        IF( RES.GT.RMAX( 2 ) )
-     $                     RMAX( 2 ) = RES
+                        IF( RES.GT.THRESH .OR. SISNAN( RES ) ) NFAIL( 2 ) = NFAIL( 2 ) + 1                         IF( RES.GT.RMAX( 2 ) ) RMAX( 2 ) = RES
                      END DO
                   END DO
                END DO

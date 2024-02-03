@@ -1,5 +1,4 @@
-      SUBROUTINE SLALSD( UPLO, SMLSIZ, N, NRHS, D, E, B, LDB, RCOND,
-     $                   RANK, WORK, IWORK, INFO )
+      SUBROUTINE SLALSD( UPLO, SMLSIZ, N, NRHS, D, E, B, LDB, RCOND, RANK, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,10 +21,7 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM,
-     $                   GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL,
-     $                   NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI,
-     $                   SMLSZP, SQRE, ST, ST1, U, VT, Z
+      INTEGER            BX, BXST, C, DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, ICMPQ1, ICMPQ2, IWK, J, K, NLVL, NM1, NSIZE, NSUB, NWORK, PERM, POLES, S, SIZEI, SMLSZP, SQRE, ST, ST1, U, VT, Z
       REAL               CS, EPS, ORGNRM, R, RCND, SN, TOL
 *     ..
 *     .. External Functions ..
@@ -34,8 +30,7 @@
       EXTERNAL           ISAMAX, SLAMCH, SLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMM, SLACPY, SLALSA, SLARTG, SLASCL,
-     $                   SLASDA, SLASDQ, SLASET, SLASRT, SROT, XERBLA
+      EXTERNAL           SCOPY, SGEMM, SLACPY, SLALSA, SLARTG, SLASCL, SLASDA, SLASDQ, SLASET, SLASRT, SROT, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, INT, LOG, REAL, SIGN
@@ -129,8 +124,7 @@
       IF( N.LE.SMLSIZ ) THEN
          NWORK = 1 + N*N
          CALL SLASET( 'A', N, N, ZERO, ONE, WORK, N )
-         CALL SLASDQ( 'U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B,
-     $                LDB, WORK( NWORK ), INFO )
+         CALL SLASDQ( 'U', 0, N, N, 0, NRHS, D, E, WORK, N, WORK, N, B, LDB, WORK( NWORK ), INFO )
          IF( INFO.NE.0 ) THEN
             RETURN
          END IF
@@ -139,13 +133,11 @@
             IF( D( I ).LE.TOL ) THEN
                CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB )
             ELSE
-               CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ),
-     $                      LDB, INFO )
+               CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO )
                RANK = RANK + 1
             END IF
    40    CONTINUE
-         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO,
-     $               WORK( NWORK ), N )
+         CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO, WORK( NWORK ), N )
          CALL SLACPY( 'A', N, NRHS, WORK( NWORK ), N, B, LDB )
 *
 *        Unscale.
@@ -238,42 +230,21 @@
 *
 *              This is a small subproblem and is solved by SLASDQ.
 *
-               CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE,
-     $                      WORK( VT+ST1 ), N )
-               CALL SLASDQ( 'U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ),
-     $                      E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ),
-     $                      N, B( ST, 1 ), LDB, WORK( NWORK ), INFO )
+               CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
-               CALL SLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB,
-     $                      WORK( BX+ST1 ), N )
+               CALL SLACPY( 'A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N )
             ELSE
 *
 *              A large problem. Solve it using divide and conquer.
 *
-               CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ),
-     $                      E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ),
-     $                      IWORK( K+ST1 ), WORK( DIFL+ST1 ),
-     $                      WORK( DIFR+ST1 ), WORK( Z+ST1 ),
-     $                      WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ),
-     $                      IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ),
-     $                      WORK( GIVNUM+ST1 ), WORK( C+ST1 ),
-     $                      WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ),
-     $                      INFO )
+               CALL SLASDA( ICMPQ1, SMLSIZ, NSIZE, SQRE, D( ST ), E( ST ), WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
                BXST = BX + ST1
-               CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ),
-     $                      LDB, WORK( BXST ), N, WORK( U+ST1 ), N,
-     $                      WORK( VT+ST1 ), IWORK( K+ST1 ),
-     $                      WORK( DIFL+ST1 ), WORK( DIFR+ST1 ),
-     $                      WORK( Z+ST1 ), WORK( POLES+ST1 ),
-     $                      IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N,
-     $                      IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ),
-     $                      WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ),
-     $                      IWORK( IWK ), INFO )
+               CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BXST ), N, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
                IF( INFO.NE.0 ) THEN
                   RETURN
                END IF
@@ -295,8 +266,7 @@
             CALL SLASET( 'A', 1, NRHS, ZERO, ZERO, WORK( BX+I-1 ), N )
          ELSE
             RANK = RANK + 1
-            CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS,
-     $                   WORK( BX+I-1 ), N, INFO )
+            CALL SLASCL( 'G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO )
          END IF
          D( I ) = ABS( D( I ) )
    70 CONTINUE
@@ -312,19 +282,9 @@
          IF( NSIZE.EQ.1 ) THEN
             CALL SCOPY( NRHS, WORK( BXST ), N, B( ST, 1 ), LDB )
          ELSE IF( NSIZE.LE.SMLSIZ ) THEN
-            CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE,
-     $                  WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO,
-     $                  B( ST, 1 ), LDB )
+            CALL SGEMM( 'T', 'N', NSIZE, NRHS, NSIZE, ONE, WORK( VT+ST1 ), N, WORK( BXST ), N, ZERO, B( ST, 1 ), LDB )
          ELSE
-            CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N,
-     $                   B( ST, 1 ), LDB, WORK( U+ST1 ), N,
-     $                   WORK( VT+ST1 ), IWORK( K+ST1 ),
-     $                   WORK( DIFL+ST1 ), WORK( DIFR+ST1 ),
-     $                   WORK( Z+ST1 ), WORK( POLES+ST1 ),
-     $                   IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N,
-     $                   IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ),
-     $                   WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ),
-     $                   IWORK( IWK ), INFO )
+            CALL SLALSA( ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, WORK( U+ST1 ), N, WORK( VT+ST1 ), IWORK( K+ST1 ), WORK( DIFL+ST1 ), WORK( DIFR+ST1 ), WORK( Z+ST1 ), WORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), WORK( GIVNUM+ST1 ), WORK( C+ST1 ), WORK( S+ST1 ), WORK( NWORK ), IWORK( IWK ), INFO )
             IF( INFO.NE.0 ) THEN
                RETURN
             END IF

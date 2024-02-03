@@ -1,5 +1,4 @@
-      SUBROUTINE CGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF,
-     $                   X, U, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), D( * ), DF( * ), U( * ),
-     $                   WORK( LWORK ), X( * )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
 *
 *  ====================================================================
 *
@@ -53,8 +50,7 @@
 *
 *     Solve GLM problem
 *
-      CALL CGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK,
-     $             INFO )
+      CALL CGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
 *
 *     Test the residual for the solution of LSE
 *
@@ -63,11 +59,9 @@
 *                (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 *
       CALL CCOPY( N, D, 1, DF, 1 )
-      CALL CGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE,
-     $            DF, 1 )
+      CALL CGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 )
 *
-      CALL CGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE,
-     $            DF, 1 )
+      CALL CGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 )
 *
       DNORM = SCASUM( N, DF, 1 )
       XNORM = SCASUM( M, X, 1 ) + SCASUM( P, U, 1 )

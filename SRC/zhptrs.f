@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -73,8 +72,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 30
+         IF( K.LT.1 ) GO TO 30
 *
          KC = KC - K
          IF( IPIV( K ).GT.0 ) THEN
@@ -84,14 +82,12 @@
 *           Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *           Multiply by inv(U(K)), where U(K) is the transformation
 *           stored in column K of A.
 *
-            CALL ZGERU( K-1, NRHS, -ONE, AP( KC ), 1, B( K, 1 ), LDB,
-     $                  B( 1, 1 ), LDB )
+            CALL ZGERU( K-1, NRHS, -ONE, AP( KC ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
 *
 *           Multiply by the inverse of the diagonal block.
 *
@@ -105,16 +101,12 @@
 *           Interchange rows K-1 and -IPIV(K).
 *
             KP = -IPIV( K )
-            IF( KP.NE.K-1 )
-     $         CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K-1 ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *           Multiply by inv(U(K)), where U(K) is the transformation
 *           stored in columns K-1 and K of A.
 *
-            CALL ZGERU( K-2, NRHS, -ONE, AP( KC ), 1, B( K, 1 ), LDB,
-     $                  B( 1, 1 ), LDB )
-            CALL ZGERU( K-2, NRHS, -ONE, AP( KC-( K-1 ) ), 1,
-     $                  B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
+            CALL ZGERU( K-2, NRHS, -ONE, AP( KC ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )             CALL ZGERU( K-2, NRHS, -ONE, AP( KC-( K-1 ) ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB )
 *
 *           Multiply by the inverse of the diagonal block.
 *
@@ -146,8 +138,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 50
+         IF( K.GT.N ) GO TO 50
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -158,16 +149,14 @@
 *
             IF( K.GT.1 ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B,
-     $                     LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
             END IF
 *
 *           Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             KC = KC + K
             K = K + 1
          ELSE
@@ -179,21 +168,18 @@
 *
             IF( K.GT.1 ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B,
-     $                     LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, AP( KC ), 1, ONE, B( K, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
 *
                CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B,
-     $                     LDB, AP( KC+K ), 1, ONE, B( K+1, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', K-1, NRHS, -ONE, B, LDB, AP( KC+K ), 1, ONE, B( K+1, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K+1, 1 ), LDB )
             END IF
 *
 *           Interchange rows K and -IPIV(K).
 *
             KP = -IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             KC = KC + 2*K + 1
             K = K + 2
          END IF
@@ -216,8 +202,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 80
+         IF( K.GT.N ) GO TO 80
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -226,15 +211,12 @@
 *           Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *           Multiply by inv(L(K)), where L(K) is the transformation
 *           stored in column K of A.
 *
-            IF( K.LT.N )
-     $         CALL ZGERU( N-K, NRHS, -ONE, AP( KC+1 ), 1, B( K, 1 ),
-     $                     LDB, B( K+1, 1 ), LDB )
+            IF( K.LT.N ) CALL ZGERU( N-K, NRHS, -ONE, AP( KC+1 ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
 *
 *           Multiply by the inverse of the diagonal block.
 *
@@ -249,17 +231,13 @@
 *           Interchange rows K+1 and -IPIV(K).
 *
             KP = -IPIV( K )
-            IF( KP.NE.K+1 )
-     $         CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K+1 ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *           Multiply by inv(L(K)), where L(K) is the transformation
 *           stored in columns K and K+1 of A.
 *
             IF( K.LT.N-1 ) THEN
-               CALL ZGERU( N-K-1, NRHS, -ONE, AP( KC+2 ), 1, B( K, 1 ),
-     $                     LDB, B( K+2, 1 ), LDB )
-               CALL ZGERU( N-K-1, NRHS, -ONE, AP( KC+N-K+2 ), 1,
-     $                     B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
+               CALL ZGERU( N-K-1, NRHS, -ONE, AP( KC+2 ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL ZGERU( N-K-1, NRHS, -ONE, AP( KC+N-K+2 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB )
             END IF
 *
 *           Multiply by the inverse of the diagonal block.
@@ -292,8 +270,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 100
+         IF( K.LT.1 ) GO TO 100
 *
          KC = KC - ( N-K+1 )
          IF( IPIV( K ).GT.0 ) THEN
@@ -305,17 +282,14 @@
 *
             IF( K.LT.N ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE,
-     $                     B( K+1, 1 ), LDB, AP( KC+1 ), 1, ONE,
-     $                     B( K, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, AP( KC+1 ), 1, ONE, B( K, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
             END IF
 *
 *           Interchange rows K and IPIV(K).
 *
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K = K - 1
          ELSE
 *
@@ -326,23 +300,18 @@
 *
             IF( K.LT.N ) THEN
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE,
-     $                     B( K+1, 1 ), LDB, AP( KC+1 ), 1, ONE,
-     $                     B( K, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, AP( KC+1 ), 1, ONE, B( K, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K, 1 ), LDB )
 *
                CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
-               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE,
-     $                     B( K+1, 1 ), LDB, AP( KC-( N-K ) ), 1, ONE,
-     $                     B( K-1, 1 ), LDB )
+               CALL ZGEMV( 'Conjugate transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, AP( KC-( N-K ) ), 1, ONE, B( K-1, 1 ), LDB )
                CALL ZLACGV( NRHS, B( K-1, 1 ), LDB )
             END IF
 *
 *           Interchange rows K and -IPIV(K).
 *
             KP = -IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             KC = KC - ( N-K+2 )
             K = K - 2
          END IF

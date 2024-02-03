@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      COMPLEX*16         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   B( NMAX, NMAX ), C( NMAX, NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZTPQRT2, ZTPQRT,
-     $                   ZTPMQRT
+      EXTERNAL           ALAESM, CHKXER, ZTPQRT2, ZTPQRT, ZTPMQRT
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -115,51 +113,39 @@
 *
       SRNAMT = 'ZTPMQRT'
       INFOT = 1
-      CALL ZTPMQRT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL ZTPMQRT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL ZTPMQRT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL ZTPMQRT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL ZTPMQRT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       INFOT = 6
-      CALL ZTPMQRT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL ZTPMQRT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL ZTPMQRT( 'R', 'N', 1, 2, 1, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'R', 'N', 1, 2, 1, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL ZTPMQRT( 'L', 'N', 2, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 2, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL ZTPMQRT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL ZTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
       INFOT = 15
-      CALL ZTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0,
-     $              W, INFO )
+      CALL ZTPMQRT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
       CALL CHKXER( 'ZTPMQRT', INFOT, NOUT, LERR, OK )
 *
 *     Print a summary line.

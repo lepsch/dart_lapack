@@ -1,5 +1,4 @@
-      SUBROUTINE DBDSDC( UPLO, COMPQ, N, D, E, U, LDU, VT, LDVT, Q, IQ,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE DBDSDC( UPLO, COMPQ, N, D, E, U, LDU, VT, LDVT, Q, IQ, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IQ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), Q( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      DOUBLE PRECISION   D( * ), E( * ), Q( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -25,10 +23,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC,
-     $                   ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK,
-     $                   MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ,
-     $                   SMLSZP, SQRE, START, WSTART, Z
+      INTEGER            DIFL, DIFR, GIVCOL, GIVNUM, GIVPTR, I, IC, ICOMPQ, IERR, II, IS, IU, IUPLO, IVT, J, K, KK, MLVL, NM1, NSIZE, PERM, POLES, QSTART, SMLSIZ, SMLSZP, SQRE, START, WSTART, Z
       DOUBLE PRECISION   CS, EPS, ORGNRM, P, R, SN
 *     ..
 *     .. External Functions ..
@@ -38,8 +33,7 @@
       EXTERNAL           LSAME, ILAENV, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLARTG, DLASCL, DLASD0, DLASDA, DLASDQ,
-     $                   DLASET, DLASR, DSWAP, XERBLA
+      EXTERNAL           DCOPY, DLARTG, DLASCL, DLASD0, DLASDA, DLASDQ, DLASET, DLASR, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, INT, LOG, SIGN
@@ -51,10 +45,7 @@
       INFO = 0
 *
       IUPLO = 0
-      IF( LSAME( UPLO, 'U' ) )
-     $   IUPLO = 1
-      IF( LSAME( UPLO, 'L' ) )
-     $   IUPLO = 2
+      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       IF( LSAME( COMPQ, 'N' ) ) THEN
          ICOMPQ = 0
       ELSE IF( LSAME( COMPQ, 'P' ) ) THEN
@@ -70,11 +61,9 @@
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
-      ELSE IF( ( LDU.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDU.LT.
-     $         N ) ) ) THEN
+      ELSE IF( ( LDU.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDU.LT. N ) ) ) THEN
          INFO = -7
-      ELSE IF( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDVT.LT.
-     $         N ) ) ) THEN
+      ELSE IF( ( LDVT.LT.1 ) .OR. ( ( ICOMPQ.EQ.2 ) .AND. ( LDVT.LT. N ) ) ) THEN
          INFO = -9
       END IF
       IF( INFO.NE.0 ) THEN
@@ -84,8 +73,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       SMLSIZ = ILAENV( 9, 'DBDSDC', ' ', 0, 0, 0, 0 )
       IF( N.EQ.1 ) THEN
          IF( ICOMPQ.EQ.1 ) THEN
@@ -133,8 +121,7 @@
 *        Ignore WSTART, instead using WORK( 1 ), since the two vectors
 *        for CS and -SN above are added only if ICOMPQ == 2,
 *        and adding them exceeds documented WORK size of 4*n.
-         CALL DLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U,
-     $                LDU, WORK( 1 ), INFO )
+         CALL DLASDQ( 'U', 0, N, 0, 0, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( 1 ), INFO )
          GO TO 40
       END IF
 *
@@ -145,20 +132,11 @@
          IF( ICOMPQ.EQ.2 ) THEN
             CALL DLASET( 'A', N, N, ZERO, ONE, U, LDU )
             CALL DLASET( 'A', N, N, ZERO, ONE, VT, LDVT )
-            CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U,
-     $                   LDU, WORK( WSTART ), INFO )
+            CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, VT, LDVT, U, LDU, U, LDU, WORK( WSTART ), INFO )
          ELSE IF( ICOMPQ.EQ.1 ) THEN
             IU = 1
             IVT = IU + N
-            CALL DLASET( 'A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ),
-     $                   N )
-            CALL DLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ),
-     $                   N )
-            CALL DLASDQ( 'U', 0, N, N, N, 0, D, E,
-     $                   Q( IVT+( QSTART-1 )*N ), N,
-     $                   Q( IU+( QSTART-1 )*N ), N,
-     $                   Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ),
-     $                   INFO )
+            CALL DLASET( 'A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N )             CALL DLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N )             CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO )
          END IF
          GO TO 40
       END IF
@@ -171,8 +149,7 @@
 *     Scale.
 *
       ORGNRM = DLANST( 'M', N, D, E )
-      IF( ORGNRM.EQ.ZERO )
-     $   RETURN
+      IF( ORGNRM.EQ.ZERO ) RETURN
       CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, N, 1, D, N, IERR )
       CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, NM1, 1, E, NM1, IERR )
 *
@@ -240,23 +217,9 @@
                D( N ) = ABS( D( N ) )
             END IF
             IF( ICOMPQ.EQ.2 ) THEN
-               CALL DLASD0( NSIZE, SQRE, D( START ), E( START ),
-     $                      U( START, START ), LDU, VT( START, START ),
-     $                      LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO )
+               CALL DLASD0( NSIZE, SQRE, D( START ), E( START ), U( START, START ), LDU, VT( START, START ), LDVT, SMLSIZ, IWORK, WORK( WSTART ), INFO )
             ELSE
-               CALL DLASDA( ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ),
-     $                      E( START ), Q( START+( IU+QSTART-2 )*N ), N,
-     $                      Q( START+( IVT+QSTART-2 )*N ),
-     $                      IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )*
-     $                      N ), Q( START+( DIFR+QSTART-2 )*N ),
-     $                      Q( START+( Z+QSTART-2 )*N ),
-     $                      Q( START+( POLES+QSTART-2 )*N ),
-     $                      IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ),
-     $                      N, IQ( START+PERM*N ),
-     $                      Q( START+( GIVNUM+QSTART-2 )*N ),
-     $                      Q( START+( IC+QSTART-2 )*N ),
-     $                      Q( START+( IS+QSTART-2 )*N ),
-     $                      WORK( WSTART ), IWORK, INFO )
+               CALL DLASDA( ICOMPQ, SMLSIZ, NSIZE, SQRE, D( START ), E( START ), Q( START+( IU+QSTART-2 )*N ), N, Q( START+( IVT+QSTART-2 )*N ), IQ( START+K*N ), Q( START+( DIFL+QSTART-2 )* N ), Q( START+( DIFR+QSTART-2 )*N ), Q( START+( Z+QSTART-2 )*N ), Q( START+( POLES+QSTART-2 )*N ), IQ( START+GIVPTR*N ), IQ( START+GIVCOL*N ), N, IQ( START+PERM*N ), Q( START+( GIVNUM+QSTART-2 )*N ), Q( START+( IC+QSTART-2 )*N ), Q( START+( IS+QSTART-2 )*N ), WORK( WSTART ), IWORK, INFO )
             END IF
             IF( INFO.NE.0 ) THEN
                RETURN
@@ -309,8 +272,7 @@
 *     If B is lower bidiagonal, update U by those Givens rotations
 *     which rotated B to be upper bidiagonal
 *
-      IF( ( IUPLO.EQ.2 ) .AND. ( ICOMPQ.EQ.2 ) )
-     $   CALL DLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
+      IF( ( IUPLO.EQ.2 ) .AND. ( ICOMPQ.EQ.2 ) ) CALL DLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU )
 *
       RETURN
 *

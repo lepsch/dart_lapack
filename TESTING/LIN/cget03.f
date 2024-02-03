@@ -1,5 +1,4 @@
-      SUBROUTINE CGET03( N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK,
-     $                   RCOND, RESID )
+      SUBROUTINE CGET03( N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), AINV( LDAINV, * ),
-     $                   WORK( LDWORK, * )
+      COMPLEX            A( LDA, * ), AINV( LDAINV, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I
@@ -62,8 +59,7 @@
 *
 *     Compute I - A * AINV
 *
-      CALL CGEMM( 'No transpose', 'No transpose', N, N, N, -CONE,
-     $            AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK )
+      CALL CGEMM( 'No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK )
       DO 10 I = 1, N
          WORK( I, I ) = CONE + WORK( I, I )
    10 CONTINUE

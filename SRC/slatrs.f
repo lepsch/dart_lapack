@@ -1,5 +1,4 @@
-      SUBROUTINE SLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X, SCALE,
-     $                   CNORM, INFO )
+      SUBROUTINE SLATRS( UPLO, TRANS, DIAG, NORMIN, N, A, LDA, X, SCALE, CNORM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
       INTEGER            I, IMAX, J, JFIRST, JINC, JLAST
-      REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS,
-     $                   TMAX, TSCAL, USCAL, XBND, XJ, XMAX
+      REAL               BIGNUM, GROW, REC, SMLNUM, SUMJ, TJJ, TJJS, TMAX, TSCAL, USCAL, XBND, XJ, XMAX
 *     ..
 *     .. Local Arrays ..
       REAL               WORK(1)
@@ -52,13 +50,11 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT.
-     $         LSAME( NORMIN, 'N' ) ) THEN
+      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -73,8 +69,7 @@
 *     Quick return if possible
 *
       SCALE = ONE
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine machine dependent parameters to control overflow.
 *
@@ -130,16 +125,14 @@
 *              A is upper triangular.
 *
                DO J = 2, N
-                  TMAX = MAX( SLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ),
-     $                        TMAX )
+                  TMAX = MAX( SLANGE( 'M', J-1, 1, A( 1, J ), 1, WORK ), TMAX )
                END DO
             ELSE
 *
 *              A is lower triangular.
 *
                DO J = 1, N - 1
-                  TMAX = MAX( SLANGE( 'M', N-J, 1, A( J+1, J ), 1,
-     $                        WORK ), TMAX )
+                  TMAX = MAX( SLANGE( 'M', N-J, 1, A( J+1, J ), 1, WORK ), TMAX )
                END DO
             END IF
 *
@@ -154,13 +147,11 @@
                      CNORM( J ) = ZERO
                      IF( UPPER ) THEN
                         DO I = 1, J - 1
-                           CNORM( J ) = CNORM( J ) +
-     $                                  TSCAL * ABS( A( I, J ) )
+                           CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
                         END DO
                      ELSE
                         DO I = J + 1, N
-                           CNORM( J ) = CNORM( J ) +
-     $                                  TSCAL * ABS( A( I, J ) )
+                           CNORM( J ) = CNORM( J ) + TSCAL * ABS( A( I, J ) )
                         END DO
                      END IF
                   END IF
@@ -212,8 +203,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 50
+               IF( GROW.LE.SMLNUM ) GO TO 50
 *
 *              M(j) = G(j-1) / abs(A(j,j))
 *
@@ -243,8 +233,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 50
+               IF( GROW.LE.SMLNUM ) GO TO 50
 *
 *              G(j) = G(j-1)*( 1 + CNORM(j) )
 *
@@ -285,8 +274,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 80
+               IF( GROW.LE.SMLNUM ) GO TO 80
 *
 *              G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 *
@@ -296,8 +284,7 @@
 *              M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 *
                TJJ = ABS( A( J, J ) )
-               IF( XJ.GT.TJJ )
-     $            XBND = XBND*( TJJ / XJ )
+               IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
    60       CONTINUE
             GROW = MIN( GROW, XBND )
          ELSE
@@ -311,8 +298,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 80
+               IF( GROW.LE.SMLNUM ) GO TO 80
 *
 *              G(j) = ( 1 + CNORM(j) )*G(j-1)
 *
@@ -356,8 +342,7 @@
                   TJJS = A( J, J )*TSCAL
                ELSE
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE )
-     $               GO TO 95
+                  IF( TSCAL.EQ.ONE ) GO TO 95
                END IF
                   TJJ = ABS( TJJS )
                   IF( TJJ.GT.SMLNUM ) THEN
@@ -442,8 +427,7 @@
 *                    Compute the update
 *                       x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
 *
-                     CALL SAXPY( J-1, -X( J )*TSCAL, A( 1, J ), 1, X,
-     $                           1 )
+                     CALL SAXPY( J-1, -X( J )*TSCAL, A( 1, J ), 1, X, 1 )
                      I = ISAMAX( J-1, X, 1 )
                      XMAX = ABS( X( I ) )
                   END IF
@@ -453,8 +437,7 @@
 *                    Compute the update
 *                       x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
 *
-                     CALL SAXPY( N-J, -X( J )*TSCAL, A( J+1, J ), 1,
-     $                           X( J+1 ), 1 )
+                     CALL SAXPY( N-J, -X( J )*TSCAL, A( J+1, J ), 1, X( J+1 ), 1 )
                      I = J + ISAMAX( N-J, X( J+1 ), 1 )
                      XMAX = ABS( X( I ) )
                   END IF
@@ -535,8 +518,7 @@
                      TJJS = A( J, J )*TSCAL
                   ELSE
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE )
-     $                  GO TO 135
+                     IF( TSCAL.EQ.ONE ) GO TO 135
                   END IF
 *
 *                    Compute x(j) = x(j) / A(j,j), scaling if necessary.

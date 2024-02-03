@@ -1,5 +1,4 @@
-      SUBROUTINE SSYT01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C,
-     $                     LDC, RWORK, RESID )
+      SUBROUTINE SSYT01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ),
-     $                   E( * ), RWORK( * )
+      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), E( * ), RWORK( * )
 *     ..
 *
 *  =====================================================================
@@ -61,13 +59,11 @@
 *
 *     3) Call SLAVSY_ROOK to form the product D * U' (or D * L' ).
 *
-      CALL SLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL SLAVSY_ROOK( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     4) Call SLAVSY_ROOK again to multiply by U (or L ).
 *
-      CALL SLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL SLAVSY_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     5) Compute the difference  C - A.
 *
@@ -90,8 +86,7 @@
       RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF

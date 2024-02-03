@@ -1,8 +1,4 @@
-      SUBROUTINE CLATME( N, DIST, ISEED, D, MODE, COND, DMAX,
-     $  RSIGN,
-     $                   UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM,
-     $  A,
-     $                   LDA, WORK, INFO )
+      SUBROUTINE CLATME( N, DIST, ISEED, D, MODE, COND, DMAX, RSIGN, UPPER, SIM, DS, MODES, CONDS, KL, KU, ANORM, A, LDA, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,8 +30,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADS
-      INTEGER            I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN,
-     $                   ISIM, IUPPER, J, JC, JCR
+      INTEGER            I, IC, ICOLS, IDIST, IINFO, IR, IROWS, IRSIGN, ISIM, IUPPER, J, JC, JCR
       REAL               RALPHA, TEMP
       COMPLEX            ALPHA, TAU, XNORMS
 *     ..
@@ -49,9 +44,7 @@
       EXTERNAL           LSAME, CLANGE, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE,
-     $                   CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1,
-     $                   XERBLA
+      EXTERNAL           CCOPY, CGEMV, CGERC, CLACGV, CLARFG, CLARGE, CLARNV, CLATM1, CLASET, CSCAL, CSSCAL, SLATM1, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CONJG, MAX, MOD
@@ -65,8 +58,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Decode DIST
 *
@@ -117,8 +109,7 @@
       BADS = .FALSE.
       IF( MODES.EQ.0 .AND. ISIM.EQ.1 ) THEN
          DO 10 J = 1, N
-            IF( DS( J ).EQ.ZERO )
-     $         BADS = .TRUE.
+            IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
    10    CONTINUE
       END IF
 *
@@ -130,8 +121,7 @@
          INFO = -2
       ELSE IF( ABS( MODE ).GT.6 ) THEN
          INFO = -5
-      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE )
-     $          THEN
+      ELSE IF( ( MODE.NE.0 .AND. ABS( MODE ).NE.6 ) .AND. COND.LT.ONE ) THEN
          INFO = -6
       ELSE IF( IRSIGN.EQ.-1 ) THEN
          INFO = -9
@@ -164,8 +154,7 @@
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
    20 CONTINUE
 *
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 )
-     $   ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
 *     2)      Set up diagonal of A
 *
@@ -272,19 +261,12 @@
             WORK( 1 ) = CONE
             ALPHA = CLARND( 5, ISEED )
 *
-            CALL CGEMV( 'C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA,
-     $                  WORK, 1, CZERO, WORK( IROWS+1 ), 1 )
-            CALL CGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1,
-     $                  A( JCR, IC+1 ), LDA )
+            CALL CGEMV( 'C', IROWS, ICOLS, CONE, A( JCR, IC+1 ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK, 1, WORK( IROWS+1 ), 1, A( JCR, IC+1 ), LDA )
 *
-            CALL CGEMV( 'N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1,
-     $                  CZERO, WORK( IROWS+1 ), 1 )
-            CALL CGERC( N, IROWS, -CONJG( TAU ), WORK( IROWS+1 ), 1,
-     $                  WORK, 1, A( 1, JCR ), LDA )
+            CALL CGEMV( 'N', N, IROWS, CONE, A( 1, JCR ), LDA, WORK, 1, CZERO, WORK( IROWS+1 ), 1 )             CALL CGERC( N, IROWS, -CONJG( TAU ), WORK( IROWS+1 ), 1, WORK, 1, A( 1, JCR ), LDA )
 *
             A( JCR, IC ) = XNORMS
-            CALL CLASET( 'Full', IROWS-1, 1, CZERO, CZERO,
-     $                   A( JCR+1, IC ), LDA )
+            CALL CLASET( 'Full', IROWS-1, 1, CZERO, CZERO, A( JCR+1, IC ), LDA )
 *
             CALL CSCAL( ICOLS+1, ALPHA, A( JCR, IC ), LDA )
             CALL CSCAL( N, CONJG( ALPHA ), A( 1, JCR ), 1 )
@@ -306,19 +288,12 @@
             CALL CLACGV( ICOLS-1, WORK( 2 ), 1 )
             ALPHA = CLARND( 5, ISEED )
 *
-            CALL CGEMV( 'N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA,
-     $                  WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )
-            CALL CGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1,
-     $                  A( IR+1, JCR ), LDA )
+            CALL CGEMV( 'N', IROWS, ICOLS, CONE, A( IR+1, JCR ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( IROWS, ICOLS, -TAU, WORK( ICOLS+1 ), 1, WORK, 1, A( IR+1, JCR ), LDA )
 *
-            CALL CGEMV( 'C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1,
-     $                  CZERO, WORK( ICOLS+1 ), 1 )
-            CALL CGERC( ICOLS, N, -CONJG( TAU ), WORK, 1,
-     $                  WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
+            CALL CGEMV( 'C', ICOLS, N, CONE, A( JCR, 1 ), LDA, WORK, 1, CZERO, WORK( ICOLS+1 ), 1 )             CALL CGERC( ICOLS, N, -CONJG( TAU ), WORK, 1, WORK( ICOLS+1 ), 1, A( JCR, 1 ), LDA )
 *
             A( IR, JCR ) = XNORMS
-            CALL CLASET( 'Full', 1, ICOLS-1, CZERO, CZERO,
-     $                   A( IR, JCR+1 ), LDA )
+            CALL CLASET( 'Full', 1, ICOLS-1, CZERO, CZERO, A( IR, JCR+1 ), LDA )
 *
             CALL CSCAL( IROWS+1, ALPHA, A( IR, JCR ), 1 )
             CALL CSCAL( N, CONJG( ALPHA ), A( JCR, 1 ), LDA )

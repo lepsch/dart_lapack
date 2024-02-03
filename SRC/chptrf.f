@@ -23,10 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC,
-     $                   KSTEP, KX, NPP
-      REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX,
-     $                   TT
+      INTEGER            I, IMAX, J, JMAX, K, KC, KK, KNC, KP, KPC, KSTEP, KX, NPP       REAL               ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT
       COMPLEX            D12, D21, T, WK, WKM1, WKP1, ZDUM
 *     ..
 *     .. External Functions ..
@@ -81,8 +78,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 110
+         IF( K.LT.1 ) GO TO 110
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -104,8 +100,7 @@
 *
 *           Column K is zero: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             AP( KC+K-1 ) = REAL( AP( KC+K-1 ) )
          ELSE
@@ -140,8 +135,7 @@
 *                 no interchange, use 1-by-1 pivot block
 *
                   KP = K
-               ELSE IF( ABS( REAL( AP( KPC+IMAX-1 ) ) ).GE.ALPHA*
-     $                  ROWMAX ) THEN
+               ELSE IF( ABS( REAL( AP( KPC+IMAX-1 ) ) ).GE.ALPHA* ROWMAX ) THEN
 *
 *                 interchange rows and columns K and IMAX, use 1-by-1
 *                 pivot block
@@ -158,8 +152,7 @@
             END IF
 *
             KK = K - KSTEP + 1
-            IF( KSTEP.EQ.2 )
-     $         KNC = KNC - K + 1
+            IF( KSTEP.EQ.2 ) KNC = KNC - K + 1
             IF( KP.NE.KK ) THEN
 *
 *              Interchange rows and columns KK and KP in the leading
@@ -185,8 +178,7 @@
                END IF
             ELSE
                AP( KC+K-1 ) = REAL( AP( KC+K-1 ) )
-               IF( KSTEP.EQ.2 )
-     $            AP( KC-1 ) = REAL( AP( KC-1 ) )
+               IF( KSTEP.EQ.2 ) AP( KC-1 ) = REAL( AP( KC-1 ) )
             END IF
 *
 *           Update the leading submatrix
@@ -225,8 +217,7 @@
 *
                IF( K.GT.2 ) THEN
 *
-                  D = SLAPY2( REAL( AP( K-1+( K-1 )*K / 2 ) ),
-     $                AIMAG( AP( K-1+( K-1 )*K / 2 ) ) )
+                  D = SLAPY2( REAL( AP( K-1+( K-1 )*K / 2 ) ), AIMAG( AP( K-1+( K-1 )*K / 2 ) ) )
                   D22 = REAL( AP( K-1+( K-2 )*( K-1 ) / 2 ) ) / D
                   D11 = REAL( AP( K+( K-1 )*K / 2 ) ) / D
                   TT = ONE / ( D11*D22-ONE )
@@ -234,19 +225,13 @@
                   D = TT / D
 *
                   DO 50 J = K - 2, 1, -1
-                     WKM1 = D*( D11*AP( J+( K-2 )*( K-1 ) / 2 )-
-     $                      CONJG( D12 )*AP( J+( K-1 )*K / 2 ) )
-                     WK = D*( D22*AP( J+( K-1 )*K / 2 )-D12*
-     $                    AP( J+( K-2 )*( K-1 ) / 2 ) )
+                     WKM1 = D*( D11*AP( J+( K-2 )*( K-1 ) / 2 )- CONJG( D12 )*AP( J+( K-1 )*K / 2 ) )                      WK = D*( D22*AP( J+( K-1 )*K / 2 )-D12* AP( J+( K-2 )*( K-1 ) / 2 ) )
                      DO 40 I = J, 1, -1
-                        AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) -
-     $                     AP( I+( K-1 )*K / 2 )*CONJG( WK ) -
-     $                     AP( I+( K-2 )*( K-1 ) / 2 )*CONJG( WKM1 )
+                        AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*CONJG( WK ) - AP( I+( K-2 )*( K-1 ) / 2 )*CONJG( WKM1 )
    40                CONTINUE
                      AP( J+( K-1 )*K / 2 ) = WK
                      AP( J+( K-2 )*( K-1 ) / 2 ) = WKM1
-                     AP( J+( J-1 )*J / 2 ) = CMPLX( REAL( AP( J+( J-1 )*
-     $                                       J / 2 ) ), 0.0E+0 )
+                     AP( J+( J-1 )*J / 2 ) = CMPLX( REAL( AP( J+( J-1 )* J / 2 ) ), 0.0E+0 )
    50             CONTINUE
 *
                END IF
@@ -284,8 +269,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 110
+         IF( K.GT.N ) GO TO 110
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -307,8 +291,7 @@
 *
 *           Column K is zero: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             AP( KC ) = REAL( AP( KC ) )
          ELSE
@@ -359,16 +342,13 @@
             END IF
 *
             KK = K + KSTEP - 1
-            IF( KSTEP.EQ.2 )
-     $         KNC = KNC + N - K + 1
+            IF( KSTEP.EQ.2 ) KNC = KNC + N - K + 1
             IF( KP.NE.KK ) THEN
 *
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ),
-     $                        1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 )
                KX = KNC + KP - KK
                DO 80 J = KK + 1, KP - 1
                   KX = KX + N - J + 1
@@ -388,8 +368,7 @@
                END IF
             ELSE
                AP( KC ) = REAL( AP( KC ) )
-               IF( KSTEP.EQ.2 )
-     $            AP( KNC ) = REAL( AP( KNC ) )
+               IF( KSTEP.EQ.2 ) AP( KNC ) = REAL( AP( KNC ) )
             END IF
 *
 *           Update the trailing submatrix
@@ -409,8 +388,7 @@
 *                 A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 *
                   R1 = ONE / REAL( AP( KC ) )
-                  CALL CHPR( UPLO, N-K, -R1, AP( KC+1 ), 1,
-     $                       AP( KC+N-K+1 ) )
+                  CALL CHPR( UPLO, N-K, -R1, AP( KC+1 ), 1, AP( KC+N-K+1 ) )
 *
 *                 Store L(k) in column K
 *
@@ -435,8 +413,7 @@
 *                 where L(k) and L(k+1) are the k-th and (k+1)-th
 *                 columns of L
 *
-                  D = SLAPY2( REAL( AP( K+1+( K-1 )*( 2*N-K ) / 2 ) ),
-     $                AIMAG( AP( K+1+( K-1 )*( 2*N-K ) / 2 ) ) )
+                  D = SLAPY2( REAL( AP( K+1+( K-1 )*( 2*N-K ) / 2 ) ), AIMAG( AP( K+1+( K-1 )*( 2*N-K ) / 2 ) ) )
                   D11 = REAL( AP( K+1+K*( 2*N-K-1 ) / 2 ) ) / D
                   D22 = REAL( AP( K+( K-1 )*( 2*N-K ) / 2 ) ) / D
                   TT = ONE / ( D11*D22-ONE )
@@ -444,21 +421,13 @@
                   D = TT / D
 *
                   DO 100 J = K + 2, N
-                     WK = D*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-D21*
-     $                    AP( J+K*( 2*N-K-1 ) / 2 ) )
-                     WKP1 = D*( D22*AP( J+K*( 2*N-K-1 ) / 2 )-
-     $                      CONJG( D21 )*AP( J+( K-1 )*( 2*N-K ) / 2 ) )
+                     WK = D*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-D21* AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- CONJG( D21 )*AP( J+( K-1 )*( 2*N-K ) / 2 ) )
                      DO 90 I = J, N
-                        AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )*
-     $                     ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) /
-     $                     2 )*CONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )*
-     $                     CONJG( WKP1 )
+                        AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*CONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )* CONJG( WKP1 )
    90                CONTINUE
                      AP( J+( K-1 )*( 2*N-K ) / 2 ) = WK
                      AP( J+K*( 2*N-K-1 ) / 2 ) = WKP1
-                     AP( J+( J-1 )*( 2*N-J ) / 2 )
-     $                  = CMPLX( REAL( AP( J+( J-1 )*( 2*N-J ) / 2 ) ),
-     $                  0.0E+0 )
+                     AP( J+( J-1 )*( 2*N-J ) / 2 ) = CMPLX( REAL( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0E+0 )
   100             CONTINUE
                END IF
             END IF

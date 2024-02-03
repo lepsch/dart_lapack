@@ -1,6 +1,4 @@
-      SUBROUTINE DGEJSV( JOBA, JOBU, JOBV, JOBR, JOBT, JOBP,
-     $                   M, N, A, LDA, SVA, U, LDU, V, LDV,
-     $                   WORK, LWORK, IWORK, INFO )
+      SUBROUTINE DGEJSV( JOBA, JOBU, JOBV, JOBR, JOBT, JOBP, M, N, A, LDA, SVA, U, LDU, V, LDV, WORK, LWORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +9,7 @@
       INTEGER     INFO, LDA, LDU, LDV, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ),
-     $            WORK( LWORK )
+      DOUBLE PRECISION A( LDA, * ), SVA( N ), U( LDU, * ), V( LDV, * ), WORK( LWORK )
       INTEGER     IWORK( * )
       CHARACTER*1 JOBA, JOBP, JOBR, JOBT, JOBU, JOBV
 *     ..
@@ -24,13 +21,9 @@
       PARAMETER ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION AAPP, AAQQ, AATMAX, AATMIN, BIG, BIG1, COND_OK,
-     $        CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM,
-     $        SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC
+      DOUBLE PRECISION AAPP, AAQQ, AATMAX, AATMIN, BIG, BIG1, COND_OK, CONDR1, CONDR2, ENTRA,  ENTRAT, EPSLN,  MAXPRJ, SCALEM, SCONDA, SFMIN,  SMALL,  TEMP1,  USCAL1, USCAL2, XSC
       INTEGER IERR,   N1,     NR,     NUMRANK,        p, q,   WARNING
-      LOGICAL ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC,
-     $        L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN,
-     $        NOSCAL, ROWPIV, RSVEC,  TRANSP
+      LOGICAL ALMORT, DEFR,   ERREST, GOSCAL, JRACC,  KILL,   LSVEC, L2ABER, L2KILL, L2PERT, L2RANK, L2TRAN, NOSCAL, ROWPIV, RSVEC,  TRANSP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC DABS, DLOG, MAX, MIN, DBLE, IDNINT, DSIGN, DSQRT
@@ -42,9 +35,7 @@
       EXTERNAL  IDAMAX, LSAME, DLAMCH, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL  DCOPY,  DGELQF, DGEQP3, DGEQRF, DLACPY, DLASCL,
-     $          DLASET, DLASSQ, DLASWP, DORGQR, DORMLQ,
-     $          DORMQR, DPOCON, DSCAL,  DSWAP,  DTRSM,  XERBLA
+      EXTERNAL  DCOPY,  DGELQF, DGEQP3, DGEQRF, DLACPY, DLASCL, DLASET, DLASSQ, DLASWP, DORGQR, DORMLQ, DORMQR, DPOCON, DSCAL,  DSWAP,  DTRSM,  XERBLA
 *
       EXTERNAL  DGESVJ
 *     ..
@@ -63,14 +54,11 @@
       DEFR   = LSAME( JOBR, 'N' )
       L2PERT = LSAME( JOBP, 'P' )
 *
-      IF ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR.
-     $     ERREST .OR. LSAME( JOBA, 'C' ) )) THEN
+      IF ( .NOT.(ROWPIV .OR. L2RANK .OR. L2ABER .OR. ERREST .OR. LSAME( JOBA, 'C' ) )) THEN
          INFO = - 1
-      ELSE IF ( .NOT.( LSVEC  .OR. LSAME( JOBU, 'N' ) .OR.
-     $                             LSAME( JOBU, 'W' )) ) THEN
+      ELSE IF ( .NOT.( LSVEC  .OR. LSAME( JOBU, 'N' ) .OR. LSAME( JOBU, 'W' )) ) THEN
          INFO = - 2
-      ELSE IF ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR.
-     $   LSAME( JOBV, 'W' )) .OR. ( JRACC .AND. (.NOT.LSVEC) ) ) THEN
+      ELSE IF ( .NOT.( RSVEC .OR. LSAME( JOBV, 'N' ) .OR. LSAME( JOBV, 'W' )) .OR. ( JRACC .AND. (.NOT.LSVEC) ) ) THEN
          INFO = - 3
       ELSE IF ( .NOT. ( L2KILL .OR. DEFR ) )    THEN
          INFO = - 4
@@ -88,19 +76,7 @@
          INFO = - 13
       ELSE IF ( RSVEC .AND. ( LDV .LT. N ) ) THEN
          INFO = - 15
-      ELSE IF ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST).AND.
-     &                           (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR.
-     & (.NOT.(LSVEC .OR. RSVEC) .AND. ERREST .AND.
-     &                         (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR.
-     & (LSVEC .AND. (.NOT.RSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1)))
-     & .OR.
-     & (RSVEC .AND. (.NOT.LSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1)))
-     & .OR.
-     & (LSVEC .AND. RSVEC .AND. (.NOT.JRACC) .AND.
-     &                          (LWORK.LT.MAX(2*M+N,6*N+2*N*N)))
-     & .OR. (LSVEC .AND. RSVEC .AND. JRACC .AND.
-     &                          LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6)))
-     &   THEN
+      ELSE IF ( (.NOT.(LSVEC .OR. RSVEC .OR. ERREST).AND. (LWORK .LT. MAX(7,4*N+1,2*M+N))) .OR. (.NOT.(LSVEC .OR. RSVEC) .AND. ERREST .AND. (LWORK .LT. MAX(7,4*N+N*N,2*M+N))) .OR. (LSVEC .AND. (.NOT.RSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (RSVEC .AND. (.NOT.LSVEC) .AND. (LWORK .LT. MAX(7,2*M+N,4*N+1))) .OR. (LSVEC .AND. RSVEC .AND. (.NOT.JRACC) .AND. (LWORK.LT.MAX(2*M+N,6*N+2*N*N))) .OR. (LSVEC .AND. RSVEC .AND. JRACC .AND. LWORK.LT.MAX(2*M+N,4*N+N*N,2*N+N*N+6))) THEN
          INFO = - 17
       ELSE
 *        #:)
@@ -495,9 +471,7 @@
 *        close-to-rank-deficient.
          TEMP1 = DSQRT(SFMIN)
          DO 3401 p = 2, N
-            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR.
-     $           ( DABS(A(p,p)) .LT. SMALL ) .OR.
-     $           ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
+            IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
  3401    CONTINUE
  3402    CONTINUE
@@ -512,8 +486,7 @@
 *        working hard to get the accuracy not warranted by the data.
          TEMP1  = DSQRT(SFMIN)
          DO 3301 p = 2, N
-            IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR.
-     $          ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
+            IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
  3301    CONTINUE
  3302    CONTINUE
@@ -544,8 +517,7 @@
                   TEMP1 = SVA(IWORK(p))
                   CALL DSCAL( p, ONE/TEMP1, V(1,p), 1 )
  3053          CONTINUE
-               CALL DPOCON( 'U', N, V, LDV, ONE, TEMP1,
-     $              WORK(N+1), IWORK(2*N+M+1), IERR )
+               CALL DPOCON( 'U', N, V, LDV, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR )
             ELSE IF ( LSVEC ) THEN
 *              .. U is available as workspace
                CALL DLACPY( 'U', N, N, A, LDA, U, LDU )
@@ -553,8 +525,7 @@
                   TEMP1 = SVA(IWORK(p))
                   CALL DSCAL( p, ONE/TEMP1, U(1,p), 1 )
  3054          CONTINUE
-               CALL DPOCON( 'U', N, U, LDU, ONE, TEMP1,
-     $              WORK(N+1), IWORK(2*N+M+1), IERR )
+               CALL DPOCON( 'U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR )
             ELSE
                CALL DLACPY( 'U', N, N, A, LDA, WORK(N+1), N )
                DO 3052 p = 1, N
@@ -562,8 +533,7 @@
                   CALL DSCAL( p, ONE/TEMP1, WORK(N+(p-1)*N+1), 1 )
  3052          CONTINUE
 *           .. the columns of R are scaled to have unit Euclidean lengths.
-               CALL DPOCON( 'U', N, WORK(N+1), N, ONE, TEMP1,
-     $              WORK(N+N*N+1), IWORK(2*N+M+1), IERR )
+               CALL DPOCON( 'U', N, WORK(N+1), N, ONE, TEMP1, WORK(N+N*N+1), IWORK(2*N+M+1), IERR )
             END IF
             SCONDA = ONE / DSQRT(TEMP1)
 *           SCONDA is an estimate of DSQRT(||(R^t * R)^(-1)||_1).
@@ -607,9 +577,7 @@
                DO 4947 q = 1, NR
                   TEMP1 = XSC*DABS(A(q,q))
                   DO 4949 p = 1, N
-                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) )
-     $                    .OR. ( p .LT. q ) )
-     $                     A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  4949             CONTINUE
  4947          CONTINUE
             ELSE
@@ -637,9 +605,7 @@
                DO 1947 q = 1, NR
                   TEMP1 = XSC*DABS(A(q,q))
                   DO 1949 p = 1, NR
-                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) )
-     $                       .OR. ( p .LT. q ) )
-     $                   A(p,q) = DSIGN( TEMP1, A(p,q) )
+                     IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
  1949             CONTINUE
  1947          CONTINUE
             ELSE
@@ -650,8 +616,7 @@
 *           triangular matrix (plus perturbation which is ignored in
 *           the part which destroys triangular form (confusing?!))
 *
-            CALL DGESVJ( 'L', 'NoU', 'NoV', NR, NR, A, LDA, SVA,
-     $                      N, V, LDV, WORK, LWORK, INFO )
+            CALL DGESVJ( 'L', 'NoU', 'NoV', NR, NR, A, LDA, SVA, N, V, LDV, WORK, LWORK, INFO )
 *
             SCALEM  = WORK(1)
             NUMRANK = IDNINT(WORK(2))
@@ -669,8 +634,7 @@
  1998       CONTINUE
             CALL DLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
 *
-            CALL DGESVJ( 'L','U','N', N, NR, V,LDV, SVA, NR, A,LDA,
-     $                  WORK, LWORK, INFO )
+            CALL DGESVJ( 'L','U','N', N, NR, V,LDV, SVA, NR, A,LDA, WORK, LWORK, INFO )
             SCALEM  = WORK(1)
             NUMRANK = IDNINT(WORK(2))
 
@@ -683,15 +647,13 @@
             CALL DGELQF( NR, N, A, LDA, WORK, WORK(N+1), LWORK-N, IERR)
             CALL DLACPY( 'Lower', NR, NR, A, LDA, V, LDV )
             CALL DLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
-            CALL DGEQRF( NR, NR, V, LDV, WORK(N+1), WORK(2*N+1),
-     $                   LWORK-2*N, IERR )
+            CALL DGEQRF( NR, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
             DO 8998 p = 1, NR
                CALL DCOPY( NR-p+1, V(p,p), LDV, V(p,p), 1 )
  8998       CONTINUE
             CALL DLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
 *
-            CALL DGESVJ( 'Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U,
-     $                  LDU, WORK(N+1), LWORK, INFO )
+            CALL DGESVJ( 'Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, WORK(N+1), LWORK, INFO )
             SCALEM  = WORK(N+1)
             NUMRANK = IDNINT(WORK(N+2))
             IF ( NR .LT. N ) THEN
@@ -700,8 +662,7 @@
                CALL DLASET( 'A',N-NR,N-NR,ZERO,ONE, V(NR+1,NR+1), LDV )
             END IF
 *
-         CALL DORMLQ( 'Left', 'Transpose', N, N, NR, A, LDA, WORK,
-     $               V, LDV, WORK(N+1), LWORK-N, IERR )
+         CALL DORMLQ( 'Left', 'Transpose', N, N, NR, A, LDA, WORK, V, LDV, WORK(N+1), LWORK-N, IERR )
 *
          END IF
 *
@@ -725,16 +686,14 @@
  1965    CONTINUE
          CALL DLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
 *
-         CALL DGEQRF( N, NR, U, LDU, WORK(N+1), WORK(2*N+1),
-     $              LWORK-2*N, IERR )
+         CALL DGEQRF( N, NR, U, LDU, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
 *
          DO 1967 p = 1, NR - 1
             CALL DCOPY( NR-p, U(p,p+1), LDU, U(p+1,p), 1 )
  1967    CONTINUE
          CALL DLASET( 'Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
 *
-         CALL DGESVJ( 'Lower', 'U', 'N', NR,NR, U, LDU, SVA, NR, A,
-     $        LDA, WORK(N+1), LWORK-N, INFO )
+         CALL DGESVJ( 'Lower', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, WORK(N+1), LWORK-N, INFO )
          SCALEM  = WORK(N+1)
          NUMRANK = IDNINT(WORK(N+2))
 *
@@ -746,11 +705,9 @@
             END IF
          END IF
 *
-         CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U,
-     $               LDU, WORK(N+1), LWORK-N, IERR )
+         CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
 *
-         IF ( ROWPIV )
-     $       CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+         IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 *
          DO 1974 p = 1, N1
             XSC = ONE / DNRM2( M, U(1,p), 1 )
@@ -797,9 +754,7 @@
                DO 2969 q = 1, NR
                   TEMP1 = XSC*DABS( V(q,q) )
                   DO 2968 p = 1, N
-                     IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 )
-     $                   .OR. ( p .LT. q ) )
-     $                   V(p,q) = DSIGN( TEMP1, V(p,q) )
+                     IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
  2968             CONTINUE
  2969          CONTINUE
@@ -816,8 +771,7 @@
                TEMP1 = DNRM2(NR-p+1,WORK(2*N+(p-1)*NR+p),1)
                CALL DSCAL(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1)
  3950       CONTINUE
-            CALL DPOCON('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1,
-     $                   WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR)
+            CALL DPOCON('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR)
             CONDR1 = ONE / DSQRT(TEMP1)
 *           .. here need a second opinion on the condition number
 *           .. then assume worst case scenario
@@ -832,22 +786,19 @@
 *              implementation, this QRF should be implemented as the QRF
 *              of a lower triangular matrix.
 *              R1^t = Q2 * R2
-               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
-     $              LWORK-2*N, IERR )
+               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
 *
                IF ( L2PERT ) THEN
                   XSC = DSQRT(SMALL)/EPSLN
                   DO 3959 p = 2, NR
                      DO 3958 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
-                        IF ( DABS(V(q,p)) .LE. TEMP1 )
-     $                     V(q,p) = DSIGN( TEMP1, V(q,p) )
+                        IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
  3958                CONTINUE
  3959             CONTINUE
                END IF
 *
-               IF ( NR .NE. N )
-     $         CALL DLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N )
+               IF ( NR .NE. N ) CALL DLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N )
 *              .. save ...
 *
 *           .. this transposed copy should be better than naive
@@ -870,8 +821,7 @@
                DO 3003 p = 1, NR
                   IWORK(N+p) = 0
  3003          CONTINUE
-               CALL DGEQP3( N, NR, V, LDV, IWORK(N+1), WORK(N+1),
-     $                  WORK(2*N+1), LWORK-2*N, IERR )
+               CALL DGEQP3( N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
 **               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
 **     $              LWORK-2*N, IERR )
                IF ( L2PERT ) THEN
@@ -879,8 +829,7 @@
                   DO 3969 p = 2, NR
                      DO 3968 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
-                        IF ( DABS(V(q,p)) .LE. TEMP1 )
-     $                     V(q,p) = DSIGN( TEMP1, V(q,p) )
+                        IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
  3968                CONTINUE
  3969             CONTINUE
                END IF
@@ -899,16 +848,14 @@
                   CALL DLASET( 'L',NR-1,NR-1,ZERO,ZERO,V(2,1),LDV )
                END IF
 *              Now, compute R2 = L3 * Q3, the LQ factorization.
-               CALL DGELQF( NR, NR, V, LDV, WORK(2*N+N*NR+1),
-     $               WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
+               CALL DGELQF( NR, NR, V, LDV, WORK(2*N+N*NR+1), WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
 *              .. and estimate the condition number
                CALL DLACPY( 'L',NR,NR,V,LDV,WORK(2*N+N*NR+NR+1),NR )
                DO 4950 p = 1, NR
                   TEMP1 = DNRM2( p, WORK(2*N+N*NR+NR+p), NR )
                   CALL DSCAL( p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR )
  4950          CONTINUE
-               CALL DPOCON( 'L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1,
-     $              WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR )
+               CALL DPOCON( 'L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR )
                CONDR2 = ONE / DSQRT(TEMP1)
 *
                IF ( CONDR2 .GE. COND_OK ) THEN
@@ -944,8 +891,7 @@
 *
             IF ( CONDR1 .LT. COND_OK ) THEN
 *
-               CALL DGESVJ( 'L','U','N',NR,NR,V,LDV,SVA,NR,U,
-     $              LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO )
+               CALL DGESVJ( 'L','U','N',NR,NR,V,LDV,SVA,NR,U, LDU,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,INFO )
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
                DO 3970 p = 1, NR
@@ -966,15 +912,13 @@
 *                 is inverted to get the product of the Jacobi rotations
 *                 used in DGESVJ. The Q-factor from the second QR
 *                 factorization is then built in explicitly.
-                  CALL DTRSM('L','U','T','N',NR,NR,ONE,WORK(2*N+1),
-     $                 N,V,LDV)
+                  CALL DTRSM('L','U','T','N',NR,NR,ONE,WORK(2*N+1), N,V,LDV)
                   IF ( NR .LT. N ) THEN
                     CALL DLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
                     CALL DLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
                     CALL DLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
                   END IF
-                  CALL DORMQR('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1),
-     $                 V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR)
+                  CALL DORMQR('L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR)
                END IF
 *
             ELSE IF ( CONDR2 .LT. COND_OK ) THEN
@@ -985,8 +929,7 @@
 *              is Q3^T*V3 = the product of the Jacobi rotations (applied to
 *              the lower triangular L3 from the LQ factorization of
 *              R2=L3*Q3), pre-multiplied with the transposed Q3.
-               CALL DGESVJ( 'L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U,
-     $              LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
+               CALL DGESVJ( 'L', 'U', 'N', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
                DO 3870 p = 1, NR
@@ -1008,8 +951,7 @@
                   CALL DLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
                   CALL DLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
                END IF
-               CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1),
-     $              V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
             ELSE
 *              Last line of defense.
 * #:(          This is a rather pathological case: no scaled condition
@@ -1022,8 +964,7 @@
 *              defense ensures that DGEJSV completes the task.
 *              Compute the full SVD of L3 using DGESVJ with explicit
 *              accumulation of Jacobi rotations.
-               CALL DGESVJ( 'L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U,
-     $              LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
+               CALL DGESVJ( 'L', 'U', 'V', NR, NR, V, LDV, SVA, NR, U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, INFO )
                SCALEM  = WORK(2*N+N*NR+NR+1)
                NUMRANK = IDNINT(WORK(2*N+N*NR+NR+2))
                IF ( NR .LT. N ) THEN
@@ -1031,12 +972,9 @@
                   CALL DLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
                   CALL DLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
                END IF
-               CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1),
-     $              V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+               CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
 *
-               CALL DORMLQ( 'L', 'T', NR, NR, NR, WORK(2*N+1), N,
-     $              WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1),
-     $              LWORK-2*N-N*NR-NR, IERR )
+               CALL DORMLQ( 'L', 'T', NR, NR, NR, WORK(2*N+1), N, WORK(2*N+N*NR+1), U, LDU, WORK(2*N+N*NR+NR+1), LWORK-2*N-N*NR-NR, IERR )
                DO 773 q = 1, NR
                   DO 772 p = 1, NR
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
@@ -1061,8 +999,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
   973          CONTINUE
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) )
-     $           CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
  1972       CONTINUE
 *           At this moment, V contains the right singular vectors of A.
 *           Next, assemble the left singular vector matrix U (M x N).
@@ -1077,22 +1014,19 @@
 *           The Q matrix from the first QRF is built into the left singular
 *           matrix U. This applies to all cases.
 *
-            CALL DORMQR( 'Left', 'No_Tr', M, N1, N, A, LDA, WORK, U,
-     $           LDU, WORK(N+1), LWORK-N, IERR )
+            CALL DORMQR( 'Left', 'No_Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
 
 *           The columns of U are normalized. The cost is O(M*N) flops.
             TEMP1 = DSQRT(DBLE(M)) * EPSLN
             DO 1973 p = 1, NR
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) )
-     $          CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
  1973       CONTINUE
 *
 *           If the initial QRF is computed with row pivoting, the left
 *           singular vectors must be adjusted.
 *
-            IF ( ROWPIV )
-     $          CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 *
          ELSE
 *
@@ -1112,8 +1046,7 @@
                CALL DLASET( 'Lower',N-1,N-1,ZERO,ZERO,WORK(N+2),N )
             END IF
 *
-            CALL DGESVJ( 'Upper', 'U', 'N', N, N, WORK(N+1), N, SVA,
-     $           N, U, LDU, WORK(N+N*N+1), LWORK-N-N*N, INFO )
+            CALL DGESVJ( 'Upper', 'U', 'N', N, N, WORK(N+1), N, SVA, N, U, LDU, WORK(N+N*N+1), LWORK-N-N*N, INFO )
 *
             SCALEM  = WORK(N+N*N+1)
             NUMRANK = IDNINT(WORK(N+N*N+2))
@@ -1122,16 +1055,14 @@
                CALL DSCAL( N, SVA(p), WORK(N+(p-1)*N+1), 1 )
  6970       CONTINUE
 *
-            CALL DTRSM( 'Left', 'Upper', 'NoTrans', 'No UD', N, N,
-     $           ONE, A, LDA, WORK(N+1), N )
+            CALL DTRSM( 'Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA, WORK(N+1), N )
             DO 6972 p = 1, N
                CALL DCOPY( N, WORK(N+p), N, V(IWORK(p),1), LDV )
  6972       CONTINUE
             TEMP1 = DSQRT(DBLE(N))*EPSLN
             DO 6971 p = 1, N
                XSC = ONE / DNRM2( N, V(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) )
-     $            CALL DSCAL( N, XSC, V(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
  6971       CONTINUE
 *
 *           Assemble the left singular vector matrix U (M x N).
@@ -1143,17 +1074,14 @@
                   CALL DLASET( 'A',M-N,N1-N, ZERO, ONE,U(N+1,N+1),LDU )
                END IF
             END IF
-            CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U,
-     $           LDU, WORK(N+1), LWORK-N, IERR )
+            CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
             TEMP1 = DSQRT(DBLE(M))*EPSLN
             DO 6973 p = 1, N1
                XSC = ONE / DNRM2( M, U(1,p), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) )
-     $            CALL DSCAL( M, XSC, U(1,p), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
  6973       CONTINUE
 *
-            IF ( ROWPIV )
-     $         CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 *
          END IF
 *
@@ -1180,18 +1108,14 @@
             DO 5969 q = 1, NR
                TEMP1 = XSC*DABS( V(q,q) )
                DO 5968 p = 1, N
-                  IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 )
-     $                .OR. ( p .LT. q ) )
-     $                V(p,q) = DSIGN( TEMP1, V(p,q) )
+                  IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
  5968          CONTINUE
  5969       CONTINUE
          ELSE
             CALL DLASET( 'U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV )
          END IF
-
-         CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
-     $        LWORK-2*N, IERR )
+          CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR )
          CALL DLACPY( 'L', N, NR, V, LDV, WORK(2*N+1), N )
 *
          DO 7969 p = 1, NR
@@ -1209,9 +1133,7 @@
          ELSE
             CALL DLASET('U', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU )
          END IF
-
-         CALL DGESVJ( 'G', 'U', 'V', NR, NR, U, LDU, SVA,
-     $        N, V, LDV, WORK(2*N+N*NR+1), LWORK-2*N-N*NR, INFO )
+          CALL DGESVJ( 'G', 'U', 'V', NR, NR, U, LDU, SVA, N, V, LDV, WORK(2*N+N*NR+1), LWORK-2*N-N*NR, INFO )
          SCALEM  = WORK(2*N+N*NR+1)
          NUMRANK = IDNINT(WORK(2*N+N*NR+2))
 
@@ -1220,9 +1142,7 @@
             CALL DLASET( 'A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV )
             CALL DLASET( 'A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV )
          END IF
-
-         CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1),
-     $        V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
+          CALL DORMQR( 'L','N',N,N,NR,WORK(2*N+1),N,WORK(N+1), V,LDV,WORK(2*N+N*NR+NR+1),LWORK-2*N-N*NR-NR,IERR )
 *
 *           Permute the rows of V using the (column) permutation from the
 *           first QRF. Also, scale the columns to make them unit in
@@ -1237,8 +1157,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p)
  8973          CONTINUE
                XSC = ONE / DNRM2( N, V(1,q), 1 )
-               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) )
-     $           CALL DSCAL( N, XSC, V(1,q), 1 )
+               IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
  7972       CONTINUE
 *
 *           At this moment, V contains the right singular vectors of A.
@@ -1252,11 +1171,9 @@
             END IF
          END IF
 *
-         CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U,
-     $        LDU, WORK(N+1), LWORK-N, IERR )
+         CALL DORMQR( 'Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
 *
-            IF ( ROWPIV )
-     $         CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
+            IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 *
 *
          END IF

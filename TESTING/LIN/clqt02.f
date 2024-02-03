@@ -1,5 +1,4 @@
-      SUBROUTINE CLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE CLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), L( LDA, * ),
-     $                   Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -63,8 +61,7 @@
 *
 *     Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 *
-      CALL CGEMM( 'No transpose', 'Conjugate transpose', K, M, N,
-     $            CMPLX( -ONE ), A, LDA, Q, LDA, CMPLX( ONE ), L, LDA )
+      CALL CGEMM( 'No transpose', 'Conjugate transpose', K, M, N, CMPLX( -ONE ), A, LDA, Q, LDA, CMPLX( ONE ), L, LDA )
 *
 *     Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 *
@@ -79,8 +76,7 @@
 *     Compute I - Q*Q'
 *
       CALL CLASET( 'Full', M, M, CMPLX( ZERO ), CMPLX( ONE ), L, LDA )
-      CALL CHERK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L,
-     $            LDA )
+      CALL CHERK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA )
 *
 *     Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *

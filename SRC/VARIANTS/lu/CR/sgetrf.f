@@ -50,8 +50,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -70,10 +69,7 @@
 *
 *           Update current block.
 *
-            CALL SGEMM( 'No transpose', 'No transpose',
-     $                 M-J+1, JB, J-1, -ONE,
-     $                 A( J, 1 ), LDA, A( 1, J ), LDA, ONE,
-     $                 A( J, J ), LDA )
+            CALL SGEMM( 'No transpose', 'No transpose', M-J+1, JB, J-1, -ONE, A( J, 1 ), LDA, A( 1, J ), LDA, ONE, A( J, J ), LDA )
 
 *
 *           Factor diagonal and subdiagonal blocks and test for exact
@@ -83,8 +79,7 @@
 *
 *           Adjust INFO and the pivot indices.
 *
-            IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $         INFO = IINFO + J - 1
+            IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
    10       CONTINUE
@@ -97,19 +92,13 @@
 *
 *              Apply interchanges to column J+JB:N
 *
-               CALL SLASWP( N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1,
-     $                     IPIV, 1 )
+               CALL SLASWP( N-J-JB+1, A( 1, J+JB ), LDA, J, J+JB-1, IPIV, 1 )
 *
-               CALL SGEMM( 'No transpose', 'No transpose',
-     $                    JB, N-J-JB+1, J-1, -ONE,
-     $                    A( J, 1 ), LDA, A( 1, J+JB ), LDA, ONE,
-     $                    A( J, J+JB ), LDA )
+               CALL SGEMM( 'No transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( J, 1 ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA )
 *
 *              Compute block row of U.
 *
-               CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit',
-     $                    JB, N-J-JB+1, ONE, A( J, J ), LDA,
-     $                    A( J, J+JB ), LDA )
+               CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
             END IF
 
    20    CONTINUE

@@ -1,5 +1,4 @@
-      SUBROUTINE SPOCON( UPLO, N, A, LDA, ANORM, RCOND, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE SPOCON( UPLO, N, A, LDA, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -85,26 +84,22 @@
 *
 *           Multiply by inv(U**T).
 *
-            CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A,
-     $                   LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL SLATRS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**T).
 *
-            CALL SLATRS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, A,
-     $                   LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL SLATRS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -112,8 +107,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL SRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -121,8 +115,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
       RETURN

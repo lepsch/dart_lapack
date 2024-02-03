@@ -80,8 +80,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 70
+         IF( K.LT.1 ) GO TO 70
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -105,8 +104,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -154,8 +152,7 @@
 *              submatrix A(1:k,1:k)
 *
                CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
-               CALL CSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ),
-     $                     LDA )
+               CALL CSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -212,8 +209,7 @@
                      WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) )
                      WK = D12*( D22*A( J, K )-A( J, K-1 ) )
                      DO 20 I = J, 1, -1
-                        A( I, J ) = A( I, J ) - A( I, K )*WK -
-     $                              A( I, K-1 )*WKM1
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1
    20                CONTINUE
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
@@ -250,8 +246,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 70
+         IF( K.GT.N ) GO TO 70
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -275,8 +270,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -323,10 +317,7 @@
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
-               CALL CSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ),
-     $                     LDA )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                CALL CSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -354,8 +345,7 @@
 *                 A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 *
                   R1 = CONE / A( K, K )
-                  CALL CSYR( UPLO, N-K, -R1, A( K+1, K ), 1,
-     $                       A( K+1, K+1 ), LDA )
+                  CALL CSYR( UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
 *
 *                 Store L(k) in column K
 *
@@ -385,8 +375,7 @@
                      WK = D21*( D11*A( J, K )-A( J, K+1 ) )
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
                      DO 50 I = J, N
-                        A( I, J ) = A( I, J ) - A( I, K )*WK -
-     $                              A( I, K+1 )*WKP1
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1
    50                CONTINUE
                      A( J, K ) = WK
                      A( J, K+1 ) = WKP1

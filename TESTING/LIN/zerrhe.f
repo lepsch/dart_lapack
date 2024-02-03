@@ -24,22 +24,14 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       DOUBLE PRECISION   R( NMAX ), R1( NMAX ), R2( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), W( 2*NMAX ), X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZHECON, ZHECON_3, ZHECON_ROOK,
-     $                   ZHERFS, ZHETF2, ZHETF2_RK, ZHETF2_ROOK, ZHETRF,
-     $                   ZHETRF_RK, ZHETRF_ROOK, ZHETRF_AA, 
-     $                   ZHETRF_AA_2STAGE, ZHETRI,
-     $                   ZHETRI_3, ZHETRI_3X, ZHETRI_ROOK, ZHETRI2,
-     $                   ZHETRI2X, ZHETRS, ZHETRS_3, ZHETRS_ROOK,
-     $                   ZHETRS_AA, ZHETRS_AA_2STAGE, ZHPCON, ZHPRFS,
-     $                   ZHPTRF, ZHPTRI, ZHPTRS
+      EXTERNAL           ALAESM, CHKXER, ZHECON, ZHECON_3, ZHECON_ROOK, ZHERFS, ZHETF2, ZHETF2_RK, ZHETF2_ROOK, ZHETRF, ZHETRF_RK, ZHETRF_ROOK, ZHETRF_AA, ZHETRF_AA_2STAGE, ZHETRI, ZHETRI_3, ZHETRI_3X, ZHETRI_ROOK, ZHETRI2, ZHETRI2X, ZHETRS, ZHETRS_3, ZHETRS_ROOK, ZHETRS_AA, ZHETRS_AA_2STAGE, ZHPCON, ZHPRFS, ZHPTRF, ZHPTRI, ZHPTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -63,10 +55,7 @@
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
-            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                  -1.D0 / DBLE( I+J ) )
-            AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                   -1.D0 / DBLE( I+J ) )
+            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
    10    CONTINUE
          B( J ) = 0.D0
          E( J ) = 0.D0
@@ -179,32 +168,25 @@
 *
          SRNAMT = 'ZHERFS'
          INFOT = 1
-         CALL ZHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHERFS', INFOT, NOUT, LERR, OK )
 *
 *        ZHECON
@@ -466,7 +448,7 @@
          INFOT = 10
          CALL ZHETRS_AA( 'U', 0, 1, A, 1, IP, B, 1, W, -2, INFO )
          CALL CHKXER( 'ZHETRS_AA', INFOT, NOUT, LERR, OK )
-*        
+*
       ELSE IF( LSAMEN( 2, C2, 'S2' ) ) THEN
 *
 *        Test error exits of the routines that use factorization
@@ -476,52 +458,41 @@
 *
          SRNAMT = 'ZHETRF_AA_2STAGE'
          INFOT = 1
-         CALL ZHETRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1,
-     $                          INFO )
+         CALL ZHETRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHETRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZHETRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'ZHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0,
-     $                           INFO )
+         CALL ZHETRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'ZHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
 *        ZHETRS_AA_2STAGE
 *
          SRNAMT = 'ZHETRS_AA_2STAGE'
          INFOT = 1
-         CALL ZHETRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHETRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHETRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP,
-     $                          B, 1, INFO )
+         CALL ZHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'ZHETRS_AA_STAGE', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
@@ -570,24 +541,19 @@
 *
          SRNAMT = 'ZHPRFS'
          INFOT = 1
-         CALL ZHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL ZHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL ZHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZHPRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZHPCON

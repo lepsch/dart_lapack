@@ -24,23 +24,15 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
-      REAL               R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   S( NMAX ), ERR_BNDS_N( NMAX, 3 ),
-     $                   ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), W( 2*NMAX ), X( NMAX )
+      REAL               R( NMAX ), R1( NMAX ), R2( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHECON, CHECON_3, CHECON_ROOK, CHERFS,
-     $                   CHETF2, CHETF2_RK, CHETF2_ROOK, CHETRF,
-     $                   CHETRF_RK, CHETRF_ROOK, CHETRI, CHETRI_3,
-     $                   CHETRI_3X, CHETRI_ROOK, CHETRI2, CHETRI2X,
-     $                   CHETRS, CHETRS_3, CHETRS_ROOK, CHKXER, CHPCON,
-     $                   CHPRFS, CHPTRF, CHPTRI, CHPTRS, CHERFSX
+      EXTERNAL           ALAESM, CHECON, CHECON_3, CHECON_ROOK, CHERFS, CHETF2, CHETF2_RK, CHETF2_ROOK, CHETRF, CHETRF_RK, CHETRF_ROOK, CHETRI, CHETRI_3, CHETRI_3X, CHETRI_ROOK, CHETRI2, CHETRI2X, CHETRS, CHETRS_3, CHETRS_ROOK, CHKXER, CHPCON, CHPRFS, CHPTRF, CHPTRI, CHPTRS, CHERFSX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -178,32 +170,25 @@
 *
          SRNAMT = 'CHERFS'
          INFOT = 1
-         CALL CHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
 *
 *        CHECON
@@ -228,45 +213,29 @@
          NPARAMS = 0
          SRNAMT = 'CHERFSX'
          INFOT = 1
-         CALL CHERFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHERFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          EQ = 'N'
          INFOT = 3
-         CALL CHERFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CHERFSX( 'U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CHERFSX( 'U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, R, INFO )
+         CALL CHERFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, R, INFO )
          CALL CHKXER( 'CHERFSX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
@@ -510,24 +479,19 @@
 *
          SRNAMT = 'CHPRFS'
          INFOT = 1
-         CALL CHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
 *
 *        CHPCON

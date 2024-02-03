@@ -24,8 +24,7 @@
 *     .. Local Arrays ..
       LOGICAL            SEL( NMAX )
       DOUBLE PRECISION   RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ),
-     $                   C( NMAX, NMAX ), WORK( LW ), X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, ZTREXC, ZTRSEN, ZTRSNA, ZTRSYL
@@ -91,36 +90,28 @@
 *
       SRNAMT = 'ZTRSYL3'
       INFOT = 1
-      CALL ZTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL ZTRSYL3( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL ZTRSYL3( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL ZTRSYL3( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL ZTRSYL3( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL ZTRSYL3( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL ZTRSYL3( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL ZTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL ZTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'ZTRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
@@ -166,40 +157,31 @@
 *
       SRNAMT = 'ZTRSNA'
       INFOT = 1
-      CALL ZTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL ZTRSNA( 'B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL ZTRSNA( 'B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 6
-      CALL ZTRSNA( 'V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL ZTRSNA( 'V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 8
-      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 10
-      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL ZTRSNA( 'B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL ZTRSNA( 'B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 16
-      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M,
-     $             WORK, 1, RW, INFO )
+      CALL ZTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'ZTRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
 *
@@ -208,36 +190,28 @@
       SEL( 1 ) = .FALSE.
       SRNAMT = 'ZTRSEN'
       INFOT = 1
-      CALL ZTRSEN( 'X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL ZTRSEN( 'X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL ZTRSEN( 'N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL ZTRSEN( 'N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL ZTRSEN( 'N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ),
-     $             SEP( 1 ), WORK, 1, INFO )
+      CALL ZTRSEN( 'N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 6
-      CALL ZTRSEN( 'N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 2, INFO )
+      CALL ZTRSEN( 'N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 2, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 8
-      CALL ZTRSEN( 'N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL ZTRSEN( 'N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL ZTRSEN( 'N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 0, INFO )
+      CALL ZTRSEN( 'N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ), WORK, 0, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL ZTRSEN( 'E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL ZTRSEN( 'E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL ZTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 3, INFO )
+      CALL ZTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 3, INFO )
       CALL CHKXER( 'ZTRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *

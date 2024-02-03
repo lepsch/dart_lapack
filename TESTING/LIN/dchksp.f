@@ -1,6 +1,4 @@
-      SUBROUTINE DCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR,
-     $                   NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK,
-     $                   IWORK, NOUT )
+      SUBROUTINE DCHKSP( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NSVAL( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   RWORK( * ), WORK( * ), X( * ), XACT( * )
+      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -32,9 +29,7 @@
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, PACKIT, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IMAT, IN, INFO, IOFF, IRHS, IUPLO,
-     $                   IZERO, J, K, KL, KU, LDA, MODE, N, NERRS,
-     $                   NFAIL, NIMAT, NPP, NRHS, NRUN, NT
+      INTEGER            I, I1, I2, IMAT, IN, INFO, IOFF, IRHS, IUPLO, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NPP, NRHS, NRUN, NT
       DOUBLE PRECISION   ANORM, CNDNUM, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -48,10 +43,7 @@
       EXTERNAL           LSAME, DGET06, DLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRSY, DGET04,
-     $                   DLACPY, DLARHS, DLATB4, DLATMS, DPPT02, DPPT03,
-     $                   DPPT05, DSPCON, DSPRFS, DSPT01, DSPTRF, DSPTRI,
-     $                   DSPTRS
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DERRSY, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DPPT02, DPPT03, DPPT05, DSPCON, DSPRFS, DSPT01, DSPTRF, DSPTRI, DSPTRS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -84,8 +76,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL DERRSY( PATH, NOUT )
+      IF( TSTERR ) CALL DERRSY( PATH, NOUT )
       INFOT = 0
 *
 *     Do for each value of N in NVAL
@@ -95,22 +86,19 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          IZERO = 0
          DO 160 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 160
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 160
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 160
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 160
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -125,19 +113,15 @@
 *              Set up parameters with DLATB4 and generate a test matrix
 *              with DLATMS.
 *
-               CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'DLATMS'
-               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK,
-     $                      INFO )
+               CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
 *
 *              Check error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 150
                END IF
 *
@@ -234,9 +218,7 @@
 *
 *              Check error code from DSPTRF.
 *
-               IF( INFO.NE.K )
-     $            CALL ALAERH( PATH, 'DSPTRF', INFO, K, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.K ) CALL ALAERH( PATH, 'DSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                IF( INFO.NE.0 ) THEN
                   TRFCON = .TRUE.
                ELSE
@@ -246,8 +228,7 @@
 *+    TEST 1
 *              Reconstruct matrix from factors and compute residual.
 *
-               CALL DSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK,
-     $                      RESULT( 1 ) )
+               CALL DSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
                NT = 1
 *
 *+    TEST 2
@@ -260,12 +241,9 @@
 *
 *              Check error code from DSPTRI.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'DSPTRI', INFO, 0, UPLO, N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL DPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK,
-     $                         RCONDC, RESULT( 2 ) )
+                  CALL DPPT03( UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
                   NT = 2
                END IF
 *
@@ -274,10 +252,7 @@
 *
                DO 110 K = 1, NT
                   IF( RESULT( K ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K,
-     $                  RESULT( K )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   END IF
   110          CONTINUE
@@ -297,62 +272,42 @@
 *              Solve and compute residual for  A * X = B.
 *
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU,
-     $                         NRHS, A, LDA, XACT, LDA, B, LDA, ISEED,
-     $                         INFO )
+                  CALL DLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                   SRNAMT = 'DSPTRS'
-                  CALL DSPTRS( UPLO, N, NRHS, AFAC, IWORK, X, LDA,
-     $                         INFO )
+                  CALL DSPTRS( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
 *
 *              Check error code from DSPTRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'DSPTRS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, NRHS, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL DPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA,
-     $                         RWORK, RESULT( 3 ) )
+                  CALL DPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
 *
 *+    TEST 4
 *              Check solution from generated exact solution.
 *
-                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                         RESULT( 4 ) )
+                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
 *
 *+    TESTS 5, 6, and 7
 *              Use iterative refinement to improve the solution.
 *
                   SRNAMT = 'DSPRFS'
-                  CALL DSPRFS( UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X,
-     $                         LDA, RWORK, RWORK( NRHS+1 ), WORK,
-     $                         IWORK( N+1 ), INFO )
+                  CALL DSPRFS( UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
 *              Check error code from DSPRFS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'DSPRFS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, NRHS, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                         RESULT( 5 ) )
-                  CALL DPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT,
-     $                         LDA, RWORK, RWORK( NRHS+1 ),
-     $                         RESULT( 6 ) )
+                  CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                   CALL DPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   DO 120 K = 3, 7
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT,
-     $                     K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   120             CONTINUE
@@ -365,24 +320,18 @@
   140          CONTINUE
                ANORM = DLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'DSPCON'
-               CALL DSPCON( UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK,
-     $                      IWORK( N+1 ), INFO )
+               CALL DSPCON( UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
 *
 *              Check error code from DSPCON.
 *
-               IF( INFO.NE.0 )
-     $            CALL ALAERH( PATH, 'DSPCON', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
                RESULT( 8 ) = DGET06( RCOND, RCONDC )
 *
 *              Print the test ratio if it is .GE. THRESH.
 *
                IF( RESULT( 8 ).GE.THRESH ) THEN
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $               CALL ALAHD( NOUT, PATH )
-                  WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8,
-     $               RESULT( 8 )
+                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 )
                   NFAIL = NFAIL + 1
                END IF
                NRUN = NRUN + 1

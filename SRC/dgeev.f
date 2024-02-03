@@ -1,5 +1,4 @@
-      SUBROUTINE DGEEV( JOBVL, JOBVR, N, A, LDA, WR, WI, VL, LDVL, VR,
-     $                  LDVR, WORK, LWORK, INFO )
+      SUBROUTINE DGEEV( JOBVL, JOBVR, N, A, LDA, WR, WI, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
       implicit none
 *
 *  -- LAPACK driver routine --
@@ -11,8 +10,7 @@
       INTEGER            INFO, LDA, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WI( * ), WORK( * ), WR( * )
+      DOUBLE PRECISION   A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
 *  =====================================================================
@@ -24,25 +22,20 @@
 *     .. Local Scalars ..
       LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR
       CHARACTER          SIDE
-      INTEGER            HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K,
-     $                   LWORK_TREVC, MAXWRK, MINWRK, NOUT
-      DOUBLE PRECISION   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM,
-     $                   SN
+      INTEGER            HSWORK, I, IBAL, IERR, IHI, ILO, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       DOUBLE PRECISION   ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( 1 )
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG,
-     $                   DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
+      EXTERNAL           DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLARTG, DLASCL, DORGHR, DROT, DSCAL, DTREVC3, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            IDAMAX, ILAENV
       DOUBLE PRECISION   DLAMCH, DLANGE, DLAPY2, DNRM2
-      EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2,
-     $                   DNRM2
+      EXTERNAL           LSAME, IDAMAX, ILAENV, DLAMCH, DLANGE, DLAPY2, DNRM2
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -87,36 +80,25 @@
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             IF( WANTVL ) THEN
                MINWRK = 4*N
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1,
-     $                       'DORGHR', ' ', N, 1, N, -1 ) )
-               CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL,
-     $                      WORK, -1, INFO )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
-               CALL DTREVC3( 'L', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR, N, NOUT,
-     $                       WORK, -1, IERR )
+               CALL DTREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                MAXWRK = MAX( MAXWRK, 4*N )
             ELSE IF( WANTVR ) THEN
                MINWRK = 4*N
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1,
-     $                       'DORGHR', ' ', N, 1, N, -1 ) )
-               CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR,
-     $                      WORK, -1, INFO )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
-               CALL DTREVC3( 'R', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR, N, NOUT,
-     $                       WORK, -1, IERR )
+               CALL DTREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
                MAXWRK = MAX( MAXWRK, 4*N )
             ELSE
                MINWRK = 3*N
-               CALL DHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR,
-     $                      WORK, -1, INFO )
+               CALL DHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
             END IF
@@ -138,8 +120,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -160,8 +141,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       END IF
-      IF( SCALEA )
-     $   CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      IF( SCALEA ) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *     Balance the matrix
 *     (Workspace: need N)
@@ -174,8 +154,7 @@
 *
       ITAU = IBAL + N
       IWRK = ITAU + N
-      CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ),
-     $             LWORK-IWRK+1, IERR )
+      CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
       IF( WANTVL ) THEN
 *
@@ -188,15 +167,13 @@
 *        Generate orthogonal matrix in VL
 *        (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *
-         CALL DORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL DORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VL
 *        (Workspace: need N+1, prefer N+HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
          IF( WANTVR ) THEN
 *
@@ -218,15 +195,13 @@
 *        Generate orthogonal matrix in VR
 *        (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *
-         CALL DORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL DORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VR
 *        (Workspace: need N+1, prefer N+HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL DHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
       ELSE
 *
@@ -234,22 +209,19 @@
 *        (Workspace: need N+1, prefer N+HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL DHSEQR( 'E', 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL DHSEQR( 'E', 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
       END IF
 *
 *     If INFO .NE. 0 from DHSEQR, then quit
 *
-      IF( INFO.NE.0 )
-     $   GO TO 50
+      IF( INFO.NE.0 ) GO TO 50
 *
       IF( WANTVL .OR. WANTVR ) THEN
 *
 *        Compute left and/or right eigenvectors
 *        (Workspace: need 4*N, prefer N + N + 2*N*NB)
 *
-         CALL DTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR,
-     $                 N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
+         CALL DTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
 *
       IF( WANTVL ) THEN
@@ -257,8 +229,7 @@
 *        Undo balancing of left eigenvectors
 *        (Workspace: need N)
 *
-         CALL DGEBAK( 'B', 'L', N, ILO, IHI, WORK( IBAL ), N, VL, LDVL,
-     $                IERR )
+         CALL DGEBAK( 'B', 'L', N, ILO, IHI, WORK( IBAL ), N, VL, LDVL, IERR )
 *
 *        Normalize left eigenvectors and make largest component real
 *
@@ -267,8 +238,7 @@
                SCL = ONE / DNRM2( N, VL( 1, I ), 1 )
                CALL DSCAL( N, SCL, VL( 1, I ), 1 )
             ELSE IF( WI( I ).GT.ZERO ) THEN
-               SCL = ONE / DLAPY2( DNRM2( N, VL( 1, I ), 1 ),
-     $               DNRM2( N, VL( 1, I+1 ), 1 ) )
+               SCL = ONE / DLAPY2( DNRM2( N, VL( 1, I ), 1 ), DNRM2( N, VL( 1, I+1 ), 1 ) )
                CALL DSCAL( N, SCL, VL( 1, I ), 1 )
                CALL DSCAL( N, SCL, VL( 1, I+1 ), 1 )
                DO 10 K = 1, N
@@ -287,8 +257,7 @@
 *        Undo balancing of right eigenvectors
 *        (Workspace: need N)
 *
-         CALL DGEBAK( 'B', 'R', N, ILO, IHI, WORK( IBAL ), N, VR, LDVR,
-     $                IERR )
+         CALL DGEBAK( 'B', 'R', N, ILO, IHI, WORK( IBAL ), N, VR, LDVR, IERR )
 *
 *        Normalize right eigenvectors and make largest component real
 *
@@ -297,8 +266,7 @@
                SCL = ONE / DNRM2( N, VR( 1, I ), 1 )
                CALL DSCAL( N, SCL, VR( 1, I ), 1 )
             ELSE IF( WI( I ).GT.ZERO ) THEN
-               SCL = ONE / DLAPY2( DNRM2( N, VR( 1, I ), 1 ),
-     $               DNRM2( N, VR( 1, I+1 ), 1 ) )
+               SCL = ONE / DLAPY2( DNRM2( N, VR( 1, I ), 1 ), DNRM2( N, VR( 1, I+1 ), 1 ) )
                CALL DSCAL( N, SCL, VR( 1, I ), 1 )
                CALL DSCAL( N, SCL, VR( 1, I+1 ), 1 )
                DO 30 K = 1, N
@@ -316,15 +284,9 @@
 *
    50 CONTINUE
       IF( SCALEA ) THEN
-         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ),
-     $                MAX( N-INFO, 1 ), IERR )
-         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ),
-     $                MAX( N-INFO, 1 ), IERR )
+         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
          IF( INFO.GT.0 ) THEN
-            CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N,
-     $                   IERR )
-            CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N,
-     $                   IERR )
+            CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
          END IF
       END IF
 *

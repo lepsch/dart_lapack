@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  L(:,:), RWORK(:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:), L(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
 *
 *     .. Parameters ..
       DOUBLE PRECISION ONE, ZERO
@@ -47,9 +45,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(N,N), L(LL,N), RWORK(LL),
-     $           WORK(LWORK), T(NB,N), C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(N,N), L(LL,N), RWORK(LL), WORK(LWORK), T(NB,N), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -66,8 +62,7 @@
 *     Generate the n-by-n matrix Q
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, Q, N )
-      CALL DGEMLQT( 'R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N,
-     $              WORK, INFO )
+      CALL DGEMLQT( 'R', 'N', N, N, K, NB, AF, M, T, LDT, Q, N, WORK, INFO )
 *
 *     Copy R
 *
@@ -102,8 +97,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL DGEMLQT( 'L', 'N', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL DGEMLQT( 'L', 'N', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |Q*D - Q*D| / |D|
 *
@@ -121,8 +115,7 @@
 *
 *     Apply Q to D as QT*D
 *
-      CALL DGEMLQT( 'L', 'T', N, M, K, NB, AF, M, T, NB, DF, N,
-     $             WORK, INFO)
+      CALL DGEMLQT( 'L', 'T', N, M, K, NB, AF, M, T, NB, DF, N, WORK, INFO)
 *
 *     Compute |QT*D - QT*D| / |D|
 *
@@ -144,8 +137,7 @@
 *
 *     Apply Q to C as C*Q
 *
-      CALL DGEMLQT( 'R', 'N', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL DGEMLQT( 'R', 'N', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |C*Q - C*Q| / |C|
 *
@@ -163,8 +155,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL DGEMLQT( 'R', 'T', M, N, K, NB, AF, M, T, NB, CF, M,
-     $             WORK, INFO)
+      CALL DGEMLQT( 'R', 'T', M, N, K, NB, AF, M, T, NB, CF, M, WORK, INFO)
 *
 *     Compute |C*QT - C*QT| / |C|
 *

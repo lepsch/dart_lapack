@@ -22,8 +22,7 @@
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2,
-     $                   SCL, T, TEST, TMP, ZETA1, ZETA2
+      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2
       COMPLEX*16         ALPHA, COSINE, SINE
 *     ..
 *     .. Intrinsic Functions ..
@@ -119,8 +118,7 @@
 *
             SINE = -( ALPHA / ABSEST ) / T
             COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
-            TMP = DBLE( SQRT( SINE * DCONJG( SINE )
-     $        + COSINE * DCONJG( COSINE ) ) )
+            TMP = DBLE( SQRT( SINE * DCONJG( SINE ) + COSINE * DCONJG( COSINE ) ) )
 
             S = SINE / TMP
             C = COSINE / TMP
@@ -192,8 +190,7 @@
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
 *
-            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2,
-     $              ZETA1*ZETA2+ZETA2*ZETA2 )
+            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 )
 *
 *           See if root is closer to zero or to ONE
 *
@@ -223,8 +220,7 @@
                COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
                SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST
             END IF
-            TMP = DBLE( SQRT( SINE * DCONJG( SINE )
-     $        + COSINE * DCONJG( COSINE ) ) )
+            TMP = DBLE( SQRT( SINE * DCONJG( SINE ) + COSINE * DCONJG( COSINE ) ) )
             S = SINE / TMP
             C = COSINE / TMP
             RETURN

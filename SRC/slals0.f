@@ -1,21 +1,16 @@
-      SUBROUTINE SLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX,
-     $                   PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM,
-     $                   POLES, DIFL, DIFR, Z, K, C, S, WORK, INFO )
+      SUBROUTINE SLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B, LDB, BX, LDBX, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, POLES, DIFL, DIFR, Z, K, C, S, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL,
-     $                   LDGNUM, NL, NR, NRHS, SQRE
+      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDB, LDBX, LDGCOL, LDGNUM, NL, NR, NRHS, SQRE
       REAL               C, S
 *     ..
 *     .. Array Arguments ..
       INTEGER            GIVCOL( LDGCOL, * ), PERM( * )
-      REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ),
-     $                   DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ),
-     $                   POLES( LDGNUM, * ), WORK( * ), Z( * )
+      REAL               B( LDB, * ), BX( LDBX, * ), DIFL( * ), DIFR( LDGNUM, * ), GIVNUM( LDGNUM, * ), POLES( LDGNUM, * ), WORK( * ), Z( * )
 *     ..
 *
 *  =====================================================================
@@ -29,8 +24,7 @@
       REAL               DIFLJ, DIFRJ, DJ, DSIGJ, DSIGJP, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL,
-     $                   XERBLA
+      EXTERNAL           SCOPY, SGEMV, SLACPY, SLASCL, SROT, SSCAL, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SLAMC3, SNRM2
@@ -84,9 +78,7 @@
 *        Step (1L): apply back the Givens rotations performed.
 *
          DO 10 I = 1, GIVPTR
-            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB,
-     $                 B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ),
-     $                 GIVNUM( I, 1 ) )
+            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) )
    10    CONTINUE
 *
 *        Step (2L): permute rows of B.
@@ -113,16 +105,13 @@
                   DIFRJ = -DIFR( J, 1 )
                   DSIGJP = -POLES( J+1, 2 )
                END IF
-               IF( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) )
-     $              THEN
+               IF( ( Z( J ).EQ.ZERO ) .OR. ( POLES( J, 2 ).EQ.ZERO ) ) THEN
                   WORK( J ) = ZERO
                ELSE
-                  WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ /
-     $                        ( POLES( J, 2 )+DJ )
+                  WORK( J ) = -POLES( J, 2 )*Z( J ) / DIFLJ / ( POLES( J, 2 )+DJ )
                END IF
                DO 30 I = 1, J - 1
-                  IF( ( Z( I ).EQ.ZERO ) .OR.
-     $                ( POLES( I, 2 ).EQ.ZERO ) ) THEN
+                  IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
                      WORK( I ) = ZERO
                   ELSE
 *
@@ -130,35 +119,25 @@
 *                    parentheses (x+y)+z. The goal is to prevent
 *                    optimizing compilers from doing x+(y+z).
 *
-                     WORK( I ) = POLES( I, 2 )*Z( I ) /
-     $                           ( SLAMC3( POLES( I, 2 ), DSIGJ )-
-     $                           DIFLJ ) / ( POLES( I, 2 )+DJ )
+                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   END IF
    30          CONTINUE
                DO 40 I = J + 1, K
-                  IF( ( Z( I ).EQ.ZERO ) .OR.
-     $                ( POLES( I, 2 ).EQ.ZERO ) ) THEN
+                  IF( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) THEN
                      WORK( I ) = ZERO
                   ELSE
-                     WORK( I ) = POLES( I, 2 )*Z( I ) /
-     $                           ( SLAMC3( POLES( I, 2 ), DSIGJP )+
-     $                           DIFRJ ) / ( POLES( I, 2 )+DJ )
+                     WORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
                   END IF
    40          CONTINUE
                WORK( 1 ) = NEGONE
                TEMP = SNRM2( K, WORK, 1 )
-               CALL SGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO,
-     $                     B( J, 1 ), LDB )
-               CALL SLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ),
-     $                      LDB, INFO )
+               CALL SGEMV( 'T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL SLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO )
    50       CONTINUE
          END IF
 *
 *        Move the deflated rows of BX to B also.
 *
-         IF( K.LT.MAX( M, N ) )
-     $      CALL SLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX,
-     $                   B( K+1, 1 ), LDB )
+         IF( K.LT.MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, BX( K+1, 1 ), LDBX, B( K+1, 1 ), LDB )
       ELSE
 *
 *        Apply back the right orthogonal transformations.
@@ -174,8 +153,7 @@
                IF( Z( J ).EQ.ZERO ) THEN
                   WORK( J ) = ZERO
                ELSE
-                  WORK( J ) = -Z( J ) / DIFL( J ) /
-     $                        ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
+                  WORK( J ) = -Z( J ) / DIFL( J ) / ( DSIGJ+POLES( J, 1 ) ) / DIFR( J, 2 )
                END IF
                DO 60 I = 1, J - 1
                   IF( Z( J ).EQ.ZERO ) THEN
@@ -186,22 +164,17 @@
 *                    parentheses (x+y)+z. The goal is to prevent
 *                    optimizing compilers from doing x+(y+z).
 *
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1,
-     $                           2 ) )-DIFR( I, 1 ) ) /
-     $                           ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
+                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   END IF
    60          CONTINUE
                DO 70 I = J + 1, K
                   IF( Z( J ).EQ.ZERO ) THEN
                      WORK( I ) = ZERO
                   ELSE
-                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I,
-     $                           2 ) )-DIFL( I ) ) /
-     $                           ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
+                     WORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   END IF
    70          CONTINUE
-               CALL SGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO,
-     $                     BX( J, 1 ), LDBX )
+               CALL SGEMV( 'T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX )
    80       CONTINUE
          END IF
 *
@@ -212,9 +185,7 @@
             CALL SCOPY( NRHS, B( M, 1 ), LDB, BX( M, 1 ), LDBX )
             CALL SROT( NRHS, BX( 1, 1 ), LDBX, BX( M, 1 ), LDBX, C, S )
          END IF
-         IF( K.LT.MAX( M, N ) )
-     $      CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ),
-     $                   LDBX )
+         IF( K.LT.MAX( M, N ) ) CALL SLACPY( 'A', N-K, NRHS, B( K+1, 1 ), LDB, BX( K+1, 1 ), LDBX )
 *
 *        Step (3R): permute rows of B.
 *
@@ -229,9 +200,7 @@
 *        Step (4R): apply back the Givens rotations performed.
 *
          DO 100 I = GIVPTR, 1, -1
-            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB,
-     $                 B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ),
-     $                 -GIVNUM( I, 1 ) )
+            CALL SROT( NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) )
   100    CONTINUE
       END IF
 *

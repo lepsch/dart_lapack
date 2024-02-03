@@ -1,5 +1,4 @@
-      SUBROUTINE DPTT05( N, NRHS, D, E, B, LDB, X, LDX, XACT, LDXACT,
-     $                   FERR, BERR, RESLTS )
+      SUBROUTINE DPTT05( N, NRHS, D, E, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), E( * ),
-     $                   FERR( * ), RESLTS( * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), E( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -85,15 +82,12 @@
          IF( N.EQ.1 ) THEN
             AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
          ELSE
-            AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) +
-     $             ABS( E( 1 )*X( 2, K ) )
+            AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( E( 1 )*X( 2, K ) )
             DO 40 I = 2, N - 1
-               TMP = ABS( B( I, K ) ) + ABS( E( I-1 )*X( I-1, K ) ) +
-     $               ABS( D( I )*X( I, K ) ) + ABS( E( I )*X( I+1, K ) )
+               TMP = ABS( B( I, K ) ) + ABS( E( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( E( I )*X( I+1, K ) )
                AXBI = MIN( AXBI, TMP )
    40       CONTINUE
-            TMP = ABS( B( N, K ) ) + ABS( E( N-1 )*X( N-1, K ) ) +
-     $            ABS( D( N )*X( N, K ) )
+            TMP = ABS( B( N, K ) ) + ABS( E( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) )
             AXBI = MIN( AXBI, TMP )
          END IF
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )

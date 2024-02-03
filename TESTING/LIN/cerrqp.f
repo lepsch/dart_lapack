@@ -22,8 +22,7 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       REAL               RW( 2*NMAX )
-      COMPLEX            A( NMAX, NMAX ), TAU( NMAX ),
-     $                   W( 2*NMAX+3*NMAX )
+      COMPLEX            A( NMAX, NMAX ), TAU( NMAX ), W( 2*NMAX+3*NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN

@@ -1,6 +1,4 @@
-      SUBROUTINE  ZHB2ST_KERNELS( UPLO, WANTZ, TTYPE,
-     $                            ST, ED, SWEEP, N, NB, IB,
-     $                            A, LDA, V, TAU, LDVT, WORK)
+      SUBROUTINE  ZHB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK)
 *
       IMPLICIT NONE
 *
@@ -14,21 +12,18 @@
       INTEGER            TTYPE, ST, ED, SWEEP, N, NB, IB, LDA, LDVT
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), V( * ),
-     $                   TAU( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), V( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   ONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
-      INTEGER            I, J1, J2, LM, LN, VPOS, TAUPOS,
-     $                   DPOS, OFDPOS, AJETER
+      INTEGER            I, J1, J2, LM, LN, VPOS, TAUPOS, DPOS, OFDPOS, AJETER
       COMPLEX*16         CTMP
 *     ..
 *     .. External Subroutines ..
@@ -76,22 +71,17 @@
                   A( OFDPOS-I, ST+I ) = ZERO
    10         CONTINUE
               CTMP = DCONJG( A( OFDPOS, ST ) )
-              CALL ZLARFG( LM, CTMP, V( VPOS+1 ), 1,
-     $                                       TAU( TAUPOS ) )
+              CALL ZLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
               A( OFDPOS, ST ) = CTMP
 *
               LM = ED - ST + 1
-              CALL ZLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     DCONJG( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL ZLARFY( UPLO, LM, V( VPOS ), 1, DCONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 *
           IF( TTYPE.EQ.3 ) THEN
 *
               LM = ED - ST + 1
-              CALL ZLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     DCONJG( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL ZLARFY( UPLO, LM, V( VPOS ), 1, DCONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
           ENDIF
 *
           IF( TTYPE.EQ.2 ) THEN
@@ -100,9 +90,7 @@
               LN = ED-ST+1
               LM = J2-J1+1
               IF( LM.GT.0) THEN
-                  CALL ZLARFX( 'Left', LN, LM, V( VPOS ),
-     $                         DCONJG( TAU( TAUPOS ) ),
-     $                         A( DPOS-NB, J1 ), LDA-1, WORK)
+                  CALL ZLARFX( 'Left', LN, LM, V( VPOS ), DCONJG( TAU( TAUPOS ) ), A( DPOS-NB, J1 ), LDA-1, WORK)
 *
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -114,17 +102,14 @@
 *
                   V( VPOS ) = ONE
                   DO 30 I = 1, LM-1
-                      V( VPOS+I )          =
-     $                                    DCONJG( A( DPOS-NB-I, J1+I ) )
+                      V( VPOS+I )          = DCONJG( A( DPOS-NB-I, J1+I ) )
                       A( DPOS-NB-I, J1+I ) = ZERO
    30             CONTINUE
                   CTMP = DCONJG( A( DPOS-NB, J1 ) )
                   CALL ZLARFG( LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) )
                   A( DPOS-NB, J1 ) = CTMP
 *
-                  CALL ZLARFX( 'Right', LN-1, LM, V( VPOS ),
-     $                         TAU( TAUPOS ),
-     $                         A( DPOS-NB+1, J1 ), LDA-1, WORK)
+                  CALL ZLARFX( 'Right', LN-1, LM, V( VPOS ), TAU( TAUPOS ), A( DPOS-NB+1, J1 ), LDA-1, WORK)
               ENDIF
           ENDIF
 *
@@ -148,23 +133,18 @@
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
    20         CONTINUE
-              CALL ZLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1,
-     $                                       TAU( TAUPOS ) )
+              CALL ZLARFG( LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
 *
               LM = ED - ST + 1
 *
-              CALL ZLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     DCONJG( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL ZLARFY( UPLO, LM, V( VPOS ), 1, DCONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
 
           ENDIF
 *
           IF( TTYPE.EQ.3 ) THEN
               LM = ED - ST + 1
 *
-              CALL ZLARFY( UPLO, LM, V( VPOS ), 1,
-     $                     DCONJG( TAU( TAUPOS ) ),
-     $                     A( DPOS, ST ), LDA-1, WORK)
+              CALL ZLARFY( UPLO, LM, V( VPOS ), 1, DCONJG( TAU( TAUPOS ) ), A( DPOS, ST ), LDA-1, WORK)
 
           ENDIF
 *
@@ -175,9 +155,7 @@
               LM = J2-J1+1
 *
               IF( LM.GT.0) THEN
-                  CALL ZLARFX( 'Right', LM, LN, V( VPOS ),
-     $                         TAU( TAUPOS ), A( DPOS+NB, ST ),
-     $                         LDA-1, WORK)
+                  CALL ZLARFX( 'Right', LM, LN, V( VPOS ), TAU( TAUPOS ), A( DPOS+NB, ST ), LDA-1, WORK)
 *
                   IF( WANTZ ) THEN
                       VPOS   = MOD( SWEEP-1, 2 ) * N + J1
@@ -192,12 +170,9 @@
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
    40             CONTINUE
-                  CALL ZLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1,
-     $                                        TAU( TAUPOS ) )
+                  CALL ZLARFG( LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) )
 *
-                  CALL ZLARFX( 'Left', LM, LN-1, V( VPOS ),
-     $                         DCONJG( TAU( TAUPOS ) ),
-     $                         A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
+                  CALL ZLARFX( 'Left', LM, LN-1, V( VPOS ), DCONJG( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK)
 
               ENDIF
           ENDIF

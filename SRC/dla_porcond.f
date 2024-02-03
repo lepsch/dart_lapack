@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF,
-     $                                       CMODE, C, INFO, WORK,
-     $                                       IWORK )
+      DOUBLE PRECISION FUNCTION DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +7,7 @@
 *     .. Scalar Arguments ..
       CHARACTER          UPLO
       INTEGER            N, LDA, LDAF, INFO, CMODE
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ),
-     $                   C( * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), WORK( * ), C( * )
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
@@ -179,8 +176,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   DLA_PORCOND = ( 1.0D+0 / AINVNM )
+      IF( AINVNM .NE. 0.0D+0 ) DLA_PORCOND = ( 1.0D+0 / AINVNM )
 *
       RETURN
 *

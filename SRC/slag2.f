@@ -1,5 +1,4 @@
-      SUBROUTINE SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1,
-     $                  WR2, WI )
+      SUBROUTINE SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,12 +23,7 @@
       PARAMETER          ( FUZZY1 = ONE+1.0E-5 )
 *     ..
 *     .. Local Scalars ..
-      REAL               A11, A12, A21, A22, ABI22, ANORM, AS11, AS12,
-     $                   AS22, ASCALE, B11, B12, B22, BINV11, BINV22,
-     $                   BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5,
-     $                   DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2,
-     $                   SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET,
-     $                   WSCALE, WSIZE, WSMALL
+      REAL               A11, A12, A21, A22, ABI22, ANORM, AS11, AS12, AS22, ASCALE, B11, B12, B22, BINV11, BINV22, BMIN, BNORM, BSCALE, BSIZE, C1, C2, C3, C4, C5, DIFF, DISCR, PP, QQ, R, RTMAX, RTMIN, S1, S2, SAFMAX, SHIFT, SS, SUM, WABS, WBIG, WDET, WSCALE, WSIZE, WSMALL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SIGN, SQRT
@@ -42,8 +36,7 @@
 *
 *     Scale A
 *
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ),
-     $        ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
+      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
       ASCALE = ONE / ANORM
       A11 = ASCALE*A( 1, 1 )
       A21 = ASCALE*A( 2, 1 )
@@ -56,10 +49,7 @@
       B12 = B( 1, 2 )
       B22 = B( 2, 2 )
       BMIN = RTMIN*MAX( ABS( B11 ), ABS( B12 ), ABS( B22 ), RTMIN )
-      IF( ABS( B11 ).LT.BMIN )
-     $   B11 = SIGN( BMIN, B11 )
-      IF( ABS( B22 ).LT.BMIN )
-     $   B22 = SIGN( BMIN, B22 )
+      IF( ABS( B11 ).LT.BMIN ) B11 = SIGN( BMIN, B11 )       IF( ABS( B22 ).LT.BMIN ) B22 = SIGN( BMIN, B22 )
 *
 *     Scale B
 *
@@ -175,16 +165,13 @@
 *     Scale first eigenvalue
 *
       WABS = ABS( WR1 ) + ABS( WI )
-      WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ),
-     $        MIN( C4, HALF*MAX( WABS, C5 ) ) )
+      WSIZE = MAX( SAFMIN, C1, FUZZY1*( WABS*C2+C3 ), MIN( C4, HALF*MAX( WABS, C5 ) ) )
       IF( WSIZE.NE.ONE ) THEN
          WSCALE = ONE / WSIZE
          IF( WSIZE.GT.ONE ) THEN
-            SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )*
-     $               MIN( ASCALE, BSIZE )
+            SCALE1 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
          ELSE
-            SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )*
-     $               MAX( ASCALE, BSIZE )
+            SCALE1 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
          END IF
          WR1 = WR1*WSCALE
          IF( WI.NE.ZERO ) THEN
@@ -200,16 +187,13 @@
 *     Scale second eigenvalue (if real)
 *
       IF( WI.EQ.ZERO ) THEN
-         WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ),
-     $           MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
+         WSIZE = MAX( SAFMIN, C1, FUZZY1*( ABS( WR2 )*C2+C3 ), MIN( C4, HALF*MAX( ABS( WR2 ), C5 ) ) )
          IF( WSIZE.NE.ONE ) THEN
             WSCALE = ONE / WSIZE
             IF( WSIZE.GT.ONE ) THEN
-               SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )*
-     $                  MIN( ASCALE, BSIZE )
+               SCALE2 = ( MAX( ASCALE, BSIZE )*WSCALE )* MIN( ASCALE, BSIZE )
             ELSE
-               SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )*
-     $                  MAX( ASCALE, BSIZE )
+               SCALE2 = ( MIN( ASCALE, BSIZE )*WSCALE )* MAX( ASCALE, BSIZE )
             END IF
             WR2 = WR2*WSCALE
          ELSE

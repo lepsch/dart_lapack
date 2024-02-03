@@ -71,14 +71,7 @@
                IF( K.LT.N ) THEN
                   CALL SSCAL( N-K, ONE / BKK, A( K, K+1 ), LDA )
                   CT = -HALF*AKK
-                  CALL SAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ),
-     $                        LDA )
-                  CALL SSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA,
-     $                        B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )
-                  CALL SAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ),
-     $                        LDA )
-                  CALL STRSV( UPLO, 'Transpose', 'Non-unit', N-K,
-     $                        B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
+                  CALL SAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL SSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL SAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL STRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA )
                END IF
    10       CONTINUE
          ELSE
@@ -97,11 +90,9 @@
                   CALL SSCAL( N-K, ONE / BKK, A( K+1, K ), 1 )
                   CT = -HALF*AKK
                   CALL SAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
-                  CALL SSYR2( UPLO, N-K, -ONE, A( K+1, K ), 1,
-     $                        B( K+1, K ), 1, A( K+1, K+1 ), LDA )
+                  CALL SSYR2( UPLO, N-K, -ONE, A( K+1, K ), 1, B( K+1, K ), 1, A( K+1, K+1 ), LDA )
                   CALL SAXPY( N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 )
-                  CALL STRSV( UPLO, 'No transpose', 'Non-unit', N-K,
-     $                        B( K+1, K+1 ), LDB, A( K+1, K ), 1 )
+                  CALL STRSV( UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 )
                END IF
    20       CONTINUE
          END IF
@@ -116,12 +107,10 @@
 *
                AKK = A( K, K )
                BKK = B( K, K )
-               CALL STRMV( UPLO, 'No transpose', 'Non-unit', K-1, B,
-     $                     LDB, A( 1, K ), 1 )
+               CALL STRMV( UPLO, 'No transpose', 'Non-unit', K-1, B, LDB, A( 1, K ), 1 )
                CT = HALF*AKK
                CALL SAXPY( K-1, CT, B( 1, K ), 1, A( 1, K ), 1 )
-               CALL SSYR2( UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1,
-     $                     A, LDA )
+               CALL SSYR2( UPLO, K-1, ONE, A( 1, K ), 1, B( 1, K ), 1, A, LDA )
                CALL SAXPY( K-1, CT, B( 1, K ), 1, A( 1, K ), 1 )
                CALL SSCAL( K-1, BKK, A( 1, K ), 1 )
                A( K, K ) = AKK*BKK**2
@@ -136,12 +125,10 @@
 *
                AKK = A( K, K )
                BKK = B( K, K )
-               CALL STRMV( UPLO, 'Transpose', 'Non-unit', K-1, B, LDB,
-     $                     A( K, 1 ), LDA )
+               CALL STRMV( UPLO, 'Transpose', 'Non-unit', K-1, B, LDB, A( K, 1 ), LDA )
                CT = HALF*AKK
                CALL SAXPY( K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA )
-               CALL SSYR2( UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ),
-     $                     LDB, A, LDA )
+               CALL SSYR2( UPLO, K-1, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, A, LDA )
                CALL SAXPY( K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA )
                CALL SSCAL( K-1, BKK, A( K, 1 ), LDA )
                A( K, K ) = AKK*BKK**2

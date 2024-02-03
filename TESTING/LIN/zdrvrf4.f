@@ -1,5 +1,4 @@
-      SUBROUTINE ZDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A,
-     +                    LDA, D_WORK_ZLANGE )
+      SUBROUTINE ZDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, D_WORK_ZLANGE )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            NVAL( NN )
       DOUBLE PRECISION   D_WORK_ZLANGE( * )
-      COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *),
-     +                   CRF( * )
+      COMPLEX*16         A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * )
 *     ..
 *
 *  =====================================================================
@@ -26,8 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, TRANS
-      INTEGER            I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N,
-     +                   NFAIL, NRUN, IALPHA, ITRANS
+      INTEGER            I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS
       DOUBLE PRECISION   ALPHA, BETA, EPS, NORMA, NORMC
 *     ..
 *     .. Local Arrays ..
@@ -123,8 +120,7 @@
                               END DO
                            END DO
 *
-                           NORMA = ZLANGE( 'I', N, K, A, LDA,
-     +                                      D_WORK_ZLANGE )
+                           NORMA = ZLANGE( 'I', N, K, A, LDA, D_WORK_ZLANGE )
 *
                         ELSE
 *
@@ -136,8 +132,7 @@
                               END DO
                            END DO
 *
-                           NORMA = ZLANGE( 'I', K, N, A, LDA,
-     +                                      D_WORK_ZLANGE )
+                           NORMA = ZLANGE( 'I', K, N, A, LDA, D_WORK_ZLANGE )
 *
                         END IF
 *
@@ -157,30 +152,25 @@
 *                       (See comment later on for why we use ZLANGE and
 *                       not ZLANHE for C1.)
 *
-                        NORMC = ZLANGE( 'I', N, N, C1, LDC,
-     +                                      D_WORK_ZLANGE )
+                        NORMC = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )
 *
                         SRNAMT = 'ZTRTTF'
-                        CALL ZTRTTF( CFORM, UPLO, N, C1, LDC, CRF,
-     +                               INFO )
+                        CALL ZTRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
 *
 *                       call zherk the BLAS routine -> gives C1
 *
                         SRNAMT = 'ZHERK '
-                        CALL ZHERK( UPLO, TRANS, N, K, ALPHA, A, LDA,
-     +                              BETA, C1, LDC )
+                        CALL ZHERK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
 *
 *                       call zhfrk the RFP routine -> gives CRF
 *
                         SRNAMT = 'ZHFRK '
-                        CALL ZHFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A,
-     +                              LDA, BETA, CRF )
+                        CALL ZHFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
 *
 *                       convert CRF in full format -> gives C2
 *
                         SRNAMT = 'ZTFTTR'
-                        CALL ZTFTTR( CFORM, UPLO, N, CRF, C2, LDC,
-     +                               INFO )
+                        CALL ZTFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
 *
 *                       compare C1 and C2
 *
@@ -195,20 +185,14 @@
 *                       supposed to be unchanged and the diagonal that
 *                       is supposed to be real -> ZLANGE
 *
-                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC,
-     +                                      D_WORK_ZLANGE )
-                        RESULT(1) = RESULT(1)
-     +                              / MAX( DABS( ALPHA ) * NORMA * NORMA
-     +                                   + DABS( BETA ) * NORMC, ONE )
-     +                              / MAX( N , 1 ) / EPS
+                        RESULT(1) = ZLANGE( 'I', N, N, C1, LDC, D_WORK_ZLANGE )                         RESULT(1) = RESULT(1) / MAX( DABS( ALPHA ) * NORMA * NORMA + DABS( BETA ) * NORMC, ONE ) / MAX( N , 1 ) / EPS
 *
                         IF( RESULT(1).GE.THRESH ) THEN
                            IF( NFAIL.EQ.0 ) THEN
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )
                            END IF
-                           WRITE( NOUT, FMT = 9997 ) 'ZHFRK',
-     +                        CFORM, UPLO, TRANS, N, K, RESULT(1)
+                           WRITE( NOUT, FMT = 9997 ) 'ZHFRK', CFORM, UPLO, TRANS, N, K, RESULT(1)
                            NFAIL = NFAIL + 1
                         END IF
 *

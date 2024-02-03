@@ -1,5 +1,4 @@
-      SUBROUTINE ZPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK,
-     $                   RWORK, INFO )
+      SUBROUTINE ZPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -94,28 +93,22 @@
 *
 *           Multiply by inv(U**H).
 *
-            CALL ZLATBS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                   NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK,
-     $                   INFO )
+            CALL ZLATBS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL ZLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
+            CALL ZLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL ZLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
+            CALL ZLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, RWORK, INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**H).
 *
-            CALL ZLATBS( 'Lower', 'Conjugate transpose', 'Non-unit',
-     $                   NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK,
-     $                   INFO )
+            CALL ZLATBS( 'Lower', 'Conjugate transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, RWORK, INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -123,8 +116,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = IZAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL ZDRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -132,8 +124,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE DGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK,
-     $                   RESULT )
+      SUBROUTINE DGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       DOUBLE PRECISION   RESULT
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -37,8 +35,7 @@
 *     .. Executable Statements ..
 *
       RESULT = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Constants
 *
@@ -63,11 +60,9 @@
 *           ITYPE=1: Compute W = A - UBV'
 *
             CALL DLACPY( ' ', N, N, A, LDA, WORK, N )
-            CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO,
-     $                  WORK( N**2+1 ), N )
+            CALL DGEMM( 'N', 'N', N, N, N, ONE, U, LDU, B, LDB, ZERO, WORK( N**2+1 ), N )
 *
-            CALL DGEMM( 'N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V,
-     $                  LDV, ONE, WORK, N )
+            CALL DGEMM( 'N', 'C', N, N, N, -ONE, WORK( N**2+1 ), N, V, LDV, ONE, WORK, N )
 *
          ELSE
 *
@@ -77,8 +72,7 @@
 *
             DO 20 JCOL = 1, N
                DO 10 JROW = 1, N
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) )
-     $                - A( JROW, JCOL )
+                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    10          CONTINUE
    20       CONTINUE
          END IF
@@ -103,16 +97,13 @@
 *
 *        ITYPE=3: Compute  UU' - I
 *
-         CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK,
-     $               N )
+         CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
          DO 30 JDIAG = 1, N
-            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+
-     $         1 ) - ONE
+            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - ONE
    30    CONTINUE
 *
-         RESULT = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ),
-     $            DBLE( N ) ) / ( N*ULP )
+         RESULT = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP )
       END IF
 *
       RETURN

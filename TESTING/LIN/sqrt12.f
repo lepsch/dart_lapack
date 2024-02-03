@@ -40,8 +40,7 @@
 *
 *     Test that enough workspace is supplied
 *
-      IF( LWORK.LT.MAX( M*N+4*MIN( M, N )+MAX( M, N ),
-     $                  M*N+2*MIN( M, N )+4*N) ) THEN
+      IF( LWORK.LT.MAX( M*N+4*MIN( M, N )+MAX( M, N ), M*N+2*MIN( M, N )+4*N) ) THEN
          CALL XERBLA( 'SQRT12', 7 )
          RETURN
       END IF
@@ -49,8 +48,7 @@
 *     Quick return if possible
 *
       MN = MIN( M, N )
-      IF( MN.LE.ZERO )
-     $   RETURN
+      IF( MN.LE.ZERO ) RETURN
 *
       NRMSVL = SNRM2( MN, S, 1 )
 *
@@ -90,21 +88,14 @@
 *
 *        Compute SVD of work
 *
-         CALL SGEBD2( M, N, WORK, M, WORK( M*N+1 ), WORK( M*N+MN+1 ),
-     $                WORK( M*N+2*MN+1 ), WORK( M*N+3*MN+1 ),
-     $                WORK( M*N+4*MN+1 ), INFO )
-         CALL SBDSQR( 'Upper', MN, 0, 0, 0, WORK( M*N+1 ),
-     $                WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN,
-     $                WORK( M*N+2*MN+1 ), INFO )
+         CALL SGEBD2( M, N, WORK, M, WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), WORK( M*N+3*MN+1 ), WORK( M*N+4*MN+1 ), INFO )          CALL SBDSQR( 'Upper', MN, 0, 0, 0, WORK( M*N+1 ), WORK( M*N+MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, WORK( M*N+2*MN+1 ), INFO )
 *
          IF( ISCL.EQ.1 ) THEN
             IF( ANRM.GT.BIGNUM ) THEN
-               CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1,
-     $                      WORK( M*N+1 ), MN, INFO )
+               CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
             END IF
             IF( ANRM.LT.SMLNUM ) THEN
-               CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1,
-     $                      WORK( M*N+1 ), MN, INFO )
+               CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, WORK( M*N+1 ), MN, INFO )
             END IF
          END IF
 *
@@ -118,10 +109,7 @@
 *     Compare s and singular values of work
 *
       CALL SAXPY( MN, -ONE, S, 1, WORK( M*N+1 ), 1 )
-      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) /
-     $         ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      IF( NRMSVL.NE.ZERO )
-     $   SQRT12 = SQRT12 / NRMSVL
+      SQRT12 = SASUM( MN, WORK( M*N+1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL.NE.ZERO ) SQRT12 = SQRT12 / NRMSVL
 *
       RETURN
 *

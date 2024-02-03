@@ -52,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -66,14 +65,11 @@
 *
 *           Compute elements 1:J-1 of column J.
 *
-            IF( J.GT.1 )
-     $         CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                     J-1, AP, AP( JC ), 1 )
+            IF( J.GT.1 ) CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', J-1, AP, AP( JC ), 1 )
 *
 *           Compute U(J,J) and test for non-positive-definiteness.
 *
-            AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1,
-     $            AP( JC ), 1, AP( JC ), 1 ) )
+            AJJ = REAL( REAL( AP( JJ ) ) - CDOTC( J-1, AP( JC ), 1, AP( JC ), 1 ) )
             IF( AJJ.LE.ZERO ) THEN
                AP( JJ ) = AJJ
                GO TO 30
@@ -102,8 +98,7 @@
 *
             IF( J.LT.N ) THEN
                CALL CSSCAL( N-J, ONE / AJJ, AP( JJ+1 ), 1 )
-               CALL CHPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1,
-     $                    AP( JJ+N-J+1 ) )
+               CALL CHPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) )
                JJ = JJ + N - J + 1
             END IF
    20    CONTINUE

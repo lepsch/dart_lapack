@@ -1,5 +1,4 @@
-      SUBROUTINE CTRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND,
-     $                   RWORK, RESID )
+      SUBROUTINE CTRT01( UPLO, DIAG, N, A, LDA, AINV, LDAINV, RCOND, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -70,13 +69,11 @@
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          DO 20 J = 1, N
-            CALL CTRMV( 'Upper', 'No transpose', DIAG, J, A, LDA,
-     $                  AINV( 1, J ), 1 )
+            CALL CTRMV( 'Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 )
    20    CONTINUE
       ELSE
          DO 30 J = 1, N
-            CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ),
-     $                  LDA, AINV( J, J ), 1 )
+            CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 )
    30    CONTINUE
       END IF
 *

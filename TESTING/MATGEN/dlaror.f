@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TOOSML
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0,
-     $                   TOOSML = 1.0D-20 )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
@@ -38,8 +37,7 @@
 *     .. Executable Statements ..
 *
       INFO = 0
-      IF( N.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 *
       ITYPE = 0
       IF( LSAME( SIDE, 'L' ) ) THEN
@@ -74,8 +72,7 @@
 *
 *     Initialize A to the identity matrix if desired
 *
-      IF( LSAME( INIT, 'I' ) )
-     $   CALL DLASET( 'Full', M, N, ZERO, ONE, A, LDA )
+      IF( LSAME( INIT, 'I' ) ) CALL DLASET( 'Full', M, N, ZERO, ONE, A, LDA )
 *
 *     If no rotation possible, multiply by random +/-1
 *
@@ -116,10 +113,7 @@
 *
 *           Apply H(k) from the left.
 *
-            CALL DGEMV( 'T', IXFRM, N, ONE, A( KBEG, 1 ), LDA,
-     $                  X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )
-            CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ),
-     $                 1, A( KBEG, 1 ), LDA )
+            CALL DGEMV( 'T', IXFRM, N, ONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( IXFRM, N, -FACTOR, X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 *
          END IF
 *
@@ -127,10 +121,7 @@
 *
 *           Apply H(k) from the right.
 *
-            CALL DGEMV( 'N', M, IXFRM, ONE, A( 1, KBEG ), LDA,
-     $                  X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )
-            CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ),
-     $                 1, A( 1, KBEG ), LDA )
+            CALL DGEMV( 'N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL DGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 *
          END IF
    30 CONTINUE

@@ -1,5 +1,4 @@
-      SUBROUTINE CHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK,
-     $                   LWORK, RWORK, RESULT )
+      SUBROUTINE CHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
-      COMPLEX            A( LDA, * ), H( LDH, * ), Q( LDQ, * ),
-     $                   WORK( LWORK )
+      COMPLEX            A( LDA, * ), H( LDH, * ), Q( LDQ, * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -58,15 +56,11 @@
 *
 *     Compute Q*H
 *
-      CALL CGEMM( 'No transpose', 'No transpose', N, N, N, CMPLX( ONE ),
-     $            Q, LDQ, H, LDH, CMPLX( ZERO ), WORK( LDWORK*N+1 ),
-     $            LDWORK )
+      CALL CGEMM( 'No transpose', 'No transpose', N, N, N, CMPLX( ONE ), Q, LDQ, H, LDH, CMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK )
 *
 *     Compute A - Q*H*Q'
 *
-      CALL CGEMM( 'No transpose', 'Conjugate transpose', N, N, N,
-     $            CMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ,
-     $            CMPLX( ONE ), WORK, LDWORK )
+      CALL CGEMM( 'No transpose', 'Conjugate transpose', N, N, N, CMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, CMPLX( ONE ), WORK, LDWORK )
 *
       ANORM = MAX( CLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
       WNORM = CLANGE( '1', N, N, WORK, LDWORK, RWORK )
@@ -77,8 +71,7 @@
 *
 *     Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 *
-      CALL CUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK,
-     $             RESULT( 2 ) )
+      CALL CUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )
 *
       RETURN
 *

@@ -17,18 +17,11 @@
       REAL               CBIAS
       PARAMETER          ( CBIAS = 1.50E0 )
       REAL               ZERO, HALF, ONE, TWO, FOUR, HUNDRD
-      PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0,
-     $                     TWO = 2.0E0, FOUR = 4.0E0, HUNDRD = 100.0E0 )
+      PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0, TWO = 2.0E0, FOUR = 4.0E0, HUNDRD = 100.0E0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            IEEE
-      INTEGER            I0, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K,
-     $                   KMIN, N0, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE,
-     $                   I1, N1
-      REAL               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN,
-     $                   DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX,
-     $                   QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL,
-     $                   TOL2, TRACE, ZMAX, TEMPE, TEMPQ
+      INTEGER            I0, I4, IINFO, IPN4, ITER, IWHILA, IWHILB, K, KMIN, N0, NBIG, NDIV, NFAIL, PP, SPLT, TTYPE, I1, N1       REAL               D, DEE, DEEMIN, DESIG, DMIN, DMIN1, DMIN2, DN, DN1, DN2, E, EMAX, EMIN, EPS, G, OLDEMN, QMAX, QMIN, S, SAFMIN, SIGMA, T, TAU, TEMP, TOL, TOL2, TRACE, ZMAX, TEMPE, TEMPQ
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLASQ3, SLASRT, XERBLA
@@ -221,8 +214,7 @@
                Z( I4-2*PP-2 ) = D
                Z( I4-2*PP ) = ZERO
                D = Z( I4+1 )
-            ELSE IF( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) .AND.
-     $               SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) THEN
+            ELSE IF( SAFMIN*Z( I4+1 ).LT.Z( I4-2*PP-2 ) .AND. SAFMIN*Z( I4-2*PP-2 ).LT.Z( I4+1 ) ) THEN
                TEMP = Z( I4+1 ) / Z( I4-2*PP-2 )
                Z( I4-2*PP ) = Z( I4-1 )*TEMP
                D = D*TEMP
@@ -262,8 +254,7 @@
       NDIV = 2*( N0-I0 )
 *
       DO 160 IWHILA = 1, N + 1
-         IF( N0.LT.1 )
-     $      GO TO 170
+         IF( N0.LT.1 ) GO TO 170
 *
 *        While array unfinished do
 *
@@ -293,8 +284,7 @@
          QMIN = Z( 4*N0-3 )
          QMAX = QMIN
          DO 90 I4 = 4*N0, 8, -4
-            IF( Z( I4-5 ).LE.ZERO )
-     $         GO TO 100
+            IF( Z( I4-5 ).LE.ZERO ) GO TO 100
             IF( QMIN.GE.FOUR*EMAX ) THEN
                QMIN = MIN( QMIN, Z( I4-3 ) )
                EMAX = MAX( EMAX, Z( I4-5 ) )
@@ -319,8 +309,7 @@
                   KMIN = ( I4+3 )/4
                END IF
   110       CONTINUE
-            IF( (KMIN-I0)*2.LT.N0-KMIN .AND.
-     $         DEEMIN.LE.HALF*Z(4*N0-3) ) THEN
+            IF( (KMIN-I0)*2.LT.N0-KMIN .AND. DEEMIN.LE.HALF*Z(4*N0-3) ) THEN
                IPN4 = 4*( I0+N0 )
                PP = 2
                DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4
@@ -352,29 +341,24 @@
 *
          NBIG = 100*( N0-I0+1 )
          DO 140 IWHILB = 1, NBIG
-            IF( I0.GT.N0 )
-     $         GO TO 150
+            IF( I0.GT.N0 ) GO TO 150
 *
 *           While submatrix unfinished take a good dqds step.
 *
-            CALL SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL,
-     $                   ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1,
-     $                   DN2, G, TAU )
+            CALL SLASQ3( I0, N0, Z, PP, DMIN, SIGMA, DESIG, QMAX, NFAIL, ITER, NDIV, IEEE, TTYPE, DMIN1, DMIN2, DN, DN1, DN2, G, TAU )
 *
             PP = 1 - PP
 *
 *           When EMIN is very small check for splits.
 *
             IF( PP.EQ.0 .AND. N0-I0.GE.3 ) THEN
-               IF( Z( 4*N0 ).LE.TOL2*QMAX .OR.
-     $             Z( 4*N0-1 ).LE.TOL2*SIGMA ) THEN
+               IF( Z( 4*N0 ).LE.TOL2*QMAX .OR. Z( 4*N0-1 ).LE.TOL2*SIGMA ) THEN
                   SPLT = I0 - 1
                   QMAX = Z( 4*I0-3 )
                   EMIN = Z( 4*I0-1 )
                   OLDEMN = Z( 4*I0 )
                   DO 130 I4 = 4*I0, 4*( N0-3 ), 4
-                     IF( Z( I4 ).LE.TOL2*Z( I4-3 ) .OR.
-     $                   Z( I4-1 ).LE.TOL2*SIGMA ) THEN
+                     IF( Z( I4 ).LE.TOL2*Z( I4-3 ) .OR. Z( I4-1 ).LE.TOL2*SIGMA ) THEN
                         Z( I4-1 ) = -SIGMA
                         SPLT = I4 / 4
                         QMAX = ZERO

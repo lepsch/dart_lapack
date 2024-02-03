@@ -23,22 +23,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
-      DOUBLE PRECISION   C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   RF( NMAX ), RW( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), W( 2*NMAX ), X( NMAX )
+      DOUBLE PRECISION   C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), RF( NMAX ), RW( NMAX )       COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZGBSV, ZGBSVX, ZGESV, ZGESVX, ZGTSV,
-     $                   ZGTSVX, ZHESV, ZHESV_RK, ZHESV_ROOK, ZHESVX,
-     $                   ZHPSV, ZHPSVX, ZPBSV, ZPBSVX, ZPOSV, ZPOSVX,
-     $                   ZPPSV, ZPPSVX, ZPTSV, ZPTSVX, ZSPSV, ZSPSVX,
-     $                   ZSYSV, ZSYSV_AA, ZSYSV_RK, ZSYSV_ROOK,
-     $                   ZSYSVX, ZHESV_AA_2STAGE
+      EXTERNAL           CHKXER, ZGBSV, ZGBSVX, ZGESV, ZGESVX, ZGTSV, ZGTSVX, ZHESV, ZHESV_RK, ZHESV_ROOK, ZHESVX, ZHPSV, ZHPSVX, ZPBSV, ZPBSVX, ZPOSV, ZPOSVX, ZPPSV, ZPPSVX, ZPTSV, ZPTSVX, ZSPSV, ZSPSVX, ZSYSV, ZSYSV_AA, ZSYSV_RK, ZSYSV_ROOK, ZSYSVX, ZHESV_AA_2STAGE
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -62,10 +54,7 @@
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
-            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                  -1.D0 / DBLE( I+J ) )
-            AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                   -1.D0 / DBLE( I+J ) )
+            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
    10    CONTINUE
          B( J ) = 0.D0
          E( J ) = 0.D0
@@ -102,51 +91,40 @@
 *
          SRNAMT = 'ZGESVX'
          INFOT = 1
-         CALL ZGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = '/'
-         CALL ZGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ = 'R'
-         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = 'C'
-         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1,
-     $                X, 2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGESVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
@@ -177,59 +155,46 @@
 *
          SRNAMT = 'ZGBSVX'
          INFOT = 1
-         CALL ZGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = '/'
-         CALL ZGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'R'
-         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
          EQ = 'C'
-         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGBSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
@@ -238,12 +203,10 @@
 *
          SRNAMT = 'ZGTSV '
          INFOT = 1
-         CALL ZGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1,
-     $               INFO )
+         CALL ZGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1,
-     $               INFO )
+         CALL ZGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'ZGTSV ', INFOT, NOUT, LERR, OK )
          INFOT = 7
          CALL ZGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
@@ -253,34 +216,22 @@
 *
          SRNAMT = 'ZGTSVX'
          INFOT = 1
-         CALL ZGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
@@ -308,46 +259,36 @@
 *
          SRNAMT = 'ZPOSVX'
          INFOT = 1
-         CALL ZPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
          EQ = '/'
-         CALL ZPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = 'Y'
-         CALL ZPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPOSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
@@ -372,38 +313,30 @@
 *
          SRNAMT = 'ZPPSVX'
          INFOT = 1
-         CALL ZPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 7
          EQ = '/'
-         CALL ZPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
          EQ = 'Y'
-         CALL ZPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND,
-     $                R1, R2, W, RW, INFO )
+         CALL ZPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPPSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
@@ -434,50 +367,39 @@
 *
          SRNAMT = 'ZPBSVX'
          INFOT = 1
-         CALL ZPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = '/'
-         CALL ZPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ = 'Y'
-         CALL ZPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1,
-     $                RCOND, R1, R2, W, RW, INFO )
+         CALL ZPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPBSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
@@ -499,24 +421,19 @@
 *
          SRNAMT = 'ZPTSVX'
          INFOT = 1
-         CALL ZPTSVX( '/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPTSVX( '/', 0, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPTSVX( 'N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPTSVX( 'N', -1, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPTSVX( 'N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPTSVX( 'N', 0, -1, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X,
-     $                2, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X,
-     $                1, RCOND, R1, R2, W, RW, INFO )
+         CALL ZPTSVX( 'N', 2, 0, R, A( 1, 1 ), RF, AF( 1, 1 ), B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'HE' ) ) THEN
@@ -550,40 +467,31 @@
 *
          SRNAMT = 'ZHESVX'
          INFOT = 1
-         CALL ZHESVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZHESVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZHESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHESVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZHESVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZHESVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 3, RW, INFO )
+         CALL ZHESVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'ZHESVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'HR' ) ) THEN
@@ -678,32 +586,25 @@
 *
          SRNAMT = 'ZHESV_AA_2STAGE'
          INFOT = 1
-         CALL ZHESV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHESV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHESV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2,
-     $                         W, 1, INFO )
+         CALL ZHESV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZHESV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SA' ) ) THEN
@@ -736,32 +637,25 @@
 *
          SRNAMT = 'ZSYSV_AA_2STAGE'
          INFOT = 1
-         CALL ZSYSV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSYSV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSYSV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2,
-     $                         W, 1, INFO )
+         CALL ZSYSV_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 2, W, 1, INFO )
          CALL CHKXER( 'ZSYSV_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'HP' ) ) THEN
@@ -786,28 +680,22 @@
 *
          SRNAMT = 'ZHPSVX'
          INFOT = 1
-         CALL ZHPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZHPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZHPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZHPSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
@@ -841,40 +729,31 @@
 *
          SRNAMT = 'ZSYSVX'
          INFOT = 1
-         CALL ZSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1,
-     $                RCOND, R1, R2, W, 4, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 3, RW, INFO )
+         CALL ZSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, RW, INFO )
          CALL CHKXER( 'ZSYSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
@@ -960,28 +839,22 @@
 *
          SRNAMT = 'ZSPSVX'
          INFOT = 1
-         CALL ZSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1,
-     $                R2, W, RW, INFO )
+         CALL ZSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *

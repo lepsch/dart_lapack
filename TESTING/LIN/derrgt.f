@@ -22,17 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX ), IW( NMAX )
-      DOUBLE PRECISION   B( NMAX ), C( NMAX ), CF( NMAX ), D( NMAX ),
-     $                   DF( NMAX ), E( NMAX ), EF( NMAX ), F( NMAX ),
-     $                   R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX )
+      DOUBLE PRECISION   B( NMAX ), C( NMAX ), CF( NMAX ), D( NMAX ), DF( NMAX ), E( NMAX ), EF( NMAX ), F( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGTCON, DGTRFS, DGTTRF, DGTTRS,
-     $                   DPTCON, DPTRFS, DPTTRF, DPTTRS
+      EXTERNAL           ALAESM, CHKXER, DGTCON, DGTRFS, DGTTRF, DGTTRS, DPTCON, DPTRFS, DPTTRF, DPTTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -90,40 +87,32 @@
 *
          SRNAMT = 'DGTRFS'
          INFOT = 1
-         CALL DGTRFS( '/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1,
-     $                R1, R2, W, IW, INFO )
+         CALL DGTRFS( '/', 0, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGTRFS( 'N', -1, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X,
-     $                1, R1, R2, W, IW, INFO )
+         CALL DGTRFS( 'N', -1, 0, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGTRFS( 'N', 0, -1, C, D, E, CF, DF, EF, F, IP, B, 1, X,
-     $                1, R1, R2, W, IW, INFO )
+         CALL DGTRFS( 'N', 0, -1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 2,
-     $                R1, R2, W, IW, INFO )
+         CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1,
-     $                R1, R2, W, IW, INFO )
+         CALL DGTRFS( 'N', 2, 1, C, D, E, CF, DF, EF, F, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DGTRFS', INFOT, NOUT, LERR, OK )
 *
 *        DGTCON
 *
          SRNAMT = 'DGTCON'
          INFOT = 1
-         CALL DGTCON( '/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW,
-     $                INFO )
+         CALL DGTCON( '/', 0, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGTCON( 'I', -1, C, D, E, F, IP, ANORM, RCOND, W, IW,
-     $                INFO )
+         CALL DGTCON( 'I', -1, C, D, E, F, IP, ANORM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DGTCON( 'I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW,
-     $                INFO )
+         CALL DGTCON( 'I', 0, C, D, E, F, IP, -ANORM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DGTCON', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN

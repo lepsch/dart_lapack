@@ -1,5 +1,4 @@
-      SUBROUTINE ZLQT01( M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE ZLQT01( M, N, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( * ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ),
-     $                   Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -59,8 +57,7 @@
 *     Copy details of Q
 *
       CALL ZLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
-      IF( N.GT.1 )
-     $   CALL ZLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
+      IF( N.GT.1 ) CALL ZLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA )
 *
 *     Generate the n-by-n matrix Q
 *
@@ -69,15 +66,12 @@
 *
 *     Copy L
 *
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), L,
-     $             LDA )
+      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA )
       CALL ZLACPY( 'Lower', M, N, AF, LDA, L, LDA )
 *
 *     Compute L - A*Q'
 *
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', M, N, N,
-     $            DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L,
-     $            LDA )
+      CALL ZGEMM( 'No transpose', 'Conjugate transpose', M, N, N, DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L, LDA )
 *
 *     Compute norm( L - Q'*A ) / ( N * norm(A) * EPS ) .
 *
@@ -92,8 +86,7 @@
 *     Compute I - Q*Q'
 *
       CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA )
-      CALL ZHERK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, L,
-     $            LDA )
+      CALL ZHERK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, L, LDA )
 *
 *     Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *

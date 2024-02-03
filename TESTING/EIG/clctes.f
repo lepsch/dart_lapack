@@ -29,15 +29,12 @@
          CLCTES = ( REAL( Z ).LT.ZERO )
       ELSE
          IF( REAL( Z ).EQ.ZERO .OR. REAL( D ).EQ.ZERO ) THEN
-            CLCTES = ( SIGN( ONE, AIMAG( Z ) ).NE.
-     $               SIGN( ONE, AIMAG( D ) ) )
+            CLCTES = ( SIGN( ONE, AIMAG( Z ) ).NE. SIGN( ONE, AIMAG( D ) ) )
          ELSE IF( AIMAG( Z ).EQ.ZERO .OR. AIMAG( D ).EQ.ZERO ) THEN
-            CLCTES = ( SIGN( ONE, REAL( Z ) ).NE.
-     $               SIGN( ONE, REAL( D ) ) )
+            CLCTES = ( SIGN( ONE, REAL( Z ) ).NE. SIGN( ONE, REAL( D ) ) )
          ELSE
             ZMAX = MAX( ABS( REAL( Z ) ), ABS( AIMAG( Z ) ) )
-            CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+
-     $               ( AIMAG( Z ) / ZMAX )*AIMAG( D ).LT.ZERO )
+            CLCTES = ( ( REAL( Z ) / ZMAX )*REAL( D )+ ( AIMAG( Z ) / ZMAX )*AIMAG( D ).LT.ZERO )
          END IF
       END IF
 *

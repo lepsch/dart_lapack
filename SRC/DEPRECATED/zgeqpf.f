@@ -80,8 +80,7 @@
          MA = MIN( ITEMP, M )
          CALL ZGEQR2( M, MA, A, LDA, TAU, WORK, INFO )
          IF( MA.LT.N ) THEN
-            CALL ZUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A,
-     $                   LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
+            CALL ZUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
          END IF
       END IF
 *
@@ -115,8 +114,7 @@
 *           Generate elementary reflector H(i)
 *
             AII = A( I, I )
-            CALL ZLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1,
-     $                   TAU( I ) )
+            CALL ZLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) )
             A( I, I ) = AII
 *
             IF( I.LT.N ) THEN
@@ -125,8 +123,7 @@
 *
                AII = A( I, I )
                A( I, I ) = DCMPLX( ONE )
-               CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1,
-     $                     DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
+               CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
                A( I, I ) = AII
             END IF
 *

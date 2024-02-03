@@ -1,6 +1,4 @@
-      SUBROUTINE CCHKHE_RK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL,
-     $                      THRESH, TSTERR, NMAX, A, AFAC, E, AINV, B,
-     $                      X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE CCHKHE_RK( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, E, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NBVAL( * ), NSVAL( * ), NVAL( * )
       REAL               RWORK( * )
-      COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), E( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -39,12 +36,8 @@
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH, MATPATH
-      INTEGER            I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS,
-     $                   ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA,
-     $                   LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS,
-     $                   NRUN, NT
-      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX,
-     $                   SING_MIN, RCOND, RCONDC, STEMP
+      INTEGER            I, I1, I2, IMAT, IN, INB, INFO, IOFF, IRHS, ITEMP, ITEMP2, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      REAL               ALPHA, ANORM, CNDNUM, CONST, SING_MAX, SING_MIN, RCOND, RCONDC, STEMP
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 )
@@ -57,10 +50,7 @@
       EXTERNAL           CLANGE, CLANHE, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRHE, CGESVD, CGET04,
-     $                   CLACPY, CLARHS, CLATB4, CLATMS, CPOT02, CPOT03,
-     $                   CHECON_3, CHET01_3, CHETRF_RK, CHETRI_3,
-     $                   CHETRS_3, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, CERRHE, CGESVD, CGET04, CLACPY, CLARHS, CLATB4, CLATMS, CPOT02, CPOT03, CHECON_3, CHET01_3, CHETRF_RK, CHETRI_3, CHETRS_3, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CONJG, MAX, MIN, SQRT
@@ -103,8 +93,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL CERRHE( PATH, NOUT )
+      IF( TSTERR ) CALL CERRHE( PATH, NOUT )
       INFOT = 0
 *
 *     Set the minimum block size for which the block routine should
@@ -119,8 +108,7 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          IZERO = 0
 *
@@ -130,14 +118,12 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 260
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 260
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 260
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 260
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -149,21 +135,17 @@
 *                 Set up parameters with CLATB4 for the matrix generator
 *                 based on the type of matrix to be generated.
 *
-                  CALL CLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM,
-     $                         MODE, CNDNUM, DIST )
+                  CALL CLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *                 Generate a matrix with CLATMS.
 *
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                         CNDNUM, ANORM, KL, KU, UPLO, A, LDA,
-     $                         WORK, INFO )
+                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
 *                 Check error code from CLATMS and handle error.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *                    Skip all tests for this generated matrix
 *
@@ -265,8 +247,7 @@
 *
                   LWORK = MAX( 2, NB )*LDA
                   SRNAMT = 'CHETRF_RK'
-                  CALL CHETRF_RK( UPLO, N, AFAC, LDA, E, IWORK, AINV,
-     $                            LWORK, INFO )
+                  CALL CHETRF_RK( UPLO, N, AFAC, LDA, E, IWORK, AINV, LWORK, INFO )
 *
 *                 Adjust the expected value of INFO to account for
 *                 pivoting.
@@ -287,10 +268,7 @@
 *
 *                 Check error code from CHETRF_RK and handle error.
 *
-                  IF( INFO.NE.K)
-     $               CALL ALAERH( PATH, 'CHETRF_RK', INFO, K,
-     $                            UPLO, N, N, -1, -1, NB, IMAT,
-     $                            NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.K) CALL ALAERH( PATH, 'CHETRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
 *                 Set the condition estimate flag if the INFO is not 0.
 *
@@ -303,8 +281,7 @@
 *+    TEST 1
 *                 Reconstruct matrix from factors and compute residual.
 *
-                  CALL CHET01_3( UPLO, N, A, LDA, AFAC, LDA, E, IWORK,
-     $                           AINV, LDA, RWORK, RESULT( 1 ) )
+                  CALL CHET01_3( UPLO, N, A, LDA, AFAC, LDA, E, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
                   NT = 1
 *
 *+    TEST 2
@@ -322,21 +299,16 @@
 *                    in TEST6 and TEST7.
 *
                      LWORK = (N+NB+1)*(NB+3)
-                     CALL CHETRI_3( UPLO, N, AINV, LDA, E, IWORK, WORK,
-     $                              LWORK, INFO )
+                     CALL CHETRI_3( UPLO, N, AINV, LDA, E, IWORK, WORK, LWORK, INFO )
 *
 *                    Check error code from ZHETRI_3 and handle error.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'CHETRI_3', INFO, -1,
-     $                               UPLO, N, N, -1, -1, -1, IMAT,
-     $                               NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CHETRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *                    Compute the residual for a Hermitian matrix times
 *                    its inverse.
 *
-                     CALL CPOT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA,
-     $                            RWORK, RCONDC, RESULT( 2 ) )
+                     CALL CPOT03( UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) )
                      NT = 2
                   END IF
 *
@@ -345,10 +317,7 @@
 *
                   DO 110 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   110             CONTINUE
@@ -360,8 +329,7 @@
                   RESULT( 3 ) = ZERO
                   STEMP = ZERO
 *
-                  CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) ) /
-     $                    ( ONE-ALPHA )
+                  CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) ) / ( ONE-ALPHA )
 *
                   IF( IUPLO.EQ.1 ) THEN
 *
@@ -369,23 +337,20 @@
 *
                      K = N
   120                CONTINUE
-                     IF( K.LE.1 )
-     $                  GO TO 130
+                     IF( K.LE.1 ) GO TO 130
 *
                      IF( IWORK( K ).GT.ZERO ) THEN
 *
 *                       Get max absolute value from elements
 *                       in column k in U
 *
-                        STEMP = CLANGE( 'M', K-1, 1,
-     $                          AFAC( ( K-1 )*LDA+1 ), LDA, RWORK )
+                        STEMP = CLANGE( 'M', K-1, 1, AFAC( ( K-1 )*LDA+1 ), LDA, RWORK )
                      ELSE
 *
 *                       Get max absolute value from elements
 *                       in columns k and k-1 in U
 *
-                        STEMP = CLANGE( 'M', K-2, 2,
-     $                          AFAC( ( K-2 )*LDA+1 ), LDA, RWORK )
+                        STEMP = CLANGE( 'M', K-2, 2, AFAC( ( K-2 )*LDA+1 ), LDA, RWORK )
                         K = K - 1
 *
                      END IF
@@ -393,8 +358,7 @@
 *                    STEMP should be bounded by CONST
 *
                      STEMP = STEMP - CONST + THRESH
-                     IF( STEMP.GT.RESULT( 3 ) )
-     $                  RESULT( 3 ) = STEMP
+                     IF( STEMP.GT.RESULT( 3 ) ) RESULT( 3 ) = STEMP
 *
                      K = K - 1
 *
@@ -407,23 +371,20 @@
 *
                      K = 1
   140                CONTINUE
-                     IF( K.GE.N )
-     $                  GO TO 150
+                     IF( K.GE.N ) GO TO 150
 *
                      IF( IWORK( K ).GT.ZERO ) THEN
 *
 *                       Get max absolute value from elements
 *                       in column k in L
 *
-                        STEMP = CLANGE( 'M', N-K, 1,
-     $                          AFAC( ( K-1 )*LDA+K+1 ), LDA, RWORK )
+                        STEMP = CLANGE( 'M', N-K, 1, AFAC( ( K-1 )*LDA+K+1 ), LDA, RWORK )
                      ELSE
 *
 *                       Get max absolute value from elements
 *                       in columns k and k+1 in L
 *
-                        STEMP = CLANGE( 'M', N-K-1, 2,
-     $                          AFAC( ( K-1 )*LDA+K+2 ), LDA, RWORK )
+                        STEMP = CLANGE( 'M', N-K-1, 2, AFAC( ( K-1 )*LDA+K+2 ), LDA, RWORK )
                         K = K + 1
 *
                      END IF
@@ -431,8 +392,7 @@
 *                    STEMP should be bounded by CONST
 *
                      STEMP = STEMP - CONST + THRESH
-                     IF( STEMP.GT.RESULT( 3 ) )
-     $                  RESULT( 3 ) = STEMP
+                     IF( STEMP.GT.RESULT( 3 ) ) RESULT( 3 ) = STEMP
 *
                      K = K + 1
 *
@@ -448,8 +408,7 @@
                   RESULT( 4 ) = ZERO
                   STEMP = ZERO
 *
-                  CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) )*
-     $                    ( ( ONE + ALPHA ) / ( ONE - ALPHA ) )
+                  CONST = ( ( ALPHA**2-ONE ) / ( ALPHA**2-ONEHALF ) )* ( ( ONE + ALPHA ) / ( ONE - ALPHA ) )
                   CALL CLACPY( UPLO, N, N, AFAC, LDA, AINV, LDA )
 *
                   IF( IUPLO.EQ.1 ) THEN
@@ -458,8 +417,7 @@
 *
                      K = N
   160                CONTINUE
-                     IF( K.LE.1 )
-     $                  GO TO 170
+                     IF( K.LE.1 ) GO TO 170
 *
                      IF( IWORK( K ).LT.ZERO ) THEN
 *
@@ -472,9 +430,7 @@
                         BLOCK( 2, 1 ) = CONJG( BLOCK( 1, 2 ) )
                         BLOCK( 2, 2 ) = AFAC( (K-1)*LDA+K )
 *
-                        CALL CGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK,
-     $                               CDUMMY, 1, CDUMMY, 1,
-     $                               WORK, 6, RWORK( 3 ), INFO )
+                        CALL CGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, CDUMMY, 1, CDUMMY, 1, WORK, 6, RWORK( 3 ), INFO )
 *
 *
                         SING_MAX = RWORK( 1 )
@@ -485,8 +441,7 @@
 *                       STEMP should be bounded by CONST
 *
                         STEMP = STEMP - CONST + THRESH
-                        IF( STEMP.GT.RESULT( 4 ) )
-     $                     RESULT( 4 ) = STEMP
+                        IF( STEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = STEMP
                         K = K - 1
 *
                      END IF
@@ -502,8 +457,7 @@
 *
                      K = 1
   180                CONTINUE
-                     IF( K.GE.N )
-     $                  GO TO 190
+                     IF( K.GE.N ) GO TO 190
 *
                      IF( IWORK( K ).LT.ZERO ) THEN
 *
@@ -516,9 +470,7 @@
                         BLOCK( 1, 2 ) = CONJG( BLOCK( 2, 1 ) )
                         BLOCK( 2, 2 ) = AFAC( K*LDA+K+1 )
 *
-                        CALL CGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK,
-     $                               CDUMMY, 1, CDUMMY, 1,
-     $                               WORK, 6, RWORK(3), INFO )
+                        CALL CGESVD( 'N', 'N', 2, 2, BLOCK, 2, RWORK, CDUMMY, 1, CDUMMY, 1, WORK, 6, RWORK(3), INFO )
 *
                         SING_MAX = RWORK( 1 )
                         SING_MIN = RWORK( 2 )
@@ -528,8 +480,7 @@
 *                       STEMP should be bounded by CONST
 *
                         STEMP = STEMP - CONST + THRESH
-                        IF( STEMP.GT.RESULT( 4 ) )
-     $                     RESULT( 4 ) = STEMP
+                        IF( STEMP.GT.RESULT( 4 ) ) RESULT( 4 ) = STEMP
                         K = K + 1
 *
                      END IF
@@ -545,10 +496,7 @@
 *
                   DO 200 K = 3, 4
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   200             CONTINUE
@@ -557,8 +505,7 @@
 *                 Skip the other tests if this is not the first block
 *                 size.
 *
-                  IF( INB.GT.1 )
-     $               GO TO 240
+                  IF( INB.GT.1 ) GO TO 240
 *
 *                 Do only the condition estimate if INFO is not 0.
 *
@@ -582,44 +529,33 @@
 *                    stored in XACT and set up the right hand side B
 *
                      SRNAMT = 'CLARHS'
-                     CALL CLARHS( MATPATH, XTYPE, UPLO, ' ', N, N,
-     $                            KL, KU, NRHS, A, LDA, XACT, LDA,
-     $                            B, LDA, ISEED, INFO )
+                     CALL CLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                      SRNAMT = 'CHETRS_3'
-                     CALL CHETRS_3( UPLO, N, NRHS, AFAC, LDA, E, IWORK,
-     $                              X, LDA, INFO )
+                     CALL CHETRS_3( UPLO, N, NRHS, AFAC, LDA, E, IWORK, X, LDA, INFO )
 *
 *                    Check error code from CHETRS_3 and handle error.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'CHETRS_3', INFO, 0,
-     $                               UPLO, N, N, -1, -1, NRHS, IMAT,
-     $                               NFAIL, NERRS, NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CHETRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
 *
 *                    Compute the residual for the solution
 *
-                     CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK,
-     $                            LDA, RWORK, RESULT( 5 ) )
+                     CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 5 ) )
 *
 *+    TEST 6
 *                 Check solution from generated exact solution.
 *
-                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 6 ) )
+                     CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )
 *
 *                    Print information about the tests that did not pass
 *                    the threshold.
 *
                      DO 210 K = 5, 6
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS,
-     $                        IMAT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
   210                CONTINUE
@@ -635,15 +571,11 @@
   230             CONTINUE
                   ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
                   SRNAMT = 'CHECON_3'
-                  CALL CHECON_3( UPLO, N, AFAC, LDA, E, IWORK, ANORM,
-     $                           RCOND, WORK, INFO )
+                  CALL CHECON_3( UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO )
 *
 *                 Check error code from CHECON_3 and handle error.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'CHECON_3', INFO, 0,
-     $                            UPLO, N, N, -1, -1, -1, IMAT,
-     $                            NFAIL, NERRS, NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CHECON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *                 Compute the test ratio to compare values of RCOND
 *
@@ -653,10 +585,7 @@
 *                 the threshold.
 *
                   IF( RESULT( 7 ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7,
-     $                  RESULT( 7 )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 7, RESULT( 7 )
                      NFAIL = NFAIL + 1
                   END IF
                   NRUN = NRUN + 1

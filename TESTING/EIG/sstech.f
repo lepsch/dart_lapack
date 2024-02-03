@@ -37,8 +37,7 @@
 *     Check input parameters
 *
       INFO = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       IF( N.LT.0 ) THEN
          INFO = -1
          RETURN
@@ -97,11 +96,9 @@
 *     Begin loop merging overlapping intervals
 *
    60 CONTINUE
-      IF( BPNT.EQ.N )
-     $   GO TO 70
+      IF( BPNT.EQ.N ) GO TO 70
       TUPPR = WORK( BPNT+1 ) + EPS
-      IF( TUPPR.LT.LOWER )
-     $   GO TO 70
+      IF( TUPPR.LT.LOWER ) GO TO 70
 *
 *     Merge
 *
@@ -124,8 +121,7 @@
       END IF
       TPNT = BPNT + 1
       BPNT = TPNT
-      IF( TPNT.LE.N )
-     $   GO TO 50
+      IF( TPNT.LE.N ) GO TO 50
    80 CONTINUE
       RETURN
 *

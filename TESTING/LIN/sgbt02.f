@@ -1,5 +1,4 @@
-      SUBROUTINE SGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B,
-     $                   LDB, RWORK, RESID )
+      SUBROUTINE SGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), X( LDX, * ),
-     $                   RWORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), X( LDX, * ), RWORK( * )
 *     ..
 *
 *  =====================================================================
@@ -94,8 +92,7 @@
 *     Compute B - op(A)*X
 *
       DO 20 J = 1, NRHS
-         CALL SGBMV( TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1,
-     $               ONE, B( 1, J ), 1 )
+         CALL SGBMV( TRANS, M, N, KL, KU, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
    20 CONTINUE
 *
 *     Compute the maximum over the number of right hand sides of

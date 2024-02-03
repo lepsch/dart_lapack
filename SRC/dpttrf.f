@@ -40,8 +40,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Compute the L*D*L**T (or U**T*D*U) factorization of A.
 *
@@ -108,8 +107,7 @@
 *
 *     Check d(n) for positive definiteness.
 *
-      IF( D( N ).LE.ZERO )
-     $   INFO = N
+      IF( D( N ).LE.ZERO ) INFO = N
 *
    30 CONTINUE
       RETURN

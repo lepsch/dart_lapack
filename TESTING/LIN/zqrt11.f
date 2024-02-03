@@ -46,28 +46,23 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
-      CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK,
-     $             M )
+      CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), WORK, M )
 *
 *     Form Q
 *
-      CALL ZUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK,
-     $             M, WORK( M*M+1 ), INFO )
+      CALL ZUNM2R( 'Left', 'No transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
 *     Form Q'*Q
 *
-      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU,
-     $             WORK, M, WORK( M*M+1 ), INFO )
+      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, M, K, A, LDA, TAU, WORK, M, WORK( M*M+1 ), INFO )
 *
       DO J = 1, M
          WORK( ( J-1 )*M+J ) = WORK( ( J-1 )*M+J ) - ONE
       END DO
 *
-      ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) /
-     $         ( DBLE( M )*DLAMCH( 'Epsilon' ) )
+      ZQRT11 = ZLANGE( 'One-norm', M, M, WORK, M, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) )
 *
       RETURN
 *

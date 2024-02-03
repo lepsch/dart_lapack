@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ,
-     $                   IHIZ, Z, LDZ, INFO )
+      SUBROUTINE ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -18,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ),
-     $                   ONE = ( 1.0d0, 0.0d0 ) )
+      PARAMETER          ( ZERO = ( 0.0d0, 0.0d0 ), ONE = ( 1.0d0, 0.0d0 ) )
       DOUBLE PRECISION   RZERO, RONE, HALF
       PARAMETER          ( RZERO = 0.0d0, RONE = 1.0d0, HALF = 0.5d0 )
       DOUBLE PRECISION   DAT1
@@ -28,12 +26,7 @@
       PARAMETER          ( KEXSH = 10 )
 *     ..
 *     .. Local Scalars ..
-      COMPLEX*16         CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U,
-     $                   V2, X, Y
-      DOUBLE PRECISION   AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX,
-     $                   SAFMIN, SMLNUM, SX, T2, TST, ULP
-      INTEGER            I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M,
-     $                   NH, NZ, KDEFL
+      COMPLEX*16         CDUM, H11, H11S, H22, SC, SUM, T, T1, TEMP, U, V2, X, Y       DOUBLE PRECISION   AA, AB, BA, BB, H10, H21, RTEMP, S, SAFMAX, SAFMIN, SMLNUM, SX, T2, TST, ULP       INTEGER            I, I1, I2, ITS, ITMAX, J, JHI, JLO, K, L, M, NH, NZ, KDEFL
 *     ..
 *     .. Local Arrays ..
       COMPLEX*16         V( 2 )
@@ -61,8 +54,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       IF( ILO.EQ.IHI ) THEN
          W( ILO ) = H( ILO, ILO )
          RETURN
@@ -73,8 +65,7 @@
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
    10 CONTINUE
-      IF( ILO.LE.IHI-2 )
-     $   H( IHI, IHI-2 ) = ZERO
+      IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
 *     ==== ensure that subdiagonal entries are real ====
       IF( WANTT ) THEN
          JLO = 1
@@ -92,10 +83,7 @@
             SC = DCONJG( SC ) / ABS( SC )
             H( I, I-1 ) = ABS( H( I, I-1 ) )
             CALL ZSCAL( JHI-I+1, SC, H( I, I ), LDH )
-            CALL ZSCAL( MIN( JHI, I+1 )-JLO+1, DCONJG( SC ),
-     $                  H( JLO, I ), 1 )
-            IF( WANTZ )
-     $         CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 )
+            CALL ZSCAL( MIN( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 )
          END IF
    20 CONTINUE
 *
@@ -134,8 +122,7 @@
 *
       I = IHI
    30 CONTINUE
-      IF( I.LT.ILO )
-     $   GO TO 150
+      IF( I.LT.ILO ) GO TO 150
 *
 *     Perform QR iterations on rows and columns ILO to I until a
 *     submatrix of order 1 splits off at the bottom because a
@@ -147,14 +134,10 @@
 *        Look for a single small subdiagonal element.
 *
          DO 40 K = I, L + 1, -1
-            IF( CABS1( H( K, K-1 ) ).LE.SMLNUM )
-     $         GO TO 50
+            IF( CABS1( H( K, K-1 ) ).LE.SMLNUM ) GO TO 50
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) )
             IF( TST.EQ.ZERO ) THEN
-               IF( K-2.GE.ILO )
-     $            TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )
-               IF( K+1.LE.IHI )
-     $            TST = TST + ABS( DBLE( H( K+1, K ) ) )
+               IF( K-2.GE.ILO ) TST = TST + ABS( DBLE( H( K-1, K-2 ) ) )                IF( K+1.LE.IHI ) TST = TST + ABS( DBLE( H( K+1, K ) ) )
             END IF
 *           ==== The following is a conservative small subdiagonal
 *           .    deflation criterion due to Ahues & Tisseur (LAWN 122,
@@ -163,13 +146,9 @@
             IF( ABS( DBLE( H( K, K-1 ) ) ).LE.ULP*TST ) THEN
                AB = MAX( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
                BA = MIN( CABS1( H( K, K-1 ) ), CABS1( H( K-1, K ) ) )
-               AA = MAX( CABS1( H( K, K ) ),
-     $              CABS1( H( K-1, K-1 )-H( K, K ) ) )
-               BB = MIN( CABS1( H( K, K ) ),
-     $              CABS1( H( K-1, K-1 )-H( K, K ) ) )
+               AA = MAX( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )                BB = MIN( CABS1( H( K, K ) ), CABS1( H( K-1, K-1 )-H( K, K ) ) )
                S = AA + AB
-               IF( BA*( AB / S ).LE.MAX( SMLNUM,
-     $             ULP*( BB*( AA / S ) ) ) )GO TO 50
+               IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50
             END IF
    40    CONTINUE
    50    CONTINUE
@@ -183,8 +162,7 @@
 *
 *        Exit from loop if a submatrix of order 1 has split off.
 *
-         IF( L.GE.I )
-     $      GO TO 140
+         IF( L.GE.I ) GO TO 140
          KDEFL = KDEFL + 1
 *
 *        Now the active submatrix is in rows and columns L to I. If
@@ -221,8 +199,7 @@
                S = MAX( S, CABS1( X ) )
                Y = S*SQRT( ( X / S )**2+( U / S )**2 )
                IF( SX.GT.RZERO ) THEN
-                  IF( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )*
-     $                DIMAG( Y ).LT.RZERO )Y = -Y
+                  IF( DBLE( X / SX )*DBLE( Y )+DIMAG( X / SX )* DIMAG( Y ).LT.RZERO )Y = -Y
                END IF
                T = T - U*ZLADIV( U, ( X+Y ) )
             END IF
@@ -246,9 +223,7 @@
             V( 1 ) = H11S
             V( 2 ) = H21
             H10 = DBLE( H( M, M-1 ) )
-            IF( ABS( H10 )*ABS( H21 ).LE.ULP*
-     $          ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) )
-     $          GO TO 70
+            IF( ABS( H10 )*ABS( H21 ).LE.ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70
    60    CONTINUE
          H11 = H( L, L )
          H22 = H( L+1, L+1 )
@@ -277,8 +252,7 @@
 *           V(2) is always real before the call to ZLARFG, and hence
 *           after the call T2 ( = T1*V(2) ) is also real.
 *
-            IF( K.GT.M )
-     $         CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 )
+            IF( K.GT.M ) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 )
             CALL ZLARFG( 2, V( 1 ), V( 2 ), 1, T1 )
             IF( K.GT.M ) THEN
                H( K, K-1 ) = V( 1 )
@@ -326,16 +300,13 @@
                TEMP = ONE - T1
                TEMP = TEMP / ABS( TEMP )
                H( M+1, M ) = H( M+1, M )*DCONJG( TEMP )
-               IF( M+2.LE.I )
-     $            H( M+2, M+1 ) = H( M+2, M+1 )*TEMP
+               IF( M+2.LE.I ) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP
                DO 110 J = M, I
                   IF( J.NE.M+1 ) THEN
-                     IF( I2.GT.J )
-     $                  CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
+                     IF( I2.GT.J ) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH )
                      CALL ZSCAL( J-I1, DCONJG( TEMP ), H( I1, J ), 1 )
                      IF( WANTZ ) THEN
-                        CALL ZSCAL( NZ, DCONJG( TEMP ), Z( ILOZ, J ),
-     $                              1 )
+                        CALL ZSCAL( NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 )
                      END IF
                   END IF
   110          CONTINUE
@@ -349,8 +320,7 @@
             RTEMP = ABS( TEMP )
             H( I, I-1 ) = RTEMP
             TEMP = TEMP / RTEMP
-            IF( I2.GT.I )
-     $         CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH )
+            IF( I2.GT.I ) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH )
             CALL ZSCAL( I-I1, TEMP, H( I1, I ), 1 )
             IF( WANTZ ) THEN
                CALL ZSCAL( NZ, TEMP, Z( ILOZ, I ), 1 )

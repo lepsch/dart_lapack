@@ -1,5 +1,4 @@
-      SUBROUTINE DGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, WR, WI,
-     $                  VS, LDVS, WORK, LWORK, BWORK, INFO )
+      SUBROUTINE DGEES( JOBVS, SORT, SELECT, N, A, LDA, SDIM, WR, WI, VS, LDVS, WORK, LWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ),
-     $                   WR( * )
+      DOUBLE PRECISION   A( LDA, * ), VS( LDVS, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *     .. Function Arguments ..
       LOGICAL            SELECT
@@ -26,10 +24,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST,
-     $                   WANTVS
-      INTEGER            HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL,
-     $                   IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK
+      LOGICAL            CURSL, LASTSL, LQUERY, LST2SL, SCALEA, WANTST, WANTVS       INTEGER            HSWORK, I, I1, I2, IBAL, ICOND, IERR, IEVAL, IHI, ILO, INXT, IP, ITAU, IWRK, MAXWRK, MINWRK
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, S, SEP, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -37,8 +32,7 @@
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY,
-     $                   DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
+      EXTERNAL           DCOPY, DGEBAK, DGEBAL, DGEHRD, DHSEQR, DLACPY, DLASCL, DORGHR, DSWAP, DTRSEN, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -87,15 +81,13 @@
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             MINWRK = 3*N
 *
-            CALL DHSEQR( 'S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS,
-     $             WORK, -1, IEVAL )
+            CALL DHSEQR( 'S', JOBVS, N, 1, N, A, LDA, WR, WI, VS, LDVS, WORK, -1, IEVAL )
             HSWORK = INT( WORK( 1 ) )
 *
             IF( .NOT.WANTVS ) THEN
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             ELSE
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1,
-     $                       'DORGHR', ' ', N, 1, N, -1 ) )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )
                MAXWRK = MAX( MAXWRK, N + HSWORK )
             END IF
          END IF
@@ -139,8 +131,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       END IF
-      IF( SCALEA )
-     $   CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      IF( SCALEA ) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *     Permute the matrix to make it more nearly triangular
 *     (Workspace: need N)
@@ -153,8 +144,7 @@
 *
       ITAU = N + IBAL
       IWRK = N + ITAU
-      CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ),
-     $             LWORK-IWRK+1, IERR )
+      CALL DGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
       IF( WANTVS ) THEN
 *
@@ -165,8 +155,7 @@
 *        Generate orthogonal matrix in VS
 *        (Workspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *
-         CALL DORGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL DORGHR( N, ILO, IHI, VS, LDVS, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
 *
       SDIM = 0
@@ -175,10 +164,7 @@
 *     (Workspace: need N+1, prefer N+HSWORK (see comments) )
 *
       IWRK = ITAU
-      CALL DHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS,
-     $             WORK( IWRK ), LWORK-IWRK+1, IEVAL )
-      IF( IEVAL.GT.0 )
-     $   INFO = IEVAL
+      CALL DHSEQR( 'S', JOBVS, N, ILO, IHI, A, LDA, WR, WI, VS, LDVS, WORK( IWRK ), LWORK-IWRK+1, IEVAL )       IF( IEVAL.GT.0 ) INFO = IEVAL
 *
 *     Sort eigenvalues if desired
 *
@@ -194,11 +180,8 @@
 *        Reorder eigenvalues and transform Schur vectors
 *        (Workspace: none needed)
 *
-         CALL DTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI,
-     $                SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1,
-     $                ICOND )
-         IF( ICOND.GT.0 )
-     $      INFO = N + ICOND
+         CALL DTRSEN( 'N', JOBVS, BWORK, N, A, LDA, VS, LDVS, WR, WI, SDIM, S, SEP, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, ICOND )
+         IF( ICOND.GT.0 ) INFO = N + ICOND
       END IF
 *
       IF( WANTVS ) THEN
@@ -206,8 +189,7 @@
 *        Undo balancing
 *        (Workspace: need N)
 *
-         CALL DGEBAK( 'P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS,
-     $                IERR )
+         CALL DGEBAK( 'P', 'R', N, ILO, IHI, WORK( IBAL ), N, VS, LDVS, IERR )
       END IF
 *
       IF( SCALEA ) THEN
@@ -225,8 +207,7 @@
             IF( IEVAL.GT.0 ) THEN
                I1 = IEVAL + 1
                I2 = IHI - 1
-               CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI,
-     $                      MAX( ILO-1, 1 ), IERR )
+               CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, MAX( ILO-1, 1 ), IERR )
             ELSE IF( WANTST ) THEN
                I1 = 1
                I2 = N - 1
@@ -236,23 +217,17 @@
             END IF
             INXT = I1 - 1
             DO 20 I = I1, I2
-               IF( I.LT.INXT )
-     $            GO TO 20
+               IF( I.LT.INXT ) GO TO 20
                IF( WI( I ).EQ.ZERO ) THEN
                   INXT = I + 1
                ELSE
                   IF( A( I+1, I ).EQ.ZERO ) THEN
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                  ELSE IF( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ).EQ.
-     $                     ZERO ) THEN
+                  ELSE IF( A( I+1, I ).NE.ZERO .AND. A( I, I+1 ).EQ. ZERO ) THEN
                      WI( I ) = ZERO
                      WI( I+1 ) = ZERO
-                     IF( I.GT.1 )
-     $                  CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )
-                     IF( N.GT.I+1 )
-     $                  CALL DSWAP( N-I-1, A( I, I+2 ), LDA,
-     $                              A( I+1, I+2 ), LDA )
+                     IF( I.GT.1 ) CALL DSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 )                      IF( N.GT.I+1 ) CALL DSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA )
                      IF( WANTVS ) THEN
                         CALL DSWAP( N, VS( 1, I ), 1, VS( 1, I+1 ), 1 )
                      END IF
@@ -266,8 +241,7 @@
 *
 *        Undo scaling for the imaginary part of the eigenvalues
 *
-         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-IEVAL, 1,
-     $                WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR )
+         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR )
       END IF
 *
       IF( WANTST .AND. INFO.EQ.0 ) THEN
@@ -281,11 +255,9 @@
          DO 30 I = 1, N
             CURSL = SELECT( WR( I ), WI( I ) )
             IF( WI( I ).EQ.ZERO ) THEN
-               IF( CURSL )
-     $            SDIM = SDIM + 1
+               IF( CURSL ) SDIM = SDIM + 1
                IP = 0
-               IF( CURSL .AND. .NOT.LASTSL )
-     $            INFO = N + 2
+               IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             ELSE
                IF( IP.EQ.1 ) THEN
 *
@@ -293,11 +265,9 @@
 *
                   CURSL = CURSL .OR. LASTSL
                   LASTSL = CURSL
-                  IF( CURSL )
-     $               SDIM = SDIM + 2
+                  IF( CURSL ) SDIM = SDIM + 2
                   IP = -1
-                  IF( CURSL .AND. .NOT.LST2SL )
-     $               INFO = N + 2
+                  IF( CURSL .AND. .NOT.LST2SL ) INFO = N + 2
                ELSE
 *
 *                 First eigenvalue of conjugate pair

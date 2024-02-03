@@ -1,5 +1,4 @@
-      SUBROUTINE CHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ,
-     $                   WORK, LWORK, INFO )
+      SUBROUTINE CHSEQR( JOB, COMPZ, N, ILO, IHI, H, LDH, W, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,8 +31,7 @@
       INTEGER            NL
       PARAMETER          ( NL = 49 )
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ),
-     $                   ONE = ( 1.0e0, 0.0e0 ) )
+      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
       REAL               RZERO
       PARAMETER          ( RZERO = 0.0e0 )
 *     ..
@@ -102,27 +100,21 @@
 *
 *        ==== Quick return in case of a workspace query ====
 *
-         CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z,
-     $                LDZ, WORK, LWORK, INFO )
+         CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 *        ==== Ensure reported workspace size is backward-compatible with
 *        .    previous LAPACK versions. ====
-         WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1,
-     $               N ) ) ), RZERO )
+         WORK( 1 ) = CMPLX( MAX( REAL( WORK( 1 ) ), REAL( MAX( 1, N ) ) ), RZERO )
          RETURN
 *
       ELSE
 *
 *        ==== copy eigenvalues isolated by CGEBAL ====
 *
-         IF( ILO.GT.1 )
-     $      CALL CCOPY( ILO-1, H, LDH+1, W, 1 )
-         IF( IHI.LT.N )
-     $      CALL CCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 )
+         IF( ILO.GT.1 ) CALL CCOPY( ILO-1, H, LDH+1, W, 1 )          IF( IHI.LT.N ) CALL CCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 )
 *
 *        ==== Initialize Z, if requested ====
 *
-         IF( INITZ )
-     $      CALL CLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
+         IF( INITZ ) CALL CLASET( 'A', N, N, ZERO, ONE, Z, LDZ )
 *
 *        ==== Quick return if possible ====
 *
@@ -133,21 +125,18 @@
 *
 *        ==== CLAHQR/CLAQR0 crossover point ====
 *
-         NMIN = ILAENV( 12, 'CHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N,
-     $          ILO, IHI, LWORK )
+         NMIN = ILAENV( 12, 'CHSEQR', JOB( : 1 ) // COMPZ( : 1 ), N, ILO, IHI, LWORK )
          NMIN = MAX( NTINY, NMIN )
 *
 *        ==== CLAQR0 for big matrices; CLAHQR for small ones ====
 *
          IF( N.GT.NMIN ) THEN
-            CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI,
-     $                   Z, LDZ, WORK, LWORK, INFO )
+            CALL CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
          ELSE
 *
 *           ==== Small matrix ====
 *
-            CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI,
-     $                   Z, LDZ, INFO )
+            CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILO, IHI, Z, LDZ, INFO )
 *
             IF( INFO.GT.0 ) THEN
 *
@@ -161,8 +150,7 @@
 *                 ==== Larger matrices have enough subdiagonal scratch
 *                 .    space to call CLAQR0 directly. ====
 *
-                  CALL CLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W,
-     $                         ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
+                  CALL CLAQR0( WANTT, WANTZ, N, ILO, KBOT, H, LDH, W, ILO, IHI, Z, LDZ, WORK, LWORK, INFO )
 *
                ELSE
 *
@@ -173,26 +161,19 @@
 *
                   CALL CLACPY( 'A', N, N, H, LDH, HL, NL )
                   HL( N+1, N ) = ZERO
-                  CALL CLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ),
-     $                         NL )
-                  CALL CLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W,
-     $                         ILO, IHI, Z, LDZ, WORKL, NL, INFO )
-                  IF( WANTT .OR. INFO.NE.0 )
-     $               CALL CLACPY( 'A', N, N, HL, NL, H, LDH )
+                  CALL CLASET( 'A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL CLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH )
                END IF
             END IF
          END IF
 *
 *        ==== Clear out the trash, if necessary. ====
 *
-         IF( ( WANTT .OR. INFO.NE.0 ) .AND. N.GT.2 )
-     $      CALL CLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
+         IF( ( WANTT .OR. INFO.NE.0 ) .AND. N.GT.2 ) CALL CLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH )
 *
 *        ==== Ensure reported workspace size is backward-compatible with
 *        .    previous LAPACK versions. ====
 *
-         WORK( 1 ) = CMPLX( MAX( REAL( MAX( 1, N ) ),
-     $               REAL( WORK( 1 ) ) ), RZERO )
+         WORK( 1 ) = CMPLX( MAX( REAL( MAX( 1, N ) ), REAL( WORK( 1 ) ) ), RZERO )
       END IF
 *
 *     ==== End of CHSEQR ====

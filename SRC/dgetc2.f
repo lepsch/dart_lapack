@@ -38,8 +38,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Set constants to control overflow
 *
@@ -76,19 +75,16 @@
                END IF
    10       CONTINUE
    20    CONTINUE
-         IF( I.EQ.1 )
-     $      SMIN = MAX( EPS*XMAX, SMLNUM )
+         IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
 *
 *        Swap rows
 *
-         IF( IPV.NE.I )
-     $      CALL DSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA )
+         IF( IPV.NE.I ) CALL DSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA )
          IPIV( I ) = IPV
 *
 *        Swap columns
 *
-         IF( JPV.NE.I )
-     $      CALL DSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 )
+         IF( JPV.NE.I ) CALL DSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 )
          JPIV( I ) = JPV
 *
 *        Check for singularity
@@ -100,8 +96,7 @@
          DO 30 J = I + 1, N
             A( J, I ) = A( J, I ) / A( I, I )
    30    CONTINUE
-         CALL DGER( N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA,
-     $              A( I+1, I+1 ), LDA )
+         CALL DGER( N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA )
    40 CONTINUE
 *
       IF( ABS( A( N, N ) ).LT.SMIN ) THEN

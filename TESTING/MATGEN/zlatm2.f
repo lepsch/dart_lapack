@@ -1,5 +1,4 @@
-      COMPLEX*16   FUNCTION ZLATM2( M, N, I, J, KL, KU, IDIST,
-     $                 ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
+      COMPLEX*16   FUNCTION ZLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

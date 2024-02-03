@@ -1,6 +1,4 @@
-      SUBROUTINE DLASDA( ICOMPQ, SMLSIZ, N, SQRE, D, E, U, LDU, VT, K,
-     $                   DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL,
-     $                   PERM, GIVNUM, C, S, WORK, IWORK, INFO )
+      SUBROUTINE DLASDA( ICOMPQ, SMLSIZ, N, SQRE, D, E, U, LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,12 +8,7 @@
       INTEGER            ICOMPQ, INFO, LDGCOL, LDU, N, SMLSIZ, SQRE
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ),
-     $                   K( * ), PERM( LDGCOL, * )
-      DOUBLE PRECISION   C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ),
-     $                   E( * ), GIVNUM( LDU, * ), POLES( LDU, * ),
-     $                   S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ),
-     $                   Z( LDU, * )
+      INTEGER            GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       DOUBLE PRECISION   C( * ), D( * ), DIFL( LDU, * ), DIFR( LDU, * ), E( * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
@@ -25,10 +18,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, IC, IDXQ, IDXQI, IM1, INODE, ITEMP, IWK,
-     $                   J, LF, LL, LVL, LVL2, M, NCC, ND, NDB1, NDIML,
-     $                   NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, NRU,
-     $                   NWORK1, NWORK2, SMLSZP, SQREI, VF, VFI, VL, VLI
+      INTEGER            I, I1, IC, IDXQ, IDXQI, IM1, INODE, ITEMP, IWK, J, LF, LL, LVL, LVL2, M, NCC, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, NRU, NWORK1, NWORK2, SMLSZP, SQREI, VF, VFI, VL, VLI
       DOUBLE PRECISION   ALPHA, BETA
 *     ..
 *     .. External Subroutines ..
@@ -64,11 +54,9 @@
 *
       IF( N.LE.SMLSIZ ) THEN
          IF( ICOMPQ.EQ.0 ) THEN
-            CALL DLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU,
-     $                   U, LDU, WORK, INFO )
+            CALL DLASDQ( 'U', SQRE, N, 0, 0, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
          ELSE
-            CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU,
-     $                   U, LDU, WORK, INFO )
+            CALL DLASDQ( 'U', SQRE, N, M, N, 0, D, E, VT, LDU, U, LDU, U, LDU, WORK, INFO )
          END IF
          RETURN
       END IF
@@ -90,8 +78,7 @@
       NWORK1 = VL + M
       NWORK2 = NWORK1 + SMLSZP*SMLSZP
 *
-      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ),
-     $             IWORK( NDIMR ), SMLSIZ )
+      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 *
 *     for the nodes on bottom level of the tree, solve
 *     their subproblems by DLASDQ.
@@ -117,21 +104,14 @@
          VLI = VL + NLF - 1
          SQREI = 1
          IF( ICOMPQ.EQ.0 ) THEN
-            CALL DLASET( 'A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ),
-     $                   SMLSZP )
-            CALL DLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ),
-     $                   E( NLF ), WORK( NWORK1 ), SMLSZP,
-     $                   WORK( NWORK2 ), NL, WORK( NWORK2 ), NL,
-     $                   WORK( NWORK2 ), INFO )
+            CALL DLASET( 'A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL DLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO )
             ITEMP = NWORK1 + NL*SMLSZP
             CALL DCOPY( NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NLP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
          ELSE
             CALL DLASET( 'A', NL, NL, ZERO, ONE, U( NLF, 1 ), LDU )
             CALL DLASET( 'A', NLP1, NLP1, ZERO, ONE, VT( NLF, 1 ), LDU )
-            CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ),
-     $                   E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU,
-     $                   U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO )
+            CALL DLASDQ( 'U', SQREI, NL, NLP1, NL, NCC, D( NLF ), E( NLF ), VT( NLF, 1 ), LDU, U( NLF, 1 ), LDU, U( NLF, 1 ), LDU, WORK( NWORK1 ), INFO )
             CALL DCOPY( NLP1, VT( NLF, 1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NLP1, VT( NLF, NLP1 ), 1, WORK( VLI ), 1 )
          END IF
@@ -151,21 +131,14 @@
          VLI = VLI + NLP1
          NRP1 = NR + SQREI
          IF( ICOMPQ.EQ.0 ) THEN
-            CALL DLASET( 'A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ),
-     $                   SMLSZP )
-            CALL DLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ),
-     $                   E( NRF ), WORK( NWORK1 ), SMLSZP,
-     $                   WORK( NWORK2 ), NR, WORK( NWORK2 ), NR,
-     $                   WORK( NWORK2 ), INFO )
+            CALL DLASET( 'A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL DLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO )
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
             CALL DCOPY( NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NRP1, WORK( ITEMP ), 1, WORK( VLI ), 1 )
          ELSE
             CALL DLASET( 'A', NR, NR, ZERO, ONE, U( NRF, 1 ), LDU )
             CALL DLASET( 'A', NRP1, NRP1, ZERO, ONE, VT( NRF, 1 ), LDU )
-            CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ),
-     $                   E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU,
-     $                   U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO )
+            CALL DLASDQ( 'U', SQREI, NR, NRP1, NR, NCC, D( NRF ), E( NRF ), VT( NRF, 1 ), LDU, U( NRF, 1 ), LDU, U( NRF, 1 ), LDU, WORK( NWORK1 ), INFO )
             CALL DCOPY( NRP1, VT( NRF, 1 ), 1, WORK( VFI ), 1 )
             CALL DCOPY( NRP1, VT( NRF, NRP1 ), 1, WORK( VLI ), 1 )
          END IF
@@ -211,23 +184,10 @@
             ALPHA = D( IC )
             BETA = E( IC )
             IF( ICOMPQ.EQ.0 ) THEN
-               CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ),
-     $                      WORK( VFI ), WORK( VLI ), ALPHA, BETA,
-     $                      IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL,
-     $                      LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z,
-     $                      K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ),
-     $                      IWORK( IWK ), INFO )
+               CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM, GIVPTR( 1 ), GIVCOL, LDGCOL, GIVNUM, LDU, POLES, DIFL, DIFR, Z, K( 1 ), C( 1 ), S( 1 ), WORK( NWORK1 ), IWORK( IWK ), INFO )
             ELSE
                J = J - 1
-               CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ),
-     $                      WORK( VFI ), WORK( VLI ), ALPHA, BETA,
-     $                      IWORK( IDXQI ), PERM( NLF, LVL ),
-     $                      GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL,
-     $                      GIVNUM( NLF, LVL2 ), LDU,
-     $                      POLES( NLF, LVL2 ), DIFL( NLF, LVL ),
-     $                      DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ),
-     $                      C( J ), S( J ), WORK( NWORK1 ),
-     $                      IWORK( IWK ), INFO )
+               CALL DLASD6( ICOMPQ, NL, NR, SQREI, D( NLF ), WORK( VFI ), WORK( VLI ), ALPHA, BETA, IWORK( IDXQI ), PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK( NWORK1 ), IWORK( IWK ), INFO )
             END IF
             IF( INFO.NE.0 ) THEN
                RETURN

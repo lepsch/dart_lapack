@@ -47,8 +47,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
@@ -58,8 +57,7 @@
             DO 10 L = K + 1, M
                A( L, J ) = ZERO
    10       CONTINUE
-            IF( J.GT.K .AND. J.LE.M )
-     $         A( J, J ) = ONE
+            IF( J.GT.K .AND. J.LE.M ) A( J, J ) = ONE
    20    CONTINUE
       END IF
 *
@@ -70,8 +68,7 @@
          IF( I.LT.N ) THEN
             IF( I.LT.M ) THEN
                A( I, I ) = ONE
-               CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA,
-     $                     TAU( I ), A( I+1, I ), LDA, WORK )
+               CALL DLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
             END IF
             CALL DSCAL( N-I, -TAU( I ), A( I, I+1 ), LDA )
          END IF

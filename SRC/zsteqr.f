@@ -17,20 +17,15 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, THREE
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   THREE = 3.0D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
       INTEGER            MAXIT
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND,
-     $                   LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1,
-     $                   NM1, NMAXIT
-      DOUBLE PRECISION   ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2,
-     $                   S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST
+      INTEGER            I, ICOMPZ, II, ISCALE, J, JTOT, K, L, L1, LEND, LENDM1, LENDP1, LENDSV, LM1, LSV, M, MM, MM1, NM1, NMAXIT
+      DOUBLE PRECISION   ANORM, B, C, EPS, EPS2, F, G, P, R, RT1, RT2, S, SAFMAX, SAFMIN, SSFMAX, SSFMIN, TST
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +33,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANST, DLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLAE2, DLAEV2, DLARTG, DLASCL, DLASRT, XERBLA,
-     $                   ZLASET, ZLASR, ZSWAP
+      EXTERNAL           DLAE2, DLAEV2, DLARTG, DLASCL, DLASRT, XERBLA, ZLASET, ZLASR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SIGN, SQRT
@@ -63,8 +57,7 @@
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1,
-     $         N ) ) ) THEN
+      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
          INFO = -6
       END IF
       IF( INFO.NE.0 ) THEN
@@ -74,12 +67,10 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
-         IF( ICOMPZ.EQ.2 )
-     $      Z( 1, 1 ) = CONE
+         IF( ICOMPZ.EQ.2 ) Z( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -95,8 +86,7 @@
 *     Compute the eigenvalues and eigenvectors of the tridiagonal
 *     matrix.
 *
-      IF( ICOMPZ.EQ.2 )
-     $   CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      IF( ICOMPZ.EQ.2 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
 *
       NMAXIT = N*MAXIT
       JTOT = 0
@@ -109,17 +99,11 @@
       NM1 = N - 1
 *
    10 CONTINUE
-      IF( L1.GT.N )
-     $   GO TO 160
-      IF( L1.GT.1 )
-     $   E( L1-1 ) = ZERO
+      IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       IF( L1.LE.NM1 ) THEN
          DO 20 M = L1, NM1
             TST = ABS( E( M ) )
-            IF( TST.EQ.ZERO )
-     $         GO TO 30
-            IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+
-     $          1 ) ) ) )*EPS ) THEN
+            IF( TST.EQ.ZERO ) GO TO 30             IF( TST.LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) THEN
                E( M ) = ZERO
                GO TO 30
             END IF
@@ -133,27 +117,19 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      IF( LEND.EQ.L )
-     $   GO TO 10
+      IF( LEND.EQ.L ) GO TO 10
 *
 *     Scale submatrix in rows and columns L to LEND
 *
       ANORM = DLANST( 'I', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      IF( ANORM.EQ.ZERO )
-     $   GO TO 10
+      IF( ANORM.EQ.ZERO ) GO TO 10
       IF( ANORM.GT.SSFMAX ) THEN
          ISCALE = 1
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N,
-     $                INFO )
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N,
-     $                INFO )
+         CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
       ELSE IF( ANORM.LT.SSFMIN ) THEN
          ISCALE = 2
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N,
-     $                INFO )
-         CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N,
-     $                INFO )
+         CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL DLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
       END IF
 *
 *     Choose between QL and QR iteration
@@ -174,19 +150,16 @@
             LENDM1 = LEND - 1
             DO 50 M = L, LENDM1
                TST = ABS( E( M ) )**2
-               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+
-     $             SAFMIN )GO TO 60
+               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
    50       CONTINUE
          END IF
 *
          M = LEND
 *
    60    CONTINUE
-         IF( M.LT.LEND )
-     $      E( M ) = ZERO
+         IF( M.LT.LEND ) E( M ) = ZERO
          P = D( L )
-         IF( M.EQ.L )
-     $      GO TO 80
+         IF( M.EQ.L ) GO TO 80
 *
 *        If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
 *        to compute its eigensystem.
@@ -196,8 +169,7 @@
                CALL DLAEV2( D( L ), E( L ), D( L+1 ), RT1, RT2, C, S )
                WORK( L ) = C
                WORK( N-1+L ) = S
-               CALL ZLASR( 'R', 'V', 'B', N, 2, WORK( L ),
-     $                     WORK( N-1+L ), Z( 1, L ), LDZ )
+               CALL ZLASR( 'R', 'V', 'B', N, 2, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
             ELSE
                CALL DLAE2( D( L ), E( L ), D( L+1 ), RT1, RT2 )
             END IF
@@ -205,13 +177,11 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            IF( L.LE.LEND )
-     $         GO TO 40
+            IF( L.LE.LEND ) GO TO 40
             GO TO 140
          END IF
 *
-         IF( JTOT.EQ.NMAXIT )
-     $      GO TO 140
+         IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
 *
 *        Form shift.
@@ -231,8 +201,7 @@
             F = S*E( I )
             B = C*E( I )
             CALL DLARTG( G, F, C, S, R )
-            IF( I.NE.M-1 )
-     $         E( I+1 ) = R
+            IF( I.NE.M-1 ) E( I+1 ) = R
             G = D( I+1 ) - P
             R = ( D( I )-G )*S + TWO*C*B
             P = S*R
@@ -252,8 +221,7 @@
 *
          IF( ICOMPZ.GT.0 ) THEN
             MM = M - L + 1
-            CALL ZLASR( 'R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ),
-     $                  Z( 1, L ), LDZ )
+            CALL ZLASR( 'R', 'V', 'B', N, MM, WORK( L ), WORK( N-1+L ), Z( 1, L ), LDZ )
          END IF
 *
          D( L ) = D( L ) - P
@@ -266,8 +234,7 @@
          D( L ) = P
 *
          L = L + 1
-         IF( L.LE.LEND )
-     $      GO TO 40
+         IF( L.LE.LEND ) GO TO 40
          GO TO 140
 *
       ELSE
@@ -281,19 +248,16 @@
             LENDP1 = LEND + 1
             DO 100 M = L, LENDP1, -1
                TST = ABS( E( M-1 ) )**2
-               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+
-     $             SAFMIN )GO TO 110
+               IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
   100       CONTINUE
          END IF
 *
          M = LEND
 *
   110    CONTINUE
-         IF( M.GT.LEND )
-     $      E( M-1 ) = ZERO
+         IF( M.GT.LEND ) E( M-1 ) = ZERO
          P = D( L )
-         IF( M.EQ.L )
-     $      GO TO 130
+         IF( M.EQ.L ) GO TO 130
 *
 *        If remaining matrix is 2-by-2, use DLAE2 or SLAEV2
 *        to compute its eigensystem.
@@ -303,8 +267,7 @@
                CALL DLAEV2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2, C, S )
                WORK( M ) = C
                WORK( N-1+M ) = S
-               CALL ZLASR( 'R', 'V', 'F', N, 2, WORK( M ),
-     $                     WORK( N-1+M ), Z( 1, L-1 ), LDZ )
+               CALL ZLASR( 'R', 'V', 'F', N, 2, WORK( M ), WORK( N-1+M ), Z( 1, L-1 ), LDZ )
             ELSE
                CALL DLAE2( D( L-1 ), E( L-1 ), D( L ), RT1, RT2 )
             END IF
@@ -312,13 +275,11 @@
             D( L ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            IF( L.GE.LEND )
-     $         GO TO 90
+            IF( L.GE.LEND ) GO TO 90
             GO TO 140
          END IF
 *
-         IF( JTOT.EQ.NMAXIT )
-     $      GO TO 140
+         IF( JTOT.EQ.NMAXIT ) GO TO 140
          JTOT = JTOT + 1
 *
 *        Form shift.
@@ -338,8 +299,7 @@
             F = S*E( I )
             B = C*E( I )
             CALL DLARTG( G, F, C, S, R )
-            IF( I.NE.M )
-     $         E( I-1 ) = R
+            IF( I.NE.M ) E( I-1 ) = R
             G = D( I ) - P
             R = ( D( I+1 )-G )*S + TWO*C*B
             P = S*R
@@ -359,8 +319,7 @@
 *
          IF( ICOMPZ.GT.0 ) THEN
             MM = L - M + 1
-            CALL ZLASR( 'R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ),
-     $                  Z( 1, M ), LDZ )
+            CALL ZLASR( 'R', 'V', 'F', N, MM, WORK( M ), WORK( N-1+M ), Z( 1, M ), LDZ )
          END IF
 *
          D( L ) = D( L ) - P
@@ -373,8 +332,7 @@
          D( L ) = P
 *
          L = L - 1
-         IF( L.GE.LEND )
-     $      GO TO 90
+         IF( L.GE.LEND ) GO TO 90
          GO TO 140
 *
       END IF
@@ -383,15 +341,9 @@
 *
   140 CONTINUE
       IF( ISCALE.EQ.1 ) THEN
-         CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1,
-     $                D( LSV ), N, INFO )
-         CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ),
-     $                N, INFO )
+         CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
       ELSE IF( ISCALE.EQ.2 ) THEN
-         CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1,
-     $                D( LSV ), N, INFO )
-         CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ),
-     $                N, INFO )
+         CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO )
       END IF
 *
 *     Check for no convergence to an eigenvalue after a total
@@ -399,8 +351,7 @@
 *
       IF( JTOT.EQ.NMAXIT ) THEN
          DO 150 I = 1, N - 1
-            IF( E( I ).NE.ZERO )
-     $         INFO = INFO + 1
+            IF( E( I ).NE.ZERO ) INFO = INFO + 1
   150    CONTINUE
          RETURN
       END IF

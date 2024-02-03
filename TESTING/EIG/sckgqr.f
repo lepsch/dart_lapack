@@ -1,6 +1,4 @@
-      SUBROUTINE SCKGQR( NM, MVAL, NP, PVAL, NN, NVAL, NMATS, ISEED,
-     $                   THRESH, NMAX, A, AF, AQ, AR, TAUA, B, BF, BZ,
-     $                   BT, BWK, TAUB, WORK, RWORK, NIN, NOUT, INFO )
+      SUBROUTINE SCKGQR( NM, MVAL, NP, PVAL, NN, NVAL, NMATS, ISEED, THRESH, NMAX, A, AF, AQ, AR, TAUA, B, BF, BZ, BT, BWK, TAUB, WORK, RWORK, NIN, NOUT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            ISEED( 4 ), MVAL( * ), NVAL( * ), PVAL( * )
-      REAL               A( * ), AF( * ), AQ( * ), AR( * ), B( * ),
-     $                   BF( * ), BT( * ), BWK( * ), BZ( * ),
-     $                   RWORK( * ), TAUA( * ), TAUB( * ), WORK( * )
+      REAL               A( * ), AF( * ), AQ( * ), AR( * ), B( * ), BF( * ), BT( * ), BWK( * ), BZ( * ), RWORK( * ), TAUA( * ), TAUB( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -29,9 +25,7 @@
       LOGICAL            FIRSTT
       CHARACTER          DISTA, DISTB, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB,
-     $                   LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL,
-     $                   NRUN, NT, P
+      INTEGER            I, IINFO, IM, IMAT, IN, IP, KLA, KLB, KUA, KUB, LDA, LDB, LWORK, M, MODEA, MODEB, N, NFAIL, NRUN, NT, P
       REAL               ANORM, BNORM, CNDNMA, CNDNMB
 *     ..
 *     .. Local Arrays ..
@@ -39,8 +33,7 @@
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, SGQRTS, SGRQTS, SLATB9,
-     $                   SLATMS
+      EXTERNAL           ALAHDG, ALAREQ, ALASUM, SGQRTS, SGRQTS, SLATB9, SLATMS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS
@@ -78,23 +71,18 @@
 *
 *                 Do the tests only if DOTYPE( IMAT ) is true.
 *
-                  IF( .NOT.DOTYPE( IMAT ) )
-     $               GO TO 30
+                  IF( .NOT.DOTYPE( IMAT ) ) GO TO 30
 *
 *                 Test SGGRQF
 *
 *                 Set up parameters with SLATB9 and generate test
 *                 matrices A and B with SLATMS.
 *
-                  CALL SLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA,
-     $                         KLB, KUB, ANORM, BNORM, MODEA, MODEB,
-     $                         CNDNMA, CNDNMB, DISTA, DISTB )
+                  CALL SLATB9( 'GRQ', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
 *                 Generate M by N matrix A
 *
-                  CALL SLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA,
-     $                         CNDNMA, ANORM, KLA, KUA, 'No packing', A,
-     $                         LDA, WORK, IINFO )
+                  CALL SLATMS( M, N, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -103,9 +91,7 @@
 *
 *                 Generate P by N matrix B
 *
-                  CALL SLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB,
-     $                         CNDNMB, BNORM, KLB, KUB, 'No packing', B,
-     $                         LDB, WORK, IINFO )
+                  CALL SLATMS( P, N, DISTB, ISEED, TYPE, RWORK, MODEB, CNDNMB, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -114,9 +100,7 @@
 *
                   NT = 4
 *
-                  CALL SGRQTS( M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF,
-     $                         BZ, BT, BWK, LDB, TAUB, WORK, LWORK,
-     $                         RWORK, RESULT )
+                  CALL SGRQTS( M, P, N, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *                 Print information about the tests that did not
 *                 pass the threshold.
@@ -127,8 +111,7 @@
                            FIRSTT = .FALSE.
                            CALL ALAHDG( NOUT, 'GRQ' )
                         END IF
-                        WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I,
-     $                     RESULT( I )
+                        WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
                      END IF
    10             CONTINUE
@@ -139,15 +122,11 @@
 *                 Set up parameters with SLATB9 and generate test
 *                 matrices A and B with SLATMS.
 *
-                  CALL SLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA,
-     $                         KLB, KUB, ANORM, BNORM, MODEA, MODEB,
-     $                         CNDNMA, CNDNMB, DISTA, DISTB )
+                  CALL SLATB9( 'GQR', IMAT, M, P, N, TYPE, KLA, KUA, KLB, KUB, ANORM, BNORM, MODEA, MODEB, CNDNMA, CNDNMB, DISTA, DISTB )
 *
 *                 Generate N-by-M matrix  A
 *
-                  CALL SLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA,
-     $                         CNDNMA, ANORM, KLA, KUA, 'No packing', A,
-     $                         LDA, WORK, IINFO )
+                  CALL SLATMS( N, M, DISTA, ISEED, TYPE, RWORK, MODEA, CNDNMA, ANORM, KLA, KUA, 'No packing', A, LDA, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -156,9 +135,7 @@
 *
 *                 Generate N-by-P matrix  B
 *
-                  CALL SLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEA,
-     $                         CNDNMA, BNORM, KLB, KUB, 'No packing', B,
-     $                         LDB, WORK, IINFO )
+                  CALL SLATMS( N, P, DISTB, ISEED, TYPE, RWORK, MODEA, CNDNMA, BNORM, KLB, KUB, 'No packing', B, LDB, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      WRITE( NOUT, FMT = 9999 )IINFO
                      INFO = ABS( IINFO )
@@ -167,9 +144,7 @@
 *
                   NT = 4
 *
-                  CALL SGQRTS( N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF,
-     $                         BZ, BT, BWK, LDB, TAUB, WORK, LWORK,
-     $                         RWORK, RESULT )
+                  CALL SGQRTS( N, M, P, A, AF, AQ, AR, LDA, TAUA, B, BF, BZ, BT, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *                 Print information about the tests that did not
 *                 pass the threshold.
@@ -180,8 +155,7 @@
                            FIRSTT = .FALSE.
                            CALL ALAHDG( NOUT, PATH )
                         END IF
-                        WRITE( NOUT, FMT = 9997 )N, M, P, IMAT, I,
-     $                     RESULT( I )
+                        WRITE( NOUT, FMT = 9997 )N, M, P, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
                      END IF
    20             CONTINUE

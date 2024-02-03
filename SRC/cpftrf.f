@@ -53,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     If N is odd, set NISODD = .TRUE.
 *     If N is even, set K = N/2 and NISODD = .FALSE.
@@ -93,15 +92,9 @@
 *             T1 -> a(0), T2 -> a(n), S -> a(n1)
 *
                CALL CPOTRF( 'L', N1, A( 0 ), N, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 0 ), N,
-     $                     A( N1 ), N )
-               CALL CHERK( 'U', 'N', N2, N1, -ONE, A( N1 ), N, ONE,
-     $                     A( N ), N )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 0 ), N, A( N1 ), N )                CALL CHERK( 'U', 'N', N2, N1, -ONE, A( N1 ), N, ONE, A( N ), N )
                CALL CPOTRF( 'U', N2, A( N ), N, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + N1
+               IF( INFO.GT.0 ) INFO = INFO + N1
 *
             ELSE
 *
@@ -110,15 +103,9 @@
 *             T1 -> a(n2), T2 -> a(n1), S -> a(0)
 *
                CALL CPOTRF( 'L', N1, A( N2 ), N, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'L', 'L', 'N', 'N', N1, N2, CONE, A( N2 ), N,
-     $                     A( 0 ), N )
-               CALL CHERK( 'U', 'C', N2, N1, -ONE, A( 0 ), N, ONE,
-     $                     A( N1 ), N )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'L', 'L', 'N', 'N', N1, N2, CONE, A( N2 ), N, A( 0 ), N )                CALL CHERK( 'U', 'C', N2, N1, -ONE, A( 0 ), N, ONE, A( N1 ), N )
                CALL CPOTRF( 'U', N2, A( N1 ), N, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + N1
+               IF( INFO.GT.0 ) INFO = INFO + N1
 *
             END IF
 *
@@ -133,15 +120,9 @@
 *              T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 *
                CALL CPOTRF( 'U', N1, A( 0 ), N1, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 0 ), N1,
-     $                     A( N1*N1 ), N1 )
-               CALL CHERK( 'L', 'C', N2, N1, -ONE, A( N1*N1 ), N1, ONE,
-     $                     A( 1 ), N1 )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 0 ), N1, A( N1*N1 ), N1 )                CALL CHERK( 'L', 'C', N2, N1, -ONE, A( N1*N1 ), N1, ONE, A( 1 ), N1 )
                CALL CPOTRF( 'L', N2, A( 1 ), N1, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + N1
+               IF( INFO.GT.0 ) INFO = INFO + N1
 *
             ELSE
 *
@@ -150,15 +131,9 @@
 *              T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
 *
                CALL CPOTRF( 'U', N1, A( N2*N2 ), N2, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'R', 'U', 'N', 'N', N2, N1, CONE, A( N2*N2 ),
-     $                     N2, A( 0 ), N2 )
-               CALL CHERK( 'L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE,
-     $                     A( N1*N2 ), N2 )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'R', 'U', 'N', 'N', N2, N1, CONE, A( N2*N2 ), N2, A( 0 ), N2 )                CALL CHERK( 'L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE, A( N1*N2 ), N2 )
                CALL CPOTRF( 'L', N2, A( N1*N2 ), N2, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + N1
+               IF( INFO.GT.0 ) INFO = INFO + N1
 *
             END IF
 *
@@ -179,15 +154,9 @@
 *              T1 -> a(1), T2 -> a(0), S -> a(k+1)
 *
                CALL CPOTRF( 'L', K, A( 1 ), N+1, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'R', 'L', 'C', 'N', K, K, CONE, A( 1 ), N+1,
-     $                     A( K+1 ), N+1 )
-               CALL CHERK( 'U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE,
-     $                     A( 0 ), N+1 )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'R', 'L', 'C', 'N', K, K, CONE, A( 1 ), N+1, A( K+1 ), N+1 )                CALL CHERK( 'U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE, A( 0 ), N+1 )
                CALL CPOTRF( 'U', K, A( 0 ), N+1, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + K
+               IF( INFO.GT.0 ) INFO = INFO + K
 *
             ELSE
 *
@@ -196,15 +165,9 @@
 *              T1 -> a(k+1), T2 -> a(k), S -> a(0)
 *
                CALL CPOTRF( 'L', K, A( K+1 ), N+1, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'L', 'L', 'N', 'N', K, K, CONE, A( K+1 ),
-     $                     N+1, A( 0 ), N+1 )
-               CALL CHERK( 'U', 'C', K, K, -ONE, A( 0 ), N+1, ONE,
-     $                     A( K ), N+1 )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'L', 'L', 'N', 'N', K, K, CONE, A( K+1 ), N+1, A( 0 ), N+1 )                CALL CHERK( 'U', 'C', K, K, -ONE, A( 0 ), N+1, ONE, A( K ), N+1 )
                CALL CPOTRF( 'U', K, A( K ), N+1, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + K
+               IF( INFO.GT.0 ) INFO = INFO + K
 *
             END IF
 *
@@ -219,15 +182,9 @@
 *              T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 *
                CALL CPOTRF( 'U', K, A( 0+K ), K, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'L', 'U', 'C', 'N', K, K, CONE, A( K ), N1,
-     $                     A( K*( K+1 ) ), K )
-               CALL CHERK( 'L', 'C', K, K, -ONE, A( K*( K+1 ) ), K, ONE,
-     $                     A( 0 ), K )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'L', 'U', 'C', 'N', K, K, CONE, A( K ), N1, A( K*( K+1 ) ), K )                CALL CHERK( 'L', 'C', K, K, -ONE, A( K*( K+1 ) ), K, ONE, A( 0 ), K )
                CALL CPOTRF( 'L', K, A( 0 ), K, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + K
+               IF( INFO.GT.0 ) INFO = INFO + K
 *
             ELSE
 *
@@ -236,15 +193,9 @@
 *              T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 *
                CALL CPOTRF( 'U', K, A( K*( K+1 ) ), K, INFO )
-               IF( INFO.GT.0 )
-     $            RETURN
-               CALL CTRSM( 'R', 'U', 'N', 'N', K, K, CONE,
-     $                     A( K*( K+1 ) ), K, A( 0 ), K )
-               CALL CHERK( 'L', 'N', K, K, -ONE, A( 0 ), K, ONE,
-     $                     A( K*K ), K )
+               IF( INFO.GT.0 ) RETURN                CALL CTRSM( 'R', 'U', 'N', 'N', K, K, CONE, A( K*( K+1 ) ), K, A( 0 ), K )                CALL CHERK( 'L', 'N', K, K, -ONE, A( 0 ), K, ONE, A( K*K ), K )
                CALL CPOTRF( 'L', K, A( K*K ), K, INFO )
-               IF( INFO.GT.0 )
-     $            INFO = INFO + K
+               IF( INFO.GT.0 ) INFO = INFO + K
 *
             END IF
 *

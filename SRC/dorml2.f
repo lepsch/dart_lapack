@@ -1,5 +1,4 @@
-      SUBROUTINE DORML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC,
-     $                   WORK, INFO )
+      SUBROUTINE DORML2( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -71,11 +70,9 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
-      IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) )
-     $     THEN
+      IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
          I1 = 1
          I2 = K
          I3 = 1
@@ -112,8 +109,7 @@
 *
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL DLARF( SIDE, MI, NI, A( I, I ), LDA, TAU( I ),
-     $               C( IC, JC ), LDC, WORK )
+         CALL DLARF( SIDE, MI, NI, A( I, I ), LDA, TAU( I ), C( IC, JC ), LDC, WORK )
          A( I, I ) = AII
    10 CONTINUE
       RETURN

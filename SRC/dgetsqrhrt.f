@@ -1,5 +1,4 @@
-      SUBROUTINE DGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK,
-     $                       LWORK, INFO )
+      SUBROUTINE DGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -21,12 +20,10 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT,
-     $                   NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS
+      INTEGER            I, IINFO, J, LW1, LW2, LWT, LDWT, LWORKOPT, NB1LOCAL, NB2LOCAL, NUM_ALL_ROW_BLOCKS
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLATSQR, DORGTSQR_ROW, DORHR_COL,
-     $                   XERBLA
+      EXTERNAL           DCOPY, DLATSQR, DORGTSQR_ROW, DORHR_COL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CEILING, DBLE, MAX, MIN
@@ -68,8 +65,7 @@
 *
             NB1LOCAL = MIN( NB1, N )
 *
-            NUM_ALL_ROW_BLOCKS = MAX( 1,
-     $                   CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) )
+            NUM_ALL_ROW_BLOCKS = MAX( 1, CEILING( DBLE( M - N ) / DBLE( MB1 - N ) ) )
 *
 *           Length and leading dimension of WORK array to place
 *           T array in TSQR.
@@ -118,8 +114,7 @@
 *
 *     (1) Perform TSQR-factorization of the M-by-N matrix A.
 *
-      CALL DLATSQR( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT,
-     $              WORK(LWT+1), LW1, IINFO )
+      CALL DLATSQR( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK(LWT+1), LW1, IINFO )
 *
 *     (2) Copy the factor R_tsqr stored in the upper-triangular part
 *         of A into the square matrix in the work array
@@ -132,15 +127,12 @@
 *     (3) Generate a M-by-N matrix Q with orthonormal columns from
 *     the result stored below the diagonal in the array A in place.
 *
-
-      CALL DORGTSQR_ROW( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT,
-     $                   WORK( LWT+N*N+1 ), LW2, IINFO )
+       CALL DORGTSQR_ROW( M, N, MB1, NB1LOCAL, A, LDA, WORK, LDWT, WORK( LWT+N*N+1 ), LW2, IINFO )
 *
 *     (4) Perform the reconstruction of Householder vectors from
 *     the matrix Q (stored in A) in place.
 *
-      CALL DORHR_COL( M, N, NB2LOCAL, A, LDA, T, LDT,
-     $                WORK( LWT+N*N+1 ), IINFO )
+      CALL DORHR_COL( M, N, NB2LOCAL, A, LDA, T, LDT, WORK( LWT+N*N+1 ), IINFO )
 *
 *     (5) Copy the factor R_tsqr stored in the square matrix in the
 *     work array WORK(LWT+1:LWT+N*N) into the upper-triangular

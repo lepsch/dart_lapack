@@ -24,8 +24,7 @@
 *     .. Executable Statements ..
 *
       LSAMEN = .FALSE.
-      IF( LEN( CA ).LT.N .OR. LEN( CB ).LT.N )
-     $   GO TO 20
+      IF( LEN( CA ).LT.N .OR. LEN( CB ).LT.N ) GO TO 20
 *
 *     Do for each character in the two strings.
 *
@@ -33,8 +32,7 @@
 *
 *        Test if the characters are equal using LSAME.
 *
-         IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) )
-     $      GO TO 20
+         IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
 *
    10 CONTINUE
       LSAMEN = .TRUE.

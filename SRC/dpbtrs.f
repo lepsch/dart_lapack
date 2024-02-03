@@ -54,8 +54,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -65,13 +64,11 @@
 *
 *           Solve U**T *X = B, overwriting B with X.
 *
-            CALL DTBSV( 'Upper', 'Transpose', 'Non-unit', N, KD, AB,
-     $                  LDAB, B( 1, J ), 1 )
+            CALL DTBSV( 'Upper', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
 *           Solve U*X = B, overwriting B with X.
 *
-            CALL DTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB,
-     $                  LDAB, B( 1, J ), 1 )
+            CALL DTBSV( 'Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    10    CONTINUE
       ELSE
 *
@@ -81,13 +78,11 @@
 *
 *           Solve L*X = B, overwriting B with X.
 *
-            CALL DTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB,
-     $                  LDAB, B( 1, J ), 1 )
+            CALL DTBSV( 'Lower', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
 *
 *           Solve L**T *X = B, overwriting B with X.
 *
-            CALL DTBSV( 'Lower', 'Transpose', 'Non-unit', N, KD, AB,
-     $                  LDAB, B( 1, J ), 1 )
+            CALL DTBSV( 'Lower', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

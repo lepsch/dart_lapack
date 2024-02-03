@@ -1,6 +1,4 @@
-      SUBROUTINE DGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA,
-     $                     K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU,
-     $                     WORK, LWORK, IWORK, INFO )
+      SUBROUTINE DGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, WORK, LWORK, IWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -26,9 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, DONE
-      INTEGER            IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX,
-     $                   JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB,
-     $                   NBMIN, NX
+      INTEGER            IINFO, IOFFSET, IWS, J, JB, JBF, JMAXB, JMAX, JMAXC2NRM, KP1, LWKOPT, MINMN, N_SUB, NB, NBMIN, NX
       DOUBLE PRECISION   EPS, HUGEVAL, MAXC2NRM, SAFMIN
 *     ..
 *     .. External Subroutines ..
@@ -317,8 +313,7 @@
 *              Reduce NB and determine the minimum value of NB.
 *
                NB = ( LWORK-2*N ) / ( N+1 )
-               NBMIN = MAX( 2, ILAENV( INBMIN, 'DGEQP3RK', ' ', M, N,
-     $                 -1, -1 ) )
+               NBMIN = MAX( 2, ILAENV( INBMIN, 'DGEQP3RK', ' ', M, N, -1, -1 ) )
 *
             END IF
          END IF
@@ -364,13 +359,7 @@
 *
 *           Factorize JB columns among the columns A(J:N).
 *
-            CALL DLAQP3RK( M, N_SUB, NRHS, IOFFSET, JB, ABSTOL,
-     $                     RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA,
-     $                     DONE, JBF, MAXC2NRMK, RELMAXC2NRMK,
-     $                     JPIV( J ), TAU( J ),
-     $                     WORK( J ), WORK( N+J ),
-     $                     WORK( 2*N+1 ), WORK( 2*N+JB+1 ),
-     $                     N+NRHS-J+1, IWORK, IINFO )
+            CALL DLAQP3RK( M, N_SUB, NRHS, IOFFSET, JB, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, DONE, JBF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N+NRHS-J+1, IWORK, IINFO )
 *
 *           Set INFO on the first occurence of Inf.
 *
@@ -430,11 +419,7 @@
          N_SUB = N-J+1
          IOFFSET = J-1
 *
-         CALL DLAQP2RK( M, N_SUB, NRHS, IOFFSET, JMAX-J+1,
-     $                  ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA,
-     $                  KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ),
-     $                  TAU( J ), WORK( J ), WORK( N+J ),
-     $                  WORK( 2*N+1 ), IINFO )
+         CALL DLAQP2RK( M, N_SUB, NRHS, IOFFSET, JMAX-J+1, ABSTOL, RELTOL, KP1, MAXC2NRM, A( 1, J ), LDA, KF, MAXC2NRMK, RELMAXC2NRMK, JPIV( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), IINFO )
 *
 *        ABSTOL or RELTOL criterion is satisfied when the number of
 *        the factorized columns KF is smaller then the  number

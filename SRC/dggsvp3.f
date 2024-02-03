@@ -1,6 +1,4 @@
-      SUBROUTINE DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB,
-     $                    TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ,
-     $                    IWORK, TAU, WORK, LWORK, INFO )
+      SUBROUTINE DGGSVP3( JOBU, JOBV, JOBQ, M, P, N, A, LDA, B, LDB, TOLA, TOLB, K, L, U, LDU, V, LDV, Q, LDQ, IWORK, TAU, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,14 +8,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P,
-     $                   LWORK
+      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, P, LWORK
       DOUBLE PRECISION   TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -35,8 +31,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQP3, DGEQR2, DGERQ2, DLACPY, DLAPMT,
-     $                   DLASET, DORG2R, DORM2R, DORMR2, XERBLA
+      EXTERNAL           DGEQP3, DGEQR2, DGERQ2, DLACPY, DLAPMT, DLASET, DORG2R, DORM2R, DORMR2, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -124,8 +119,7 @@
 *
       L = 0
       DO 20 I = 1, MIN( P, N )
-         IF( ABS( B( I, I ) ).GT.TOLB )
-     $      L = L + 1
+         IF( ABS( B( I, I ) ).GT.TOLB ) L = L + 1
    20 CONTINUE
 *
       IF( WANTV ) THEN
@@ -133,9 +127,7 @@
 *        Copy the details of V, and form V.
 *
          CALL DLASET( 'Full', P, P, ZERO, ZERO, V, LDV )
-         IF( P.GT.1 )
-     $      CALL DLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ),
-     $                   LDV )
+         IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV )
          CALL DORG2R( P, P, MIN( P, N ), V, LDV, TAU, WORK, INFO )
       END IF
 *
@@ -146,8 +138,7 @@
             B( I, J ) = ZERO
    30    CONTINUE
    40 CONTINUE
-      IF( P.GT.L )
-     $   CALL DLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB )
+      IF( P.GT.L ) CALL DLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB )
 *
       IF( WANTQ ) THEN
 *
@@ -165,15 +156,13 @@
 *
 *        Update A := A*Z**T
 *
-         CALL DORMR2( 'Right', 'Transpose', M, N, L, B, LDB, TAU, A,
-     $                LDA, WORK, INFO )
+         CALL DORMR2( 'Right', 'Transpose', M, N, L, B, LDB, TAU, A, LDA, WORK, INFO )
 *
          IF( WANTQ ) THEN
 *
 *           Update Q := Q*Z**T
 *
-            CALL DORMR2( 'Right', 'Transpose', N, N, L, B, LDB, TAU, Q,
-     $                   LDQ, WORK, INFO )
+            CALL DORMR2( 'Right', 'Transpose', N, N, L, B, LDB, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
 *        Clean up B
@@ -204,23 +193,19 @@
 *
       K = 0
       DO 80 I = 1, MIN( M, N-L )
-         IF( ABS( A( I, I ) ).GT.TOLA )
-     $      K = K + 1
+         IF( ABS( A( I, I ) ).GT.TOLA ) K = K + 1
    80 CONTINUE
 *
 *     Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
 *
-      CALL DORM2R( 'Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA,
-     $             TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
+      CALL DORM2R( 'Left', 'Transpose', M, L, MIN( M, N-L ), A, LDA, TAU, A( 1, N-L+1 ), LDA, WORK, INFO )
 *
       IF( WANTU ) THEN
 *
 *        Copy the details of U, and form U
 *
          CALL DLASET( 'Full', M, M, ZERO, ZERO, U, LDU )
-         IF( M.GT.1 )
-     $      CALL DLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ),
-     $                   LDU )
+         IF( M.GT.1 ) CALL DLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU )
          CALL DORG2R( M, M, MIN( M, N-L ), U, LDU, TAU, WORK, INFO )
       END IF
 *
@@ -239,8 +224,7 @@
             A( I, J ) = ZERO
    90    CONTINUE
   100 CONTINUE
-      IF( M.GT.K )
-     $   CALL DLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA )
+      IF( M.GT.K ) CALL DLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA )
 *
       IF( N-L.GT.K ) THEN
 *
@@ -252,8 +236,7 @@
 *
 *           Update Q( 1:N,1:N-L ) = Q( 1:N,1:N-L )*Z1**T
 *
-            CALL DORMR2( 'Right', 'Transpose', N, N-L, K, A, LDA, TAU,
-     $                   Q, LDQ, WORK, INFO )
+            CALL DORMR2( 'Right', 'Transpose', N, N-L, K, A, LDA, TAU, Q, LDQ, WORK, INFO )
          END IF
 *
 *        Clean up A
@@ -277,9 +260,7 @@
 *
 *           Update U(:,K+1:M) := U(:,K+1:M)*U1
 *
-            CALL DORM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ),
-     $                   A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU,
-     $                   WORK, INFO )
+            CALL DORM2R( 'Right', 'No transpose', M, M-K, MIN( M-K, L ), A( K+1, N-L+1 ), LDA, TAU, U( 1, K+1 ), LDU, WORK, INFO )
          END IF
 *
 *        Clean up

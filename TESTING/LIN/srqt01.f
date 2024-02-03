@@ -1,5 +1,4 @@
-      SUBROUTINE SRQT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE SRQT01( M, N, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ),
-     $                   R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ),
-     $                   WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -60,15 +57,9 @@
 *
       CALL SLASET( 'Full', N, N, ROGUE, ROGUE, Q, LDA )
       IF( M.LE.N ) THEN
-         IF( M.GT.0 .AND. M.LT.N )
-     $      CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )
-         IF( M.GT.1 )
-     $      CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA,
-     $                   Q( N-M+2, N-M+1 ), LDA )
+         IF( M.GT.0 .AND. M.LT.N ) CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       ELSE
-         IF( N.GT.1 )
-     $      CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA,
-     $                   Q( 2, 1 ), LDA )
+         IF( N.GT.1 ) CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       END IF
 *
 *     Generate the n-by-n matrix Q
@@ -80,21 +71,14 @@
 *
       CALL SLASET( 'Full', M, N, ZERO, ZERO, R, LDA )
       IF( M.LE.N ) THEN
-         IF( M.GT.0 )
-     $      CALL SLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA,
-     $                   R( 1, N-M+1 ), LDA )
+         IF( M.GT.0 ) CALL SLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       ELSE
-         IF( M.GT.N .AND. N.GT.0 )
-     $      CALL SLACPY( 'Full', M-N, N, AF, LDA, R, LDA )
-         IF( N.GT.0 )
-     $      CALL SLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA,
-     $                   R( M-N+1, 1 ), LDA )
+         IF( M.GT.N .AND. N.GT.0 ) CALL SLACPY( 'Full', M-N, N, AF, LDA, R, LDA )          IF( N.GT.0 ) CALL SLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
       END IF
 *
 *     Compute R - A*Q'
 *
-      CALL SGEMM( 'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q,
-     $            LDA, ONE, R, LDA )
+      CALL SGEMM( 'No transpose', 'Transpose', M, N, N, -ONE, A, LDA, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( N * norm(A) * EPS ) .
 *
@@ -109,8 +93,7 @@
 *     Compute I - Q*Q'
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL SSYRK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL SSYRK( 'Upper', 'No transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *

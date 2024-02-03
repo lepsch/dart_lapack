@@ -52,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 
       IF ( M.EQ.1 ) THEN
 *
@@ -61,8 +60,7 @@
 *        Just need to handle IPIV and INFO
 *
          IPIV( 1 ) = 1
-         IF ( A(1,1).EQ.ZERO )
-     $      INFO = 1
+         IF ( A(1,1).EQ.ZERO ) INFO = 1
 *
       ELSE IF( N.EQ.1 ) THEN
 *
@@ -113,9 +111,7 @@
 *               [ A21 ]
 *
          CALL DGETRF2( M, N1, A, LDA, IPIV, IINFO )
-
-         IF ( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO
+          IF ( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO
 *
 *                              [ A12 ]
 *        Apply interchanges to [ --- ]
@@ -125,23 +121,19 @@
 *
 *        Solve A12
 *
-         CALL DTRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA,
-     $               A( 1, N1+1 ), LDA )
+         CALL DTRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA )
 *
 *        Update A22
 *
-         CALL DGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA,
-     $               A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+         CALL DGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
 *
 *        Factor A22
 *
-         CALL DGETRF2( M-N1, N2, A( N1+1, N1+1 ), LDA, IPIV( N1+1 ),
-     $                 IINFO )
+         CALL DGETRF2( M-N1, N2, A( N1+1, N1+1 ), LDA, IPIV( N1+1 ), IINFO )
 *
 *        Adjust INFO and the pivot indices
 *
-         IF ( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO + N1
+         IF ( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + N1
          DO 20 I = N1+1, MIN( M, N )
             IPIV( I ) = IPIV( I ) + N1
    20    CONTINUE

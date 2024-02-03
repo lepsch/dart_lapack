@@ -1,6 +1,4 @@
-      SUBROUTINE SSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB,
-     $                   LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z,
-     $                   LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE SSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M,
-     $                   N
+      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
-      REAL               AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ),
-     $                   W( * ), WORK( * ), Z( LDZ, * )
+      REAL               AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -27,8 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ
       CHARACTER          ORDER, VECT
-      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP,
-     $                   INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT
+      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT
       REAL               TMP1
 *     ..
 *     .. External Functions ..
@@ -36,8 +31,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SGEMV, SLACPY, SPBSTF, SSBGST, SSBTRD,
-     $                   SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, XERBLA
+      EXTERNAL           SCOPY, SGEMV, SLACPY, SPBSTF, SSBGST, SSBTRD, SSTEBZ, SSTEIN, SSTEQR, SSTERF, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN
@@ -73,8 +67,7 @@
          INFO = -12
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -14
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -15
@@ -97,8 +90,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -110,8 +102,7 @@
 *
 *     Transform problem to standard eigenvalue problem.
 *
-      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ,
-     $             WORK, IINFO )
+      CALL SSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, IINFO )
 *
 *     Reduce symmetric band matrix to tridiagonal form.
 *
@@ -123,8 +114,7 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ),
-     $             WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      CALL SSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call SSTERF or SSTEQR.  If this fails for some
@@ -144,8 +134,7 @@
             CALL SSTERF( N, W, WORK( INDEE ), INFO )
          ELSE
             CALL SLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ,
-     $                   WORK( INDWRK ), INFO )
+            CALL SSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -169,23 +158,17 @@
       END IF
       INDISP = 1 + N
       INDIWO = INDISP + N
-      CALL SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL,
-     $             WORK( INDD ), WORK( INDE ), M, NSPLIT, W,
-     $             IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ),
-     $             IWORK( INDIWO ), INFO )
+      CALL SSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W,
-     $                IWORK( 1 ), IWORK( INDISP ), Z, LDZ,
-     $                WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         CALL SSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
 *        Apply transformation matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by SSTEIN.
 *
          DO 20 J = 1, M
             CALL SCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL SGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO,
-     $                  Z( 1, J ), 1 )
+            CALL SGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

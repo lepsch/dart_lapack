@@ -1,5 +1,4 @@
-      SUBROUTINE SLASYF_RK( UPLO, N, NB, KB, A, LDA, E, IPIV, W, LDW,
-     $                      INFO )
+      SUBROUTINE SLASYF_RK( UPLO, N, NB, KB, A, LDA, E, IPIV, W, LDW, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,10 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            DONE
-      INTEGER            IMAX, ITEMP, J, JB, JJ, JMAX, K, KK, KW, KKW,
-     $                   KP, KSTEP, P, II
-      REAL               ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22,
-     $                   STEMP, R1, ROWMAX, T, SFMIN
+      INTEGER            IMAX, ITEMP, J, JB, JJ, JMAX, K, KK, KW, KKW, KP, KSTEP, P, II       REAL               ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, STEMP, R1, ROWMAX, T, SFMIN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -75,8 +71,7 @@
 *
 *        Exit from loop
 *
-         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 )
-     $      GO TO 30
+         IF( ( K.LE.N-NB+1 .AND. NB.LT.N ) .OR. K.LT.1 ) GO TO 30
 *
          KSTEP = 1
          P = K
@@ -84,9 +79,7 @@
 *        Copy column K of A to column KW of W and update it
 *
          CALL SCOPY( K, A( 1, K ), 1, W( 1, KW ), 1 )
-         IF( K.LT.N )
-     $      CALL SGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ),
-     $                  LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 )
+         IF( K.LT.N ) CALL SGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, ONE, W( 1, KW ), 1 )
 *
 *        Determine rows and columns to be interchanged and whether
 *        a 1-by-1 or 2-by-2 pivot block will be used
@@ -108,15 +101,13 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             CALL SCOPY( K, W( 1, KW ), 1, A( 1, K ), 1 )
 *
 *           Set E( K ) to zero
 *
-            IF( K.GT.1 )
-     $         E( K ) = ZERO
+            IF( K.GT.1 ) E( K ) = ZERO
 *
          ELSE
 *
@@ -147,21 +138,16 @@
 *                 Copy column IMAX to column KW-1 of W and update it
 *
                   CALL SCOPY( IMAX, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 )
-                  CALL SCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA,
-     $                        W( IMAX+1, KW-1 ), 1 )
+                  CALL SCOPY( K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 )
 *
-                  IF( K.LT.N )
-     $               CALL SGEMV( 'No transpose', K, N-K, -ONE,
-     $                           A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW,
-     $                           ONE, W( 1, KW-1 ), 1 )
+                  IF( K.LT.N ) CALL SGEMV( 'No transpose', K, N-K, -ONE, A( 1, K+1 ), LDA, W( IMAX, KW+1 ), LDW, ONE, W( 1, KW-1 ), 1 )
 *
 *                 JMAX is the column-index of the largest off-diagonal
 *                 element in row IMAX, and ROWMAX is its absolute value.
 *                 Determine both ROWMAX and JMAX.
 *
                   IF( IMAX.NE.K ) THEN
-                     JMAX = IMAX + ISAMAX( K-IMAX, W( IMAX+1, KW-1 ),
-     $                                     1 )
+                     JMAX = IMAX + ISAMAX( K-IMAX, W( IMAX+1, KW-1 ), 1 )
                      ROWMAX = ABS( W( JMAX, KW-1 ) )
                   ELSE
                      ROWMAX = ZERO
@@ -180,8 +166,7 @@
 *                 ABS( W( IMAX, KW-1 ) ).GE.ALPHA*ROWMAX
 *                 (used to handle NaN and Inf)
 *
-                  IF( .NOT.(ABS( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) )
-     $            THEN
+                  IF( .NOT.(ABS( W( IMAX, KW-1 ) ).LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -197,8 +182,7 @@
 *                 Equivalent to testing for ROWMAX.EQ.COLMAX,
 *                 (used to handle NaN and Inf)
 *
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) )
-     $            THEN
+                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
 *
 *                    interchange rows and columns K-1 and IMAX,
 *                    use 2-by-2 pivot block
@@ -255,16 +239,14 @@
 *              Copy non-updated column KK to column KP
 *
                A( KP, K ) = A( KK, K )
-               CALL SCOPY( K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ),
-     $                     LDA )
+               CALL SCOPY( K-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
                CALL SCOPY( KP, A( 1, KK ), 1, A( 1, KP ), 1 )
 *
 *              Interchange rows KK and KP in last N-KK+1 columns
 *              of A and W
 *
                CALL SSWAP( N-KK+1, A( KK, KK ), LDA, A( KP, KK ), LDA )
-               CALL SSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ),
-     $                     LDW )
+               CALL SSWAP( N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW )
             END IF
 *
             IF( KSTEP.EQ.1 ) THEN
@@ -313,10 +295,7 @@
                   D22 = W( K-1, KW-1 ) / D12
                   T = ONE / ( D11*D22-ONE )
                   DO 20 J = 1, K - 2
-                     A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) /
-     $                             D12 )
-                     A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) /
-     $                           D12 )
+                     A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 )
    20             CONTINUE
                END IF
 *
@@ -364,17 +343,12 @@
 *           Update the upper triangle of the diagonal block
 *
             DO 40 JJ = J, J + JB - 1
-               CALL SGEMV( 'No transpose', JJ-J+1, N-K, -ONE,
-     $                     A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE,
-     $                     A( J, JJ ), 1 )
+               CALL SGEMV( 'No transpose', JJ-J+1, N-K, -ONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, ONE, A( J, JJ ), 1 )
    40       CONTINUE
 *
 *           Update the rectangular superdiagonal block
 *
-            IF( J.GE.2 )
-     $         CALL SGEMM( 'No transpose', 'Transpose', J-1, JB,
-     $                  N-K, -ONE, A( 1, K+1 ), LDA, W( J, KW+1 ),
-     $                  LDW, ONE, A( 1, J ), LDA )
+            IF( J.GE.2 ) CALL SGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -ONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, ONE, A( 1, J ), LDA )
    50    CONTINUE
 *
 *        Set KB to the number of columns factorized
@@ -398,8 +372,7 @@
 *
 *        Exit from loop
 *
-         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N )
-     $      GO TO 90
+         IF( ( K.GE.NB .AND. NB.LT.N ) .OR. K.GT.N ) GO TO 90
 *
          KSTEP = 1
          P = K
@@ -407,9 +380,7 @@
 *        Copy column K of A to column K of W and update it
 *
          CALL SCOPY( N-K+1, A( K, K ), 1, W( K, K ), 1 )
-         IF( K.GT.1 )
-     $      CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ),
-     $                  LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 )
+         IF( K.GT.1 ) CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( K, 1 ), LDW, ONE, W( K, K ), 1 )
 *
 *        Determine rows and columns to be interchanged and whether
 *        a 1-by-1 or 2-by-2 pivot block will be used
@@ -431,15 +402,13 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             CALL SCOPY( N-K+1, W( K, K ), 1, A( K, K ), 1 )
 *
 *           Set E( K ) to zero
 *
-            IF( K.LT.N )
-     $         E( K ) = ZERO
+            IF( K.LT.N ) E( K ) = ZERO
 *
          ELSE
 *
@@ -470,12 +439,7 @@
 *                 Copy column IMAX to column K+1 of W and update it
 *
                   CALL SCOPY( IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1)
-                  CALL SCOPY( N-IMAX+1, A( IMAX, IMAX ), 1,
-     $                        W( IMAX, K+1 ), 1 )
-                  IF( K.GT.1 )
-     $               CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE,
-     $                           A( K, 1 ), LDA, W( IMAX, 1 ), LDW,
-     $                           ONE, W( K, K+1 ), 1 )
+                  CALL SCOPY( N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                   IF( K.GT.1 ) CALL SGEMV( 'No transpose', N-K+1, K-1, -ONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, ONE, W( K, K+1 ), 1 )
 *
 *                 JMAX is the column-index of the largest off-diagonal
 *                 element in row IMAX, and ROWMAX is its absolute value.
@@ -501,8 +465,7 @@
 *                 ABS( W( IMAX, K+1 ) ).GE.ALPHA*ROWMAX
 *                 (used to handle NaN and Inf)
 *
-                  IF( .NOT.( ABS( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) )
-     $            THEN
+                  IF( .NOT.( ABS( W( IMAX, K+1 ) ).LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -518,8 +481,7 @@
 *                 Equivalent to testing for ROWMAX.EQ.COLMAX,
 *                 (used to handle NaN and Inf)
 *
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) )
-     $            THEN
+                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
 *
 *                    interchange rows and columns K+1 and IMAX,
 *                    use 2-by-2 pivot block
@@ -626,10 +588,7 @@
                   D22 = W( K, K ) / D21
                   T = ONE / ( D11*D22-ONE )
                   DO 80 J = K + 2, N
-                     A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) /
-     $                           D21 )
-                     A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) /
-     $                             D21 )
+                     A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
    80             CONTINUE
                END IF
 *
@@ -677,17 +636,12 @@
 *           Update the lower triangle of the diagonal block
 *
             DO 100 JJ = J, J + JB - 1
-               CALL SGEMV( 'No transpose', J+JB-JJ, K-1, -ONE,
-     $                     A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE,
-     $                     A( JJ, JJ ), 1 )
+               CALL SGEMV( 'No transpose', J+JB-JJ, K-1, -ONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, ONE, A( JJ, JJ ), 1 )
   100       CONTINUE
 *
 *           Update the rectangular subdiagonal block
 *
-            IF( J+JB.LE.N )
-     $         CALL SGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB,
-     $                     K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ),
-     $                     LDW, ONE, A( J+JB, J ), LDA )
+            IF( J+JB.LE.N ) CALL SGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -ONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, ONE, A( J+JB, J ), LDA )
   110    CONTINUE
 *
 *        Set KB to the number of columns factorized

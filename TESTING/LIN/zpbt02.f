@@ -1,5 +1,4 @@
-      SUBROUTINE ZPBT02( UPLO, N, KD, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE ZPBT02( UPLO, N, KD, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -58,8 +57,7 @@
 *     Compute  B - A*X
 *
       DO 10 J = 1, NRHS
-         CALL ZHBMV( UPLO, N, KD, -CONE, A, LDA, X( 1, J ), 1, CONE,
-     $               B( 1, J ), 1 )
+         CALL ZHBMV( UPLO, N, KD, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 )
    10 CONTINUE
 *
 *     Compute the maximum over the number of right hand sides of

@@ -102,8 +102,7 @@
 *
 *        Generate Q(ilo+1:ihi,ilo+1:ihi)
 *
-         CALL DORGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ),
-     $                WORK, LWORK, IINFO )
+         CALL DORGQR( NH, NH, NH, A( ILO+1, ILO+1 ), LDA, TAU( ILO ), WORK, LWORK, IINFO )
       END IF
       WORK( 1 ) = LWKOPT
       RETURN

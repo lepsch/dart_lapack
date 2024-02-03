@@ -58,20 +58,17 @@
          RESID = ABS( WORK( 1 ) )
       ELSE
          ANORM = MAX( D( 1 )+ABS( E( 1 ) ), D( N )+ABS( E( N-1 ) ) )
-         RESID = MAX( ABS( WORK( 1 ) )+ABS( WORK( N+1 ) ),
-     $           ABS( WORK( N ) )+ABS( WORK( 2*N-1 ) ) )
+         RESID = MAX( ABS( WORK( 1 ) )+ABS( WORK( N+1 ) ), ABS( WORK( N ) )+ABS( WORK( 2*N-1 ) ) )
          DO 20 I = 2, N - 1
             ANORM = MAX( ANORM, D( I )+ABS( E( I ) )+ABS( E( I-1 ) ) )
-            RESID = MAX( RESID, ABS( WORK( I ) )+ABS( WORK( N+I-1 ) )+
-     $              ABS( WORK( N+I ) ) )
+            RESID = MAX( RESID, ABS( WORK( I ) )+ABS( WORK( N+I-1 ) )+ ABS( WORK( N+I ) ) )
    20    CONTINUE
       END IF
 *
 *     Compute norm(L*D*L' - A) / (n * norm(A) * EPS)
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF

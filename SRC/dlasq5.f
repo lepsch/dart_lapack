@@ -1,5 +1,4 @@
-      SUBROUTINE DLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2,
-     $                   DN, DNM1, DNM2, IEEE, EPS )
+      SUBROUTINE DLASQ5( I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, IEEE, EPS )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,8 +7,7 @@
 *     .. Scalar Arguments ..
       LOGICAL            IEEE
       INTEGER            I0, N0, PP
-      DOUBLE PRECISION   DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU,
-     $                   SIGMA, EPS
+      DOUBLE PRECISION   DMIN, DMIN1, DMIN2, DN, DNM1, DNM2, TAU, SIGMA, EPS
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   Z( * )
@@ -30,8 +28,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( ( N0-I0-1 ).LE.0 )
-     $   RETURN
+      IF( ( N0-I0-1 ).LE.0 ) RETURN
 *
       DTHRESH = EPS*(SIGMA+TAU)
       IF( TAU.LT.DTHRESH*HALF ) TAU = ZERO

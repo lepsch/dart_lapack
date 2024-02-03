@@ -1,5 +1,4 @@
-      SUBROUTINE SLAVSY_ROOK( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV,
-     $                        B, LDB, INFO )
+      SUBROUTINE SLAVSY_ROOK( UPLO, TRANS, DIAG, N, NRHS, A, LDA, IPIV, B, LDB, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,11 +41,9 @@
       INFO = 0
       IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT.
-     $         LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.LSAME( TRANS, 'N' ) .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
-      ELSE IF( .NOT.LSAME( DIAG, 'U' ) .AND. .NOT.LSAME( DIAG, 'N' ) )
-     $          THEN
+      ELSE IF( .NOT.LSAME( DIAG, 'U' ) .AND. .NOT.LSAME( DIAG, 'N' ) ) THEN
          INFO = -3
       ELSE IF( N.LT.0 ) THEN
          INFO = -4
@@ -62,8 +59,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       NOUNIT = LSAME( DIAG, 'N' )
 *------------------------------------------
@@ -82,16 +78,14 @@
 *
             K = 1
    10       CONTINUE
-            IF( K.GT.N )
-     $         GO TO 30
+            IF( K.GT.N ) GO TO 30
             IF( IPIV( K ).GT.0 ) THEN
 *
 *              1 x 1 pivot block
 *
 *              Multiply by the diagonal element if forming U * D.
 *
-               IF( NOUNIT )
-     $            CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
 *              Multiply by  P(K) * inv(U(K))  if K > 1.
 *
@@ -99,14 +93,12 @@
 *
 *                 Apply the transformation.
 *
-                  CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ),
-     $                       LDB, B( 1, 1 ), LDB )
+                  CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )
 *
 *                 Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
                K = K + 1
             ELSE
@@ -134,10 +126,7 @@
 *
 *                 Apply the transformations.
 *
-                  CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ),
-     $                       LDB, B( 1, 1 ), LDB )
-                  CALL SGER( K-1, NRHS, ONE, A( 1, K+1 ), 1,
-     $                       B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
+                  CALL SGER( K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL SGER( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB )
 *
 *                 Interchange if a permutation was applied at the
 *                 K-th step of the factorization.
@@ -145,15 +134,12 @@
 *                 Swap the first of pair with IMAXth
 *
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 NOW swap the first of pair with Pth
 *
                   KP = ABS( IPIV( K+1 ) )
-                  IF( KP.NE.K+1 )
-     $               CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ),
-     $                           LDB )
+                  IF( KP.NE.K+1 ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
                K = K + 2
             END IF
@@ -169,8 +155,7 @@
 *
             K = N
    40       CONTINUE
-            IF( K.LT.1 )
-     $         GO TO 60
+            IF( K.LT.1 ) GO TO 60
 *
 *           Test the pivot index.  If greater than zero, a 1 x 1
 *           pivot was used, otherwise a 2 x 2 pivot was used.
@@ -181,8 +166,7 @@
 *
 *              Multiply by the diagonal element if forming L * D.
 *
-               IF( NOUNIT )
-     $            CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
 *
 *              Multiply by  P(K) * inv(L(K))  if K < N.
 *
@@ -191,14 +175,12 @@
 *
 *                 Apply the transformation.
 *
-                  CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ),
-     $                       LDB, B( K+1, 1 ), LDB )
+                  CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )
 *
 *                 Interchange if a permutation was applied at the
 *                 K-th step of the factorization.
 *
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
                K = K - 1
 *
@@ -227,10 +209,7 @@
 *
 *                 Apply the transformation.
 *
-                  CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ),
-     $                       LDB, B( K+1, 1 ), LDB )
-                  CALL SGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1,
-     $                       B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
+                  CALL SGER( N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL SGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB )
 *
 *                 Interchange if a permutation was applied at the
 *                 K-th step of the factorization.
@@ -238,15 +217,12 @@
 *                 Swap the second of pair with IMAXth
 *
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 NOW swap the first of pair with Pth
 *
                   KP = ABS( IPIV( K-1 ) )
-                  IF( KP.NE.K-1 )
-     $               CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ),
-     $                           LDB )
+                  IF( KP.NE.K-1 ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
                END IF
                K = K - 2
             END IF
@@ -270,8 +246,7 @@
 *
             K = N
    70       CONTINUE
-            IF( K.LT.1 )
-     $         GO TO 90
+            IF( K.LT.1 ) GO TO 90
 *
 *           1 x 1 pivot block.
 *
@@ -281,16 +256,13 @@
 *                 Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Apply the transformation
 *
-                  CALL SGEMV( 'Transpose', K-1, NRHS, ONE, B, LDB,
-     $                        A( 1, K ), 1, ONE, B( K, 1 ), LDB )
+                  CALL SGEMV( 'Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
-               IF( NOUNIT )
-     $            CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K - 1
 *
 *           2 x 2 pivot block.
@@ -301,22 +273,16 @@
 *                 Swap the second of pair with Pth
 *
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Now swap the first of pair with IMAX(r)th
 *
                   KP = ABS( IPIV( K-1 ) )
-                  IF( KP.NE.K-1 )
-     $               CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ),
-     $                           LDB )
+                  IF( KP.NE.K-1 ) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Apply the transformations
 *
-                  CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB,
-     $                        A( 1, K ), 1, ONE, B( K, 1 ), LDB )
-                  CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB,
-     $                        A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
+                  CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                   CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB )
                END IF
 *
 *              Multiply by the diagonal block if non-unit.
@@ -348,8 +314,7 @@
 *
             K = 1
   100       CONTINUE
-            IF( K.GT.N )
-     $         GO TO 120
+            IF( K.GT.N ) GO TO 120
 *
 *           1 x 1 pivot block
 *
@@ -359,16 +324,13 @@
 *                 Interchange if P(K) .ne. I.
 *
                   KP = IPIV( K )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Apply the transformation
 *
-                  CALL SGEMV( 'Transpose', N-K, NRHS, ONE, B( K+1, 1 ),
-     $                        LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
+                  CALL SGEMV( 'Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
-               IF( NOUNIT )
-     $            CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
+               IF( NOUNIT ) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB )
                K = K + 1
 *
 *           2 x 2 pivot block.
@@ -379,24 +341,16 @@
 *                 Swap the first of pair with Pth
 *
                   KP = ABS( IPIV( K ) )
-                  IF( KP.NE.K )
-     $               CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+                  IF( KP.NE.K ) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Now swap the second of pair with IMAX(r)th
 *
                   KP = ABS( IPIV( K+1 ) )
-                  IF( KP.NE.K+1 )
-     $               CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ),
-     $                           LDB )
+                  IF( KP.NE.K+1 ) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
 *
 *                 Apply the transformation
 *
-                  CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE,
-     $                        B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE,
-     $                        B( K+1, 1 ), LDB )
-                  CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE,
-     $                        B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE,
-     $                        B( K, 1 ), LDB )
+                  CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB )
                END IF
 *
 *              Multiply by the diagonal block if non-unit.

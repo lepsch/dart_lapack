@@ -1,8 +1,4 @@
-      SUBROUTINE DLARRV( N, VL, VU, D, L, PIVMIN,
-     $                   ISPLIT, M, DOL, DOU, MINRGP,
-     $                   RTOL1, RTOL2, W, WERR, WGAP,
-     $                   IBLOCK, INDEXW, GERS, Z, LDZ, ISUPPZ,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE DLARRV( N, VL, VU, D, L, PIVMIN, ISPLIT, M, DOL, DOU, MINRGP, RTOL1, RTOL2, W, WERR, WGAP, IBLOCK, INDEXW, GERS, Z, LDZ, ISUPPZ, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,10 +9,7 @@
       DOUBLE PRECISION   MINRGP, PIVMIN, RTOL1, RTOL2, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), INDEXW( * ), ISPLIT( * ),
-     $                   ISUPPZ( * ), IWORK( * )
-      DOUBLE PRECISION   D( * ), GERS( * ), L( * ), W( * ), WERR( * ),
-     $                   WGAP( * ), WORK( * )
+      INTEGER            IBLOCK( * ), INDEXW( * ), ISPLIT( * ), ISUPPZ( * ), IWORK( * )       DOUBLE PRECISION   D( * ), GERS( * ), L( * ), W( * ), WERR( * ), WGAP( * ), WORK( * )
       DOUBLE PRECISION  Z( LDZ, * )
 *     ..
 *
@@ -26,33 +19,19 @@
       INTEGER            MAXITR
       PARAMETER          ( MAXITR = 10 )
       DOUBLE PRECISION   ZERO, ONE, TWO, THREE, FOUR, HALF
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0,
-     $                     TWO = 2.0D0, THREE = 3.0D0,
-     $                     FOUR = 4.0D0, HALF = 0.5D0)
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, THREE = 3.0D0, FOUR = 4.0D0, HALF = 0.5D0)
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ESKIP, NEEDBS, STP2II, TRYRQC, USEDBS, USEDRQ
-      INTEGER            DONE, I, IBEGIN, IDONE, IEND, II, IINDC1,
-     $                   IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG,
-     $                   INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER,
-     $                   ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS,
-     $                   NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST,
-     $                   NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST,
-     $                   OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX,
-     $                   WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU,
-     $                   ZUSEDW
-      DOUBLE PRECISION   BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU,
-     $                   LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID,
-     $                   RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF,
-     $                   SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ
+      INTEGER            DONE, I, IBEGIN, IDONE, IEND, II, IINDC1, IINDC2, IINDR, IINDWK, IINFO, IM, IN, INDEIG, INDLD, INDLLD, INDWRK, ISUPMN, ISUPMX, ITER, ITMP1, J, JBLK, K, MINIWSIZE, MINWSIZE, NCLUS, NDEPTH, NEGCNT, NEWCLS, NEWFST, NEWFTT, NEWLST, NEWSIZ, OFFSET, OLDCLS, OLDFST, OLDIEN, OLDLST, OLDNCL, P, PARITY, Q, WBEGIN, WEND, WINDEX, WINDMN, WINDPL, ZFROM, ZTO, ZUSEDL, ZUSEDU, ZUSEDW
+      DOUBLE PRECISION   BSTRES, BSTW, EPS, FUDGE, GAP, GAPTOL, GL, GU, LAMBDA, LEFT, LGAP, MINGMA, NRMINV, RESID, RGAP, RIGHT, RQCORR, RQTOL, SAVGAP, SGNDEF, SIGMA, SPDIAM, SSIGMA, TAU, TMP, TOL, ZTZ
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAR1V, DLARRB, DLARRF, DLASET,
-     $                   DSCAL
+      EXTERNAL           DCOPY, DLAR1V, DLARRB, DLARRF, DLASET, DSCAL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC ABS, DBLE, MAX, MIN
@@ -105,9 +84,7 @@
 *     The width of the part of Z that is used
       ZUSEDW = ZUSEDU - ZUSEDL + 1
 
-
-      CALL DLASET( 'Full', N, ZUSEDW, ZERO, ZERO,
-     $                    Z(1,ZUSEDL), LDZ )
+       CALL DLASET( 'Full', N, ZUSEDW, ZERO, ZERO, Z(1,ZUSEDL), LDZ )
 
       EPS = DLAMCH( 'Precision' )
       RQTOL = TWO * EPS
@@ -191,8 +168,7 @@
 *        The eigenvalue approximations will be refined when necessary as
 *        high relative accuracy is required for the computation of the
 *        corresponding eigenvectors.
-         CALL DCOPY( IM, W( WBEGIN ), 1,
-     $                   WORK( WBEGIN ), 1 )
+         CALL DCOPY( IM, W( WBEGIN ), 1, WORK( WBEGIN ), 1 )
 
 *        We store in W the eigenvalue approximations w.r.t. the original
 *        matrix T.
@@ -268,13 +244,11 @@
                      ENDIF
                   ENDIF
                   CALL DCOPY( IN, Z( IBEGIN, J ), 1, D( IBEGIN ), 1 )
-                  CALL DCOPY( IN-1, Z( IBEGIN, J+1 ), 1, L( IBEGIN ),
-     $               1 )
+                  CALL DCOPY( IN-1, Z( IBEGIN, J+1 ), 1, L( IBEGIN ), 1 )
                   SIGMA = Z( IEND, J+1 )
 
 *                 Set the corresponding entries in Z to zero
-                  CALL DLASET( 'Full', IN, 2, ZERO, ZERO,
-     $                         Z( IBEGIN, J), LDZ )
+                  CALL DLASET( 'Full', IN, 2, ZERO, ZERO, Z( IBEGIN, J), LDZ )
                END IF
 
 *              Compute DL and DLL of current RRR
@@ -295,12 +269,7 @@
                   OFFSET = INDEXW( WBEGIN ) - 1
 *                 perform limited bisection (if necessary) to get approximate
 *                 eigenvalues to the precision needed.
-                  CALL DLARRB( IN, D( IBEGIN ),
-     $                         WORK(INDLLD+IBEGIN-1),
-     $                         P, Q, RTOL1, RTOL2, OFFSET,
-     $                         WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN),
-     $                         WORK( INDWRK ), IWORK( IINDWK ),
-     $                         PIVMIN, SPDIAM, IN, IINFO )
+                  CALL DLARRB( IN, D( IBEGIN ), WORK(INDLLD+IBEGIN-1), P, Q, RTOL1, RTOL2, OFFSET, WORK(WBEGIN),WGAP(WBEGIN),WERR(WBEGIN), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
                   IF( IINFO.NE.0 ) THEN
                      INFO = -1
                      RETURN
@@ -313,16 +282,10 @@
 *                 However, we only allow the gaps to become greater since
 *                 this is what should happen when we decrease WERR
                   IF( OLDFST.GT.1) THEN
-                     WGAP( WBEGIN+OLDFST-2 ) =
-     $             MAX(WGAP(WBEGIN+OLDFST-2),
-     $                 W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1)
-     $                 - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
+                     WGAP( WBEGIN+OLDFST-2 ) = MAX(WGAP(WBEGIN+OLDFST-2), W(WBEGIN+OLDFST-1)-WERR(WBEGIN+OLDFST-1) - W(WBEGIN+OLDFST-2)-WERR(WBEGIN+OLDFST-2) )
                   ENDIF
                   IF( WBEGIN + OLDLST -1 .LT. WEND ) THEN
-                     WGAP( WBEGIN+OLDLST-1 ) =
-     $               MAX(WGAP(WBEGIN+OLDLST-1),
-     $                   W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST)
-     $                   - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
+                     WGAP( WBEGIN+OLDLST-1 ) = MAX(WGAP(WBEGIN+OLDLST-1), W(WBEGIN+OLDLST)-WERR(WBEGIN+OLDLST) - W(WBEGIN+OLDLST-1)-WERR(WBEGIN+OLDLST-1) )
                   ENDIF
 *                 Each time the eigenvalues in WORK get refined, we store
 *                 the newly found approximation with all shifts applied in W
@@ -338,8 +301,7 @@
 *                    we are at the right end of the cluster, this is also the
 *                    boundary of the child cluster
                      NEWLST = J
-                  ELSE IF ( WGAP( WBEGIN + J -1).GE.
-     $                    MINRGP* ABS( WORK(WBEGIN + J -1) ) ) THEN
+                  ELSE IF ( WGAP( WBEGIN + J -1).GE. MINRGP* ABS( WORK(WBEGIN + J -1) ) ) THEN
 *                    the right relative gap is big enough, the child cluster
 *                    (NEWFST,..,NEWLST) is well separated from the following
                      NEWLST = J
@@ -386,8 +348,7 @@
 *                    in W might be of the same order so that gaps are not
 *                    exhibited correctly for very close eigenvalues.
                      IF( NEWFST.EQ.1 ) THEN
-                        LGAP = MAX( ZERO,
-     $                       W(WBEGIN)-WERR(WBEGIN) - VL )
+                        LGAP = MAX( ZERO, W(WBEGIN)-WERR(WBEGIN) - VL )
                     ELSE
                         LGAP = WGAP( WBEGIN+NEWFST-2 )
                      ENDIF
@@ -405,17 +366,10 @@
                            P = INDEXW( WBEGIN-1+NEWLST )
                         ENDIF
                         OFFSET = INDEXW( WBEGIN ) - 1
-                        CALL DLARRB( IN, D(IBEGIN),
-     $                       WORK( INDLLD+IBEGIN-1 ),P,P,
-     $                       RQTOL, RQTOL, OFFSET,
-     $                       WORK(WBEGIN),WGAP(WBEGIN),
-     $                       WERR(WBEGIN),WORK( INDWRK ),
-     $                       IWORK( IINDWK ), PIVMIN, SPDIAM,
-     $                       IN, IINFO )
+                        CALL DLARRB( IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO )
  55                  CONTINUE
 *
-                     IF((WBEGIN+NEWLST-1.LT.DOL).OR.
-     $                  (WBEGIN+NEWFST-1.GT.DOU)) THEN
+                     IF((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) THEN
 *                       if the cluster contains no desired eigenvalues
 *                       skip the computation of that branch of the rep. tree
 *
@@ -431,13 +385,7 @@
 *                    Note that the new RRR is stored in Z
 *
 *                    DLARRF needs LWORK = 2*N
-                     CALL DLARRF( IN, D( IBEGIN ), L( IBEGIN ),
-     $                         WORK(INDLD+IBEGIN-1),
-     $                         NEWFST, NEWLST, WORK(WBEGIN),
-     $                         WGAP(WBEGIN), WERR(WBEGIN),
-     $                         SPDIAM, LGAP, RGAP, PIVMIN, TAU,
-     $                         Z(IBEGIN, NEWFTT),Z(IBEGIN, NEWFTT+1),
-     $                         WORK( INDWRK ), IINFO )
+                     CALL DLARRF( IN, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), NEWFST, NEWLST, WORK(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), SPDIAM, LGAP, RGAP, PIVMIN, TAU, Z(IBEGIN, NEWFTT),Z(IBEGIN, NEWFTT+1), WORK( INDWRK ), IINFO )
                      IF( IINFO.EQ.0 ) THEN
 *                       a new RRR for the cluster was found by DLARRF
 *                       update shift and store it
@@ -446,15 +394,9 @@
 *                       WORK() are the midpoints and WERR() the semi-width
 *                       Note that the entries in W are unchanged.
                         DO 116 K = NEWFST, NEWLST
-                           FUDGE =
-     $                          THREE*EPS*ABS(WORK(WBEGIN+K-1))
-                           WORK( WBEGIN + K - 1 ) =
-     $                          WORK( WBEGIN + K - 1) - TAU
-                           FUDGE = FUDGE +
-     $                          FOUR*EPS*ABS(WORK(WBEGIN+K-1))
+                           FUDGE = THREE*EPS*ABS(WORK(WBEGIN+K-1))                            WORK( WBEGIN + K - 1 ) = WORK( WBEGIN + K - 1) - TAU                            FUDGE = FUDGE + FOUR*EPS*ABS(WORK(WBEGIN+K-1))
 *                          Fudge errors
-                           WERR( WBEGIN + K - 1 ) =
-     $                          WERR( WBEGIN + K - 1 ) + FUDGE
+                           WERR( WBEGIN + K - 1 ) = WERR( WBEGIN + K - 1 ) + FUDGE
 *                          Gaps are not fudged. Provided that WERR is small
 *                          when eigenvalues are close, a zero gap indicates
 *                          that a new representation is needed for resolving
@@ -487,8 +429,7 @@
                      LAMBDA = WORK( WINDEX )
                      DONE = DONE + 1
 *                    Check if eigenvector computation is to be skipped
-                     IF((WINDEX.LT.DOL).OR.
-     $                  (WINDEX.GT.DOU)) THEN
+                     IF((WINDEX.LT.DOL).OR. (WINDEX.GT.DOU)) THEN
                         ESKIP = .TRUE.
                         GOTO 125
                      ELSE
@@ -560,13 +501,7 @@
                         USEDBS = .TRUE.
                         ITMP1 = IWORK( IINDR+WINDEX )
                         OFFSET = INDEXW( WBEGIN ) - 1
-                        CALL DLARRB( IN, D(IBEGIN),
-     $                       WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG,
-     $                       ZERO, TWO*EPS, OFFSET,
-     $                       WORK(WBEGIN),WGAP(WBEGIN),
-     $                       WERR(WBEGIN),WORK( INDWRK ),
-     $                       IWORK( IINDWK ), PIVMIN, SPDIAM,
-     $                       ITMP1, IINFO )
+                        CALL DLARRB( IN, D(IBEGIN), WORK(INDLLD+IBEGIN-1),INDEIG,INDEIG, ZERO, TWO*EPS, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, ITMP1, IINFO )
                         IF( IINFO.NE.0 ) THEN
                            INFO = -3
                            RETURN
@@ -577,13 +512,7 @@
                         IWORK( IINDR+WINDEX ) = 0
                      ENDIF
 *                    Given LAMBDA, compute the eigenvector.
-                     CALL DLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ),
-     $                    L( IBEGIN ), WORK(INDLD+IBEGIN-1),
-     $                    WORK(INDLLD+IBEGIN-1),
-     $                    PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ),
-     $                    .NOT.USEDBS, NEGCNT, ZTZ, MINGMA,
-     $                    IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ),
-     $                    NRMINV, RESID, RQCORR, WORK( INDWRK ) )
+                     CALL DLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
                      IF(ITER .EQ. 0) THEN
                         BSTRES = RESID
                         BSTW = LAMBDA
@@ -604,9 +533,7 @@
 *                    Convergence test for Rayleigh-Quotient iteration
 *                    (omitted when Bisection has been used)
 *
-                     IF( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT.
-     $                    RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS)
-     $                    THEN
+                     IF( RESID.GT.TOL*GAP .AND. ABS( RQCORR ).GT. RQTOL*ABS( LAMBDA ) .AND. .NOT. USEDBS) THEN
 *                       We need to check that the RQCORR update doesn't
 *                       move the eigenvalue away from the desired one and
 *                       towards a neighbor. -> protection with bisection
@@ -619,10 +546,7 @@
                         ENDIF
 *                       We only use the RQCORR if it improves the
 *                       the iterate reasonably.
-                        IF( ( RQCORR*SGNDEF.GE.ZERO )
-     $                       .AND.( LAMBDA + RQCORR.LE. RIGHT)
-     $                       .AND.( LAMBDA + RQCORR.GE. LEFT)
-     $                       ) THEN
+                        IF( ( RQCORR*SGNDEF.GE.ZERO ) .AND.( LAMBDA + RQCORR.LE. RIGHT) .AND.( LAMBDA + RQCORR.GE. LEFT) ) THEN
                            USEDRQ = .TRUE.
 *                          Store new midpoint of bisection interval in WORK
                            IF(SGNDEF.EQ.ONE) THEN
@@ -643,14 +567,12 @@
 *                             correct above.
 *                              LEFT = MIN(LEFT, LAMBDA + RQCORR)
                            ENDIF
-                           WORK( WINDEX ) =
-     $                       HALF * (RIGHT + LEFT)
+                           WORK( WINDEX ) = HALF * (RIGHT + LEFT)
 *                          Take RQCORR since it has the correct sign and
 *                          improves the iterate reasonably
                            LAMBDA = LAMBDA + RQCORR
 *                          Update width of error interval
-                           WERR( WINDEX ) =
-     $                             HALF * (RIGHT-LEFT)
+                           WERR( WINDEX ) = HALF * (RIGHT-LEFT)
                         ELSE
                            NEEDBS = .TRUE.
                         ENDIF
@@ -670,22 +592,13 @@
                         END IF
                      ELSE
                         STP2II = .FALSE.
-        IF(USEDRQ .AND. USEDBS .AND.
-     $                     BSTRES.LE.RESID) THEN
+        IF(USEDRQ .AND. USEDBS .AND. BSTRES.LE.RESID) THEN
                            LAMBDA = BSTW
                            STP2II = .TRUE.
                         ENDIF
                         IF (STP2II) THEN
 *                          improve error angle by second step
-                           CALL DLAR1V( IN, 1, IN, LAMBDA,
-     $                          D( IBEGIN ), L( IBEGIN ),
-     $                          WORK(INDLD+IBEGIN-1),
-     $                          WORK(INDLLD+IBEGIN-1),
-     $                          PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ),
-     $                          .NOT.USEDBS, NEGCNT, ZTZ, MINGMA,
-     $                          IWORK( IINDR+WINDEX ),
-     $                          ISUPPZ( 2*WINDEX-1 ),
-     $                          NRMINV, RESID, RQCORR, WORK( INDWRK ) )
+                           CALL DLAR1V( IN, 1, IN, LAMBDA, D( IBEGIN ), L( IBEGIN ), WORK(INDLD+IBEGIN-1), WORK(INDLLD+IBEGIN-1), PIVMIN, GAPTOL, Z( IBEGIN, WINDEX ), .NOT.USEDBS, NEGCNT, ZTZ, MINGMA, IWORK( IINDR+WINDEX ), ISUPPZ( 2*WINDEX-1 ), NRMINV, RESID, RQCORR, WORK( INDWRK ) )
                         ENDIF
                         WORK( WINDEX ) = LAMBDA
                      END IF
@@ -709,8 +622,7 @@
                            Z( II, WINDEX ) = ZERO
  123                    CONTINUE
                      ENDIF
-                     CALL DSCAL( ZTO-ZFROM+1, NRMINV,
-     $                       Z( ZFROM, WINDEX ), 1 )
+                     CALL DSCAL( ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 )
  125                 CONTINUE
 *                    Update W
                      W( WINDEX ) = LAMBDA+SIGMA
@@ -722,14 +634,10 @@
 *                    to WERR being too crude.)
                      IF(.NOT.ESKIP) THEN
                         IF( K.GT.1) THEN
-                           WGAP( WINDMN ) = MAX( WGAP(WINDMN),
-     $                          W(WINDEX)-WERR(WINDEX)
-     $                          - W(WINDMN)-WERR(WINDMN) )
+                           WGAP( WINDMN ) = MAX( WGAP(WINDMN), W(WINDEX)-WERR(WINDEX) - W(WINDMN)-WERR(WINDMN) )
                         ENDIF
                         IF( WINDEX.LT.WEND ) THEN
-                           WGAP( WINDEX ) = MAX( SAVGAP,
-     $                          W( WINDPL )-WERR( WINDPL )
-     $                          - W( WINDEX )-WERR( WINDEX) )
+                           WGAP( WINDEX ) = MAX( SAVGAP, W( WINDPL )-WERR( WINDPL ) - W( WINDEX )-WERR( WINDEX) )
                         ENDIF
                      ENDIF
                      IDONE = IDONE + 1

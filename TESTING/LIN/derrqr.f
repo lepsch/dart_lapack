@@ -19,13 +19,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( NMAX ), X( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGEQR2, DGEQR2P, DGEQRF,
-     $                   DGEQRFP, DORG2R, DORGQR, DORM2R,
-     $                   DORMQR
+      EXTERNAL           ALAESM, CHKXER, DGEQR2, DGEQR2P, DGEQRF, DGEQRFP, DORG2R, DORGQR, DORM2R, DORMQR
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

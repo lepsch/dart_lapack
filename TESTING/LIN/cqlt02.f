@@ -1,5 +1,4 @@
-      SUBROUTINE CQLT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE CQLT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), L( LDA, * ),
-     $                   Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -57,12 +55,7 @@
 *     Copy the last k columns of the factorization to the array Q
 *
       CALL CLASET( 'Full', M, N, ROGUE, ROGUE, Q, LDA )
-      IF( K.LT.M )
-     $   CALL CLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA,
-     $                Q( 1, N-K+1 ), LDA )
-      IF( K.GT.1 )
-     $   CALL CLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA,
-     $                Q( M-K+1, N-K+2 ), LDA )
+      IF( K.LT.M ) CALL CLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, N-K+1 ), LDA )       IF( K.GT.1 ) CALL CLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, N-K+2 ), LDA )
 *
 *     Generate the last n columns of the matrix Q
 *
@@ -71,16 +64,11 @@
 *
 *     Copy L(m-n+1:m,n-k+1:n)
 *
-      CALL CLASET( 'Full', N, K, CMPLX( ZERO ), CMPLX( ZERO ),
-     $             L( M-N+1, N-K+1 ), LDA )
-      CALL CLACPY( 'Lower', K, K, AF( M-K+1, N-K+1 ), LDA,
-     $             L( M-K+1, N-K+1 ), LDA )
+      CALL CLASET( 'Full', N, K, CMPLX( ZERO ), CMPLX( ZERO ), L( M-N+1, N-K+1 ), LDA )       CALL CLACPY( 'Lower', K, K, AF( M-K+1, N-K+1 ), LDA, L( M-K+1, N-K+1 ), LDA )
 *
 *     Compute L(m-n+1:m,n-k+1:n) - Q(1:m,m-n+1:m)' * A(1:m,n-k+1:n)
 *
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M,
-     $            CMPLX( -ONE ), Q, LDA, A( 1, N-K+1 ), LDA,
-     $            CMPLX( ONE ), L( M-N+1, N-K+1 ), LDA )
+      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, K, M, CMPLX( -ONE ), Q, LDA, A( 1, N-K+1 ), LDA, CMPLX( ONE ), L( M-N+1, N-K+1 ), LDA )
 *
 *     Compute norm( L - Q'*A ) / ( M * norm(A) * EPS ) .
 *
@@ -95,8 +83,7 @@
 *     Compute I - Q'*Q
 *
       CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), L, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA,
-     $            ONE, L, LDA )
+      CALL CHERK( 'Upper', 'Conjugate transpose', N, M, -ONE, Q, LDA, ONE, L, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *

@@ -54,8 +54,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -76,8 +75,7 @@
 *           Compute elements J+1:N of row J.
 *
             IF( J.LT.N ) THEN
-               CALL DGEMV( 'Transpose', J-1, N-J, -ONE, A( 1, J+1 ),
-     $                     LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA )
+               CALL DGEMV( 'Transpose', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA )
                CALL DSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
             END IF
    10    CONTINUE
@@ -89,8 +87,7 @@
 *
 *           Compute L(J,J) and test for non-positive-definiteness.
 *
-            AJJ = A( J, J ) - DDOT( J-1, A( J, 1 ), LDA, A( J, 1 ),
-     $            LDA )
+            AJJ = A( J, J ) - DDOT( J-1, A( J, 1 ), LDA, A( J, 1 ), LDA )
             IF( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) THEN
                A( J, J ) = AJJ
                GO TO 30
@@ -101,8 +98,7 @@
 *           Compute elements J+1:N of column J.
 *
             IF( J.LT.N ) THEN
-               CALL DGEMV( 'No transpose', N-J, J-1, -ONE, A( J+1, 1 ),
-     $                     LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 )
+               CALL DGEMV( 'No transpose', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 )
                CALL DSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
             END IF
    20    CONTINUE

@@ -1,5 +1,4 @@
-      SUBROUTINE SQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S,
-     $                   RANK, NORMA, NORMB, ISEED, WORK, LWORK )
+      SUBROUTINE SQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,8 +17,7 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, SVMIN
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0,
-     $                   SVMIN = 0.1E0 )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, SVMIN = 0.1E0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            INFO, J, MN
@@ -33,8 +31,7 @@
       EXTERNAL           SASUM, SLAMCH, SLANGE, SLARND, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLAORD, SLARF, SLARNV, SLAROR, SLASCL,
-     $                   SLASET, SSCAL, XERBLA
+      EXTERNAL           SGEMM, SLAORD, SLARF, SLARNV, SLAROR, SLASCL, SLASET, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -87,16 +84,14 @@
          CALL SLARNV( 2, ISEED, M, WORK )
          CALL SSCAL( M, ONE / SNRM2( M, WORK, 1 ), WORK, 1 )
          CALL SLASET( 'Full', M, RANK, ZERO, ONE, A, LDA )
-         CALL SLARF( 'Left', M, RANK, WORK, 1, TWO, A, LDA,
-     $               WORK( M+1 ) )
+         CALL SLARF( 'Left', M, RANK, WORK, 1, TWO, A, LDA, WORK( M+1 ) )
 *
 *        workspace used: m+mn
 *
 *        Generate consistent rhs in the range space of A
 *
          CALL SLARNV( 2, ISEED, RANK*NRHS, WORK )
-         CALL SGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, ONE,
-     $               A, LDA, WORK, RANK, ZERO, B, LDB )
+         CALL SGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, ONE, A, LDA, WORK, RANK, ZERO, B, LDB )
 *
 *        work space used: <= mn *nrhs
 *
@@ -105,11 +100,8 @@
          DO 40 J = 1, RANK
             CALL SSCAL( M, S( J ), A( 1, J ), 1 )
    40    CONTINUE
-         IF( RANK.LT.N )
-     $      CALL SLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ),
-     $                   LDA )
-         CALL SLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED,
-     $                WORK, INFO )
+         IF( RANK.LT.N ) CALL SLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA )
+         CALL SLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
 *
       ELSE
 *
@@ -134,22 +126,12 @@
 *
 *              matrix scaled up
 *
-               CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A,
-     $                      LDA, INFO )
-               CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S,
-     $                      MN, INFO )
-               CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B,
-     $                      LDB, INFO )
+               CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
             ELSE IF( SCALE.EQ.3 ) THEN
 *
 *              matrix scaled down
 *
-               CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A,
-     $                      LDA, INFO )
-               CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S,
-     $                      MN, INFO )
-               CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B,
-     $                      LDB, INFO )
+               CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
             ELSE
                CALL XERBLA( 'SQRT15', 1 )
                RETURN

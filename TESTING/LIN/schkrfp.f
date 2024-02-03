@@ -50,8 +50,7 @@
       EXTERNAL           SLAMCH, SECOND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, SDRVRFP, SDRVRF1, SDRVRF2, SDRVRF3,
-     +                   SDRVRF4
+      EXTERNAL           ILAVER, SDRVRFP, SDRVRF1, SDRVRF2, SDRVRF3, SDRVRF4
 *     ..
 *     .. Executable Statements ..
 *
@@ -89,8 +88,7 @@
             FATAL = .TRUE.
          END IF
    10 CONTINUE
-      IF( NN.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
 *     Read the values of NRHS
 *
@@ -114,8 +112,7 @@
             FATAL = .TRUE.
          END IF
    30 CONTINUE
-      IF( NNS.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
 *     Read the matrix types
 *
@@ -139,8 +136,7 @@
             FATAL = .TRUE.
          END IF
   320 CONTINUE
-      IF( NNT.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
+      IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
 *     Read the threshold value for the test ratios.
 *
@@ -168,41 +164,30 @@
 *
 *     Test the error exit of:
 *
-      IF( TSTERR )
-     $   CALL SERRRFP( NOUT )
+      IF( TSTERR ) CALL SERRRFP( NOUT )
 *
 *     Test the routines: spftrf, spftri, spftrs (as in SDRVPO).
 *     This also tests the routines: stfsm, stftri, stfttr, strttf.
 *
-      CALL SDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH,
-     $              WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB,
-     $              WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV,
-     $              S_WORK_SLATMS, S_WORK_SPOT01, S_TEMP_SPOT02,
-     $              S_TEMP_SPOT03, S_WORK_SLANSY, S_WORK_SPOT02,
-     $              S_WORK_SPOT03 )
+      CALL SDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, S_WORK_SLATMS, S_WORK_SPOT01, S_TEMP_SPOT02, S_TEMP_SPOT03, S_WORK_SLANSY, S_WORK_SPOT02, S_WORK_SPOT03 )
 *
 *     Test the routine: slansf
 *
-      CALL SDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              S_WORK_SLANSY )
+      CALL SDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, S_WORK_SLANSY )
 *
 *     Test the conversion routines:
 *       stfttp, stpttf, stfttr, strttf, strttp and stpttr.
 *
-      CALL SDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF,
-     +              WORKAP, WORKASAV )
+      CALL SDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
 *     Test the routine: stfsm
 *
-      CALL SDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              WORKAINV, WORKAFAC, S_WORK_SLANSY,
-     +              S_WORK_SPOT03, S_WORK_SPOT01 )
+      CALL SDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, S_WORK_SLANSY, S_WORK_SPOT03, S_WORK_SPOT01 )
 *
 *
 *     Test the routine: ssfrk
 *
-      CALL SDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX,
-     +              WORKARF, WORKAINV, NMAX, S_WORK_SLANSY)
+      CALL SDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, S_WORK_SLANSY)
 *
       CLOSE ( NIN )
       S2 = SECOND( )

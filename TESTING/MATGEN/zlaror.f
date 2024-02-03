@@ -17,11 +17,9 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TOOSML
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0,
-     $                   TOOSML = 1.0D-20 )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TOOSML = 1.0D-20 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            IROW, ITYPE, IXFRM, J, JCOL, KBEG, NXFRM
@@ -43,8 +41,7 @@
 *     .. Executable Statements ..
 *
       INFO = 0
-      IF( N.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. M.EQ.0 ) RETURN
 *
       ITYPE = 0
       IF( LSAME( SIDE, 'L' ) ) THEN
@@ -81,8 +78,7 @@
 *
 *     Initialize A to the identity matrix if desired
 *
-      IF( LSAME( INIT, 'I' ) )
-     $   CALL ZLASET( 'Full', M, N, CZERO, CONE, A, LDA )
+      IF( LSAME( INIT, 'I' ) ) CALL ZLASET( 'Full', M, N, CZERO, CONE, A, LDA )
 *
 *     If no rotation possible, still multiply by
 *     a random complex number from the circle |x| = 1
@@ -131,10 +127,7 @@
 *
 *           Apply H(k) on the left of A
 *
-            CALL ZGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA,
-     $                  X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )
-            CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1,
-     $                  X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
+            CALL ZGEMV( 'C', IXFRM, N, CONE, A( KBEG, 1 ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( IXFRM, N, -DCMPLX( FACTOR ), X( KBEG ), 1, X( 2*NXFRM+1 ), 1, A( KBEG, 1 ), LDA )
 *
          END IF
 *
@@ -146,10 +139,7 @@
                CALL ZLACGV( IXFRM, X( KBEG ), 1 )
             END IF
 *
-            CALL ZGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA,
-     $                  X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )
-            CALL ZGERC( M, IXFRM, -DCMPLX( FACTOR ), X( 2*NXFRM+1 ), 1,
-     $                  X( KBEG ), 1, A( 1, KBEG ), LDA )
+            CALL ZGEMV( 'N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL ZGERC( M, IXFRM, -DCMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA )
 *
          END IF
    30 CONTINUE
@@ -167,8 +157,7 @@
 *
       IF( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) THEN
          DO 40 IROW = 1, M
-            CALL ZSCAL( N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ),
-     $                  LDA )
+            CALL ZSCAL( N, DCONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA )
    40    CONTINUE
       END IF
 *

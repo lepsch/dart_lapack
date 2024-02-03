@@ -1,5 +1,4 @@
-      SUBROUTINE DPBT02( UPLO, N, KD, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE DPBT02( UPLO, N, KD, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -56,8 +54,7 @@
 *     Compute  B - A*X
 *
       DO 10 J = 1, NRHS
-         CALL DSBMV( UPLO, N, KD, -ONE, A, LDA, X( 1, J ), 1, ONE,
-     $               B( 1, J ), 1 )
+         CALL DSBMV( UPLO, N, KD, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 )
    10 CONTINUE
 *
 *     Compute the maximum over the number of right hand sides of

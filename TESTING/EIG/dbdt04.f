@@ -1,5 +1,4 @@
-      SUBROUTINE DBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK,
-     $                   RESID )
+      SUBROUTINE DBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), E( * ), S( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      DOUBLE PRECISION   D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 * ======================================================================
@@ -42,8 +40,7 @@
 *     Quick return if possible.
 *
       RESID = ZERO
-      IF( N.LE.0 .OR. NS.LE.0 )
-     $   RETURN
+      IF( N.LE.0 .OR. NS.LE.0 ) RETURN
 *
       EPS = DLAMCH( 'Precision' )
 *
@@ -87,8 +84,7 @@
    60    CONTINUE
       END IF
 *
-      CALL DGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ),
-     $            N, ZERO, WORK( 1+N*NS ), NS )
+      CALL DGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
 *
 *     norm(S - U' * B * V)
 *
@@ -100,18 +96,15 @@
    70 CONTINUE
 *
       IF( BNORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
          ELSE
             IF( BNORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
             ELSE
-               RESID = MIN( RESID / BNORM, DBLE( N ) ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF
       END IF

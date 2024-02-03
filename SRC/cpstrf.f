@@ -36,8 +36,7 @@
       EXTERNAL           SLAMCH, ILAENV, LSAME, SISNAN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMV, CHERK, CLACGV, CPSTF2, CSSCAL, CSWAP,
-     $                   XERBLA
+      EXTERNAL           CGEMV, CHERK, CLACGV, CPSTF2, CSSCAL, CSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CONJG, MAX, MIN, REAL, SQRT, MAXLOC
@@ -62,8 +61,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get block size
 *
@@ -72,8 +70,7 @@
 *
 *        Use unblocked code
 *
-         CALL CPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK,
-     $                INFO )
+         CALL CPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
          GO TO 230
 *
       ELSE
@@ -132,9 +129,7 @@
                   DO 130 I = J, N
 *
                      IF( J.GT.K ) THEN
-                        WORK( I ) = WORK( I ) +
-     $                              REAL( CONJG( A( J-1, I ) )*
-     $                                    A( J-1, I ) )
+                        WORK( I ) = WORK( I ) + REAL( CONJG( A( J-1, I ) )* A( J-1, I ) )
                      END IF
                      WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 *
@@ -156,9 +151,7 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL CSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
-                     IF( PVT.LT.N )
-     $                  CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA,
-     $                              A( PVT, PVT+1 ), LDA )
+                     IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
                      DO 140 I = J + 1, PVT - 1
                         CTEMP = CONJG( A( J, I ) )
                         A( J, I ) = CONJG( A( I, PVT ) )
@@ -183,9 +176,7 @@
 *
                   IF( J.LT.N ) THEN
                      CALL CLACGV( J-1, A( 1, J ), 1 )
-                     CALL CGEMV( 'Trans', J-K, N-J, -CONE, A( K, J+1 ),
-     $                           LDA, A( K, J ), 1, CONE, A( J, J+1 ),
-     $                           LDA )
+                     CALL CGEMV( 'Trans', J-K, N-J, -CONE, A( K, J+1 ), LDA, A( K, J ), 1, CONE, A( J, J+1 ), LDA )
                      CALL CLACGV( J-1, A( 1, J ), 1 )
                      CALL CSSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
                   END IF
@@ -195,8 +186,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL CHERK( 'Upper', 'Conj Trans', N-J+1, JB, -ONE,
-     $                        A( K, J ), LDA, ONE, A( J, J ), LDA )
+                  CALL CHERK( 'Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   160       CONTINUE
@@ -227,9 +217,7 @@
                   DO 180 I = J, N
 *
                      IF( J.GT.K ) THEN
-                        WORK( I ) = WORK( I ) +
-     $                              REAL( CONJG( A( I, J-1 ) )*
-     $                                    A( I, J-1 ) )
+                        WORK( I ) = WORK( I ) + REAL( CONJG( A( I, J-1 ) )* A( I, J-1 ) )
                      END IF
                      WORK( N+I ) = REAL( A( I, I ) ) - WORK( I )
 *
@@ -251,9 +239,7 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL CSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
-                     IF( PVT.LT.N )
-     $                  CALL CSWAP( N-PVT, A( PVT+1, J ), 1,
-     $                              A( PVT+1, PVT ), 1 )
+                     IF( PVT.LT.N ) CALL CSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
                      DO 190 I = J + 1, PVT - 1
                         CTEMP = CONJG( A( I, J ) )
                         A( I, J ) = CONJG( A( PVT, I ) )
@@ -278,9 +264,7 @@
 *
                   IF( J.LT.N ) THEN
                      CALL CLACGV( J-1, A( J, 1 ), LDA )
-                     CALL CGEMV( 'No Trans', N-J, J-K, -CONE,
-     $                           A( J+1, K ), LDA, A( J, K ), LDA, CONE,
-     $                           A( J+1, J ), 1 )
+                     CALL CGEMV( 'No Trans', N-J, J-K, -CONE, A( J+1, K ), LDA, A( J, K ), LDA, CONE, A( J+1, J ), 1 )
                      CALL CLACGV( J-1, A( J, 1 ), LDA )
                      CALL CSSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
                   END IF
@@ -290,8 +274,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL CHERK( 'Lower', 'No Trans', N-J+1, JB, -ONE,
-     $                        A( J, K ), LDA, ONE, A( J, J ), LDA )
+                  CALL CHERK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   210       CONTINUE

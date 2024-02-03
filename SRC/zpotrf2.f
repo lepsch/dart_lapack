@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     N=1 case
 *
@@ -94,13 +93,11 @@
 *
 *           Update and scale A12
 *
-            CALL ZTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE,
-     $                  A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            CALL ZTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL ZHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL ZHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL ZPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
                INFO = IINFO + N1
@@ -113,13 +110,11 @@
 *
 *           Update and scale A21
 *
-            CALL ZTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE,
-     $                  A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            CALL ZTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL ZHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL ZHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL ZPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
                INFO = IINFO + N1

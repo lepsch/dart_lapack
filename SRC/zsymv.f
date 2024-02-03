@@ -58,8 +58,7 @@
 *
 *     Quick return if possible.
 *
-      IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) )
-     $   RETURN
+      IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) ) RETURN
 *
 *     Set up the start points in  X  and  Y.
 *
@@ -106,8 +105,7 @@
             END IF
          END IF
       END IF
-      IF( ALPHA.EQ.ZERO )
-     $   RETURN
+      IF( ALPHA.EQ.ZERO ) RETURN
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
 *        Form  y  when A is stored in upper triangle.

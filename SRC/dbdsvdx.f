@@ -1,5 +1,4 @@
-      SUBROUTINE DBDSVDX( UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU,
-     $                    NS, S, Z, LDZ, WORK, IWORK, INFO)
+      SUBROUTINE DBDSVDX( UPLO, JOBZ, RANGE, N, D, E, VL, VU, IL, IU, NS, S, Z, LDZ, WORK, IWORK, INFO)
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,29 +11,22 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   D( * ), E( * ), S( * ), WORK( * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   D( * ), E( * ), S( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TEN, HNDRD, MEIGTH
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0,
-     $                     HNDRD = 100.0D0, MEIGTH = -0.1250D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TEN = 10.0D0, HNDRD = 100.0D0, MEIGTH = -0.1250D0 )
       DOUBLE PRECISION   FUDGE
       PARAMETER          ( FUDGE = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          RNGVX
       LOGICAL            ALLSV, INDSV, LOWER, SPLIT, SVEQ0, VALSV, WANTZ
-      INTEGER            I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR,
-     $                   IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV,
-     $                   IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K,
-     $                   NTGK, NRU, NRV, NSL
-      DOUBLE PRECISION   ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX,
-     $                   SMIN, SQRT2, THRESH, TOL, ULP,
-     $                   VLTGK, VUTGK, ZJTJI
+      INTEGER            I, ICOLZ, IDBEG, IDEND, IDTGK, IDPTR, IEPTR, IETGK, IIFAIL, IIWORK, ILTGK, IROWU, IROWV, IROWZ, ISBEG, ISPLT, ITEMP, IUTGK, J, K, NTGK, NRU, NRV, NSL
+      DOUBLE PRECISION   ABSTOL, EPS, EMIN, MU, NRMU, NRMV, ORTOL, SMAX, SMIN, SQRT2, THRESH, TOL, ULP, VLTGK, VUTGK, ZJTJI
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -193,10 +185,7 @@
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
          CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
          CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ),
-     $                VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S,
-     $                Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ),
-     $                IWORK( IIFAIL ), INFO )
+         CALL DSTEVX( 'N', 'V', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VUTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
          IF( NS.EQ.0 ) THEN
             RETURN
          ELSE
@@ -217,18 +206,12 @@
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
          CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
          CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ),
-     $                VLTGK, VLTGK, ILTGK, ILTGK, ABSTOL, NS, S,
-     $                Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ),
-     $                IWORK( IIFAIL ), INFO )
+         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VLTGK, VLTGK, ILTGK, ILTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
          VLTGK = S( 1 ) - FUDGE*SMAX*ULP*N
          WORK( IDTGK:IDTGK+2*N-1 ) = ZERO
          CALL DCOPY( N, D, 1, WORK( IETGK ), 2 )
          CALL DCOPY( N-1, E, 1, WORK( IETGK+1 ), 2 )
-         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ),
-     $                VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S,
-     $                Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ),
-     $                IWORK( IIFAIL ), INFO )
+         CALL DSTEVX( 'N', 'I', N*2, WORK( IDTGK ), WORK( IETGK ), VUTGK, VUTGK, IUTGK, IUTGK, ABSTOL, NS, S, Z, LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
          VUTGK = S( 1 ) + FUDGE*SMAX*ULP*N
          VUTGK = MIN( VUTGK, ZERO )
 *
@@ -351,9 +334,7 @@
                   ILTGK = 1
                   IUTGK = NTGK / 2
                   IF( ALLSV .OR. VUTGK.EQ.ZERO ) THEN
-                     IF( SVEQ0 .OR.
-     $                   SMIN.LT.EPS .OR.
-     $                   MOD(NTGK,2).GT.0 ) THEN
+                     IF( SVEQ0 .OR. SMIN.LT.EPS .OR. MOD(NTGK,2).GT.0 ) THEN
 *                        Special case: eigenvalue equal to zero or very
 *                        small, additional eigenvector is needed.
                          IUTGK = IUTGK + 1
@@ -364,12 +345,7 @@
 *                 WORK( ITEMP: ): 2*5*NTGK
 *                 IWORK( 1: ): 2*6*NTGK
 *
-                  CALL DSTEVX( JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ),
-     $                         WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK,
-     $                         ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ),
-     $                         Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ),
-     $                         IWORK( IIWORK ), IWORK( IIFAIL ),
-     $                         INFO )
+                  CALL DSTEVX( JOBZ, RNGVX, NTGK, WORK( IDTGK+ISPLT-1 ), WORK( IETGK+ISPLT-1 ), VLTGK, VUTGK, ILTGK, IUTGK, ABSTOL, NSL, S( ISBEG ), Z( IROWZ,ICOLZ ), LDZ, WORK( ITEMP ), IWORK( IIWORK ), IWORK( IIFAIL ), INFO )
                   IF( INFO.NE.0 ) THEN
 *                    Exit with the error code from DSTEVX.
                      RETURN
@@ -386,21 +362,15 @@
 *                    those norms and, if needed, reorthogonalize the
 *                    vectors.
 *
-                     IF( NSL.GT.1 .AND.
-     $                   VUTGK.EQ.ZERO .AND.
-     $                   MOD(NTGK,2).EQ.0 .AND.
-     $                   EMIN.EQ.0 .AND. .NOT.SPLIT ) THEN
+                     IF( NSL.GT.1 .AND. VUTGK.EQ.ZERO .AND. MOD(NTGK,2).EQ.0 .AND. EMIN.EQ.0 .AND. .NOT.SPLIT ) THEN
 *
 *                       D=0 at the top or bottom of the active submatrix:
 *                       one eigenvalue is equal to zero; concatenate the
 *                       eigenvectors corresponding to the two smallest
 *                       eigenvalues.
 *
-                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) =
-     $                  Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) +
-     $                  Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 )
-                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 ) =
-     $                  ZERO
+                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) = Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-2 ) + Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 )
+                        Z( IROWZ:IROWZ+NTGK-1,ICOLZ+NSL-1 ) = ZERO
 *                       IF( IUTGK*2.GT.NTGK ) THEN
 *                          Eigenvalue equal to zero or very small.
 *                          NSL = NSL - 1
@@ -413,21 +383,12 @@
                            INFO = N*2 + 1
                            RETURN
                         END IF
-                        CALL DSCAL( NRU, ONE/NRMU,
-     $                              Z( IROWU,ICOLZ+I ), 2 )
-                        IF( NRMU.NE.ONE .AND.
-     $                      ABS( NRMU-ORTOL )*SQRT2.GT.ONE )
-     $                      THEN
+                        CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            DO J = 0, I-1
-                              ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ),
-     $                                       2, Z( IROWU, ICOLZ+I ), 2 )
-                              CALL DAXPY( NRU, ZJTJI,
-     $                                    Z( IROWU, ICOLZ+J ), 2,
-     $                                    Z( IROWU, ICOLZ+I ), 2 )
+                              ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
                            END DO
                            NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
-                           CALL DSCAL( NRU, ONE/NRMU,
-     $                                 Z( IROWU,ICOLZ+I ), 2 )
+                           CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )
                         END IF
                      END DO
                      DO I = 0, MIN( NSL-1, NRV-1 )
@@ -436,26 +397,15 @@
                            INFO = N*2 + 1
                            RETURN
                         END IF
-                        CALL DSCAL( NRV, -ONE/NRMV,
-     $                              Z( IROWV,ICOLZ+I ), 2 )
-                        IF( NRMV.NE.ONE .AND.
-     $                      ABS( NRMV-ORTOL )*SQRT2.GT.ONE )
-     $                      THEN
+                        CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            DO J = 0, I-1
-                              ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ),
-     $                                       2, Z( IROWV, ICOLZ+I ), 2 )
-                              CALL DAXPY( NRU, ZJTJI,
-     $                                    Z( IROWV, ICOLZ+J ), 2,
-     $                                    Z( IROWV, ICOLZ+I ), 2 )
+                              ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
                            END DO
                            NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
-                           CALL DSCAL( NRV, ONE/NRMV,
-     $                                 Z( IROWV,ICOLZ+I ), 2 )
+                           CALL DSCAL( NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )
                         END IF
                      END DO
-                     IF( VUTGK.EQ.ZERO .AND.
-     $                   IDPTR.LT.IDEND .AND.
-     $                   MOD(NTGK,2).GT.0 ) THEN
+                     IF( VUTGK.EQ.ZERO .AND. IDPTR.LT.IDEND .AND. MOD(NTGK,2).GT.0 ) THEN
 *
 *                       D=0 in the middle of the active submatrix (one
 *                       eigenvalue is equal to zero): save the corresponding
@@ -463,10 +413,7 @@
 *                       active submatrix is reached).
 *
                         SPLIT = .TRUE.
-                        Z( IROWZ:IROWZ+NTGK-1,N+1 ) =
-     $                     Z( IROWZ:IROWZ+NTGK-1,NS+NSL )
-                        Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) =
-     $                     ZERO
+                        Z( IROWZ:IROWZ+NTGK-1,N+1 ) = Z( IROWZ:IROWZ+NTGK-1,NS+NSL )                         Z( IROWZ:IROWZ+NTGK-1,NS+NSL ) = ZERO
                      END IF
                   END IF !** WANTZ **!
 *
@@ -500,9 +447,7 @@
 *              Bring back eigenvector corresponding
 *              to eigenvalue equal to zero.
 *
-               Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) =
-     $         Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) +
-     $         Z( IDBEG:IDEND-NTGK+1,N+1 )
+               Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) = Z( IDBEG:IDEND-NTGK+1,ISBEG-1 ) + Z( IDBEG:IDEND-NTGK+1,N+1 )
                Z( IDBEG:IDEND-NTGK+1,N+1 ) = 0
             END IF
             IROWV = IROWV - 1

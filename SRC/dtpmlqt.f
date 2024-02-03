@@ -1,5 +1,4 @@
-      SUBROUTINE DTPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT,
-     $                    A, LDA, B, LDB, WORK, INFO )
+      SUBROUTINE DTPMLQT( SIDE, TRANS, M, N, K, L, MB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER   INFO, K, LDV, LDA, LDB, M, N, L, MB, LDT
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   V( LDV, * ), A( LDA, * ), B( LDB, * ),
-     $                   T( LDT, * ), WORK( * )
+      DOUBLE PRECISION   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -89,9 +87,7 @@
             ELSE
                LB = 0
             END IF
-            CALL DTPRFB( 'L', 'T', 'F', 'R', NB, N, IB, LB,
-     $                   V( I, 1 ), LDV, T( 1, I ), LDT,
-     $                   A( I, 1 ), LDA, B, LDB, WORK, IB )
+            CALL DTPRFB( 'L', 'T', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 *
       ELSE IF( RIGHT .AND. TRAN ) THEN
@@ -104,9 +100,7 @@
             ELSE
                LB = NB-N+L-I+1
             END IF
-            CALL DTPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB,
-     $                   V( I, 1 ), LDV, T( 1, I ), LDT,
-     $                   A( 1, I ), LDA, B, LDB, WORK, M )
+            CALL DTPRFB( 'R', 'N', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 *
       ELSE IF( LEFT .AND. TRAN ) THEN
@@ -120,9 +114,7 @@
             ELSE
                LB = 0
             END IF
-            CALL DTPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB,
-     $                   V( I, 1 ), LDV, T( 1, I ), LDT,
-     $                   A( I, 1 ), LDA, B, LDB, WORK, IB )
+            CALL DTPRFB( 'L', 'N', 'F', 'R', NB, N, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 *
       ELSE IF( RIGHT .AND. NOTRAN ) THEN
@@ -136,9 +128,7 @@
             ELSE
                LB = NB-N+L-I+1
             END IF
-            CALL DTPRFB( 'R', 'T', 'F', 'R', M, NB, IB, LB,
-     $                   V( I, 1 ), LDV, T( 1, I ), LDT,
-     $                   A( 1, I ), LDA, B, LDB, WORK, M )
+            CALL DTPRFB( 'R', 'T', 'F', 'R', M, NB, IB, LB, V( I, 1 ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 *
       END IF

@@ -15,17 +15,12 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0,
-     $                   THREE = 3.0E0 )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0 )
       INTEGER            MAXIT
       PARAMETER          ( MAXIT = 30 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M,
-     $                   NMAXIT
-      REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC,
-     $                   OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN,
-     $                   SIGMA, SSFMAX, SSFMIN
+      INTEGER            I, ISCALE, JTOT, L, L1, LEND, LENDSV, LSV, M, NMAXIT       REAL               ALPHA, ANORM, BB, C, EPS, EPS2, GAMMA, OLDC, OLDGAM, P, R, RT1, RT2, RTE, S, SAFMAX, SAFMIN, SIGMA, SSFMAX, SSFMIN
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANST, SLAPY2
@@ -50,8 +45,7 @@
          CALL XERBLA( 'SSTERF', -INFO )
          RETURN
       END IF
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
 *     Determine the unit roundoff for this environment.
 *
@@ -75,13 +69,9 @@
       L1 = 1
 *
    10 CONTINUE
-      IF( L1.GT.N )
-     $   GO TO 170
-      IF( L1.GT.1 )
-     $   E( L1-1 ) = ZERO
+      IF( L1.GT.N ) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       DO 20 M = L1, N - 1
-         IF( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*
-     $       SQRT( ABS( D( M+1 ) ) ) )*EPS ) THEN
+         IF( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )* SQRT( ABS( D( M+1 ) ) ) )*EPS ) THEN
             E( M ) = ZERO
             GO TO 30
          END IF
@@ -94,27 +84,19 @@
       LEND = M
       LENDSV = LEND
       L1 = M + 1
-      IF( LEND.EQ.L )
-     $   GO TO 10
+      IF( LEND.EQ.L ) GO TO 10
 *
 *     Scale submatrix in rows and columns L to LEND
 *
       ANORM = SLANST( 'M', LEND-L+1, D( L ), E( L ) )
       ISCALE = 0
-      IF( ANORM.EQ.ZERO )
-     $   GO TO 10
+      IF( ANORM.EQ.ZERO ) GO TO 10
       IF( ANORM.GT.SSFMAX ) THEN
          ISCALE = 1
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N,
-     $                INFO )
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO )
       ELSE IF( ANORM.LT.SSFMIN ) THEN
          ISCALE = 2
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N,
-     $                INFO )
-         CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO )
       END IF
 *
       DO 40 I = L, LEND - 1
@@ -137,18 +119,15 @@
    50    CONTINUE
          IF( L.NE.LEND ) THEN
             DO 60 M = L, LEND - 1
-               IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) )
-     $            GO TO 70
+               IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
    60       CONTINUE
          END IF
          M = LEND
 *
    70    CONTINUE
-         IF( M.LT.LEND )
-     $      E( M ) = ZERO
+         IF( M.LT.LEND ) E( M ) = ZERO
          P = D( L )
-         IF( M.EQ.L )
-     $      GO TO 90
+         IF( M.EQ.L ) GO TO 90
 *
 *        If remaining matrix is 2 by 2, use SLAE2 to compute its
 *        eigenvalues.
@@ -160,13 +139,11 @@
             D( L+1 ) = RT2
             E( L ) = ZERO
             L = L + 2
-            IF( L.LE.LEND )
-     $         GO TO 50
+            IF( L.LE.LEND ) GO TO 50
             GO TO 150
          END IF
 *
-         IF( JTOT.EQ.NMAXIT )
-     $      GO TO 150
+         IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
 *
 *        Form shift.
@@ -186,8 +163,7 @@
          DO 80 I = M - 1, L, -1
             BB = E( I )
             R = P + BB
-            IF( I.NE.M-1 )
-     $         E( I+1 ) = S*R
+            IF( I.NE.M-1 ) E( I+1 ) = S*R
             OLDC = C
             C = P / R
             S = BB / R
@@ -212,8 +188,7 @@
          D( L ) = P
 *
          L = L + 1
-         IF( L.LE.LEND )
-     $      GO TO 50
+         IF( L.LE.LEND ) GO TO 50
          GO TO 150
 *
       ELSE
@@ -224,17 +199,14 @@
 *
   100    CONTINUE
          DO 110 M = L, LEND + 1, -1
-            IF( ABS( E( M-1 ) ).LE.EPS2*ABS( D( M )*D( M-1 ) ) )
-     $         GO TO 120
+            IF( ABS( E( M-1 ) ).LE.EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120
   110    CONTINUE
          M = LEND
 *
   120    CONTINUE
-         IF( M.GT.LEND )
-     $      E( M-1 ) = ZERO
+         IF( M.GT.LEND ) E( M-1 ) = ZERO
          P = D( L )
-         IF( M.EQ.L )
-     $      GO TO 140
+         IF( M.EQ.L ) GO TO 140
 *
 *        If remaining matrix is 2 by 2, use SLAE2 to compute its
 *        eigenvalues.
@@ -246,13 +218,11 @@
             D( L-1 ) = RT2
             E( L-1 ) = ZERO
             L = L - 2
-            IF( L.GE.LEND )
-     $         GO TO 100
+            IF( L.GE.LEND ) GO TO 100
             GO TO 150
          END IF
 *
-         IF( JTOT.EQ.NMAXIT )
-     $      GO TO 150
+         IF( JTOT.EQ.NMAXIT ) GO TO 150
          JTOT = JTOT + 1
 *
 *        Form shift.
@@ -272,8 +242,7 @@
          DO 130 I = M, L - 1
             BB = E( I )
             R = P + BB
-            IF( I.NE.M )
-     $         E( I-1 ) = S*R
+            IF( I.NE.M ) E( I-1 ) = S*R
             OLDC = C
             C = P / R
             S = BB / R
@@ -298,8 +267,7 @@
          D( L ) = P
 *
          L = L - 1
-         IF( L.GE.LEND )
-     $      GO TO 100
+         IF( L.GE.LEND ) GO TO 100
          GO TO 150
 *
       END IF
@@ -307,21 +275,14 @@
 *     Undo scaling if necessary
 *
   150 CONTINUE
-      IF( ISCALE.EQ.1 )
-     $   CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1,
-     $                D( LSV ), N, INFO )
-      IF( ISCALE.EQ.2 )
-     $   CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1,
-     $                D( LSV ), N, INFO )
+      IF( ISCALE.EQ.1 ) CALL SLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL SLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )
 *
 *     Check for no convergence to an eigenvalue after a total
 *     of N*MAXIT iterations.
 *
-      IF( JTOT.LT.NMAXIT )
-     $   GO TO 10
+      IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 160 I = 1, N - 1
-         IF( E( I ).NE.ZERO )
-     $      INFO = INFO + 1
+         IF( E( I ).NE.ZERO ) INFO = INFO + 1
   160 CONTINUE
       GO TO 180
 *

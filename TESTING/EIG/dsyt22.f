@@ -1,5 +1,4 @@
-      SUBROUTINE DSYT22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU,
-     $                   V, LDV, TAU, WORK, RESULT )
+      SUBROUTINE DSYT22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU, V, LDV, TAU, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            ITYPE, KBAND, LDA, LDU, LDV, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ),
-     $                   TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -38,8 +36,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 .OR. M.LE.0 )
-     $   RETURN
+      IF( N.LE.0 .OR. M.LE.0 ) RETURN
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
@@ -57,8 +54,7 @@
       CALL DSYMM( 'L', UPLO, N, M, ONE, A, LDA, U, LDU, ZERO, WORK, N )
       NN = N*N
       NNP1 = NN + 1
-      CALL DGEMM( 'T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO,
-     $            WORK( NNP1 ), N )
+      CALL DGEMM( 'T', 'N', M, M, N, ONE, U, LDU, WORK, N, ZERO, WORK( NNP1 ), N )
       DO 10 J = 1, M
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
@@ -87,9 +83,7 @@
 *
 *     Compute  U**T U - I
 *
-      IF( ITYPE.EQ.1 )
-     $   CALL DORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N,
-     $                RESULT( 2 ) )
+      IF( ITYPE.EQ.1 ) CALL DORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) )
 *
       RETURN
 *

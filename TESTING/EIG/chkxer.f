@@ -14,8 +14,7 @@
 *     ..
 *     .. Executable Statements ..
       IF( .NOT.LERR ) THEN
-         WRITE( NOUT, FMT = 9999 )INFOT,
-     $        SRNAMT( 1:LEN_TRIM( SRNAMT ) )
+         WRITE( NOUT, FMT = 9999 )INFOT, SRNAMT( 1:LEN_TRIM( SRNAMT ) )
          OK = .FALSE.
       END IF
       LERR = .FALSE.

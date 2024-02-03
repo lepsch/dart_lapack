@@ -8,8 +8,7 @@
       INTEGER            LDA, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDA, * ), D( LDA, * ),
-     $                   E( LDA, * ), Z( LDZ, * )
+      REAL               A( LDA, * ), B( LDA, * ), D( LDA, * ), E( LDA, * ), Z( LDZ, * )
 *     ..
 *
 *  ====================================================================

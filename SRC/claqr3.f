@@ -1,36 +1,29 @@
-      SUBROUTINE CLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ,
-     $                   IHIZ, Z, LDZ, NS, ND, SH, V, LDV, NH, T, LDT,
-     $                   NV, WV, LDWV, WORK, LWORK )
+      SUBROUTINE CLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, NS, ND, SH, V, LDV, NH, T, LDT, NV, WV, LDWV, WORK, LWORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV,
-     $                   LDZ, LWORK, N, ND, NH, NS, NV, NW
+      INTEGER            IHIZ, ILOZ, KBOT, KTOP, LDH, LDT, LDV, LDWV, LDZ, LWORK, N, ND, NH, NS, NV, NW
       LOGICAL            WANTT, WANTZ
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ),
-     $                   WORK( * ), WV( LDWV, * ), Z( LDZ, * )
+      COMPLEX            H( LDH, * ), SH( * ), T( LDT, * ), V( LDV, * ), WORK( * ), WV( LDWV, * ), Z( LDZ, * )
 *     ..
 *
 *  ================================================================
 *
 *     .. Parameters ..
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ),
-     $                   ONE = ( 1.0e0, 0.0e0 ) )
+      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
       REAL               RZERO, RONE
       PARAMETER          ( RZERO = 0.0e0, RONE = 1.0e0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX            BETA, CDUM, S, TAU
       REAL               FOO, SAFMAX, SAFMIN, SMLNUM, ULP
-      INTEGER            I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN,
-     $                   KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3,
-     $                   LWKOPT, NMIN
+      INTEGER            I, IFST, ILST, INFO, INFQR, J, JW, KCOL, KLN, KNT, KROW, KWTOP, LTOP, LWK1, LWK2, LWK3, LWKOPT, NMIN
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -38,8 +31,7 @@
       EXTERNAL           SLAMCH, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLAQR4,
-     $                   CLARF, CLARFG, CLASET, CTREXC, CUNMHR
+      EXTERNAL           CCOPY, CGEHRD, CGEMM, CLACPY, CLAHQR, CLAQR4, CLARF, CLARFG, CLASET, CTREXC, CUNMHR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, AIMAG, CMPLX, CONJG, INT, MAX, MIN, REAL
@@ -66,14 +58,12 @@
 *
 *        ==== Workspace query call to CUNMHR ====
 *
-         CALL CUNMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV,
-     $                WORK, -1, INFO )
+         CALL CUNMHR( 'R', 'N', JW, JW, 1, JW-1, T, LDT, WORK, V, LDV, WORK, -1, INFO )
          LWK2 = INT( WORK( 1 ) )
 *
 *        ==== Workspace query call to CLAQR4 ====
 *
-         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V,
-     $                LDV, WORK, -1, INFQR )
+         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH, 1, JW, V, LDV, WORK, -1, INFQR )
          LWK3 = INT( WORK( 1 ) )
 *
 *        ==== Optimal workspace ====
@@ -93,11 +83,9 @@
       NS = 0
       ND = 0
       WORK( 1 ) = ONE
-      IF( KTOP.GT.KBOT )
-     $   RETURN
+      IF( KTOP.GT.KBOT ) RETURN
 *     ... nor for an empty deflation window. ====
-      IF( NW.LT.1 )
-     $   RETURN
+      IF( NW.LT.1 ) RETURN
 *
 *     ==== Machine constants ====
 *
@@ -123,12 +111,10 @@
          SH( KWTOP ) = H( KWTOP, KWTOP )
          NS = 1
          ND = 0
-         IF( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP,
-     $       KWTOP ) ) ) ) THEN
+         IF( CABS1( S ).LE.MAX( SMLNUM, ULP*CABS1( H( KWTOP, KWTOP ) ) ) ) THEN
             NS = 0
             ND = 1
-            IF( KWTOP.GT.KTOP )
-     $         H( KWTOP, KWTOP-1 ) = ZERO
+            IF( KWTOP.GT.KTOP ) H( KWTOP, KWTOP-1 ) = ZERO
          END IF
          WORK( 1 ) = ONE
          RETURN
@@ -146,11 +132,9 @@
       CALL CLASET( 'A', JW, JW, ZERO, ONE, V, LDV )
       NMIN = ILAENV( 12, 'CLAQR3', 'SV', JW, 1, JW, LWORK )
       IF( JW.GT.NMIN ) THEN
-         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1,
-     $                JW, V, LDV, WORK, LWORK, INFQR )
+         CALL CLAQR4( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, WORK, LWORK, INFQR )
       ELSE
-         CALL CLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1,
-     $                JW, V, LDV, INFQR )
+         CALL CLAHQR( .true., .true., JW, 1, JW, T, LDT, SH( KWTOP ), 1, JW, V, LDV, INFQR )
       END IF
 *
 *     ==== Deflation detection loop ====
@@ -162,10 +146,7 @@
 *        ==== Small spike tip deflation test ====
 *
          FOO = CABS1( T( NS, NS ) )
-         IF( FOO.EQ.RZERO )
-     $      FOO = CABS1( S )
-         IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) )
-     $        THEN
+         IF( FOO.EQ.RZERO ) FOO = CABS1( S )          IF( CABS1( S )*CABS1( V( 1, NS ) ).LE.MAX( SMLNUM, ULP*FOO ) ) THEN
 *
 *           ==== One more converged eigenvalue ====
 *
@@ -183,8 +164,7 @@
 *
 *        ==== Return to Hessenberg form ====
 *
-      IF( NS.EQ.0 )
-     $   S = ZERO
+      IF( NS.EQ.0 ) S = ZERO
 *
       IF( NS.LT.JW ) THEN
 *
@@ -194,12 +174,10 @@
          DO 30 I = INFQR + 1, NS
             IFST = I
             DO 20 J = I + 1, NS
-               IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) )
-     $            IFST = J
+               IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) ) IFST = J
    20       CONTINUE
             ILST = I
-            IF( IFST.NE.ILST )
-     $         CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
+            IF( IFST.NE.ILST ) CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
    30    CONTINUE
       END IF
 *
@@ -225,31 +203,21 @@
 *
             CALL CLASET( 'L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT )
 *
-            CALL CLARF( 'L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT,
-     $                  WORK( JW+1 ) )
-            CALL CLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT,
-     $                  WORK( JW+1 ) )
-            CALL CLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV,
-     $                  WORK( JW+1 ) )
+            CALL CLARF( 'L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) )
 *
-            CALL CGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ),
-     $                   LWORK-JW, INFO )
+            CALL CGEHRD( JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO )
          END IF
 *
 *        ==== Copy updated reduced window into place ====
 *
-         IF( KWTOP.GT.1 )
-     $      H( KWTOP, KWTOP-1 ) = S*CONJG( V( 1, 1 ) )
+         IF( KWTOP.GT.1 ) H( KWTOP, KWTOP-1 ) = S*CONJG( V( 1, 1 ) )
          CALL CLACPY( 'U', JW, JW, T, LDT, H( KWTOP, KWTOP ), LDH )
-         CALL CCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ),
-     $               LDH+1 )
+         CALL CCOPY( JW-1, T( 2, 1 ), LDT+1, H( KWTOP+1, KWTOP ), LDH+1 )
 *
 *        ==== Accumulate orthogonal matrix in order update
 *        .    H and Z, if requested.  ====
 *
-         IF( NS.GT.1 .AND. S.NE.ZERO )
-     $      CALL CUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV,
-     $                   WORK( JW+1 ), LWORK-JW, INFO )
+         IF( NS.GT.1 .AND. S.NE.ZERO ) CALL CUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO )
 *
 *        ==== Update vertical slab in H ====
 *
@@ -260,8 +228,7 @@
          END IF
          DO 60 KROW = LTOP, KWTOP - 1, NV
             KLN = MIN( NV, KWTOP-KROW )
-            CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ),
-     $                  LDH, V, LDV, ZERO, WV, LDWV )
+            CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV )
             CALL CLACPY( 'A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH )
    60    CONTINUE
 *
@@ -270,10 +237,7 @@
          IF( WANTT ) THEN
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               CALL CGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV,
-     $                     H( KWTOP, KCOL ), LDH, ZERO, T, LDT )
-               CALL CLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ),
-     $                      LDH )
+               CALL CGEMM( 'C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL CLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH )
    70       CONTINUE
          END IF
 *
@@ -282,10 +246,7 @@
          IF( WANTZ ) THEN
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ),
-     $                     LDZ, V, LDV, ZERO, WV, LDWV )
-               CALL CLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ),
-     $                      LDZ )
+               CALL CGEMM( 'N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL CLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ )
    80       CONTINUE
          END IF
       END IF

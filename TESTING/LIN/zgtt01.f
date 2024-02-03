@@ -1,5 +1,4 @@
-      SUBROUTINE ZGTT01( N, DL, D, DU, DLF, DF, DUF, DU2, IPIV, WORK,
-     $                   LDWORK, RWORK, RESID )
+      SUBROUTINE ZGTT01( N, DL, D, DU, DLF, DF, DUF, DU2, IPIV, WORK, LDWORK, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ),
-     $                   DU2( * ), DUF( * ), WORK( LDWORK, * )
+      COMPLEX*16         D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -58,17 +56,13 @@
       DO 30 I = 1, N
          IF( I.EQ.1 ) THEN
             WORK( I, I ) = DF( I )
-            IF( N.GE.2 )
-     $         WORK( I, I+1 ) = DUF( I )
-            IF( N.GE.3 )
-     $         WORK( I, I+2 ) = DU2( I )
+            IF( N.GE.2 ) WORK( I, I+1 ) = DUF( I )             IF( N.GE.3 ) WORK( I, I+2 ) = DU2( I )
          ELSE IF( I.EQ.N ) THEN
             WORK( I, I ) = DF( I )
          ELSE
             WORK( I, I ) = DF( I )
             WORK( I, I+1 ) = DUF( I )
-            IF( I.LT.N-1 )
-     $         WORK( I, I+2 ) = DU2( I )
+            IF( I.LT.N-1 ) WORK( I, I+2 ) = DU2( I )
          END IF
    30 CONTINUE
 *
@@ -77,14 +71,12 @@
       LASTJ = N
       DO 40 I = N - 1, 1, -1
          LI = DLF( I )
-         CALL ZAXPY( LASTJ-I+1, LI, WORK( I, I ), LDWORK,
-     $               WORK( I+1, I ), LDWORK )
+         CALL ZAXPY( LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
          IP = IPIV( I )
          IF( IP.EQ.I ) THEN
             LASTJ = MIN( I+2, N )
          ELSE
-            CALL ZSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ),
-     $                  LDWORK )
+            CALL ZSWAP( LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK )
          END IF
    40 CONTINUE
 *
@@ -114,8 +106,7 @@
 *     Compute norm(L*U - A) / (norm(A) * EPS)
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( RESID / ANORM ) / EPS
       END IF

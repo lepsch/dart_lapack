@@ -25,8 +25,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      GO TO ( 10, 10, 10, 80, 90, 100, 110, 120,
-     $        130, 140, 150, 160, 160, 160, 160, 160, 160)ISPEC
+      GO TO ( 10, 10, 10, 80, 90, 100, 110, 120, 130, 140, 150, 160, 160, 160, 160, 160, 160)ISPEC
 *
 *     Invalid value for ISPEC
 *
@@ -49,8 +48,7 @@
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             DO 20 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( IC.GE.97 .AND. IC.LE.122 )
-     $            SUBNAM( I: I ) = CHAR( IC-32 )
+               IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
    20       CONTINUE
          END IF
 *
@@ -58,16 +56,11 @@
 *
 *        EBCDIC character set
 *
-         IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $       ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $       ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
+         IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) ) THEN
             SUBNAM( 1: 1 ) = CHAR( IC+64 )
             DO 30 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR.
-     $             ( IC.GE.145 .AND. IC.LE.153 ) .OR.
-     $             ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I:
-     $             I ) = CHAR( IC+64 )
+               IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
    30       CONTINUE
          END IF
 *
@@ -79,8 +72,7 @@
             SUBNAM( 1: 1 ) = CHAR( IC-32 )
             DO 40 I = 2, 6
                IC = ICHAR( SUBNAM( I: I ) )
-               IF( IC.GE.225 .AND. IC.LE.250 )
-     $            SUBNAM( I: I ) = CHAR( IC-32 )
+               IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
    40       CONTINUE
          END IF
       END IF
@@ -88,13 +80,11 @@
       C1 = SUBNAM( 1: 1 )
       SNAME = C1.EQ.'S' .OR. C1.EQ.'D'
       CNAME = C1.EQ.'C' .OR. C1.EQ.'Z'
-      IF( .NOT.( CNAME .OR. SNAME ) )
-     $   RETURN
+      IF( .NOT.( CNAME .OR. SNAME ) ) RETURN
       C2 = SUBNAM( 2: 3 )
       C3 = SUBNAM( 4: 6 )
       C4 = C3( 2: 3 )
-      TWOSTAGE = LEN( SUBNAM ).GE.11
-     $           .AND. SUBNAM( 11: 11 ).EQ.'2'
+      TWOSTAGE = LEN( SUBNAM ).GE.11 .AND. SUBNAM( 11: 11 ).EQ.'2'
 *
       GO TO ( 50, 60, 70 )ISPEC
 *
@@ -124,8 +114,7 @@
             ELSE
                NB = 64
             END IF
-         ELSE IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR.
-     $            C3.EQ.'QLF' ) THEN
+         ELSE IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.'QLF' ) THEN
             IF( SNAME ) THEN
                NB = 32
             ELSE
@@ -244,29 +233,21 @@
          END IF
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NB = 32
             END IF
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NB = 32
             END IF
          END IF
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NB = 32
             END IF
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NB = 32
             END IF
          END IF
@@ -318,11 +299,9 @@
          ELSE IF( C3.EQ.'SYL' ) THEN
 *           The upper bound is to prevent overly aggressive scaling.
             IF( SNAME ) THEN
-               NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ),
-     $                   240 )
+               NB = MIN( MAX( 48, INT( ( MIN( N1, N2 ) * 16 ) / 100) ), 240 )
             ELSE
-               NB = MIN( MAX( 24, INT( ( MIN( N1, N2 ) * 8 ) / 100) ),
-     $                   80 )
+               NB = MIN( MAX( 24, INT( ( MIN( N1, N2 ) * 8 ) / 100) ), 80 )
             END IF
          END IF
       ELSE IF( C2.EQ.'LA' ) THEN
@@ -362,8 +341,7 @@
 *
       NBMIN = 2
       IF( C2.EQ.'GE' ) THEN
-         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.
-     $       'QLF' ) THEN
+         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
             IF( SNAME ) THEN
                NBMIN = 2
             ELSE
@@ -411,29 +389,21 @@
          END IF
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NBMIN = 2
             END IF
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NBMIN = 2
             END IF
          END IF
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NBMIN = 2
             END IF
          ELSE IF( C3( 1: 1 ).EQ.'M' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NBMIN = 2
             END IF
          END IF
@@ -452,8 +422,7 @@
 *
       NX = 0
       IF( C2.EQ.'GE' ) THEN
-         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ.
-     $       'QLF' ) THEN
+         IF( C3.EQ.'QRF' .OR. C3.EQ.'RQF' .OR. C3.EQ.'LQF' .OR. C3.EQ. 'QLF' ) THEN
             IF( SNAME ) THEN
                NX = 128
             ELSE
@@ -488,17 +457,13 @@
          END IF
       ELSE IF( SNAME .AND. C2.EQ.'OR' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NX = 128
             END IF
          END IF
       ELSE IF( CNAME .AND. C2.EQ.'UN' ) THEN
          IF( C3( 1: 1 ).EQ.'G' ) THEN
-            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ.
-     $          'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' )
-     $           THEN
+            IF( C4.EQ.'QR' .OR. C4.EQ.'RQ' .OR. C4.EQ.'LQ' .OR. C4.EQ. 'QL' .OR. C4.EQ.'HR' .OR. C4.EQ.'TR' .OR. C4.EQ.'BR' ) THEN
                NX = 128
             END IF
          END IF

@@ -1,5 +1,4 @@
-      SUBROUTINE SPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE SPBCON( UPLO, N, KD, AB, LDAB, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -87,30 +86,22 @@
 *
 *           Multiply by inv(U**T).
 *
-            CALL SLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL SLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL SLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL SLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL SLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL SLATBS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**T).
 *
-            CALL SLATBS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL SLATBS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, KD, AB, LDAB, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -118,8 +109,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL SRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -127,8 +117,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
 *

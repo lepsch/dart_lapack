@@ -17,8 +17,7 @@
 *     .. Local Scalars ..
       LOGICAL            LOWER, OK1, OK2
       CHARACTER          UPLO, CFORM
-      INTEGER            I, IFORM, IIN, INFO, IUPLO, J, N,
-     +                   NERRS, NRUN
+      INTEGER            I, IFORM, IIN, INFO, IUPLO, J, N, NERRS, NRUN
 *     ..
 *     .. Local Arrays ..
       CHARACTER          UPLOS( 2 ), FORMS( 2 )

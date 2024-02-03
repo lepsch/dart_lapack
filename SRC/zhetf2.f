@@ -24,8 +24,7 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER
       INTEGER            I, IMAX, J, JMAX, K, KK, KP, KSTEP
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX,
-     $                   TT
+      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, ROWMAX, TT
       COMPLEX*16         D12, D21, T, WK, WKM1, WKP1, ZDUM
 *     ..
 *     .. External Functions ..
@@ -80,8 +79,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 90
+         IF( K.LT.1 ) GO TO 90
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -105,8 +103,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
          ELSE
@@ -139,8 +136,7 @@
 *
                   KP = K
 *
-               ELSE IF( ABS( DBLE( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX )
-     $                   THEN
+               ELSE IF( ABS( DBLE( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) THEN
 *
 *                 interchange rows and columns K and IMAX, use 1-by-1
 *                 pivot block
@@ -183,8 +179,7 @@
                END IF
             ELSE
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 )
-     $            A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
+               IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
             END IF
 *
 *           Update the leading submatrix
@@ -223,8 +218,7 @@
 *
                IF( K.GT.2 ) THEN
 *
-                  D = DLAPY2( DBLE( A( K-1, K ) ),
-     $                DIMAG( A( K-1, K ) ) )
+                  D = DLAPY2( DBLE( A( K-1, K ) ), DIMAG( A( K-1, K ) ) )
                   D22 = DBLE( A( K-1, K-1 ) ) / D
                   D11 = DBLE( A( K, K ) ) / D
                   TT = ONE / ( D11*D22-ONE )
@@ -232,12 +226,10 @@
                   D = TT / D
 *
                   DO 40 J = K - 2, 1, -1
-                     WKM1 = D*( D11*A( J, K-1 )-DCONJG( D12 )*
-     $                      A( J, K ) )
+                     WKM1 = D*( D11*A( J, K-1 )-DCONJG( D12 )* A( J, K ) )
                      WK = D*( D22*A( J, K )-D12*A( J, K-1 ) )
                      DO 30 I = J, 1, -1
-                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) -
-     $                              A( I, K-1 )*DCONJG( WKM1 )
+                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K-1 )*DCONJG( WKM1 )
    30                CONTINUE
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
@@ -275,8 +267,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 90
+         IF( K.GT.N ) GO TO 90
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -300,8 +291,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
          ELSE
@@ -334,8 +324,7 @@
 *
                   KP = K
 *
-               ELSE IF( ABS( DBLE( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX )
-     $                   THEN
+               ELSE IF( ABS( DBLE( A( IMAX, IMAX ) ) ).GE.ALPHA*ROWMAX ) THEN
 *
 *                 interchange rows and columns K and IMAX, use 1-by-1
 *                 pivot block
@@ -360,8 +349,7 @@
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
                DO 60 J = KK + 1, KP - 1
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
@@ -379,8 +367,7 @@
                END IF
             ELSE
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 )
-     $            A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
+               IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
             END IF
 *
 *           Update the trailing submatrix
@@ -400,8 +387,7 @@
 *                 A := A - L(k)*D(k)*L(k)**H = A - W(k)*(1/D(k))*W(k)**H
 *
                   R1 = ONE / DBLE( A( K, K ) )
-                  CALL ZHER( UPLO, N-K, -R1, A( K+1, K ), 1,
-     $                       A( K+1, K+1 ), LDA )
+                  CALL ZHER( UPLO, N-K, -R1, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
 *
 *                 Store L(k) in column K
 *
@@ -421,8 +407,7 @@
 *                 where L(k) and L(k+1) are the k-th and (k+1)-th
 *                 columns of L
 *
-                  D = DLAPY2( DBLE( A( K+1, K ) ),
-     $                DIMAG( A( K+1, K ) ) )
+                  D = DLAPY2( DBLE( A( K+1, K ) ), DIMAG( A( K+1, K ) ) )
                   D11 = DBLE( A( K+1, K+1 ) ) / D
                   D22 = DBLE( A( K, K ) ) / D
                   TT = ONE / ( D11*D22-ONE )
@@ -431,11 +416,9 @@
 *
                   DO 80 J = K + 2, N
                      WK = D*( D11*A( J, K )-D21*A( J, K+1 ) )
-                     WKP1 = D*( D22*A( J, K+1 )-DCONJG( D21 )*
-     $                      A( J, K ) )
+                     WKP1 = D*( D22*A( J, K+1 )-DCONJG( D21 )* A( J, K ) )
                      DO 70 I = J, N
-                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) -
-     $                              A( I, K+1 )*DCONJG( WKP1 )
+                        A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K+1 )*DCONJG( WKP1 )
    70                CONTINUE
                      A( J, K ) = WK
                      A( J, K+1 ) = WKP1

@@ -1,6 +1,4 @@
-      SUBROUTINE SCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL,
-     $                   THRESH, A, COPYA, S, TAU, WORK, IWORK,
-     $                   NOUT )
+      SUBROUTINE SCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, S, TAU, WORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,10 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ),
-     $                   NXVAL( * )
-      REAL               A( * ), COPYA( * ), S( * ),
-     $                   TAU( * ), WORK( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       REAL               A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -30,9 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO,
-     $                   ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N,
-     $                   NB, NERRS, NFAIL, NRUN, NX
+      INTEGER            I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
       REAL               EPS
 *     ..
 *     .. Local Arrays ..
@@ -44,8 +37,7 @@
       EXTERNAL           SLAMCH, SQPT01, SQRT11, SQRT12
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, ICOPY, SGEQP3, SLACPY, SLAORD,
-     $                   SLASET, SLATMS, XLAENV
+      EXTERNAL           ALAHD, ALASUM, ICOPY, SGEQP3, SLACPY, SLAORD, SLASET, SLATMS, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -90,12 +82,10 @@
 *
             N = NVAL( IN )
             MNMIN = MIN( M, N )
-            LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ),
-     $                   M*N + 2*MNMIN + 4*N )
+            LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ), M*N + 2*MNMIN + 4*N )
 *
             DO 70 IMODE = 1, NTYPES
-               IF( .NOT.DOTYPE( IMODE ) )
-     $            GO TO 70
+               IF( .NOT.DOTYPE( IMODE ) ) GO TO 70
 *
 *              Do for each type of matrix
 *                 1:  zero matrix
@@ -106,8 +96,7 @@
 *                 6:  every second column fixed
 *
                MODE = IMODE
-               IF( IMODE.GT.3 )
-     $            MODE = 1
+               IF( IMODE.GT.3 ) MODE = 1
 *
 *              Generate test matrix of size m by n using
 *              singular value distribution indicated by `mode'.
@@ -121,9 +110,7 @@
                      S( I ) = ZERO
    30             CONTINUE
                ELSE
-                  CALL SLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S,
-     $                         MODE, ONE / EPS, ONE, M, N, 'No packing',
-     $                         COPYA, LDA, WORK, INFO )
+                  CALL SLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO )
                   IF( IMODE.GE.4 ) THEN
                      IF( IMODE.EQ.4 ) THEN
                         ILOW = 1
@@ -167,33 +154,26 @@
 *                 Compute the QP3 factorization of A
 *
                   SRNAMT = 'SGEQP3'
-                  CALL SGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK,
-     $                         LW, INFO )
+                  CALL SGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, INFO )
 *
 *                 Compute norm(svd(a) - svd(r))
 *
-                  RESULT( 1 ) = SQRT12( M, N, A, LDA, S, WORK,
-     $                          LWORK )
+                  RESULT( 1 ) = SQRT12( M, N, A, LDA, S, WORK, LWORK )
 *
 *                 Compute norm( A*P - Q*R )
 *
-                  RESULT( 2 ) = SQPT01( M, N, MNMIN, COPYA, A, LDA, TAU,
-     $                          IWORK( N+1 ), WORK, LWORK )
+                  RESULT( 2 ) = SQPT01( M, N, MNMIN, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK )
 *
 *                 Compute Q'*Q
 *
-                  RESULT( 3 ) = SQRT11( M, MNMIN, A, LDA, TAU, WORK,
-     $                          LWORK )
+                  RESULT( 3 ) = SQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   DO 50 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )'SGEQP3', M, N, NB,
-     $                     IMODE, K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'SGEQP3', M, N, NB, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    50             CONTINUE

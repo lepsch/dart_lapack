@@ -1,5 +1,4 @@
-      SUBROUTINE CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                   CNDNUM, DIST )
+      SUBROUTINE CLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -67,8 +66,7 @@
 *     xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
 *                          M x N matrix.
 *
-      IF( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR.
-     $    LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
+      IF( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
 *        Set TYPE, the type of matrix to be generated.
 *
@@ -351,8 +349,7 @@
             ANORM = ONE
          END IF
 *
-      ELSE IF( LSAMEN( 2, C2, 'HE' ) .OR. LSAMEN( 2, C2, 'HP' ) .OR.
-     $         LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'SP' ) ) THEN
+      ELSE IF( LSAMEN( 2, C2, 'HE' ) .OR. LSAMEN( 2, C2, 'HP' ) .OR. LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'SP' ) ) THEN
 *
 *        xHE, xHP, xSY, xSP: Set parameters to generate a
 *        symmetric or Hermitian matrix.
@@ -512,8 +509,7 @@
             ANORM = ONE
          END IF
       END IF
-      IF( N.LE.1 )
-     $   CNDNUM = ONE
+      IF( N.LE.1 ) CNDNUM = ONE
 *
       RETURN
 *

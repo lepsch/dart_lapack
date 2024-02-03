@@ -1,5 +1,4 @@
-      SUBROUTINE SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T,
-     $                     LDT, C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T, LDT, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, LDA, M, N, K, MB, NB, LDT, LWORK, LDC
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), WORK( * ), C( LDC, * ),
-     $                   T( LDT, * )
+      REAL               A( LDA, * ), WORK( * ), C( LDC, * ), T( LDT, * )
 *     ..
 *
 * =====================================================================
@@ -97,8 +95,7 @@
 *     Determine the block size if it is tall skinny or short and wide
 *
       IF((MB.LE.K).OR.(MB.GE.MAX(M,N,K))) THEN
-        CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA,
-     $        T, LDT, C, LDC, WORK, INFO )
+        CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T, LDT, C, LDC, WORK, INFO )
         RETURN
       END IF
 *
@@ -110,9 +107,7 @@
          CTR = (M-K)/(MB-K)
          IF (KK.GT.0) THEN
            II=M-KK+1
-           CALL STPMQRT('L','N',KK , N, K, 0, NB, A(II,1), LDA,
-     $       T(1,CTR*K+1),LDT , C(1,1), LDC,
-     $       C(II,1), LDC, WORK, INFO )
+           CALL STPMQRT('L','N',KK , N, K, 0, NB, A(II,1), LDA, T(1,CTR*K+1),LDT , C(1,1), LDC, C(II,1), LDC, WORK, INFO )
          ELSE
            II=M+1
          END IF
@@ -122,16 +117,13 @@
 *         Multiply Q to the current block of C (I:I+MB,1:N)
 *
            CTR = CTR - 1
-           CALL STPMQRT('L','N',MB-K , N, K, 0,NB, A(I,1), LDA,
-     $         T(1, CTR * K + 1), LDT, C(1,1), LDC,
-     $         C(I,1), LDC, WORK, INFO )
+           CALL STPMQRT('L','N',MB-K , N, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
 *
          END DO
 *
 *         Multiply Q to the first block of C (1:MB,1:N)
 *
-         CALL SGEMQRT('L','N',MB , N, K, NB, A(1,1), LDA, T
-     $            ,LDT ,C(1,1), LDC, WORK, INFO )
+         CALL SGEMQRT('L','N',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (LEFT.AND.TRAN) THEN
 *
@@ -140,16 +132,13 @@
          KK = MOD((M-K),(MB-K))
          II=M-KK+1
          CTR = 1
-         CALL SGEMQRT('L','T',MB , N, K, NB, A(1,1), LDA, T
-     $            ,LDT ,C(1,1), LDC, WORK, INFO )
+         CALL SGEMQRT('L','T',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
          DO I=MB+1,II-MB+K,(MB-K)
 *
 *         Multiply Q to the current block of C (I:I+MB,1:N)
 *
-          CALL STPMQRT('L','T',MB-K , N, K, 0,NB, A(I,1), LDA,
-     $       T(1,CTR * K + 1),LDT, C(1,1), LDC,
-     $       C(I,1), LDC, WORK, INFO )
+          CALL STPMQRT('L','T',MB-K , N, K, 0,NB, A(I,1), LDA, T(1,CTR * K + 1),LDT, C(1,1), LDC, C(I,1), LDC, WORK, INFO )
           CTR = CTR + 1
 *
          END DO
@@ -157,9 +146,7 @@
 *
 *         Multiply Q to the last block of C
 *
-          CALL STPMQRT('L','T',KK , N, K, 0,NB, A(II,1), LDA,
-     $      T(1, CTR * K + 1), LDT, C(1,1), LDC,
-     $      C(II,1), LDC, WORK, INFO )
+          CALL STPMQRT('L','T',KK , N, K, 0,NB, A(II,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(II,1), LDC, WORK, INFO )
 *
          END IF
 *
@@ -171,9 +158,7 @@
           CTR = (N-K)/(MB-K)
           IF (KK.GT.0) THEN
             II=N-KK+1
-            CALL STPMQRT('R','T',M , KK, K, 0, NB, A(II,1), LDA,
-     $        T(1, CTR * K + 1), LDT, C(1,1), LDC,
-     $        C(1,II), LDC, WORK, INFO )
+            CALL STPMQRT('R','T',M , KK, K, 0, NB, A(II,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
           ELSE
             II=N+1
           END IF
@@ -183,16 +168,13 @@
 *         Multiply Q to the current block of C (1:M,I:I+MB)
 *
             CTR = CTR - 1
-            CALL STPMQRT('R','T',M , MB-K, K, 0,NB, A(I,1), LDA,
-     $          T(1, CTR * K + 1), LDT, C(1,1), LDC,
-     $          C(1,I), LDC, WORK, INFO )
+            CALL STPMQRT('R','T',M , MB-K, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1), LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
 *
           END DO
 *
 *         Multiply Q to the first block of C (1:M,1:MB)
 *
-          CALL SGEMQRT('R','T',M , MB, K, NB, A(1,1), LDA, T
-     $              ,LDT ,C(1,1), LDC, WORK, INFO )
+          CALL SGEMQRT('R','T',M , MB, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
       ELSE IF (RIGHT.AND.NOTRAN) THEN
 *
@@ -201,16 +183,13 @@
          KK = MOD((N-K),(MB-K))
          II=N-KK+1
          CTR = 1
-         CALL SGEMQRT('R','N', M, MB , K, NB, A(1,1), LDA, T
-     $              ,LDT ,C(1,1), LDC, WORK, INFO )
+         CALL SGEMQRT('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO )
 *
          DO I=MB+1,II-MB+K,(MB-K)
 *
 *         Multiply Q to the current block of C (1:M,I:I+MB)
 *
-          CALL STPMQRT('R','N', M, MB-K, K, 0,NB, A(I,1), LDA,
-     $         T(1, CTR * K + 1),LDT, C(1,1), LDC,
-     $         C(1,I), LDC, WORK, INFO )
+          CALL STPMQRT('R','N', M, MB-K, K, 0,NB, A(I,1), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,I), LDC, WORK, INFO )
           CTR = CTR + 1
 *
          END DO
@@ -218,9 +197,7 @@
 *
 *         Multiply Q to the last block of C
 *
-          CALL STPMQRT('R','N', M, KK , K, 0,NB, A(II,1), LDA,
-     $        T(1, CTR * K + 1),LDT, C(1,1), LDC,
-     $        C(1,II), LDC, WORK, INFO )
+          CALL STPMQRT('R','N', M, KK , K, 0,NB, A(II,1), LDA, T(1, CTR * K + 1),LDT, C(1,1), LDC, C(1,II), LDC, WORK, INFO )
 *
          END IF
 *

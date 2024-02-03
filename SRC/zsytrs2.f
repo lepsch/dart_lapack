@@ -1,5 +1,4 @@
-      SUBROUTINE ZSYTRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB,
-     $                    WORK, INFO )
+      SUBROUTINE ZSYTRS2( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -57,8 +56,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
 *     Convert A
 *
@@ -75,15 +73,13 @@
 *           1 x 1 diagonal block
 *           Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
          ELSE
 *           2 x 2 diagonal block
 *           Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( KP.EQ.-IPIV( K-1 ) )
-     $         CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          END IF
         END DO
@@ -128,15 +124,13 @@
 *           1 x 1 diagonal block
 *           Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
          ELSE
 *           2 x 2 diagonal block
 *           Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K .LT. N .AND. KP.EQ.-IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          ENDIF
         END DO
@@ -152,15 +146,13 @@
 *           1 x 1 diagonal block
 *           Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+1
          ELSE
 *           2 x 2 diagonal block
 *           Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 )
-            IF( KP.EQ.-IPIV( K ) )
-     $         CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.EQ.-IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB )
             K=K+2
          ENDIF
         END DO
@@ -203,15 +195,13 @@
 *           1 x 1 diagonal block
 *           Interchange rows K and IPIV(K).
             KP = IPIV( K )
-            IF( KP.NE.K )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( KP.NE.K ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-1
          ELSE
 *           2 x 2 diagonal block
 *           Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K )
-            IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) )
-     $         CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
+            IF( K.GT.1 .AND. KP.EQ.-IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB )
             K=K-2
          ENDIF
         END DO

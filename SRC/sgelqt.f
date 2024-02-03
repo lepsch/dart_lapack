@@ -58,9 +58,7 @@
 *
 *     Update by applying H**T to A(I:M,I+IB:N) from the right
 *
-         CALL SLARFB( 'R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB,
-     $                   A( I, I ), LDA, T( 1, I ), LDT,
-     $                   A( I+IB, I ), LDA, WORK , M-I-IB+1 )
+         CALL SLARFB( 'R', 'N', 'F', 'R', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, T( 1, I ), LDT, A( I+IB, I ), LDA, WORK , M-I-IB+1 )
          END IF
       END DO
       RETURN

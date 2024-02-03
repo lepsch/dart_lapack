@@ -1,6 +1,4 @@
-      SUBROUTINE CGBSVX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB,
-     $                   LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX,
-     $                   RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CGBSVX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,10 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      REAL               BERR( * ), C( * ), FERR( * ), R( * ),
-     $                   RWORK( * )
-      COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   WORK( * ), X( LDX, * )
+      REAL               BERR( * ), C( * ), FERR( * ), R( * ), RWORK( * )       COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -32,8 +27,7 @@
       LOGICAL            COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU
       CHARACTER          NORM
       INTEGER            I, INFEQU, J, J1, J2
-      REAL               AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN,
-     $                   ROWCND, RPVGRW, SMLNUM
+      REAL               AMAX, ANORM, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, RPVGRW, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -41,8 +35,7 @@
       EXTERNAL           LSAME, CLANGB, CLANTB, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGBCON, CGBEQU, CGBRFS, CGBTRF, CGBTRS,
-     $                   CLACPY, CLAQGB, XERBLA
+      EXTERNAL           CCOPY, CGBCON, CGBEQU, CGBRFS, CGBTRF, CGBTRS, CLACPY, CLAQGB, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -66,11 +59,9 @@
 *
 *     Test the input parameters.
 *
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) )
-     $     THEN
+      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -84,8 +75,7 @@
          INFO = -8
       ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
          INFO = -10
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT.
-     $         ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -12
       ELSE
          IF( ROWEQU ) THEN
@@ -136,14 +126,12 @@
 *
 *        Compute row and column scalings to equilibrate the matrix A.
 *
-         CALL CGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $                AMAX, INFEQU )
+         CALL CGBEQU( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
 *           Equilibrate the matrix.
 *
-            CALL CLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $                   AMAX, EQUED )
+            CALL CLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
@@ -174,8 +162,7 @@
          DO 70 J = 1, N
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
-            CALL CCOPY( J2-J1+1, AB( KU+1-J+J1, J ), 1,
-     $                  AFB( KL+KU+1-J+J1, J ), 1 )
+            CALL CCOPY( J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 )
    70    CONTINUE
 *
          CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IPIV, INFO )
@@ -193,9 +180,7 @@
                   ANORM = MAX( ANORM, ABS( AB( I, J ) ) )
    80          CONTINUE
    90       CONTINUE
-            RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ),
-     $                       AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB,
-     $                       RWORK )
+            RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, RWORK )
             IF( RPVGRW.EQ.ZERO ) THEN
                RPVGRW = ONE
             ELSE
@@ -225,20 +210,17 @@
 *
 *     Compute the reciprocal of the condition number of A.
 *
-      CALL CGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND,
-     $             WORK, RWORK, INFO )
+      CALL CGBCON( NORM, N, KL, KU, AFB, LDAFB, IPIV, ANORM, RCOND, WORK, RWORK, INFO )
 *
 *     Compute the solution matrix X.
 *
       CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL CGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX,
-     $             INFO )
+      CALL CGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
 *
 *     Use iterative refinement to improve the computed solution and
 *     compute error bounds and backward error estimates for it.
 *
-      CALL CGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV,
-     $             B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      CALL CGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Transform the solution matrix X to a solution of the original
 *     system.
@@ -267,8 +249,7 @@
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RWORK( 1 ) = RPVGRW
       RETURN

@@ -1,6 +1,4 @@
-      SUBROUTINE SLASD2( NL, NR, SQRE, K, D, Z, ALPHA, BETA, U, LDU, VT,
-     $                   LDVT, DSIGMA, U2, LDU2, VT2, LDVT2, IDXP, IDX,
-     $                   IDXC, IDXQ, COLTYP, INFO )
+      SUBROUTINE SLASD2( NL, NR, SQRE, K, D, Z, ALPHA, BETA, U, LDU, VT, LDVT, DSIGMA, U2, LDU2, VT2, LDVT2, IDXP, IDX, IDXC, IDXQ, COLTYP, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,26 +9,20 @@
       REAL               ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
-      INTEGER            COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ),
-     $                   IDXQ( * )
-      REAL               D( * ), DSIGMA( * ), U( LDU, * ),
-     $                   U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ),
-     $                   Z( * )
+      INTEGER            COLTYP( * ), IDX( * ), IDXC( * ), IDXP( * ), IDXQ( * )       REAL               D( * ), DSIGMA( * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0,
-     $                   EIGHT = 8.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, EIGHT = 8.0E+0 )
 *     ..
 *     .. Local Arrays ..
       INTEGER            CTOT( 4 ), PSM( 4 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M,
-     $                   N, NLP1, NLP2
+      INTEGER            CT, I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
       REAL               C, EPS, HLFTOL, S, TAU, TOL, Z1
 *     ..
 *     .. External Functions ..
@@ -162,8 +154,7 @@
             K2 = K2 - 1
             IDXP( K2 ) = J
             COLTYP( J ) = 4
-            IF( J.EQ.N )
-     $         GO TO 120
+            IF( J.EQ.N ) GO TO 120
          ELSE
             JPREV = J
             GO TO 90
@@ -173,8 +164,7 @@
       J = JPREV
   100 CONTINUE
       J = J + 1
-      IF( J.GT.N )
-     $   GO TO 110
+      IF( J.GT.N ) GO TO 110
       IF( ABS( Z( J ) ).LE.TOL ) THEN
 *
 *        Deflate due to small z component.
@@ -214,8 +204,7 @@
                IDXJ = IDXJ - 1
             END IF
             CALL SROT( N, U( 1, IDXJP ), 1, U( 1, IDXJ ), 1, C, S )
-            CALL SROT( M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C,
-     $                 S )
+            CALL SROT( M, VT( IDXJP, 1 ), LDVT, VT( IDXJ, 1 ), LDVT, C, S )
             IF( COLTYP( J ).NE.COLTYP( JPREV ) ) THEN
                COLTYP( J ) = 3
             END IF
@@ -297,8 +286,7 @@
 *
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
-      IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL )
-     $   DSIGMA( 2 ) = HLFTOL
+      IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
       IF( M.GT.N ) THEN
          Z( 1 ) = SLAPY2( Z1, Z( M ) )
          IF( Z( 1 ).LE.TOL ) THEN
@@ -347,10 +335,7 @@
 *
       IF( N.GT.K ) THEN
          CALL SCOPY( N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 )
-         CALL SLACPY( 'A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ),
-     $                LDU )
-         CALL SLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ),
-     $                LDVT )
+         CALL SLACPY( 'A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL SLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT )
       END IF
 *
 *     Copy CTOT into COLTYP for referencing in SLASD3.

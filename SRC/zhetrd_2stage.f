@@ -1,5 +1,4 @@
-      SUBROUTINE ZHETRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU,
-     $                          HOUS2, LHOUS2, WORK, LWORK, INFO )
+      SUBROUTINE ZHETRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU, HOUS2, LHOUS2, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -13,8 +12,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * )
-      COMPLEX*16         A( LDA, * ), TAU( * ),
-     $                   HOUS2( * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -91,15 +89,12 @@
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
-      CALL ZHETRD_HE2HB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB,
-     $                   TAU, WORK( WPOS ), LWRK, INFO )
+      CALL ZHETRD_HE2HB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHETRD_HE2HB', -INFO )
          RETURN
       END IF
-      CALL ZHETRD_HB2ST( 'Y', VECT, UPLO, N, KD,
-     $                   WORK( ABPOS ), LDAB, D, E,
-     $                   HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
+      CALL ZHETRD_HB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'ZHETRD_HB2ST', -INFO )
          RETURN

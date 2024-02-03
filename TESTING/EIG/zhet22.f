@@ -1,5 +1,4 @@
-      SUBROUTINE ZHET22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU,
-     $                   V, LDV, TAU, WORK, RWORK, RESULT )
+      SUBROUTINE ZHET22( ITYPE, UPLO, N, M, KBAND, A, LDA, D, E, U, LDU, V, LDV, TAU, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * ), RESULT( 2 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            J, JJ, JJ1, JJ2, NN, NNP1
@@ -42,8 +39,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 .OR. M.LE.0 )
-     $   RETURN
+      IF( N.LE.0 .OR. M.LE.0 ) RETURN
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
@@ -58,12 +54,10 @@
 *
 *     ITYPE=1: error = U**H A U - S
 *
-      CALL ZHEMM( 'L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK,
-     $            N )
+      CALL ZHEMM( 'L', UPLO, N, M, CONE, A, LDA, U, LDU, CZERO, WORK, N )
       NN = N*N
       NNP1 = NN + 1
-      CALL ZGEMM( 'C', 'N', M, M, N, CONE, U, LDU, WORK, N, CZERO,
-     $            WORK( NNP1 ), N )
+      CALL ZGEMM( 'C', 'N', M, M, N, CONE, U, LDU, WORK, N, CZERO, WORK( NNP1 ), N )
       DO 10 J = 1, M
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
@@ -92,9 +86,7 @@
 *
 *     Compute  U**H U - I
 *
-      IF( ITYPE.EQ.1 )
-     $   CALL ZUNT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK,
-     $                RESULT( 2 ) )
+      IF( ITYPE.EQ.1 ) CALL ZUNT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RWORK, RESULT( 2 ) )
 *
       RETURN
 *

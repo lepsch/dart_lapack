@@ -83,8 +83,7 @@
 *     of the inverse Hilbert matrix.
       WORK(1) = N
       DO J = 2, N
-         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  )
-     $        * (N +J -1)
+         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
       END DO
 *
       DO J = 1, NRHS

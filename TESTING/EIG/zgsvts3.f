@@ -1,6 +1,4 @@
-      SUBROUTINE ZGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V,
-     $                    LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK,
-     $                    LWORK, RWORK, RESULT )
+      SUBROUTINE ZGSVTS3( M, P, N, A, AF, LDA, B, BF, LDB, U, LDU, V, LDV, Q, LDQ, ALPHA, BETA, R, LDR, IWORK, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       DOUBLE PRECISION   ALPHA( * ), BETA( * ), RESULT( 6 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), Q( LDQ, * ), R( LDR, * ),
-     $                   U( LDU, * ), V( LDV, * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), Q( LDQ, * ), R( LDR, * ), U( LDU, * ), V( LDV, * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -23,8 +19,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J, K, L
@@ -56,9 +51,7 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL ZGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB,
-     $              ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK,
-     $              RWORK, IWORK, INFO )
+      CALL ZGGSVD3( 'U', 'V', 'Q', M, N, P, K, L, AF, LDA, BF, LDB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, LWORK, RWORK, IWORK, INFO )
 *
 *     Copy R
 *
@@ -78,11 +71,9 @@
 *
 *     Compute A:= U'*A*Q - D1*R
 *
-      CALL ZGEMM( 'No transpose', 'No transpose', M, N, N, CONE, A, LDA,
-     $            Q, LDQ, CZERO, WORK, LDA )
+      CALL ZGEMM( 'No transpose', 'No transpose', M, N, N, CONE, A, LDA, Q, LDQ, CZERO, WORK, LDA )
 *
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', M, N, M, CONE,
-     $            U, LDU, WORK, LDA, CZERO, A, LDA )
+      CALL ZGEMM( 'Conjugate transpose', 'No transpose', M, N, M, CONE, U, LDU, WORK, LDA, CZERO, A, LDA )
 *
       DO 60 I = 1, K
          DO 50 J = I, K + L
@@ -100,19 +91,16 @@
 *
       RESID = ZLANGE( '1', M, N, A, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) /
-     $                 ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       ELSE
          RESULT( 1 ) = ZERO
       END IF
 *
 *     Compute B := V'*B*Q - D2*R
 *
-      CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, B, LDB,
-     $            Q, LDQ, CZERO, WORK, LDB )
+      CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, B, LDB, Q, LDQ, CZERO, WORK, LDB )
 *
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE,
-     $            V, LDV, WORK, LDB, CZERO, B, LDB )
+      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE, V, LDV, WORK, LDB, CZERO, B, LDB )
 *
       DO 100 I = 1, L
          DO 90 J = I, L
@@ -124,8 +112,7 @@
 *
       RESID = ZLANGE( '1', P, N, B, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) /
-     $                 ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
       ELSE
          RESULT( 2 ) = ZERO
       END IF
@@ -133,8 +120,7 @@
 *     Compute I - U'*U
 *
       CALL ZLASET( 'Full', M, M, CZERO, CONE, WORK, LDQ )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, U, LDU,
-     $            ONE, WORK, LDU )
+      CALL ZHERK( 'Upper', 'Conjugate transpose', M, M, -ONE, U, LDU, ONE, WORK, LDU )
 *
 *     Compute norm( I - U'*U ) / ( M * ULP ) .
 *
@@ -144,8 +130,7 @@
 *     Compute I - V'*V
 *
       CALL ZLASET( 'Full', P, P, CZERO, CONE, WORK, LDV )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, V, LDV,
-     $            ONE, WORK, LDV )
+      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, V, LDV, ONE, WORK, LDV )
 *
 *     Compute norm( I - V'*V ) / ( P * ULP ) .
 *
@@ -155,8 +140,7 @@
 *     Compute I - Q'*Q
 *
       CALL ZLASET( 'Full', N, N, CZERO, CONE, WORK, LDQ )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDQ,
-     $            ONE, WORK, LDQ )
+      CALL ZHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDQ, ONE, WORK, LDQ )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -177,8 +161,7 @@
 *
       RESULT( 6 ) = ZERO
       DO 120 I = K + 1, MIN( K+L, M ) - 1
-         IF( RWORK( I ).LT.RWORK( I+1 ) )
-     $      RESULT( 6 ) = ULPINV
+         IF( RWORK( I ).LT.RWORK( I+1 ) ) RESULT( 6 ) = ULPINV
   120 CONTINUE
 *
       RETURN

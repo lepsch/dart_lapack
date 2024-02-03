@@ -1,5 +1,4 @@
-      SUBROUTINE SLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA,
-     $                   BETA, WX, WY, S, DIF )
+      SUBROUTINE SLATM6( TYPE, N, A, LDA, B, X, LDX, Y, LDY, ALPHA, BETA, WX, WY, S, DIF )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +9,14 @@
       REAL               ALPHA, BETA, WX, WY
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDA, * ), DIF( * ), S( * ),
-     $                   X( LDX, * ), Y( LDY, * )
+      REAL               A( LDA, * ), B( LDA, * ), DIF( * ), S( * ), X( LDX, * ), Y( LDY, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0,
-     $                   THREE = 3.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -107,25 +104,14 @@
 *
       IF( TYPE.EQ.1 ) THEN
 *
-         S( 1 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) /
-     $            ( ONE+A( 1, 1 )*A( 1, 1 ) ) )
-         S( 2 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) /
-     $            ( ONE+A( 2, 2 )*A( 2, 2 ) ) )
-         S( 3 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) /
-     $            ( ONE+A( 3, 3 )*A( 3, 3 ) ) )
-         S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) /
-     $            ( ONE+A( 4, 4 )*A( 4, 4 ) ) )
-         S( 5 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) /
-     $            ( ONE+A( 5, 5 )*A( 5, 5 ) ) )
+         S( 1 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 1, 1 )*A( 1, 1 ) ) )          S( 2 ) = ONE / SQRT( ( ONE+THREE*WY*WY ) / ( ONE+A( 2, 2 )*A( 2, 2 ) ) )          S( 3 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 3, 3 )*A( 3, 3 ) ) )          S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 4, 4 )*A( 4, 4 ) ) )          S( 5 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+A( 5, 5 )*A( 5, 5 ) ) )
 *
          CALL SLAKF2( 1, 4, A, LDA, A( 2, 2 ), B, B( 2, 2 ), Z, 12 )
-         CALL SGESVD( 'N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1,
-     $                WORK( 10 ), 1, WORK( 11 ), 40, INFO )
+         CALL SGESVD( 'N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1, WORK( 10 ), 1, WORK( 11 ), 40, INFO )
          DIF( 1 ) = WORK( 8 )
 *
          CALL SLAKF2( 4, 1, A, LDA, A( 5, 5 ), B, B( 5, 5 ), Z, 12 )
-         CALL SGESVD( 'N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1,
-     $                WORK( 10 ), 1, WORK( 11 ), 40, INFO )
+         CALL SGESVD( 'N', 'N', 8, 8, Z, 12, WORK, WORK( 9 ), 1, WORK( 10 ), 1, WORK( 11 ), 40, INFO )
          DIF( 5 ) = WORK( 8 )
 *
       ELSE IF( TYPE.EQ.2 ) THEN
@@ -133,19 +119,15 @@
          S( 1 ) = ONE / SQRT( ONE / THREE+WY*WY )
          S( 2 ) = S( 1 )
          S( 3 ) = ONE / SQRT( ONE / TWO+WX*WX )
-         S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) /
-     $            ( ONE+( ONE+ALPHA )*( ONE+ALPHA )+( ONE+BETA )*( ONE+
-     $            BETA ) ) )
+         S( 4 ) = ONE / SQRT( ( ONE+TWO*WX*WX ) / ( ONE+( ONE+ALPHA )*( ONE+ALPHA )+( ONE+BETA )*( ONE+ BETA ) ) )
          S( 5 ) = S( 4 )
 *
          CALL SLAKF2( 2, 3, A, LDA, A( 3, 3 ), B, B( 3, 3 ), Z, 12 )
-         CALL SGESVD( 'N', 'N', 12, 12, Z, 12, WORK, WORK( 13 ), 1,
-     $                WORK( 14 ), 1, WORK( 15 ), 60, INFO )
+         CALL SGESVD( 'N', 'N', 12, 12, Z, 12, WORK, WORK( 13 ), 1, WORK( 14 ), 1, WORK( 15 ), 60, INFO )
          DIF( 1 ) = WORK( 12 )
 *
          CALL SLAKF2( 3, 2, A, LDA, A( 4, 4 ), B, B( 4, 4 ), Z, 12 )
-         CALL SGESVD( 'N', 'N', 12, 12, Z, 12, WORK, WORK( 13 ), 1,
-     $                WORK( 14 ), 1, WORK( 15 ), 60, INFO )
+         CALL SGESVD( 'N', 'N', 12, 12, Z, 12, WORK, WORK( 13 ), 1, WORK( 14 ), 1, WORK( 15 ), 60, INFO )
          DIF( 5 ) = WORK( 12 )
 *
       END IF

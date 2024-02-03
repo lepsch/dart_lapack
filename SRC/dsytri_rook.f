@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check that the diagonal matrix D is nonsingular.
 *
@@ -65,16 +64,14 @@
 *        Upper triangular storage: examine D from bottom to top
 *
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
       ELSE
 *
 *        Lower triangular storage: examine D from top to bottom.
 *
          DO 20 INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
    20    CONTINUE
       END IF
       INFO = 0
@@ -91,8 +88,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 40
+         IF( K.GT.N ) GO TO 40
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -106,10 +102,7 @@
 *
             IF( K.GT.1 ) THEN
                CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ),
-     $                     1 )
+               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -131,17 +124,9 @@
 *
             IF( K.GT.1 ) THEN
                CALL DCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ),
-     $                     1 )
-               A( K, K+1 ) = A( K, K+1 ) -
-     $                       DDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
+               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( K-1, WORK, 1, A( 1, K ), 1 )                A( K, K+1 ) = A( K, K+1 ) - DDOT( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
                CALL DCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO,
-     $                     A( 1, K+1 ), 1 )
-               A( K+1, K+1 ) = A( K+1, K+1 ) -
-     $                         DDOT( K-1, WORK, 1, A( 1, K+1 ), 1 )
+               CALL DSYMV( UPLO, K-1, -ONE, A, LDA, WORK, 1, ZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - DDOT( K-1, WORK, 1, A( 1, K+1 ), 1 )
             END IF
             KSTEP = 2
          END IF
@@ -153,8 +138,7 @@
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $             CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL DSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -167,8 +151,7 @@
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $            CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL DSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
 *
                TEMP = A( K, K )
@@ -182,8 +165,7 @@
             K = K + 1
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.GT.1 )
-     $            CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL DSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
                CALL DSWAP( K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -207,8 +189,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 60
+         IF( K.LT.1 ) GO TO 60
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -222,10 +203,7 @@
 *
             IF( K.LT.N ) THEN
                CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     ZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ),
-     $                     1 )
+               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 )
             END IF
             KSTEP = 1
          ELSE
@@ -247,18 +225,9 @@
 *
             IF( K.LT.N ) THEN
                CALL DCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     ZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ),
-     $                     1 )
-               A( K, K-1 ) = A( K, K-1 ) -
-     $                       DDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ),
-     $                       1 )
+               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - DDOT( N-K, WORK, 1, A( K+1, K ), 1 )                A( K, K-1 ) = A( K, K-1 ) - DDOT( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
                CALL DCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1,
-     $                     ZERO, A( K+1, K-1 ), 1 )
-               A( K-1, K-1 ) = A( K-1, K-1 ) -
-     $                         DDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 )
+               CALL DSYMV( UPLO, N-K, -ONE, A( K+1, K+1 ), LDA, WORK, 1, ZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - DDOT( N-K, WORK, 1, A( K+1, K-1 ), 1 )
             END IF
             KSTEP = 2
          END IF
@@ -270,8 +239,7 @@
 *
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL DSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )
@@ -284,8 +252,7 @@
 *
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL DSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
 *
                TEMP = A( K, K )
@@ -299,8 +266,7 @@
             K = K - 1
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
-               IF( KP.LT.N )
-     $            CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
                CALL DSWAP( KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA )
                TEMP = A( K, K )
                A( K, K ) = A( KP, KP )

@@ -68,8 +68,7 @@
 *
 *           Compute elements 1:j-1 of j-th column.
 *
-            CALL CTRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA,
-     $                  A( 1, J ), 1 )
+            CALL CTRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 )
             CALL CSCAL( J-1, AJJ, A( 1, J ), 1 )
    10    CONTINUE
       ELSE
@@ -87,8 +86,7 @@
 *
 *              Compute elements j+1:n of j-th column.
 *
-               CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J,
-     $                     A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
+               CALL CTRMV( 'Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
                CALL CSCAL( N-J, AJJ, A( J+1, J ), 1 )
             END IF
    20    CONTINUE

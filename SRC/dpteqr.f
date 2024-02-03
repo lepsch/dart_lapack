@@ -53,8 +53,7 @@
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1,
-     $         N ) ) ) THEN
+      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
          INFO = -6
       END IF
       IF( INFO.NE.0 ) THEN
@@ -64,22 +63,18 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
-         IF( ICOMPZ.GT.0 )
-     $      Z( 1, 1 ) = ONE
+         IF( ICOMPZ.GT.0 ) Z( 1, 1 ) = ONE
          RETURN
       END IF
-      IF( ICOMPZ.EQ.2 )
-     $   CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      IF( ICOMPZ.EQ.2 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
 *     Call DPTTRF to factor the matrix.
 *
       CALL DPTTRF( N, D, E, INFO )
-      IF( INFO.NE.0 )
-     $   RETURN
+      IF( INFO.NE.0 ) RETURN
       DO 10 I = 1, N
          D( I ) = SQRT( D( I ) )
    10 CONTINUE
@@ -95,8 +90,7 @@
       ELSE
          NRU = 0
       END IF
-      CALL DBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1,
-     $             WORK, INFO )
+      CALL DBDSQR( 'Lower', N, 0, NRU, 0, D, E, VT, 1, Z, LDZ, C, 1, WORK, INFO )
 *
 *     Square the singular values.
 *

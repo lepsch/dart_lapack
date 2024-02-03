@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DSXT1( IJOB, D1, N1, D2, N2, ABSTOL,
-     $                 ULP, UNFL )
+      DOUBLE PRECISION FUNCTION DSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,13 +38,9 @@
          END IF
          IF( J.EQ.1 ) THEN
             TEMP2 = ABS( D2( J )-D1( I ) )
-            IF( IJOB.EQ.2 )
-     $         TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
+            IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
          ELSE
-            TEMP2 = MIN( ABS( D2( J )-D1( I ) ),
-     $              ABS( D1( I )-D2( J-1 ) ) )
-            IF( IJOB.EQ.2 )
-     $         TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
+            TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
          END IF
          TEMP1 = MAX( TEMP1, TEMP2 )
    20 CONTINUE

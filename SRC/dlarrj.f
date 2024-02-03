@@ -1,6 +1,4 @@
-      SUBROUTINE DLARRJ( N, D, E2, IFIRST, ILAST,
-     $                   RTOL, OFFSET, W, WERR, WORK, IWORK,
-     $                   PIVMIN, SPDIAM, INFO )
+      SUBROUTINE DLARRJ( N, D, E2, IFIRST, ILAST, RTOL, OFFSET, W, WERR, WORK, IWORK, PIVMIN, SPDIAM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,21 +10,18 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   D( * ), E2( * ), W( * ),
-     $                   WERR( * ), WORK( * )
+      DOUBLE PRECISION   D( * ), E2( * ), W( * ), WERR( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, HALF
-      PARAMETER        ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   HALF = 0.5D0 )
+      PARAMETER        ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 0.5D0 )
       INTEGER   MAXITR
 *     ..
 *     .. Local Scalars ..
-      INTEGER            CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT,
-     $                   OLNINT, P, PREV, SAVI1
+      INTEGER            CNT, I, I1, I2, II, ITER, J, K, NEXT, NINT, OLNINT, P, PREV, SAVI1
       DOUBLE PRECISION   DPLUS, FAC, LEFT, MID, RIGHT, S, TMP, WIDTH
 *
 *     ..
@@ -43,8 +38,7 @@
          RETURN
       END IF
 *
-      MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) /
-     $           LOG( TWO ) ) + 2
+      MAXITR = INT( ( LOG( SPDIAM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
 *
 *     Initialize unconverged intervals in [ WORK(2*I-1), WORK(2*I) ].
 *     The Sturm Count, Count( WORK(2*I-1) ) is arranged to be I-1, while
@@ -150,9 +144,7 @@
 *        semiwidth of interval
          WIDTH = RIGHT - MID
          TMP = MAX( ABS( LEFT ), ABS( RIGHT ) )
-
-         IF( ( WIDTH.LT.RTOL*TMP ) .OR.
-     $      (ITER.EQ.MAXITR) )THEN
+          IF( ( WIDTH.LT.RTOL*TMP ) .OR. (ITER.EQ.MAXITR) )THEN
 *           reduce number of unconverged intervals
             NINT = NINT - 1
 *           Mark interval as converged.

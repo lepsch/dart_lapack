@@ -120,8 +120,7 @@
 *
 *           Generate Q(2:n,2:n)
 *
-            CALL SORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK,
-     $                   LWORK, IINFO )
+            CALL SORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
          END IF
       END IF
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

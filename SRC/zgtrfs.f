@@ -1,6 +1,4 @@
-      SUBROUTINE ZGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2,
-     $                   IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK,
-     $                   INFO )
+      SUBROUTINE ZGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,9 +11,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       DOUBLE PRECISION   BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX*16         B( LDB, * ), D( * ), DF( * ), DL( * ),
-     $                   DLF( * ), DU( * ), DU2( * ), DUF( * ),
-     $                   WORK( * ), X( LDX, * )
+      COMPLEX*16         B( LDB, * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -63,8 +59,7 @@
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $    LSAME( TRANS, 'C' ) ) THEN
+      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -120,47 +115,30 @@
 *        where op(A) = A, A**T, or A**H, depending on TRANS.
 *
          CALL ZCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL ZLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE,
-     $                WORK, N )
+         CALL ZLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK, N )
 *
 *        Compute abs(op(A))*abs(x) + abs(b) for use in the backward
 *        error bound.
 *
          IF( NOTRAN ) THEN
             IF( N.EQ.1 ) THEN
-               RWORK( 1 ) = CABS1( B( 1, J ) ) +
-     $                      CABS1( D( 1 ) )*CABS1( X( 1, J ) )
+               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
             ELSE
-               RWORK( 1 ) = CABS1( B( 1, J ) ) +
-     $                      CABS1( D( 1 ) )*CABS1( X( 1, J ) ) +
-     $                      CABS1( DU( 1 ) )*CABS1( X( 2, J ) )
+               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) )
                DO 30 I = 2, N - 1
-                  RWORK( I ) = CABS1( B( I, J ) ) +
-     $                         CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) +
-     $                         CABS1( D( I ) )*CABS1( X( I, J ) ) +
-     $                         CABS1( DU( I ) )*CABS1( X( I+1, J ) )
+                  RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) )
    30          CONTINUE
-               RWORK( N ) = CABS1( B( N, J ) ) +
-     $                      CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) +
-     $                      CABS1( D( N ) )*CABS1( X( N, J ) )
+               RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
             END IF
          ELSE
             IF( N.EQ.1 ) THEN
-               RWORK( 1 ) = CABS1( B( 1, J ) ) +
-     $                      CABS1( D( 1 ) )*CABS1( X( 1, J ) )
+               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) )
             ELSE
-               RWORK( 1 ) = CABS1( B( 1, J ) ) +
-     $                      CABS1( D( 1 ) )*CABS1( X( 1, J ) ) +
-     $                      CABS1( DL( 1 ) )*CABS1( X( 2, J ) )
+               RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) )
                DO 40 I = 2, N - 1
-                  RWORK( I ) = CABS1( B( I, J ) ) +
-     $                         CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) +
-     $                         CABS1( D( I ) )*CABS1( X( I, J ) ) +
-     $                         CABS1( DL( I ) )*CABS1( X( I+1, J ) )
+                  RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) )
    40          CONTINUE
-               RWORK( N ) = CABS1( B( N, J ) ) +
-     $                      CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) +
-     $                      CABS1( D( N ) )*CABS1( X( N, J ) )
+               RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
             END IF
          END IF
 *
@@ -178,8 +156,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
          BERR( J ) = S
@@ -190,13 +167,11 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
-            CALL ZGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N,
-     $                   INFO )
+            CALL ZGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
             CALL ZAXPY( N, DCMPLX( ONE ), WORK, 1, X( 1, J ), 1 )
             LSTRES = BERR( J )
             COUNT = COUNT + 1
@@ -229,8 +204,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    60    CONTINUE
 *
@@ -242,8 +216,7 @@
 *
 *              Multiply by diag(W)*inv(op(A)**H).
 *
-               CALL ZGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK,
-     $                      N, INFO )
+               CALL ZGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
                DO 80 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
    80          CONTINUE
@@ -254,8 +227,7 @@
                DO 90 I = 1, N
                   WORK( I ) = RWORK( I )*WORK( I )
    90          CONTINUE
-               CALL ZGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK,
-     $                      N, INFO )
+               CALL ZGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO )
             END IF
             GO TO 70
          END IF
@@ -266,8 +238,7 @@
          DO 100 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   100    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   110 CONTINUE
 *

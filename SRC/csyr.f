@@ -54,8 +54,7 @@
 *
 *     Quick return if possible.
 *
-      IF( ( N.EQ.0 ) .OR. ( ALPHA.EQ.ZERO ) )
-     $   RETURN
+      IF( ( N.EQ.0 ) .OR. ( ALPHA.EQ.ZERO ) ) RETURN
 *
 *     Set the start point in X if the increment is not unity.
 *

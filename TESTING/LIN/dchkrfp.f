@@ -51,8 +51,7 @@
       EXTERNAL           DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3,
-     +                   DDRVRF4
+      EXTERNAL           ILAVER, DDRVRFP, DDRVRF1, DDRVRF2, DDRVRF3, DDRVRF4
 *     ..
 *     .. Executable Statements ..
 *
@@ -90,8 +89,7 @@
             FATAL = .TRUE.
          END IF
    10 CONTINUE
-      IF( NN.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
 *     Read the values of NRHS
 *
@@ -115,8 +113,7 @@
             FATAL = .TRUE.
          END IF
    30 CONTINUE
-      IF( NNS.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
 *     Read the matrix types
 *
@@ -140,8 +137,7 @@
             FATAL = .TRUE.
          END IF
   320 CONTINUE
-      IF( NNT.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
+      IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
 *     Read the threshold value for the test ratios.
 *
@@ -169,41 +165,30 @@
 *
 *     Test the error exit of:
 *
-      IF( TSTERR )
-     $   CALL DERRRFP( NOUT )
+      IF( TSTERR ) CALL DERRRFP( NOUT )
 *
 *     Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
 *     This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.
 *
-      CALL DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH,
-     $              WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB,
-     $              WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV,
-     $              D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02,
-     $              D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02,
-     $              D_WORK_DPOT03 )
+      CALL DDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, D_WORK_DLATMS, D_WORK_DPOT01, D_TEMP_DPOT02, D_TEMP_DPOT03, D_WORK_DLANSY, D_WORK_DPOT02, D_WORK_DPOT03 )
 *
 *     Test the routine: dlansf
 *
-      CALL DDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              D_WORK_DLANSY )
+      CALL DDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_DLANSY )
 *
 *     Test the conversion routines:
 *       dtfttp, dtpttf, dtfttr, dtrttf, dtrttp and dtpttr.
 *
-      CALL DDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF,
-     +              WORKAP, WORKASAV )
+      CALL DDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
 *     Test the routine: dtfsm
 *
-      CALL DDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              WORKAINV, WORKAFAC, D_WORK_DLANSY,
-     +              D_WORK_DPOT03, D_WORK_DPOT01 )
+      CALL DDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_DLANSY, D_WORK_DPOT03, D_WORK_DPOT01 )
 *
 *
 *     Test the routine: dsfrk
 *
-      CALL DDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX,
-     +              WORKARF, WORKAINV, NMAX, D_WORK_DLANSY)
+      CALL DDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX, D_WORK_DLANSY)
 *
       CLOSE ( NIN )
       S2 = DSECND( )

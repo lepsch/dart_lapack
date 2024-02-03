@@ -1,5 +1,4 @@
-      SUBROUTINE ZGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V,
-     $                   LDV, WORK, RESULT )
+      SUBROUTINE ZGET54( N, A, LDA, B, LDB, S, LDS, T, LDT, U, LDU, V, LDV, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,9 +9,7 @@
       DOUBLE PRECISION   RESULT
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), S( LDS, * ),
-     $                   T( LDT, * ), U( LDU, * ), V( LDV, * ),
-     $                   WORK( * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), S( LDS, * ), T( LDT, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +18,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   ABNORM, ULP, UNFL, WNORM
@@ -43,8 +39,7 @@
 *     .. Executable Statements ..
 *
       RESULT = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Constants
 *
@@ -60,20 +55,16 @@
 *     Compute W1 = A - U*S*V', and put in the array WORK(1:N*N)
 *
       CALL ZLACPY( ' ', N, N, A, LDA, WORK, N )
-      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, S, LDS, CZERO,
-     $            WORK( N*N+1 ), N )
+      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, S, LDS, CZERO, WORK( N*N+1 ), N )
 *
-      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( N*N+1 ), N, V, LDV,
-     $            CONE, WORK, N )
+      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( N*N+1 ), N, V, LDV, CONE, WORK, N )
 *
 *     Compute W2 = B - U*T*V', and put in the workarray W(N*N+1:2*N*N)
 *
       CALL ZLACPY( ' ', N, N, B, LDB, WORK( N*N+1 ), N )
-      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, T, LDT, CZERO,
-     $            WORK( 2*N*N+1 ), N )
+      CALL ZGEMM( 'N', 'N', N, N, N, CONE, U, LDU, T, LDT, CZERO, WORK( 2*N*N+1 ), N )
 *
-      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( 2*N*N+1 ), N, V, LDV,
-     $            CONE, WORK( N*N+1 ), N )
+      CALL ZGEMM( 'N', 'C', N, N, N, -CONE, WORK( 2*N*N+1 ), N, V, LDV, CONE, WORK( N*N+1 ), N )
 *
 *     Compute norm(W)/ ( ulp*norm((A,B)) )
 *

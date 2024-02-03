@@ -1,40 +1,27 @@
-      SUBROUTINE CDRGVX( NSIZE, THRESH, NIN, NOUT, A, LDA, B, AI, BI,
-     $                   ALPHA, BETA, VL, VR, ILO, IHI, LSCALE, RSCALE,
-     $                   S, STRU, DIF, DIFTRU, WORK, LWORK, RWORK,
-     $                   IWORK, LIWORK, RESULT, BWORK, INFO )
+      SUBROUTINE CDRGVX( NSIZE, THRESH, NIN, NOUT, A, LDA, B, AI, BI, ALPHA, BETA, VL, VR, ILO, IHI, LSCALE, RSCALE, S, STRU, DIF, DIFTRU, WORK, LWORK, RWORK, IWORK, LIWORK, RESULT, BWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT,
-     $                   NSIZE
+      INTEGER            IHI, ILO, INFO, LDA, LIWORK, LWORK, NIN, NOUT, NSIZE
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       INTEGER            IWORK( * )
-      REAL               DIF( * ), DIFTRU( * ), LSCALE( * ),
-     $                   RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * ),
-     $                   STRU( * )
-      COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ),
-     $                   B( LDA, * ), BETA( * ), BI( LDA, * ),
-     $                   VL( LDA, * ), VR( LDA, * ), WORK( * )
+      REAL               DIF( * ), DIFTRU( * ), LSCALE( * ), RESULT( 4 ), RSCALE( * ), RWORK( * ), S( * ), STRU( * )       COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), VL( LDA, * ), VR( LDA, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TEN, TNTH, HALF
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1,
-     $                   TNTH = 1.0E-1, HALF = 0.5E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 1.0E+1, TNTH = 1.0E-1, HALF = 0.5E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO,
-     $                   MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT
-      REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2,
-     $                   ULP, ULPINV
+      INTEGER            I, IPTYPE, IWA, IWB, IWX, IWY, J, LINFO, MAXWRK, MINWRK, N, NERRS, NMAX, NPTKNT, NTESTT       REAL               ABNORM, ANORM, BNORM, RATIO1, RATIO2, THRSH2, ULP, ULPINV
 *     ..
 *     .. Local Arrays ..
       COMPLEX            WEIGHT( 5 )
@@ -82,14 +69,12 @@
       MINWRK = 1
       IF( INFO.EQ.0 .AND. LWORK.GE.1 ) THEN
          MINWRK = 2*NMAX*( NMAX+1 )
-         MAXWRK = NMAX*( 1+ILAENV( 1, 'CGEQRF', ' ', NMAX, 1, NMAX,
-     $            0 ) )
+         MAXWRK = NMAX*( 1+ILAENV( 1, 'CGEQRF', ' ', NMAX, 1, NMAX, 0 ) )
          MAXWRK = MAX( MAXWRK, 2*NMAX*( NMAX+1 ) )
          WORK( 1 ) = MAXWRK
       END IF
 *
-      IF( LWORK.LT.MINWRK )
-     $   INFO = -23
+      IF( LWORK.LT.MINWRK ) INFO = -23
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CDRGVX', -INFO )
@@ -104,8 +89,7 @@
       NPTKNT = 0
       NTESTT = 0
 *
-      IF( NSIZE.EQ.0 )
-     $   GO TO 90
+      IF( NSIZE.EQ.0 ) GO TO 90
 *
 *     Parameters used for generating test matrices.
 *
@@ -123,10 +107,7 @@
 *
 *                    generated a pair of test matrix
 *
-                     CALL CLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL,
-     $                            LDA, WEIGHT( IWA ), WEIGHT( IWB ),
-     $                            WEIGHT( IWX ), WEIGHT( IWY ), STRU,
-     $                            DIFTRU )
+                     CALL CLATM6( IPTYPE, 5, A, LDA, B, VR, LDA, VL, LDA, WEIGHT( IWA ), WEIGHT( IWB ), WEIGHT( IWX ), WEIGHT( IWY ), STRU, DIFTRU )
 *
 *                    Compute eigenvalues/eigenvectors of (A, B).
 *                    Compute eigenvalue/eigenvector condition numbers
@@ -135,42 +116,30 @@
                      CALL CLACPY( 'F', N, N, A, LDA, AI, LDA )
                      CALL CLACPY( 'F', N, N, B, LDA, BI, LDA )
 *
-                     CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI,
-     $                            LDA, ALPHA, BETA, VL, LDA, VR, LDA,
-     $                            ILO, IHI, LSCALE, RSCALE, ANORM,
-     $                            BNORM, S, DIF, WORK, LWORK, RWORK,
-     $                            IWORK, BWORK, LINFO )
+                     CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
                      IF( LINFO.NE.0 ) THEN
-                        WRITE( NOUT, FMT = 9999 )'CGGEVX', LINFO, N,
-     $                     IPTYPE, IWA, IWB, IWX, IWY
+                        WRITE( NOUT, FMT = 9999 )'CGGEVX', LINFO, N, IPTYPE, IWA, IWB, IWX, IWY
                         GO TO 30
                      END IF
 *
 *                    Compute the norm(A, B)
 *
                      CALL CLACPY( 'Full', N, N, AI, LDA, WORK, N )
-                     CALL CLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ),
-     $                            N )
+                     CALL CLACPY( 'Full', N, N, BI, LDA, WORK( N*N+1 ), N )
                      ABNORM = CLANGE( 'Fro', N, 2*N, WORK, N, RWORK )
 *
 *                    Tests (1) and (2)
 *
                      RESULT( 1 ) = ZERO
-                     CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA,
-     $                            ALPHA, BETA, WORK, RWORK,
-     $                            RESULT( 1 ) )
+                     CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
                      IF( RESULT( 2 ).GT.THRESH ) THEN
-                        WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX',
-     $                     RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
+                        WRITE( NOUT, FMT = 9998 )'Left', 'CGGEVX', RESULT( 2 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      END IF
 *
                      RESULT( 2 ) = ZERO
-                     CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA,
-     $                            ALPHA, BETA, WORK, RWORK,
-     $                            RESULT( 2 ) )
+                     CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
                      IF( RESULT( 3 ).GT.THRESH ) THEN
-                        WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX',
-     $                     RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
+                        WRITE( NOUT, FMT = 9998 )'Right', 'CGGEVX', RESULT( 3 ), N, IPTYPE, IWA, IWB, IWX, IWY
                      END IF
 *
 *                    Test (3)
@@ -178,14 +147,11 @@
                      RESULT( 3 ) = ZERO
                      DO 10 I = 1, N
                         IF( S( I ).EQ.ZERO ) THEN
-                           IF( STRU( I ).GT.ABNORM*ULP )
-     $                        RESULT( 3 ) = ULPINV
+                           IF( STRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         ELSE IF( STRU( I ).EQ.ZERO ) THEN
-                           IF( S( I ).GT.ABNORM*ULP )
-     $                        RESULT( 3 ) = ULPINV
+                           IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
                         ELSE
-                           RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ),
-     $                                  ABS( S( I ) / STRU( I ) ) )
+                           RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
                            RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
                         END IF
    10                CONTINUE
@@ -194,22 +160,15 @@
 *
                      RESULT( 4 ) = ZERO
                      IF( DIF( 1 ).EQ.ZERO ) THEN
-                        IF( DIFTRU( 1 ).GT.ABNORM*ULP )
-     $                     RESULT( 4 ) = ULPINV
+                        IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      ELSE IF( DIFTRU( 1 ).EQ.ZERO ) THEN
-                        IF( DIF( 1 ).GT.ABNORM*ULP )
-     $                     RESULT( 4 ) = ULPINV
+                        IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      ELSE IF( DIF( 5 ).EQ.ZERO ) THEN
-                        IF( DIFTRU( 5 ).GT.ABNORM*ULP )
-     $                     RESULT( 4 ) = ULPINV
+                        IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
-                        IF( DIF( 5 ).GT.ABNORM*ULP )
-     $                     RESULT( 4 ) = ULPINV
+                        IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
                      ELSE
-                        RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ),
-     $                           ABS( DIF( 1 ) / DIFTRU( 1 ) ) )
-                        RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ),
-     $                           ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
+                        RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )                         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
                         RESULT( 4 ) = MAX( RATIO1, RATIO2 )
                      END IF
 *
@@ -218,9 +177,7 @@
 *                    Print out tests which fail.
 *
                      DO 20 J = 1, 4
-                        IF( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR.
-     $                      ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) )
-     $                       THEN
+                        IF( ( RESULT( J ).GE.THRSH2 .AND. J.GE.4 ) .OR. ( RESULT( J ).GE.THRESH .AND. J.LE.3 ) ) THEN
 *
 *                       If this is the first test to fail,
 *                       print a header to the data file.
@@ -238,17 +195,14 @@
 *
 *                          Tests performed
 *
-                              WRITE( NOUT, FMT = 9992 )'''',
-     $                           'transpose', ''''
+                              WRITE( NOUT, FMT = 9992 )'''', 'transpose', ''''
 *
                            END IF
                            NERRS = NERRS + 1
                            IF( RESULT( J ).LT.10000.0 ) THEN
-                              WRITE( NOUT, FMT = 9991 )IPTYPE, IWA,
-     $                           IWB, IWX, IWY, J, RESULT( J )
+                              WRITE( NOUT, FMT = 9991 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            ELSE
-                              WRITE( NOUT, FMT = 9990 )IPTYPE, IWA,
-     $                           IWB, IWX, IWY, J, RESULT( J )
+                              WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            END IF
                         END IF
    20                CONTINUE
@@ -269,8 +223,7 @@
 *     Read input data until N=0
 *
       READ( NIN, FMT = *, END = 150 )N
-      IF( N.EQ.0 )
-     $   GO TO 150
+      IF( N.EQ.0 ) GO TO 150
       DO 100 I = 1, N
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
   100 CONTINUE
@@ -289,10 +242,7 @@
       CALL CLACPY( 'F', N, N, A, LDA, AI, LDA )
       CALL CLACPY( 'F', N, N, B, LDA, BI, LDA )
 *
-      CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA,
-     $             VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM,
-     $             BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK,
-     $             LINFO )
+      CALL CGGEVX( 'N', 'V', 'V', 'B', N, AI, LDA, BI, LDA, ALPHA, BETA, VL, LDA, VR, LDA, ILO, IHI, LSCALE, RSCALE, ANORM, BNORM, S, DIF, WORK, LWORK, RWORK, IWORK, BWORK, LINFO )
 *
       IF( LINFO.NE.0 ) THEN
          WRITE( NOUT, FMT = 9987 )'CGGEVX', LINFO, N, NPTKNT
@@ -308,19 +258,15 @@
 *     Tests (1) and (2)
 *
       RESULT( 1 ) = ZERO
-      CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA,
-     $             WORK, RWORK, RESULT( 1 ) )
+      CALL CGET52( .TRUE., N, A, LDA, B, LDA, VL, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 1 ) )
       IF( RESULT( 2 ).GT.THRESH ) THEN
-         WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N,
-     $      NPTKNT
+         WRITE( NOUT, FMT = 9986 )'Left', 'CGGEVX', RESULT( 2 ), N, NPTKNT
       END IF
 *
       RESULT( 2 ) = ZERO
-      CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA,
-     $             WORK, RWORK, RESULT( 2 ) )
+      CALL CGET52( .FALSE., N, A, LDA, B, LDA, VR, LDA, ALPHA, BETA, WORK, RWORK, RESULT( 2 ) )
       IF( RESULT( 3 ).GT.THRESH ) THEN
-         WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N,
-     $      NPTKNT
+         WRITE( NOUT, FMT = 9986 )'Right', 'CGGEVX', RESULT( 3 ), N, NPTKNT
       END IF
 *
 *     Test (3)
@@ -328,14 +274,11 @@
       RESULT( 3 ) = ZERO
       DO 120 I = 1, N
          IF( S( I ).EQ.ZERO ) THEN
-            IF( STRU( I ).GT.ABNORM*ULP )
-     $         RESULT( 3 ) = ULPINV
+            IF( STRU( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          ELSE IF( STRU( I ).EQ.ZERO ) THEN
-            IF( S( I ).GT.ABNORM*ULP )
-     $         RESULT( 3 ) = ULPINV
+            IF( S( I ).GT.ABNORM*ULP ) RESULT( 3 ) = ULPINV
          ELSE
-            RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ),
-     $                   ABS( S( I ) / STRU( I ) ) )
+            RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
             RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
          END IF
   120 CONTINUE
@@ -344,22 +287,15 @@
 *
       RESULT( 4 ) = ZERO
       IF( DIF( 1 ).EQ.ZERO ) THEN
-         IF( DIFTRU( 1 ).GT.ABNORM*ULP )
-     $      RESULT( 4 ) = ULPINV
+         IF( DIFTRU( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       ELSE IF( DIFTRU( 1 ).EQ.ZERO ) THEN
-         IF( DIF( 1 ).GT.ABNORM*ULP )
-     $      RESULT( 4 ) = ULPINV
+         IF( DIF( 1 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       ELSE IF( DIF( 5 ).EQ.ZERO ) THEN
-         IF( DIFTRU( 5 ).GT.ABNORM*ULP )
-     $      RESULT( 4 ) = ULPINV
+         IF( DIFTRU( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       ELSE IF( DIFTRU( 5 ).EQ.ZERO ) THEN
-         IF( DIF( 5 ).GT.ABNORM*ULP )
-     $      RESULT( 4 ) = ULPINV
+         IF( DIF( 5 ).GT.ABNORM*ULP ) RESULT( 4 ) = ULPINV
       ELSE
-         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ),
-     $            ABS( DIF( 1 ) / DIFTRU( 1 ) ) )
-         RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ),
-     $            ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
+         RATIO1 = MAX( ABS( DIFTRU( 1 ) / DIF( 1 ) ), ABS( DIF( 1 ) / DIFTRU( 1 ) ) )          RATIO2 = MAX( ABS( DIFTRU( 5 ) / DIF( 5 ) ), ABS( DIF( 5 ) / DIFTRU( 5 ) ) )
          RESULT( 4 ) = MAX( RATIO1, RATIO2 )
       END IF
 *

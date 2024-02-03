@@ -1,5 +1,4 @@
-      REAL             FUNCTION CQRT14( TRANS, M, N, NRHS, A, LDA, X,
-     $                 LDX, WORK, LWORK )
+      REAL             FUNCTION CQRT14( TRANS, M, N, NRHS, A, LDA, X, LDX, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -68,8 +67,7 @@
 *
       CALL CLACPY( 'All', M, N, A, LDA, WORK, LDWORK )
       ANRM = CLANGE( 'M', M, N, WORK, LDWORK, RWORK )
-      IF( ANRM.NE.ZERO )
-     $   CALL CLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
+      IF( ANRM.NE.ZERO ) CALL CLASCL( 'G', 0, 0, ANRM, ONE, M, N, WORK, LDWORK, INFO )
 *
 *     Copy X or X' into the right place and scale it
 *
@@ -77,20 +75,11 @@
 *
 *        Copy X into columns n+1:n+nrhs of work
 *
-         CALL CLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ),
-     $                LDWORK )
-         XNRM = CLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK,
-     $          RWORK )
-         IF( XNRM.NE.ZERO )
-     $      CALL CLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS,
-     $                   WORK( N*LDWORK+1 ), LDWORK, INFO )
+         CALL CLACPY( 'All', M, NRHS, X, LDX, WORK( N*LDWORK+1 ), LDWORK )          XNRM = CLANGE( 'M', M, NRHS, WORK( N*LDWORK+1 ), LDWORK, RWORK )          IF( XNRM.NE.ZERO ) CALL CLASCL( 'G', 0, 0, XNRM, ONE, M, NRHS, WORK( N*LDWORK+1 ), LDWORK, INFO )
 *
 *        Compute QR factorization of X
 *
-         CALL CGEQR2( M, N+NRHS, WORK, LDWORK,
-     $                WORK( LDWORK*( N+NRHS )+1 ),
-     $                WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ),
-     $                INFO )
+         CALL CGEQR2( M, N+NRHS, WORK, LDWORK, WORK( LDWORK*( N+NRHS )+1 ), WORK( LDWORK*( N+NRHS )+MIN( M, N+NRHS )+1 ), INFO )
 *
 *        Compute largest entry in upper triangle of
 *        work(n+1:m,n+1:n+nrhs)
@@ -113,14 +102,11 @@
    40    CONTINUE
 *
          XNRM = CLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
-         IF( XNRM.NE.ZERO )
-     $      CALL CLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ),
-     $                   LDWORK, INFO )
+         IF( XNRM.NE.ZERO ) CALL CLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO )
 *
 *        Compute LQ factorization of work
 *
-         CALL CGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ),
-     $                WORK( LDWORK*( N+1 )+1 ), INFO )
+         CALL CGELQ2( LDWORK, N, WORK, LDWORK, WORK( LDWORK*N+1 ), WORK( LDWORK*( N+1 )+1 ), INFO )
 *
 *        Compute largest entry in lower triangle in
 *        work(m+1:m+nrhs,m+1:n)

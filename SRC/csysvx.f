@@ -1,6 +1,4 @@
-      SUBROUTINE CSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B,
-     $                   LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK,
-     $                   RWORK, INFO )
+      SUBROUTINE CSYSVX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       REAL               BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ),
-     $                   WORK( * ), X( LDX, * )
+      COMPLEX            A( LDA, * ), AF( LDAF, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -50,8 +47,7 @@
       LQUERY = ( LWORK.EQ.-1 )
       IF( .NOT.NOFACT .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) )
-     $          THEN
+      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -116,13 +112,11 @@
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL CSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X,
-     $             LDX, FERR, BERR, WORK, RWORK, INFO )
+      CALL CSYRFS( UPLO, N, NRHS, A, LDA, AF, LDAF, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
 *

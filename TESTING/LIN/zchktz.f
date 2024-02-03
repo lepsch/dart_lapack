@@ -1,5 +1,4 @@
-      SUBROUTINE ZCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A,
-     $                   COPYA, S, TAU, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -29,8 +28,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMODE, IN, INFO, K, LDA, LWORK, M,
-     $                   MNMIN, MODE, N, NERRS, NFAIL, NRUN
+      INTEGER            I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN
       DOUBLE PRECISION   EPS
 *     ..
 *     .. Local Arrays ..
@@ -42,8 +40,7 @@
       EXTERNAL           DLAMCH, ZQRT12, ZRZT01, ZRZT02
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, DLAORD, ZERRTZ, ZGEQR2, ZLACPY,
-     $                   ZLASET, ZLATMS, ZTZRZF
+      EXTERNAL           ALAHD, ALASUM, DLAORD, ZERRTZ, ZGEQR2, ZLACPY, ZLASET, ZLATMS, ZTZRZF
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DCMPLX, MAX, MIN
@@ -76,8 +73,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRTZ( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRTZ( PATH, NOUT )
       INFOT = 0
 *
       DO 70 IM = 1, NM
@@ -97,8 +93,7 @@
 *
             IF( M.LE.N ) THEN
                DO 50 IMODE = 1, NTYPES
-                  IF( .NOT.DOTYPE( IMODE ) )
-     $               GO TO 50
+                  IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 *
 *                 Do for each type of singular value distribution.
 *                    0:  zero matrix
@@ -113,20 +108,13 @@
 *                 singular value distribution indicated by `mode'.
 *
                   IF( MODE.EQ.0 ) THEN
-                     CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ),
-     $                            DCMPLX( ZERO ), A, LDA )
+                     CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A, LDA )
                      DO 30 I = 1, MNMIN
                         S( I ) = ZERO
    30                CONTINUE
                   ELSE
-                     CALL ZLATMS( M, N, 'Uniform', ISEED,
-     $                            'Nonsymmetric', S, IMODE,
-     $                            ONE / EPS, ONE, M, N, 'No packing', A,
-     $                            LDA, WORK, INFO )
-                     CALL ZGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ),
-     $                            INFO )
-                     CALL ZLASET( 'Lower', M-1, N, DCMPLX( ZERO ),
-     $                            DCMPLX( ZERO ), A( 2 ), LDA )
+                     CALL ZLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
+                     CALL ZGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL ZLASET( 'Lower', M-1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), A( 2 ), LDA )
                      CALL DLAORD( 'Decreasing', MNMIN, S, 1 )
                   END IF
 *
@@ -142,13 +130,11 @@
 *
 *                 Compute norm(svd(a) - svd(r))
 *
-                  RESULT( 1 ) = ZQRT12( M, M, A, LDA, S, WORK,
-     $                          LWORK, RWORK )
+                  RESULT( 1 ) = ZQRT12( M, M, A, LDA, S, WORK, LWORK, RWORK )
 *
 *                 Compute norm( A - R*Q )
 *
-                  RESULT( 2 ) = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK,
-     $                          LWORK )
+                  RESULT( 2 ) = ZRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK )
 *
 *                 Compute norm(Q'*Q - I).
 *
@@ -159,10 +145,7 @@
 *
                   DO 40 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )M, N, IMODE, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    40             CONTINUE

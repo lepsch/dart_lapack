@@ -1,5 +1,4 @@
-      SUBROUTINE SLASD1( NL, NR, SQRE, D, ALPHA, BETA, U, LDU, VT, LDVT,
-     $                   IDXQ, IWORK, WORK, INFO )
+      SUBROUTINE SLASD1( NL, NR, SQRE, D, ALPHA, BETA, U, LDU, VT, LDVT, IDXQ, IWORK, WORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
       PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2,
-     $                   IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2
+      INTEGER            COLTYP, I, IDX, IDXC, IDXP, IQ, ISIGMA, IU2, IVT2, IZ, K, LDQ, LDU2, LDVT2, M, N, N1, N2
       REAL               ORGNRM
 *     ..
 *     .. External Subroutines ..
@@ -86,18 +84,12 @@
 *
 *     Deflate singular values.
 *
-      CALL SLASD2( NL, NR, SQRE, K, D, WORK( IZ ), ALPHA, BETA, U, LDU,
-     $             VT, LDVT, WORK( ISIGMA ), WORK( IU2 ), LDU2,
-     $             WORK( IVT2 ), LDVT2, IWORK( IDXP ), IWORK( IDX ),
-     $             IWORK( IDXC ), IDXQ, IWORK( COLTYP ), INFO )
+      CALL SLASD2( NL, NR, SQRE, K, D, WORK( IZ ), ALPHA, BETA, U, LDU, VT, LDVT, WORK( ISIGMA ), WORK( IU2 ), LDU2, WORK( IVT2 ), LDVT2, IWORK( IDXP ), IWORK( IDX ), IWORK( IDXC ), IDXQ, IWORK( COLTYP ), INFO )
 *
 *     Solve Secular Equation and update singular vectors.
 *
       LDQ = K
-      CALL SLASD3( NL, NR, SQRE, K, D, WORK( IQ ), LDQ, WORK( ISIGMA ),
-     $             U, LDU, WORK( IU2 ), LDU2, VT, LDVT, WORK( IVT2 ),
-     $             LDVT2, IWORK( IDXC ), IWORK( COLTYP ), WORK( IZ ),
-     $             INFO )
+      CALL SLASD3( NL, NR, SQRE, K, D, WORK( IQ ), LDQ, WORK( ISIGMA ), U, LDU, WORK( IU2 ), LDU2, VT, LDVT, WORK( IVT2 ), LDVT2, IWORK( IDXC ), IWORK( COLTYP ), WORK( IZ ), INFO )
 *
 *     Report the possible convergence failure.
 *

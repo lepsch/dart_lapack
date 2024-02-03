@@ -1,5 +1,4 @@
-      SUBROUTINE CGEBRD( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE CGEBRD( M, N, A, LDA, D, E, TAUQ, TAUP, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
-      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), TAUP( * ), TAUQ( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -22,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IINFO, J, LDWRKX, LDWRKY, LWKMIN, LWKOPT,
-     $                   MINMN, NB, NBMIN, NX, WS
+      INTEGER            I, IINFO, J, LDWRKX, LDWRKY, LWKMIN, LWKOPT, MINMN, NB, NBMIN, NX, WS
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CGEBD2, CGEMM, CLABRD, XERBLA
@@ -113,20 +110,13 @@
 *        the matrices X and Y which are needed to update the unreduced
 *        part of the matrix
 *
-         CALL CLABRD( M-I+1, N-I+1, NB, A( I, I ), LDA, D( I ), E( I ),
-     $                TAUQ( I ), TAUP( I ), WORK, LDWRKX,
-     $                WORK( LDWRKX*NB+1 ), LDWRKY )
+         CALL CLABRD( M-I+1, N-I+1, NB, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, LDWRKX, WORK( LDWRKX*NB+1 ), LDWRKY )
 *
 *        Update the trailing submatrix A(i+ib:m,i+ib:n), using
 *        an update of the form  A := A - V*Y**H - X*U**H
 *
-         CALL CGEMM( 'No transpose', 'Conjugate transpose', M-I-NB+1,
-     $               N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA,
-     $               WORK( LDWRKX*NB+NB+1 ), LDWRKY, ONE,
-     $               A( I+NB, I+NB ), LDA )
-         CALL CGEMM( 'No transpose', 'No transpose', M-I-NB+1, N-I-NB+1,
-     $               NB, -ONE, WORK( NB+1 ), LDWRKX, A( I, I+NB ), LDA,
-     $               ONE, A( I+NB, I+NB ), LDA )
+         CALL CGEMM( 'No transpose', 'Conjugate transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( LDWRKX*NB+NB+1 ), LDWRKY, ONE, A( I+NB, I+NB ), LDA )
+         CALL CGEMM( 'No transpose', 'No transpose', M-I-NB+1, N-I-NB+1, NB, -ONE, WORK( NB+1 ), LDWRKX, A( I, I+NB ), LDA, ONE, A( I+NB, I+NB ), LDA )
 *
 *        Copy diagonal and off-diagonal elements of B back into A
 *
@@ -145,8 +135,7 @@
 *
 *     Use unblocked code to reduce the remainder of the matrix
 *
-      CALL CGEBD2( M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ),
-     $             TAUQ( I ), TAUP( I ), WORK, IINFO )
+      CALL CGEBD2( M-I+1, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAUQ( I ), TAUP( I ), WORK, IINFO )
       WORK( 1 ) = SROUNDUP_LWORK( WS )
       RETURN
 *

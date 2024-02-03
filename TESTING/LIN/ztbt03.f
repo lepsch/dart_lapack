@@ -1,6 +1,4 @@
-      SUBROUTINE ZTBT03( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB,
-     $                   SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK,
-     $                   RESID )
+      SUBROUTINE ZTBT03( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   CNORM( * )
-      COMPLEX*16         AB( LDAB, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX*16         AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -58,8 +55,7 @@
       IF( LSAME( DIAG, 'N' ) ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
             DO 10 J = 1, N
-               TNORM = MAX( TNORM, TSCAL*ABS( AB( KD+1, J ) )+
-     $                 CNORM( J ) )
+               TNORM = MAX( TNORM, TSCAL*ABS( AB( KD+1, J ) )+ CNORM( J ) )
    10       CONTINUE
          ELSE
             DO 20 J = 1, N
@@ -89,18 +85,14 @@
          IX = IZAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
          IF( ERR*SMLNUM.LE.XNORM ) THEN
-            IF( XNORM.GT.ZERO )
-     $         ERR = ERR / XNORM
+            IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          IF( ERR*SMLNUM.LE.TNORM ) THEN
-            IF( TNORM.GT.ZERO )
-     $         ERR = ERR / TNORM
+            IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          RESID = MAX( RESID, ERR )
    40 CONTINUE

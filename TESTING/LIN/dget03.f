@@ -1,5 +1,4 @@
-      SUBROUTINE DGET03( N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK,
-     $                   RCOND, RESID )
+      SUBROUTINE DGET03( N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       DOUBLE PRECISION   RCOND, RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AINV( LDAINV, * ), RWORK( * ),
-     $                   WORK( LDWORK, * )
+      DOUBLE PRECISION   A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -58,8 +56,7 @@
 *
 *     Compute I - A * AINV
 *
-      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, -ONE, AINV,
-     $            LDAINV, A, LDA, ZERO, WORK, LDWORK )
+      CALL DGEMM( 'No transpose', 'No transpose', N, N, N, -ONE, AINV, LDAINV, A, LDA, ZERO, WORK, LDWORK )
       DO 10 I = 1, N
          WORK( I, I ) = ONE + WORK( I, I )
    10 CONTINUE

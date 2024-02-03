@@ -19,13 +19,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( NMAX ), X( NMAX )
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CGEQR2, CGEQR2P, CGEQRF, CGEQRFP,
-     $                   CHKXER, CUNG2R, CUNGQR, CUNM2R,
-     $                   CUNMQR
+      EXTERNAL           ALAESM, CGEQR2, CGEQR2P, CGEQRF, CGEQRFP, CHKXER, CUNG2R, CUNGQR, CUNM2R, CUNMQR
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

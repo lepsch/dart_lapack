@@ -1,5 +1,4 @@
-      SUBROUTINE SSPT21( ITYPE, UPLO, N, KBAND, AP, D, E, U, LDU, VP,
-     $                   TAU, WORK, RESULT )
+      SUBROUTINE SSPT21( ITYPE, UPLO, N, KBAND, AP, D, E, U, LDU, VP, TAU, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            ITYPE, KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      REAL               AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ),
-     $                   U( LDU, * ), VP( * ), WORK( * )
+      REAL               AP( * ), D( * ), E( * ), RESULT( 2 ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -34,8 +32,7 @@
       EXTERNAL           LSAME, SDOT, SLAMCH, SLANGE, SLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMM, SLACPY, SLASET, SOPMTR,
-     $                   SSPMV, SSPR, SSPR2
+      EXTERNAL           SAXPY, SCOPY, SGEMM, SLACPY, SLASET, SOPMTR, SSPMV, SSPR, SSPR2
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, REAL
@@ -45,10 +42,7 @@
 *     1)      Constants
 *
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 )
-     $   RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
 *
       LAP = ( N*( N+1 ) ) / 2
 *
@@ -95,8 +89,7 @@
 *
          IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
             DO 20 J = 1, N - 1
-               CALL SSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ),
-     $                     1, WORK )
+               CALL SSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
    20       CONTINUE
          END IF
          WNORM = SLANSP( '1', CUPLO, N, WORK, WORK( N**2+1 ) )
@@ -122,14 +115,7 @@
                IF( TAU( J ).NE.ZERO ) THEN
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = ONE
-                  CALL SSPMV( 'L', N-J, ONE, WORK( JP1+J+1 ),
-     $                        VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )
-                  TEMP = -HALF*TAU( J )*SDOT( N-J, WORK( LAP+1 ), 1,
-     $                   VP( JP+J+1 ), 1 )
-                  CALL SAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ),
-     $                        1 )
-                  CALL SSPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1,
-     $                        WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
+                  CALL SSPMV( 'L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*SDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL SAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL SSPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
                   VP( JP+J+1 ) = VSAVE
                END IF
                WORK( JP+J ) = D( J )
@@ -149,14 +135,7 @@
                IF( TAU( J ).NE.ZERO ) THEN
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = ONE
-                  CALL SSPMV( 'U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO,
-     $                        WORK( LAP+1 ), 1 )
-                  TEMP = -HALF*TAU( J )*SDOT( J, WORK( LAP+1 ), 1,
-     $                   VP( JP1+1 ), 1 )
-                  CALL SAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ),
-     $                        1 )
-                  CALL SSPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1,
-     $                        WORK( LAP+1 ), 1, WORK )
+                  CALL SSPMV( 'U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*SDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL SAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL SSPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
                   VP( JP1+J ) = VSAVE
                END IF
                WORK( JP1+J+1 ) = D( J+1 )
@@ -172,11 +151,9 @@
 *
 *        ITYPE=3: error = U V**T - I
 *
-         IF( N.LT.2 )
-     $      RETURN
+         IF( N.LT.2 ) RETURN
          CALL SLACPY( ' ', N, N, U, LDU, WORK, N )
-         CALL SOPMTR( 'R', CUPLO, 'T', N, N, VP, TAU, WORK, N,
-     $                WORK( N**2+1 ), IINFO )
+         CALL SOPMTR( 'R', CUPLO, 'T', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = TEN / ULP
             RETURN
@@ -204,15 +181,13 @@
 *     Compute  U U**T - I
 *
       IF( ITYPE.EQ.1 ) THEN
-         CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK,
-     $               N )
+         CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
          DO 90 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    90    CONTINUE
 *
-         RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N,
-     $                 WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP )
+         RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP )
       END IF
 *
       RETURN

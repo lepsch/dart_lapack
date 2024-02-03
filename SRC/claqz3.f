@@ -1,17 +1,10 @@
-      SUBROUTINE CLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS,
-     $                   NBLOCK_DESIRED, ALPHA, BETA, A, LDA, B, LDB,
-     $                   Q, LDQ, Z, LDZ, QC, LDQC, ZC, LDZC, WORK,
-     $                   LWORK, INFO )
+      SUBROUTINE CLAQZ3( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, ALPHA, BETA, A, LDA, B, LDB, Q, LDQ, Z, LDZ, QC, LDQC, ZC, LDZC, WORK, LWORK, INFO )
       IMPLICIT NONE
 
 *     Function arguments
       LOGICAL, INTENT( IN ) :: ILSCHUR, ILQ, ILZ
-      INTEGER, INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK,
-     $         NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
-
-      COMPLEX, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $   Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ),
-     $   ALPHA( * ), BETA( * )
+      INTEGER, INTENT( IN ) :: N, ILO, IHI, LDA, LDB, LDQ, LDZ, LWORK, NSHIFTS, NBLOCK_DESIRED, LDQC, LDZC
+       COMPLEX, INTENT( INOUT ) :: A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * ), QC( LDQC, * ), ZC( LDZC, * ), WORK( * ), ALPHA( * ), BETA( * )
 
       INTEGER, INTENT( OUT ) :: INFO
 
@@ -22,8 +15,7 @@
       PARAMETER( ZERO = 0.0, ONE = 1.0, HALF = 0.5 )
 
 *     Local scalars
-      INTEGER :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP,
-     $           ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
+      INTEGER :: I, J, NS, ISTARTM, ISTOPM, SHEIGHT, SWIDTH, K, NP, ISTARTB, ISTOPB, ISHIFT, NBLOCK, NPOS
       REAL :: SAFMIN, SAFMAX, C, SCALE
       COMPLEX :: TEMP, TEMP2, TEMP3, S
 
@@ -90,26 +82,18 @@
 
          TEMP2 = BETA( I )*A( ILO, ILO )-ALPHA( I )*B( ILO, ILO )
          TEMP3 = BETA( I )*A( ILO+1, ILO )
-
-         IF ( ABS( TEMP2 ) .GT. SAFMAX .OR.
-     $      ABS( TEMP3 ) .GT. SAFMAX ) THEN
+          IF ( ABS( TEMP2 ) .GT. SAFMAX .OR. ABS( TEMP3 ) .GT. SAFMAX ) THEN
             TEMP2 = CONE
             TEMP3 = CZERO
          END IF
 
          CALL CLARTG( TEMP2, TEMP3, C, S, TEMP )
-         CALL CROT( NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C,
-     $              S )
-         CALL CROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C,
-     $              S )
+         CALL CROT( NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C, S )          CALL CROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C, S )
          CALL CROT( NS+1, QC( 1, 1 ), 1, QC( 1, 2 ), 1, C, CONJG( S ) )
-        
+
 *        Chase the shift down
          DO J = 1, NS-I
-
-            CALL CLAQZ1( .TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO,
-     $                   ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC,
-     $                   LDQC, NS, 1, ZC, LDZC )
+             CALL CLAQZ1( .TRUE., .TRUE., J, 1, NS, IHI-ILO+1, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, NS+1, 1, QC, LDQC, NS, 1, ZC, LDZC )
 
          END DO
 
@@ -122,18 +106,10 @@
       SHEIGHT = NS+1
       SWIDTH = ISTOPM-( ILO+NS )+1
       IF ( SWIDTH > 0 ) THEN
-         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC,
-     $               A( ILO, ILO+NS ), LDA, CZERO, WORK, SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO,
-     $                ILO+NS ), LDA )
-         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC,
-     $               B( ILO, ILO+NS ), LDB, CZERO, WORK, SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO,
-     $                ILO+NS ), LDB )
+         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( ILO, ILO+NS ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( ILO, ILO+NS ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB )
       END IF
       IF ( ILQ ) THEN
-        CALL CGEMM( 'N', 'N', N, SHEIGHT, SHEIGHT, CONE, Q( 1, ILO ),
-     $              LDQ, QC, LDQC, CZERO, WORK, N )
+        CALL CGEMM( 'N', 'N', N, SHEIGHT, SHEIGHT, CONE, Q( 1, ILO ), LDQ, QC, LDQC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, SHEIGHT, WORK, N, Q( 1, ILO ), LDQ )
       END IF
 
@@ -142,20 +118,11 @@
       SHEIGHT = ILO-1-ISTARTM+1
       SWIDTH = NS
       IF ( SHEIGHT > 0 ) THEN
-         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $               A( ISTARTM, ILO ), LDA, ZC, LDZC, CZERO, WORK,
-     $               SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM,
-     $                ILO ), LDA )
-         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $               B( ISTARTM, ILO ), LDB, ZC, LDZC, CZERO, WORK,
-     $               SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM,
-     $                ILO ), LDB )
+         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
+         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, ILO ), LDB )
       END IF
       IF ( ILZ ) THEN
-         CALL CGEMM( 'N', 'N', N, SWIDTH, SWIDTH, CONE, Z( 1, ILO ),
-     $               LDZ, ZC, LDZC, CZERO, WORK, N )
+         CALL CGEMM( 'N', 'N', N, SWIDTH, SWIDTH, CONE, Z( 1, ILO ), LDZ, ZC, LDZC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, SWIDTH, WORK, N, Z( 1, ILO ), LDZ )
       END IF
 
@@ -182,9 +149,7 @@
 *              Move down the block with index k+i+j, updating
 *              the (ns+np x ns+np) block:
 *              (k:k+ns+np,k:k+ns+np-1)
-               CALL CLAQZ1( .TRUE., .TRUE., K+I+J, ISTARTB, ISTOPB, IHI,
-     $                      A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC,
-     $                      NBLOCK, K, ZC, LDZC )
+               CALL CLAQZ1( .TRUE., .TRUE., K+I+J, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NBLOCK, K+1, QC, LDQC, NBLOCK, K, ZC, LDZC )
             END DO
          END DO
 
@@ -196,20 +161,11 @@
          SHEIGHT = NS+NP
          SWIDTH = ISTOPM-( K+NS+NP )+1
          IF ( SWIDTH > 0 ) THEN
-            CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC,
-     $                  LDQC, A( K+1, K+NS+NP ), LDA, CZERO, WORK,
-     $                  SHEIGHT )
-            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1,
-     $                   K+NS+NP ), LDA )
-            CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC,
-     $                  LDQC, B( K+1, K+NS+NP ), LDB, CZERO, WORK,
-     $                  SHEIGHT )
-            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( K+1,
-     $                   K+NS+NP ), LDB )
+            CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA )             CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, CZERO, WORK, SHEIGHT )
+            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( K+1, K+NS+NP ), LDB )
          END IF
          IF ( ILQ ) THEN
-            CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Q( 1, K+1 ),
-     $                  LDQ, QC, LDQC, CZERO, WORK, N )
+            CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Q( 1, K+1 ), LDQ, QC, LDQC, CZERO, WORK, N )
             CALL CLACPY( 'ALL', N, NBLOCK, WORK, N, Q( 1, K+1 ), LDQ )
          END IF
 
@@ -218,20 +174,11 @@
          SHEIGHT = K-ISTARTM+1
          SWIDTH = NBLOCK
          IF ( SHEIGHT > 0 ) THEN
-            CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $                  A( ISTARTM, K ), LDA, ZC, LDZC, CZERO, WORK,
-     $                  SHEIGHT )
-            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT,
-     $                   A( ISTARTM, K ), LDA )
-            CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $                  B( ISTARTM, K ), LDB, ZC, LDZC, CZERO, WORK,
-     $                  SHEIGHT )
-            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT,
-     $                   B( ISTARTM, K ), LDB )
+            CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, K ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA )             CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, K ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
+            CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, K ), LDB )
          END IF
          IF ( ILZ ) THEN
-            CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Z( 1, K ),
-     $                  LDZ, ZC, LDZC, CZERO, WORK, N )
+            CALL CGEMM( 'N', 'N', N, NBLOCK, NBLOCK, CONE, Z( 1, K ), LDZ, ZC, LDZC, CZERO, WORK, N )
             CALL CLACPY( 'ALL', N, NBLOCK, WORK, N, Z( 1, K ), LDZ )
          END IF
 
@@ -253,11 +200,9 @@
       DO I = 1, NS
 *        Chase the shift down to the bottom right corner
          DO ISHIFT = IHI-I, IHI-1
-            CALL CLAQZ1( .TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI,
-     $                   A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1,
-     $                   IHI-NS, ZC, LDZC )
+            CALL CLAQZ1( .TRUE., .TRUE., ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC )
          END DO
-         
+
       END DO
 
 *     Update rest of the pencil
@@ -267,18 +212,10 @@
       SHEIGHT = NS
       SWIDTH = ISTOPM-( IHI+1 )+1
       IF ( SWIDTH > 0 ) THEN
-         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC,
-     $               A( IHI-NS+1, IHI+1 ), LDA, CZERO, WORK, SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT,
-     $                A( IHI-NS+1, IHI+1 ), LDA )
-         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC,
-     $               B( IHI-NS+1, IHI+1 ), LDB, CZERO, WORK, SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT,
-     $                B( IHI-NS+1, IHI+1 ), LDB )
+         CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB )
       END IF
       IF ( ILQ ) THEN
-         CALL CGEMM( 'N', 'N', N, NS, NS, CONE, Q( 1, IHI-NS+1 ), LDQ,
-     $               QC, LDQC, CZERO, WORK, N )
+         CALL CGEMM( 'N', 'N', N, NS, NS, CONE, Q( 1, IHI-NS+1 ), LDQ, QC, LDQC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, NS, WORK, N, Q( 1, IHI-NS+1 ), LDQ )
       END IF
 
@@ -287,20 +224,11 @@
       SHEIGHT = IHI-NS-ISTARTM+1
       SWIDTH = NS+1
       IF ( SHEIGHT > 0 ) THEN
-         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $               A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, CZERO, WORK,
-     $               SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM,
-     $                IHI-NS ), LDA )
-         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE,
-     $               B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, CZERO, WORK,
-     $               SHEIGHT )
-         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM,
-     $                IHI-NS ), LDB )
+         CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT )
+         CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, IHI-NS ), LDB )
       END IF
       IF ( ILZ ) THEN
-         CALL CGEMM( 'N', 'N', N, NS+1, NS+1, CONE, Z( 1, IHI-NS ), LDZ,
-     $               ZC, LDZC, CZERO, WORK, N )
+         CALL CGEMM( 'N', 'N', N, NS+1, NS+1, CONE, Z( 1, IHI-NS ), LDZ, ZC, LDZC, CZERO, WORK, N )
          CALL CLACPY( 'ALL', N, NS+1, WORK, N, Z( 1, IHI-NS ), LDZ )
       END IF
 

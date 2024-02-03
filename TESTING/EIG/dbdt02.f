@@ -9,8 +9,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), C( LDC, * ), U( LDU, * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   B( LDB, * ), C( LDC, * ), U( LDU, * ), WORK( * )
 *     ..
 *
 * ======================================================================
@@ -38,8 +37,7 @@
 *     Quick return if possible
 *
       RESID = ZERO
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
       REALMN = DBLE( MAX( M, N ) )
       EPS = DLAMCH( 'Precision' )
 *
@@ -47,8 +45,7 @@
 *
       DO 10 J = 1, N
          CALL DCOPY( M, B( 1, J ), 1, WORK, 1 )
-         CALL DGEMV( 'No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1,
-     $               ONE, WORK, 1 )
+         CALL DGEMV( 'No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 )
          RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    10 CONTINUE
 *
@@ -57,15 +54,13 @@
       BNORM = DLANGE( '1', M, N, B, LDB, WORK )
 *
       IF( BNORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( REALMN*EPS )
          ELSE
             IF( BNORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) /
-     $                 ( REALMN*EPS )
+               RESID = ( MIN( RESID, REALMN*BNORM ) / BNORM ) / ( REALMN*EPS )
             ELSE
                RESID = MIN( RESID / BNORM, REALMN ) / ( REALMN*EPS )
             END IF

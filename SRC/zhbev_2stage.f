@@ -1,5 +1,4 @@
-      SUBROUTINE ZHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ,
-     $                         WORK, LWORK, RWORK, INFO )
+      SUBROUTINE ZHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -24,10 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, WANTZ, LQUERY
-      INTEGER            IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -36,8 +32,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR,
-     $                   ZHETRD_2STAGE, ZHETRD_HB2ST
+      EXTERNAL           DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR, ZHETRD_2STAGE, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, SQRT
@@ -70,18 +65,12 @@
             LWMIN = 1
             WORK( 1 ) = LWMIN
          ELSE
-            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, -1, -1 )
-            LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
-            LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
+            IB    = ILAENV2STAGE( 2, 'ZHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'ZHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = LHTRD + LWTRD
             WORK( 1 )  = LWMIN
          ENDIF
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -11
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -11
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -93,8 +82,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( LOWER ) THEN
@@ -102,8 +90,7 @@
          ELSE
             W( 1 ) = DBLE( AB( KD+1, 1 ) )
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -142,9 +129,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL ZHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W,
-     $                    RWORK( INDE ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL ZHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEQR.
 *
@@ -152,8 +137,7 @@
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
          INDRWK = INDE + N
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ,
-     $                RWORK( INDRWK ), INFO )
+         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

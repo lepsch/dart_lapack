@@ -1,5 +1,4 @@
-      SUBROUTINE SCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR,
-     $                   A, D, E, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE SCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            NSVAL( * ), NVAL( * )
-      REAL               A( * ), B( * ), D( * ), E( * ), RWORK( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), B( * ), D( * ), E( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -31,9 +29,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IA, IMAT, IN, INFO, IRHS, IX, IZERO, J, K,
-     $                   KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT,
-     $                   NRHS, NRUN
+      INTEGER            I, IA, IMAT, IN, INFO, IRHS, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       REAL               AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -46,10 +42,7 @@
       EXTERNAL           ISAMAX, SASUM, SGET06, SLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRGT, SGET04,
-     $                   SLACPY, SLAPTM, SLARNV, SLATB4, SLATMS, SPTCON,
-     $                   SPTRFS, SPTT01, SPTT02, SPTT05, SPTTRF, SPTTRS,
-     $                   SSCAL
+      EXTERNAL           ALAERH, ALAHD, ALASUM, SCOPY, SERRGT, SGET04, SLACPY, SLAPTM, SLARNV, SLATB4, SLATMS, SPTCON, SPTRFS, SPTT01, SPTT02, SPTT05, SPTTRF, SPTTRS, SSCAL
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
@@ -79,8 +72,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRGT( PATH, NOUT )
+      IF( TSTERR ) CALL SERRGT( PATH, NOUT )
       INFOT = 0
 *
       DO 110 IN = 1, NN
@@ -90,20 +82,17 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 100 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) )
-     $         GO TO 100
+            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
 *           Set up parameters with SLATB4.
 *
-            CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                   COND, DIST )
+            CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
@@ -112,14 +101,12 @@
 *              known condition number in lower triangular band storage.
 *
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND,
-     $                      ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
 *              Check the error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, KL,
-     $                         KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
                END IF
                IZERO = 0
@@ -132,8 +119,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
    20          CONTINUE
-               IF( N.GT.0 )
-     $            D( N ) = A( IA )
+               IF( N.GT.0 ) D( N ) = A( IA )
             ELSE
 *
 *              Type 7-12:  generate a diagonally dominant matrix with
@@ -154,8 +140,7 @@
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
-                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) +
-     $                           ABS( E( I-1 ) )
+                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
                   END IF
 *
@@ -173,8 +158,7 @@
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = Z( 2 )
-                     IF( N.GT.1 )
-     $                  E( 1 ) = Z( 3 )
+                     IF( N.GT.1 ) E( 1 ) = Z( 3 )
                   ELSE IF( IZERO.EQ.N ) THEN
                      E( N-1 ) = Z( 1 )
                      D( N ) = Z( 2 )
@@ -219,8 +203,7 @@
             END IF
 *
             CALL SCOPY( N, D, 1, D( N+1 ), 1 )
-            IF( N.GT.1 )
-     $         CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
+            IF( N.GT.1 ) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
 *+    TEST 1
 *           Factor A as L*D*L' and compute the ratio
@@ -231,8 +214,7 @@
 *           Check error code from SPTTRF.
 *
             IF( INFO.NE.IZERO ) THEN
-               CALL ALAERH( PATH, 'SPTTRF', INFO, IZERO, ' ', N, N, -1,
-     $                      -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               CALL ALAERH( PATH, 'SPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 100
             END IF
 *
@@ -241,14 +223,12 @@
                GO TO 90
             END IF
 *
-            CALL SPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK,
-     $                   RESULT( 1 ) )
+            CALL SPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
 *           Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 1 ).GE.THRESH ) THEN
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $            CALL ALAHD( NOUT, PATH )
+               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             END IF
@@ -287,8 +267,7 @@
 *
 *           Set the right hand side.
 *
-               CALL SLAPTM( N, NRHS, ONE, D, E, XACT, LDA, ZERO, B,
-     $                      LDA )
+               CALL SLAPTM( N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
 *+    TEST 2
 *           Solve A*x = b and compute the residual.
@@ -298,47 +277,34 @@
 *
 *           Check error code from SPTTRS.
 *
-               IF( INFO.NE.0 )
-     $            CALL ALAERH( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1,
-     $                         -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-               CALL SPTT02( N, NRHS, D, E, X, LDA, WORK, LDA,
-     $                      RESULT( 2 ) )
+               CALL SPTT02( N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *+    TEST 3
 *           Check solution from generated exact solution.
 *
-               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                      RESULT( 3 ) )
+               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *           Use iterative refinement to improve the solution.
 *
                SRNAMT = 'SPTRFS'
-               CALL SPTRFS( N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA,
-     $                      X, LDA, RWORK, RWORK( NRHS+1 ), WORK, INFO )
+               CALL SPTRFS( N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, INFO )
 *
 *           Check error code from SPTRFS.
 *
-               IF( INFO.NE.0 )
-     $            CALL ALAERH( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1,
-     $                         -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
+               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                      RESULT( 4 ) )
-               CALL SPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA,
-     $                      RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                CALL SPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *           Print information about the tests that did not pass the
 *           threshold.
 *
                DO 70 K = 2, 6
                   IF( RESULT( K ).GE.THRESH ) THEN
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
-                     WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K,
-     $                  RESULT( K )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   END IF
    70          CONTINUE
@@ -351,22 +317,18 @@
 *
    90       CONTINUE
             SRNAMT = 'SPTCON'
-            CALL SPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK,
-     $                   INFO )
+            CALL SPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO )
 *
 *           Check error code from SPTCON.
 *
-            IF( INFO.NE.0 )
-     $         CALL ALAERH( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1,
-     $                      -1, IMAT, NFAIL, NERRS, NOUT )
+            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
             RESULT( 7 ) = SGET06( RCOND, RCONDC )
 *
 *           Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 7 ).GE.THRESH ) THEN
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $            CALL ALAHD( NOUT, PATH )
+               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1
             END IF

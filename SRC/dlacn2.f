@@ -104,16 +104,14 @@
          ELSE
             XS = -ONE
          END IF
-         IF( NINT( XS ).NE.ISGN( I ) )
-     $      GO TO 90
+         IF( NINT( XS ).NE.ISGN( I ) ) GO TO 90
    80 CONTINUE
 *     REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
 *
    90 CONTINUE
 *     TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD )
-     $   GO TO 120
+      IF( EST.LE.ESTOLD ) GO TO 120
 *
       DO 100 I = 1, N
          IF( X(I).GE.ZERO ) THEN
@@ -133,8 +131,7 @@
   110 CONTINUE
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = IDAMAX( N, X, 1 )
-      IF( ( X( JLAST ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND.
-     $    ( ISAVE( 3 ).LT.ITMAX ) ) THEN
+      IF( ( X( JLAST ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) THEN
          ISAVE( 3 ) = ISAVE( 3 ) + 1
          GO TO 50
       END IF

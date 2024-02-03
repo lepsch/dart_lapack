@@ -1,5 +1,4 @@
-      SUBROUTINE ZGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B,
-     $                   LDB, RWORK, RESID )
+      SUBROUTINE ZGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -103,8 +102,7 @@
 *     Compute B - op(A)*X
 *
       DO 20 J = 1, NRHS
-         CALL ZGBMV( TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1,
-     $               CONE, B( 1, J ), 1 )
+         CALL ZGBMV( TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 )
    20 CONTINUE
 *
 *     Compute the maximum over the number of right hand sides of

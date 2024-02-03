@@ -37,8 +37,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
@@ -50,10 +49,7 @@
 *
 *              Update A(1:i,i)
 *
-               CALL DGEMV( 'No transpose', I, N-I, -ONE, A( 1, I+1 ),
-     $                     LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 )
-               CALL DGEMV( 'No transpose', I, N-I, -ONE, W( 1, IW+1 ),
-     $                     LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 )
+               CALL DGEMV( 'No transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, W( I, IW+1 ), LDW, ONE, A( 1, I ), 1 )                CALL DGEMV( 'No transpose', I, N-I, -ONE, W( 1, IW+1 ), LDW, A( I, I+1 ), LDA, ONE, A( 1, I ), 1 )
             END IF
             IF( I.GT.1 ) THEN
 *
@@ -66,23 +62,12 @@
 *
 *              Compute W(1:i-1,i)
 *
-               CALL DSYMV( 'Upper', I-1, ONE, A, LDA, A( 1, I ), 1,
-     $                     ZERO, W( 1, IW ), 1 )
+               CALL DSYMV( 'Upper', I-1, ONE, A, LDA, A( 1, I ), 1, ZERO, W( 1, IW ), 1 )
                IF( I.LT.N ) THEN
-                  CALL DGEMV( 'Transpose', I-1, N-I, ONE, W( 1, IW+1 ),
-     $                        LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )
-                  CALL DGEMV( 'No transpose', I-1, N-I, -ONE,
-     $                        A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE,
-     $                        W( 1, IW ), 1 )
-                  CALL DGEMV( 'Transpose', I-1, N-I, ONE, A( 1, I+1 ),
-     $                        LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )
-                  CALL DGEMV( 'No transpose', I-1, N-I, -ONE,
-     $                        W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE,
-     $                        W( 1, IW ), 1 )
+                  CALL DGEMV( 'Transpose', I-1, N-I, ONE, W( 1, IW+1 ), LDW, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL DGEMV( 'No transpose', I-1, N-I, -ONE, A( 1, I+1 ), LDA, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )                   CALL DGEMV( 'Transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( 1, I ), 1, ZERO, W( I+1, IW ), 1 )                   CALL DGEMV( 'No transpose', I-1, N-I, -ONE, W( 1, IW+1 ), LDW, W( I+1, IW ), 1, ONE, W( 1, IW ), 1 )
                END IF
                CALL DSCAL( I-1, TAU( I-1 ), W( 1, IW ), 1 )
-               ALPHA = -HALF*TAU( I-1 )*DDOT( I-1, W( 1, IW ), 1,
-     $                 A( 1, I ), 1 )
+               ALPHA = -HALF*TAU( I-1 )*DDOT( I-1, W( 1, IW ), 1, A( 1, I ), 1 )
                CALL DAXPY( I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 )
             END IF
 *
@@ -95,35 +80,21 @@
 *
 *           Update A(i:n,i)
 *
-            CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, A( I, 1 ),
-     $                  LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 )
-            CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, W( I, 1 ),
-     $                  LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 )
+            CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, A( I, 1 ), LDA, W( I, 1 ), LDW, ONE, A( I, I ), 1 )             CALL DGEMV( 'No transpose', N-I+1, I-1, -ONE, W( I, 1 ), LDW, A( I, 1 ), LDA, ONE, A( I, I ), 1 )
             IF( I.LT.N ) THEN
 *
 *              Generate elementary reflector H(i) to annihilate
 *              A(i+2:n,i)
 *
-               CALL DLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1,
-     $                      TAU( I ) )
+               CALL DLARFG( N-I, A( I+1, I ), A( MIN( I+2, N ), I ), 1, TAU( I ) )
                E( I ) = A( I+1, I )
                A( I+1, I ) = ONE
 *
 *              Compute W(i+1:n,i)
 *
-               CALL DSYMV( 'Lower', N-I, ONE, A( I+1, I+1 ), LDA,
-     $                     A( I+1, I ), 1, ZERO, W( I+1, I ), 1 )
-               CALL DGEMV( 'Transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW,
-     $                     A( I+1, I ), 1, ZERO, W( 1, I ), 1 )
-               CALL DGEMV( 'No transpose', N-I, I-1, -ONE, A( I+1, 1 ),
-     $                     LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 )
-               CALL DGEMV( 'Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA,
-     $                     A( I+1, I ), 1, ZERO, W( 1, I ), 1 )
-               CALL DGEMV( 'No transpose', N-I, I-1, -ONE, W( I+1, 1 ),
-     $                     LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 )
+               CALL DSYMV( 'Lower', N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, W( I+1, I ), 1 )                CALL DGEMV( 'Transpose', N-I, I-1, ONE, W( I+1, 1 ), LDW, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL DGEMV( 'No transpose', N-I, I-1, -ONE, A( I+1, 1 ), LDA, W( 1, I ), 1, ONE, W( I+1, I ), 1 )                CALL DGEMV( 'Transpose', N-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, W( 1, I ), 1 )                CALL DGEMV( 'No transpose', N-I, I-1, -ONE, W( I+1, 1 ), LDW, W( 1, I ), 1, ONE, W( I+1, I ), 1 )
                CALL DSCAL( N-I, TAU( I ), W( I+1, I ), 1 )
-               ALPHA = -HALF*TAU( I )*DDOT( N-I, W( I+1, I ), 1,
-     $                 A( I+1, I ), 1 )
+               ALPHA = -HALF*TAU( I )*DDOT( N-I, W( I+1, I ), 1, A( I+1, I ), 1 )
                CALL DAXPY( N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 )
             END IF
 *

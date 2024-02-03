@@ -1,5 +1,4 @@
-      SUBROUTINE DORMRZ( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC,
-     $                   WORK, LWORK, INFO )
+      SUBROUTINE DORMRZ( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,14 +16,12 @@
 *
 *     .. Parameters ..
       INTEGER            NBMAX, LDT, TSIZE
-      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1,
-     $                     TSIZE = LDT*NBMAX )
+      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFT, LQUERY, NOTRAN
       CHARACTER          TRANST
-      INTEGER            I, I1, I2, I3, IB, IC, IINFO, IWT, JA, JC,
-     $                   LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW
+      INTEGER            I, I1, I2, I3, IB, IC, IINFO, IWT, JA, JC, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -65,8 +62,7 @@
          INFO = -4
       ELSE IF( K.LT.0 .OR. K.GT.NQ ) THEN
          INFO = -5
-      ELSE IF( L.LT.0 .OR. ( LEFT .AND. ( L.GT.M ) ) .OR.
-     $         ( .NOT.LEFT .AND. ( L.GT.N ) ) ) THEN
+      ELSE IF( L.LT.0 .OR. ( LEFT .AND. ( L.GT.M ) ) .OR. ( .NOT.LEFT .AND. ( L.GT.N ) ) ) THEN
          INFO = -6
       ELSE IF( LDA.LT.MAX( 1, K ) ) THEN
          INFO = -8
@@ -83,8 +79,7 @@
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
          ELSE
-            NB = MIN( NBMAX, ILAENV( 1, 'DORMRQ', SIDE // TRANS, M, N,
-     $                               K, -1 ) )
+            NB = MIN( NBMAX, ILAENV( 1, 'DORMRQ', SIDE // TRANS, M, N, K, -1 ) )
             LWKOPT = NW*NB + TSIZE
          END IF
          WORK( 1 ) = LWKOPT
@@ -109,8 +104,7 @@
       IF( NB.GT.1 .AND. NB.LT.K ) THEN
          IF( LWORK.LT.LWKOPT ) THEN
             NB = (LWORK-TSIZE) / LDWORK
-            NBMIN = MAX( 2, ILAENV( 2, 'DORMRQ', SIDE // TRANS, M, N, K,
-     $              -1 ) )
+            NBMIN = MAX( 2, ILAENV( 2, 'DORMRQ', SIDE // TRANS, M, N, K, -1 ) )
          END IF
       END IF
 *
@@ -118,15 +112,13 @@
 *
 *        Use unblocked code
 *
-         CALL DORMR3( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC,
-     $                WORK, IINFO )
+         CALL DORMR3( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC, WORK, IINFO )
       ELSE
 *
 *        Use blocked code
 *
          IWT = 1 + NW*NB
-         IF( ( LEFT .AND. .NOT.NOTRAN ) .OR.
-     $       ( .NOT.LEFT .AND. NOTRAN ) ) THEN
+         IF( ( LEFT .AND. .NOT.NOTRAN ) .OR. ( .NOT.LEFT .AND. NOTRAN ) ) THEN
             I1 = 1
             I2 = K
             I3 = NB
@@ -158,8 +150,7 @@
 *           Form the triangular factor of the block reflector
 *           H = H(i+ib-1) . . . H(i+1) H(i)
 *
-            CALL DLARZT( 'Backward', 'Rowwise', L, IB, A( I, JA ), LDA,
-     $                   TAU( I ), WORK( IWT ), LDT )
+            CALL DLARZT( 'Backward', 'Rowwise', L, IB, A( I, JA ), LDA, TAU( I ), WORK( IWT ), LDT )
 *
             IF( LEFT ) THEN
 *
@@ -177,9 +168,7 @@
 *
 *           Apply H or H**T
 *
-            CALL DLARZB( SIDE, TRANST, 'Backward', 'Rowwise', MI, NI,
-     $                   IB, L, A( I, JA ), LDA, WORK( IWT ), LDT,
-     $                   C( IC, JC ), LDC, WORK, LDWORK )
+            CALL DLARZB( SIDE, TRANST, 'Backward', 'Rowwise', MI, NI, IB, L, A( I, JA ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK )
    10    CONTINUE
 *
       END IF

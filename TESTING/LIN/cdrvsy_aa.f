@@ -1,6 +1,4 @@
-      SUBROUTINE CDRVSY_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR,
-     $                      NMAX, A, AFAC, AINV, B, X, XACT, WORK,
-     $                      RWORK, IWORK, NOUT )
+      SUBROUTINE CDRVSY_AA( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
       REAL               RWORK( * )
-      COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      COMPLEX            A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -35,9 +32,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, TYPE, UPLO, XTYPE
       CHARACTER*3        MATPATH, PATH
-      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO,
-     $                   IZERO, J, K, KL, KU, LDA, LWORK, MODE, N,
-     $                   NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT
+      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT
       REAL               ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -50,9 +45,7 @@
       EXTERNAL           DGET06, CLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGET04, CLACPY,
-     $                   CLARHS, CLASET, CLATB4, CLATMS, CSYT02,
-     $                   CSYSV_AA, CSYT01_AA, CSYTRF_AA, XLAENV
+      EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGET04, CLACPY, CLARHS, CLASET, CLATB4, CLATMS, CSYT02, CSYSV_AA, CSYT01_AA, CSYTRF_AA, XLAENV
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -93,8 +86,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL CERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
 *
 *     Set the block size and minimum block size for testing.
@@ -113,21 +105,18 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 170 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 170
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 170
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -137,19 +126,15 @@
 *              Set up parameters with CLATB4 and generate a test matrix
 *              with CLATMS.
 *
-               CALL CLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM,
-     $                      MODE, CNDNUM, DIST )
+               CALL CLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'CLATMS'
-               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK,
-     $                      INFO )
+               CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
 *              Check error code from CLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'CLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 160
                END IF
 *
@@ -230,9 +215,7 @@
 *                 Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'CLARHS'
-                  CALL CLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU,
-     $                         NRHS, A, LDA, XACT, LDA, B, LDA, ISEED,
-     $                         INFO )
+                  CALL CLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   XTYPE = 'C'
 *
 *                 --- Test CSYSV_AA  ---
@@ -244,8 +227,7 @@
 *                    Factor the matrix and solve the system using CSYSV_AA.
 *
                      SRNAMT = 'CSYSV_AA'
-                     CALL CSYSV_AA( UPLO, N, NRHS, AFAC, LDA, IWORK,
-     $                                 X, LDA, WORK, LWORK, INFO )
+                     CALL CSYSV_AA( UPLO, N, NRHS, AFAC, LDA, IWORK, X, LDA, WORK, LWORK, INFO )
 *
 *                    Adjust the expected value of INFO to account for
 *                    pivoting.
@@ -270,9 +252,7 @@
 *                    Check error code from CSYSV_AA .
 *
                      IF( INFO.NE.K ) THEN
-                        CALL ALAERH( PATH, 'CSYSV_AA ', INFO, K,
-     $                               UPLO, N, N, -1, -1, NRHS,
-     $                               IMAT, NFAIL, NERRS, NOUT )
+                        CALL ALAERH( PATH, 'CSYSV_AA ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 120
                      ELSE IF( INFO.NE.0 ) THEN
                         GO TO 120
@@ -281,15 +261,12 @@
 *                    Reconstruct matrix from factors and compute
 *                    residual.
 *
-                     CALL CSYT01_AA( UPLO, N, A, LDA, AFAC, LDA,
-     $                               IWORK, AINV, LDA, RWORK,
-     $                               RESULT( 1 ) )
+                     CALL CSYT01_AA( UPLO, N, A, LDA, AFAC, LDA, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
 *
 *                    Compute residual of the computed solution.
 *
                      CALL CLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL CSYT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK,
-     $                            LDA, RWORK, RESULT( 2 ) )
+                     CALL CSYT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
                      NT = 2
 *
 *                    Print information about the tests that did not pass
@@ -297,10 +274,7 @@
 *
                      DO 110 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )'CSYSV_AA ',
-     $                        UPLO, N, IMAT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CSYSV_AA ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
   110                CONTINUE

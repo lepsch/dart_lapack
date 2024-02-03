@@ -1,5 +1,4 @@
-      SUBROUTINE SGET07( TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT,
-     $                   LDXACT, FERR, CHKFERR, BERR, RESLTS )
+      SUBROUTINE SGET07( TRANS, N, NRHS, A, LDA, B, LDB, X, LDX, XACT, LDXACT, FERR, CHKFERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       INTEGER            LDA, LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ),
-     $                   RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
+      REAL               A( LDA, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -104,8 +102,7 @@
                AXBI = MIN( AXBI, TMP )
             END IF
    60    CONTINUE
-         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL /
-     $         MAX( AXBI, ( N+1 )*UNFL ) )
+         TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
          IF( K.EQ.1 ) THEN
             RESLTS( 2 ) = TMP
          ELSE

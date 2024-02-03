@@ -1,5 +1,4 @@
-      SUBROUTINE SPOT03( UPLO, N, A, LDA, AINV, LDAINV, WORK, LDWORK,
-     $                   RWORK, RCOND, RESID )
+      SUBROUTINE SPOT03( UPLO, N, A, LDA, AINV, LDAINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RCOND, RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AINV( LDAINV, * ), RWORK( * ),
-     $                   WORK( LDWORK, * )
+      REAL               A( LDA, * ), AINV( LDAINV, * ), RWORK( * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -74,8 +72,7 @@
    30       CONTINUE
    40    CONTINUE
       END IF
-      CALL SSYMM( 'Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO,
-     $            WORK, LDWORK )
+      CALL SSYMM( 'Left', UPLO, N, N, -ONE, A, LDA, AINV, LDAINV, ZERO, WORK, LDWORK )
 *
 *     Add the identity matrix to WORK .
 *

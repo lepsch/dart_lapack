@@ -1,5 +1,4 @@
-      SUBROUTINE DSBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK,
-     $                   RESULT )
+      SUBROUTINE DSBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            KA, KS, LDA, LDU, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ),
-     $                   U( LDU, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), RESULT( 2 ), U( LDU, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -43,8 +41,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       IKA = MAX( 0, MIN( N-1, KA ) )
       LW = ( N*( N+1 ) ) / 2
@@ -101,8 +98,7 @@
 *
       IF( N.GT.1 .AND. KS.EQ.1 ) THEN
          DO 70 J = 1, N - 1
-            CALL DSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1,
-     $                  WORK )
+            CALL DSPR2( CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
    70    CONTINUE
       END IF
       WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LW+1 ) )
@@ -121,15 +117,13 @@
 *
 *     Compute  U U**T - I
 *
-      CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK,
-     $            N )
+      CALL DGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
       DO 80 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    80 CONTINUE
 *
-      RESULT( 2 ) = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ),
-     $              DBLE( N ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP )
 *
       RETURN
 *

@@ -18,8 +18,7 @@
 *     .. Parameters ..
       REAL               ONE
       COMPLEX            CONE, CZERO
-      PARAMETER          ( ONE = 1.0E+0, CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = 1.0E+0, CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -58,8 +57,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check that the diagonal matrix D is nonsingular.
 *
@@ -68,16 +66,14 @@
 *        Upper triangular storage: examine D from bottom to top
 *
          DO 10 INFO = N, 1, -1
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
    10    CONTINUE
       ELSE
 *
 *        Lower triangular storage: examine D from top to bottom.
 *
          DO 20 INFO = 1, N
-            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO )
-     $         RETURN
+            IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
    20    CONTINUE
       END IF
       INFO = 0
@@ -94,8 +90,7 @@
 *
 *        If K > N, exit from loop.
 *
-         IF( K.GT.N )
-     $      GO TO 70
+         IF( K.GT.N ) GO TO 70
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -109,10 +104,7 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1,
-     $                     K ), 1 ) )
+               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )
             END IF
             KSTEP = 1
          ELSE
@@ -134,18 +126,9 @@
 *
             IF( K.GT.1 ) THEN
                CALL CCOPY( K-1, A( 1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K ), 1 )
-               A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1,
-     $                     K ), 1 ) )
-               A( K, K+1 ) = A( K, K+1 ) -
-     $                       CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
+               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K ), 1 ) )                A( K, K+1 ) = A( K, K+1 ) - CDOTC( K-1, A( 1, K ), 1, A( 1, K+1 ), 1 )
                CALL CCOPY( K-1, A( 1, K+1 ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO,
-     $                     A( 1, K+1 ), 1 )
-               A( K+1, K+1 ) = A( K+1, K+1 ) -
-     $                         REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ),
-     $                         1 ) )
+               CALL CHEMV( UPLO, K-1, -CONE, A, LDA, WORK, 1, CZERO, A( 1, K+1 ), 1 )                A( K+1, K+1 ) = A( K+1, K+1 ) - REAL( CDOTC( K-1, WORK, 1, A( 1, K+1 ), 1 ) )
             END IF
             KSTEP = 2
          END IF
@@ -158,8 +141,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.GT.1 )
-     $            CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 *
                DO 40 J = KP + 1, K - 1
                   TEMP = CONJG( A( J, K ) )
@@ -183,8 +165,7 @@
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.GT.1 )
-     $            CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 *
                DO 50 J = KP + 1, K - 1
                   TEMP = CONJG( A( J, K ) )
@@ -209,8 +190,7 @@
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.GT.1 )
-     $            CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 )
 *
                DO 60 J = KP + 1, K - 1
                   TEMP = CONJG( A( J, K ) )
@@ -242,8 +222,7 @@
 *
 *        If K < 1, exit from loop.
 *
-         IF( K.LT.1 )
-     $      GO TO 120
+         IF( K.LT.1 ) GO TO 120
 *
          IF( IPIV( K ).GT.0 ) THEN
 *
@@ -257,10 +236,7 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK,
-     $                     1, CZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1,
-     $                     A( K+1, K ), 1 ) )
+               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )
             END IF
             KSTEP = 1
          ELSE
@@ -282,19 +258,9 @@
 *
             IF( K.LT.N ) THEN
                CALL CCOPY( N-K, A( K+1, K ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK,
-     $                     1, CZERO, A( K+1, K ), 1 )
-               A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1,
-     $                     A( K+1, K ), 1 ) )
-               A( K, K-1 ) = A( K, K-1 ) -
-     $                       CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ),
-     $                       1 )
+               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K ), 1 )                A( K, K ) = A( K, K ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K ), 1 ) )                A( K, K-1 ) = A( K, K-1 ) - CDOTC( N-K, A( K+1, K ), 1, A( K+1, K-1 ), 1 )
                CALL CCOPY( N-K, A( K+1, K-1 ), 1, WORK, 1 )
-               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK,
-     $                     1, CZERO, A( K+1, K-1 ), 1 )
-               A( K-1, K-1 ) = A( K-1, K-1 ) -
-     $                         REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ),
-     $                         1 ) )
+               CALL CHEMV( UPLO, N-K, -CONE, A( K+1, K+1 ), LDA, WORK, 1, CZERO, A( K+1, K-1 ), 1 )                A( K-1, K-1 ) = A( K-1, K-1 ) - REAL( CDOTC( N-K, WORK, 1, A( K+1, K-1 ), 1 ) )
             END IF
             KSTEP = 2
          END IF
@@ -307,8 +273,7 @@
             KP = IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 *
                DO 90 J = K + 1, KP - 1
                   TEMP = CONJG( A( J, K ) )
@@ -332,8 +297,7 @@
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 *
                DO 100 J = K + 1, KP - 1
                   TEMP = CONJG( A( J, K ) )
@@ -358,8 +322,7 @@
             KP = -IPIV( K )
             IF( KP.NE.K ) THEN
 *
-               IF( KP.LT.N )
-     $            CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 )
 *
                DO 110 J = K + 1, KP - 1
                   TEMP = CONJG( A( J, K ) )

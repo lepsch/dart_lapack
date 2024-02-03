@@ -55,13 +55,11 @@
 *
 *     Call DLAVSP to form the product D * U' (or D * L' ).
 *
-      CALL DLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C,
-     $             LDC, INFO )
+      CALL DLAVSP( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
 *     Call DLAVSP again to multiply by U ( or L ).
 *
-      CALL DLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C,
-     $             LDC, INFO )
+      CALL DLAVSP( UPLO, 'No transpose', 'Unit', N, N, AFAC, IPIV, C, LDC, INFO )
 *
 *     Compute the difference  C - A .
 *
@@ -88,8 +86,7 @@
       RESID = DLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / DBLE( N ) ) / ANORM ) / EPS
       END IF

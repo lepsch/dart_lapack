@@ -1,5 +1,4 @@
-      SUBROUTINE ZHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK,
-     $                         RWORK, INFO )
+      SUBROUTINE ZHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -26,10 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +34,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHE, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR,
-     $                   ZUNGTR, ZHETRD_2STAGE
+      EXTERNAL           DSCAL, DSTERF, XERBLA, ZLASCL, ZSTEQR, ZUNGTR, ZHETRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, SQRT
@@ -71,8 +66,7 @@
          LWMIN = N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -8
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -91,8 +85,7 @@
       IF( N.EQ.1 ) THEN
          W( 1 ) = DBLE( A( 1, 1 ) )
          WORK( 1 ) = 1
-         IF( WANTZ )
-     $      A( 1, 1 ) = CONE
+         IF( WANTZ ) A( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -116,8 +109,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call ZHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 *
@@ -127,9 +119,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ),
-     $                    WORK( INDTAU ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL ZHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, first call
 *     ZUNGTR to generate the unitary matrix, then call ZSTEQR.
@@ -137,11 +127,9 @@
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL ZUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ),
-     $                LLWORK, IINFO )
+         CALL ZUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
          INDWRK = INDE + N
-         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA,
-     $                RWORK( INDWRK ), INFO )
+         CALL ZSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

@@ -1,5 +1,4 @@
-      SUBROUTINE SLAED9( K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA,
-     $                   W, S, LDS, INFO )
+      SUBROUTINE SLAED9( K, KSTART, KSTOP, N, D, Q, LDQ, RHO, DLAMBDA, W, S, LDS, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ),
-     $                   W( * )
+      REAL               D( * ), DLAMBDA( * ), Q( LDQ, * ), S( LDS, * ), W( * )
 *     ..
 *
 *  =====================================================================
@@ -40,8 +38,7 @@
          INFO = -1
       ELSE IF( KSTART.LT.1 .OR. KSTART.GT.MAX( 1, K ) ) THEN
          INFO = -2
-      ELSE IF( MAX( 1, KSTOP ).LT.KSTART .OR. KSTOP.GT.MAX( 1, K ) )
-     $          THEN
+      ELSE IF( MAX( 1, KSTOP ).LT.KSTART .OR. KSTOP.GT.MAX( 1, K ) ) THEN
          INFO = -3
       ELSE IF( N.LT.K ) THEN
          INFO = -4
@@ -57,16 +54,14 @@
 *
 *     Quick return if possible
 *
-      IF( K.EQ.0 )
-     $   RETURN
+      IF( K.EQ.0 ) RETURN
 *
       DO 20 J = KSTART, KSTOP
          CALL SLAED4( K, J, DLAMBDA, W, Q( 1, J ), RHO, D( J ), INFO )
 *
 *        If the zero finder fails, the computation is terminated.
 *
-         IF( INFO.NE.0 )
-     $      GO TO 120
+         IF( INFO.NE.0 ) GO TO 120
    20 CONTINUE
 *
       IF( K.EQ.1 .OR. K.EQ.2 ) THEN

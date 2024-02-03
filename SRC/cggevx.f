@@ -1,7 +1,4 @@
-      SUBROUTINE CGGEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB,
-     $                   ALPHA, BETA, VL, LDVL, VR, LDVR, ILO, IHI,
-     $                   LSCALE, RSCALE, ABNRM, BBNRM, RCONDE, RCONDV,
-     $                   WORK, LWORK, RWORK, IWORK, BWORK, INFO )
+      SUBROUTINE CGGEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, ILO, IHI, LSCALE, RSCALE, ABNRM, BBNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, IWORK, BWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,11 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       INTEGER            IWORK( * )
-      REAL               LSCALE( * ), RCONDE( * ), RCONDV( * ),
-     $                   RSCALE( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( * )
+      REAL               LSCALE( * ), RCONDE( * ), RCONDV( * ), RSCALE( * ), RWORK( * )       COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -28,26 +21,19 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL,
-     $                   WANTSB, WANTSE, WANTSN, WANTSV
+      LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY, NOSCL, WANTSB, WANTSE, WANTSN, WANTSV
       CHARACTER          CHTEMP
-      INTEGER            I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS,
-     $                   ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS,
-     $                   SMLNUM, TEMP
+      INTEGER            I, ICOLS, IERR, IJOBVL, IJOBVR, IN, IROWS, ITAU, IWRK, IWRK1, J, JC, JR, M, MAXWRK, MINWRK       REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
       COMPLEX            X
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LDUMMA( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY,
-     $                   CLASCL, CLASET, CTGEVC, CTGSNA, CUNGQR, CUNMQR,
-     $                   SLASCL, XERBLA
+      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHRD, CHGEQZ, CLACPY, CLASCL, CLASET, CTGEVC, CTGSNA, CUNGQR, CUNMQR, SLASCL, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -101,15 +87,13 @@
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR.
-     $    LSAME( BALANC, 'B' ) ) ) THEN
+      IF( .NOT.( NOSCL .OR. LSAME( BALANC,'S' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
          INFO = -1
       ELSE IF( IJOBVL.LE.0 ) THEN
          INFO = -2
       ELSE IF( IJOBVR.LE.0 ) THEN
          INFO = -3
-      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) )
-     $          THEN
+      ELSE IF( .NOT.( WANTSN .OR. WANTSE .OR. WANTSB .OR. WANTSV ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -143,13 +127,9 @@
                MINWRK = 2*N*( N + 1)
             END IF
             MAXWRK = MINWRK
-            MAXWRK = MAX( MAXWRK,
-     $                    N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )
-            MAXWRK = MAX( MAXWRK,
-     $                    N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) )
+            MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CGEQRF', ' ', N, 1, N, 0 ) )             MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNMQR', ' ', N, 1, N, 0 ) )
             IF( ILVL ) THEN
-               MAXWRK = MAX( MAXWRK, N +
-     $                       N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) )
+               MAXWRK = MAX( MAXWRK, N + N*ILAENV( 1, 'CUNGQR', ' ', N, 1, N, 0 ) )
             END IF
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
@@ -168,8 +148,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -190,8 +169,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-      IF( ILASCL )
-     $   CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -204,30 +182,26 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-      IF( ILBSCL )
-     $   CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute and/or balance the matrix pair (A,B)
 *     (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
 *
-      CALL CGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE,
-     $             RWORK, IERR )
+      CALL CGGBAL( BALANC, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, RWORK, IERR )
 *
 *     Compute ABNRM and BBNRM
 *
       ABNRM = CLANGE( '1', N, N, A, LDA, RWORK( 1 ) )
       IF( ILASCL ) THEN
          RWORK( 1 ) = ABNRM
-         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1,
-     $                IERR )
+         CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, 1, 1, RWORK( 1 ), 1, IERR )
          ABNRM = RWORK( 1 )
       END IF
 *
       BBNRM = CLANGE( '1', N, N, B, LDB, RWORK( 1 ) )
       IF( ILBSCL ) THEN
          RWORK( 1 ) = BBNRM
-         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1,
-     $                IERR )
+         CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, 1, 1, RWORK( 1 ), 1, IERR )
          BBNRM = RWORK( 1 )
       END IF
 *
@@ -242,15 +216,12 @@
       END IF
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the unitary transformation to A
 *     (Complex Workspace: need N, prefer N*NB)
 *
-      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VL and/or VR
 *     (Workspace: need N, prefer N*NB)
@@ -258,15 +229,12 @@
       IF( ILVL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
-            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VL( ILO+1, ILO ), LDVL )
+            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
          END IF
-         CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
-      IF( ILVR )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
+      IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 *
 *     Reduce to generalized Hessenberg form
 *     (Workspace: none needed)
@@ -275,11 +243,9 @@
 *
 *        Eigenvectors requested -- work on whole matrix.
 *
-         CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL,
-     $                LDVL, VR, LDVR, IERR )
+         CALL CGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IERR )
       ELSE
-         CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA,
-     $                B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
+         CALL CGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IERR )
       END IF
 *
 *     Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -294,9 +260,7 @@
          CHTEMP = 'E'
       END IF
 *
-      CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ),
-     $             LWORK+1-IWRK, RWORK, IERR )
+      CALL CHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -326,9 +290,7 @@
                CHTEMP = 'R'
             END IF
 *
-            CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL,
-     $                   LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK,
-     $                   IERR )
+            CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK, IERR )
             IF( IERR.NE.0 ) THEN
                INFO = N + 2
                GO TO 90
@@ -357,19 +319,14 @@
                IWRK1 = IWRK + N
 *
                IF( WANTSE .OR. WANTSB ) THEN
-                  CALL CTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB,
-     $                         WORK( 1 ), N, WORK( IWRK ), N, 1, M,
-     $                         WORK( IWRK1 ), RWORK, IERR )
+                  CALL CTGEVC( 'B', 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, 1, M, WORK( IWRK1 ), RWORK, IERR )
                   IF( IERR.NE.0 ) THEN
                      INFO = N + 2
                      GO TO 90
                   END IF
                END IF
 *
-               CALL CTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB,
-     $                      WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ),
-     $                      RCONDV( I ), 1, M, WORK( IWRK1 ),
-     $                      LWORK-IWRK1+1, IWORK, IERR )
+               CALL CTGSNA( SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR )
 *
    20       CONTINUE
          END IF
@@ -379,16 +336,14 @@
 *     (Workspace: none needed)
 *
       IF( ILVL ) THEN
-         CALL CGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL,
-     $                LDVL, IERR )
+         CALL CGGBAK( BALANC, 'L', N, ILO, IHI, LSCALE, RSCALE, N, VL, LDVL, IERR )
 *
          DO 50 JC = 1, N
             TEMP = ZERO
             DO 30 JR = 1, N
                TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
    30       CONTINUE
-            IF( TEMP.LT.SMLNUM )
-     $         GO TO 50
+            IF( TEMP.LT.SMLNUM ) GO TO 50
             TEMP = ONE / TEMP
             DO 40 JR = 1, N
                VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -397,15 +352,13 @@
       END IF
 *
       IF( ILVR ) THEN
-         CALL CGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR,
-     $                LDVR, IERR )
+         CALL CGGBAK( BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR )
          DO 80 JC = 1, N
             TEMP = ZERO
             DO 60 JR = 1, N
                TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
    60       CONTINUE
-            IF( TEMP.LT.SMLNUM )
-     $         GO TO 80
+            IF( TEMP.LT.SMLNUM ) GO TO 80
             TEMP = ONE / TEMP
             DO 70 JR = 1, N
                VR( JR, JC ) = VR( JR, JC )*TEMP
@@ -417,11 +370,9 @@
 *
    90 CONTINUE
 *
-      IF( ILASCL )
-     $   CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
+      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
 *
-      IF( ILBSCL )
-     $   CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN

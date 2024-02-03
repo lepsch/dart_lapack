@@ -1,5 +1,4 @@
-      SUBROUTINE ZPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND,
-     $                   RESID )
+      SUBROUTINE ZPPT03( UPLO, N, A, AINV, WORK, LDWORK, RWORK, RCOND, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,8 +20,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J, JJ
@@ -86,11 +84,9 @@
 *        Multiply by A
 *
          DO 40 J = 1, N - 1
-            CALL ZHPMV( 'Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO,
-     $                  WORK( 1, J ), 1 )
+            CALL ZHPMV( 'Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 )
    40    CONTINUE
-         CALL ZHPMV( 'Upper', N, -CONE, A, AINV( JJ ), 1, CZERO,
-     $               WORK( 1, N ), 1 )
+         CALL ZHPMV( 'Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 )
 *
 *     UPLO = 'L':
 *     Copy the trailing N-1 x N-1 submatrix of AINV to WORK(1:N,1:N-1)
@@ -115,11 +111,9 @@
 *        Multiply by A
 *
          DO 80 J = N, 2, -1
-            CALL ZHPMV( 'Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO,
-     $                  WORK( 1, J ), 1 )
+            CALL ZHPMV( 'Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 )
    80    CONTINUE
-         CALL ZHPMV( 'Lower', N, -CONE, A, AINV( 1 ), 1, CZERO,
-     $               WORK( 1, 1 ), 1 )
+         CALL ZHPMV( 'Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 )
 *
       END IF
 *

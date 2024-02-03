@@ -1,24 +1,18 @@
-      SUBROUTINE ZDRVSX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NIUNIT, NOUNIT, A, LDA, H, HT, W, WT, WTMP, VS,
-     $                   LDVS, VS1, RESULT, WORK, LWORK, RWORK, BWORK,
-     $                   INFO )
+      SUBROUTINE ZDRVSX( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NIUNIT, NOUNIT, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RESULT, WORK, LWORK, RWORK, BWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDVS, LWORK, NIUNIT, NOUNIT, NSIZES,
-     $                   NTYPES
+      INTEGER            INFO, LDA, LDVS, LWORK, NIUNIT, NOUNIT, NSIZES, NTYPES
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * ), DOTYPE( * )
       INTEGER            ISEED( 4 ), NN( * )
       DOUBLE PRECISION   RESULT( 17 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ),
-     $                   VS( LDVS, * ), VS1( LDVS, * ), W( * ),
-     $                   WORK( * ), WT( * ), WTMP( * )
+      COMPLEX*16         A( LDA, * ), H( LDA, * ), HT( LDA, * ), VS( LDVS, * ), VS1( LDVS, * ), W( * ), WORK( * ), WT( * ), WTMP( * )
 *     ..
 *
 *  =====================================================================
@@ -36,16 +30,11 @@
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL,
-     $                   JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX,
-     $                   NNWORK, NSLCT, NTEST, NTESTF, NTESTT
-      DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RCDEIN, RCDVIN,
-     $                   RTULP, RTULPI, ULP, ULPINV, UNFL
+      INTEGER            I, IINFO, IMODE, ISRT, ITYPE, IWK, J, JCOL, JSIZE, JTYPE, MTYPES, N, NERRS, NFAIL, NMAX, NNWORK, NSLCT, NTEST, NTESTF, NTESTT
+      DOUBLE PRECISION   ANORM, COND, CONDS, OVFL, RCDEIN, RCDVIN, RTULP, RTULPI, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISLCT( 20 ),
-     $                   KCONDS( MAXTYP ), KMAGN( MAXTYP ),
-     $                   KMODE( MAXTYP ), KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISLCT( 20 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. Arrays in Common ..
       LOGICAL            SELVAL( 20 )
@@ -62,18 +51,14 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASUM, XERBLA, ZGET24, ZLASET, ZLATME,
-     $                   ZLATMR, ZLATMS
+      EXTERNAL           DLASUM, XERBLA, ZGET24, ZLASET, ZLATME, ZLATMR, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2,
-     $                   3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3,
-     $                   1, 5, 5, 5, 4, 3, 1 /
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
 *     ..
 *     .. Executable Statements ..
@@ -97,8 +82,7 @@
       NMAX = 8
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -130,8 +114,7 @@
 *
 *     If nothing to do check on NIUNIT
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   GO TO 150
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) GO TO 150
 *
 *     More Important constants
 *
@@ -155,8 +138,7 @@
          END IF
 *
          DO 130 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 130
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 130
 *
 *           Save ISEED in case of an error.
 *
@@ -180,8 +162,7 @@
 *       =9                              random general
 *       =10                             random triangular
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -230,25 +211,20 @@
 *
                DO 80 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 )
-     $               A( JCOL, JCOL-1 ) = CONE
+                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
    80          CONTINUE
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Symmetric, eigenvalues specified
 *
-               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL ZLATMS( N, N, 'S', ISEED, 'H', RWORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
@@ -262,54 +238,35 @@
                   CONDS = ZERO
                END IF
 *
-               CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE,
-     $                      'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM,
-     $                      A, LDA, WORK( 2*N+1 ), IINFO )
+               CALL ZLATME( N, 'D', ISEED, WORK, IMODE, COND, CONE, 'T', 'T', 'T', RWORK, 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Symmetric, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               CALL ZLATMR( N, N, 'D', ISEED, 'H', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              General, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
                IF( N.GE.4 ) THEN
                   CALL ZLASET( 'Full', 2, N, CZERO, CZERO, A, LDA )
-                  CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ),
-     $                         LDA )
-                  CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO,
-     $                         A( 3, N-1 ), LDA )
-                  CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ),
-     $                         LDA )
+                  CALL ZLASET( 'Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL ZLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL ZLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA )
                END IF
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Triangular, random eigenvalues
 *
-               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
+               CALL ZLATMR( N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO )
 *
             ELSE
 *
@@ -317,8 +274,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9991 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -335,24 +291,17 @@
                END IF
                NNWORK = MAX( NNWORK, 1 )
 *
-               CALL ZGET24( .FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N,
-     $                      A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1,
-     $                      RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT,
-     $                      WORK, NNWORK, RWORK, BWORK, INFO )
+               CALL ZGET24( .FALSE., JTYPE, THRESH, IOLDSD, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, 0, RESULT, WORK, NNWORK, RWORK, BWORK, INFO )
 *
 *              Check for RESULT(j) > THRESH
 *
                NTEST = 0
                NFAIL = 0
                DO 100 J = 1, 15
-                  IF( RESULT( J ).GE.ZERO )
-     $               NTEST = NTEST + 1
-                  IF( RESULT( J ).GE.THRESH )
-     $               NFAIL = NFAIL + 1
+                  IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   100          CONTINUE
 *
-               IF( NFAIL.GT.0 )
-     $            NTESTF = NTESTF + 1
+               IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                IF( NTESTF.EQ.1 ) THEN
                   WRITE( NOUNIT, FMT = 9999 )PATH
                   WRITE( NOUNIT, FMT = 9998 )
@@ -365,8 +314,7 @@
 *
                DO 110 J = 1, 15
                   IF( RESULT( J ).GE.THRESH ) THEN
-                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE,
-     $                  J, RESULT( J )
+                     WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   END IF
   110          CONTINUE
 *
@@ -385,8 +333,7 @@
       JTYPE = 0
   160 CONTINUE
       READ( NIUNIT, FMT = *, END = 200 )N, NSLCT, ISRT
-      IF( N.EQ.0 )
-     $   GO TO 200
+      IF( N.EQ.0 ) GO TO 200
       JTYPE = JTYPE + 1
       ISEED( 1 ) = JTYPE
       READ( NIUNIT, FMT = * )( ISLCT( I ), I = 1, NSLCT )
@@ -395,24 +342,17 @@
   170 CONTINUE
       READ( NIUNIT, FMT = * )RCDEIN, RCDVIN
 *
-      CALL ZGET24( .TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT,
-     $             W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT,
-     $             ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK,
-     $             INFO )
+      CALL ZGET24( .TRUE., 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, HT, W, WT, WTMP, VS, LDVS, VS1, RCDEIN, RCDVIN, NSLCT, ISLCT, ISRT, RESULT, WORK, LWORK, RWORK, BWORK, INFO )
 *
 *     Check for RESULT(j) > THRESH
 *
       NTEST = 0
       NFAIL = 0
       DO 180 J = 1, 17
-         IF( RESULT( J ).GE.ZERO )
-     $      NTEST = NTEST + 1
-         IF( RESULT( J ).GE.THRESH )
-     $      NFAIL = NFAIL + 1
+         IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
   180 CONTINUE
 *
-      IF( NFAIL.GT.0 )
-     $   NTESTF = NTESTF + 1
+      IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
       IF( NTESTF.EQ.1 ) THEN
          WRITE( NOUNIT, FMT = 9999 )PATH
          WRITE( NOUNIT, FMT = 9998 )

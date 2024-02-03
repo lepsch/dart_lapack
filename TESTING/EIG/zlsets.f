@@ -1,5 +1,4 @@
-      SUBROUTINE ZLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF,
-     $                   X, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,9 +12,7 @@
 *  ====================================================================
 *
       DOUBLE PRECISION   RESULT( 2 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ),
-     $                   WORK( LWORK ), X( * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), CF( * ), D( * ), DF( * ), WORK( LWORK ), X( * )
 *     ..
 *     .. Local Scalars ..
       INTEGER            INFO
@@ -35,8 +32,7 @@
 *
 *     Solve LSE problem
 *
-      CALL ZGGLSE( M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK,
-     $             INFO )
+      CALL ZGGLSE( M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO )
 *
 *     Test the residual for the solution of LSE
 *
@@ -44,13 +40,11 @@
 *
       CALL ZCOPY( M, C, 1, CF, 1 )
       CALL ZCOPY( P, D, 1, DF, 1 )
-      CALL ZGET02( 'No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK,
-     $             RESULT( 1 ) )
+      CALL ZGET02( 'No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT( 1 ) )
 *
 *     Compute result(2) = norm( B*x - d ) / norm(B)*norm(X)*EPS
 *
-      CALL ZGET02( 'No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK,
-     $             RESULT( 2 ) )
+      CALL ZGET02( 'No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) )
 *
       RETURN
 *

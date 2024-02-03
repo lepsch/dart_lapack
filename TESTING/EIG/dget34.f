@@ -23,13 +23,11 @@
       PARAMETER          ( LWORK = 32 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC,
-     $                   IC11, IC12, IC21, IC22, ICM, INFO, J
+      INTEGER            I, IA, IA11, IA12, IA21, IA22, IAM, IB, IC, IC11, IC12, IC21, IC22, ICM, INFO, J
       DOUBLE PRECISION   BIGNUM, EPS, RES, SMLNUM, TNRM
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ),
-     $                   VAL( 9 ), VM( 2 ), WORK( LWORK )
+      DOUBLE PRECISION   Q( 4, 4 ), RESULT( 2 ), T( 4, 4 ), T1( 4, 4 ), VAL( 9 ), VM( 2 ), WORK( LWORK )
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
@@ -80,26 +78,13 @@
                   T( 2, 2 ) = VAL( IC )
                   T( 1, 2 ) = VAL( IB )
                   T( 2, 1 ) = ZERO
-                  TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 2, 2 ) ),
-     $                   ABS( T( 1, 2 ) ) )
+                  TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 2, 2 ) ), ABS( T( 1, 2 ) ) )
                   CALL DCOPY( 16, T, 1, T1, 1 )
                   CALL DCOPY( 16, VAL( 1 ), 0, Q, 1 )
                   CALL DCOPY( 4, VAL( 3 ), 0, Q, 5 )
-                  CALL DLAEXC( .TRUE., 2, T, 4, Q, 4, 1, 1, 1, WORK,
-     $                         INFO )
-                  IF( INFO.NE.0 )
-     $               NINFO( INFO ) = NINFO( INFO ) + 1
-                  CALL DHST01( 2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK,
-     $                         RESULT )
+                  CALL DLAEXC( .TRUE., 2, T, 4, Q, 4, 1, 1, 1, WORK, INFO )                   IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1                   CALL DHST01( 2, 1, 2, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT )
                   RES = RESULT( 1 ) + RESULT( 2 )
-                  IF( INFO.NE.0 )
-     $               RES = RES + ONE / EPS
-                  IF( T( 1, 1 ).NE.T1( 2, 2 ) )
-     $               RES = RES + ONE / EPS
-                  IF( T( 2, 2 ).NE.T1( 1, 1 ) )
-     $               RES = RES + ONE / EPS
-                  IF( T( 2, 1 ).NE.ZERO )
-     $               RES = RES + ONE / EPS
+                  IF( INFO.NE.0 ) RES = RES + ONE / EPS                   IF( T( 1, 1 ).NE.T1( 2, 2 ) ) RES = RES + ONE / EPS                   IF( T( 2, 2 ).NE.T1( 1, 1 ) ) RES = RES + ONE / EPS                   IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS
                   KNT = KNT + 1
                   IF( RES.GT.RMAX ) THEN
                      LMAX = KNT
@@ -126,32 +111,14 @@
                            T( 3, 1 ) = ZERO
                            T( 3, 2 ) = -VAL( IC21 )
                            T( 3, 3 ) = VAL( IC11 )*DBLE( IC22 )
-                           TNRM = MAX( ABS( T( 1, 1 ) ),
-     $                            ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ),
-     $                            ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ),
-     $                            ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) )
+                           TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) )
                            CALL DCOPY( 16, T, 1, T1, 1 )
                            CALL DCOPY( 16, VAL( 1 ), 0, Q, 1 )
                            CALL DCOPY( 4, VAL( 3 ), 0, Q, 5 )
-                           CALL DLAEXC( .TRUE., 3, T, 4, Q, 4, 1, 1, 2,
-     $                                  WORK, INFO )
-                           IF( INFO.NE.0 )
-     $                        NINFO( INFO ) = NINFO( INFO ) + 1
-                           CALL DHST01( 3, 1, 3, T1, 4, T, 4, Q, 4,
-     $                                  WORK, LWORK, RESULT )
+                           CALL DLAEXC( .TRUE., 3, T, 4, Q, 4, 1, 1, 2, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1                            CALL DHST01( 3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT )
                            RES = RESULT( 1 ) + RESULT( 2 )
                            IF( INFO.EQ.0 ) THEN
-                              IF( T1( 1, 1 ).NE.T( 3, 3 ) )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 3, 1 ).NE.ZERO )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 3, 2 ).NE.ZERO )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 2, 1 ).NE.0 .AND.
-     $                            ( T( 1, 1 ).NE.T( 2,
-     $                            2 ) .OR. SIGN( ONE, T( 1,
-     $                            2 ) ).EQ.SIGN( ONE, T( 2, 1 ) ) ) )
-     $                            RES = RES + ONE / EPS
+                              IF( T1( 1, 1 ).NE.T( 3, 3 ) ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ).EQ.SIGN( ONE, T( 2, 1 ) ) ) ) RES = RES + ONE / EPS
                            END IF
                            KNT = KNT + 1
                            IF( RES.GT.RMAX ) THEN
@@ -182,32 +149,14 @@
                            T( 3, 1 ) = ZERO
                            T( 3, 2 ) = ZERO
                            T( 3, 3 ) = VAL( IC )*VM( ICM )
-                           TNRM = MAX( ABS( T( 1, 1 ) ),
-     $                            ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ),
-     $                            ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ),
-     $                            ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) )
+                           TNRM = MAX( ABS( T( 1, 1 ) ), ABS( T( 1, 2 ) ), ABS( T( 1, 3 ) ), ABS( T( 2, 2 ) ), ABS( T( 2, 3 ) ), ABS( T( 3, 2 ) ), ABS( T( 3, 3 ) ) )
                            CALL DCOPY( 16, T, 1, T1, 1 )
                            CALL DCOPY( 16, VAL( 1 ), 0, Q, 1 )
                            CALL DCOPY( 4, VAL( 3 ), 0, Q, 5 )
-                           CALL DLAEXC( .TRUE., 3, T, 4, Q, 4, 1, 2, 1,
-     $                                  WORK, INFO )
-                           IF( INFO.NE.0 )
-     $                        NINFO( INFO ) = NINFO( INFO ) + 1
-                           CALL DHST01( 3, 1, 3, T1, 4, T, 4, Q, 4,
-     $                                  WORK, LWORK, RESULT )
+                           CALL DLAEXC( .TRUE., 3, T, 4, Q, 4, 1, 2, 1, WORK, INFO )                            IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1                            CALL DHST01( 3, 1, 3, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT )
                            RES = RESULT( 1 ) + RESULT( 2 )
                            IF( INFO.EQ.0 ) THEN
-                              IF( T1( 3, 3 ).NE.T( 1, 1 ) )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 2, 1 ).NE.ZERO )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 3, 1 ).NE.ZERO )
-     $                           RES = RES + ONE / EPS
-                              IF( T( 3, 2 ).NE.0 .AND.
-     $                            ( T( 2, 2 ).NE.T( 3,
-     $                            3 ) .OR. SIGN( ONE, T( 2,
-     $                            3 ) ).EQ.SIGN( ONE, T( 3, 2 ) ) ) )
-     $                            RES = RES + ONE / EPS
+                              IF( T1( 3, 3 ).NE.T( 1, 1 ) ) RES = RES + ONE / EPS                               IF( T( 2, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                               IF( T( 3, 2 ).NE.0 .AND. ( T( 2, 2 ).NE.T( 3, 3 ) .OR. SIGN( ONE, T( 2, 3 ) ).EQ.SIGN( ONE, T( 3, 2 ) ) ) ) RES = RES + ONE / EPS
                            END IF
                            KNT = KNT + 1
                            IF( RES.GT.RMAX ) THEN
@@ -238,62 +187,28 @@
                                     T( 1, 3 ) = -TWO*VAL( IB )
                                     T( 1, 4 ) = HALF*VAL( IB )
                                     T( 2, 1 ) = -T( 1, 2 )*VAL( IA21 )
-                                    T( 2, 2 ) = VAL( IA11 )*
-     $                                          DBLE( IA22 )*VM( IAM )
+                                    T( 2, 2 ) = VAL( IA11 )* DBLE( IA22 )*VM( IAM )
                                     T( 2, 3 ) = VAL( IB )
                                     T( 2, 4 ) = THREE*VAL( IB )
                                     T( 3, 1 ) = ZERO
                                     T( 3, 2 ) = ZERO
-                                    T( 3, 3 ) = VAL( IC11 )*
-     $                                          ABS( VAL( ICM ) )
-                                    T( 3, 4 ) = VAL( IC12 )*
-     $                                          ABS( VAL( ICM ) )
+                                    T( 3, 3 ) = VAL( IC11 )* ABS( VAL( ICM ) )                                     T( 3, 4 ) = VAL( IC12 )* ABS( VAL( ICM ) )
                                     T( 4, 1 ) = ZERO
                                     T( 4, 2 ) = ZERO
-                                    T( 4, 3 ) = -T( 3, 4 )*VAL( IC21 )*
-     $                                          ABS( VAL( ICM ) )
-                                    T( 4, 4 ) = VAL( IC11 )*
-     $                                          DBLE( IC22 )*
-     $                                          ABS( VAL( ICM ) )
+                                    T( 4, 3 ) = -T( 3, 4 )*VAL( IC21 )* ABS( VAL( ICM ) )                                     T( 4, 4 ) = VAL( IC11 )* DBLE( IC22 )* ABS( VAL( ICM ) )
                                     TNRM = ZERO
                                     DO 200 I = 1, 4
                                        DO 190 J = 1, 4
-                                          TNRM = MAX( TNRM,
-     $                                           ABS( T( I, J ) ) )
+                                          TNRM = MAX( TNRM, ABS( T( I, J ) ) )
   190                                  CONTINUE
   200                               CONTINUE
                                     CALL DCOPY( 16, T, 1, T1, 1 )
                                     CALL DCOPY( 16, VAL( 1 ), 0, Q, 1 )
                                     CALL DCOPY( 4, VAL( 3 ), 0, Q, 5 )
-                                    CALL DLAEXC( .TRUE., 4, T, 4, Q, 4,
-     $                                           1, 2, 2, WORK, INFO )
-                                    IF( INFO.NE.0 )
-     $                                 NINFO( INFO ) = NINFO( INFO ) + 1
-                                    CALL DHST01( 4, 1, 4, T1, 4, T, 4,
-     $                                           Q, 4, WORK, LWORK,
-     $                                           RESULT )
+                                    CALL DLAEXC( .TRUE., 4, T, 4, Q, 4, 1, 2, 2, WORK, INFO )                                     IF( INFO.NE.0 ) NINFO( INFO ) = NINFO( INFO ) + 1                                     CALL DHST01( 4, 1, 4, T1, 4, T, 4, Q, 4, WORK, LWORK, RESULT )
                                     RES = RESULT( 1 ) + RESULT( 2 )
                                     IF( INFO.EQ.0 ) THEN
-                                       IF( T( 3, 1 ).NE.ZERO )
-     $                                    RES = RES + ONE / EPS
-                                       IF( T( 4, 1 ).NE.ZERO )
-     $                                    RES = RES + ONE / EPS
-                                       IF( T( 3, 2 ).NE.ZERO )
-     $                                    RES = RES + ONE / EPS
-                                       IF( T( 4, 2 ).NE.ZERO )
-     $                                    RES = RES + ONE / EPS
-                                       IF( T( 2, 1 ).NE.0 .AND.
-     $                                     ( T( 1, 1 ).NE.T( 2,
-     $                                     2 ) .OR. SIGN( ONE, T( 1,
-     $                                     2 ) ).EQ.SIGN( ONE, T( 2,
-     $                                     1 ) ) ) )RES = RES +
-     $                                     ONE / EPS
-                                       IF( T( 4, 3 ).NE.0 .AND.
-     $                                     ( T( 3, 3 ).NE.T( 4,
-     $                                     4 ) .OR. SIGN( ONE, T( 3,
-     $                                     4 ) ).EQ.SIGN( ONE, T( 4,
-     $                                     3 ) ) ) )RES = RES +
-     $                                     ONE / EPS
+                                       IF( T( 3, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 1 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 3, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 4, 2 ).NE.ZERO ) RES = RES + ONE / EPS                                        IF( T( 2, 1 ).NE.0 .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) ).EQ.SIGN( ONE, T( 2, 1 ) ) ) )RES = RES + ONE / EPS                                        IF( T( 4, 3 ).NE.0 .AND. ( T( 3, 3 ).NE.T( 4, 4 ) .OR. SIGN( ONE, T( 3, 4 ) ).EQ.SIGN( ONE, T( 4, 3 ) ) ) )RES = RES + ONE / EPS
                                     END IF
                                     KNT = KNT + 1
                                     IF( RES.GT.RMAX ) THEN

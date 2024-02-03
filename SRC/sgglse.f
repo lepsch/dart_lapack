@@ -1,5 +1,4 @@
-      SUBROUTINE SGGLSE( M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE SGGLSE( M, N, P, A, LDA, B, LDB, C, D, X, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), C( * ), D( * ),
-     $                   WORK( * ), X( * )
+      REAL               A( LDA, * ), B( LDB, * ), C( * ), D( * ), WORK( * ), X( * )
 *     ..
 *
 *  =====================================================================
@@ -21,12 +19,10 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3,
-     $                   NB4, NR
+      INTEGER            LOPT, LWKMIN, LWKOPT, MN, NB, NB1, NB2, NB3, NB4, NR
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMV, SGGRQF, SORMQR, SORMRQ,
-     $                   STRMV, STRTRS, XERBLA
+      EXTERNAL           SAXPY, SCOPY, SGEMV, SGGRQF, SORMQR, SORMRQ, STRMV, STRTRS, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -86,8 +82,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Compute the GRQ factorization of matrices B and A:
 *
@@ -98,22 +93,19 @@
 *     where T12 and R11 are upper triangular, and Q and Z are
 *     orthogonal.
 *
-      CALL SGGRQF( P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ),
-     $             WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      CALL SGGRQF( P, M, N, B, LDB, WORK, A, LDA, WORK( P+1 ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
       LOPT = INT( WORK( P+MN+1 ) )
 *
 *     Update c = Z**T *c = ( c1 ) N-P
 *                          ( c2 ) M+P-N
 *
-      CALL SORMQR( 'Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ),
-     $             C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      CALL SORMQR( 'Left', 'Transpose', M, 1, MN, A, LDA, WORK( P+1 ), C, MAX( 1, M ), WORK( P+MN+1 ), LWORK-P-MN, INFO )
       LOPT = MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 *
 *     Solve T12*x2 = d for x2
 *
       IF( P.GT.0 ) THEN
-         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1,
-     $                B( 1, N-P+1 ), LDB, D, P, INFO )
+         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', P, 1, B( 1, N-P+1 ), LDB, D, P, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 1
@@ -126,15 +118,13 @@
 *
 *        Update c1
 *
-         CALL SGEMV( 'No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA,
-     $               D, 1, ONE, C, 1 )
+         CALL SGEMV( 'No transpose', N-P, P, -ONE, A( 1, N-P+1 ), LDA, D, 1, ONE, C, 1 )
       END IF
 *
 *     Solve R11*x1 = c1 for x1
 *
       IF( N.GT.P ) THEN
-         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1,
-     $                A, LDA, C, N-P, INFO )
+         CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N-P, 1, A, LDA, C, N-P, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 2
@@ -150,22 +140,18 @@
 *
       IF( M.LT.N ) THEN
          NR = M + P - N
-         IF( NR.GT.0 )
-     $      CALL SGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ),
-     $                  LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 )
+         IF( NR.GT.0 ) CALL SGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 )
       ELSE
          NR = P
       END IF
       IF( NR.GT.0 ) THEN
-         CALL STRMV( 'Upper', 'No transpose', 'Non unit', NR,
-     $               A( N-P+1, N-P+1 ), LDA, D, 1 )
+         CALL STRMV( 'Upper', 'No transpose', 'Non unit', NR, A( N-P+1, N-P+1 ), LDA, D, 1 )
          CALL SAXPY( NR, -ONE, D, 1, C( N-P+1 ), 1 )
       END IF
 *
 *     Backward transformation x = Q**T*x
 *
-      CALL SORMRQ( 'Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X,
-     $             N, WORK( P+MN+1 ), LWORK-P-MN, INFO )
+      CALL SORMRQ( 'Left', 'Transpose', N, 1, P, B, LDB, WORK( 1 ), X, N, WORK( P+MN+1 ), LWORK-P-MN, INFO )
       WORK( 1 ) = P + MN + MAX( LOPT, INT( WORK( P+MN+1 ) ) )
 *
       RETURN

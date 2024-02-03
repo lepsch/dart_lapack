@@ -1,5 +1,4 @@
-      SUBROUTINE ZBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK,
-     $                   RESID )
+      SUBROUTINE ZBDT03( UPLO, N, KD, D, E, U, LDU, S, VT, LDVT, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,8 +41,7 @@
 *     Quick return if possible
 *
       RESID = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Compute B - U * S * V' one column at a time.
 *
@@ -60,8 +58,7 @@
                DO 10 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    10          CONTINUE
-               CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU,
-     $                     WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
+               CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
                IF( J.GT.1 ) THEN
                   WORK( J-1 ) = WORK( J-1 ) + E( J-1 )
@@ -79,8 +76,7 @@
                DO 30 I = 1, N
                   WORK( N+I ) = S( I )*VT( I, J )
    30          CONTINUE
-               CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU,
-     $                     WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
+               CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
                WORK( J ) = WORK( J ) + D( J )
                IF( J.LT.N ) THEN
                   WORK( J+1 ) = WORK( J+1 ) + E( J )
@@ -99,8 +95,7 @@
             DO 50 I = 1, N
                WORK( N+I ) = S( I )*VT( I, J )
    50       CONTINUE
-            CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU,
-     $                  WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
+            CALL ZGEMV( 'No transpose', N, N, -DCMPLX( ONE ), U, LDU, WORK( N+1 ), 1, DCMPLX( ZERO ), WORK, 1 )
             WORK( J ) = WORK( J ) + D( J )
             RESID = MAX( RESID, DZASUM( N, WORK, 1 ) )
    60    CONTINUE
@@ -113,18 +108,15 @@
       EPS = DLAMCH( 'Precision' )
 *
       IF( BNORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( DBLE( N )*EPS )
          ELSE
             IF( BNORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = ( MIN( RESID, DBLE( N )*BNORM ) / BNORM ) / ( DBLE( N )*EPS )
             ELSE
-               RESID = MIN( RESID / BNORM, DBLE( N ) ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = MIN( RESID / BNORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF
       END IF

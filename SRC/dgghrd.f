@@ -1,5 +1,4 @@
-      SUBROUTINE DGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q,
-     $                   LDQ, Z, LDZ, INFO )
+      SUBROUTINE DGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -96,15 +94,11 @@
 *
 *     Initialize Q and Z if desired.
 *
-      IF( ICOMPQ.EQ.3 )
-     $   CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
-      IF( ICOMPZ.EQ.3 )
-     $   CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
+      IF( ICOMPQ.EQ.3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ )
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
 *     Zero out lower triangle of B
 *
@@ -123,27 +117,17 @@
 *           Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 *
             TEMP = A( JROW-1, JCOL )
-            CALL DLARTG( TEMP, A( JROW, JCOL ), C, S,
-     $                   A( JROW-1, JCOL ) )
+            CALL DLARTG( TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) )
             A( JROW, JCOL ) = ZERO
-            CALL DROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA,
-     $                 A( JROW, JCOL+1 ), LDA, C, S )
-            CALL DROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB,
-     $                 B( JROW, JROW-1 ), LDB, C, S )
-            IF( ILQ )
-     $         CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S )
+            CALL DROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL DROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S )
 *
 *           Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 *
             TEMP = B( JROW, JROW )
-            CALL DLARTG( TEMP, B( JROW, JROW-1 ), C, S,
-     $                   B( JROW, JROW ) )
+            CALL DLARTG( TEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) )
             B( JROW, JROW-1 ) = ZERO
             CALL DROT( IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S )
-            CALL DROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C,
-     $                 S )
-            IF( ILZ )
-     $         CALL DROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
+            CALL DROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL DROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
    30    CONTINUE
    40 CONTINUE
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE DPOT06( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB,
-     $                   RWORK, RESID )
+      SUBROUTINE DPOT06( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), RWORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -58,8 +56,7 @@
 *     Compute  B - A*X  and store in B.
       IFAIL=0
 *
-      CALL DSYMM( 'Left', UPLO, N, NRHS, NEGONE, A, LDA, X,
-     $            LDX, ONE, B, LDB )
+      CALL DSYMM( 'Left', UPLO, N, NRHS, NEGONE, A, LDA, X, LDX, ONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm(B - A*X) / ( norm(A) * norm(X) * EPS ) .

@@ -1,5 +1,4 @@
-      SUBROUTINE CHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ,
-     $                         WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CHBEV_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -24,21 +23,16 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, WANTZ, LQUERY
-      INTEGER            IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDWRK, INDRWK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, IB, INDHOUS       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ILAENV2STAGE
       REAL               SLAMCH, CLANHB, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, CLANHB, ILAENV2STAGE,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SLAMCH, CLANHB, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR,
-     $                   CHETRD_2STAGE, CHETRD_HB2ST
+      EXTERNAL           SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR, CHETRD_2STAGE, CHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          REAL, SQRT
@@ -71,18 +65,12 @@
             LWMIN = 1
             WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
          ELSE
-            IB    = ILAENV2STAGE( 2, 'CHETRD_HB2ST', JOBZ,
-     $                            N, KD, -1, -1 )
-            LHTRD = ILAENV2STAGE( 3, 'CHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
-            LWTRD = ILAENV2STAGE( 4, 'CHETRD_HB2ST', JOBZ,
-     $                            N, KD, IB, -1 )
+            IB    = ILAENV2STAGE( 2, 'CHETRD_HB2ST', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'CHETRD_HB2ST', JOBZ, N, KD, IB, -1 )
             LWMIN = LHTRD + LWTRD
             WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
          ENDIF
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -11
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -11
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -94,8 +82,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( LOWER ) THEN
@@ -103,8 +90,7 @@
          ELSE
             W( 1 ) = REAL( AB( KD+1, 1 ) )
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -143,9 +129,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL CHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W,
-     $                    RWORK( INDE ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL CHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, call CSTEQR.
 *
@@ -153,8 +137,7 @@
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
          INDRWK = INDE + N
-         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ,
-     $                RWORK( INDRWK ), INFO )
+         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), Z, LDZ, RWORK( INDRWK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

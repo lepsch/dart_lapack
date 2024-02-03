@@ -12,8 +12,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF,
-     $                   NEGZRO, NEWZRO, POSINF
+      REAL               NAN1, NAN2, NAN3, NAN4, NAN5, NAN6, NEGINF, NEGZRO, NEWZRO, POSINF
 *     ..
 *     .. Executable Statements ..
       IEEECK = 1
@@ -71,8 +70,7 @@
 *
 *     Return if we were only asked to check infinity arithmetic
 *
-      IF( ISPEC.EQ.0 )
-     $   RETURN
+      IF( ISPEC.EQ.0 ) RETURN
 *
       NAN1 = POSINF + NEGINF
 *

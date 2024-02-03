@@ -68,8 +68,7 @@
 *           Convert generated numbers to normal (0,1) distribution
 *
             DO 30 I = 1, IL
-               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )*
-     $                       COS( TWOPI*U( 2*I ) )
+               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) )
    30       CONTINUE
          END IF
    40 CONTINUE

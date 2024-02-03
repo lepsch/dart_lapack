@@ -57,8 +57,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get block size
 *
@@ -67,8 +66,7 @@
 *
 *        Use unblocked code
 *
-         CALL SPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK,
-     $                INFO )
+         CALL SPSTF2( UPLO, N, A( 1, 1 ), LDA, PIV, RANK, TOL, WORK, INFO )
          GO TO 200
 *
       ELSE
@@ -152,11 +150,8 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL SSWAP( J-1, A( 1, J ), 1, A( 1, PVT ), 1 )
-                     IF( PVT.LT.N )
-     $                  CALL SSWAP( N-PVT, A( J, PVT+1 ), LDA,
-     $                              A( PVT, PVT+1 ), LDA )
-                     CALL SSWAP( PVT-J-1, A( J, J+1 ), LDA,
-     $                           A( J+1, PVT ), 1 )
+                     IF( PVT.LT.N ) CALL SSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA )
+                     CALL SSWAP( PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 )
 *
 *                    Swap dot products and PIV
 *
@@ -174,9 +169,7 @@
 *                 Compute elements J+1:N of row J.
 *
                   IF( J.LT.N ) THEN
-                     CALL SGEMV( 'Trans', J-K, N-J, -ONE, A( K, J+1 ),
-     $                           LDA, A( K, J ), 1, ONE, A( J, J+1 ),
-     $                           LDA )
+                     CALL SGEMV( 'Trans', J-K, N-J, -ONE, A( K, J+1 ), LDA, A( K, J ), 1, ONE, A( J, J+1 ), LDA )
                      CALL SSCAL( N-J, ONE / AJJ, A( J, J+1 ), LDA )
                   END IF
 *
@@ -185,8 +178,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL SSYRK( 'Upper', 'Trans', N-J+1, JB, -ONE,
-     $                        A( K, J ), LDA, ONE, A( J, J ), LDA )
+                  CALL SSYRK( 'Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   140       CONTINUE
@@ -239,11 +231,8 @@
 *
                      A( PVT, PVT ) = A( J, J )
                      CALL SSWAP( J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA )
-                     IF( PVT.LT.N )
-     $                  CALL SSWAP( N-PVT, A( PVT+1, J ), 1,
-     $                              A( PVT+1, PVT ), 1 )
-                     CALL SSWAP( PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ),
-     $                           LDA )
+                     IF( PVT.LT.N ) CALL SSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 )
+                     CALL SSWAP( PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA )
 *
 *                    Swap dot products and PIV
 *
@@ -261,9 +250,7 @@
 *                 Compute elements J+1:N of column J.
 *
                   IF( J.LT.N ) THEN
-                     CALL SGEMV( 'No Trans', N-J, J-K, -ONE,
-     $                           A( J+1, K ), LDA, A( J, K ), LDA, ONE,
-     $                           A( J+1, J ), 1 )
+                     CALL SGEMV( 'No Trans', N-J, J-K, -ONE, A( J+1, K ), LDA, A( J, K ), LDA, ONE, A( J+1, J ), 1 )
                      CALL SSCAL( N-J, ONE / AJJ, A( J+1, J ), 1 )
                   END IF
 *
@@ -272,8 +259,7 @@
 *              Update trailing matrix, J already incremented
 *
                IF( K+JB.LE.N ) THEN
-                  CALL SSYRK( 'Lower', 'No Trans', N-J+1, JB, -ONE,
-     $                        A( J, K ), LDA, ONE, A( J, J ), LDA )
+                  CALL SSYRK( 'Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA )
                END IF
 *
   180       CONTINUE

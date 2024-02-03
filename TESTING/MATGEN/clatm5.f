@@ -1,31 +1,22 @@
-      SUBROUTINE CLATM5( PRTYPE, M, N, A, LDA, B, LDB, C, LDC, D, LDD,
-     $                   E, LDE, F, LDF, R, LDR, L, LDL, ALPHA, QBLCKA,
-     $                   QBLCKB )
+      SUBROUTINE CLATM5( PRTYPE, M, N, A, LDA, B, LDB, C, LDC, D, LDD, E, LDE, F, LDF, R, LDR, L, LDL, ALPHA, QBLCKA, QBLCKB )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N,
-     $                   PRTYPE, QBLCKA, QBLCKB
+      INTEGER            LDA, LDB, LDC, LDD, LDE, LDF, LDL, LDR, M, N, PRTYPE, QBLCKA, QBLCKB
       REAL               ALPHA
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ),
-     $                   D( LDD, * ), E( LDE, * ), F( LDF, * ),
-     $                   L( LDL, * ), R( LDR, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), C( LDC, * ), D( LDD, * ), E( LDE, * ), F( LDF, * ), L( LDL, * ), R( LDR, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            ONE, TWO, ZERO, HALF, TWENTY
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   TWO = ( 2.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   HALF = ( 0.5E+0, 0.0E+0 ),
-     $                   TWENTY = ( 2.0E+1, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), TWO = ( 2.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ), TWENTY = ( 2.0E+1, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J, K
@@ -110,15 +101,13 @@
   120    CONTINUE
 *
          IF( PRTYPE.EQ.3 ) THEN
-            IF( QBLCKA.LE.1 )
-     $         QBLCKA = 2
+            IF( QBLCKA.LE.1 ) QBLCKA = 2
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
                A( K+1, K ) = -SIN( A( K, K+1 ) )
   130       CONTINUE
 *
-            IF( QBLCKB.LE.1 )
-     $         QBLCKB = 2
+            IF( QBLCKB.LE.1 ) QBLCKB = 2
             DO 140 K = 1, N - 1, QBLCKB
                B( K+1, K+1 ) = B( K, K )
                B( K+1, K ) = -SIN( B( K, K+1 ) )
@@ -164,8 +153,7 @@
          DO 240 I = 1, M
             IF( I.LE.4 ) THEN
                A( I, I ) = ONE
-               IF( I.GT.2 )
-     $            A( I, I ) = ONE + REEPS
+               IF( I.GT.2 ) A( I, I ) = ONE + REEPS
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.M ) THEN
                   A( I, I+1 ) = IMEPS
                ELSE IF( I.GT.1 ) THEN
@@ -196,8 +184,7 @@
             E( I, I ) = ONE
             IF( I.LE.4 ) THEN
                B( I, I ) = -ONE
-               IF( I.GT.2 )
-     $            B( I, I ) = ONE - REEPS
+               IF( I.GT.2 ) B( I, I ) = ONE - REEPS
                IF( MOD( I, 2 ).NE.0 .AND. I.LT.N ) THEN
                   B( I, I+1 ) = IMEPS
                ELSE IF( I.GT.1 ) THEN

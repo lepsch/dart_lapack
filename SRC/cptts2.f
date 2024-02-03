@@ -28,8 +28,7 @@
 *     Quick return if possible
 *
       IF( N.LE.1 ) THEN
-         IF( N.EQ.1 )
-     $      CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB )
+         IF( N.EQ.1 ) CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB )
          RETURN
       END IF
 *
@@ -117,8 +116,7 @@
 *
                B( N, J ) = B( N, J ) / D( N )
                DO 110 I = N - 1, 1, -1
-                  B( I, J ) = B( I, J ) / D( I ) -
-     $                        B( I+1, J )*CONJG( E( I ) )
+                  B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*CONJG( E( I ) )
   110          CONTINUE
   120       CONTINUE
          END IF

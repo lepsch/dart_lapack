@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J, MB, NB
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   C( NMAX, NMAX ), TAU(NMAX*2)
+      DOUBLE PRECISION   A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX ), TAU(NMAX*2)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGEQR,
-     $                   DGEMQR, DGELQ, DGEMLQ
+      EXTERNAL           ALAESM, CHKXER, DGEQR, DGEMQR, DGELQ, DGEMLQ
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

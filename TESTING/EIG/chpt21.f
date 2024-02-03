@@ -1,5 +1,4 @@
-      SUBROUTINE CHPT21( ITYPE, UPLO, N, KBAND, AP, D, E, U, LDU, VP,
-     $                   TAU, WORK, RWORK, RESULT )
+      SUBROUTINE CHPT21( ITYPE, UPLO, N, KBAND, AP, D, E, U, LDU, VP, TAU, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * ), RESULT( 2 ), RWORK( * )
-      COMPLEX            AP( * ), TAU( * ), U( LDU, * ), VP( * ),
-     $                   WORK( * )
+      COMPLEX            AP( * ), TAU( * ), U( LDU, * ), VP( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -23,8 +21,7 @@
       REAL               HALF
       PARAMETER          ( HALF = 1.0E+0 / 2.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER
@@ -40,8 +37,7 @@
       EXTERNAL           LSAME, CLANGE, CLANHP, SLAMCH, CDOTC
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2,
-     $                   CLACPY, CLASET, CUPMTR
+      EXTERNAL           CAXPY, CCOPY, CGEMM, CHPMV, CHPR, CHPR2, CLACPY, CLASET, CUPMTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CMPLX, MAX, MIN, REAL
@@ -51,10 +47,7 @@
 *     Constants
 *
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 )
-     $   RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
 *
       LAP = ( N*( N+1 ) ) / 2
 *
@@ -101,8 +94,7 @@
 *
          IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
             DO 20 J = 2, N - 1
-               CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1,
-     $                     U( 1, J-1 ), 1, WORK )
+               CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK )
    20       CONTINUE
          END IF
          WNORM = CLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -128,14 +120,7 @@
                IF( TAU( J ).NE.CZERO ) THEN
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
-                  CALL CHPMV( 'L', N-J, CONE, WORK( JP1+J+1 ),
-     $                        VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )
-                  TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1,
-     $                   VP( JP+J+1 ), 1 )
-                  CALL CAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ),
-     $                        1 )
-                  CALL CHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1,
-     $                        WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
+                  CALL CHPMV( 'L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL CAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) )
 *
                   VP( JP+J+1 ) = VSAVE
                END IF
@@ -156,14 +141,7 @@
                IF( TAU( J ).NE.CZERO ) THEN
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
-                  CALL CHPMV( 'U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO,
-     $                        WORK( LAP+1 ), 1 )
-                  TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1,
-     $                   VP( JP1+1 ), 1 )
-                  CALL CAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ),
-     $                        1 )
-                  CALL CHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1,
-     $                        WORK( LAP+1 ), 1, WORK )
+                  CALL CHPMV( 'U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL CAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK )
                   VP( JP1+J ) = VSAVE
                END IF
                WORK( JP1+J+1 ) = D( J+1 )
@@ -179,11 +157,9 @@
 *
 *        ITYPE=3: error = U V**H - I
 *
-         IF( N.LT.2 )
-     $      RETURN
+         IF( N.LT.2 ) RETURN
          CALL CLACPY( ' ', N, N, U, LDU, WORK, N )
-         CALL CUPMTR( 'R', CUPLO, 'C', N, N, VP, TAU, WORK, N,
-     $                WORK( N**2+1 ), IINFO )
+         CALL CUPMTR( 'R', CUPLO, 'C', N, N, VP, TAU, WORK, N, WORK( N**2+1 ), IINFO )
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = TEN / ULP
             RETURN
@@ -211,15 +187,13 @@
 *     Compute  U U**H - I
 *
       IF( ITYPE.EQ.1 ) THEN
-         CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO,
-     $               WORK, N )
+         CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
          DO 90 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    90    CONTINUE
 *
-         RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ),
-     $                 REAL( N ) ) / ( N*ULP )
+         RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP )
       END IF
 *
       RETURN

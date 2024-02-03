@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, TWO, THREE, FOUR
-      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0,
-     $                   THREE = 3.0E+0, FOUR = 4.0E+0 )
+      PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0, THREE = 3.0E+0, FOUR = 4.0E+0 )
 *     ..
 *     .. Local Scalars ..
       REAL               B, C, DEL, DELSQ, TAU, W
@@ -30,8 +29,7 @@
       DEL = D( 2 ) - D( 1 )
       DELSQ = DEL*( D( 2 )+D( 1 ) )
       IF( I.EQ.1 ) THEN
-         W = ONE + FOUR*RHO*( Z( 2 )*Z( 2 ) / ( D( 1 )+THREE*D( 2 ) )-
-     $       Z( 1 )*Z( 1 ) / ( THREE*D( 1 )+D( 2 ) ) ) / DEL
+         W = ONE + FOUR*RHO*( Z( 2 )*Z( 2 ) / ( D( 1 )+THREE*D( 2 ) )- Z( 1 )*Z( 1 ) / ( THREE*D( 1 )+D( 2 ) ) ) / DEL
          IF( W.GT.ZERO ) THEN
             B = DELSQ + RHO*( Z( 1 )*Z( 1 )+Z( 2 )*Z( 2 ) )
             C = RHO*Z( 1 )*Z( 1 )*DELSQ

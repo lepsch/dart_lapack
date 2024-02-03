@@ -21,21 +21,18 @@
       PARAMETER          ( NBMAX = 64, LDWORK = NBMAX+1 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP,
-     $                   JU, K2, KM, KV, NB, NW
+      INTEGER            I, I2, I3, II, IP, J, J2, J3, JB, JJ, JM, JP, JU, K2, KM, KV, NB, NW
       DOUBLE PRECISION   TEMP
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   WORK13( LDWORK, NBMAX ),
-     $                   WORK31( LDWORK, NBMAX )
+      DOUBLE PRECISION   WORK13( LDWORK, NBMAX ), WORK31( LDWORK, NBMAX )
 *     ..
 *     .. External Functions ..
       INTEGER            IDAMAX, ILAENV
       EXTERNAL           IDAMAX, ILAENV
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL,
-     $                   DSWAP, DTRSM, XERBLA
+      EXTERNAL           DCOPY, DGBTF2, DGEMM, DGER, DLASWP, DSCAL, DSWAP, DTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -68,8 +65,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment
 *
@@ -166,49 +162,38 @@
 *
                      IF( JP+JJ-1.LT.J+KL ) THEN
 *
-                        CALL DSWAP( JB, AB( KV+1+JJ-J, J ), LDAB-1,
-     $                              AB( KV+JP+JJ-J, J ), LDAB-1 )
+                        CALL DSWAP( JB, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
                      ELSE
 *
 *                       The interchange affects columns J to JJ-1 of A31
 *                       which are stored in the work array WORK31
 *
-                        CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1,
-     $                              WORK31( JP+JJ-J-KL, 1 ), LDWORK )
-                        CALL DSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1,
-     $                              AB( KV+JP, JJ ), LDAB-1 )
+                        CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )                         CALL DSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 )
                      END IF
                   END IF
 *
 *                 Compute multipliers
 *
-                  CALL DSCAL( KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ),
-     $                        1 )
+                  CALL DSCAL( KM, ONE / AB( KV+1, JJ ), AB( KV+2, JJ ), 1 )
 *
 *                 Update trailing submatrix within the band and within
 *                 the current block. JM is the index of the last column
 *                 which needs to be updated.
 *
                   JM = MIN( JU, J+JB-1 )
-                  IF( JM.GT.JJ )
-     $               CALL DGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1,
-     $                          AB( KV, JJ+1 ), LDAB-1,
-     $                          AB( KV+1, JJ+1 ), LDAB-1 )
+                  IF( JM.GT.JJ ) CALL DGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 )
                ELSE
 *
 *                 If pivot is zero, set INFO to the index of the pivot
 *                 unless a zero pivot has already been found.
 *
-                  IF( INFO.EQ.0 )
-     $               INFO = JJ
+                  IF( INFO.EQ.0 ) INFO = JJ
                END IF
 *
 *              Copy current column of A31 into the work array WORK31
 *
                NW = MIN( JJ-J+1, I3 )
-               IF( NW.GT.0 )
-     $            CALL DCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1,
-     $                        WORK31( 1, JJ-J+1 ), 1 )
+               IF( NW.GT.0 ) CALL DCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 )
    80       CONTINUE
             IF( J+JB.LE.N ) THEN
 *
@@ -220,8 +205,7 @@
 *              Use DLASWP to apply the row interchanges to A12, A22, and
 *              A32.
 *
-               CALL DLASWP( J2, AB( KV+1-JB, J+JB ), LDAB-1, 1, JB,
-     $                      IPIV( J ), 1 )
+               CALL DLASWP( J2, AB( KV+1-JB, J+JB ), LDAB-1, 1, JB, IPIV( J ), 1 )
 *
 *              Adjust the pivot indices.
 *
@@ -251,28 +235,20 @@
 *
 *                 Update A12
 *
-                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit',
-     $                        JB, J2, ONE, AB( KV+1, J ), LDAB-1,
-     $                        AB( KV+1-JB, J+JB ), LDAB-1 )
+                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J2, ONE, AB( KV+1, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1 )
 *
                   IF( I2.GT.0 ) THEN
 *
 *                    Update A22
 *
-                     CALL DGEMM( 'No transpose', 'No transpose', I2, J2,
-     $                           JB, -ONE, AB( KV+1+JB, J ), LDAB-1,
-     $                           AB( KV+1-JB, J+JB ), LDAB-1, ONE,
-     $                           AB( KV+1, J+JB ), LDAB-1 )
+                     CALL DGEMM( 'No transpose', 'No transpose', I2, J2, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+1, J+JB ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
 *
 *                    Update A32
 *
-                     CALL DGEMM( 'No transpose', 'No transpose', I3, J2,
-     $                           JB, -ONE, WORK31, LDWORK,
-     $                           AB( KV+1-JB, J+JB ), LDAB-1, ONE,
-     $                           AB( KV+KL+1-JB, J+JB ), LDAB-1 )
+                     CALL DGEMM( 'No transpose', 'No transpose', I3, J2, JB, -ONE, WORK31, LDWORK, AB( KV+1-JB, J+JB ), LDAB-1, ONE, AB( KV+KL+1-JB, J+JB ), LDAB-1 )
                   END IF
                END IF
 *
@@ -289,27 +265,20 @@
 *
 *                 Update A13 in the work array
 *
-                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit',
-     $                        JB, J3, ONE, AB( KV+1, J ), LDAB-1,
-     $                        WORK13, LDWORK )
+                  CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, J3, ONE, AB( KV+1, J ), LDAB-1, WORK13, LDWORK )
 *
                   IF( I2.GT.0 ) THEN
 *
 *                    Update A23
 *
-                     CALL DGEMM( 'No transpose', 'No transpose', I2, J3,
-     $                           JB, -ONE, AB( KV+1+JB, J ), LDAB-1,
-     $                           WORK13, LDWORK, ONE, AB( 1+JB, J+KV ),
-     $                           LDAB-1 )
+                     CALL DGEMM( 'No transpose', 'No transpose', I2, J3, JB, -ONE, AB( KV+1+JB, J ), LDAB-1, WORK13, LDWORK, ONE, AB( 1+JB, J+KV ), LDAB-1 )
                   END IF
 *
                   IF( I3.GT.0 ) THEN
 *
 *                    Update A33
 *
-                     CALL DGEMM( 'No transpose', 'No transpose', I3, J3,
-     $                           JB, -ONE, WORK31, LDWORK, WORK13,
-     $                           LDWORK, ONE, AB( 1+KL, J+KV ), LDAB-1 )
+                     CALL DGEMM( 'No transpose', 'No transpose', I3, J3, JB, -ONE, WORK31, LDWORK, WORK13, LDWORK, ONE, AB( 1+KL, J+KV ), LDAB-1 )
                   END IF
 *
 *                 Copy the lower triangle of A13 back into place
@@ -343,23 +312,19 @@
 *
 *                    The interchange does not affect A31
 *
-                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1,
-     $                           AB( KV+JP+JJ-J, J ), LDAB-1 )
+                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, AB( KV+JP+JJ-J, J ), LDAB-1 )
                   ELSE
 *
 *                    The interchange does affect A31
 *
-                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1,
-     $                           WORK31( JP+JJ-J-KL, 1 ), LDWORK )
+                     CALL DSWAP( JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )
                   END IF
                END IF
 *
 *              Copy the current column of A31 back into place
 *
                NW = MIN( I3, JJ-J+1 )
-               IF( NW.GT.0 )
-     $            CALL DCOPY( NW, WORK31( 1, JJ-J+1 ), 1,
-     $                        AB( KV+KL+1-JJ+J, JJ ), 1 )
+               IF( NW.GT.0 ) CALL DCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 )
   170       CONTINUE
   180    CONTINUE
       END IF

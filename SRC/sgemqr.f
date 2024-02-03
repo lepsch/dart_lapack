@@ -1,5 +1,4 @@
-      SUBROUTINE SGEMQR( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE,
-     $                   C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE SGEMQR( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -107,13 +106,9 @@
         RETURN
       END IF
 *
-      IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K )
-     $     .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN
-        CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ),
-     $                NB, C, LDC, WORK, INFO )
+      IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( MB.LE.K ) .OR. ( MB.GE.MAX( M, N, K ) ) ) THEN         CALL SGEMQRT( SIDE, TRANS, M, N, K, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, INFO )
       ELSE
-        CALL SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ),
-     $                 NB, C, LDC, WORK, LWORK, INFO )
+        CALL SLAMTSQR( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), NB, C, LDC, WORK, LWORK, INFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )

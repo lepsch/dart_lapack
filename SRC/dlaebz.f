@@ -1,6 +1,4 @@
-      SUBROUTINE DLAEBZ( IJOB, NITMAX, N, MMAX, MINP, NBMIN, ABSTOL,
-     $                   RELTOL, PIVMIN, D, E, E2, NVAL, AB, C, MOUT,
-     $                   NAB, WORK, IWORK, INFO )
+      SUBROUTINE DLAEBZ( IJOB, NITMAX, N, MMAX, MINP, NBMIN, ABSTOL, RELTOL, PIVMIN, D, E, E2, NVAL, AB, C, MOUT, NAB, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,20 +10,17 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * ), NAB( MMAX, * ), NVAL( * )
-      DOUBLE PRECISION   AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   AB( MMAX, * ), C( * ), D( * ), E( * ), E2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, TWO, HALF
-      PARAMETER          ( ZERO = 0.0D0, TWO = 2.0D0,
-     $                   HALF = 1.0D0 / TWO )
+      PARAMETER          ( ZERO = 0.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL,
-     $                   KLNEW
+      INTEGER            ITMP1, ITMP2, J, JI, JIT, JP, KF, KFNEW, KL, KLNEW
       DOUBLE PRECISION   TMP1, TMP2
 *     ..
 *     .. Intrinsic Functions ..
@@ -51,18 +46,13 @@
          DO 30 JI = 1, MINP
             DO 20 JP = 1, 2
                TMP1 = D( 1 ) - AB( JI, JP )
-               IF( ABS( TMP1 ).LT.PIVMIN )
-     $            TMP1 = -PIVMIN
+               IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN
                NAB( JI, JP ) = 0
-               IF( TMP1.LE.ZERO )
-     $            NAB( JI, JP ) = 1
+               IF( TMP1.LE.ZERO ) NAB( JI, JP ) = 1
 *
                DO 10 J = 2, N
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
-                  IF( ABS( TMP1 ).LT.PIVMIN )
-     $               TMP1 = -PIVMIN
-                  IF( TMP1.LE.ZERO )
-     $               NAB( JI, JP ) = NAB( JI, JP ) + 1
+                  IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
    10          CONTINUE
    20       CONTINUE
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 )
@@ -127,8 +117,7 @@
 *
 *                 Insure that N(w) is monotone
 *
-                  IWORK( JI ) = MIN( NAB( JI, 2 ),
-     $                          MAX( NAB( JI, 1 ), IWORK( JI ) ) )
+                  IWORK( JI ) = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), IWORK( JI ) ) )
 *
 *                 Update the Queue -- add intervals if both halves
 *                 contain eigenvalues.
@@ -164,8 +153,7 @@
                      END IF
                   END IF
    70          CONTINUE
-               IF( INFO.NE.0 )
-     $            RETURN
+               IF( INFO.NE.0 ) RETURN
                KL = KLNEW
             ELSE
 *
@@ -217,8 +205,7 @@
 *
 *                 Insure that N(w) is monotone
 *
-                  ITMP1 = MIN( NAB( JI, 2 ),
-     $                    MAX( NAB( JI, 1 ), ITMP1 ) )
+                  ITMP1 = MIN( NAB( JI, 2 ), MAX( NAB( JI, 1 ), ITMP1 ) )
 *
 *                 Update the Queue -- add intervals if both halves
 *                 contain eigenvalues.
@@ -276,8 +263,7 @@
          DO 110 JI = KF, KL
             TMP1 = ABS( AB( JI, 2 )-AB( JI, 1 ) )
             TMP2 = MAX( ABS( AB( JI, 2 ) ), ABS( AB( JI, 1 ) ) )
-            IF( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR.
-     $          NAB( JI, 1 ).GE.NAB( JI, 2 ) ) THEN
+            IF( TMP1.LT.MAX( ABSTOL, PIVMIN, RELTOL*TMP2 ) .OR. NAB( JI, 1 ).GE.NAB( JI, 2 ) ) THEN
 *
 *              Converged -- Swap with position KFNEW,
 *                           then increment KFNEW
@@ -314,8 +300,7 @@
 *
 *        If no more intervals to refine, quit.
 *
-         IF( KF.GT.KL )
-     $      GO TO 140
+         IF( KF.GT.KL ) GO TO 140
   130 CONTINUE
 *
 *     Converged

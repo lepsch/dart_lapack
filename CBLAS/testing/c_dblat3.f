@@ -55,20 +55,12 @@
       PARAMETER          ( NIDMAX = 9, NALMAX = 7, NBEMAX = 7 )
 *     .. Local Scalars ..
       DOUBLE PRECISION   EPS, ERR, THRESH
-      INTEGER            I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA,
-     $			          LAYOUT
-      LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE,
-     $                   TSTERR, CORDER, RORDER
+      INTEGER            I, ISNUM, J, N, NALF, NBET, NIDIM, NTRA, LAYOUT       LOGICAL            FATAL, LTESTT, REWI, SAME, SFATAL, TRACE, TSTERR, CORDER, RORDER
       CHARACTER*1        TRANSA, TRANSB
       CHARACTER*12       SNAMET
       CHARACTER*32       SNAPS
 *     .. Local Arrays ..
-      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ),
-     $                   ALF( NALMAX ), AS( NMAX*NMAX ),
-     $                   BB( NMAX*NMAX ), BET( NBEMAX ),
-     $                   BS( NMAX*NMAX ), C( NMAX, NMAX ),
-     $                   CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ),
-     $                   G( NMAX ), W( 2*NMAX )
+      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( NMAX, 2*NMAX ), ALF( NALMAX ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBEMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       INTEGER            IDIM( NIDMAX )
       LOGICAL            LTEST( NSUBS )
       CHARACTER*12       SNAMES( NSUBS )
@@ -77,8 +69,7 @@
       LOGICAL            LDE
       EXTERNAL           DDIFF, LDE
 *     .. External Subroutines ..
-      EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, CD3CHKE,
-     $			 DMMCH
+      EXTERNAL           DCHK1, DCHK2, DCHK3, DCHK4, DCHK5, CD3CHKE, DMMCH
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
 *     .. Scalars in Common ..
@@ -89,9 +80,7 @@
       COMMON             /INFOC/INFOT, NOUTC, OK
       COMMON             /SRNAMC/SRNAMT
 *     .. Data statements ..
-      DATA               SNAMES/'cblas_dgemm ', 'cblas_dsymm ',
-     $                   'cblas_dtrmm ', 'cblas_dtrsm ','cblas_dsyrk ',
-     $                   'cblas_dsyr2k'/
+      DATA               SNAMES/'cblas_dgemm ', 'cblas_dsymm ', 'cblas_dtrmm ', 'cblas_dtrsm ','cblas_dsyrk ', 'cblas_dsyr2k'/
 *     .. Executable Statements ..
 *
 *     Read name and unit number for summary output file and open file.
@@ -185,8 +174,7 @@
    20 CONTINUE
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
       DO 40 I = 1, NSUBS
-         IF( SNAMET.EQ.SNAMES( I ) )
-     $      GO TO 50
+         IF( SNAMET.EQ.SNAMES( I ) ) GO TO 50
    40 CONTINUE
       WRITE( NOUT, FMT = 9990 )SNAMET
       STOP
@@ -200,8 +188,7 @@
 *
       EPS = ONE
    70 CONTINUE
-      IF( DDIFF( ONE + EPS, ONE ).EQ.ZERO )
-     $   GO TO 80
+      IF( DDIFF( ONE + EPS, ONE ).EQ.ZERO ) GO TO 80
       EPS = HALF*EPS
       GO TO 70
    80 CONTINUE
@@ -226,18 +213,14 @@
 *     the result computed by DMMCH.
       TRANSA = 'N'
       TRANSB = 'N'
-      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX,
-     $            AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC,
-     $            NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LDE( CC, CT, N )
       IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       END IF
       TRANSB = 'T'
-      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX,
-     $            AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC,
-     $            NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LDE( CC, CT, N )
       IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -248,23 +231,18 @@
          AB( 1, NMAX + J ) = N - J + 1
   120 CONTINUE
       DO 130 J = 1, N
-         CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 -
-     $                     ( ( J + 1 )*J*( J - 1 ) )/3
+         CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
   130 CONTINUE
       TRANSA = 'T'
       TRANSB = 'N'
-      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX,
-     $            AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC,
-     $            NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LDE( CC, CT, N )
       IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
          STOP
       END IF
       TRANSB = 'T'
-      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX,
-     $            AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC,
-     $            NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
+      CALL DMMCH( TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. )
       SAME = LDE( CC, CT, N )
       IF( .NOT.SAME.OR.ERR.NE.ZERO )THEN
          WRITE( NOUT, FMT = 9989 )TRANSA, TRANSB, SAME, ERR
@@ -292,72 +270,42 @@
             GO TO ( 140, 150, 160, 160, 170, 180 )ISNUM
 *           Test DGEMM, 01.
   140       IF (CORDER) THEN
-            CALL DCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 0 )
+            CALL DCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
             END IF
             IF (RORDER) THEN
-            CALL DCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 1 )
+            CALL DCHK1( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
             END IF
             GO TO 190
 *           Test DSYMM, 02.
   150       IF (CORDER) THEN
-            CALL DCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 0 )
+            CALL DCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
             END IF
             IF (RORDER) THEN
-            CALL DCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 1 )
+            CALL DCHK2( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
             END IF
             GO TO 190
 *           Test DTRMM, 03, DTRSM, 04.
   160       IF (CORDER) THEN
-            CALL DCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB,
-     $                  AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C,
-     $			0 )
+            CALL DCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 0 )
             END IF
             IF (RORDER) THEN
-            CALL DCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB,
-     $                  AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C,
-     $			1 )
+            CALL DCHK3( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, CT, G, C, 1 )
             END IF
             GO TO 190
 *           Test DSYRK, 05.
   170       IF (CORDER) THEN
-            CALL DCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 0 )
+            CALL DCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 0 )
             END IF
             IF (RORDER) THEN
-            CALL DCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C,
-     $                  CC, CS, CT, G, 1 )
+            CALL DCHK4( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, AB( 1, NMAX + 1 ), BB, BS, C, CC, CS, CT, G, 1 )
             END IF
             GO TO 190
 *           Test DSYR2K, 06.
   180       IF (CORDER) THEN
-            CALL DCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W,
-     $			0 )
+            CALL DCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 0 )
             END IF
             IF (RORDER) THEN
-            CALL DCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE,
-     $                  REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET,
-     $                  NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W,
-     $			1 )
+            CALL DCHK5( SNAMES( ISNUM ), EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, 1 )
             END IF
             GO TO 190
 *
@@ -376,8 +324,7 @@
       WRITE( NOUT, FMT = 9991 )
 *
   230 CONTINUE
-      IF( TRACE )
-     $   CLOSE ( NTRA )
+      IF( TRACE ) CLOSE ( NTRA )
       CLOSE ( NOUT )
       STOP
 *
@@ -414,9 +361,7 @@
 *     End of DBLAT3.
 *
       END
-      SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI,
-     $                  FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX,
-     $                  A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK1( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 *
 *  Tests DGEMM.
 *
@@ -437,17 +382,11 @@
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ),
-     $                   AS( NMAX*NMAX ), B( NMAX, NMAX ),
-     $                   BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ),
-     $                   C( NMAX, NMAX ), CC( NMAX*NMAX ),
-     $                   CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       INTEGER            IDIM( NIDIM )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA,
-     $                   LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M,
-     $                   MA, MB, MS, N, NA, NARGS, NB, NC, NS
+      INTEGER            I, IA, IB, ICA, ICB, IK, IM, IN, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MA, MB, MS, N, NA, NARGS, NB, NC, NS
       LOGICAL            NULL, RESET, SAME, TRANA, TRANB
       CHARACTER*1        TRANAS, TRANBS, TRANSA, TRANSB
       CHARACTER*3        ICH
@@ -481,11 +420,9 @@
             N = IDIM( IN )
 *           Set LDC to 1 more than minimum value if room.
             LDC = M
-            IF( LDC.LT.NMAX )
-     $         LDC = LDC + 1
+            IF( LDC.LT.NMAX ) LDC = LDC + 1
 *           Skip tests if not enough room.
-            IF( LDC.GT.NMAX )
-     $         GO TO 100
+            IF( LDC.GT.NMAX ) GO TO 100
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
 *
@@ -505,17 +442,14 @@
                   END IF
 *                 Set LDA to 1 more than minimum value if room.
                   LDA = MA
-                  IF( LDA.LT.NMAX )
-     $               LDA = LDA + 1
+                  IF( LDA.LT.NMAX ) LDA = LDA + 1
 *                 Skip tests if not enough room.
-                  IF( LDA.GT.NMAX )
-     $               GO TO 80
+                  IF( LDA.GT.NMAX ) GO TO 80
                   LAA = LDA*NA
 *
 *                 Generate the matrix A.
 *
-                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA,
-     $                        RESET, ZERO )
+                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
 *
                   DO 70 ICB = 1, 3
                      TRANSB = ICH( ICB: ICB )
@@ -530,17 +464,14 @@
                      END IF
 *                    Set LDB to 1 more than minimum value if room.
                      LDB = MB
-                     IF( LDB.LT.NMAX )
-     $                  LDB = LDB + 1
+                     IF( LDB.LT.NMAX ) LDB = LDB + 1
 *                    Skip tests if not enough room.
-                     IF( LDB.GT.NMAX )
-     $                  GO TO 70
+                     IF( LDB.GT.NMAX ) GO TO 70
                      LBB = LDB*NB
 *
 *                    Generate the matrix B.
 *
-                     CALL DMAKE( 'GE', ' ', ' ', MB, NB, B, NMAX, BB,
-     $                           LDB, RESET, ZERO )
+                     CALL DMAKE( 'GE', ' ', ' ', MB, NB, B, NMAX, BB, LDB, RESET, ZERO )
 *
                      DO 60 IA = 1, NALF
                         ALPHA = ALF( IA )
@@ -550,8 +481,7 @@
 *
 *                          Generate the matrix C.
 *
-                           CALL DMAKE( 'GE', ' ', ' ', M, N, C, NMAX,
-     $                                 CC, LDC, RESET, ZERO )
+                           CALL DMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
 *
                            NC = NC + 1
 *
@@ -580,15 +510,8 @@
 *
 *                          Call the subroutine.
 *
-                           IF( TRACE )
-     $                        CALL DPRCN1(NTRA, NC, SNAME, IORDER,
-     $                        TRANSA, TRANSB, M, N, K, ALPHA, LDA,
-     $                        LDB, BETA, LDC)
-                           IF( REWI )
-     $                        REWIND NTRA
-                           CALL CDGEMM( IORDER, TRANSA, TRANSB, M, N,
-     $                                   K, ALPHA, AA, LDA, BB, LDB,
-     $					 BETA, CC, LDC )
+                           IF( TRACE ) CALL DPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
+                           IF( REWI ) REWIND NTRA                            CALL CDGEMM( IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
 *
 *                          Check if error-exit was taken incorrectly.
 *
@@ -614,8 +537,7 @@
                            IF( NULL )THEN
                               ISAME( 12 ) = LDE( CS, CC, LCC )
                            ELSE
-                              ISAME( 12 ) = LDERES( 'GE', ' ', M, N, CS,
-     $                                      CC, LDC )
+                              ISAME( 12 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
                            END IF
                            ISAME( 13 ) = LDCS.EQ.LDC
 *
@@ -625,8 +547,7 @@
                            SAME = .TRUE.
                            DO 40 I = 1, NARGS
                               SAME = SAME.AND.ISAME( I )
-                              IF( .NOT.ISAME( I ) )
-     $                           WRITE( NOUT, FMT = 9998 )I
+                              IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                      CONTINUE
                            IF( .NOT.SAME )THEN
                               FATAL = .TRUE.
@@ -637,15 +558,11 @@
 *
 *                             Check the result.
 *
-                              CALL DMMCH( TRANSA, TRANSB, M, N, K,
-     $                                    ALPHA, A, NMAX, B, NMAX, BETA,
-     $                                    C, NMAX, CT, G, CC, LDC, EPS,
-     $                                    ERR, FATAL, NOUT, .TRUE. )
+                              CALL DMMCH( TRANSA, TRANSB, M, N, K, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ERRMAX = MAX( ERRMAX, ERR )
 *                             If got really bad answer, report and
 *                             return.
-                              IF( FATAL )
-     $                           GO TO 120
+                              IF( FATAL ) GO TO 120
                            END IF
 *
    50                   CONTINUE
@@ -675,8 +592,7 @@
 *
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB,
-     $           M, N, K, ALPHA, LDA, LDB, BETA, LDC)
+      CALL DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
 *
   130 CONTINUE
       RETURN
@@ -703,8 +619,7 @@
 *     End of DCHK1.
 *
       END
-      SUBROUTINE DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N,
-     $                 K, ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC)
       INTEGER          NOUT, NC, IORDER, M, N, K, LDA, LDB, LDC
       DOUBLE PRECISION ALPHA, BETA
       CHARACTER*1      TRANSA, TRANSB
@@ -738,9 +653,7 @@
      $ F4.1, ', ', 'C,', I3, ').' )
       END
 *
-      SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI,
-     $                  FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX,
-     $                  A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK2( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 *
 *  Tests DSYMM.
 *
@@ -761,17 +674,11 @@
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ),
-     $                   AS( NMAX*NMAX ), B( NMAX, NMAX ),
-     $                   BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ),
-     $                   C( NMAX, NMAX ), CC( NMAX*NMAX ),
-     $                   CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       INTEGER            IDIM( NIDIM )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BLS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC,
-     $                   LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA,
-     $                   NARGS, NC, NS
+      INTEGER            I, IA, IB, ICS, ICU, IM, IN, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
       CHARACTER*1        SIDE, SIDES, UPLO, UPLOS
       CHARACTER*2        ICHS, ICHU
@@ -805,27 +712,22 @@
             N = IDIM( IN )
 *           Set LDC to 1 more than minimum value if room.
             LDC = M
-            IF( LDC.LT.NMAX )
-     $         LDC = LDC + 1
+            IF( LDC.LT.NMAX ) LDC = LDC + 1
 *           Skip tests if not enough room.
-            IF( LDC.GT.NMAX )
-     $         GO TO 90
+            IF( LDC.GT.NMAX ) GO TO 90
             LCC = LDC*N
             NULL = N.LE.0.OR.M.LE.0
 *
 *           Set LDB to 1 more than minimum value if room.
             LDB = M
-            IF( LDB.LT.NMAX )
-     $         LDB = LDB + 1
+            IF( LDB.LT.NMAX ) LDB = LDB + 1
 *           Skip tests if not enough room.
-            IF( LDB.GT.NMAX )
-     $         GO TO 90
+            IF( LDB.GT.NMAX ) GO TO 90
             LBB = LDB*N
 *
 *           Generate the matrix B.
 *
-            CALL DMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET,
-     $                  ZERO )
+            CALL DMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
 *
             DO 80 ICS = 1, 2
                SIDE = ICHS( ICS: ICS )
@@ -838,11 +740,9 @@
                END IF
 *              Set LDA to 1 more than minimum value if room.
                LDA = NA
-               IF( LDA.LT.NMAX )
-     $            LDA = LDA + 1
+               IF( LDA.LT.NMAX ) LDA = LDA + 1
 *              Skip tests if not enough room.
-               IF( LDA.GT.NMAX )
-     $            GO TO 80
+               IF( LDA.GT.NMAX ) GO TO 80
                LAA = LDA*NA
 *
                DO 70 ICU = 1, 2
@@ -850,8 +750,7 @@
 *
 *                 Generate the symmetric matrix A.
 *
-                  CALL DMAKE( 'SY', UPLO, ' ', NA, NA, A, NMAX, AA, LDA,
-     $                        RESET, ZERO )
+                  CALL DMAKE( 'SY', UPLO, ' ', NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
 *
                   DO 60 IA = 1, NALF
                      ALPHA = ALF( IA )
@@ -861,8 +760,7 @@
 *
 *                       Generate the matrix C.
 *
-                        CALL DMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC,
-     $                              LDC, RESET, ZERO )
+                        CALL DMAKE( 'GE', ' ', ' ', M, N, C, NMAX, CC, LDC, RESET, ZERO )
 *
                         NC = NC + 1
 *
@@ -890,14 +788,8 @@
 *
 *                       Call the subroutine.
 *
-                        IF( TRACE )
-     $                      CALL DPRCN2(NTRA, NC, SNAME, IORDER,
-     $                      SIDE, UPLO, M, N, ALPHA, LDA, LDB,
-     $                      BETA, LDC)
-                        IF( REWI )
-     $                     REWIND NTRA
-                        CALL CDSYMM( IORDER, SIDE, UPLO, M, N, ALPHA,
-     $                              AA, LDA, BB, LDB, BETA, CC, LDC )
+                        IF( TRACE ) CALL DPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
+                        IF( REWI ) REWIND NTRA                         CALL CDSYMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
 *
 *                       Check if error-exit was taken incorrectly.
 *
@@ -922,8 +814,7 @@
                         IF( NULL )THEN
                            ISAME( 11 ) = LDE( CS, CC, LCC )
                         ELSE
-                           ISAME( 11 ) = LDERES( 'GE', ' ', M, N, CS,
-     $                                   CC, LDC )
+                           ISAME( 11 ) = LDERES( 'GE', ' ', M, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
 *
@@ -933,8 +824,7 @@
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
-                           IF( .NOT.ISAME( I ) )
-     $                        WRITE( NOUT, FMT = 9998 )I
+                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
                         IF( .NOT.SAME )THEN
                            FATAL = .TRUE.
@@ -946,21 +836,14 @@
 *                          Check the result.
 *
                            IF( LEFT )THEN
-                              CALL DMMCH( 'N', 'N', M, N, M, ALPHA, A,
-     $                                    NMAX, B, NMAX, BETA, C, NMAX,
-     $                                    CT, G, CC, LDC, EPS, ERR,
-     $                                    FATAL, NOUT, .TRUE. )
+                              CALL DMMCH( 'N', 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            ELSE
-                              CALL DMMCH( 'N', 'N', M, N, N, ALPHA, B,
-     $                                    NMAX, A, NMAX, BETA, C, NMAX,
-     $                                    CT, G, CC, LDC, EPS, ERR,
-     $                                    FATAL, NOUT, .TRUE. )
+                              CALL DMMCH( 'N', 'N', M, N, N, ALPHA, B, NMAX, A, NMAX, BETA, C, NMAX, CT, G, CC, LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                            END IF
                            ERRMAX = MAX( ERRMAX, ERR )
 *                          If got really bad answer, report and
 *                          return.
-                           IF( FATAL )
-     $                        GO TO 110
+                           IF( FATAL ) GO TO 110
                         END IF
 *
    50                CONTINUE
@@ -988,8 +871,7 @@
 *
   110 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA,
-     $           LDB, BETA, LDC)
+      CALL DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
 *
   120 CONTINUE
       RETURN
@@ -1017,8 +899,7 @@
 *
       END
 *
-      SUBROUTINE DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N,
-     $                 ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC)
       INTEGER          NOUT, NC, IORDER, M, N, LDA, LDB, LDC
       DOUBLE PRECISION ALPHA, BETA
       CHARACTER*1      SIDE, UPLO
@@ -1048,9 +929,7 @@
      $ F4.1, ', ', 'C,', I3, ').' )
       END
 *
-      SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI,
-     $                  FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS,
-     $                  B, BB, BS, CT, G, C, IORDER )
+      SUBROUTINE DCHK3( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NMAX, A, AA, AS, B, BB, BS, CT, G, C, IORDER )
 *
 *  Tests DTRMM and DTRSM.
 *
@@ -1071,19 +950,13 @@
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ),
-     $                   AS( NMAX*NMAX ), B( NMAX, NMAX ),
-     $                   BB( NMAX*NMAX ), BS( NMAX*NMAX ),
-     $                   C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CT( NMAX ), G( NMAX )
       INTEGER            IDIM( NIDIM )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, ERR, ERRMAX
-      INTEGER            I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB,
-     $                   LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC,
-     $                   NS
+      INTEGER            I, IA, ICD, ICS, ICT, ICU, IM, IN, J, LAA, LBB, LDA, LDAS, LDB, LDBS, M, MS, N, NA, NARGS, NC, NS
       LOGICAL            LEFT, NULL, RESET, SAME
-      CHARACTER*1        DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO,
-     $                   UPLOS
+      CHARACTER*1        DIAG, DIAGS, SIDE, SIDES, TRANAS, TRANSA, UPLO, UPLOS
       CHARACTER*2        ICHD, ICHS, ICHU
       CHARACTER*3        ICHT
 *     .. Local Arrays ..
@@ -1122,11 +995,9 @@
             N = IDIM( IN )
 *           Set LDB to 1 more than minimum value if room.
             LDB = M
-            IF( LDB.LT.NMAX )
-     $         LDB = LDB + 1
+            IF( LDB.LT.NMAX ) LDB = LDB + 1
 *           Skip tests if not enough room.
-            IF( LDB.GT.NMAX )
-     $         GO TO 130
+            IF( LDB.GT.NMAX ) GO TO 130
             LBB = LDB*N
             NULL = M.LE.0.OR.N.LE.0
 *
@@ -1140,11 +1011,9 @@
                END IF
 *              Set LDA to 1 more than minimum value if room.
                LDA = NA
-               IF( LDA.LT.NMAX )
-     $            LDA = LDA + 1
+               IF( LDA.LT.NMAX ) LDA = LDA + 1
 *              Skip tests if not enough room.
-               IF( LDA.GT.NMAX )
-     $            GO TO 130
+               IF( LDA.GT.NMAX ) GO TO 130
                LAA = LDA*NA
 *
                DO 110 ICU = 1, 2
@@ -1161,13 +1030,11 @@
 *
 *                          Generate the matrix A.
 *
-                           CALL DMAKE( 'TR', UPLO, DIAG, NA, NA, A,
-     $                                 NMAX, AA, LDA, RESET, ZERO )
+                           CALL DMAKE( 'TR', UPLO, DIAG, NA, NA, A, NMAX, AA, LDA, RESET, ZERO )
 *
 *                          Generate the matrix B.
 *
-                           CALL DMAKE( 'GE', ' ', ' ', M, N, B, NMAX,
-     $                                 BB, LDB, RESET, ZERO )
+                           CALL DMAKE( 'GE', ' ', ' ', M, N, B, NMAX, BB, LDB, RESET, ZERO )
 *
                            NC = NC + 1
 *
@@ -1193,25 +1060,11 @@
 *                          Call the subroutine.
 *
                            IF( SNAME( 10: 11 ).EQ.'mm' )THEN
-                              IF( TRACE )
-     $                           CALL DPRCN3( NTRA, NC, SNAME, IORDER,
-     $                           SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA,
-     $                           LDA, LDB)
-                              IF( REWI )
-     $                           REWIND NTRA
-                              CALL CDTRMM( IORDER, SIDE, UPLO, TRANSA,
-     $                                    DIAG, M, N, ALPHA, AA, LDA,
-     $					  BB, LDB )
+                              IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
+                              IF( REWI ) REWIND NTRA                               CALL CDTRMM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
                            ELSE IF( SNAME( 10: 11 ).EQ.'sm' )THEN
-                              IF( TRACE )
-     $                           CALL DPRCN3( NTRA, NC, SNAME, IORDER,
-     $                           SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA,
-     $                           LDA, LDB)
-                              IF( REWI )
-     $                           REWIND NTRA
-                              CALL CDTRSM( IORDER, SIDE, UPLO, TRANSA,
-     $                                    DIAG, M, N, ALPHA, AA, LDA,
-     $					  BB, LDB )
+                              IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
+                              IF( REWI ) REWIND NTRA                               CALL CDTRSM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB )
                            END IF
 *
 *                          Check if error-exit was taken incorrectly.
@@ -1236,8 +1089,7 @@
                            IF( NULL )THEN
                               ISAME( 10 ) = LDE( BS, BB, LBB )
                            ELSE
-                              ISAME( 10 ) = LDERES( 'GE', ' ', M, N, BS,
-     $                                      BB, LDB )
+                              ISAME( 10 ) = LDERES( 'GE', ' ', M, N, BS, BB, LDB )
                            END IF
                            ISAME( 11 ) = LDBS.EQ.LDB
 *
@@ -1247,8 +1099,7 @@
                            SAME = .TRUE.
                            DO 50 I = 1, NARGS
                               SAME = SAME.AND.ISAME( I )
-                              IF( .NOT.ISAME( I ) )
-     $                           WRITE( NOUT, FMT = 9998 )I
+                              IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    50                      CONTINUE
                            IF( .NOT.SAME )THEN
                               FATAL = .TRUE.
@@ -1261,17 +1112,9 @@
 *                                Check the result.
 *
                                  IF( LEFT )THEN
-                                    CALL DMMCH( TRANSA, 'N', M, N, M,
-     $                                          ALPHA, A, NMAX, B, NMAX,
-     $                                          ZERO, C, NMAX, CT, G,
-     $                                          BB, LDB, EPS, ERR,
-     $                                          FATAL, NOUT, .TRUE. )
+                                    CALL DMMCH( TRANSA, 'N', M, N, M, ALPHA, A, NMAX, B, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  ELSE
-                                    CALL DMMCH( 'N', TRANSA, M, N, N,
-     $                                          ALPHA, B, NMAX, A, NMAX,
-     $                                          ZERO, C, NMAX, CT, G,
-     $                                          BB, LDB, EPS, ERR,
-     $                                          FATAL, NOUT, .TRUE. )
+                                    CALL DMMCH( 'N', TRANSA, M, N, N, ALPHA, B, NMAX, A, NMAX, ZERO, C, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .TRUE. )
                                  END IF
                               ELSE IF( SNAME( 10: 11 ).EQ.'sm' )THEN
 *
@@ -1280,32 +1123,20 @@
 *
                                  DO 70 J = 1, N
                                     DO 60 I = 1, M
-                                       C( I, J ) = BB( I + ( J - 1 )*
-     $                                             LDB )
-                                       BB( I + ( J - 1 )*LDB ) = ALPHA*
-     $                                    B( I, J )
+                                       C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J )
    60                               CONTINUE
    70                            CONTINUE
 *
                                  IF( LEFT )THEN
-                                    CALL DMMCH( TRANSA, 'N', M, N, M,
-     $                                          ONE, A, NMAX, C, NMAX,
-     $                                          ZERO, B, NMAX, CT, G,
-     $                                          BB, LDB, EPS, ERR,
-     $                                          FATAL, NOUT, .FALSE. )
+                                    CALL DMMCH( TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  ELSE
-                                    CALL DMMCH( 'N', TRANSA, M, N, N,
-     $                                          ONE, C, NMAX, A, NMAX,
-     $                                          ZERO, B, NMAX, CT, G,
-     $                                          BB, LDB, EPS, ERR,
-     $                                          FATAL, NOUT, .FALSE. )
+                                    CALL DMMCH( 'N', TRANSA, M, N, N, ONE, C, NMAX, A, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. )
                                  END IF
                               END IF
                               ERRMAX = MAX( ERRMAX, ERR )
 *                             If got really bad answer, report and
 *                             return.
-                              IF( FATAL )
-     $                           GO TO 150
+                              IF( FATAL ) GO TO 150
                            END IF
 *
    80                   CONTINUE
@@ -1335,9 +1166,7 @@
 *
   150 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      IF( TRACE )
-     $   CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG,
-     $         M, N, ALPHA, LDA, LDB)
+      IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
 *
   160 CONTINUE
       RETURN
@@ -1364,8 +1193,7 @@
 *
       END
 *
-      SUBROUTINE DPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA,
-     $                 DIAG, M, N, ALPHA, LDA, LDB)
+      SUBROUTINE DPRCN3(NOUT, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
       INTEGER          NOUT, NC, IORDER, M, N, LDA, LDB
       DOUBLE PRECISION ALPHA
       CHARACTER*1      SIDE, UPLO, TRANSA, DIAG
@@ -1407,9 +1235,7 @@
      $      F4.1, ', A,', I3, ', B,', I3, ').' )
       END
 *
-      SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI,
-     $                  FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX,
-     $                  A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
+      SUBROUTINE DCHK4( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, A, AA, AS, B, BB, BS, C, CC, CS, CT, G, IORDER)
 *
 *  Tests DSYRK.
 *
@@ -1430,17 +1256,11 @@
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ),
-     $                   AS( NMAX*NMAX ), B( NMAX, NMAX ),
-     $                   BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ),
-     $                   C( NMAX, NMAX ), CC( NMAX*NMAX ),
-     $                   CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AA( NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), B( NMAX, NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX )
       INTEGER            IDIM( NIDIM )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS,
-     $                   LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA,
-     $                   NARGS, NC, NS
+      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, K, KS, LAA, LCC, LDA, LDAS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
       CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*2        ICHU
@@ -1472,11 +1292,9 @@
          N = IDIM( IN )
 *        Set LDC to 1 more than minimum value if room.
          LDC = N
-         IF( LDC.LT.NMAX )
-     $      LDC = LDC + 1
+         IF( LDC.LT.NMAX ) LDC = LDC + 1
 *        Skip tests if not enough room.
-         IF( LDC.GT.NMAX )
-     $      GO TO 100
+         IF( LDC.GT.NMAX ) GO TO 100
          LCC = LDC*N
          NULL = N.LE.0
 *
@@ -1495,17 +1313,14 @@
                END IF
 *              Set LDA to 1 more than minimum value if room.
                LDA = MA
-               IF( LDA.LT.NMAX )
-     $            LDA = LDA + 1
+               IF( LDA.LT.NMAX ) LDA = LDA + 1
 *              Skip tests if not enough room.
-               IF( LDA.GT.NMAX )
-     $            GO TO 80
+               IF( LDA.GT.NMAX ) GO TO 80
                LAA = LDA*NA
 *
 *              Generate the matrix A.
 *
-               CALL DMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA,
-     $                     RESET, ZERO )
+               CALL DMAKE( 'GE', ' ', ' ', MA, NA, A, NMAX, AA, LDA, RESET, ZERO )
 *
                DO 70 ICU = 1, 2
                   UPLO = ICHU( ICU: ICU )
@@ -1519,8 +1334,7 @@
 *
 *                       Generate the matrix C.
 *
-                        CALL DMAKE( 'SY', UPLO, ' ', N, N, C, NMAX, CC,
-     $                              LDC, RESET, ZERO )
+                        CALL DMAKE( 'SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
 *
                         NC = NC + 1
 *
@@ -1543,13 +1357,8 @@
 *
 *                       Call the subroutine.
 *
-                        IF( TRACE )
-     $                     CALL DPRCN4( NTRA, NC, SNAME, IORDER, UPLO,
-     $                     TRANS, N, K, ALPHA, LDA, BETA, LDC)
-                        IF( REWI )
-     $                     REWIND NTRA
-                        CALL CDSYRK( IORDER, UPLO, TRANS, N, K, ALPHA,
-     $                              AA, LDA, BETA, CC, LDC )
+                        IF( TRACE ) CALL DPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC)
+                        IF( REWI ) REWIND NTRA                         CALL CDSYRK( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC )
 *
 *                       Check if error-exit was taken incorrectly.
 *
@@ -1572,8 +1381,7 @@
                         IF( NULL )THEN
                            ISAME( 9 ) = LDE( CS, CC, LCC )
                         ELSE
-                           ISAME( 9 ) = LDERES( 'SY', UPLO, N, N, CS,
-     $                                  CC, LDC )
+                           ISAME( 9 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 10 ) = LDCS.EQ.LDC
 *
@@ -1583,8 +1391,7 @@
                         SAME = .TRUE.
                         DO 30 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
-                           IF( .NOT.ISAME( I ) )
-     $                        WRITE( NOUT, FMT = 9998 )I
+                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    30                   CONTINUE
                         IF( .NOT.SAME )THEN
                            FATAL = .TRUE.
@@ -1605,19 +1412,9 @@
                                  LJ = N - J + 1
                               END IF
                               IF( TRAN )THEN
-                                 CALL DMMCH( 'T', 'N', LJ, 1, K, ALPHA,
-     $                                       A( 1, JJ ), NMAX,
-     $                                       A( 1, J ), NMAX, BETA,
-     $                                       C( JJ, J ), NMAX, CT, G,
-     $                                       CC( JC ), LDC, EPS, ERR,
-     $                                       FATAL, NOUT, .TRUE. )
+                                 CALL DMMCH( 'T', 'N', LJ, 1, K, ALPHA, A( 1, JJ ), NMAX, A( 1, J ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ELSE
-                                 CALL DMMCH( 'N', 'T', LJ, 1, K, ALPHA,
-     $                                       A( JJ, 1 ), NMAX,
-     $                                       A( J, 1 ), NMAX, BETA,
-     $                                       C( JJ, J ), NMAX, CT, G,
-     $                                       CC( JC ), LDC, EPS, ERR,
-     $                                       FATAL, NOUT, .TRUE. )
+                                 CALL DMMCH( 'N', 'T', LJ, 1, K, ALPHA, A( JJ, 1 ), NMAX, A( J, 1 ), NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
@@ -1627,8 +1424,7 @@
                               ERRMAX = MAX( ERRMAX, ERR )
 *                             If got really bad answer, report and
 *                             return.
-                              IF( FATAL )
-     $                           GO TO 110
+                              IF( FATAL ) GO TO 110
    40                      CONTINUE
                         END IF
 *
@@ -1656,13 +1452,11 @@
       GO TO 130
 *
   110 CONTINUE
-      IF( N.GT.1 )
-     $   WRITE( NOUT, FMT = 9995 )J
+      IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
 *
   120 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL DPRCN4( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA,
-     $   LDA, BETA, LDC)
+      CALL DPRCN4( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC)
 *
   130 CONTINUE
       RETURN
@@ -1690,8 +1484,7 @@
 *
       END
 *
-      SUBROUTINE DPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA,
-     $                 N, K, ALPHA, LDA, BETA, LDC)
+      SUBROUTINE DPRCN4(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, BETA, LDC)
       INTEGER          NOUT, NC, IORDER, N, K, LDA, LDC
       DOUBLE PRECISION ALPHA, BETA
       CHARACTER*1      UPLO, TRANSA
@@ -1723,10 +1516,7 @@
      $      F4.1, ', A,', I3, ',', F4.1, ', C,', I3, ').' )
       END
 *
-      SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI,
-     $                  FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX,
-     $                  AB, AA, AS, BB, BS, C, CC, CS, CT, G, W,
-     $			IORDER )
+      SUBROUTINE DCHK5( SNAME, EPS, THRESH, NOUT, NTRA, TRACE, REWI, FATAL, NIDIM, IDIM, NALF, ALF, NBET, BET, NMAX, AB, AA, AS, BB, BS, C, CC, CS, CT, G, W, IORDER )
 *
 *  Tests DSYR2K.
 *
@@ -1747,17 +1537,11 @@
       LOGICAL            FATAL, REWI, TRACE
       CHARACTER*12       SNAME
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ),
-     $                   ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ),
-     $                   BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ),
-     $                   CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ),
-     $                   G( NMAX ), W( 2*NMAX )
+      DOUBLE PRECISION   AA( NMAX*NMAX ), AB( 2*NMAX*NMAX ), ALF( NALF ), AS( NMAX*NMAX ), BB( NMAX*NMAX ), BET( NBET ), BS( NMAX*NMAX ), C( NMAX, NMAX ), CC( NMAX*NMAX ), CS( NMAX*NMAX ), CT( NMAX ), G( NMAX ), W( 2*NMAX )
       INTEGER            IDIM( NIDIM )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ALPHA, ALS, BETA, BETS, ERR, ERRMAX
-      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB,
-     $                   K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS,
-     $                   LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
+      INTEGER            I, IA, IB, ICT, ICU, IK, IN, J, JC, JJ, JJAB, K, KS, LAA, LBB, LCC, LDA, LDAS, LDB, LDBS, LDC, LDCS, LJ, MA, N, NA, NARGS, NC, NS
       LOGICAL            NULL, RESET, SAME, TRAN, UPPER
       CHARACTER*1        TRANS, TRANSS, UPLO, UPLOS
       CHARACTER*2        ICHU
@@ -1789,11 +1573,9 @@
          N = IDIM( IN )
 *        Set LDC to 1 more than minimum value if room.
          LDC = N
-         IF( LDC.LT.NMAX )
-     $      LDC = LDC + 1
+         IF( LDC.LT.NMAX ) LDC = LDC + 1
 *        Skip tests if not enough room.
-         IF( LDC.GT.NMAX )
-     $      GO TO 130
+         IF( LDC.GT.NMAX ) GO TO 130
          LCC = LDC*N
          NULL = N.LE.0
 *
@@ -1812,21 +1594,17 @@
                END IF
 *              Set LDA to 1 more than minimum value if room.
                LDA = MA
-               IF( LDA.LT.NMAX )
-     $            LDA = LDA + 1
+               IF( LDA.LT.NMAX ) LDA = LDA + 1
 *              Skip tests if not enough room.
-               IF( LDA.GT.NMAX )
-     $            GO TO 110
+               IF( LDA.GT.NMAX ) GO TO 110
                LAA = LDA*NA
 *
 *              Generate the matrix A.
 *
                IF( TRAN )THEN
-                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA,
-     $                        LDA, RESET, ZERO )
+                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, 2*NMAX, AA, LDA, RESET, ZERO )
                ELSE
-                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA,
-     $                        RESET, ZERO )
+                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB, NMAX, AA, LDA, RESET, ZERO )
                END IF
 *
 *              Generate the matrix B.
@@ -1834,11 +1612,9 @@
                LDB = LDA
                LBB = LAA
                IF( TRAN )THEN
-                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ),
-     $                        2*NMAX, BB, LDB, RESET, ZERO )
+                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K + 1 ), 2*NMAX, BB, LDB, RESET, ZERO )
                ELSE
-                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ),
-     $                        NMAX, BB, LDB, RESET, ZERO )
+                  CALL DMAKE( 'GE', ' ', ' ', MA, NA, AB( K*NMAX + 1 ), NMAX, BB, LDB, RESET, ZERO )
                END IF
 *
                DO 100 ICU = 1, 2
@@ -1853,8 +1629,7 @@
 *
 *                       Generate the matrix C.
 *
-                        CALL DMAKE( 'SY', UPLO, ' ', N, N, C, NMAX, CC,
-     $                              LDC, RESET, ZERO )
+                        CALL DMAKE( 'SY', UPLO, ' ', N, N, C, NMAX, CC, LDC, RESET, ZERO )
 *
                         NC = NC + 1
 *
@@ -1881,14 +1656,7 @@
 *
 *                       Call the subroutine.
 *
-                        IF( TRACE )
-     $                     CALL DPRCN5( NTRA, NC, SNAME, IORDER, UPLO,
-     $                     TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)
-                        IF( REWI )
-     $                     REWIND NTRA
-                        CALL CDSYR2K( IORDER, UPLO, TRANS, N, K,
-     $                               ALPHA, AA, LDA, BB, LDB, BETA,
-     $				     CC, LDC )
+                        IF( TRACE ) CALL DPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)                         IF( REWI ) REWIND NTRA                         CALL CDSYR2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC )
 *
 *                       Check if error-exit was taken incorrectly.
 *
@@ -1913,8 +1681,7 @@
                         IF( NULL )THEN
                            ISAME( 11 ) = LDE( CS, CC, LCC )
                         ELSE
-                           ISAME( 11 ) = LDERES( 'SY', UPLO, N, N, CS,
-     $                                   CC, LDC )
+                           ISAME( 11 ) = LDERES( 'SY', UPLO, N, N, CS, CC, LDC )
                         END IF
                         ISAME( 12 ) = LDCS.EQ.LDC
 *
@@ -1924,8 +1691,7 @@
                         SAME = .TRUE.
                         DO 40 I = 1, NARGS
                            SAME = SAME.AND.ISAME( I )
-                           IF( .NOT.ISAME( I ) )
-     $                        WRITE( NOUT, FMT = 9998 )I
+                           IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
    40                   CONTINUE
                         IF( .NOT.SAME )THEN
                            FATAL = .TRUE.
@@ -1948,43 +1714,25 @@
                               END IF
                               IF( TRAN )THEN
                                  DO 50 I = 1, K
-                                    W( I ) = AB( ( J - 1 )*2*NMAX + K +
-     $                                       I )
-                                    W( K + I ) = AB( ( J - 1 )*2*NMAX +
-     $                                           I )
+                                    W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
    50                            CONTINUE
-                                 CALL DMMCH( 'T', 'N', LJ, 1, 2*K,
-     $                                       ALPHA, AB( JJAB ), 2*NMAX,
-     $                                       W, 2*NMAX, BETA,
-     $                                       C( JJ, J ), NMAX, CT, G,
-     $                                       CC( JC ), LDC, EPS, ERR,
-     $                                       FATAL, NOUT, .TRUE. )
+                                 CALL DMMCH( 'T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               ELSE
                                  DO 60 I = 1, K
-                                    W( I ) = AB( ( K + I - 1 )*NMAX +
-     $                                       J )
-                                    W( K + I ) = AB( ( I - 1 )*NMAX +
-     $                                           J )
+                                    W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
    60                            CONTINUE
-                                 CALL DMMCH( 'N', 'N', LJ, 1, 2*K,
-     $                                       ALPHA, AB( JJ ), NMAX, W,
-     $                                       2*NMAX, BETA, C( JJ, J ),
-     $                                       NMAX, CT, G, CC( JC ), LDC,
-     $                                       EPS, ERR, FATAL, NOUT,
-     $                                       .TRUE. )
+                                 CALL DMMCH( 'N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. )
                               END IF
                               IF( UPPER )THEN
                                  JC = JC + LDC
                               ELSE
                                  JC = JC + LDC + 1
-                                 IF( TRAN )
-     $                              JJAB = JJAB + 2*NMAX
+                                 IF( TRAN ) JJAB = JJAB + 2*NMAX
                               END IF
                               ERRMAX = MAX( ERRMAX, ERR )
 *                             If got really bad answer, report and
 *                             return.
-                              IF( FATAL )
-     $                           GO TO 140
+                              IF( FATAL ) GO TO 140
    70                      CONTINUE
                         END IF
 *
@@ -2012,13 +1760,11 @@
       GO TO 160
 *
   140 CONTINUE
-      IF( N.GT.1 )
-     $   WRITE( NOUT, FMT = 9995 )J
+      IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
 *
   150 CONTINUE
       WRITE( NOUT, FMT = 9996 )SNAME
-      CALL DPRCN5( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA,
-     $   LDA, LDB, BETA, LDC)
+      CALL DPRCN5( NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC)
 *
   160 CONTINUE
       RETURN
@@ -2047,8 +1793,7 @@
 *
       END
 *
-      SUBROUTINE DPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA,
-     $                 N, K, ALPHA, LDA, LDB, BETA, LDC)
+      SUBROUTINE DPRCN5(NOUT, NC, SNAME, IORDER, UPLO, TRANSA, N, K, ALPHA, LDA, LDB, BETA, LDC)
       INTEGER          NOUT, NC, IORDER, N, K, LDA, LDB, LDC
       DOUBLE PRECISION ALPHA, BETA
       CHARACTER*1      UPLO, TRANSA
@@ -2080,8 +1825,7 @@
      $      F4.1, ', A,', I3, ', B', I3, ',', F4.1, ', C,', I3, ').' )
       END
 *
-      SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET,
-     $                  TRANSL )
+      SUBROUTINE DMAKE( TYPE, UPLO, DIAG, M, N, A, NMAX, AA, LDA, RESET, TRANSL )
 *
 *  Generates values for an M by N matrix A.
 *  Stores the values in the array AA in the data structure required
@@ -2128,13 +1872,11 @@
 *
       DO 20 J = 1, N
          DO 10 I = 1, M
-            IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) )
-     $          THEN
+            IF( GEN.OR.( UPPER.AND.I.LE.J ).OR.( LOWER.AND.I.GE.J ) ) THEN
                A( I, J ) = DBEG( RESET ) + TRANSL
                IF( I.NE.J )THEN
 *                 Set some elements to zero
-                  IF( N.GT.3.AND.J.EQ.N/2 )
-     $               A( I, J ) = ZERO
+                  IF( N.GT.3.AND.J.EQ.N/2 ) A( I, J ) = ZERO
                   IF( SYM )THEN
                      A( J, I ) = A( I, J )
                   ELSE IF( TRI )THEN
@@ -2143,10 +1885,7 @@
                END IF
             END IF
    10    CONTINUE
-         IF( TRI )
-     $      A( J, J ) = A( J, J ) + ONE
-         IF( UNIT )
-     $      A( J, J ) = ONE
+         IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
    20 CONTINUE
 *
 *     Store elements in array AS in data structure required by routine.
@@ -2193,9 +1932,7 @@
 *     End of DMAKE.
 *
       END
-      SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB,
-     $                  BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL,
-     $                  NOUT, MV )
+      SUBROUTINE DMMCH( TRANSA, TRANSB, M, N, KK, ALPHA, A, LDA, B, LDB, BETA, C, LDC, CT, G, CC, LDCC, EPS, ERR, FATAL, NOUT, MV )
 *
 *  Checks the results of the computational tests.
 *
@@ -2216,8 +1953,7 @@
       LOGICAL            FATAL, MV
       CHARACTER*1        TRANSA, TRANSB
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ),
-     $                   CC( LDCC, * ), CT( * ), G( * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDC, * ), CC( LDCC, * ), CT( * ), G( * )
 *     .. Local Scalars ..
       DOUBLE PRECISION   ERRI
       INTEGER            I, J, K
@@ -2277,11 +2013,9 @@
          ERR = ZERO
          DO 110 I = 1, M
             ERRI = ABS( CT( I ) - CC( I, J ) )/EPS
-            IF( G( I ).NE.ZERO )
-     $         ERRI = ERRI/G( I )
+            IF( G( I ).NE.ZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
-            IF( ERR*SQRT( EPS ).GE.ONE )
-     $         GO TO 130
+            IF( ERR*SQRT( EPS ).GE.ONE ) GO TO 130
   110    CONTINUE
 *
   120 CONTINUE
@@ -2300,8 +2034,7 @@
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          END IF
   140 CONTINUE
-      IF( N.GT.1 )
-     $   WRITE( NOUT, FMT = 9997 )J
+      IF( N.GT.1 ) WRITE( NOUT, FMT = 9997 )J
 *
   150 CONTINUE
       RETURN
@@ -2335,8 +2068,7 @@
       INTEGER            I
 *     .. Executable Statements ..
       DO 10 I = 1, LR
-         IF( RI( I ).NE.RJ( I ) )
-     $      GO TO 20
+         IF( RI( I ).NE.RJ( I ) ) GO TO 20
    10 CONTINUE
       LDE = .TRUE.
       GO TO 30
@@ -2375,8 +2107,7 @@
       IF( TYPE.EQ.'GE' )THEN
          DO 20 J = 1, N
             DO 10 I = M + 1, LDA
-               IF( AA( I, J ).NE.AS( I, J ) )
-     $            GO TO 70
+               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    10       CONTINUE
    20    CONTINUE
       ELSE IF( TYPE.EQ.'SY' )THEN
@@ -2389,12 +2120,10 @@
                IEND = N
             END IF
             DO 30 I = 1, IBEG - 1
-               IF( AA( I, J ).NE.AS( I, J ) )
-     $            GO TO 70
+               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    30       CONTINUE
             DO 40 I = IEND + 1, LDA
-               IF( AA( I, J ).NE.AS( I, J ) )
-     $            GO TO 70
+               IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
    40       CONTINUE
    50    CONTINUE
       END IF

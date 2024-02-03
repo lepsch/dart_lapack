@@ -1,5 +1,4 @@
-      SUBROUTINE SLAEDA( N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR,
-     $                   GIVCOL, GIVNUM, Q, QPTR, Z, ZTEMP, INFO )
+      SUBROUTINE SLAEDA( N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, Q, QPTR, Z, ZTEMP, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            CURLVL, CURPBM, INFO, N, TLVLS
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( 2, * ), GIVPTR( * ), PERM( * ),
-     $                   PRMPTR( * ), QPTR( * )
+      INTEGER            GIVCOL( 2, * ), GIVPTR( * ), PERM( * ), PRMPTR( * ), QPTR( * )
       REAL               GIVNUM( 2, * ), Q( * ), Z( * ), ZTEMP( * )
 *     ..
 *
@@ -21,8 +19,7 @@
       PARAMETER          ( ZERO = 0.0E0, HALF = 0.5E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2,
-     $                   PTR, ZPTR1
+      INTEGER            BSIZ1, BSIZ2, CURR, I, K, MID, PSIZ1, PSIZ2, PTR, ZPTR1
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SCOPY, SGEMV, SROT, XERBLA
@@ -46,8 +43,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine location of first number in second half.
 *
@@ -71,8 +67,7 @@
       DO 10 K = 1, MID - BSIZ1 - 1
          Z( K ) = ZERO
    10 CONTINUE
-      CALL SCOPY( BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1,
-     $            Z( MID-BSIZ1 ), 1 )
+      CALL SCOPY( BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1, Z( MID-BSIZ1 ), 1 )
       CALL SCOPY( BSIZ2, Q( QPTR( CURR+1 ) ), BSIZ2, Z( MID ), 1 )
       DO 20 K = MID + BSIZ2, N
          Z( K ) = ZERO
@@ -92,14 +87,10 @@
 *       Apply Givens at CURR and CURR+1
 *
          DO 30 I = GIVPTR( CURR ), GIVPTR( CURR+1 ) - 1
-            CALL SROT( 1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1,
-     $                 Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ),
-     $                 GIVNUM( 2, I ) )
+            CALL SROT( 1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1, Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) )
    30    CONTINUE
          DO 40 I = GIVPTR( CURR+1 ), GIVPTR( CURR+2 ) - 1
-            CALL SROT( 1, Z( MID-1+GIVCOL( 1, I ) ), 1,
-     $                 Z( MID-1+GIVCOL( 2, I ) ), 1, GIVNUM( 1, I ),
-     $                 GIVNUM( 2, I ) )
+            CALL SROT( 1, Z( MID-1+GIVCOL( 1, I ) ), 1, Z( MID-1+GIVCOL( 2, I ) ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) )
    40    CONTINUE
          PSIZ1 = PRMPTR( CURR+1 ) - PRMPTR( CURR )
          PSIZ2 = PRMPTR( CURR+2 ) - PRMPTR( CURR+1 )
@@ -117,20 +108,15 @@
 *        square roots.
 *
          BSIZ1 = INT( HALF+SQRT( REAL( QPTR( CURR+1 )-QPTR( CURR ) ) ) )
-         BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+
-     $           1 ) ) ) )
+         BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+ 1 ) ) ) )
          IF( BSIZ1.GT.0 ) THEN
-            CALL SGEMV( 'T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ),
-     $                  BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 )
+            CALL SGEMV( 'T', BSIZ1, BSIZ1, ONE, Q( QPTR( CURR ) ), BSIZ1, ZTEMP( 1 ), 1, ZERO, Z( ZPTR1 ), 1 )
          END IF
-         CALL SCOPY( PSIZ1-BSIZ1, ZTEMP( BSIZ1+1 ), 1, Z( ZPTR1+BSIZ1 ),
-     $               1 )
+         CALL SCOPY( PSIZ1-BSIZ1, ZTEMP( BSIZ1+1 ), 1, Z( ZPTR1+BSIZ1 ), 1 )
          IF( BSIZ2.GT.0 ) THEN
-            CALL SGEMV( 'T', BSIZ2, BSIZ2, ONE, Q( QPTR( CURR+1 ) ),
-     $                  BSIZ2, ZTEMP( PSIZ1+1 ), 1, ZERO, Z( MID ), 1 )
+            CALL SGEMV( 'T', BSIZ2, BSIZ2, ONE, Q( QPTR( CURR+1 ) ), BSIZ2, ZTEMP( PSIZ1+1 ), 1, ZERO, Z( MID ), 1 )
          END IF
-         CALL SCOPY( PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1,
-     $               Z( MID+BSIZ2 ), 1 )
+         CALL SCOPY( PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1, Z( MID+BSIZ2 ), 1 )
 *
          PTR = PTR + 2**( TLVLS-K )
    70 CONTINUE

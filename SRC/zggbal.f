@@ -1,5 +1,4 @@
-      SUBROUTINE ZGGBAL( JOB, N, A, LDA, B, LDB, ILO, IHI, LSCALE,
-     $                   RSCALE, WORK, INFO )
+      SUBROUTINE ZGGBAL( JOB, N, A, LDA, B, LDB, ILO, IHI, LSCALE, RSCALE, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,12 +24,7 @@
       PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1,
-     $                   K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN,
-     $                   M, NR, NRP2
-      DOUBLE PRECISION   ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2,
-     $                   COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX,
-     $                   SFMIN, SUM, T, TA, TB, TC
+      INTEGER            I, ICAB, IFLOW, IP1, IR, IRAB, IT, J, JC, JP1, K, KOUNT, L, LCAB, LM1, LRAB, LSFMAX, LSFMIN, M, NR, NRP2       DOUBLE PRECISION   ALPHA, BASL, BETA, CAB, CMAX, COEF, COEF2, COEF5, COR, EW, EWC, GAMMA, PGAMMA, RAB, SFMAX, SFMIN, SUM, T, TA, TB, TC
       COMPLEX*16         CDUM
 *     ..
 *     .. External Functions ..
@@ -56,8 +50,7 @@
 *     Test the input parameters
 *
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND.
-     $    .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -99,8 +92,7 @@
 *
       K = 1
       L = N
-      IF( LSAME( JOB, 'S' ) )
-     $   GO TO 190
+      IF( LSAME( JOB, 'S' ) ) GO TO 190
 *
       GO TO 30
 *
@@ -110,8 +102,7 @@
 *
    20 CONTINUE
       L = LM1
-      IF( L.NE.1 )
-     $   GO TO 30
+      IF( L.NE.1 ) GO TO 30
 *
       RSCALE( 1 ) = 1
       LSCALE( 1 ) = 1
@@ -122,16 +113,14 @@
       DO 80 I = L, 1, -1
          DO 40 J = 1, LM1
             JP1 = J + 1
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO )
-     $         GO TO 50
+            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 50
    40    CONTINUE
          J = L
          GO TO 70
 *
    50    CONTINUE
          DO 60 J = JP1, L
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO )
-     $         GO TO 80
+            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 80
    60    CONTINUE
          J = JP1 - 1
 *
@@ -151,15 +140,13 @@
       DO 150 J = K, L
          DO 110 I = K, LM1
             IP1 = I + 1
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO )
-     $         GO TO 120
+            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 120
   110    CONTINUE
          I = L
          GO TO 140
   120    CONTINUE
          DO 130 I = IP1, L
-            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO )
-     $         GO TO 150
+            IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 150
   130    CONTINUE
          I = IP1 - 1
   140    CONTINUE
@@ -173,8 +160,7 @@
 *
   160 CONTINUE
       LSCALE( M ) = I
-      IF( I.EQ.M )
-     $   GO TO 170
+      IF( I.EQ.M ) GO TO 170
       CALL ZSWAP( N-K+1, A( I, K ), LDA, A( M, K ), LDA )
       CALL ZSWAP( N-K+1, B( I, K ), LDB, B( M, K ), LDB )
 *
@@ -182,8 +168,7 @@
 *
   170 CONTINUE
       RSCALE( M ) = J
-      IF( J.EQ.M )
-     $   GO TO 180
+      IF( J.EQ.M ) GO TO 180
       CALL ZSWAP( L, A( 1, J ), 1, A( 1, M ), 1 )
       CALL ZSWAP( L, B( 1, J ), 1, B( 1, M ), 1 )
 *
@@ -202,8 +187,7 @@
          RETURN
       END IF
 *
-      IF( ILO.EQ.IHI )
-     $   RETURN
+      IF( ILO.EQ.IHI ) RETURN
 *
 *     Balance the submatrix in rows ILO to IHI.
 *
@@ -255,8 +239,7 @@
 *
   250 CONTINUE
 *
-      GAMMA = DDOT( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) +
-     $        DDOT( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 )
+      GAMMA = DDOT( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) + DDOT( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 )
 *
       EW = ZERO
       EWC = ZERO
@@ -266,10 +249,7 @@
   260 CONTINUE
 *
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
-      IF( GAMMA.EQ.ZERO )
-     $   GO TO 350
-      IF( IT.NE.1 )
-     $   BETA = GAMMA / PGAMMA
+      IF( GAMMA.EQ.ZERO ) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA
       T = COEF5*( EWC-THREE*EW )
       TC = COEF5*( EW-THREE*EWC )
 *
@@ -290,13 +270,11 @@
          KOUNT = 0
          SUM = ZERO
          DO 290 J = ILO, IHI
-            IF( A( I, J ).EQ.CZERO )
-     $         GO TO 280
+            IF( A( I, J ).EQ.CZERO ) GO TO 280
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
   280       CONTINUE
-            IF( B( I, J ).EQ.CZERO )
-     $         GO TO 290
+            IF( B( I, J ).EQ.CZERO ) GO TO 290
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
   290    CONTINUE
@@ -307,21 +285,18 @@
          KOUNT = 0
          SUM = ZERO
          DO 320 I = ILO, IHI
-            IF( A( I, J ).EQ.CZERO )
-     $         GO TO 310
+            IF( A( I, J ).EQ.CZERO ) GO TO 310
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
   310       CONTINUE
-            IF( B( I, J ).EQ.CZERO )
-     $         GO TO 320
+            IF( B( I, J ).EQ.CZERO ) GO TO 320
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
   320    CONTINUE
          WORK( J+3*N ) = DBLE( KOUNT )*WORK( J ) + SUM
   330 CONTINUE
 *
-      SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) +
-     $      DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 )
+      SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 )
       ALPHA = GAMMA / SUM
 *
 *     Determine correction to current iteration
@@ -329,24 +304,20 @@
       CMAX = ZERO
       DO 340 I = ILO, IHI
          COR = ALPHA*WORK( I+N )
-         IF( ABS( COR ).GT.CMAX )
-     $      CMAX = ABS( COR )
+         IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          LSCALE( I ) = LSCALE( I ) + COR
          COR = ALPHA*WORK( I )
-         IF( ABS( COR ).GT.CMAX )
-     $      CMAX = ABS( COR )
+         IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
   340 CONTINUE
-      IF( CMAX.LT.HALF )
-     $   GO TO 350
+      IF( CMAX.LT.HALF ) GO TO 350
 *
       CALL DAXPY( NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 )
       CALL DAXPY( NR, -ALPHA, WORK( ILO+3*N ), 1, WORK( ILO+5*N ), 1 )
 *
       PGAMMA = GAMMA
       IT = IT + 1
-      IF( IT.LE.NRP2 )
-     $   GO TO 250
+      IF( IT.LE.NRP2 ) GO TO 250
 *
 *     End generalized conjugate gradient iteration
 *

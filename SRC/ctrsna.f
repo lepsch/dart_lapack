@@ -1,6 +1,4 @@
-      SUBROUTINE CTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR,
-     $                   LDVR, S, SEP, MM, M, WORK, LDWORK, RWORK,
-     $                   INFO )
+      SUBROUTINE CTRSNA( JOB, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, S, SEP, MM, M, WORK, LDWORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       REAL               RWORK( * ), S( * ), SEP( * )
-      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( LDWORK, * )
+      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -27,8 +24,7 @@
       LOGICAL            SOMCON, WANTBH, WANTS, WANTSP
       CHARACTER          NORMIN
       INTEGER            I, IERR, IX, J, K, KASE, KS
-      REAL               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM,
-     $                   XNORM
+      REAL               BIGNUM, EPS, EST, LNRM, RNRM, SCALE, SMLNUM, XNORM
       COMPLEX            CDUM, PROD
 *     ..
 *     .. Local Arrays ..
@@ -70,8 +66,7 @@
       IF( SOMCON ) THEN
          M = 0
          DO 10 J = 1, N
-            IF( SELECT( J ) )
-     $         M = M + 1
+            IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       ELSE
          M = N
@@ -102,18 +97,13 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( SOMCON ) THEN
-            IF( .NOT.SELECT( 1 ) )
-     $         RETURN
+            IF( .NOT.SELECT( 1 ) ) RETURN
          END IF
-         IF( WANTS )
-     $      S( 1 ) = ONE
-         IF( WANTSP )
-     $      SEP( 1 ) = ABS( T( 1, 1 ) )
+         IF( WANTS ) S( 1 ) = ONE          IF( WANTSP ) SEP( 1 ) = ABS( T( 1, 1 ) )
          RETURN
       END IF
 *
@@ -127,8 +117,7 @@
       DO 50 K = 1, N
 *
          IF( SOMCON ) THEN
-            IF( .NOT.SELECT( K ) )
-     $         GO TO 50
+            IF( .NOT.SELECT( K ) ) GO TO 50
          END IF
 *
          IF( WANTS ) THEN
@@ -175,16 +164,12 @@
 *
 *                 Solve C**H*x = scale*b
 *
-                  CALL CLATRS( 'Upper', 'Conjugate transpose',
-     $                         'Nonunit', NORMIN, N-1, WORK( 2, 2 ),
-     $                         LDWORK, WORK, SCALE, RWORK, IERR )
+                  CALL CLATRS( 'Upper', 'Conjugate transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
                ELSE
 *
 *                 Solve C*x = scale*b
 *
-                  CALL CLATRS( 'Upper', 'No transpose', 'Nonunit',
-     $                         NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK,
-     $                         SCALE, RWORK, IERR )
+                  CALL CLATRS( 'Upper', 'No transpose', 'Nonunit', NORMIN, N-1, WORK( 2, 2 ), LDWORK, WORK, SCALE, RWORK, IERR )
                END IF
                NORMIN = 'Y'
                IF( SCALE.NE.ONE ) THEN
@@ -194,8 +179,7 @@
 *
                   IX = ICAMAX( N-1, WORK, 1 )
                   XNORM = CABS1( WORK( IX, 1 ) )
-                  IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO )
-     $               GO TO 40
+                  IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
                   CALL CSRSCL( N, SCALE, WORK, 1 )
                END IF
                GO TO 30

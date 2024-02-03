@@ -1,5 +1,4 @@
-      SUBROUTINE CGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, RWORK,
-     $                   INFO )
+      SUBROUTINE CGECON( NORM, N, A, LDA, ANORM, RCOND, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -107,25 +106,20 @@
 *
 *           Multiply by inv(L).
 *
-            CALL CLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A,
-     $                   LDA, WORK, SL, RWORK, INFO )
+            CALL CLATRS( 'Lower', 'No transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
 *
 *           Multiply by inv(U).
 *
-            CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   A, LDA, WORK, SU, RWORK( N+1 ), INFO )
+            CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(U**H).
 *
-            CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                   NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ),
-     $                   INFO )
+            CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', NORMIN, N, A, LDA, WORK, SU, RWORK( N+1 ), INFO )
 *
 *           Multiply by inv(L**H).
 *
-            CALL CLATRS( 'Lower', 'Conjugate transpose', 'Unit', NORMIN,
-     $                   N, A, LDA, WORK, SL, RWORK, INFO )
+            CALL CLATRS( 'Lower', 'Conjugate transpose', 'Unit', NORMIN, N, A, LDA, WORK, SL, RWORK, INFO )
          END IF
 *
 *        Divide X by 1/(SL*SU) if doing so will not cause overflow.
@@ -134,8 +128,7 @@
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
             IX = ICAMAX( N, WORK, 1 )
-            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.CABS1( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL CSRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -152,8 +145,7 @@
 *
 *     Check for NaNs and Infs
 *
-      IF( SISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL )
-     $   INFO = 1
+      IF( SISNAN( RCOND ) .OR. RCOND.GT.HUGEVAL ) INFO = 1
 *
    20 CONTINUE
       RETURN

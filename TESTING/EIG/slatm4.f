@@ -1,5 +1,4 @@
-      SUBROUTINE SLATM4( ITYPE, N, NZ1, NZ2, ISIGN, AMAGN, RCOND,
-     $                   TRIANG, IDIST, ISEED, A, LDA )
+      SUBROUTINE SLATM4( ITYPE, N, NZ1, NZ2, ISIGN, AMAGN, RCOND, TRIANG, IDIST, ISEED, A, LDA )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
       PARAMETER          ( HALF = ONE / TWO )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND,
-     $                   KLEN
+      INTEGER            I, IOFF, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
       REAL               ALPHA, CL, CR, SAFMIN, SL, SR, SV1, SV2, TEMP
 *     ..
 *     .. External Functions ..
@@ -39,14 +37,12 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
       CALL SLASET( 'Full', N, N, ZERO, ZERO, A, LDA )
 *
 *     Insure a correct ISEED
 *
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 )
-     $   ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
 *     Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
 *     and RCOND
@@ -63,8 +59,7 @@
          END IF
          ISDB = 1
          ISDE = 0
-         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160,
-     $           180, 200 )ABS( ITYPE )
+         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
 *
 *        abs(ITYPE) = 1: Identity
 *
@@ -182,14 +177,12 @@
          IF( ISIGN.GT.0 ) THEN
             DO 250 JD = KBEG, KEND
                IF( REAL( A( JD, JD ) ).NE.ZERO ) THEN
-                  IF( SLARAN( ISEED ).GT.HALF )
-     $               A( JD, JD ) = -A( JD, JD )
+                  IF( SLARAN( ISEED ).GT.HALF ) A( JD, JD ) = -A( JD, JD )
                END IF
   250       CONTINUE
             DO 260 JD = ISDB, ISDE
                IF( REAL( A( JD+1, JD ) ).NE.ZERO ) THEN
-                  IF( SLARAN( ISEED ).GT.HALF )
-     $               A( JD+1, JD ) = -A( JD+1, JD )
+                  IF( SLARAN( ISEED ).GT.HALF ) A( JD+1, JD ) = -A( JD+1, JD )
                END IF
   260       CONTINUE
          END IF
@@ -255,8 +248,7 @@
          ELSE
             IOFF = 2
             DO 300 JR = 1, N - 1
-               IF( A( JR+1, JR ).EQ.ZERO )
-     $            A( JR, JR+1 ) = TRIANG*SLARND( IDIST, ISEED )
+               IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*SLARND( IDIST, ISEED )
   300       CONTINUE
          END IF
 *

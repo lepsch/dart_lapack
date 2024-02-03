@@ -1,5 +1,4 @@
-      SUBROUTINE DGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE DGBCON( NORM, N, KL, KU, AB, LDAB, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -112,24 +111,19 @@
 *
 *           Multiply by inv(U).
 *
-            CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL DLATBS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(U**T).
 *
-            CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ),
-     $                   INFO )
+            CALL DLATBS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, KL+KU, AB, LDAB, WORK, SCALE, WORK( 2*N+1 ), INFO )
 *
 *           Multiply by inv(L**T).
 *
             IF( LNOTI ) THEN
                DO 30 J = N - 1, 1, -1
                   LM = MIN( KL, N-J )
-                  WORK( J ) = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1,
-     $                        WORK( J+1 ), 1 )
+                  WORK( J ) = WORK( J ) - DDOT( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 )
                   JP = IPIV( J )
                   IF( JP.NE.J ) THEN
                      T = WORK( JP )
@@ -145,8 +139,7 @@
          NORMIN = 'Y'
          IF( SCALE.NE.ONE ) THEN
             IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 40
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 40
             CALL DRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -154,8 +147,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    40 CONTINUE
       RETURN

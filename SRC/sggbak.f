@@ -1,5 +1,4 @@
-      SUBROUTINE SGGBAK( JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, V,
-     $                   LDV, INFO )
+      SUBROUTINE SGGBAK( JOB, SIDE, N, ILO, IHI, LSCALE, RSCALE, M, V, LDV, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -37,8 +36,7 @@
       LEFTV = LSAME( SIDE, 'L' )
 *
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND.
-     $    .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
          INFO = -2
@@ -48,8 +46,7 @@
          INFO = -4
       ELSE IF( N.EQ.0 .AND. IHI.EQ.0 .AND. ILO.NE.1 ) THEN
          INFO = -4
-      ELSE IF( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) )
-     $   THEN
+      ELSE IF( N.GT.0 .AND. ( IHI.LT.ILO .OR. IHI.GT.MAX( 1, N ) ) ) THEN
          INFO = -5
       ELSE IF( N.EQ.0 .AND. ILO.EQ.1 .AND. IHI.NE.0 ) THEN
          INFO = -5
@@ -65,15 +62,9 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
-      IF( M.EQ.0 )
-     $   RETURN
-      IF( LSAME( JOB, 'N' ) )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
 *
-      IF( ILO.EQ.IHI )
-     $   GO TO 30
+      IF( ILO.EQ.IHI ) GO TO 30
 *
 *     Backward balance
 *
@@ -104,23 +95,19 @@
 *        Backward permutation on right eigenvectors
 *
          IF( RIGHTV ) THEN
-            IF( ILO.EQ.1 )
-     $         GO TO 50
+            IF( ILO.EQ.1 ) GO TO 50
 *
             DO 40 I = ILO - 1, 1, -1
                K = INT( RSCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 40
+               IF( K.EQ.I ) GO TO 40
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    40       CONTINUE
 *
    50       CONTINUE
-            IF( IHI.EQ.N )
-     $         GO TO 70
+            IF( IHI.EQ.N ) GO TO 70
             DO 60 I = IHI + 1, N
                K = INT( RSCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 60
+               IF( K.EQ.I ) GO TO 60
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    60       CONTINUE
          END IF
@@ -129,22 +116,18 @@
 *
    70    CONTINUE
          IF( LEFTV ) THEN
-            IF( ILO.EQ.1 )
-     $         GO TO 90
+            IF( ILO.EQ.1 ) GO TO 90
             DO 80 I = ILO - 1, 1, -1
                K = INT( LSCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 80
+               IF( K.EQ.I ) GO TO 80
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    80       CONTINUE
 *
    90       CONTINUE
-            IF( IHI.EQ.N )
-     $         GO TO 110
+            IF( IHI.EQ.N ) GO TO 110
             DO 100 I = IHI + 1, N
                K = INT( LSCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 100
+               IF( K.EQ.I ) GO TO 100
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
   100       CONTINUE
          END IF

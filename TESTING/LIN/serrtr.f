@@ -22,18 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IW( NMAX )
-      REAL               A( NMAX, NMAX ), B( NMAX ), R1( NMAX ),
-     $                   R2( NMAX ), W( NMAX ), X( NMAX )
+      REAL               A( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SLATBS, SLATPS, SLATRS,
-     $                   SLATRS3, STBCON, STBRFS, STBTRS, STPCON,
-     $                   STPRFS, STPTRI, STPTRS, STRCON, STRRFS, STRTI2,
-     $                   STRTRI, STRTRS
+      EXTERNAL           ALAESM, CHKXER, SLATBS, SLATPS, SLATRS, SLATRS3, STBCON, STBRFS, STBTRS, STPCON, STPRFS, STPTRI, STPTRS, STRCON, STRRFS, STRTI2, STRTRI, STRTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -120,36 +116,28 @@
 *
          SRNAMT = 'STRRFS'
          INFOT = 1
-         CALL STRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( '/', 'N', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL STRRFS( 'U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', '/', 'N', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL STRRFS( 'U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', '/', 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL STRRFS( 'U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', 'N', -1, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL STRRFS( 'U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', 'N', 0, -1, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 1, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STRRFS( 'U', 'N', 'N', 2, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STRRFS', INFOT, NOUT, LERR, OK )
 *
 *        STRCON
@@ -197,40 +185,31 @@
 *
          SRNAMT = 'SLATRS3'
          INFOT = 1
-         CALL SLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( '/', 'N', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SLATRS3( 'U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', '/', 'N', 'N', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SLATRS3( 'U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', '/', 'N', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SLATRS3( 'U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', '/', 0, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SLATRS3( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SLATRS3( 'U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', 'N', 0, -1, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 1, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES,
-     $                 W, W( 2 ), 1, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', 'N', 2, 0, A, 2, X, 1, SCALES, W, W( 2 ), 1, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES,
-     $                 W, W( 2 ), 0, INFO )
+         CALL SLATRS3( 'U', 'N', 'N', 'N', 1, 0, A, 1, X, 1, SCALES, W, W( 2 ), 0, INFO )
          CALL CHKXER( 'SLATRS3', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
@@ -276,32 +255,25 @@
 *
          SRNAMT = 'STPRFS'
          INFOT = 1
-         CALL STPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL STPRFS( '/', 'N', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL STPRFS( 'U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL STPRFS( 'U', '/', 'N', 0, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL STPRFS( 'U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL STPRFS( 'U', 'N', '/', 0, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL STPRFS( 'U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STPRFS( 'U', 'N', 'N', -1, 0, A, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL STPRFS( 'U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL STPRFS( 'U', 'N', 'N', 0, -1, A, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL STPRFS( 'U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL STPRFS( 'U', 'N', 'N', 2, 1, A, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL STPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL STPRFS( 'U', 'N', 'N', 2, 1, A, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STPRFS', INFOT, NOUT, LERR, OK )
 *
 *        STPCON
@@ -375,40 +347,31 @@
 *
          SRNAMT = 'STBRFS'
          INFOT = 1
-         CALL STBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL STBRFS( 'U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', '/', 'N', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL STBRFS( 'U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', '/', 0, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL STBRFS( 'U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', -1, 0, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL STBRFS( 'U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', 0, -1, 0, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL STBRFS( 'U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', 0, 0, -1, A, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 1, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL STBRFS( 'U', 'N', 'N', 2, 1, 1, A, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'STBRFS', INFOT, NOUT, LERR, OK )
 *
 *        STBCON
@@ -437,32 +400,25 @@
 *
          SRNAMT = 'SLATBS'
          INFOT = 1
-         CALL SLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( '/', 'N', 'N', 'N', 0, 0, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SLATBS( 'U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', '/', 'N', 'N', 0, 0, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SLATBS( 'U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', 'N', '/', 'N', 0, 0, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SLATBS( 'U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', 'N', 'N', '/', 0, 0, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SLATBS( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', 'N', 'N', 'N', -1, 0, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SLATBS( 'U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', 'N', 'N', 'N', 1, -1, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, W,
-     $                INFO )
+         CALL SLATBS( 'U', 'N', 'N', 'N', 2, 1, A, 1, X, SCALE, W, INFO )
          CALL CHKXER( 'SLATBS', INFOT, NOUT, LERR, OK )
       END IF
 *

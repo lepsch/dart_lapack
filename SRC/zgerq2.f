@@ -58,8 +58,7 @@
 *        Apply H(i) to A(1:m-k+i-1,1:n-k+i) from the right
 *
          A( M-K+I, N-K+I ) = ONE
-         CALL ZLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA,
-     $               TAU( I ), A, LDA, WORK )
+         CALL ZLARF( 'Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK )
          A( M-K+I, N-K+I ) = ALPHA
          CALL ZLACGV( N-K+I-1, A( M-K+I, 1 ), LDA )
    10 CONTINUE

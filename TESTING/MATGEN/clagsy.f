@@ -17,9 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ZERO, ONE, HALF
-      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   HALF = ( 0.5E+0, 0.0E+0 ) )
+      PARAMETER          ( ZERO = ( 0.0E+0, 0.0E+0 ), ONE = ( 1.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, II, J, JJ
@@ -27,8 +25,7 @@
       COMPLEX            ALPHA, TAU, WA, WB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CGEMV, CGERC, CLACGV, CLARNV, CSCAL,
-     $                   CSYMV, XERBLA
+      EXTERNAL           CAXPY, CGEMV, CGERC, CLACGV, CLARNV, CSCAL, CSYMV, XERBLA
 *     ..
 *     .. External Functions ..
       REAL               SCNRM2
@@ -90,8 +87,7 @@
 *        compute  y := tau * A * conjg(u)
 *
          CALL CLACGV( N-I+1, WORK, 1 )
-         CALL CSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO,
-     $               WORK( N+1 ), 1 )
+         CALL CSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
          CALL CLACGV( N-I+1, WORK, 1 )
 *
 *        compute  v := y - 1/2 * tau * ( u, y ) * u
@@ -106,9 +102,7 @@
 *
          DO 50 JJ = I, N
             DO 40 II = JJ, N
-               A( II, JJ ) = A( II, JJ ) -
-     $                       WORK( II-I+1 )*WORK( N+JJ-I+1 ) -
-     $                       WORK( N+II-I+1 )*WORK( JJ-I+1 )
+               A( II, JJ ) = A( II, JJ ) - WORK( II-I+1 )*WORK( N+JJ-I+1 ) - WORK( N+II-I+1 )*WORK( JJ-I+1 )
    40       CONTINUE
    50    CONTINUE
    60 CONTINUE
@@ -132,18 +126,14 @@
 *
 *        apply reflection to A(k+i:n,i+1:k+i-1) from the left
 *
-         CALL CGEMV( 'Conjugate transpose', N-K-I+1, K-1, ONE,
-     $               A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
-         CALL CGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1,
-     $               A( K+I, I+1 ), LDA )
+         CALL CGEMV( 'Conjugate transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL CGERC( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA )
 *
 *        apply reflection to A(k+i:n,k+i:n) from the left and the right
 *
 *        compute  y := tau * A * conjg(u)
 *
          CALL CLACGV( N-K-I+1, A( K+I, I ), 1 )
-         CALL CSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA,
-     $               A( K+I, I ), 1, ZERO, WORK, 1 )
+         CALL CSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
          CALL CLACGV( N-K-I+1, A( K+I, I ), 1 )
 *
 *        compute  v := y - 1/2 * tau * ( u, y ) * u
@@ -158,8 +148,7 @@
 *
          DO 80 JJ = K + I, N
             DO 70 II = JJ, N
-               A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) -
-     $                       WORK( II-K-I+1 )*A( JJ, I )
+               A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I )
    70       CONTINUE
    80    CONTINUE
 *

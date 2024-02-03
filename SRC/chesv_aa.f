@@ -1,5 +1,4 @@
-      SUBROUTINE CHESV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                     LWORK, INFO )
+      SUBROUTINE CHESV_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -56,8 +55,7 @@
       IF( INFO.EQ.0 ) THEN
          CALL CHETRF_AA( UPLO, N, A, LDA, IPIV, WORK, -1, INFO )
          LWKOPT_HETRF = INT( WORK( 1 ) )
-         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                   -1, INFO )
+         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, -1, INFO )
          LWKOPT_HETRS = INT( WORK( 1 ) )
          LWKOPT = MAX( LWKMIN, LWKOPT_HETRF, LWKOPT_HETRS )
          WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
@@ -77,8 +75,7 @@
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK,
-     $                      LWORK, INFO )
+         CALL CHETRS_AA( UPLO, N, NRHS, A, LDA, IPIV, B, LDB, WORK, LWORK, INFO )
 *
       END IF
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE SSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C,
-     $                      LDC, RWORK, RESID )
+      SUBROUTINE SSYT01_AA( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ),
-     $                   RWORK( * )
+      REAL               A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), RWORK( * )
 *     ..
 *
 *  =====================================================================
@@ -57,35 +55,25 @@
       CALL SLACPY( 'F', 1, N, AFAC( 1, 1 ), LDAFAC+1, C( 1, 1 ), LDC+1 )
       IF( N.GT.1 ) THEN
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL SLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL SLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL SLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL SLACPY( 'F', 1, N-1, AFAC( 1, 2 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ELSE
-            CALL SLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ),
-     $                   LDC+1 )
-            CALL SLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ),
-     $                   LDC+1 )
+            CALL SLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 1, 2 ), LDC+1 )             CALL SLACPY( 'F', 1, N-1, AFAC( 2, 1 ), LDAFAC+1, C( 2, 1 ), LDC+1 )
          ENDIF
 *
 *        Call STRMM to form the product U' * D (or L * D ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL STRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N,
-     $                  ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
+            CALL STRMM( 'Left', UPLO, 'Transpose', 'Unit', N-1, N, ONE, AFAC( 1, 2 ), LDAFAC, C( 2, 1 ), LDC )
          ELSE
-            CALL STRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N,
-     $                  ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
+            CALL STRMM( 'Left', UPLO, 'No transpose', 'Unit', N-1, N, ONE, AFAC( 2, 1 ), LDAFAC, C( 2, 1 ), LDC )
          END IF
 *
 *        Call STRMM again to multiply by U (or L ).
 *
          IF( LSAME( UPLO, 'U' ) ) THEN
-            CALL STRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1,
-     $                  ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
+            CALL STRMM( 'Right', UPLO, 'No transpose', 'Unit', N, N-1, ONE, AFAC( 1, 2 ), LDAFAC, C( 1, 2 ), LDC )
          ELSE
-            CALL STRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1,
-     $                  ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
+            CALL STRMM( 'Right', UPLO, 'Transpose', 'Unit', N, N-1, ONE, AFAC( 2, 1 ), LDAFAC, C( 1, 2 ), LDC )
          END IF
       ENDIF
 *
@@ -93,13 +81,11 @@
 *
       DO J = N, 1, -1
          I = IPIV( J )
-         IF( I.NE.J )
-     $      CALL SSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
+         IF( I.NE.J ) CALL SSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC )
       END DO
       DO J = N, 1, -1
          I = IPIV( J )
-         IF( I.NE.J )
-     $      CALL SSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
+         IF( I.NE.J ) CALL SSWAP( N, C( 1, J ), 1, C( 1, I ), 1 )
       END DO
 *
 *
@@ -124,8 +110,7 @@
       RESID = SLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF

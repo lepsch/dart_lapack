@@ -1,6 +1,4 @@
-      SUBROUTINE CLAED8( K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, Z, DLAMBDA,
-     $                   Q2, LDQ2, W, INDXP, INDX, INDXQ, PERM, GIVPTR,
-     $                   GIVCOL, GIVNUM, INFO )
+      SUBROUTINE CLAED8( K, N, QSIZ, Q, LDQ, D, RHO, CUTPNT, Z, DLAMBDA, Q2, LDQ2, W, INDXP, INDX, INDXQ, PERM, GIVPTR, GIVCOL, GIVNUM, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,10 +9,7 @@
       REAL               RHO
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( 2, * ), INDX( * ), INDXP( * ),
-     $                   INDXQ( * ), PERM( * )
-      REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ),
-     $                   Z( * )
+      INTEGER            GIVCOL( 2, * ), INDX( * ), INDXP( * ), INDXQ( * ), PERM( * )       REAL               D( * ), DLAMBDA( * ), GIVNUM( 2, * ), W( * ), Z( * )
       COMPLEX            Q( LDQ, * ), Q2( LDQ2, * )
 *     ..
 *
@@ -22,8 +17,7 @@
 *
 *     .. Parameters ..
       REAL               MONE, ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0,
-     $                   TWO = 2.0E0, EIGHT = 8.0E0 )
+      PARAMETER          ( MONE = -1.0E0, ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, EIGHT = 8.0E0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, IMAX, J, JLAM, JMAX, JP, K2, N1, N1P1, N2
@@ -35,8 +29,7 @@
       EXTERNAL           ISAMAX, SLAMCH, SLAPY2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CSROT, SCOPY, SLAMRG, SSCAL,
-     $                   XERBLA
+      EXTERNAL           CCOPY, CLACPY, CSROT, SCOPY, SLAMRG, SSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, SQRT
@@ -72,8 +65,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       N1 = CUTPNT
       N2 = N - N1
@@ -145,8 +137,7 @@
 *
             K2 = K2 - 1
             INDXP( K2 ) = J
-            IF( J.EQ.N )
-     $         GO TO 100
+            IF( J.EQ.N ) GO TO 100
          ELSE
             JLAM = J
             GO TO 70
@@ -154,8 +145,7 @@
    60 CONTINUE
    70 CONTINUE
       J = J + 1
-      IF( J.GT.N )
-     $   GO TO 90
+      IF( J.GT.N ) GO TO 90
       IF( RHO*ABS( Z( J ) ).LE.TOL ) THEN
 *
 *        Deflate due to small z component.
@@ -190,8 +180,7 @@
             GIVCOL( 2, GIVPTR ) = INDXQ( INDX( J ) )
             GIVNUM( 1, GIVPTR ) = C
             GIVNUM( 2, GIVPTR ) = S
-            CALL CSROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1,
-     $                  Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
+            CALL CSROT( QSIZ, Q( 1, INDXQ( INDX( JLAM ) ) ), 1, Q( 1, INDXQ( INDX( J ) ) ), 1, C, S )
             T = D( JLAM )*C*C + D( J )*S*S
             D( J ) = D( JLAM )*S*S + D( J )*C*C
             D( JLAM ) = T
@@ -248,8 +237,7 @@
 *
       IF( K.LT.N ) THEN
          CALL SCOPY( N-K, DLAMBDA( K+1 ), 1, D( K+1 ), 1 )
-         CALL CLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ),
-     $                LDQ )
+         CALL CLACPY( 'A', QSIZ, N-K, Q2( 1, K+1 ), LDQ2, Q( 1, K+1 ), LDQ )
       END IF
 *
       RETURN

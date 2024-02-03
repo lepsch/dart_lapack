@@ -1,5 +1,4 @@
-      SUBROUTINE SGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE SGELST( TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, TPSD
-      INTEGER            BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS,
-     $                   NB, NBMIN, SCLLEN
+      INTEGER            BROW, I, IASCL, IBSCL, J, LWOPT, MN, MNNRHS, NB, NBMIN, SCLLEN
       REAL               ANRM, BIGNUM, BNRM, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -35,8 +33,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGELQT, SGEQRT, SGEMLQT, SGEMQRT,
-     $                   SLASCL, SLASET, STRTRS, XERBLA
+      EXTERNAL           SGELQT, SGEQRT, SGEMLQT, SGEMQRT, SLASCL, SLASET, STRTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -60,8 +57,7 @@
          INFO = -6
       ELSE IF( LDB.LT.MAX( 1, M, N ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY )
-     $          THEN
+      ELSE IF( LWORK.LT.MAX( 1, MN+MAX( MN, NRHS ) ) .AND. .NOT.LQUERY ) THEN
          INFO = -10
       END IF
 *
@@ -70,8 +66,7 @@
       IF( INFO.EQ.0 .OR. INFO.EQ.-10 ) THEN
 *
          TPSD = .TRUE.
-         IF( LSAME( TRANS, 'N' ) )
-     $      TPSD = .FALSE.
+         IF( LSAME( TRANS, 'N' ) ) TPSD = .FALSE.
 *
          NB = ILAENV( 1, 'SGELST', ' ', M, N, -1, -1 )
 *
@@ -145,23 +140,20 @@
       END IF
 *
       BROW = M
-      IF( TPSD )
-     $   BROW = N
+      IF( TPSD ) BROW = N
       BNRM = SLANGE( 'M', BROW, NRHS, B, LDB, RWORK )
       IBSCL = 0
       IF( BNRM.GT.ZERO .AND. BNRM.LT.SMLNUM ) THEN
 *
 *        Scale matrix norm up to SMLNUM
 *
-         CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BNRM, SMLNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 1
       ELSE IF( BNRM.GT.BIGNUM ) THEN
 *
 *        Scale matrix norm down to BIGNUM
 *
-         CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BNRM, BIGNUM, BROW, NRHS, B, LDB, INFO )
          IBSCL = 2
       END IF
 *
@@ -172,8 +164,7 @@
 *        using the compact WY representation of Q,
 *        workspace at least N, optimally N*NB.
 *
-         CALL SGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB,
-     $                WORK( MN*NB+1 ), INFO )
+         CALL SGEQRT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
@@ -185,14 +176,11 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL SGEMQRT( 'Left', 'Transpose', M, NRHS, N, NB, A, LDA,
-     $                    WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ),
-     $                    INFO )
+            CALL SGEMQRT( 'Left', 'Transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
 *           Compute B(1:N,1:NRHS) := inv(R) * B(1:N,1:NRHS)
 *
-            CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Upper', 'No transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -210,8 +198,7 @@
 *
 *           Block 1: B(1:N,1:NRHS) := inv(R**T) * B(1:N,1:NRHS)
 *
-            CALL STRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Upper', 'Transpose', 'Non-unit', N, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -230,9 +217,7 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL SGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB,
-     $                    A, LDA, WORK( 1 ), NB, B, LDB,
-     $                    WORK( MN*NB+1 ), INFO )
+            CALL SGEMQRT( 'Left', 'No transpose', M, NRHS, N, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
             SCLLEN = M
 *
@@ -245,8 +230,7 @@
 *        using the compact WY representation of Q,
 *        workspace at least M, optimally M*NB.
 *
-         CALL SGELQT( M, N, NB, A, LDA, WORK( 1 ), NB,
-     $                WORK( MN*NB+1 ), INFO )
+         CALL SGELQT( M, N, NB, A, LDA, WORK( 1 ), NB, WORK( MN*NB+1 ), INFO )
 *
          IF( .NOT.TPSD ) THEN
 *
@@ -258,8 +242,7 @@
 *
 *           Block 1: B(1:M,1:NRHS) := inv(L) * B(1:M,1:NRHS)
 *
-            CALL STRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Lower', 'No transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -278,9 +261,7 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL SGEMLQT( 'Left', 'Transpose', N, NRHS, M, NB, A, LDA,
-     $                   WORK( 1 ), NB, B, LDB,
-     $                   WORK( MN*NB+1 ), INFO )
+            CALL SGEMLQT( 'Left', 'Transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1 ), INFO )
 *
             SCLLEN = N
 *
@@ -294,14 +275,11 @@
 *           using the compact WY representation of Q,
 *           workspace at least NRHS, optimally NRHS*NB.
 *
-            CALL SGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB,
-     $                    A, LDA, WORK( 1 ), NB, B, LDB,
-     $                    WORK( MN*NB+1), INFO )
+            CALL SGEMLQT( 'Left', 'No transpose', N, NRHS, M, NB, A, LDA, WORK( 1 ), NB, B, LDB, WORK( MN*NB+1), INFO )
 *
 *           Compute B(1:M,1:NRHS) := inv(L**T) * B(1:M,1:NRHS)
 *
-            CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS,
-     $                   A, LDA, B, LDB, INFO )
+            CALL STRTRS( 'Lower', 'Transpose', 'Non-unit', M, NRHS, A, LDA, B, LDB, INFO )
 *
             IF( INFO.GT.0 ) THEN
                RETURN
@@ -316,18 +294,14 @@
 *     Undo scaling
 *
       IF( IASCL.EQ.1 ) THEN
-         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
-         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
-         CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       ELSE IF( IBSCL.EQ.2 ) THEN
-         CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWOPT )

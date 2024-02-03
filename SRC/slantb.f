@@ -1,5 +1,4 @@
-      REAL             FUNCTION SLANTB( NORM, UPLO, DIAG, N, K, AB,
-     $                 LDAB, WORK )
+      REAL             FUNCTION SLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -178,17 +177,14 @@
                SUM = N
                IF( K.GT.0 ) THEN
                   DO 280 J = 2, N
-                     CALL SLASSQ( MIN( J-1, K ),
-     $                            AB( MAX( K+2-J, 1 ), J ), 1, SCALE,
-     $                            SUM )
+                     CALL SLASSQ( MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
   280             CONTINUE
                END IF
             ELSE
                SCALE = ZERO
                SUM = ONE
                DO 290 J = 1, N
-                  CALL SLASSQ( MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ),
-     $                         1, SCALE, SUM )
+                  CALL SLASSQ( MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM )
   290          CONTINUE
             END IF
          ELSE
@@ -197,16 +193,14 @@
                SUM = N
                IF( K.GT.0 ) THEN
                   DO 300 J = 1, N - 1
-                     CALL SLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE,
-     $                            SUM )
+                     CALL SLASSQ( MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM )
   300             CONTINUE
                END IF
             ELSE
                SCALE = ZERO
                SUM = ONE
                DO 310 J = 1, N
-                  CALL SLASSQ( MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE,
-     $                         SUM )
+                  CALL SLASSQ( MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE, SUM )
   310          CONTINUE
             END IF
          END IF

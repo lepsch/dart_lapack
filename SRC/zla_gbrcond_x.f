@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_GBRCOND_X( TRANS, N, KL, KU, AB,
-     $                                         LDAB, AFB, LDAFB, IPIV,
-     $                                         X, INFO, WORK, RWORK )
+      DOUBLE PRECISION FUNCTION ZLA_GBRCOND_X( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, X, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ),
-     $                   X( * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), X( * )
       DOUBLE PRECISION   RWORK( * )
 *
 *
@@ -50,8 +47,7 @@
 *
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT.
-     $     LSAME( TRANS, 'C' ) ) THEN
+      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -120,11 +116,9 @@
             END DO
 *
             IF ( NOTRANS ) THEN
-               CALL ZGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB,
-     $              IPIV, WORK, N, INFO )
+               CALL ZGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB,
-     $              LDAFB, IPIV, WORK, N, INFO )
+               CALL ZGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(X).
@@ -141,11 +135,9 @@
             END DO
 *
             IF ( NOTRANS ) THEN
-               CALL ZGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB,
-     $              LDAFB, IPIV, WORK, N, INFO )
+               CALL ZGBTRS( 'Conjugate transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB,
-     $              IPIV, WORK, N, INFO )
+               CALL ZGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -159,8 +151,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   ZLA_GBRCOND_X = 1.0D+0 / AINVNM
+      IF( AINVNM .NE. 0.0D+0 ) ZLA_GBRCOND_X = 1.0D+0 / AINVNM
 *
       RETURN
 *

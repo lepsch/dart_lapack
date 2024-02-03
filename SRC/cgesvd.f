@@ -1,5 +1,4 @@
-      SUBROUTINE CGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT,
-     $                   WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CGESVD( JOBU, JOBVT, M, N, A, LDA, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,29 +10,20 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), S( * )
-      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ),
-     $                   CONE = ( 1.0E0, 0.0E0 ) )
+      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS,
-     $                   WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS
-      INTEGER            BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL,
-     $                   ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU,
-     $                   MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU,
-     $                   NRVT, WRKBL
-      INTEGER            LWORK_CGEQRF, LWORK_CUNGQR_N, LWORK_CUNGQR_M,
-     $                   LWORK_CGEBRD, LWORK_CUNGBR_P, LWORK_CUNGBR_Q,
-     $                   LWORK_CGELQF, LWORK_CUNGLQ_N, LWORK_CUNGLQ_M
+      LOGICAL            LQUERY, WNTUA, WNTUAS, WNTUN, WNTUO, WNTUS, WNTVA, WNTVAS, WNTVN, WNTVO, WNTVS       INTEGER            BLK, CHUNK, I, IE, IERR, IR, IRWORK, ISCL, ITAU, ITAUP, ITAUQ, IU, IWORK, LDWRKR, LDWRKU, MAXWRK, MINMN, MINWRK, MNTHR, NCU, NCVT, NRU, NRVT, WRKBL
+      INTEGER            LWORK_CGEQRF, LWORK_CUNGQR_N, LWORK_CUNGQR_M, LWORK_CGEBRD, LWORK_CUNGBR_P, LWORK_CUNGBR_Q, LWORK_CGELQF, LWORK_CUNGLQ_N, LWORK_CUNGLQ_M
       REAL               ANRM, BIGNUM, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
@@ -41,9 +31,7 @@
       COMPLEX            CDUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CBDSQR, CGEBRD, CGELQF, CGEMM, CGEQRF, CLACPY,
-     $                   CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR,
-     $                   SLASCL, XERBLA
+      EXTERNAL           CBDSQR, CGEBRD, CGELQF, CGEMM, CGEQRF, CLACPY, CLASCL, CLASET, CUNGBR, CUNGLQ, CUNGQR, CUNMBR, SLASCL, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -74,8 +62,7 @@
 *
       IF( .NOT.( WNTUA .OR. WNTUS .OR. WNTUO .OR. WNTUN ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR.
-     $         ( WNTVO .AND. WNTUO ) ) THEN
+      ELSE IF( .NOT.( WNTVA .OR. WNTVS .OR. WNTVO .OR. WNTVN ) .OR. ( WNTVO .AND. WNTUO ) ) THEN
          INFO = -2
       ELSE IF( M.LT.0 ) THEN
          INFO = -3
@@ -85,8 +72,7 @@
          INFO = -6
       ELSE IF( LDU.LT.1 .OR. ( WNTUAS .AND. LDU.LT.M ) ) THEN
          INFO = -9
-      ELSE IF( LDVT.LT.1 .OR. ( WNTVA .AND. LDVT.LT.N ) .OR.
-     $         ( WNTVS .AND. LDVT.LT.MINMN ) ) THEN
+      ELSE IF( LDVT.LT.1 .OR. ( WNTVA .AND. LDVT.LT.N ) .OR. ( WNTVS .AND. LDVT.LT.MINMN ) ) THEN
          INFO = -11
       END IF
 *
@@ -115,15 +101,12 @@
             CALL CUNGQR( M, M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGQR_M = INT( CDUM(1) )
 *           Compute space needed for CGEBRD
-            CALL CGEBRD( N, N, A, LDA, S, DUM(1), CDUM(1),
-     $                   CDUM(1), CDUM(1), -1, IERR )
+            CALL CGEBRD( N, N, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
             LWORK_CGEBRD = INT( CDUM(1) )
 *           Compute space needed for CUNGBR
-            CALL CUNGBR( 'P', N, N, N, A, LDA, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+            CALL CUNGBR( 'P', N, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGBR_P = INT( CDUM(1) )
-            CALL CUNGBR( 'Q', N, N, N, A, LDA, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+            CALL CUNGBR( 'Q', N, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGBR_Q = INT( CDUM(1) )
 *
             MNTHR = ILAENV( 6, 'CGESVD', JOBU // JOBVT, M, N, 0, 0 )
@@ -134,8 +117,7 @@
 *
                   MAXWRK = N + LWORK_CGEQRF
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_CGEBRD )
-                  IF( WNTVO .OR. WNTVAS )
-     $               MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_P )
+                  IF( WNTVO .OR. WNTVAS ) MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_P )
                   MINWRK = 3*N
                ELSE IF( WNTUO .AND. WNTVN ) THEN
 *
@@ -230,19 +212,16 @@
 *
 *              Path 10 (M at least N, but not much larger)
 *
-               CALL CGEBRD( M, N, A, LDA, S, DUM(1), CDUM(1),
-     $                   CDUM(1), CDUM(1), -1, IERR )
+               CALL CGEBRD( M, N, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
                LWORK_CGEBRD = INT( CDUM(1) )
                MAXWRK = 2*N + LWORK_CGEBRD
                IF( WNTUS .OR. WNTUO ) THEN
-                  CALL CUNGBR( 'Q', M, N, N, A, LDA, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+                  CALL CUNGBR( 'Q', M, N, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
                   LWORK_CUNGBR_Q = INT( CDUM(1) )
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_Q )
                END IF
                IF( WNTUA ) THEN
-                  CALL CUNGBR( 'Q', M, M, N, A, LDA, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+                  CALL CUNGBR( 'Q', M, M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
                   LWORK_CUNGBR_Q = INT( CDUM(1) )
                   MAXWRK = MAX( MAXWRK, 2*N+LWORK_CUNGBR_Q )
                END IF
@@ -260,22 +239,18 @@
             CALL CGELQF( M, N, A, LDA, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CGELQF = INT( CDUM(1) )
 *           Compute space needed for CUNGLQ
-            CALL CUNGLQ( N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1,
-     $                   IERR )
+            CALL CUNGLQ( N, N, M, CDUM(1), N, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGLQ_N = INT( CDUM(1) )
             CALL CUNGLQ( M, N, M, A, LDA, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGLQ_M = INT( CDUM(1) )
 *           Compute space needed for CGEBRD
-            CALL CGEBRD( M, M, A, LDA, S, DUM(1), CDUM(1),
-     $                   CDUM(1), CDUM(1), -1, IERR )
+            CALL CGEBRD( M, M, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
             LWORK_CGEBRD = INT( CDUM(1) )
 *            Compute space needed for CUNGBR P
-            CALL CUNGBR( 'P', M, M, M, A, N, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+            CALL CUNGBR( 'P', M, M, M, A, N, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGBR_P = INT( CDUM(1) )
 *           Compute space needed for CUNGBR Q
-            CALL CUNGBR( 'Q', M, M, M, A, N, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+            CALL CUNGBR( 'Q', M, M, M, A, N, CDUM(1), CDUM(1), -1, IERR )
             LWORK_CUNGBR_Q = INT( CDUM(1) )
             IF( N.GE.MNTHR ) THEN
                IF( WNTVN ) THEN
@@ -284,8 +259,7 @@
 *
                   MAXWRK = M + LWORK_CGELQF
                   MAXWRK = MAX( MAXWRK, 2*M+LWORK_CGEBRD )
-                  IF( WNTUO .OR. WNTUAS )
-     $               MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_Q )
+                  IF( WNTUO .OR. WNTUAS ) MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_Q )
                   MINWRK = 3*M
                ELSE IF( WNTVO .AND. WNTUN ) THEN
 *
@@ -380,20 +354,17 @@
 *
 *              Path 10t(N greater than M, but not much larger)
 *
-               CALL CGEBRD( M, N, A, LDA, S, DUM(1), CDUM(1),
-     $                   CDUM(1), CDUM(1), -1, IERR )
+               CALL CGEBRD( M, N, A, LDA, S, DUM(1), CDUM(1), CDUM(1), CDUM(1), -1, IERR )
                LWORK_CGEBRD = INT( CDUM(1) )
                MAXWRK = 2*M + LWORK_CGEBRD
                IF( WNTVS .OR. WNTVO ) THEN
 *                Compute space needed for CUNGBR P
-                 CALL CUNGBR( 'P', M, N, M, A, N, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+                 CALL CUNGBR( 'P', M, N, M, A, N, CDUM(1), CDUM(1), -1, IERR )
                  LWORK_CUNGBR_P = INT( CDUM(1) )
                  MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_P )
                END IF
                IF( WNTVA ) THEN
-                 CALL CUNGBR( 'P', N,  N, M, A, N, CDUM(1),
-     $                   CDUM(1), -1, IERR )
+                 CALL CUNGBR( 'P', N,  N, M, A, N, CDUM(1), CDUM(1), -1, IERR )
                  LWORK_CUNGBR_P = INT( CDUM(1) )
                  MAXWRK = MAX( MAXWRK, 2*M+LWORK_CUNGBR_P )
                END IF
@@ -462,14 +433,12 @@
 *              (CWorkspace: need 2*N, prefer N+N*NB)
 *              (RWorkspace: need 0)
 *
-               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ),
-     $                      LWORK-IWORK+1, IERR )
+               CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *              Zero out below R
 *
                IF( N .GT. 1 ) THEN
-                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ),
-     $                         LDA )
+                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
                END IF
                IE = 1
                ITAUQ = 1
@@ -480,9 +449,7 @@
 *              (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *              (RWorkspace: need N)
 *
-               CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ),
-     $                      WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                      IERR )
+               CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                NCVT = 0
                IF( WNTVO .OR. WNTVAS ) THEN
 *
@@ -490,8 +457,7 @@
 *                 (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   NCVT = N
                END IF
                IRWORK = IE + N
@@ -501,13 +467,11 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'U', N, NCVT, 0, 0, S, RWORK( IE ), A, LDA,
-     $                      CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
+               CALL CBDSQR( 'U', N, NCVT, 0, 0, S, RWORK( IE ), A, LDA, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *              If right singular vectors desired in VT, copy them there
 *
-               IF( WNTVAS )
-     $            CALL CLACPY( 'F', N, N, A, LDA, VT, LDVT )
+               IF( WNTVAS ) CALL CLACPY( 'F', N, N, A, LDA, VT, LDVT )
 *
             ELSE IF( WNTUO .AND. WNTVN ) THEN
 *
@@ -546,21 +510,18 @@
 *                 (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy R to WORK(IR) and zero out below it
 *
                   CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )
-                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                         WORK( IR+1 ), LDWRKR )
+                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + N
@@ -570,17 +531,13 @@
 *                 (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                 (RWorkspace: need N)
 *
-                  CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate left vectors bidiagonalizing R
 *                 (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                 (RWorkspace: need 0)
 *
-                  CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR,
-     $                         WORK( ITAUQ ), WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + N
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -588,9 +545,7 @@
 *                 (CWorkspace: need N*N)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM, 1,
-     $                         WORK( IR ), LDWRKR, CDUM, 1,
-     $                         RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM, 1, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
                   IU = ITAUQ
 *
 *                 Multiply Q in A by left singular vectors of R in
@@ -600,11 +555,8 @@
 *
                   DO 10 I = 1, M, LDWRKU
                      CHUNK = MIN( M-I+1, LDWRKU )
-                     CALL CGEMM( 'N', 'N', CHUNK, N, N, CONE, A( I, 1 ),
-     $                           LDA, WORK( IR ), LDWRKR, CZERO,
-     $                           WORK( IU ), LDWRKU )
-                     CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU,
-     $                            A( I, 1 ), LDA )
+                     CALL CGEMM( 'N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU )
+                     CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
    10             CONTINUE
 *
                ELSE
@@ -620,16 +572,13 @@
 *                 (CWorkspace: need 2*N+M, prefer 2*N+(M+N)*NB)
 *                 (RWorkspace: N)
 *
-                  CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate left vectors bidiagonalizing A
 *                 (CWorkspace: need 3*N, prefer 2*N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + N
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -637,8 +586,7 @@
 *                 (CWorkspace: need 0)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM, 1,
-     $                         A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM, 1, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                END IF
 *
@@ -679,22 +627,18 @@
 *                 (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy R to VT, zeroing out below it
 *
                   CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-                  IF( N.GT.1 )
-     $               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            VT( 2, 1 ), LDVT )
+                  IF( N.GT.1 ) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + N
@@ -704,25 +648,20 @@
 *                 (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                 (RWorkspace: need N)
 *
-                  CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   CALL CLACPY( 'L', N, N, VT, LDVT, WORK( IR ), LDWRKR )
 *
 *                 Generate left vectors bidiagonalizing R in WORK(IR)
 *                 (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR,
-     $                         WORK( ITAUQ ), WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate right vectors bidiagonalizing R in VT
 *                 (CWorkspace: need N*N+3*N-1, prefer N*N+2*N+(N-1)*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + N
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -731,9 +670,7 @@
 *                 (CWorkspace: need N*N)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT,
-     $                         LDVT, WORK( IR ), LDWRKR, CDUM, 1,
-     $                         RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT, LDVT, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
                   IU = ITAUQ
 *
 *                 Multiply Q in A by left singular vectors of R in
@@ -743,11 +680,8 @@
 *
                   DO 20 I = 1, M, LDWRKU
                      CHUNK = MIN( M-I+1, LDWRKU )
-                     CALL CGEMM( 'N', 'N', CHUNK, N, N, CONE, A( I, 1 ),
-     $                           LDA, WORK( IR ), LDWRKR, CZERO,
-     $                           WORK( IU ), LDWRKU )
-                     CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU,
-     $                            A( I, 1 ), LDA )
+                     CALL CGEMM( 'N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU )
+                     CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA )
    20             CONTINUE
 *
                ELSE
@@ -761,22 +695,18 @@
 *                 (CWorkspace: need 2*N, prefer N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy R to VT, zeroing out below it
 *
                   CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-                  IF( N.GT.1 )
-     $               CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            VT( 2, 1 ), LDVT )
+                  IF( N.GT.1 ) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need 2*N, prefer N+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + N
@@ -786,24 +716,19 @@
 *                 (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                 (RWorkspace: N)
 *
-                  CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Multiply Q in A by left vectors bidiagonalizing R
 *                 (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT,
-     $                         WORK( ITAUQ ), A, LDA, WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate right vectors bidiagonalizing R in VT
 *                 (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + N
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -812,9 +737,7 @@
 *                 (CWorkspace: 0)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT,
-     $                         LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ),
-     $                         INFO )
+                  CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT, LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                END IF
 *
@@ -849,22 +772,17 @@
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to WORK(IR), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ),
-     $                            LDWRKR )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IR+1 ), LDWRKR )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -874,18 +792,13 @@
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left vectors bidiagonalizing R in WORK(IR)
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -893,17 +806,14 @@
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM,
-     $                            1, WORK( IR ), LDWRKR, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM, 1, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in A by left singular vectors of R in
 *                    WORK(IR), storing result in U
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA,
-     $                           WORK( IR ), LDWRKR, CZERO, U, LDU )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA, WORK( IR ), LDWRKR, CZERO, U, LDU )
 *
                   ELSE
 *
@@ -916,16 +826,14 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -934,25 +842,20 @@
 *                    Zero out below R in A
 *
                      IF( N .GT. 1 ) THEN
-                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               A( 2, 1 ), LDA )
+                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
                      END IF
 *
 *                    Bidiagonalize R in A
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left vectors bidiagonalizing R
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -960,9 +863,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM,
-     $                            1, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM, 1, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1006,22 +907,17 @@
 *                    (CWorkspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to WORK(IU), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IU+1 ), LDWRKU )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1033,29 +929,21 @@
 *                                 prefer 2*N*N+2*N+2*N*NB)
 *                    (RWorkspace: need   N)
 *
-                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU,
-     $                            WORK( IR ), LDWRKR )
+                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need 2*N*N+3*N, prefer 2*N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need   2*N*N+3*N-1,
 *                                 prefer 2*N*N+2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1064,25 +952,20 @@
 *                    (CWorkspace: need 2*N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ),
-     $                            WORK( IR ), LDWRKR, WORK( IU ),
-     $                            LDWRKU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in A by left singular vectors of R in
 *                    WORK(IU), storing result in U
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA,
-     $                           WORK( IU ), LDWRKU, CZERO, U, LDU )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA, WORK( IU ), LDWRKU, CZERO, U, LDU )
 *
 *                    Copy right singular vectors of R to A
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CLACPY( 'F', N, N, WORK( IR ), LDWRKR, A,
-     $                            LDA )
+                     CALL CLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
 *
                   ELSE
 *
@@ -1095,16 +978,14 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1113,32 +994,26 @@
 *                    Zero out below R in A
 *
                      IF( N .GT. 1 ) THEN
-                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               A( 2, 1 ), LDA )
+                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
                      END IF
 *
 *                    Bidiagonalize R in A
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left vectors bidiagonalizing R
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right vectors bidiagonalizing R in A
 *                    (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1147,9 +1022,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), A,
-     $                            LDA, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), A, LDA, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1183,22 +1056,17 @@
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to WORK(IU), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IU+1 ), LDWRKU )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1208,28 +1076,21 @@
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT,
-     $                            LDVT )
+                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT, LDVT )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in VT
 *                    (CWorkspace: need   N*N+3*N-1,
 *                                 prefer N*N+2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1238,17 +1099,14 @@
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT,
-     $                            LDVT, WORK( IU ), LDWRKU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in A by left singular vectors of R in
 *                    WORK(IU), storing result in U
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA,
-     $                           WORK( IU ), LDWRKU, CZERO, U, LDU )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, A, LDA, WORK( IU ), LDWRKU, CZERO, U, LDU )
 *
                   ELSE
 *
@@ -1261,23 +1119,19 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, N, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to VT, zeroing out below it
 *
                      CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-                     IF( N.GT.1 )
-     $                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               VT( 2, 1 ), LDVT )
+                     IF( N.GT.1 ) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1287,25 +1141,20 @@
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left bidiagonalizing vectors
 *                    in VT
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in VT
 *                    (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1314,9 +1163,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1353,23 +1200,18 @@
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Copy R to WORK(IR), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ),
-     $                            LDWRKR )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IR+1 ), LDWRKR )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need N*N+N+M, prefer N*N+N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1379,18 +1221,13 @@
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1398,17 +1235,14 @@
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM,
-     $                            1, WORK( IR ), LDWRKR, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, 0, N, 0, S, RWORK( IE ), CDUM, 1, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in U by left singular vectors of R in
 *                    WORK(IR), storing result in A
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU,
-     $                           WORK( IR ), LDWRKR, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU, WORK( IR ), LDWRKR, CZERO, A, LDA )
 *
 *                    Copy left singular vectors of A from A to U
 *
@@ -1425,16 +1259,14 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need N+M, prefer N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1443,26 +1275,21 @@
 *                    Zero out below R in A
 *
                      IF( N .GT. 1 ) THEN
-                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               A( 2, 1 ), LDA )
+                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
                      END IF
 *
 *                    Bidiagonalize R in A
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left bidiagonalizing vectors
 *                    in A
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1470,9 +1297,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM,
-     $                            1, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, 0, M, 0, S, RWORK( IE ), CDUM, 1, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1516,23 +1341,18 @@
 *                    (CWorkspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need 2*N*N+N+M, prefer 2*N*N+N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to WORK(IU), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IU+1 ), LDWRKU )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1544,29 +1364,21 @@
 *                                 prefer 2*N*N+2*N+2*N*NB)
 *                    (RWorkspace: need   N)
 *
-                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU,
-     $                            WORK( IR ), LDWRKR )
+                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need 2*N*N+3*N, prefer 2*N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need   2*N*N+3*N-1,
 *                                 prefer 2*N*N+2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1575,18 +1387,14 @@
 *                    (CWorkspace: need 2*N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ),
-     $                            WORK( IR ), LDWRKR, WORK( IU ),
-     $                            LDWRKU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, WORK( IU ), LDWRKU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in U by left singular vectors of R in
 *                    WORK(IU), storing result in A
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU,
-     $                           WORK( IU ), LDWRKU, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU, WORK( IU ), LDWRKU, CZERO, A, LDA )
 *
 *                    Copy left singular vectors of A from A to U
 *
@@ -1594,8 +1402,7 @@
 *
 *                    Copy right singular vectors of R from WORK(IR) to A
 *
-                     CALL CLACPY( 'F', N, N, WORK( IR ), LDWRKR, A,
-     $                            LDA )
+                     CALL CLACPY( 'F', N, N, WORK( IR ), LDWRKR, A, LDA )
 *
                   ELSE
 *
@@ -1608,16 +1415,14 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need N+M, prefer N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1626,33 +1431,27 @@
 *                    Zero out below R in A
 *
                      IF( N .GT. 1 ) THEN
-                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               A( 2, 1 ), LDA )
+                        CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA )
                      END IF
 *
 *                    Bidiagonalize R in A
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left bidiagonalizing vectors
 *                    in A
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in A
 *                    (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1661,9 +1460,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), A,
-     $                            LDA, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), A, LDA, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1697,23 +1494,18 @@
 *                    (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need N*N+N+M, prefer N*N+N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R to WORK(IU), zeroing out below it
 *
-                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                            WORK( IU+1 ), LDWRKU )
+                     CALL CLACPY( 'U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1723,28 +1515,21 @@
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT,
-     $                            LDVT )
+                     CALL CGEBRD( N, N, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'U', N, N, WORK( IU ), LDWRKU, VT, LDVT )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need N*N+3*N, prefer N*N+2*N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', N, N, N, WORK( IU ), LDWRKU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in VT
 *                    (CWorkspace: need   N*N+3*N-1,
 *                                 prefer N*N+2*N+(N-1)*NB)
 *                    (RWorkspace: need   0)
 *
-                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1753,17 +1538,14 @@
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT,
-     $                            LDVT, WORK( IU ), LDWRKU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, N, N, 0, S, RWORK( IE ), VT, LDVT, WORK( IU ), LDWRKU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply Q in U by left singular vectors of R in
 *                    WORK(IU), storing result in A
 *                    (CWorkspace: need N*N)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU,
-     $                           WORK( IU ), LDWRKU, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, N, CONE, U, LDU, WORK( IU ), LDWRKU, CZERO, A, LDA )
 *
 *                    Copy left singular vectors of A from A to U
 *
@@ -1780,23 +1562,19 @@
 *                    (CWorkspace: need 2*N, prefer N+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
 *
 *                    Generate Q in U
 *                    (CWorkspace: need N+M, prefer N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGQR( M, M, N, U, LDU, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy R from A to VT, zeroing out below it
 *
                      CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-                     IF( N.GT.1 )
-     $                  CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                               VT( 2, 1 ), LDVT )
+                     IF( N.GT.1 ) CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, VT( 2, 1 ), LDVT )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1806,25 +1584,20 @@
 *                    (CWorkspace: need 3*N, prefer 2*N+2*N*NB)
 *                    (RWorkspace: need N)
 *
-                     CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( N, N, VT, LDVT, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply Q in U by left bidiagonalizing vectors
 *                    in VT
 *                    (CWorkspace: need 2*N+M, prefer 2*N+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT,
-     $                            WORK( ITAUQ ), U, LDU, WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'Q', 'R', 'N', M, N, N, VT, LDVT, WORK( ITAUQ ), U, LDU, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in VT
 *                    (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + N
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -1833,9 +1606,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', N, N, M, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -1859,9 +1630,7 @@
 *           (CWorkspace: need 2*N+M, prefer 2*N+(M+N)*NB)
 *           (RWorkspace: need N)
 *
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ),
-     $                   WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                   IERR )
+            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             IF( WNTUAS ) THEN
 *
 *              If left singular vectors desired in U, copy result to U
@@ -1870,12 +1639,7 @@
 *              (RWorkspace: 0)
 *
                CALL CLACPY( 'L', M, N, A, LDA, U, LDU )
-               IF( WNTUS )
-     $            NCU = N
-               IF( WNTUA )
-     $            NCU = M
-               CALL CUNGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               IF( WNTUS ) NCU = N                IF( WNTUA ) NCU = M                CALL CUNGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTVAS ) THEN
 *
@@ -1885,8 +1649,7 @@
 *              (RWorkspace: 0)
 *
                CALL CLACPY( 'U', N, N, A, LDA, VT, LDVT )
-               CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'P', N, N, N, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTUO ) THEN
 *
@@ -1895,8 +1658,7 @@
 *              (CWorkspace: need 3*N, prefer 2*N+N*NB)
 *              (RWorkspace: 0)
 *
-               CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'Q', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTVO ) THEN
 *
@@ -1905,18 +1667,10 @@
 *              (CWorkspace: need 3*N-1, prefer 2*N+(N-1)*NB)
 *              (RWorkspace: 0)
 *
-               CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IRWORK = IE + N
-            IF( WNTUAS .OR. WNTUO )
-     $         NRU = M
-            IF( WNTUN )
-     $         NRU = 0
-            IF( WNTVAS .OR. WNTVO )
-     $         NCVT = N
-            IF( WNTVN )
-     $         NCVT = 0
+            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
             IF( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) THEN
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -1925,9 +1679,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), VT,
-     $                      LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
             ELSE IF( ( .NOT.WNTUO ) .AND. WNTVO ) THEN
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -1936,9 +1688,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), A,
-     $                      LDA, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), A, LDA, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
             ELSE
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -1947,9 +1697,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), VT,
-     $                      LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'U', N, NCVT, NRU, 0, S, RWORK( IE ), VT, LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
             END IF
 *
          END IF
@@ -1974,13 +1722,11 @@
 *              (CWorkspace: need 2*M, prefer M+M*NB)
 *              (RWorkspace: 0)
 *
-               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ),
-     $                      LWORK-IWORK+1, IERR )
+               CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *              Zero out above L
 *
-               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ),
-     $                      LDA )
+               CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
                IE = 1
                ITAUQ = 1
                ITAUP = ITAUQ + M
@@ -1990,35 +1736,29 @@
 *              (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *              (RWorkspace: need M)
 *
-               CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ),
-     $                      WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                      IERR )
+               CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                IF( WNTUO .OR. WNTUAS ) THEN
 *
 *                 If left singular vectors desired, generate Q
 *                 (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                END IF
                IRWORK = IE + M
                NRU = 0
-               IF( WNTUO .OR. WNTUAS )
-     $            NRU = M
+               IF( WNTUO .OR. WNTUAS ) NRU = M
 *
 *              Perform bidiagonal QR iteration, computing left singular
 *              vectors of A in A if desired
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'U', M, 0, NRU, 0, S, RWORK( IE ), CDUM, 1,
-     $                      A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
+               CALL CBDSQR( 'U', M, 0, NRU, 0, S, RWORK( IE ), CDUM, 1, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *              If left singular vectors desired in U, copy them there
 *
-               IF( WNTUAS )
-     $            CALL CLACPY( 'F', M, M, A, LDA, U, LDU )
+               IF( WNTUAS ) CALL CLACPY( 'F', M, M, A, LDA, U, LDU )
 *
             ELSE IF( WNTVO .AND. WNTUN ) THEN
 *
@@ -2060,21 +1800,18 @@
 *                 (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy L to WORK(IR) and zero out above it
 *
                   CALL CLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )
-                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                         WORK( IR+LDWRKR ), LDWRKR )
+                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + M
@@ -2084,17 +1821,13 @@
 *                 (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                 (RWorkspace: need M)
 *
-                  CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate right vectors bidiagonalizing L
 *                 (CWorkspace: need M*M+3*M-1, prefer M*M+2*M+(M-1)*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR,
-     $                         WORK( ITAUP ), WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + M
 *
 *                 Perform bidiagonal QR iteration, computing right
@@ -2102,9 +1835,7 @@
 *                 (CWorkspace: need M*M)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ),
-     $                         WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1,
-     $                         RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
                   IU = ITAUQ
 *
 *                 Multiply right singular vectors of L in WORK(IR) by Q
@@ -2114,11 +1845,8 @@
 *
                   DO 30 I = 1, N, CHUNK
                      BLK = MIN( N-I+1, CHUNK )
-                     CALL CGEMM( 'N', 'N', M, BLK, M, CONE, WORK( IR ),
-     $                           LDWRKR, A( 1, I ), LDA, CZERO,
-     $                           WORK( IU ), LDWRKU )
-                     CALL CLACPY( 'F', M, BLK, WORK( IU ), LDWRKU,
-     $                            A( 1, I ), LDA )
+                     CALL CGEMM( 'N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU )
+                     CALL CLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
    30             CONTINUE
 *
                ELSE
@@ -2134,16 +1862,13 @@
 *                 (CWorkspace: need 2*M+N, prefer 2*M+(M+N)*NB)
 *                 (RWorkspace: need M)
 *
-                  CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate right vectors bidiagonalizing A
 *                 (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + M
 *
 *                 Perform bidiagonal QR iteration, computing right
@@ -2151,8 +1876,7 @@
 *                 (CWorkspace: 0)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'L', M, N, 0, 0, S, RWORK( IE ), A, LDA,
-     $                         CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'L', M, N, 0, 0, S, RWORK( IE ), A, LDA, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                END IF
 *
@@ -2196,21 +1920,18 @@
 *                 (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy L to U, zeroing about above it
 *
                   CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ),
-     $                         LDU )
+                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ), LDU )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + M
@@ -2220,25 +1941,20 @@
 *                 (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                 (RWorkspace: need M)
 *
-                  CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   CALL CLACPY( 'U', M, M, U, LDU, WORK( IR ), LDWRKR )
 *
 *                 Generate right vectors bidiagonalizing L in WORK(IR)
 *                 (CWorkspace: need M*M+3*M-1, prefer M*M+2*M+(M-1)*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR,
-     $                         WORK( ITAUP ), WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate left vectors bidiagonalizing L in U
 *                 (CWorkspace: need M*M+3*M, prefer M*M+2*M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + M
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -2247,9 +1963,7 @@
 *                 (CWorkspace: need M*M)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ),
-     $                         WORK( IR ), LDWRKR, U, LDU, CDUM, 1,
-     $                         RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
                   IU = ITAUQ
 *
 *                 Multiply right singular vectors of L in WORK(IR) by Q
@@ -2259,11 +1973,8 @@
 *
                   DO 40 I = 1, N, CHUNK
                      BLK = MIN( N-I+1, CHUNK )
-                     CALL CGEMM( 'N', 'N', M, BLK, M, CONE, WORK( IR ),
-     $                           LDWRKR, A( 1, I ), LDA, CZERO,
-     $                           WORK( IU ), LDWRKU )
-                     CALL CLACPY( 'F', M, BLK, WORK( IU ), LDWRKU,
-     $                            A( 1, I ), LDA )
+                     CALL CGEMM( 'N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU )
+                     CALL CLACPY( 'F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA )
    40             CONTINUE
 *
                ELSE
@@ -2277,21 +1988,18 @@
 *                 (CWorkspace: need 2*M, prefer M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Copy L to U, zeroing out above it
 *
                   CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ),
-     $                         LDU )
+                  CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ), LDU )
 *
 *                 Generate Q in A
 *                 (CWorkspace: need 2*M, prefer M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IE = 1
                   ITAUQ = ITAU
                   ITAUP = ITAUQ + M
@@ -2301,24 +2009,19 @@
 *                 (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                 (RWorkspace: need M)
 *
-                  CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ),
-     $                         WORK( ITAUQ ), WORK( ITAUP ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Multiply right vectors bidiagonalizing L by Q in A
 *                 (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU,
-     $                         WORK( ITAUP ), A, LDA, WORK( IWORK ),
-     $                         LWORK-IWORK+1, IERR )
+                  CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU, WORK( ITAUP ), A, LDA, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                 Generate left vectors bidiagonalizing L in U
 *                 (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                 (RWorkspace: 0)
 *
-                  CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                         WORK( IWORK ), LWORK-IWORK+1, IERR )
+                  CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                   IRWORK = IE + M
 *
 *                 Perform bidiagonal QR iteration, computing left
@@ -2327,8 +2030,7 @@
 *                 (CWorkspace: 0)
 *                 (RWorkspace: need BDSPAC)
 *
-                  CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), A, LDA,
-     $                         U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
+                  CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), A, LDA, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                END IF
 *
@@ -2363,22 +2065,17 @@
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to WORK(IR), zeroing out above it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IR ),
-     $                            LDWRKR )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IR+LDWRKR ), LDWRKR )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2388,19 +2085,14 @@
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right vectors bidiagonalizing L in
 *                    WORK(IR)
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing right
@@ -2408,17 +2100,14 @@
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ),
-     $                            WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IR) by
 *                    Q in A, storing result in VT
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IR ),
-     $                           LDWRKR, A, LDA, CZERO, VT, LDVT )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IR ), LDWRKR, A, LDA, CZERO, VT, LDVT )
 *
                   ELSE
 *
@@ -2431,8 +2120,7 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy result to VT
 *
@@ -2442,8 +2130,7 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2451,24 +2138,19 @@
 *
 *                    Zero out above L in A
 *
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            A( 1, 2 ), LDA )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
 *
 *                    Bidiagonalize L in A
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right vectors bidiagonalizing L by Q in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing right
@@ -2476,9 +2158,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, 0, 0, S, RWORK( IE ), VT,
-     $                            LDVT, CDUM, 1, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, 0, 0, S, RWORK( IE ), VT, LDVT, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -2522,22 +2202,17 @@
 *                    (CWorkspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to WORK(IU), zeroing out below it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IU+LDWRKU ), LDWRKU )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2549,29 +2224,21 @@
 *                                 prefer 2*M*M+2*M+2*M*NB)
 *                    (RWorkspace: need   M)
 *
-                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU,
-     $                            WORK( IR ), LDWRKR )
+                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need   2*M*M+3*M-1,
 *                                 prefer 2*M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need 2*M*M+3*M, prefer 2*M*M+2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -2580,25 +2247,20 @@
 *                    (CWorkspace: need 2*M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ),
-     $                            WORK( IU ), LDWRKU, WORK( IR ),
-     $                            LDWRKR, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IU) by
 *                    Q in A, storing result in VT
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ),
-     $                           LDWRKU, A, LDA, CZERO, VT, LDVT )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ), LDWRKU, A, LDA, CZERO, VT, LDVT )
 *
 *                    Copy left singular vectors of L to A
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CLACPY( 'F', M, M, WORK( IR ), LDWRKR, A,
-     $                            LDA )
+                     CALL CLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
 *
                   ELSE
 *
@@ -2611,16 +2273,14 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2628,31 +2288,25 @@
 *
 *                    Zero out above L in A
 *
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            A( 1, 2 ), LDA )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
 *
 *                    Bidiagonalize L in A
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right vectors bidiagonalizing L by Q in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors of L in A
 *                    (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -2661,9 +2315,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, A, LDA, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT, LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -2697,22 +2349,17 @@
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to WORK(IU), zeroing out above it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IU+LDWRKU ), LDWRKU )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU )
 *
 *                    Generate Q in A
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2722,28 +2369,21 @@
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, U,
-     $                            LDU )
+                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, U, LDU )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need   M*M+3*M-1,
 *                                 prefer M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in U
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -2752,17 +2392,14 @@
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ),
-     $                            WORK( IU ), LDWRKU, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ), WORK( IU ), LDWRKU, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IU) by
 *                    Q in A, storing result in VT
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ),
-     $                           LDWRKU, A, LDA, CZERO, VT, LDVT )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ), LDWRKU, A, LDA, CZERO, VT, LDVT )
 *
                   ELSE
 *
@@ -2775,22 +2412,19 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( M, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to U, zeroing out above it
 *
                      CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            U( 1, 2 ), LDU )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ), LDU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2800,25 +2434,20 @@
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right bidiagonalizing vectors in U by Q
 *                    in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in U
 *                    (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -2827,9 +2456,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -2866,23 +2493,18 @@
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Copy L to WORK(IR), zeroing out above it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IR ),
-     $                            LDWRKR )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IR+LDWRKR ), LDWRKR )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need M*M+M+N, prefer M*M+M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2892,19 +2514,14 @@
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, WORK( IR ), LDWRKR, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need   M*M+3*M-1,
 *                                 prefer M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing right
@@ -2912,17 +2529,14 @@
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ),
-     $                            WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, M, 0, 0, S, RWORK( IE ), WORK( IR ), LDWRKR, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IR) by
 *                    Q in VT, storing result in A
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IR ),
-     $                           LDWRKR, VT, LDVT, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IR ), LDWRKR, VT, LDVT, CZERO, A, LDA )
 *
 *                    Copy right singular vectors of A from A to VT
 *
@@ -2939,16 +2553,14 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need M+N, prefer M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2956,25 +2568,20 @@
 *
 *                    Zero out above L in A
 *
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            A( 1, 2 ), LDA )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
 *
 *                    Bidiagonalize L in A
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right bidiagonalizing vectors in A by Q
 *                    in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing right
@@ -2982,9 +2589,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, 0, 0, S, RWORK( IE ), VT,
-     $                            LDVT, CDUM, 1, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, 0, 0, S, RWORK( IE ), VT, LDVT, CDUM, 1, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -3028,23 +2633,18 @@
 *                    (CWorkspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need 2*M*M+M+N, prefer 2*M*M+M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to WORK(IU), zeroing out above it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IU+LDWRKU ), LDWRKU )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -3056,29 +2656,21 @@
 *                                 prefer 2*M*M+2*M+2*M*NB)
 *                    (RWorkspace: need   M)
 *
-                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU,
-     $                            WORK( IR ), LDWRKR )
+                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, WORK( IR ), LDWRKR )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need   2*M*M+3*M-1,
 *                                 prefer 2*M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in WORK(IR)
 *                    (CWorkspace: need 2*M*M+3*M, prefer 2*M*M+2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, WORK( IR ), LDWRKR,
-     $                            WORK( ITAUQ ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -3087,18 +2679,14 @@
 *                    (CWorkspace: need 2*M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ),
-     $                            WORK( IU ), LDWRKU, WORK( IR ),
-     $                            LDWRKR, CDUM, 1, RWORK( IRWORK ),
-     $                            INFO )
+                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ), WORK( IU ), LDWRKU, WORK( IR ), LDWRKR, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IU) by
 *                    Q in VT, storing result in A
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ),
-     $                           LDWRKU, VT, LDVT, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ), LDWRKU, VT, LDVT, CZERO, A, LDA )
 *
 *                    Copy right singular vectors of A from A to VT
 *
@@ -3106,8 +2694,7 @@
 *
 *                    Copy left singular vectors of A from WORK(IR) to A
 *
-                     CALL CLACPY( 'F', M, M, WORK( IR ), LDWRKR, A,
-     $                            LDA )
+                     CALL CLACPY( 'F', M, M, WORK( IR ), LDWRKR, A, LDA )
 *
                   ELSE
 *
@@ -3120,16 +2707,14 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need M+N, prefer M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -3137,32 +2722,26 @@
 *
 *                    Zero out above L in A
 *
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            A( 1, 2 ), LDA )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, A( 1, 2 ), LDA )
 *
 *                    Bidiagonalize L in A
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right bidiagonalizing vectors in A by Q
 *                    in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in A
 *                    (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -3171,9 +2750,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, A, LDA, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT, LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -3207,23 +2784,18 @@
 *                    (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need M*M+M+N, prefer M*M+M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to WORK(IU), zeroing out above it
 *
-                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ),
-     $                            LDWRKU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            WORK( IU+LDWRKU ), LDWRKU )
+                     CALL CLACPY( 'L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -3233,27 +2805,20 @@
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S,
-     $                            RWORK( IE ), WORK( ITAUQ ),
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
-                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, U,
-     $                            LDU )
+                     CALL CGEBRD( M, M, WORK( IU ), LDWRKU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CLACPY( 'L', M, M, WORK( IU ), LDWRKU, U, LDU )
 *
 *                    Generate right bidiagonalizing vectors in WORK(IU)
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+(M-1)*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU,
-     $                            WORK( ITAUP ), WORK( IWORK ),
-     $                            LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'P', M, M, M, WORK( IU ), LDWRKU, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in U
 *                    (CWorkspace: need M*M+3*M, prefer M*M+2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -3262,17 +2827,14 @@
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ),
-     $                            WORK( IU ), LDWRKU, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, M, M, 0, S, RWORK( IE ), WORK( IU ), LDWRKU, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
 *                    Multiply right singular vectors of L in WORK(IU) by
 *                    Q in VT, storing result in A
 *                    (CWorkspace: need M*M)
 *                    (RWorkspace: 0)
 *
-                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ),
-     $                           LDWRKU, VT, LDVT, CZERO, A, LDA )
+                     CALL CGEMM( 'N', 'N', M, N, M, CONE, WORK( IU ), LDWRKU, VT, LDVT, CZERO, A, LDA )
 *
 *                    Copy right singular vectors of A from A to VT
 *
@@ -3289,22 +2851,19 @@
 *                    (CWorkspace: need 2*M, prefer M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
 *
 *                    Generate Q in VT
 *                    (CWorkspace: need M+N, prefer M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGLQ( N, N, M, VT, LDVT, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Copy L to U, zeroing out above it
 *
                      CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                            U( 1, 2 ), LDU )
+                     CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, U( 1, 2 ), LDU )
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -3314,25 +2873,20 @@
 *                    (CWorkspace: need 3*M, prefer 2*M+2*M*NB)
 *                    (RWorkspace: need M)
 *
-                     CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ),
-     $                            WORK( ITAUQ ), WORK( ITAUP ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CGEBRD( M, M, U, LDU, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Multiply right bidiagonalizing vectors in U by Q
 *                    in VT
 *                    (CWorkspace: need 2*M+N, prefer 2*M+N*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU,
-     $                            WORK( ITAUP ), VT, LDVT,
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNMBR( 'P', 'L', 'C', M, N, M, U, LDU, WORK( ITAUP ), VT, LDVT, WORK( IWORK ), LWORK-IWORK+1, IERR )
 *
 *                    Generate left bidiagonalizing vectors in U
 *                    (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *                    (RWorkspace: 0)
 *
-                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ),
-     $                            WORK( IWORK ), LWORK-IWORK+1, IERR )
+                     CALL CUNGBR( 'Q', M, M, M, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
                      IRWORK = IE + M
 *
 *                    Perform bidiagonal QR iteration, computing left
@@ -3341,9 +2895,7 @@
 *                    (CWorkspace: 0)
 *                    (RWorkspace: need BDSPAC)
 *
-                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT,
-     $                            LDVT, U, LDU, CDUM, 1,
-     $                            RWORK( IRWORK ), INFO )
+                     CALL CBDSQR( 'U', M, N, M, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
 *
                   END IF
 *
@@ -3367,9 +2919,7 @@
 *           (CWorkspace: need 2*M+N, prefer 2*M+(M+N)*NB)
 *           (RWorkspace: M)
 *
-            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ),
-     $                   WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                   IERR )
+            CALL CGEBRD( M, N, A, LDA, S, RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             IF( WNTUAS ) THEN
 *
 *              If left singular vectors desired in U, copy result to U
@@ -3378,8 +2928,7 @@
 *              (RWorkspace: 0)
 *
                CALL CLACPY( 'L', M, M, A, LDA, U, LDU )
-               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'Q', M, M, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTVAS ) THEN
 *
@@ -3389,12 +2938,7 @@
 *              (RWorkspace: 0)
 *
                CALL CLACPY( 'U', M, N, A, LDA, VT, LDVT )
-               IF( WNTVA )
-     $            NRVT = N
-               IF( WNTVS )
-     $            NRVT = M
-               CALL CUNGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               IF( WNTVA ) NRVT = N                IF( WNTVS ) NRVT = M                CALL CUNGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTUO ) THEN
 *
@@ -3403,8 +2947,7 @@
 *              (CWorkspace: need 3*M-1, prefer 2*M+(M-1)*NB)
 *              (RWorkspace: 0)
 *
-               CALL CUNGBR( 'Q', M, M, N, A, LDA, WORK( ITAUQ ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'Q', M, M, N, A, LDA, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IF( WNTVO ) THEN
 *
@@ -3413,18 +2956,10 @@
 *              (CWorkspace: need 3*M, prefer 2*M+M*NB)
 *              (RWorkspace: 0)
 *
-               CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ),
-     $                      WORK( IWORK ), LWORK-IWORK+1, IERR )
+               CALL CUNGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR )
             END IF
             IRWORK = IE + M
-            IF( WNTUAS .OR. WNTUO )
-     $         NRU = M
-            IF( WNTUN )
-     $         NRU = 0
-            IF( WNTVAS .OR. WNTVO )
-     $         NCVT = N
-            IF( WNTVN )
-     $         NCVT = 0
+            IF( WNTUAS .OR. WNTUO ) NRU = M             IF( WNTUN ) NRU = 0             IF( WNTVAS .OR. WNTVO ) NCVT = N             IF( WNTVN ) NCVT = 0
             IF( ( .NOT.WNTUO ) .AND. ( .NOT.WNTVO ) ) THEN
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -3433,9 +2968,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), VT,
-     $                      LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), VT, LDVT, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
             ELSE IF( ( .NOT.WNTUO ) .AND. WNTVO ) THEN
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -3444,9 +2977,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), A,
-     $                      LDA, U, LDU, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), A, LDA, U, LDU, CDUM, 1, RWORK( IRWORK ), INFO )
             ELSE
 *
 *              Perform bidiagonal QR iteration, if desired, computing
@@ -3455,9 +2986,7 @@
 *              (CWorkspace: 0)
 *              (RWorkspace: need BDSPAC)
 *
-               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), VT,
-     $                      LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ),
-     $                      INFO )
+               CALL CBDSQR( 'L', M, NCVT, NRU, 0, S, RWORK( IE ), VT, LDVT, A, LDA, CDUM, 1, RWORK( IRWORK ), INFO )
             END IF
 *
          END IF
@@ -3467,18 +2996,7 @@
 *     Undo scaling if necessary
 *
       IF( ISCL.EQ.1 ) THEN
-         IF( ANRM.GT.BIGNUM )
-     $      CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN,
-     $                   IERR )
-         IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM )
-     $      CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1,
-     $                   RWORK( IE ), MINMN, IERR )
-         IF( ANRM.LT.SMLNUM )
-     $      CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN,
-     $                   IERR )
-         IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM )
-     $      CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1,
-     $                   RWORK( IE ), MINMN, IERR )
+         IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR )          IF( INFO.NE.0 .AND. ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR )
       END IF
 *
 *     Return optimal workspace in WORK(1)

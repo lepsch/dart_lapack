@@ -42,14 +42,12 @@
          RETURN
       END IF
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       A( 1 ) = A( 1 ) - LAMBDA
       IN( N ) = 0
       IF( N.EQ.1 ) THEN
-         IF( A( 1 ).EQ.ZERO )
-     $      IN( 1 ) = 1
+         IF( A( 1 ).EQ.ZERO ) IN( 1 ) = 1
          RETURN
       END IF
 *
@@ -60,8 +58,7 @@
       DO 10 K = 1, N - 1
          A( K+1 ) = A( K+1 ) - LAMBDA
          SCALE2 = ABS( C( K ) ) + ABS( A( K+1 ) )
-         IF( K.LT.( N-1 ) )
-     $      SCALE2 = SCALE2 + ABS( B( K+1 ) )
+         IF( K.LT.( N-1 ) ) SCALE2 = SCALE2 + ABS( B( K+1 ) )
          IF( A( K ).EQ.ZERO ) THEN
             PIV1 = ZERO
          ELSE
@@ -71,8 +68,7 @@
             IN( K ) = 0
             PIV2 = ZERO
             SCALE1 = SCALE2
-            IF( K.LT.( N-1 ) )
-     $         D( K ) = ZERO
+            IF( K.LT.( N-1 ) ) D( K ) = ZERO
          ELSE
             PIV2 = ABS( C( K ) ) / SCALE2
             IF( PIV2.LE.PIV1 ) THEN
@@ -80,8 +76,7 @@
                SCALE1 = SCALE2
                C( K ) = C( K ) / A( K )
                A( K+1 ) = A( K+1 ) - C( K )*B( K )
-               IF( K.LT.( N-1 ) )
-     $            D( K ) = ZERO
+               IF( K.LT.( N-1 ) ) D( K ) = ZERO
             ELSE
                IN( K ) = 1
                MULT = A( K ) / C( K )
@@ -96,11 +91,9 @@
                C( K ) = MULT
             END IF
          END IF
-         IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) )
-     $      IN( N ) = K
+         IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = K
    10 CONTINUE
-      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) )
-     $   IN( N ) = N
+      IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = N
 *
       RETURN
 *

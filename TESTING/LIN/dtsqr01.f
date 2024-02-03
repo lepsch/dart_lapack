@@ -15,9 +15,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), RWORK(:), WORK( : ), T(:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
+      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
 *
 *     .. Parameters ..
       DOUBLE PRECISION ONE, ZERO
@@ -65,9 +63,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L),
-     $           C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M), LQ(L,N) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M), LQ(L,N) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -90,20 +86,15 @@
       CALL DGEQR( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL DGEMQR( 'L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMQR( 'L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMQR( 'L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMQR( 'L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMQR( 'L', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMQR( 'L', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMQR( 'R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMQR( 'R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMQR( 'R', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMQR( 'R', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
@@ -114,8 +105,7 @@
 *
       CALL DLASET( 'Full', M, M, ZERO, ONE, Q, M )
       srnamt = 'DGEMQR'
-      CALL DGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M,
-     $              WORK, LWORK, INFO )
+      CALL DGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO )
 *
 *     Copy R
 *
@@ -151,8 +141,7 @@
 *     Apply Q to C as Q*C
 *
       srnamt = 'DGEMQR'
-      CALL DGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL DGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -171,8 +160,7 @@
 *     Apply Q to C as QT*C
 *
       srnamt = 'DGEMQR'
-      CALL DGEMQR( 'L', 'T', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL DGEMQR( 'L', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -195,8 +183,7 @@
 *     Apply Q to D as D*Q
 *
       srnamt = 'DGEMQR'
-      CALL DGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL DGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -214,8 +201,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL DGEMQR( 'R', 'T', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL DGEMQR( 'R', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |D*QT - D*QT| / |D|
 *
@@ -233,20 +219,15 @@
       CALL DGELQ( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL DGEMLQ( 'R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N,
-     $              WORKQUERY, -1, INFO )
+      CALL DGEMLQ( 'R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO )
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMLQ( 'L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMLQ( 'L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMLQ( 'L', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMLQ( 'L', 'T', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMLQ( 'R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMLQ( 'R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL DGEMLQ( 'R', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL DGEMLQ( 'R', 'T', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
@@ -258,8 +239,7 @@
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, Q, N )
       srnamt = 'DGEMLQ'
-      CALL DGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N,
-     $              WORK, LWORK, INFO )
+      CALL DGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO )
 *
 *     Copy R
 *
@@ -294,8 +274,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL DGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL DGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |Q*D - Q*D| / |D|
 *
@@ -313,8 +292,7 @@
 *
 *     Apply Q to D as QT*D
 *
-      CALL DGEMLQ( 'L', 'T', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL DGEMLQ( 'L', 'T', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |QT*D - QT*D| / |D|
 *
@@ -336,8 +314,7 @@
 *
 *     Apply Q to C as C*Q
 *
-      CALL DGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL DGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |C*Q - C*Q| / |C|
 *
@@ -355,8 +332,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL DGEMLQ( 'R', 'T', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL DGEMLQ( 'R', 'T', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |C*QT - C*QT| / |C|
 *

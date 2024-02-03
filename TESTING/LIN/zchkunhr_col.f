@@ -1,5 +1,4 @@
-      SUBROUTINE ZCHKUNHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL,
-     $                         NNB, NBVAL, NOUT )
+      SUBROUTINE ZCHKUNHR_COL( THRESH, TSTERR, NM, MVAL, NN, NVAL, NNB, NBVAL, NOUT )
       IMPLICIT NONE
 *
 *  -- LAPACK test routine --
@@ -23,15 +22,13 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER(LEN=3)   PATH
-      INTEGER            I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1,
-     $                   NB2, NFAIL, NERRS, NRUN
+      INTEGER            I, IMB1, INB1, INB2, J, T, M, N, MB1, NB1, NB2, NFAIL, NERRS, NRUN
 *
 *     .. Local Arrays ..
       DOUBLE PRECISION   RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, ZERRUNHR_COL, ZUNHR_COL01,
-     $                   ZUNHR_COL02
+      EXTERNAL           ALAHD, ALASUM, ZERRUNHR_COL, ZUNHR_COL01, ZUNHR_COL02
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -97,18 +94,14 @@
 *
 *                             Test ZUNHR_COL
 *
-                              CALL ZUNHR_COL01( M, N, MB1, NB1,
-     $                                          NB2, RESULT )
+                              CALL ZUNHR_COL01( M, N, MB1, NB1, NB2, RESULT )
 *
 *                             Print information about the tests that did
 *                             not pass the threshold.
 *
                               DO T = 1, NTESTS
                                  IF( RESULT( T ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                              CALL ALAHD( NOUT, PATH )
-                                    WRITE( NOUT, FMT = 9999 ) M, N, MB1,
-     $                                     NB1, NB2, T, RESULT( T )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9999 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
                                  END IF
                               END DO
@@ -159,18 +152,14 @@
 *
 *                             Test ZUNHR_COL
 *
-                              CALL ZUNHR_COL02( M, N, MB1, NB1,
-     $                                          NB2, RESULT )
+                              CALL ZUNHR_COL02( M, N, MB1, NB1, NB2, RESULT )
 *
 *                             Print information about the tests that did
 *                             not pass the threshold.
 *
                               DO T = 1, NTESTS
                                  IF( RESULT( T ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                              CALL ALAHD( NOUT, PATH )
-                                    WRITE( NOUT, FMT = 9998 ) M, N, MB1,
-     $                                     NB1, NB2, T, RESULT( T )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9998 ) M, N, MB1, NB1, NB2, T, RESULT( T )
                                     NFAIL = NFAIL + 1
                                  END IF
                               END DO

@@ -1,5 +1,4 @@
-      SUBROUTINE DORGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK,
-     $                     INFO )
+      SUBROUTINE DORGTSQR( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -113,8 +112,7 @@
 *
 *           On output, WORK(1:LDC*N) stores Q1_in.
 *
-      CALL DLAMTSQR( 'L', 'N', M, N, N, MB, NBLOCAL, A, LDA, T, LDT,
-     $               WORK, LDC, WORK( LC+1 ), LW, IINFO )
+      CALL DLAMTSQR( 'L', 'N', M, N, N, MB, NBLOCAL, A, LDA, T, LDT, WORK, LDC, WORK( LC+1 ), LW, IINFO )
 *
 *     (2) Copy the result from the part of the work array (1:M,1:N)
 *     with the leading dimension LDC that starts at WORK(1) into

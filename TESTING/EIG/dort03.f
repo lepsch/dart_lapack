@@ -1,5 +1,4 @@
-      SUBROUTINE DORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK,
-     $                   RESULT, INFO )
+      SUBROUTINE DORT03( RC, MU, MV, N, K, U, LDU, V, LDV, WORK, LWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -58,11 +57,9 @@
          INFO = -4
       ELSE IF( K.LT.0 .OR. K.GT.MAX( MU, MV ) ) THEN
          INFO = -5
-      ELSE IF( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR.
-     $         ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( IRC.EQ.0 .AND. LDU.LT.MAX( 1, MU ) ) .OR. ( IRC.EQ.1 .AND. LDU.LT.MAX( 1, N ) ) ) THEN
          INFO = -7
-      ELSE IF( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR.
-     $         ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( IRC.EQ.0 .AND. LDV.LT.MAX( 1, MV ) ) .OR. ( IRC.EQ.1 .AND. LDV.LT.MAX( 1, N ) ) ) THEN
          INFO = -9
       END IF
       IF( INFO.NE.0 ) THEN
@@ -73,8 +70,7 @@
 *     Initialize result
 *
       RESULT = ZERO
-      IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( MU.EQ.0 .OR. MV.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Machine constants
 *

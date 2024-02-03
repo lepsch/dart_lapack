@@ -50,8 +50,7 @@
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
-      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND.
-     +         (.NOT.LSAME(TRANS,'C'))) THEN
+      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND. (.NOT.LSAME(TRANS,'C'))) THEN
           INFO = 2
       ELSE IF (N.LT.0) THEN
           INFO = 3
@@ -71,8 +70,7 @@
 *
 *     Quick return if possible.
 *
-      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR.
-     +    (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
 *     And when  alpha.eq.zero.
 *
@@ -137,11 +135,9 @@
                           TEMP1 = ALPHA*DCONJG(B(J,L))
                           TEMP2 = DCONJG(ALPHA*A(J,L))
                           DO 110 I = 1,J - 1
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 +
-     +                                 B(I,L)*TEMP2
+                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   110                     CONTINUE
-                          C(J,J) = DBLE(C(J,J)) +
-     +                             DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2)
+                          C(J,J) = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2)
                       END IF
   120             CONTINUE
   130         CONTINUE
@@ -164,11 +160,9 @@
                           TEMP1 = ALPHA*DCONJG(B(J,L))
                           TEMP2 = DCONJG(ALPHA*A(J,L))
                           DO 160 I = J + 1,N
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 +
-     +                                 B(I,L)*TEMP2
+                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   160                     CONTINUE
-                          C(J,J) = DBLE(C(J,J)) +
-     +                             DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2)
+                          C(J,J) = DBLE(C(J,J)) + DBLE(A(J,L)*TEMP1+B(J,L)*TEMP2)
                       END IF
   170             CONTINUE
   180         CONTINUE
@@ -189,19 +183,15 @@
   190                 CONTINUE
                       IF (I.EQ.J) THEN
                           IF (BETA.EQ.DBLE(ZERO)) THEN
-                              C(J,J) = DBLE(ALPHA*TEMP1+
-     +                                 DCONJG(ALPHA)*TEMP2)
+                              C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           ELSE
-                              C(J,J) = BETA*DBLE(C(J,J)) +
-     +                                 DBLE(ALPHA*TEMP1+
-     +                                 DCONJG(ALPHA)*TEMP2)
+                              C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           END IF
                       ELSE
                           IF (BETA.EQ.DBLE(ZERO)) THEN
                               C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           ELSE
-                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 +
-     +                                 DCONJG(ALPHA)*TEMP2
+                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           END IF
                       END IF
   200             CONTINUE
@@ -217,19 +207,15 @@
   220                 CONTINUE
                       IF (I.EQ.J) THEN
                           IF (BETA.EQ.DBLE(ZERO)) THEN
-                              C(J,J) = DBLE(ALPHA*TEMP1+
-     +                                 DCONJG(ALPHA)*TEMP2)
+                              C(J,J) = DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           ELSE
-                              C(J,J) = BETA*DBLE(C(J,J)) +
-     +                                 DBLE(ALPHA*TEMP1+
-     +                                 DCONJG(ALPHA)*TEMP2)
+                              C(J,J) = BETA*DBLE(C(J,J)) + DBLE(ALPHA*TEMP1+ DCONJG(ALPHA)*TEMP2)
                           END IF
                       ELSE
                           IF (BETA.EQ.DBLE(ZERO)) THEN
                               C(I,J) = ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           ELSE
-                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 +
-     +                                 DCONJG(ALPHA)*TEMP2
+                              C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + DCONJG(ALPHA)*TEMP2
                           END IF
                       END IF
   230             CONTINUE

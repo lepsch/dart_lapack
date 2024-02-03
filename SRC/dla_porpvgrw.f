@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_PORPVGRW( UPLO, NCOLS, A, LDA, AF,
-     $                                        LDAF, WORK )
+      DOUBLE PRECISION FUNCTION DLA_PORPVGRW( UPLO, NCOLS, A, LDA, AF, LDAF, WORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -45,15 +44,13 @@
       IF ( UPPER ) THEN
          DO J = 1, NCOLS
             DO I = 1, J
-               WORK( NCOLS+J ) =
-     $              MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
+               WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
       ELSE
          DO J = 1, NCOLS
             DO I = J, NCOLS
-               WORK( NCOLS+J ) =
-     $              MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
+               WORK( NCOLS+J ) = MAX( ABS( A( I, J ) ), WORK( NCOLS+J ) )
             END DO
          END DO
       END IF

@@ -1,5 +1,4 @@
-      SUBROUTINE CLATTB( IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB,
-     $                   LDAB, B, WORK, RWORK, INFO )
+      SUBROUTINE CLATTB( IMAT, UPLO, TRANS, DIAG, ISEED, N, KD, AB, LDAB, B, WORK, RWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -26,9 +25,7 @@
       CHARACTER          DIST, PACKIT, TYPE
       CHARACTER*3        PATH
       INTEGER            I, IOFF, IY, J, JCOUNT, KL, KU, LENJ, MODE
-      REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP,
-     $                   SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP,
-     $                   UNFL
+      REAL               ANORM, BIGNUM, BNORM, BSCAL, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TNORM, TSCAL, ULP, UNFL
       COMPLEX            PLUS1, PLUS2, STAR1
 *     ..
 *     .. External Functions ..
@@ -39,8 +36,7 @@
       EXTERNAL           LSAME, ICAMAX, SLAMCH, SLARND, CLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLARNV, CLATB4, CLATMS, CSSCAL, CSWAP,
-     $                   SLARNV
+      EXTERNAL           CCOPY, CLARNV, CLATB4, CLATMS, CSSCAL, CSWAP, SLARNV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CMPLX, MAX, MIN, REAL, SQRT
@@ -62,22 +58,19 @@
 *
 *     Quick return if N.LE.0.
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Call CLATB4 to set parameters for CLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
-         CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          KU = KD
          IOFF = 1 + MAX( 0, KD-N+1 )
          KL = 0
          PACKIT = 'Q'
       ELSE
-         CALL CLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL CLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          KL = KD
          IOFF = 1
          KU = 0
@@ -87,9 +80,7 @@
 *     IMAT <= 5:  Non-unit triangular matrix
 *
       IF( IMAT.LE.5 ) THEN
-         CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM,
-     $                ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK,
-     $                INFO )
+         CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, AB( IOFF, 1 ), LDAB, WORK, INFO )
 *
 *     IMAT > 5:  Unit triangular matrix
 *     The diagonal is deliberately set to something other than 1.
@@ -230,8 +221,7 @@
          ELSE
             DO 130 J = 1, N
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 )
-     $            CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = CLARND( 5, ISEED )*TWO
   130       CONTINUE
          END IF
@@ -284,16 +274,14 @@
          IF( UPPER ) THEN
             DO 160 J = 1, N
                LENJ = MIN( J-1, KD )
-               IF( LENJ.GT.0 )
-     $            CALL CLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
+               IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
                AB( KD+1, J ) = CLARND( 5, ISEED )
   160       CONTINUE
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          ELSE
             DO 170 J = 1, N
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 )
-     $            CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = CLARND( 5, ISEED )
   170       CONTINUE
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
@@ -317,8 +305,7 @@
                   AB( KD+1, J ) = CLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   190       CONTINUE
          ELSE
             JCOUNT = 1
@@ -332,8 +319,7 @@
                   AB( 1, J ) = CLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
          END IF
 *
@@ -367,8 +353,7 @@
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
   240          CONTINUE
-               IF( J.GT.1 .AND. KD.GT.0 )
-     $            AB( KD, J ) = CMPLX( -ONE, -ONE )
+               IF( J.GT.1 .AND. KD.GT.0 ) AB( KD, J ) = CMPLX( -ONE, -ONE )
                AB( KD+1, J ) = TSCAL*CLARND( 5, ISEED )
   250       CONTINUE
             B( N ) = CMPLX( ONE, ONE )
@@ -377,8 +362,7 @@
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
   260          CONTINUE
-               IF( J.LT.N .AND. KD.GT.0 )
-     $            AB( 2, J ) = CMPLX( -ONE, -ONE )
+               IF( J.LT.N .AND. KD.GT.0 ) AB( 2, J ) = CMPLX( -ONE, -ONE )
                AB( 1, J ) = TSCAL*CLARND( 5, ISEED )
   270       CONTINUE
             B( 1 ) = CMPLX( ONE, ONE )
@@ -436,15 +420,13 @@
                      AB( KD+1, I ) = ONE
                      B( I ) = TEXP*( ONE-ULP )
                      IF( I.GT.MAX( 1, J-KD+1 ) ) THEN
-                        AB( 2+( J-I ), I-1 ) = -( TSCAL / REAL( KD+2 ) )
-     $                                          / REAL( KD+3 )
+                        AB( 2+( J-I ), I-1 ) = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 )
                         AB( KD+1, I-1 ) = ONE
                         B( I-1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD )
                      END IF
                      TEXP = TEXP*TWO
   320             CONTINUE
-                  B( MAX( 1, J-KD+1 ) ) = ( REAL( KD+2 ) /
-     $                                    REAL( KD+3 ) )*TSCAL
+                  B( MAX( 1, J-KD+1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
   330          CONTINUE
             ELSE
                DO 350 J = 1, N, KD
@@ -455,15 +437,13 @@
                      AB( 1, J ) = ONE
                      B( J ) = TEXP*( ONE-ULP )
                      IF( I.LT.MIN( N, J+KD-1 ) ) THEN
-                        AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL /
-     $                     REAL( KD+2 ) ) / REAL( KD+3 )
+                        AB( LENJ-( I-J+1 ), I+1 ) = -( TSCAL / REAL( KD+2 ) ) / REAL( KD+3 )
                         AB( 1, I+1 ) = ONE
                         B( I+1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD )
                      END IF
                      TEXP = TEXP*TWO
   340             CONTINUE
-                  B( MIN( N, J+KD-1 ) ) = ( REAL( KD+2 ) /
-     $                                    REAL( KD+3 ) )*TSCAL
+                  B( MIN( N, J+KD-1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
   350          CONTINUE
             END IF
          END IF
@@ -483,8 +463,7 @@
          ELSE
             DO 370 J = 1, N
                LENJ = MIN( N-J, KD )
-               IF( LENJ.GT.0 )
-     $            CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
+               IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = REAL( J )
   370       CONTINUE
          END IF
@@ -535,14 +514,12 @@
          IF( UPPER ) THEN
             DO 420 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
-               CALL CSWAP( LENJ, AB( KD+1, J ), LDAB-1,
-     $                     AB( KD+2-LENJ, N-J+1 ), -1 )
+               CALL CSWAP( LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 )
   420       CONTINUE
          ELSE
             DO 430 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
-               CALL CSWAP( LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ),
-     $                     -LDAB+1 )
+               CALL CSWAP( LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 )
   430       CONTINUE
          END IF
       END IF

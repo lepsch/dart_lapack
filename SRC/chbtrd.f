@@ -1,5 +1,4 @@
-      SUBROUTINE CHBTRD( VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ,
-     $                   WORK, INFO )
+      SUBROUTINE CHBTRD( VECT, UPLO, N, KD, AB, LDAB, D, E, Q, LDQ, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,20 +19,16 @@
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            INITQ, UPPER, WANTQ
-      INTEGER            I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J,
-     $                   J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1,
-     $                   KDM1, KDN, L, LAST, LEND, NQ, NR, NRT
+      INTEGER            I, I2, IBL, INCA, INCX, IQAEND, IQB, IQEND, J, J1, J1END, J1INC, J2, JEND, JIN, JINC, K, KD1, KDM1, KDN, L, LAST, LEND, NQ, NR, NRT
       REAL               ABST
       COMPLEX            T, TEMP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET,
-     $                   CROT, CSCAL, XERBLA
+      EXTERNAL           CLACGV, CLAR2V, CLARGV, CLARTG, CLARTV, CLASET, CROT, CSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CONJG, MAX, MIN, REAL
@@ -75,13 +70,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Initialize Q to the unit matrix, if needed
 *
-      IF( INITQ )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
+      IF( INITQ ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
 *
 *     Wherever possible, plane rotations are generated and applied in
 *     vector operations of length NR over the index set J1:J2:KD1.
@@ -116,8 +109,7 @@
 *                    generate plane rotations to annihilate nonzero
 *                    elements which have been created outside the band
 *
-                     CALL CLARGV( NR, AB( 1, J1-1 ), INCA, WORK( J1 ),
-     $                            KD1, D( J1 ), KD1 )
+                     CALL CLARGV( NR, AB( 1, J1-1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
 *
 *                    apply rotations from the right
 *
@@ -127,17 +119,13 @@
 *
                      IF( NR.GE.2*KD-1 ) THEN
                         DO 10 L = 1, KD - 1
-                           CALL CLARTV( NR, AB( L+1, J1-1 ), INCA,
-     $                                  AB( L, J1 ), INCA, D( J1 ),
-     $                                  WORK( J1 ), KD1 )
+                           CALL CLARTV( NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
    10                   CONTINUE
 *
                      ELSE
                         JEND = J1 + ( NR-1 )*KD1
                         DO 20 JINC = J1, JEND, KD1
-                           CALL CROT( KDM1, AB( 2, JINC-1 ), 1,
-     $                                AB( 1, JINC ), 1, D( JINC ),
-     $                                WORK( JINC ) )
+                           CALL CROT( KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) )
    20                   CONTINUE
                      END IF
                   END IF
@@ -149,16 +137,12 @@
 *                       generate plane rotation to annihilate a(i,i+k-1)
 *                       within the band
 *
-                        CALL CLARTG( AB( KD-K+3, I+K-2 ),
-     $                               AB( KD-K+2, I+K-1 ), D( I+K-1 ),
-     $                               WORK( I+K-1 ), TEMP )
+                        CALL CLARTG( AB( KD-K+3, I+K-2 ), AB( KD-K+2, I+K-1 ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
                         AB( KD-K+3, I+K-2 ) = TEMP
 *
 *                       apply rotation from the right
 *
-                        CALL CROT( K-3, AB( KD-K+4, I+K-2 ), 1,
-     $                             AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ),
-     $                             WORK( I+K-1 ) )
+                        CALL CROT( K-3, AB( KD-K+4, I+K-2 ), 1, AB( KD-K+3, I+K-1 ), 1, D( I+K-1 ), WORK( I+K-1 ) )
                      END IF
                      NR = NR + 1
                      J1 = J1 - KDN - 1
@@ -167,10 +151,7 @@
 *                 apply plane rotations from both sides to diagonal
 *                 blocks
 *
-                  IF( NR.GT.0 )
-     $               CALL CLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ),
-     $                            AB( KD, J1 ), INCA, D( J1 ),
-     $                            WORK( J1 ), KD1 )
+                  IF( NR.GT.0 ) CALL CLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
 *
 *                 apply plane rotations from the left
 *
@@ -187,26 +168,18 @@
                            ELSE
                               NRT = NR
                            END IF
-                           IF( NRT.GT.0 )
-     $                        CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA,
-     $                                     AB( KD-L+1, J1+L ), INCA,
-     $                                     D( J1 ), WORK( J1 ), KD1 )
+                           IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
    30                   CONTINUE
                      ELSE
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 40 JIN = J1, J1END, KD1
-                              CALL CROT( KD-1, AB( KD-1, JIN+1 ), INCX,
-     $                                   AB( KD, JIN+1 ), INCX,
-     $                                   D( JIN ), WORK( JIN ) )
+                              CALL CROT( KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) )
    40                      CONTINUE
                         END IF
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        IF( LEND.GT.0 )
-     $                     CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX,
-     $                                AB( KD, LAST+1 ), INCX, D( LAST ),
-     $                                WORK( LAST ) )
+                        IF( LEND.GT.0 ) CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) )
                      END IF
                   END IF
 *
@@ -222,8 +195,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        IF( K.EQ.2 )
-     $                     IQAEND = IQAEND + KD
+                        IF( K.EQ.2 ) IQAEND = IQAEND + KD
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 50 J = J1, J2, KD1
                            IBL = I - I2 / KDM1
@@ -231,14 +203,12 @@
                            IQB = MAX( 1, J-IBL )
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
-                           CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ),
-     $                                1, D( J ), CONJG( WORK( J ) ) )
+                           CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), CONJG( WORK( J ) ) )
    50                   CONTINUE
                      ELSE
 *
                         DO 60 J = J1, J2, KD1
-                           CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1,
-     $                                D( J ), CONJG( WORK( J ) ) )
+                           CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), CONJG( WORK( J ) ) )
    60                   CONTINUE
                      END IF
 *
@@ -278,8 +248,7 @@
                ELSE
                   T = CONE
                END IF
-               IF( I.LT.N-1 )
-     $            AB( KD, I+2 ) = AB( KD, I+2 )*T
+               IF( I.LT.N-1 ) AB( KD, I+2 ) = AB( KD, I+2 )*T
                IF( WANTQ ) THEN
                   CALL CSCAL( N, CONJG( T ), Q( 1, I+1 ), 1 )
                END IF
@@ -324,8 +293,7 @@
 *                    generate plane rotations to annihilate nonzero
 *                    elements which have been created outside the band
 *
-                     CALL CLARGV( NR, AB( KD1, J1-KD1 ), INCA,
-     $                            WORK( J1 ), KD1, D( J1 ), KD1 )
+                     CALL CLARGV( NR, AB( KD1, J1-KD1 ), INCA, WORK( J1 ), KD1, D( J1 ), KD1 )
 *
 *                    apply plane rotations from one side
 *
@@ -335,16 +303,12 @@
 *
                      IF( NR.GT.2*KD-1 ) THEN
                         DO 130 L = 1, KD - 1
-                           CALL CLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA,
-     $                                  AB( KD1-L+1, J1-KD1+L ), INCA,
-     $                                  D( J1 ), WORK( J1 ), KD1 )
+                           CALL CLARTV( NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
   130                   CONTINUE
                      ELSE
                         JEND = J1 + KD1*( NR-1 )
                         DO 140 JINC = J1, JEND, KD1
-                           CALL CROT( KDM1, AB( KD, JINC-KD ), INCX,
-     $                                AB( KD1, JINC-KD ), INCX,
-     $                                D( JINC ), WORK( JINC ) )
+                           CALL CROT( KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) )
   140                   CONTINUE
                      END IF
 *
@@ -356,15 +320,12 @@
 *                       generate plane rotation to annihilate a(i+k-1,i)
 *                       within the band
 *
-                        CALL CLARTG( AB( K-1, I ), AB( K, I ),
-     $                               D( I+K-1 ), WORK( I+K-1 ), TEMP )
+                        CALL CLARTG( AB( K-1, I ), AB( K, I ), D( I+K-1 ), WORK( I+K-1 ), TEMP )
                         AB( K-1, I ) = TEMP
 *
 *                       apply rotation from the left
 *
-                        CALL CROT( K-3, AB( K-2, I+1 ), LDAB-1,
-     $                             AB( K-1, I+1 ), LDAB-1, D( I+K-1 ),
-     $                             WORK( I+K-1 ) )
+                        CALL CROT( K-3, AB( K-2, I+1 ), LDAB-1, AB( K-1, I+1 ), LDAB-1, D( I+K-1 ), WORK( I+K-1 ) )
                      END IF
                      NR = NR + 1
                      J1 = J1 - KDN - 1
@@ -373,10 +334,7 @@
 *                 apply plane rotations from both sides to diagonal
 *                 blocks
 *
-                  IF( NR.GT.0 )
-     $               CALL CLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ),
-     $                            AB( 2, J1-1 ), INCA, D( J1 ),
-     $                            WORK( J1 ), KD1 )
+                  IF( NR.GT.0 ) CALL CLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
 *
 *                 apply plane rotations from the right
 *
@@ -393,26 +351,18 @@
                            ELSE
                               NRT = NR
                            END IF
-                           IF( NRT.GT.0 )
-     $                        CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA,
-     $                                     AB( L+1, J1 ), INCA, D( J1 ),
-     $                                     WORK( J1 ), KD1 )
+                           IF( NRT.GT.0 ) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
   150                   CONTINUE
                      ELSE
                         J1END = J1 + KD1*( NR-2 )
                         IF( J1END.GE.J1 ) THEN
                            DO 160 J1INC = J1, J1END, KD1
-                              CALL CROT( KDM1, AB( 3, J1INC-1 ), 1,
-     $                                   AB( 2, J1INC ), 1, D( J1INC ),
-     $                                   WORK( J1INC ) )
+                              CALL CROT( KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) )
   160                      CONTINUE
                         END IF
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
-                        IF( LEND.GT.0 )
-     $                     CALL CROT( LEND, AB( 3, LAST-1 ), 1,
-     $                                AB( 2, LAST ), 1, D( LAST ),
-     $                                WORK( LAST ) )
+                        IF( LEND.GT.0 ) CALL CROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) )
                      END IF
                   END IF
 *
@@ -430,8 +380,7 @@
                         IQEND = MAX( IQEND, J2 )
                         I2 = MAX( 0, K-3 )
                         IQAEND = 1 + I*KD
-                        IF( K.EQ.2 )
-     $                     IQAEND = IQAEND + KD
+                        IF( K.EQ.2 ) IQAEND = IQAEND + KD
                         IQAEND = MIN( IQAEND, IQEND )
                         DO 170 J = J1, J2, KD1
                            IBL = I - I2 / KDM1
@@ -439,14 +388,12 @@
                            IQB = MAX( 1, J-IBL )
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
-                           CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ),
-     $                                1, D( J ), WORK( J ) )
+                           CALL CROT( NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) )
   170                   CONTINUE
                      ELSE
 *
                         DO 180 J = J1, J2, KD1
-                           CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1,
-     $                                D( J ), WORK( J ) )
+                           CALL CROT( N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) )
   180                   CONTINUE
                      END IF
                   END IF
@@ -485,8 +432,7 @@
                ELSE
                   T = CONE
                END IF
-               IF( I.LT.N-1 )
-     $            AB( 2, I+1 ) = AB( 2, I+1 )*T
+               IF( I.LT.N-1 ) AB( 2, I+1 ) = AB( 2, I+1 )*T
                IF( WANTQ ) THEN
                   CALL CSCAL( N, T, Q( 1, I+1 ), 1 )
                END IF

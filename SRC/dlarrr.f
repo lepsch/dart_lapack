@@ -16,14 +16,12 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, RELCOND
-      PARAMETER          ( ZERO = 0.0D0,
-     $                     RELCOND = 0.999D0 )
+      PARAMETER          ( ZERO = 0.0D0, RELCOND = 0.999D0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I
       LOGICAL            YESREL
-      DOUBLE PRECISION   EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2,
-     $          OFFDIG, OFFDIG2
+      DOUBLE PRECISION   EPS, SAFMIN, SMLNUM, RMIN, TMP, TMP2, OFFDIG, OFFDIG2
 
 *     ..
 *     .. External Functions ..

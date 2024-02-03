@@ -89,10 +89,7 @@
 *
 *           multiply A(i:m,i:n) by random reflection from the left
 *
-            CALL SGEMV( 'Transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA,
-     $                  WORK, 1, ZERO, WORK( M+1 ), 1 )
-            CALL SGER( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1,
-     $                 A( I, I ), LDA )
+            CALL SGEMV( 'Transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( M+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK, 1, WORK( M+1 ), 1, A( I, I ), LDA )
          END IF
          IF( I.LT.N ) THEN
 *
@@ -112,10 +109,7 @@
 *
 *           multiply A(i:m,i:n) by random reflection from the right
 *
-            CALL SGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ),
-     $                  LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
-            CALL SGER( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1,
-     $                 A( I, I ), LDA )
+            CALL SGEMV( 'No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL SGER( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA )
          END IF
    40 CONTINUE
 *
@@ -144,11 +138,8 @@
 *
 *              apply reflection to A(kl+i:m,i+1:n) from the left
 *
-               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE,
-     $                     A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO,
-     $                     WORK, 1 )
-               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1,
-     $                    A( KL+I, I+1 ), LDA )
+               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
+               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
                A( KL+I, I ) = -WA
             END IF
 *
@@ -169,11 +160,8 @@
 *
 *              apply reflection to A(i+1:m,ku+i:n) from the right
 *
-               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE,
-     $                     A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO,
-     $                     WORK, 1 )
-               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ),
-     $                    LDA, A( I+1, KU+I ), LDA )
+               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
+               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
                A( I, KU+I ) = -WA
             END IF
          ELSE
@@ -198,11 +186,8 @@
 *
 *              apply reflection to A(i+1:m,ku+i:n) from the right
 *
-               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE,
-     $                     A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO,
-     $                     WORK, 1 )
-               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ),
-     $                    LDA, A( I+1, KU+I ), LDA )
+               CALL SGEMV( 'No transpose', M-I, N-KU-I+1, ONE, A( I+1, KU+I ), LDA, A( I, KU+I ), LDA, ZERO, WORK, 1 )
+               CALL SGER( M-I, N-KU-I+1, -TAU, WORK, 1, A( I, KU+I ), LDA, A( I+1, KU+I ), LDA )
                A( I, KU+I ) = -WA
             END IF
 *
@@ -223,11 +208,8 @@
 *
 *              apply reflection to A(kl+i:m,i+1:n) from the left
 *
-               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE,
-     $                     A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO,
-     $                     WORK, 1 )
-               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1,
-     $                    A( KL+I, I+1 ), LDA )
+               CALL SGEMV( 'Transpose', M-KL-I+1, N-I, ONE, A( KL+I, I+1 ), LDA, A( KL+I, I ), 1, ZERO, WORK, 1 )
+               CALL SGER( M-KL-I+1, N-I, -TAU, A( KL+I, I ), 1, WORK, 1, A( KL+I, I+1 ), LDA )
                A( KL+I, I ) = -WA
             END IF
          END IF

@@ -52,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     N=1 case
 *
@@ -90,13 +89,11 @@
 *
 *           Update and scale A12
 *
-            CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE,
-     $                  A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL SSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL SSYRK( UPLO, 'T', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
                INFO = IINFO + N1
@@ -109,13 +106,11 @@
 *
 *           Update and scale A21
 *
-            CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE,
-     $                  A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL SSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL SSYRK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
             CALL SPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
             IF ( IINFO.NE.0 ) THEN
                INFO = IINFO + N1

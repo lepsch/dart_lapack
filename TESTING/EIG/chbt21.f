@@ -1,5 +1,4 @@
-      SUBROUTINE CHBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE CHBT21( UPLO, N, KA, KS, A, LDA, D, E, U, LDU, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
@@ -46,8 +44,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       IKA = MAX( 0, MIN( N-1, KA ) )
 *
@@ -103,8 +100,7 @@
 *
       IF( N.GT.1 .AND. KS.EQ.1 ) THEN
          DO 70 J = 1, N - 1
-            CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1,
-     $                  U( 1, J+1 ), 1, WORK )
+            CALL CHPR2( CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK )
    70    CONTINUE
       END IF
       WNORM = CLANHP( '1', CUPLO, N, WORK, RWORK )
@@ -123,15 +119,13 @@
 *
 *     Compute  U U**H - I
 *
-      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK,
-     $            N )
+      CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
       DO 80 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
    80 CONTINUE
 *
-      RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ),
-     $              REAL( N ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP )
 *
       RETURN
 *

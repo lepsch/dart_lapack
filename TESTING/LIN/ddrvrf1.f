@@ -23,8 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, NORM
-      INTEGER            I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N,
-     +                   NERRS, NFAIL, NRUN
+      INTEGER            I, IFORM, IIN, IIT, INFO, INORM, IUPLO, J, N, NERRS, NFAIL, NRUN
       DOUBLE PRECISION   EPS, LARGE, NORMA, NORMARF, SMALL
 *     ..
 *     .. Local Arrays ..
@@ -146,8 +145,7 @@
                            WRITE( NOUT, * )
                            WRITE( NOUT, FMT = 9999 )
                         END IF
-                        WRITE( NOUT, FMT = 9997 ) 'DLANSF',
-     +                      N, IIT, UPLO, CFORM, NORM, RESULT(1)
+                        WRITE( NOUT, FMT = 9997 ) 'DLANSF', N, IIT, UPLO, CFORM, NORM, RESULT(1)
                         NFAIL = NFAIL + 1
                      END IF
    90             CONTINUE

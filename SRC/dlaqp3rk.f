@@ -1,7 +1,4 @@
-      SUBROUTINE DLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL,
-     $                     RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB,
-     $                     MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU,
-     $                     VN1, VN2, AUXV, F, LDF, IWORK, INFO )
+      SUBROUTINE DLAQP3RK( M, N, NRHS, IOFFSET, NB, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, DONE, KB, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, AUXV, F, LDF, IWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -10,15 +7,11 @@
 *
 *     .. Scalar Arguments ..
       LOGICAL            DONE
-      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N,
-     $                   NB, NRHS
-      DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK,
-     $                   RELTOL
+      INTEGER            INFO, IOFFSET, KB, KP1, LDA, LDF, M, N, NB, NRHS       DOUBLE PRECISION   ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * ), JPIV( * )
-      DOUBLE PRECISION   A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ),
-     $                   VN1( * ), VN2( * )
+      DOUBLE PRECISION   A( LDA, * ), AUXV( * ), F( LDF, * ), TAU( * ), VN1( * ), VN2( * )
 *     ..
 *
 *  =====================================================================
@@ -28,8 +21,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT,
-     $                   LSTICC, KP, I, IF
+      INTEGER            ITEMP, J, K, MINMNFACT, MINMNUPDT, LSTICC, KP, I, IF
       DOUBLE PRECISION   AIK, HUGEVAL, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -133,9 +125,7 @@
 *                               A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 
                IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-                  CALL DGEMM( 'No transpose', 'Transpose',
-     $                  M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA,
-     $                  F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+                  CALL DGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -182,9 +172,7 @@
 *                               A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 *
                IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-                  CALL DGEMM( 'No transpose', 'Transpose',
-     $                  M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA,
-     $                  F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+                  CALL DGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -258,9 +246,7 @@
 *                             A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 *
                IF( KB.LT.MINMNUPDT ) THEN
-                  CALL DGEMM( 'No transpose', 'Transpose',
-     $                  M-IF, N+NRHS-KB, KB,-ONE, A( IF+1, 1 ), LDA,
-     $                  F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
+                  CALL DGEMM( 'No transpose', 'Transpose', M-IF, N+NRHS-KB, KB,-ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
                END IF
 *
 *              There is no need to recompute the 2-norm of the
@@ -314,8 +300,7 @@
 *        A(I:M,K) := A(I:M,K) - A(I:M,1:K-1)*F(K,1:K-1)**T.
 *
          IF( K.GT.1 ) THEN
-            CALL DGEMV( 'No transpose', M-I+1, K-1, -ONE, A( I, 1 ),
-     $                  LDA, F( K, 1 ), LDF, ONE, A( I, K ), 1 )
+            CALL DGEMV( 'No transpose', M-I+1, K-1, -ONE, A( I, 1 ), LDA, F( K, 1 ), LDF, ONE, A( I, K ), 1 )
          END IF
 *
 *        Generate elementary reflector H(k) using the column A(I:M,K).
@@ -369,9 +354,7 @@
 *                            A(I+1:M,1:KB) * F(N+1:N+NRHS,1:KB)**T.
 *
             IF( NRHS.GT.0 .AND. KB.LT.(M-IOFFSET) ) THEN
-               CALL DGEMM( 'No transpose', 'Transpose',
-     $               M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA,
-     $               F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
+               CALL DGEMM( 'No transpose', 'Transpose', M-IF, NRHS, KB, -ONE, A( IF+1, 1 ), LDA, F( N+1, 1 ), LDF, ONE, A( IF+1, N+1 ), LDA )
             END IF
 *
 *           There is no need to recompute the 2-norm of the
@@ -396,9 +379,7 @@
 *          1) F(K+1:N,K) := tau(K) * A(I:M,K+1:N)**T * A(I:M,K).
 *
          IF( K.LT.N+NRHS ) THEN
-            CALL DGEMV( 'Transpose', M-I+1, N+NRHS-K,
-     $                  TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1,
-     $                  ZERO, F( K+1, K ), 1 )
+            CALL DGEMV( 'Transpose', M-I+1, N+NRHS-K, TAU( K ), A( I, K+1 ), LDA, A( I, K ), 1, ZERO, F( K+1, K ), 1 )
          END IF
 *
 *           2) Zero out elements above and on the diagonal of the
@@ -413,13 +394,9 @@
 *                    * A(I:M,K).
 *
          IF( K.GT.1 ) THEN
-            CALL DGEMV( 'Transpose', M-I+1, K-1, -TAU( K ),
-     $                  A( I, 1 ), LDA, A( I, K ), 1, ZERO,
-     $                  AUXV( 1 ), 1 )
+            CALL DGEMV( 'Transpose', M-I+1, K-1, -TAU( K ), A( I, 1 ), LDA, A( I, K ), 1, ZERO, AUXV( 1 ), 1 )
 *
-            CALL DGEMV( 'No transpose', N+NRHS, K-1, ONE,
-     $                  F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE,
-     $                  F( 1, K ), 1 )
+            CALL DGEMV( 'No transpose', N+NRHS, K-1, ONE, F( 1, 1 ), LDF, AUXV( 1 ), 1, ONE, F( 1, K ), 1 )
          END IF
 *
 *        ===============================================================
@@ -429,9 +406,7 @@
 *                         - A(I,1:K)*F(K+1:N+NRHS,1:K)**T.
 *
          IF( K.LT.N+NRHS ) THEN
-            CALL DGEMV( 'No transpose', N+NRHS-K, K, -ONE,
-     $                  F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE,
-     $                  A( I, K+1 ), LDA )
+            CALL DGEMV( 'No transpose', N+NRHS-K, K, -ONE, F( K+1, 1 ), LDF, A( I, 1 ), LDA, ONE, A( I, K+1 ), LDA )
          END IF
 *
          A( I, K ) = AIK
@@ -497,9 +472,7 @@
 *                         A(IF+1:M,1:KB) * F(KB+1:N+NRHS,1:KB)**T.
 *
       IF( KB.LT.MINMNUPDT ) THEN
-         CALL DGEMM( 'No transpose', 'Transpose',
-     $         M-IF, N+NRHS-KB, KB, -ONE, A( IF+1, 1 ), LDA,
-     $         F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
+         CALL DGEMM( 'No transpose', 'Transpose', M-IF, N+NRHS-KB, KB, -ONE, A( IF+1, 1 ), LDA, F( KB+1, 1 ), LDF, ONE, A( IF+1, KB+1 ), LDA )
       END IF
 *
 *     Recompute the 2-norm of the difficult columns.

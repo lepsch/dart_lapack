@@ -1,7 +1,4 @@
-      SUBROUTINE DCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL,
-     $                      NNB, NBVAL, NXVAL, THRESH, A, COPYA,
-     $                      B, COPYB, S, TAU,
-     $                      WORK, IWORK, NOUT )
+      SUBROUTINE DCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, B, COPYB, S, TAU, WORK, IWORK, NOUT )
       IMPLICIT NONE
 *
 *  -- LAPACK test routine --
@@ -14,10 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ),
-     $                   NSVAL( * ), NXVAL( * )
-      DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ),
-     $                   S( * ), TAU( * ), WORK( * )
+      INTEGER            IWORK( * ), NBVAL( * ), MVAL( * ), NVAL( * ), NSVAL( * ), NXVAL( * )       DOUBLE PRECISION   A( * ), COPYA( * ), B( * ), COPYB( * ), S( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -28,36 +22,24 @@
       INTEGER            NTESTS
       PARAMETER          ( NTESTS = 5 )
       DOUBLE PRECISION   ONE, ZERO, BIGNUM
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0,
-     $                     BIGNUM = 1.0D+38 )
+      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, BIGNUM = 1.0D+38 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO,
-     $                   INB, IND_OFFSET_GEN,
-     $                   IND_IN, IND_OUT, INS, INFO,
-     $                   ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO,
-     $                   KFACT, KL, KMAX, KU, LDA, LW, LWORK,
-     $                   LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N,
-     $                   NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS,
-     $                   NRUN, NX, T
-      DOUBLE PRECISION   ANORM, CNDNUM, EPS, ABSTOL, RELTOL,
-     $                   DTEMP, MAXC2NRMK, RELMAXC2NRMK
+      INTEGER            I, IHIGH, ILOW, IM, IMAT, IN, INC_ZERO, INB, IND_OFFSET_GEN, IND_IN, IND_OUT, INS, INFO, ISTEP, J, J_INC, J_FIRST_NZ, JB_ZERO, KFACT, KL, KMAX, KU, LDA, LW, LWORK, LWORK_MQR, M, MINMN, MINMNB_GEN, MODE, N, NB, NB_ZERO, NERRS, NFAIL, NB_GEN, NRHS, NRUN, NX, T
+      DOUBLE PRECISION   ANORM, CNDNUM, EPS, ABSTOL, RELTOL, DTEMP, MAXC2NRMK, RELMAXC2NRMK
 *     ..
 *     .. Local Arrays ..
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
       DOUBLE PRECISION   RESULT( NTESTS ), RDUMMY( 1 )
 *     ..
 *     .. External Functions ..
-      DOUBLE PRECISION   DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE,
-     $                   DLAPY2
+      DOUBLE PRECISION   DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE, DLAPY2
       EXTERNAL           DLAMCH, DQPT01, DQRT11, DQRT12, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DAXPY, DGEQP3RK,
-     $                   DLACPY, DLAORD, DLASET, DLATB4, DLATMS,
-     $                   DORMQR, DSWAP, ICOPY, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DAXPY, DGEQP3RK, DLACPY, DLAORD, DLASET, DLATB4, DLATMS, DORMQR, DSWAP, ICOPY, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, MIN, MOD
@@ -102,8 +84,7 @@
 *
             N = NVAL( IN )
             MINMN = MIN( M, N )
-            LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ),
-     $                   M*N + 2*MINMN + 4*N )
+            LWORK = MAX( 1, M*MAX( M, N )+4*MINMN+MAX( M, N ), M*N + 2*MINMN + 4*N )
 *
             DO INS = 1, NNS
                NRHS = NSVAL( INS )
@@ -114,22 +95,17 @@
 *                 Random matrix, CNDNUM = 2, NORM = ONE,
 *                 MODE = 3 (geometric distribution of singular values).
 *
-                  CALL DLATB4( PATH, 14, M, NRHS, TYPE, KL, KU, ANORM,
-     $                         MODE, CNDNUM, DIST )
+                  CALL DLATB4( PATH, 14, M, NRHS, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                   SRNAMT = 'DLATMS'
-                  CALL DLATMS( M, NRHS, DIST, ISEED, TYPE, S, MODE,
-     $                         CNDNUM, ANORM, KL, KU, 'No packing',
-     $                         COPYB, LDA, WORK, INFO )
+                  CALL DLATMS( M, NRHS, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYB, LDA, WORK, INFO )
 
 
 *
 *                 Check error code from DLATMS.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M,
-     $                            NRHS, -1, -1, -1, 6, NFAIL, NERRS,
-     $                            NOUT )
+                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, NRHS, -1, -1, -1, 6, NFAIL, NERRS, NOUT )
                      CYCLE
                   END IF
 *
@@ -137,8 +113,7 @@
 *
 *              Do the tests only if DOTYPE( IMAT ) is true.
 *
-               IF( .NOT.DOTYPE( IMAT ) )
-     $            CYCLE
+               IF( .NOT.DOTYPE( IMAT ) ) CYCLE
 *
 *              The type of distribution used to generate the random
 *              eigen-/singular values:
@@ -176,35 +151,28 @@
                      S( I ) = ZERO
                   END DO
 *
-               ELSE IF( (IMAT.GE.2 .AND. IMAT.LE.4 )
-     $                  .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) THEN
+               ELSE IF( (IMAT.GE.2 .AND. IMAT.LE.4 ) .OR. (IMAT.GE.14 .AND. IMAT.LE.19 ) ) THEN
 *
 *                 Matrices 2-5.
 *
 *                 Set up parameters with DLATB4 and generate a test
 *                 matrix with DLATMS.
 *
-                  CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM,
-     $                         MODE, CNDNUM, DIST )
+                  CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                   SRNAMT = 'DLATMS'
-                  CALL DLATMS( M, N, DIST, ISEED, TYPE, S, MODE,
-     $                         CNDNUM, ANORM, KL, KU, 'No packing',
-     $                         COPYA, LDA, WORK, INFO )
+                  CALL DLATMS( M, N, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA, LDA, WORK, INFO )
 *
 *                 Check error code from DLATMS.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      CYCLE
                   END IF
 *
                   CALL DLAORD( 'Decreasing', MINMN, S, 1 )
 *
-               ELSE IF( MINMN.GE.2
-     $                  .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) THEN
+               ELSE IF( MINMN.GE.2 .AND. IMAT.GE.5 .AND. IMAT.LE.13 ) THEN
 *
 *                 Rectangular matrices 5-13 that contain zero columns,
 *                 only for matrices MINMN >=2.
@@ -301,31 +269,24 @@
 *                 1) Set the first NB_ZERO columns in COPYA(1:M,1:N)
 *                    to zero.
 *
-                  CALL DLASET( 'Full', M, NB_ZERO, ZERO, ZERO,
-     $                         COPYA, LDA )
+                  CALL DLASET( 'Full', M, NB_ZERO, ZERO, ZERO, COPYA, LDA )
 *
 *                    2) Generate an M-by-(N-NB_ZERO) matrix with the
 *                       chosen singular value distribution
 *                       in COPYA(1:M,NB_ZERO+1:N).
 *
-                  CALL DLATB4( PATH, IMAT, M, NB_GEN, TYPE, KL, KU,
-     $                         ANORM, MODE, CNDNUM, DIST )
+                  CALL DLATB4( PATH, IMAT, M, NB_GEN, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                   SRNAMT = 'DLATMS'
 *
                   IND_OFFSET_GEN = NB_ZERO * LDA
 *
-                  CALL DLATMS( M, NB_GEN, DIST, ISEED, TYPE, S, MODE,
-     $                        CNDNUM, ANORM, KL, KU, 'No packing',
-     $                        COPYA( IND_OFFSET_GEN + 1 ), LDA,
-     $                        WORK, INFO )
+                  CALL DLATMS( M, NB_GEN, DIST, ISEED, TYPE, S, MODE, CNDNUM, ANORM, KL, KU, 'No packing', COPYA( IND_OFFSET_GEN + 1 ), LDA, WORK, INFO )
 *
 *                 Check error code from DLATMS.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M,
-     $                            NB_GEN, -1, -1, -1, IMAT, NFAIL,
-     $                            NERRS, NOUT )
+                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, NB_GEN, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      CYCLE
                   END IF
 *
@@ -333,11 +294,7 @@
 *                 NB_GEN-size block in COPYA into correct column
 *                 positions.
 *
-                  IF( IMAT.EQ.6
-     $                    .OR. IMAT.EQ.7
-     $                    .OR. IMAT.EQ.8
-     $                    .OR. IMAT.EQ.10
-     $                    .OR. IMAT.EQ.11 ) THEN
+                  IF( IMAT.EQ.6 .OR. IMAT.EQ.7 .OR. IMAT.EQ.8 .OR. IMAT.EQ.10 .OR. IMAT.EQ.11 ) THEN
 *
 *                    Move by swapping the generated columns
 *                    from the right NB_GEN-size block from
@@ -345,9 +302,7 @@
 *                    into columns (1:JB_ZERO-1).
 *
                      DO J = 1, JB_ZERO-1, 1
-                        CALL DSWAP( M,
-     $                        COPYA( ( NB_ZERO+J-1)*LDA+1), 1,
-     $                        COPYA( (J-1)*LDA + 1 ), 1 )
+                        CALL DSWAP( M, COPYA( ( NB_ZERO+J-1)*LDA+1), 1, COPYA( (J-1)*LDA + 1 ), 1 )
                      END DO
 *
                   ELSE IF( IMAT.EQ.12 .OR. IMAT.EQ.13 ) THEN
@@ -364,11 +319,7 @@
 *
                      DO J = 1, NB_GEN, 1
                         IND_OUT = ( NB_ZERO+J-1 )*LDA + 1
-                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA
-     $                            + 1
-                        CALL DSWAP( M,
-     $                              COPYA( IND_OUT ), 1,
-     $                              COPYA( IND_IN), 1 )
+                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1                         CALL DSWAP( M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 )
                         END DO
 *
                   END IF
@@ -421,10 +372,7 @@
 *                 for the routine.
 *
                   CALL DLACPY( 'All', M, N, COPYA, LDA, A, LDA )
-                  CALL DLACPY( 'All', M, NRHS, COPYB, LDA,
-     $                         A( LDA*N + 1 ),  LDA )
-                  CALL DLACPY( 'All', M, NRHS, COPYB, LDA,
-     $                         B,  LDA )
+                  CALL DLACPY( 'All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL DLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA )
                   CALL ICOPY( N, IWORK( 1 ), 1, IWORK( N+1 ), 1 )
 *
                   ABSTOL = -1.0
@@ -432,23 +380,16 @@
 *
 *                 Compute the QR factorization with pivoting of A
 *
-                  LW = MAX( 1, MAX( 2*N + NB*( N+NRHS+1 ),
-     $                              3*N + NRHS - 1 ) )
+                  LW = MAX( 1, MAX( 2*N + NB*( N+NRHS+1 ), 3*N + NRHS - 1 ) )
 *
 *                 Compute DGEQP3RK factorization of A.
 *
                   SRNAMT = 'DGEQP3RK'
-                  CALL DGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL,
-     $                           A, LDA, KFACT, MAXC2NRMK,
-     $                           RELMAXC2NRMK, IWORK( N+1 ), TAU,
-     $                           WORK, LW, IWORK( 2*N+1 ), INFO )
+                  CALL DGEQP3RK( M, N, NRHS, KMAX, ABSTOL, RELTOL, A, LDA, KFACT, MAXC2NRMK, RELMAXC2NRMK, IWORK( N+1 ), TAU, WORK, LW, IWORK( 2*N+1 ), INFO )
 *
 *                 Check error code from DGEQP3RK.
 *
-                  IF( INFO.LT.0 )
-     $               CALL ALAERH( PATH, 'DGEQP3RK', INFO, 0, ' ',
-     $                            M, N, NX, -1, NB, IMAT,
-     $                            NFAIL, NERRS, NOUT )
+                  IF( INFO.LT.0 ) CALL ALAERH( PATH, 'DGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
 *                 Compute test 1:
 *
@@ -466,16 +407,11 @@
 *
                   IF( KFACT.EQ.MINMN ) THEN
 *
-                     RESULT( 1 ) = DQRT12( M, N, A, LDA, S, WORK,
-     $                                     LWORK )
+                     RESULT( 1 ) = DQRT12( M, N, A, LDA, S, WORK, LWORK )
 *
                      DO T = 1, 1
                         IF( RESULT( T ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N,
-     $                        NRHS, KMAX, ABSTOL, RELTOL, NB, NX,
-     $                        IMAT, T, RESULT( T )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         END IF
                      END DO
@@ -491,8 +427,7 @@
 *
 *                 1-norm( A*P - Q*R ) / ( max(M,N) * 1-norm(A) * EPS )
 *
-                  RESULT( 2 ) = DQPT01( M, N, KFACT, COPYA, A, LDA, TAU,
-     $                          IWORK( N+1 ), WORK, LWORK )
+                  RESULT( 2 ) = DQPT01( M, N, KFACT, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK )
 *
 *                 Compute test 3:
 *
@@ -500,19 +435,14 @@
 *
 *                 1-norm( Q**T * Q - I ) / ( M * EPS )
 *
-                  RESULT( 3 ) = DQRT11( M, KFACT, A, LDA, TAU, WORK,
-     $                          LWORK )
+                  RESULT( 3 ) = DQRT11( M, KFACT, A, LDA, TAU, WORK, LWORK )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   DO T = 2, 3
                      IF( RESULT( T ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N,
-     $                      NRHS, KMAX, ABSTOL, RELTOL,
-     $                      NB, NX, IMAT, T, RESULT( T )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                         NFAIL = NFAIL + 1
                      END IF
                   END DO
@@ -533,10 +463,7 @@
                   IF( MIN(KFACT, MINMN).GE.2 ) THEN
 *
                      DO J = 1, KFACT-1, 1
-
-                        DTEMP = (( ABS( A( (J-1)*M+J ) ) -
-     $                          ABS( A( (J)*M+J+1 ) ) ) /
-     $                          ABS( A(1) ) )
+                         DTEMP = (( ABS( A( (J-1)*M+J ) ) - ABS( A( (J)*M+J+1 ) ) ) / ABS( A(1) ) )
 *
                         IF( DTEMP.LT.ZERO ) THEN
                            RESULT( 4 ) = BIGNUM
@@ -549,12 +476,7 @@
 *
                      DO T = 4, 4
                         IF( RESULT( T ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK',
-     $                        M, N, NRHS, KMAX, ABSTOL, RELTOL,
-     $                        NB, NX, IMAT, T,
-     $                        RESULT( T )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         END IF
                      END DO
@@ -578,34 +500,23 @@
                   IF( MINMN.GT.0 ) THEN
 *
                      LWORK_MQR = MAX(1, NRHS)
-                     CALL DORMQR( 'Left', 'Transpose',
-     $                         M, NRHS, KFACT, A, LDA, TAU, B, LDA,
-     $                         WORK, LWORK_MQR, INFO )
+                     CALL DORMQR( 'Left', 'Transpose', M, NRHS, KFACT, A, LDA, TAU, B, LDA, WORK, LWORK_MQR, INFO )
 *
                      DO I = 1, NRHS
 *
 *                       Compare N+J-th column of A and J-column of B.
 *
-                        CALL DAXPY( M, -ONE, A( ( N+I-1 )*LDA+1 ), 1,
-     $                                 B( ( I-1 )*LDA+1 ), 1 )
+                        CALL DAXPY( M, -ONE, A( ( N+I-1 )*LDA+1 ), 1, B( ( I-1 )*LDA+1 ), 1 )
                      END DO
 *
-                   RESULT( 5 ) =
-     $               ABS(
-     $               DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) /
-     $               ( DBLE( M )*DLAMCH( 'Epsilon' ) )
-     $               )
+                   RESULT( 5 ) = ABS( DLANGE( 'One-norm', M, NRHS, B, LDA, RDUMMY ) / ( DBLE( M )*DLAMCH( 'Epsilon' ) ) )
 *
 *                    Print information about the tests that did not pass
 *                    the threshold.
 *
                      DO T = 5, 5
                         IF( RESULT( T ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N,
-     $                        NRHS, KMAX, ABSTOL, RELTOL,
-     $                        NB, NX, IMAT, T, RESULT( T )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 ) 'DGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T )
                            NFAIL = NFAIL + 1
                         END IF
                      END DO

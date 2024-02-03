@@ -1,5 +1,4 @@
-      SUBROUTINE SDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A,
-     +                    LDA, S_WORK_SLANGE )
+      SUBROUTINE SDRVRF4( NOUT, NN, NVAL, THRESH, C1, C2, LDC, CRF, A, LDA, S_WORK_SLANGE )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            NVAL( NN )
-      REAL               A( LDA, * ), C1( LDC, * ), C2( LDC, *),
-     +                   CRF( * ), S_WORK_SLANGE( * )
+      REAL               A( LDA, * ), C1( LDC, * ), C2( LDC, *), CRF( * ), S_WORK_SLANGE( * )
 *     ..
 *
 *  =====================================================================
@@ -25,8 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          UPLO, CFORM, TRANS
-      INTEGER            I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N,
-     +                   NFAIL, NRUN, IALPHA, ITRANS
+      INTEGER            I, IFORM, IIK, IIN, INFO, IUPLO, J, K, N, NFAIL, NRUN, IALPHA, ITRANS
       REAL               ALPHA, BETA, EPS, NORMA, NORMC
 *     ..
 *     .. Local Arrays ..
@@ -121,8 +118,7 @@
                               END DO
                            END DO
 *
-                           NORMA = SLANGE( 'I', N, K, A, LDA,
-     +                                      S_WORK_SLANGE )
+                           NORMA = SLANGE( 'I', N, K, A, LDA, S_WORK_SLANGE )
 *
 
                         ELSE
@@ -135,8 +131,7 @@
                               END DO
                            END DO
 *
-                           NORMA = SLANGE( 'I', K, N, A, LDA,
-     +                                      S_WORK_SLANGE )
+                           NORMA = SLANGE( 'I', K, N, A, LDA, S_WORK_SLANGE )
 *
                         END IF
 *
@@ -155,30 +150,25 @@
 *                       (See comment later on for why we use SLANGE and
 *                       not SLANSY for C1.)
 *
-                        NORMC = SLANGE( 'I', N, N, C1, LDC,
-     +                                      S_WORK_SLANGE )
+                        NORMC = SLANGE( 'I', N, N, C1, LDC, S_WORK_SLANGE )
 *
                         SRNAMT = 'STRTTF'
-                        CALL STRTTF( CFORM, UPLO, N, C1, LDC, CRF,
-     +                               INFO )
+                        CALL STRTTF( CFORM, UPLO, N, C1, LDC, CRF, INFO )
 *
 *                       call ssyrk the BLAS routine -> gives C1
 *
                         SRNAMT = 'SSYRK '
-                        CALL SSYRK( UPLO, TRANS, N, K, ALPHA, A, LDA,
-     +                              BETA, C1, LDC )
+                        CALL SSYRK( UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, C1, LDC )
 *
 *                       call ssfrk the RFP routine -> gives CRF
 *
                         SRNAMT = 'SSFRK '
-                        CALL SSFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A,
-     +                              LDA, BETA, CRF )
+                        CALL SSFRK( CFORM, UPLO, TRANS, N, K, ALPHA, A, LDA, BETA, CRF )
 *
 *                       convert CRF in full format -> gives C2
 *
                         SRNAMT = 'STFTTR'
-                        CALL STFTTR( CFORM, UPLO, N, CRF, C2, LDC,
-     +                               INFO )
+                        CALL STFTTR( CFORM, UPLO, N, CRF, C2, LDC, INFO )
 *
 *                       compare C1 and C2
 *
@@ -193,20 +183,14 @@
 *                       supposed to be unchanged and the diagonal that
 *                       is supposed to be real -> SLANGE
 *
-                        RESULT(1) = SLANGE( 'I', N, N, C1, LDC,
-     +                                      S_WORK_SLANGE )
-                        RESULT(1) = RESULT(1)
-     +                              / MAX( ABS( ALPHA ) * NORMA
-     +                                   + ABS( BETA ) , ONE )
-     +                              / MAX( N , 1 ) / EPS
+                        RESULT(1) = SLANGE( 'I', N, N, C1, LDC, S_WORK_SLANGE )                         RESULT(1) = RESULT(1) / MAX( ABS( ALPHA ) * NORMA + ABS( BETA ) , ONE ) / MAX( N , 1 ) / EPS
 *
                         IF( RESULT(1).GE.THRESH ) THEN
                            IF( NFAIL.EQ.0 ) THEN
                               WRITE( NOUT, * )
                               WRITE( NOUT, FMT = 9999 )
                            END IF
-                           WRITE( NOUT, FMT = 9997 ) 'SSFRK',
-     +                        CFORM, UPLO, TRANS, N, K, RESULT(1)
+                           WRITE( NOUT, FMT = 9997 ) 'SSFRK', CFORM, UPLO, TRANS, N, K, RESULT(1)
                            NFAIL = NFAIL + 1
                         END IF
 *

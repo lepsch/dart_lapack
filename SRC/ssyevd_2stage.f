@@ -1,5 +1,4 @@
-      SUBROUTINE SSYEVD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK,
-     $                          IWORK, LIWORK, INFO )
+      SUBROUTINE SSYEVD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -25,11 +24,8 @@
 *     .. Local Scalars ..
 *
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE,
-     $                   LIWMIN, LLWORK, LLWRK2, LWMIN,
-     $                   LHTRD, LWTRD, KD, IB, INDHOUS
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIWMIN, LLWORK, LLWRK2, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
+      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +34,7 @@
       EXTERNAL           LSAME, SLAMCH, SLANSY, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF,
-     $                   SSYTRD_2STAGE, XERBLA
+      EXTERNAL           SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF, SSYTRD_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -68,14 +63,7 @@
             LIWMIN = 1
             LWMIN = 1
          ELSE
-            KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ,
-     $                            N, -1, -1, -1 )
-            IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ,
-     $                            N, KD, -1, -1 )
-            LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ,
-     $                            N, KD, IB, -1 )
-            LWTRD = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ,
-     $                            N, KD, IB, -1 )
+            KD    = ILAENV2STAGE( 1, 'SSYTRD_2STAGE', JOBZ, N, -1, -1, -1 )             IB    = ILAENV2STAGE( 2, 'SSYTRD_2STAGE', JOBZ, N, KD, -1, -1 )             LHTRD = ILAENV2STAGE( 3, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )             LWTRD = ILAENV2STAGE( 4, 'SSYTRD_2STAGE', JOBZ, N, KD, IB, -1 )
             IF( WANTZ ) THEN
                LIWMIN = 3 + 5*N
                LWMIN = 1 + 6*N + 2*N**2
@@ -103,13 +91,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = A( 1, 1 )
-         IF( WANTZ )
-     $      A( 1, 1 ) = ONE
+         IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -133,8 +119,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
@@ -146,9 +131,7 @@
       INDWK2  = INDWRK + N*N
       LLWRK2  = LWORK - INDWK2 + 1
 *
-      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ),
-     $                    WORK( INDTAU ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, first call
 *     SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -161,17 +144,13 @@
 *        Not available in this release, and argument checking should not
 *        let it getting here
          RETURN
-         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N,
-     $                WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )
-         CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ),
-     $                WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
+         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL SLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.
 *
-      IF( ISCALE.EQ.1 )
-     $   CALL SSCAL( N, ONE / SIGMA, W, 1 )
+      IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, W, 1 )
 *
       WORK( 1 )  = LWMIN
       IWORK( 1 ) = LIWMIN

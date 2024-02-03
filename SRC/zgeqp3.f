@@ -1,5 +1,4 @@
-      SUBROUTINE ZGEQP3( M, N, A, LDA, JPVT, TAU, WORK, LWORK, RWORK,
-     $                   INFO )
+      SUBROUTINE ZGEQP3( M, N, A, LDA, JPVT, TAU, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB,
-     $                   NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
+      INTEGER            FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZGEQRF, ZLAQP2, ZLAQPS, ZSWAP, ZUNMQR
@@ -109,9 +107,7 @@
 *CC         CALL ZUNM2R( 'Left', 'Conjugate Transpose', M, N-NA,
 *CC  $                   NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK,
 *CC  $                   INFO )
-            CALL ZUNMQR( 'Left', 'Conjugate Transpose', M, N-NA, NA, A,
-     $                   LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK,
-     $                   INFO )
+            CALL ZUNMQR( 'Left', 'Conjugate Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
          END IF
       END IF
@@ -135,8 +131,7 @@
 *
 *           Determine when to cross over from blocked to unblocked code.
 *
-            NX = MAX( 0, ILAENV( IXOVER, 'ZGEQRF', ' ', SM, SN, -1,
-     $           -1 ) )
+            NX = MAX( 0, ILAENV( IXOVER, 'ZGEQRF', ' ', SM, SN, -1, -1 ) )
 *
 *
             IF( NX.LT.SMINMN ) THEN
@@ -151,8 +146,7 @@
 *                 determine the minimum value of NB.
 *
                   NB = LWORK / ( SN+1 )
-                  NBMIN = MAX( 2, ILAENV( INBMIN, 'ZGEQRF', ' ', SM, SN,
-     $                    -1, -1 ) )
+                  NBMIN = MAX( 2, ILAENV( INBMIN, 'ZGEQRF', ' ', SM, SN, -1, -1 ) )
 *
 *
                END IF
@@ -167,8 +161,7 @@
             RWORK( N+J ) = RWORK( J )
    20    CONTINUE
 *
-         IF( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND.
-     $       ( NX.LT.SMINMN ) ) THEN
+         IF( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND. ( NX.LT.SMINMN ) ) THEN
 *
 *           Use blocked code initially.
 *
@@ -184,10 +177,7 @@
 *
 *              Factorize JB columns among columns J:N.
 *
-               CALL ZLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA,
-     $                      JPVT( J ), TAU( J ), RWORK( J ),
-     $                      RWORK( N+J ), WORK( 1 ), WORK( JB+1 ),
-     $                      N-J+1 )
+               CALL ZLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ), WORK( JB+1 ), N-J+1 )
 *
                J = J + FJB
                GO TO 30
@@ -199,9 +189,7 @@
 *        Use unblocked code to factor the last or only block.
 *
 *
-         IF( J.LE.MINMN )
-     $      CALL ZLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ),
-     $                   TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) )
+         IF( J.LE.MINMN ) CALL ZLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) )
 *
       END IF
 *

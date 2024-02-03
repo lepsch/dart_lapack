@@ -48,8 +48,7 @@
             SUM = ABS( E( I ) )
             IF( ANORM .LT. SUM .OR. DISNAN( SUM ) ) ANORM = SUM
    10    CONTINUE
-      ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR.
-     $         LSAME( NORM, 'I' ) ) THEN
+      ELSE IF( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR. LSAME( NORM, 'I' ) ) THEN
 *
 *        Find norm1(A).
 *

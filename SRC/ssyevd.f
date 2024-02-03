@@ -1,5 +1,4 @@
-      SUBROUTINE SSYEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK,
-     $                   LIWORK, INFO )
+      SUBROUTINE SSYEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,10 +22,7 @@
 *     .. Local Scalars ..
 *
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE,
-     $                   LIOPT, LIWMIN, LLWORK, LLWRK2, LOPT, LWMIN
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, INDE, INDTAU, INDWK2, INDWRK, ISCALE, LIOPT, LIWMIN, LLWORK, LLWRK2, LOPT, LWMIN       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -35,8 +31,7 @@
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANSY, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF,
-     $                   SSYTRD, XERBLA
+      EXTERNAL           SLACPY, SLASCL, SORMTR, SSCAL, SSTEDC, SSTERF, SSYTRD, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -74,8 +69,7 @@
                LIWMIN = 1
                LWMIN = 2*N + 1
             END IF
-            LOPT = MAX( LWMIN, 2*N +
-     $                  N*ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 ) )
+            LOPT = MAX( LWMIN, 2*N + N*ILAENV( 1, 'SSYTRD', UPLO, N, -1, -1, -1 ) )
             LIOPT = LIWMIN
          END IF
          WORK( 1 ) = SROUNDUP_LWORK( LOPT )
@@ -97,13 +91,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = A( 1, 1 )
-         IF( WANTZ )
-     $      A( 1, 1 ) = ONE
+         IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -127,8 +119,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 *
@@ -139,8 +130,7 @@
       INDWK2 = INDWRK + N*N
       LLWRK2 = LWORK - INDWK2 + 1
 *
-      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ),
-     $             WORK( INDWRK ), LLWORK, IINFO )
+      CALL SSYTRD( UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, first call
 *     SSTEDC to generate the eigenvector matrix, WORK(INDWRK), of the
@@ -150,17 +140,13 @@
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, WORK( INDE ), INFO )
       ELSE
-         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N,
-     $                WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )
-         CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ),
-     $                WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
+         CALL SSTEDC( 'I', N, W, WORK( INDE ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IWORK, LIWORK, INFO )          CALL SORMTR( 'L', UPLO, 'N', N, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), N, WORK( INDWK2 ), LLWRK2, IINFO )
          CALL SLACPY( 'A', N, N, WORK( INDWRK ), N, A, LDA )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.
 *
-      IF( ISCALE.EQ.1 )
-     $   CALL SSCAL( N, ONE / SIGMA, W, 1 )
+      IF( ISCALE.EQ.1 ) CALL SSCAL( N, ONE / SIGMA, W, 1 )
 *
       WORK( 1 ) = SROUNDUP_LWORK( LOPT )
       IWORK( 1 ) = LIOPT

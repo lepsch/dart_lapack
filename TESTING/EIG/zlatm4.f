@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATM4( ITYPE, N, NZ1, NZ2, RSIGN, AMAGN, RCOND,
-     $                   TRIANG, IDIST, ISEED, A, LDA )
+      SUBROUTINE ZLATM4( ITYPE, N, NZ1, NZ2, RSIGN, AMAGN, RCOND, TRIANG, IDIST, ISEED, A, LDA )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,8 +20,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, ISDB, ISDE, JC, JD, JR, K, KBEG, KEND, KLEN
@@ -42,14 +40,12 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
       CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
 *
 *     Insure a correct ISEED
 *
-      IF( MOD( ISEED( 4 ), 2 ).NE.1 )
-     $   ISEED( 4 ) = ISEED( 4 ) + 1
+      IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 *
 *     Compute diagonal and subdiagonal according to ITYPE, NZ1, NZ2,
 *     and RCOND
@@ -66,8 +62,7 @@
          END IF
          ISDB = 1
          ISDE = 0
-         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160,
-     $           180, 200 )ABS( ITYPE )
+         GO TO ( 10, 30, 50, 80, 100, 120, 140, 160, 180, 200 )ABS( ITYPE )
 *
 *        abs(ITYPE) = 1: Identity
 *

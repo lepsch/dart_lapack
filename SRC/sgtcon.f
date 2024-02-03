@@ -1,5 +1,4 @@
-      SUBROUTINE SGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND,
-     $                   WORK, IWORK, INFO )
+      SUBROUTINE SGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -67,8 +66,7 @@
 *     Check that D(1:N) is non-zero.
 *
       DO 10 I = 1, N
-         IF( D( I ).EQ.ZERO )
-     $      RETURN
+         IF( D( I ).EQ.ZERO ) RETURN
    10 CONTINUE
 *
       AINVNM = ZERO
@@ -85,22 +83,19 @@
 *
 *           Multiply by inv(U)*inv(L).
 *
-            CALL SGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV,
-     $                   WORK, N, INFO )
+            CALL SGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          ELSE
 *
 *           Multiply by inv(L**T)*inv(U**T).
 *
-            CALL SGTTRS( 'Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK,
-     $                   N, INFO )
+            CALL SGTTRS( 'Transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          END IF
          GO TO 20
       END IF
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *

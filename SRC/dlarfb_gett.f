@@ -1,5 +1,4 @@
-      SUBROUTINE DLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB,
-     $                        WORK, LDWORK )
+      SUBROUTINE DLARFB_GETT( IDENT, M, N, K, T, LDT, A, LDA, B, LDB, WORK, LDWORK )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -11,8 +10,7 @@
       INTEGER            K, LDA, LDB, LDT, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), T( LDT, * ),
-     $                   WORK( LDWORK, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -36,8 +34,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LT.0 .OR. N.LE.0 .OR. K.EQ.0 .OR. K.GT.N )
-     $   RETURN
+      IF( M.LT.0 .OR. N.LE.0 .OR. K.EQ.0 .OR. K.GT.N ) RETURN
 *
       LNOTIDENT = .NOT.LSAME( IDENT, 'I' )
 *
@@ -66,30 +63,26 @@
 *           V1 stored in A1 (diagonal ones are not stored).
 *
 *
-            CALL DTRMM( 'L', 'L', 'T', 'U', K, N-K, ONE, A, LDA,
-     $                  WORK, LDWORK )
+            CALL DTRMM( 'L', 'L', 'T', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK )
          END IF
 *
 *        col2_(3) Compute W2: = W2 + (V2**T) * B2 = W2 + (B1**T) * B2
 *        V2 stored in B1.
 *
          IF( M.GT.0 ) THEN
-            CALL DGEMM( 'T', 'N', K, N-K, M, ONE, B, LDB,
-     $                  B( 1, K+1 ), LDB, ONE, WORK, LDWORK )
+            CALL DGEMM( 'T', 'N', K, N-K, M, ONE, B, LDB, B( 1, K+1 ), LDB, ONE, WORK, LDWORK )
          END IF
 *
 *        col2_(4) Compute W2: = T * W2,
 *        T is upper-triangular.
 *
-         CALL DTRMM( 'L', 'U', 'N', 'N', K, N-K, ONE, T, LDT,
-     $               WORK, LDWORK )
+         CALL DTRMM( 'L', 'U', 'N', 'N', K, N-K, ONE, T, LDT, WORK, LDWORK )
 *
 *        col2_(5) Compute B2: = B2 - V2 * W2 = B2 - B1 * W2,
 *        V2 stored in B1.
 *
          IF( M.GT.0 ) THEN
-            CALL DGEMM( 'N', 'N', M, N-K, K, -ONE, B, LDB,
-     $                   WORK, LDWORK, ONE, B( 1, K+1 ), LDB )
+            CALL DGEMM( 'N', 'N', M, N-K, K, -ONE, B, LDB, WORK, LDWORK, ONE, B( 1, K+1 ), LDB )
          END IF
 *
          IF( LNOTIDENT ) THEN
@@ -98,8 +91,7 @@
 *           V1 is not an identity matrix, but unit lower-triangular,
 *           V1 stored in A1 (diagonal ones are not stored).
 *
-            CALL DTRMM( 'L', 'L', 'N', 'U', K, N-K, ONE, A, LDA,
-     $                  WORK, LDWORK )
+            CALL DTRMM( 'L', 'L', 'N', 'U', K, N-K, ONE, A, LDA, WORK, LDWORK )
          END IF
 *
 *        col2_(7) Compute A2: = A2 - W2 =
@@ -146,23 +138,20 @@
 *        V1 stored in A1 (diagonal ones are not stored),
 *        W1 is upper-triangular with zeroes below the diagonal.
 *
-         CALL DTRMM( 'L', 'L', 'T', 'U', K, K, ONE, A, LDA,
-     $               WORK, LDWORK )
+         CALL DTRMM( 'L', 'L', 'T', 'U', K, K, ONE, A, LDA, WORK, LDWORK )
       END IF
 *
 *     col1_(3) Compute W1: = T * W1,
 *     T is upper-triangular,
 *     W1 is upper-triangular with zeroes below the diagonal.
 *
-      CALL DTRMM( 'L', 'U', 'N', 'N', K, K, ONE, T, LDT,
-     $            WORK, LDWORK )
+      CALL DTRMM( 'L', 'U', 'N', 'N', K, K, ONE, T, LDT, WORK, LDWORK )
 *
 *     col1_(4) Compute B1: = - V2 * W1 = - B1 * W1,
 *     V2 = B1, W1 is upper-triangular with zeroes below the diagonal.
 *
       IF( M.GT.0 ) THEN
-         CALL DTRMM( 'R', 'U', 'N', 'N', M, K, -ONE, WORK, LDWORK,
-     $               B, LDB )
+         CALL DTRMM( 'R', 'U', 'N', 'N', M, K, -ONE, WORK, LDWORK, B, LDB )
       END IF
 *
       IF( LNOTIDENT ) THEN
@@ -173,8 +162,7 @@
 *        W1 is upper-triangular on input with zeroes below the diagonal,
 *        and square on output.
 *
-         CALL DTRMM( 'L', 'L', 'N', 'U', K, K, ONE, A, LDA,
-     $               WORK, LDWORK )
+         CALL DTRMM( 'L', 'L', 'N', 'U', K, K, ONE, A, LDA, WORK, LDWORK )
 *
 *        col1_(6) Compute A1: = A1 - W1 = A(1:K, 1:K) - WORK(1:K, 1:K)
 *        column-by-column. A1 is upper-triangular on input.

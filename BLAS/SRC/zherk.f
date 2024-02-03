@@ -48,8 +48,7 @@
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
-      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND.
-     +         (.NOT.LSAME(TRANS,'C'))) THEN
+      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND. (.NOT.LSAME(TRANS,'C'))) THEN
           INFO = 2
       ELSE IF (N.LT.0) THEN
           INFO = 3
@@ -67,8 +66,7 @@
 *
 *     Quick return if possible.
 *
-      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR.
-     +    (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
 *     And when  alpha.eq.zero.
 *

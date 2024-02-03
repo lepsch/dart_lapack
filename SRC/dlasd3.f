@@ -1,28 +1,22 @@
-      SUBROUTINE DLASD3( NL, NR, SQRE, K, D, Q, LDQ, DSIGMA, U, LDU, U2,
-     $                   LDU2, VT, LDVT, VT2, LDVT2, IDXC, CTOT, Z,
-     $                   INFO )
+      SUBROUTINE DLASD3( NL, NR, SQRE, K, D, Q, LDQ, DSIGMA, U, LDU, U2, LDU2, VT, LDVT, VT2, LDVT2, IDXC, CTOT, Z, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR,
-     $                   SQRE
+      INTEGER            INFO, K, LDQ, LDU, LDU2, LDVT, LDVT2, NL, NR, SQRE
 *     ..
 *     .. Array Arguments ..
       INTEGER            CTOT( * ), IDXC( * )
-      DOUBLE PRECISION   D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ),
-     $                   U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ),
-     $                   Z( * )
+      DOUBLE PRECISION   D( * ), DSIGMA( * ), Q( LDQ, * ), U( LDU, * ), U2( LDU2, * ), VT( LDVT, * ), VT2( LDVT2, * ), Z( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ONE, ZERO, NEGONE
-      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0,
-     $                   NEGONE = -1.0D+0 )
+      PARAMETER          ( ONE = 1.0D+0, ZERO = 0.0D+0, NEGONE = -1.0D+0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            CTEMP, I, J, JC, KTEMP, M, N, NLP1, NLP2, NRP1
@@ -103,8 +97,7 @@
 *     Find the new singular values.
 *
       DO 30 J = 1, K
-         CALL DLASD4( K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ),
-     $                VT( 1, J ), INFO )
+         CALL DLASD4( K, J, DSIGMA, Z, U( 1, J ), RHO, D( J ), VT( 1, J ), INFO )
 *
 *        If the zero finder fails, report the convergence failure.
 *
@@ -118,14 +111,10 @@
       DO 60 I = 1, K
          Z( I ) = U( I, K )*VT( I, K )
          DO 40 J = 1, I - 1
-            Z( I ) = Z( I )*( U( I, J )*VT( I, J ) /
-     $               ( DSIGMA( I )-DSIGMA( J ) ) /
-     $               ( DSIGMA( I )+DSIGMA( J ) ) )
+            Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J ) ) / ( DSIGMA( I )+DSIGMA( J ) ) )
    40    CONTINUE
          DO 50 J = I, K - 1
-            Z( I ) = Z( I )*( U( I, J )*VT( I, J ) /
-     $               ( DSIGMA( I )-DSIGMA( J+1 ) ) /
-     $               ( DSIGMA( I )+DSIGMA( J+1 ) ) )
+            Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) )
    50    CONTINUE
          Z( I ) = SIGN( SQRT( ABS( Z( I ) ) ), Q( I, 1 ) )
    60 CONTINUE
@@ -151,30 +140,25 @@
 *     Update the left singular vector matrix.
 *
       IF( K.EQ.2 ) THEN
-         CALL DGEMM( 'N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U,
-     $               LDU )
+         CALL DGEMM( 'N', 'N', N, K, K, ONE, U2, LDU2, Q, LDQ, ZERO, U, LDU )
          GO TO 100
       END IF
       IF( CTOT( 1 ).GT.0 ) THEN
-         CALL DGEMM( 'N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2,
-     $               Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
+         CALL DGEMM( 'N', 'N', NL, K, CTOT( 1 ), ONE, U2( 1, 2 ), LDU2, Q( 2, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
          IF( CTOT( 3 ).GT.0 ) THEN
             KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-            CALL DGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ),
-     $                  LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU )
+            CALL DGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ONE, U( 1, 1 ), LDU )
          END IF
       ELSE IF( CTOT( 3 ).GT.0 ) THEN
          KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-         CALL DGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ),
-     $               LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
+         CALL DGEMM( 'N', 'N', NL, K, CTOT( 3 ), ONE, U2( 1, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( 1, 1 ), LDU )
       ELSE
          CALL DLACPY( 'F', NL, K, U2, LDU2, U, LDU )
       END IF
       CALL DCOPY( K, Q( 1, 1 ), LDQ, U( NLP1, 1 ), LDU )
       KTEMP = 2 + CTOT( 1 )
       CTEMP = CTOT( 2 ) + CTOT( 3 )
-      CALL DGEMM( 'N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2,
-     $            Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU )
+      CALL DGEMM( 'N', 'N', NR, K, CTEMP, ONE, U2( NLP2, KTEMP ), LDU2, Q( KTEMP, 1 ), LDQ, ZERO, U( NLP2, 1 ), LDU )
 *
 *     Generate the right singular vectors.
 *
@@ -191,18 +175,13 @@
 *     Update the right singular vector matrix.
 *
       IF( K.EQ.2 ) THEN
-         CALL DGEMM( 'N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO,
-     $               VT, LDVT )
+         CALL DGEMM( 'N', 'N', K, M, K, ONE, Q, LDQ, VT2, LDVT2, ZERO, VT, LDVT )
          RETURN
       END IF
       KTEMP = 1 + CTOT( 1 )
-      CALL DGEMM( 'N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ,
-     $            VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT )
+      CALL DGEMM( 'N', 'N', K, NLP1, KTEMP, ONE, Q( 1, 1 ), LDQ, VT2( 1, 1 ), LDVT2, ZERO, VT( 1, 1 ), LDVT )
       KTEMP = 2 + CTOT( 1 ) + CTOT( 2 )
-      IF( KTEMP.LE.LDVT2 )
-     $   CALL DGEMM( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ),
-     $               LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ),
-     $               LDVT )
+      IF( KTEMP.LE.LDVT2 ) CALL DGEMM( 'N', 'N', K, NLP1, CTOT( 3 ), ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, 1 ), LDVT2, ONE, VT( 1, 1 ), LDVT )
 *
       KTEMP = CTOT( 1 ) + 1
       NRP1 = NR + SQRE
@@ -215,8 +194,7 @@
   140    CONTINUE
       END IF
       CTEMP = 1 + CTOT( 2 ) + CTOT( 3 )
-      CALL DGEMM( 'N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ,
-     $            VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT )
+      CALL DGEMM( 'N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT )
 *
       RETURN
 *

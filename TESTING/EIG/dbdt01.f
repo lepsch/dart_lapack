@@ -1,5 +1,4 @@
-      SUBROUTINE DBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK,
-     $                   RESID )
+      SUBROUTINE DBDT01( M, N, KD, A, LDA, Q, LDQ, D, E, PT, LDPT, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       DOUBLE PRECISION   RESID
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), PT( LDPT, * ),
-     $                   Q( LDQ, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -60,8 +58,7 @@
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    10          CONTINUE
                WORK( M+N ) = D( N )*PT( N, J )
-               CALL DGEMV( 'No transpose', M, N, -ONE, Q, LDQ,
-     $                     WORK( M+1 ), 1, ONE, WORK, 1 )
+               CALL DGEMV( 'No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    20       CONTINUE
          ELSE IF( KD.LT.0 ) THEN
@@ -74,8 +71,7 @@
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
    30          CONTINUE
                WORK( M+M ) = D( M )*PT( M, J )
-               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ,
-     $                     WORK( M+1 ), 1, ONE, WORK, 1 )
+               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    40       CONTINUE
          ELSE
@@ -86,11 +82,9 @@
                CALL DCOPY( M, A( 1, J ), 1, WORK, 1 )
                WORK( M+1 ) = D( 1 )*PT( 1, J )
                DO 50 I = 2, M
-                  WORK( M+I ) = E( I-1 )*PT( I-1, J ) +
-     $                          D( I )*PT( I, J )
+                  WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J )
    50          CONTINUE
-               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ,
-     $                     WORK( M+1 ), 1, ONE, WORK, 1 )
+               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    60       CONTINUE
          END IF
@@ -104,8 +98,7 @@
                DO 70 I = 1, N
                   WORK( M+I ) = D( I )*PT( I, J )
    70          CONTINUE
-               CALL DGEMV( 'No transpose', M, N, -ONE, Q, LDQ,
-     $                     WORK( M+1 ), 1, ONE, WORK, 1 )
+               CALL DGEMV( 'No transpose', M, N, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
    80       CONTINUE
          ELSE
@@ -114,8 +107,7 @@
                DO 90 I = 1, M
                   WORK( M+I ) = D( I )*PT( I, J )
    90          CONTINUE
-               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ,
-     $                     WORK( M+1 ), 1, ONE, WORK, 1 )
+               CALL DGEMV( 'No transpose', M, M, -ONE, Q, LDQ, WORK( M+1 ), 1, ONE, WORK, 1 )
                RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
   100       CONTINUE
          END IF
@@ -127,18 +119,15 @@
       EPS = DLAMCH( 'Precision' )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( ANORM.GE.RESID ) THEN
             RESID = ( RESID / ANORM ) / ( DBLE( N )*EPS )
          ELSE
             IF( ANORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = ( MIN( RESID, DBLE( N )*ANORM ) / ANORM ) / ( DBLE( N )*EPS )
             ELSE
-               RESID = MIN( RESID / ANORM, DBLE( N ) ) /
-     $                 ( DBLE( N )*EPS )
+               RESID = MIN( RESID / ANORM, DBLE( N ) ) / ( DBLE( N )*EPS )
             END IF
          END IF
       END IF

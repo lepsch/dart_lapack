@@ -1,5 +1,4 @@
-      SUBROUTINE CGEMLQ( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE,
-     $                   C, LDC, WORK, LWORK, INFO )
+      SUBROUTINE CGEMLQ( SIDE, TRANS, M, N, K, A, LDA, T, TSIZE, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -106,13 +105,9 @@
         RETURN
       END IF
 *
-      IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K )
-     $     .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN
-        CALL CGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA,
-     $                T( 6 ), MB, C, LDC, WORK, INFO )
+      IF( ( LEFT .AND. M.LE.K ) .OR. ( RIGHT .AND. N.LE.K ) .OR. ( NB.LE.K ) .OR. ( NB.GE.MAX( M, N, K ) ) ) THEN         CALL CGEMLQT( SIDE, TRANS, M, N, K, MB, A, LDA, T( 6 ), MB, C, LDC, WORK, INFO )
       ELSE
-        CALL CLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ),
-     $                 MB, C, LDC, WORK, LWORK, INFO )
+        CALL CLAMSWLQ( SIDE, TRANS, M, N, K, MB, NB, A, LDA, T( 6 ), MB, C, LDC, WORK, LWORK, INFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWMIN )

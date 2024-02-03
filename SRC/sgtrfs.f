@@ -1,6 +1,4 @@
-      SUBROUTINE SGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2,
-     $                   IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE SGTRFS( TRANS, N, NRHS, DL, D, DU, DLF, DF, DUF, DU2, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ),
-     $                   DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ),
-     $                   FERR( * ), WORK( * ), X( LDX, * )
+      REAL               B( LDB, * ), BERR( * ), D( * ), DF( * ), DL( * ), DLF( * ), DU( * ), DU2( * ), DUF( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -55,8 +51,7 @@
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $    LSAME( TRANS, 'C' ) ) THEN
+      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -112,8 +107,7 @@
 *        where op(A) = A, A**T, or A**H, depending on TRANS.
 *
          CALL SCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL SLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE,
-     $                WORK( N+1 ), N )
+         CALL SLAGTM( TRANS, N, 1, -ONE, DL, D, DU, X( 1, J ), LDX, ONE, WORK( N+1 ), N )
 *
 *        Compute abs(op(A))*abs(x) + abs(b) for use in the backward
 *        error bound.
@@ -122,33 +116,21 @@
             IF( N.EQ.1 ) THEN
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             ELSE
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) +
-     $                     ABS( DU( 1 )*X( 2, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
                DO 30 I = 2, N - 1
-                  WORK( I ) = ABS( B( I, J ) ) +
-     $                        ABS( DL( I-1 )*X( I-1, J ) ) +
-     $                        ABS( D( I )*X( I, J ) ) +
-     $                        ABS( DU( I )*X( I+1, J ) )
+                  WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) )
    30          CONTINUE
-               WORK( N ) = ABS( B( N, J ) ) +
-     $                     ABS( DL( N-1 )*X( N-1, J ) ) +
-     $                     ABS( D( N )*X( N, J ) )
+               WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             END IF
          ELSE
             IF( N.EQ.1 ) THEN
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) )
             ELSE
-               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) +
-     $                     ABS( DL( 1 )*X( 2, J ) )
+               WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
                DO 40 I = 2, N - 1
-                  WORK( I ) = ABS( B( I, J ) ) +
-     $                        ABS( DU( I-1 )*X( I-1, J ) ) +
-     $                        ABS( D( I )*X( I, J ) ) +
-     $                        ABS( DL( I )*X( I+1, J ) )
+                  WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) )
    40          CONTINUE
-               WORK( N ) = ABS( B( N, J ) ) +
-     $                     ABS( DU( N-1 )*X( N-1, J ) ) +
-     $                     ABS( D( N )*X( N, J ) )
+               WORK( N ) = ABS( B( N, J ) ) + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             END IF
          END IF
 *
@@ -166,8 +148,7 @@
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             ELSE
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) /
-     $             ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    50    CONTINUE
          BERR( J ) = S
@@ -178,13 +159,11 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
-            CALL SGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV,
-     $                   WORK( N+1 ), N, INFO )
+            CALL SGTTRS( TRANS, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
             CALL SAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
             LSTRES = BERR( J )
             COUNT = COUNT + 1
@@ -223,15 +202,13 @@
 *
          KASE = 0
    70    CONTINUE
-         CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ),
-     $                KASE, ISAVE )
+         CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
 *              Multiply by diag(W)*inv(op(A)**T).
 *
-               CALL SGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV,
-     $                      WORK( N+1 ), N, INFO )
+               CALL SGTTRS( TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
                DO 80 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    80          CONTINUE
@@ -242,8 +219,7 @@
                DO 90 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
    90          CONTINUE
-               CALL SGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV,
-     $                      WORK( N+1 ), N, INFO )
+               CALL SGTTRS( TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO )
             END IF
             GO TO 70
          END IF
@@ -254,8 +230,7 @@
          DO 100 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   100    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   110 CONTINUE
 *

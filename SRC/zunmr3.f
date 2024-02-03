@@ -1,5 +1,4 @@
-      SUBROUTINE ZUNMR3( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC,
-     $                   WORK, INFO )
+      SUBROUTINE ZUNMR3( SIDE, TRANS, M, N, K, L, A, LDA, TAU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -55,8 +54,7 @@
          INFO = -4
       ELSE IF( K.LT.0 .OR. K.GT.NQ ) THEN
          INFO = -5
-      ELSE IF( L.LT.0 .OR. ( LEFT .AND. ( L.GT.M ) ) .OR.
-     $         ( .NOT.LEFT .AND. ( L.GT.N ) ) ) THEN
+      ELSE IF( L.LT.0 .OR. ( LEFT .AND. ( L.GT.M ) ) .OR. ( .NOT.LEFT .AND. ( L.GT.N ) ) ) THEN
          INFO = -6
       ELSE IF( LDA.LT.MAX( 1, K ) ) THEN
          INFO = -8
@@ -70,8 +68,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
       IF( ( LEFT .AND. .NOT.NOTRAN .OR. .NOT.LEFT .AND. NOTRAN ) ) THEN
          I1 = 1
@@ -115,8 +112,7 @@
          ELSE
             TAUI = DCONJG( TAU( I ) )
          END IF
-         CALL ZLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAUI,
-     $               C( IC, JC ), LDC, WORK )
+         CALL ZLARZ( SIDE, MI, NI, L, A( I, JA ), LDA, TAUI, C( IC, JC ), LDC, WORK )
 *
    10 CONTINUE
 *

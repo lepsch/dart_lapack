@@ -49,8 +49,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -74,8 +73,7 @@
 *
 *              Compute  y := tau * A * v  storing y in TAU(1:i)
 *
-               CALL SSPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU,
-     $                     1 )
+               CALL SSPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 )
 *
 *              Compute  w := y - 1/2 * tau * (y**T *v) * v
 *
@@ -117,20 +115,17 @@
 *
 *              Compute  y := tau * A * v  storing y in TAU(i:n-1)
 *
-               CALL SSPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1,
-     $                     ZERO, TAU( I ), 1 )
+               CALL SSPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 )
 *
 *              Compute  w := y - 1/2 * tau * (y**T *v) * v
 *
-               ALPHA = -HALF*TAUI*SDOT( N-I, TAU( I ), 1, AP( II+1 ),
-     $                 1 )
+               ALPHA = -HALF*TAUI*SDOT( N-I, TAU( I ), 1, AP( II+1 ), 1 )
                CALL SAXPY( N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 )
 *
 *              Apply the transformation as a rank-2 update:
 *                 A := A - v * w**T - w * v**T
 *
-               CALL SSPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1,
-     $                     AP( I1I1 ) )
+               CALL SSPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) )
 *
                AP( II+1 ) = E( I )
             END IF

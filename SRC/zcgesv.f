@@ -1,5 +1,4 @@
-      SUBROUTINE ZCGESV( N, NRHS, A, LDA, IPIV, B, LDB, X, LDX, WORK,
-     $                   SWORK, RWORK, ITER, INFO )
+      SUBROUTINE ZCGESV( N, NRHS, A, LDA, IPIV, B, LDB, X, LDX, WORK, SWORK, RWORK, ITER, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
       INTEGER            IPIV( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK( * )
-      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ),
-     $                   X( LDX, * )
+      COMPLEX*16         A( LDA, * ), B( LDB, * ), WORK( N, * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -29,8 +27,7 @@
       PARAMETER          ( BWDMAX = 1.0E+00 )
 *
       COMPLEX*16         NEGONE, ONE
-      PARAMETER          ( NEGONE = ( -1.0D+00, 0.0D+00 ),
-     $                   ONE = ( 1.0D+00, 0.0D+00 ) )
+      PARAMETER          ( NEGONE = ( -1.0D+00, 0.0D+00 ), ONE = ( 1.0D+00, 0.0D+00 ) )
 *
 *     .. Local Scalars ..
       INTEGER            I, IITER, PTSA, PTSX
@@ -38,8 +35,7 @@
       COMPLEX*16         ZDUM
 *
 *     .. External Subroutines ..
-      EXTERNAL           CGETRS, CGETRF, CLAG2Z, XERBLA, ZAXPY, ZGEMM,
-     $                   ZLACPY, ZLAG2C, ZGETRF, ZGETRS
+      EXTERNAL           CGETRS, CGETRF, CLAG2Z, XERBLA, ZAXPY, ZGEMM, ZLACPY, ZLAG2C, ZGETRF, ZGETRS
 *     ..
 *     .. External Functions ..
       INTEGER            IZAMAX
@@ -80,8 +76,7 @@
 *
 *     Quick return if (N.EQ.0).
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Skip single precision iterative refinement if a priori slower
 *     than double precision factorization.
@@ -133,8 +128,7 @@
 *
 *     Solve the system SA*SX = SB.
 *
-      CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV,
-     $             SWORK( PTSX ), N, INFO )
+      CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
 *
 *     Convert SX back to double precision
 *
@@ -144,8 +138,7 @@
 *
       CALL ZLACPY( 'All', N, NRHS, B, LDB, WORK, N )
 *
-      CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A,
-     $            LDA, X, LDX, ONE, WORK, N )
+      CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
 *
 *     Check whether the NRHS normwise backward errors satisfy the
 *     stopping criterion. If yes, set ITER=0 and return.
@@ -153,8 +146,7 @@
       DO I = 1, NRHS
          XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
          RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
-         IF( RNRM.GT.XNRM*CTE )
-     $      GO TO 10
+         IF( RNRM.GT.XNRM*CTE ) GO TO 10
       END DO
 *
 *     If we are here, the NRHS normwise backward errors satisfy the
@@ -179,8 +171,7 @@
 *
 *        Solve the system SA*SX = SR.
 *
-         CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV,
-     $                SWORK( PTSX ), N, INFO )
+         CALL CGETRS( 'No transpose', N, NRHS, SWORK( PTSA ), N, IPIV, SWORK( PTSX ), N, INFO )
 *
 *        Convert SX back to double precision and update the current
 *        iterate.
@@ -195,8 +186,7 @@
 *
          CALL ZLACPY( 'All', N, NRHS, B, LDB, WORK, N )
 *
-         CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE,
-     $               A, LDA, X, LDX, ONE, WORK, N )
+         CALL ZGEMM( 'No Transpose', 'No Transpose', N, NRHS, N, NEGONE, A, LDA, X, LDX, ONE, WORK, N )
 *
 *        Check whether the NRHS normwise backward errors satisfy the
 *        stopping criterion. If yes, set ITER=IITER>0 and return.
@@ -204,8 +194,7 @@
          DO I = 1, NRHS
             XNRM = CABS1( X( IZAMAX( N, X( 1, I ), 1 ), I ) )
             RNRM = CABS1( WORK( IZAMAX( N, WORK( 1, I ), 1 ), I ) )
-            IF( RNRM.GT.XNRM*CTE )
-     $         GO TO 20
+            IF( RNRM.GT.XNRM*CTE ) GO TO 20
          END DO
 *
 *        If we are here, the NRHS normwise backward errors satisfy the
@@ -233,12 +222,10 @@
 *
       CALL ZGETRF( N, N, A, LDA, IPIV, INFO )
 *
-      IF( INFO.NE.0 )
-     $   RETURN
+      IF( INFO.NE.0 ) RETURN
 *
       CALL ZLACPY( 'All', N, NRHS, B, LDB, X, LDX )
-      CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, X, LDX,
-     $             INFO )
+      CALL ZGETRS( 'No transpose', N, NRHS, A, LDA, IPIV, X, LDX, INFO )
 *
       RETURN
 *

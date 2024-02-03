@@ -1,5 +1,4 @@
-      SUBROUTINE DGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T,
-     $                   BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE DGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,11 +8,7 @@
       INTEGER            LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ),
-     $                   R( LDA, * ), RESULT( 4 ), RWORK( * ),
-     $                   T( LDB, * ), TAUA( * ), TAUB( * ),
-     $                   WORK( LWORK ), Z( LDB, * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), RESULT( 4 ), RWORK( * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * )
 *     ..
 *
 *  =====================================================================
@@ -33,8 +28,7 @@
       EXTERNAL           DLAMCH, DLANGE, DLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DGGQRF, DLACPY, DLASET, DORGQR, DORGRQ,
-     $                   DSYRK
+      EXTERNAL           DGEMM, DGGQRF, DLACPY, DLASET, DORGQR, DORGRQ, DSYRK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN
@@ -54,8 +48,7 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL DGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK,
-     $             INFO )
+      CALL DGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
 *
 *     Generate the N-by-N matrix Q
 *
@@ -67,15 +60,9 @@
 *
       CALL DLASET( 'Full', P, P, ROGUE, ROGUE, Z, LDB )
       IF( N.LE.P ) THEN
-         IF( N.GT.0 .AND. N.LT.P )
-     $      CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )
-         IF( N.GT.1 )
-     $      CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB,
-     $                   Z( P-N+2, P-N+1 ), LDB )
+         IF( N.GT.0 .AND. N.LT.P ) CALL DLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL DLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       ELSE
-         IF( P.GT.1 )
-     $      CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB,
-     $                   Z( 2, 1 ), LDB )
+         IF( P.GT.1 ) CALL DLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       END IF
       CALL DORGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
 *
@@ -88,42 +75,34 @@
 *
       CALL DLASET( 'Full', N, P, ZERO, ZERO, T, LDB )
       IF( N.LE.P ) THEN
-         CALL DLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ),
-     $                LDB )
+         CALL DLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
       ELSE
          CALL DLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
-         CALL DLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ),
-     $                LDB )
+         CALL DLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
       END IF
 *
 *     Compute R - Q'*A
 *
-      CALL DGEMM( 'Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A,
-     $            LDA, ONE, R, LDA )
+      CALL DGEMM( 'Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 *
       RESID = DLANGE( '1', N, M, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) /
-     $                 ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       ELSE
          RESULT( 1 ) = ZERO
       END IF
 *
 *     Compute T*Z - Q'*B
 *
-      CALL DGEMM( 'No Transpose', 'No transpose', N, P, P, ONE, T, LDB,
-     $            Z, LDB, ZERO, BWK, LDB )
-      CALL DGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA, B,
-     $            LDB, ONE, BWK, LDB )
+      CALL DGEMM( 'No Transpose', 'No transpose', N, P, P, ONE, T, LDB, Z, LDB, ZERO, BWK, LDB )       CALL DGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA, B, LDB, ONE, BWK, LDB )
 *
 *     Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 *
       RESID = DLANGE( '1', N, P, BWK, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) /
-     $                 ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, N ) ) ) / BNORM ) / ULP
       ELSE
          RESULT( 2 ) = ZERO
       END IF
@@ -131,8 +110,7 @@
 *     Compute I - Q'*Q
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL DSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -142,8 +120,7 @@
 *     Compute I - Z'*Z
 *
       CALL DLASET( 'Full', P, P, ZERO, ONE, T, LDB )
-      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T,
-     $            LDB )
+      CALL DSYRK( 'Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
 *
 *     Compute norm( I - Z'*Z ) / ( P*ULP ) .
 *

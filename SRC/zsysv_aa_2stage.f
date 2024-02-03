@@ -1,6 +1,4 @@
-      SUBROUTINE ZSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                            IPIV, IPIV2, B, LDB, WORK, LWORK,
-     $                            INFO )
+      SUBROUTINE ZSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,8 +26,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZSYTRF_AA_2STAGE,
-     $                   ZSYTRS_AA_2STAGE
+      EXTERNAL           XERBLA, ZSYTRF_AA_2STAGE, ZSYTRS_AA_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -59,8 +56,7 @@
       END IF
 *
       IF( INFO.EQ.0 ) THEN
-         CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV,
-     $                          IPIV2, WORK, -1, INFO )
+         CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = INT( WORK(1) )
       END IF
 *
@@ -74,14 +70,12 @@
 *
 *     Compute the factorization A = U**T*T*U or A = L*T*L**T.
 *
-      CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2,
-     $                       WORK, LWORK, INFO )
+      CALL ZSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL ZSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV,
-     $                          IPIV2, B, LDB, INFO )
+         CALL ZSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
       END IF
 *

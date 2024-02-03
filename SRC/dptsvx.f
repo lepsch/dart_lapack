@@ -1,5 +1,4 @@
-      SUBROUTINE DPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX,
-     $                   RCOND, FERR, BERR, WORK, INFO )
+      SUBROUTINE DPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,9 +10,7 @@
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ),
-     $                   E( * ), EF( * ), FERR( * ), WORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   B( LDB, * ), BERR( * ), D( * ), DF( * ), E( * ), EF( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -32,8 +29,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANST
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLACPY, DPTCON, DPTRFS, DPTTRF, DPTTRS,
-     $                   XERBLA
+      EXTERNAL           DCOPY, DLACPY, DPTCON, DPTRFS, DPTTRF, DPTTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -65,8 +61,7 @@
 *        Compute the L*D*L**T (or U**T*D*U) factorization of A.
 *
          CALL DCOPY( N, D, 1, DF, 1 )
-         IF( N.GT.1 )
-     $      CALL DCOPY( N-1, E, 1, EF, 1 )
+         IF( N.GT.1 ) CALL DCOPY( N-1, E, 1, EF, 1 )
          CALL DPTTRF( N, DF, EF, INFO )
 *
 *        Return if INFO is non-zero.
@@ -93,13 +88,11 @@
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL DPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR,
-     $             WORK, INFO )
+      CALL DPTRFS( N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.DLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

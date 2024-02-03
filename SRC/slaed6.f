@@ -19,8 +19,7 @@
       INTEGER            MAXIT
       PARAMETER          ( MAXIT = 40 )
       REAL               ZERO, ONE, TWO, THREE, FOUR, EIGHT
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0,
-     $                   THREE = 3.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, THREE = 3.0E0, FOUR = 4.0E0, EIGHT = 8.0E0 )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -32,10 +31,7 @@
 *     .. Local Scalars ..
       LOGICAL            SCALE
       INTEGER            I, ITER, NITER
-      REAL               A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F,
-     $                   FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1,
-     $                   SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4,
-     $                   LBD, UBD
+      REAL               A, B, BASE, C, DDF, DF, EPS, ERRETM, ETA, F, FC, SCLFAC, SCLINV, SMALL1, SMALL2, SMINV1, SMINV2, TEMP, TEMP1, TEMP2, TEMP3, TEMP4, LBD, UBD
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, INT, LOG, MAX, MIN, SQRT
@@ -82,21 +78,17 @@
          ELSE
             TAU = TWO*B / ( A+SQRT( ABS( A*A-FOUR*B*C ) ) )
          END IF
-         IF( TAU .LT. LBD .OR. TAU .GT. UBD )
-     $      TAU = ( LBD+UBD )/TWO
+         IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD+UBD )/TWO
          IF( D(1).EQ.TAU .OR. D(2).EQ.TAU .OR. D(3).EQ.TAU ) THEN
             TAU = ZERO
          ELSE
-            TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) +
-     $                     TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) +
-     $                     TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
+            TEMP = FINIT + TAU*Z(1)/( D(1)*( D( 1 )-TAU ) ) + TAU*Z(2)/( D(2)*( D( 2 )-TAU ) ) + TAU*Z(3)/( D(3)*( D( 3 )-TAU ) )
             IF( TEMP .LE. ZERO )THEN
                LBD = TAU
             ELSE
                UBD = TAU
             END IF
-            IF( ABS( FINIT ).LE.ABS( TEMP ) )
-     $         TAU = ZERO
+            IF( ABS( FINIT ).LE.ABS( TEMP ) ) TAU = ZERO
          END IF
       END IF
 *
@@ -108,8 +100,7 @@
 *
       EPS = SLAMCH( 'Epsilon' )
       BASE = SLAMCH( 'Base' )
-      SMALL1 = BASE**( INT( LOG( SLAMCH( 'SafMin' ) ) / LOG( BASE ) /
-     $         THREE ) )
+      SMALL1 = BASE**( INT( LOG( SLAMCH( 'SafMin' ) ) / LOG( BASE ) / THREE ) )
       SMINV1 = ONE / SMALL1
       SMALL2 = SMALL1*SMALL1
       SMINV2 = SMINV1*SMINV1
@@ -172,8 +163,7 @@
    30 CONTINUE
       F = FINIT + TAU*FC
 *
-      IF( ABS( F ).LE.ZERO )
-     $   GO TO 60
+      IF( ABS( F ).LE.ZERO ) GO TO 60
       IF( F .LE. ZERO )THEN
          LBD = TAU
       ELSE
@@ -221,8 +211,7 @@
          END IF
 *
          TAU = TAU + ETA
-         IF( TAU .LT. LBD .OR. TAU .GT. UBD )
-     $      TAU = ( LBD + UBD )/TWO
+         IF( TAU .LT. LBD .OR. TAU .GT. UBD ) TAU = ( LBD + UBD )/TWO
 *
          FC = ZERO
          ERRETM = ZERO
@@ -244,11 +233,7 @@
             END IF
    40    CONTINUE
          F = FINIT + TAU*FC
-         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) +
-     $            ABS( TAU )*DF
-         IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR.
-     $      ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  )
-     $      GO TO 60
+         ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR. ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
          IF( F .LE. ZERO )THEN
             LBD = TAU
          ELSE
@@ -260,8 +245,7 @@
 *
 *     Undo scaling
 *
-      IF( SCALE )
-     $   TAU = TAU*SCLINV
+      IF( SCALE ) TAU = TAU*SCLINV
       RETURN
 *
 *     End of SLAED6

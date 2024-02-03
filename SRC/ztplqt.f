@@ -1,5 +1,4 @@
-      SUBROUTINE ZTPLQT( M, N, L, MB, A, LDA, B, LDB, T, LDT, WORK,
-     $                   INFO )
+      SUBROUTINE ZTPLQT( M, N, L, MB, A, LDA, B, LDB, T, LDT, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -62,16 +61,12 @@
             LB = NB-N+L-I+1
          END IF
 *
-         CALL ZTPLQT2( IB, NB, LB, A(I,I), LDA, B( I, 1 ), LDB,
-     $                 T(1, I ), LDT, IINFO )
+         CALL ZTPLQT2( IB, NB, LB, A(I,I), LDA, B( I, 1 ), LDB, T(1, I ), LDT, IINFO )
 *
 *     Update by applying H**T to B(I+IB:M,:) from the right
 *
          IF( I+IB.LE.M ) THEN
-            CALL ZTPRFB( 'R', 'N', 'F', 'R', M-I-IB+1, NB, IB, LB,
-     $                    B( I, 1 ), LDB, T( 1, I ), LDT,
-     $                    A( I+IB, I ), LDA, B( I+IB, 1 ), LDB,
-     $                    WORK, M-I-IB+1)
+            CALL ZTPRFB( 'R', 'N', 'F', 'R', M-I-IB+1, NB, IB, LB, B( I, 1 ), LDB, T( 1, I ), LDT, A( I+IB, I ), LDA, B( I+IB, 1 ), LDB, WORK, M-I-IB+1)
          END IF
       END DO
       RETURN

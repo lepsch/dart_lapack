@@ -35,8 +35,7 @@
          DO 20 I = 2, N
             IX = 1 + ( I-1 )*INC
    10       CONTINUE
-            IF( IX.EQ.1 )
-     $         GO TO 20
+            IF( IX.EQ.1 ) GO TO 20
             IXNEXT = IX - INC
             IF( X( IX ).GT.X( IXNEXT ) ) THEN
                GO TO 20
@@ -56,8 +55,7 @@
          DO 40 I = 2, N
             IX = 1 + ( I-1 )*INC
    30       CONTINUE
-            IF( IX.EQ.1 )
-     $         GO TO 40
+            IF( IX.EQ.1 ) GO TO 40
             IXNEXT = IX - INC
             IF( X( IX ).LT.X( IXNEXT ) ) THEN
                GO TO 40

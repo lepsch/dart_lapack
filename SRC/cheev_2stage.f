@@ -1,5 +1,4 @@
-      SUBROUTINE CHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK,
-     $                         RWORK, INFO )
+      SUBROUTINE CHEEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -26,21 +25,16 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ILAENV2STAGE
       REAL               SLAMCH, CLANHE, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, CLANHE, ILAENV2STAGE,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SLAMCH, CLANHE, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR,
-     $                   CUNGTR, CHETRD_2STAGE
+      EXTERNAL           SSCAL, SSTERF, XERBLA, CLASCL, CSTEQR, CUNGTR, CHETRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          REAL, MAX, SQRT
@@ -72,8 +66,7 @@
          LWMIN = N + LHTRD + LWTRD
          WORK( 1 )  = SROUNDUP_LWORK(LWMIN)
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -8
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -92,8 +85,7 @@
       IF( N.EQ.1 ) THEN
          W( 1 ) = REAL( A( 1, 1 ) )
          WORK( 1 ) = 1
-         IF( WANTZ )
-     $      A( 1, 1 ) = CONE
+         IF( WANTZ ) A( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -117,8 +109,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call CHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 *
@@ -128,9 +119,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL CHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ),
-     $                    WORK( INDTAU ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL CHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, RWORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, first call
 *     CUNGTR to generate the unitary matrix, then call CSTEQR.
@@ -138,11 +127,9 @@
       IF( .NOT.WANTZ ) THEN
          CALL SSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL CUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ),
-     $                LLWORK, IINFO )
+         CALL CUNGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )
          INDWRK = INDE + N
-         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA,
-     $                RWORK( INDWRK ), INFO )
+         CALL CSTEQR( JOBZ, N, W, RWORK( INDE ), A, LDA, RWORK( INDWRK ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

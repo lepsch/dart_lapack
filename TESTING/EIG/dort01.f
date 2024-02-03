@@ -41,8 +41,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       EPS = DLAMCH( 'Precision' )
       IF( M.LT.N .OR. ( M.EQ.N .AND. LSAME( ROWCOL, 'R' ) ) ) THEN
@@ -64,13 +63,11 @@
 *        Compute I - U*U' or I - U'*U.
 *
          CALL DLASET( 'Upper', MNMIN, MNMIN, ZERO, ONE, WORK, LDWORK )
-         CALL DSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK,
-     $               LDWORK )
+         CALL DSYRK( 'Upper', TRANSU, MNMIN, K, -ONE, U, LDU, ONE, WORK, LDWORK )
 *
 *        Compute norm( I - U*U' ) / ( K * EPS ) .
 *
-         RESID = DLANSY( '1', 'Upper', MNMIN, WORK, LDWORK,
-     $           WORK( LDWORK*MNMIN+1 ) )
+         RESID = DLANSY( '1', 'Upper', MNMIN, WORK, LDWORK, WORK( LDWORK*MNMIN+1 ) )
          RESID = ( RESID / DBLE( K ) ) / EPS
       ELSE IF( TRANSU.EQ.'T' ) THEN
 *

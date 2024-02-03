@@ -33,8 +33,7 @@
       EXTERNAL           LSAME, ILAENV, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLASYF_AA, CGEMM, CGEMV, CSCAL, CSWAP, CCOPY,
-     $                   XERBLA
+      EXTERNAL           CLASYF_AA, CGEMM, CGEMV, CSCAL, CSWAP, CCOPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -104,8 +103,7 @@
 *
          J = 0
  10      CONTINUE
-         IF( J.GE.N )
-     $      GO TO 20
+         IF( J.GE.N ) GO TO 20
 *
 *        each step of the main loop
 *         J is the last column of the previous panel
@@ -120,17 +118,14 @@
 *
 *        Panel factorization
 *
-         CALL CLASYF_AA( UPLO, 2-K1, N-J, JB,
-     $                   A( MAX(1, J), J+1 ), LDA,
-     $                   IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) )
+         CALL CLASYF_AA( UPLO, 2-K1, N-J, JB, A( MAX(1, J), J+1 ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) )
 *
 *        Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 *
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
             IF( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) THEN
-               CALL CSWAP( J1-K1-2, A( 1, J2 ), 1,
-     $                              A( 1, IPIV(J2) ), 1 )
+               CALL CSWAP( J1-K1-2, A( 1, J2 ), 1, A( 1, IPIV(J2) ), 1 )
             END IF
          END DO
          J = J + JB
@@ -149,8 +144,7 @@
 *
                ALPHA = A( J, J+1 )
                A( J, J+1 ) = ONE
-               CALL CCOPY( N-J, A( J-1, J+1 ), LDA,
-     $                          WORK( (J+1-J1+1)+JB*N ), 1 )
+               CALL CCOPY( N-J, A( J-1, J+1 ), LDA, WORK( (J+1-J1+1)+JB*N ), 1 )
                CALL CSCAL( N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 )
 *
 *              K1 identifies if the previous column of the panel has been
@@ -180,20 +174,13 @@
 *
                   J3 = J2
                   DO MJ = NJ-1, 1, -1
-                     CALL CGEMV( 'No transpose', MJ, JB+1,
-     $                          -ONE, WORK( J3-J1+1+K1*N ), N,
-     $                                A( J1-K2, J3 ), 1,
-     $                           ONE, A( J3, J3 ), LDA )
+                     CALL CGEMV( 'No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J1-K2, J3 ), 1, ONE, A( J3, J3 ), LDA )
                      J3 = J3 + 1
                   END DO
 *
 *                 Update off-diagonal block of J2-th block row with CGEMM
 *
-                  CALL CGEMM( 'Transpose', 'Transpose',
-     $                        NJ, N-J3+1, JB+1,
-     $                       -ONE, A( J1-K2, J2 ), LDA,
-     $                             WORK( J3-J1+1+K1*N ), N,
-     $                        ONE, A( J2, J3 ), LDA )
+                  CALL CGEMM( 'Transpose', 'Transpose', NJ, N-J3+1, JB+1, -ONE, A( J1-K2, J2 ), LDA, WORK( J3-J1+1+K1*N ), N, ONE, A( J2, J3 ), LDA )
                END DO
 *
 *              Recover T( J, J+1 )
@@ -223,8 +210,7 @@
 *
          J = 0
  11      CONTINUE
-         IF( J.GE.N )
-     $      GO TO 20
+         IF( J.GE.N ) GO TO 20
 *
 *        each step of the main loop
 *         J is the last column of the previous panel
@@ -239,17 +225,14 @@
 *
 *        Panel factorization
 *
-         CALL CLASYF_AA( UPLO, 2-K1, N-J, JB,
-     $                   A( J+1, MAX(1, J) ), LDA,
-     $                   IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) )
+         CALL CLASYF_AA( UPLO, 2-K1, N-J, JB, A( J+1, MAX(1, J) ), LDA, IPIV( J+1 ), WORK, N, WORK( N*NB+1 ) )
 *
 *        Adjust IPIV and apply it back (J-th step picks (J+1)-th pivot)
 *
          DO J2 = J+2, MIN(N, J+JB+1)
             IPIV( J2 ) = IPIV( J2 ) + J
             IF( (J2.NE.IPIV(J2)) .AND. ((J1-K1).GT.2) ) THEN
-               CALL CSWAP( J1-K1-2, A( J2, 1 ), LDA,
-     $                              A( IPIV(J2), 1 ), LDA )
+               CALL CSWAP( J1-K1-2, A( J2, 1 ), LDA, A( IPIV(J2), 1 ), LDA )
             END IF
          END DO
          J = J + JB
@@ -268,8 +251,7 @@
 *
                ALPHA = A( J+1, J )
                A( J+1, J ) = ONE
-               CALL CCOPY( N-J, A( J+1, J-1 ), 1,
-     $                          WORK( (J+1-J1+1)+JB*N ), 1 )
+               CALL CCOPY( N-J, A( J+1, J-1 ), 1, WORK( (J+1-J1+1)+JB*N ), 1 )
                CALL CSCAL( N-J, ALPHA, WORK( (J+1-J1+1)+JB*N ), 1 )
 *
 *              K1 identifies if the previous column of the panel has been
@@ -299,20 +281,13 @@
 *
                   J3 = J2
                   DO MJ = NJ-1, 1, -1
-                     CALL CGEMV( 'No transpose', MJ, JB+1,
-     $                          -ONE, WORK( J3-J1+1+K1*N ), N,
-     $                                A( J3, J1-K2 ), LDA,
-     $                           ONE, A( J3, J3 ), 1 )
+                     CALL CGEMV( 'No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J3, J1-K2 ), LDA, ONE, A( J3, J3 ), 1 )
                      J3 = J3 + 1
                   END DO
 *
 *                 Update off-diagonal block in J2-th block column with CGEMM
 *
-                  CALL CGEMM( 'No transpose', 'Transpose',
-     $                        N-J3+1, NJ, JB+1,
-     $                       -ONE, WORK( J3-J1+1+K1*N ), N,
-     $                             A( J2, J1-K2 ), LDA,
-     $                        ONE, A( J3, J2 ), LDA )
+                  CALL CGEMM( 'No transpose', 'Transpose', N-J3+1, NJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J2, J1-K2 ), LDA, ONE, A( J3, J2 ), LDA )
                END DO
 *
 *              Recover T( J+1, J )

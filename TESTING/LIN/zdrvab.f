@@ -1,6 +1,4 @@
-      SUBROUTINE ZDRVAB( DOTYPE, NM, MVAL, NNS,
-     $                   NSVAL, THRESH, NMAX, A, AFAC, B,
-     $                   X, WORK, RWORK, SWORK, IWORK, NOUT )
+      SUBROUTINE ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       INTEGER            MVAL( * ), NSVAL( * ), IWORK( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK( * )
-      COMPLEX*16         A( * ), AFAC( * ), B( * ),
-     $                   WORK( * ), X( * )
+      COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
 *     ..
 *
 *  =====================================================================
@@ -33,9 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS,
-     $                   IZERO, KL, KU, LDA, M, MODE, N,
-     $                   NERRS, NFAIL, NIMAT, NRHS, NRUN
+      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS, IZERO, KL, KU, LDA, M, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -46,8 +41,7 @@
       INTEGER            ITER, KASE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ZGET08, ZLACPY, ZLARHS, ZLASET,
-     $                   ZLATB4, ZLATMS
+      EXTERNAL           ALAERH, ALAHD, ZGET08, ZLACPY, ZLARHS, ZLASET, ZLATB4, ZLATMS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DCMPLX, DBLE, MAX, MIN, SQRT
@@ -88,38 +82,31 @@
 *
          N = M
          NIMAT = NTYPES
-         IF( M.LE.0 .OR. N.LE.0 )
-     $      NIMAT = 1
+         IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
 *
          DO 100 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 100
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
 *           Skip types 5, 6, or 7 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-            IF( ZEROT .AND. N.LT.IMAT-4 )
-     $         GO TO 100
+            IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 100
 *
 *           Set up parameters with ZLATB4 and generate a test matrix
 *           with ZLATMS.
 *
-            CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                   CNDNUM, DIST )
+            CALL ZLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
             SRNAMT = 'ZLATMS'
-            CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                   CNDNUM, ANORM, KL, KU, 'No packing', A, LDA,
-     $                   WORK, INFO )
+            CALL ZLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *           Check error code from ZLATMS.
 *
             IF( INFO.NE.0 ) THEN
-               CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1,
-     $                      -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 100
             END IF
 *
@@ -140,8 +127,7 @@
                      A( IOFF+I ) = ZERO
    20             CONTINUE
                ELSE
-                  CALL ZLASET( 'Full', M, N-IZERO+1, DCMPLX(ZERO),
-     $                         DCMPLX(ZERO), A( IOFF+1 ), LDA )
+                  CALL ZLASET( 'Full', M, N-IZERO+1, DCMPLX(ZERO), DCMPLX(ZERO), A( IOFF+1 ), LDA )
                END IF
             ELSE
                IZERO = 0
@@ -153,9 +139,7 @@
                TRANS = 'N'
 *
                SRNAMT = 'ZLARHS'
-               CALL ZLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL,
-     $                      KU, NRHS, A, LDA, X, LDA, B,
-     $                      LDA, ISEED, INFO )
+               CALL ZLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
 *
                SRNAMT = 'ZCGESV'
 *
@@ -163,8 +147,7 @@
 *
                CALL ZLACPY( 'Full', M, N, A, LDA, AFAC, LDA )
 *
-               CALL ZCGESV( N, NRHS, A, LDA, IWORK, B, LDA, X, LDA,
-     $                      WORK, SWORK, RWORK, ITER, INFO)
+               CALL ZCGESV( N, NRHS, A, LDA, IWORK, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO)
 *
                IF (ITER.LT.0) THEN
                    CALL ZLACPY( 'Full', M, N, AFAC, LDA, A, LDA )
@@ -175,30 +158,25 @@
 *
                IF( INFO.NE.IZERO ) THEN
 *
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $               CALL ALAHD( NOUT, PATH )
+                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                   NERRS = NERRS + 1
 *
                   IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
-                     WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO,
-     $                         IZERO,M,IMAT
+                     WRITE( NOUT, FMT = 9988 )'ZCGESV',INFO, IZERO,M,IMAT
                   ELSE
-                     WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO,
-     $                         M, IMAT
+                     WRITE( NOUT, FMT = 9975 )'ZCGESV',INFO, M, IMAT
                   END IF
                END IF
 *
 *              Skip the remaining test if the matrix is singular.
 *
-               IF( INFO.NE.0 )
-     $            GO TO 100
+               IF( INFO.NE.0 ) GO TO 100
 *
 *              Check the quality of the solution
 *
                CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
 *
-               CALL ZGET08( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK,
-     $                      LDA, RWORK, RESULT( 1 ) )
+               CALL ZGET08( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
 *
 *              Check if the test passes the testing.
 *              Print information about the tests that did not
@@ -212,10 +190,7 @@
 *                NORMI(B - A*X)/(NORMI(A)*NORMI(X)*EPS) < THRES
 *              (Cf. the linear solver testing routines)
 *
-               IF ((THRESH.LE.0.0E+00)
-     $            .OR.((ITER.GE.0).AND.(N.GT.0)
-     $                 .AND.(RESULT(1).GE.SQRT(DBLE(N))))
-     $            .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
+               IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
 *
                   IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
                      WRITE( NOUT, FMT = 8999 )'DGE'
@@ -226,8 +201,7 @@
                      WRITE( NOUT, FMT = '( '' Messages:'' )' )
                   END IF
 *
-                  WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS,
-     $               IMAT, 1, RESULT( 1 )
+                  WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, 1, RESULT( 1 )
                   NFAIL = NFAIL + 1
                END IF
                NRUN = NRUN + 1

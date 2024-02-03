@@ -68,8 +68,7 @@
 *
 *           Compute elements 1:j-1 of j-th column.
 *
-            CALL STRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA,
-     $                  A( 1, J ), 1 )
+            CALL STRMV( 'Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 )
             CALL SSCAL( J-1, AJJ, A( 1, J ), 1 )
    10    CONTINUE
       ELSE
@@ -87,8 +86,7 @@
 *
 *              Compute elements j+1:n of j-th column.
 *
-               CALL STRMV( 'Lower', 'No transpose', DIAG, N-J,
-     $                     A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
+               CALL STRMV( 'Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 )
                CALL SSCAL( N-J, AJJ, A( J+1, J ), 1 )
             END IF
    20    CONTINUE

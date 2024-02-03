@@ -1,5 +1,4 @@
-      SUBROUTINE CSTEDC( COMPZ, N, D, E, Z, LDZ, WORK, LWORK, RWORK,
-     $                   LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE CSTEDC( COMPZ, N, D, E, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL,
-     $                   LRWMIN, LWMIN, M, SMLSIZ, START
+      INTEGER            FINISH, I, ICOMPZ, II, J, K, LGN, LIWMIN, LL, LRWMIN, LWMIN, M, SMLSIZ, START
       REAL               EPS, ORGNRM, P, TINY
 *     ..
 *     .. External Functions ..
@@ -34,8 +32,7 @@
       EXTERNAL           ILAENV, LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CLACPY, CLACRM, CLAED0, CSTEQR, CSWAP,
-     $                   SLASCL, SLASET, SSTEDC, SSTEQR, SSTERF
+      EXTERNAL           XERBLA, CLACPY, CLACRM, CLAED0, CSTEQR, CSWAP, SLASCL, SLASET, SSTEDC, SSTEQR, SSTERF
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, INT, LOG, MAX, MOD, REAL, SQRT
@@ -60,8 +57,7 @@
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
-      ELSE IF( ( LDZ.LT.1 ) .OR.
-     $         ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( LDZ.LT.1 ) .OR. ( ICOMPZ.GT.0 .AND. LDZ.LT.MAX( 1, N ) ) ) THEN
          INFO = -6
       END IF
 *
@@ -80,10 +76,7 @@
             LRWMIN = 2*( N - 1 )
          ELSE IF( ICOMPZ.EQ.1 ) THEN
             LGN = INT( LOG( REAL( N ) ) / LOG( TWO ) )
-            IF( 2**LGN.LT.N )
-     $         LGN = LGN + 1
-            IF( 2**LGN.LT.N )
-     $         LGN = LGN + 1
+            IF( 2**LGN.LT.N ) LGN = LGN + 1             IF( 2**LGN.LT.N ) LGN = LGN + 1
             LWMIN = N*N
             LRWMIN = 1 + 3*N + 2*N*LGN + 4*N**2
             LIWMIN = 6 + 6*N + 5*N*LGN
@@ -114,11 +107,9 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       IF( N.EQ.1 ) THEN
-         IF( ICOMPZ.NE.0 )
-     $      Z( 1, 1 ) = ONE
+         IF( ICOMPZ.NE.0 ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -152,8 +143,7 @@
          IF( ICOMPZ.EQ.2 ) THEN
             CALL SLASET( 'Full', N, N, ZERO, ONE, RWORK, N )
             LL = N*N + 1
-            CALL SSTEDC( 'I', N, D, E, RWORK, N,
-     $                   RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO )
+            CALL SSTEDC( 'I', N, D, E, RWORK, N, RWORK( LL ), LRWORK-LL+1, IWORK, LIWORK, INFO )
             DO 20 J = 1, N
                DO 10 I = 1, N
                   Z( I, J ) = RWORK( ( J-1 )*N+I )
@@ -168,8 +158,7 @@
 *        Scale.
 *
          ORGNRM = SLANST( 'M', N, D, E )
-         IF( ORGNRM.EQ.ZERO )
-     $      GO TO 70
+         IF( ORGNRM.EQ.ZERO ) GO TO 70
 *
          EPS = SLAMCH( 'Epsilon' )
 *
@@ -189,8 +178,7 @@
             FINISH = START
    40       CONTINUE
             IF( FINISH.LT.N ) THEN
-               TINY = EPS*SQRT( ABS( D( FINISH ) ) )*
-     $                    SQRT( ABS( D( FINISH+1 ) ) )
+               TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
                IF( ABS( E( FINISH ) ).GT.TINY ) THEN
                   FINISH = FINISH + 1
                   GO TO 40
@@ -205,29 +193,20 @@
 *              Scale.
 *
                ORGNRM = SLANST( 'M', M, D( START ), E( START ) )
-               CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M,
-     $                      INFO )
-               CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ),
-     $                      M-1, INFO )
+               CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO )
 *
-               CALL CLAED0( N, M, D( START ), E( START ), Z( 1, START ),
-     $                      LDZ, WORK, N, RWORK, IWORK, INFO )
+               CALL CLAED0( N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO )
                IF( INFO.GT.0 ) THEN
-                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) +
-     $                   MOD( INFO, ( M+1 ) ) + START - 1
+                  INFO = ( INFO / ( M+1 )+START-1 )*( N+1 ) + MOD( INFO, ( M+1 ) ) + START - 1
                   GO TO 70
                END IF
 *
 *              Scale back.
 *
-               CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M,
-     $                      INFO )
+               CALL SLASCL( 'G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO )
 *
             ELSE
-               CALL SSTEQR( 'I', M, D( START ), E( START ), RWORK, M,
-     $                      RWORK( M*M+1 ), INFO )
-               CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N,
-     $                      RWORK( M*M+1 ) )
+               CALL SSTEQR( 'I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) )
                CALL CLACPY( 'A', N, M, WORK, N, Z( 1, START ), LDZ )
                IF( INFO.GT.0 ) THEN
                   INFO = START*( N+1 ) + FINISH

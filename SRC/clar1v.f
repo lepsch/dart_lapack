@@ -1,6 +1,4 @@
-      SUBROUTINE CLAR1V( N, B1, BN, LAMBDA, D, L, LD, LLD,
-     $           PIVMIN, GAPTOL, Z, WANTNC, NEGCNT, ZTZ, MINGMA,
-     $           R, ISUPPZ, NRMINV, RESID, RQCORR, WORK )
+      SUBROUTINE CLAR1V( N, B1, BN, LAMBDA, D, L, LD, LLD, PIVMIN, GAPTOL, Z, WANTNC, NEGCNT, ZTZ, MINGMA, R, ISUPPZ, NRMINV, RESID, RQCORR, WORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,13 +7,11 @@
 *     .. Scalar Arguments ..
       LOGICAL            WANTNC
       INTEGER   B1, BN, N, NEGCNT, R
-      REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID,
-     $                   RQCORR, ZTZ
+      REAL               GAPTOL, LAMBDA, MINGMA, NRMINV, PIVMIN, RESID, RQCORR, ZTZ
 *     ..
 *     .. Array Arguments ..
       INTEGER            ISUPPZ( * )
-      REAL               D( * ), L( * ), LD( * ), LLD( * ),
-     $                  WORK( * )
+      REAL               D( * ), L( * ), LD( * ), LLD( * ), WORK( * )
       COMPLEX          Z( * )
 *     ..
 *
@@ -30,8 +26,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            SAWNAN1, SAWNAN2
-      INTEGER            I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1,
-     $                   R2
+      INTEGER            I, INDLPL, INDP, INDS, INDUMN, NEG1, NEG2, R1, R2
       REAL               DMINUS, DPLUS, EPS, S, TMP
 *     ..
 *     .. External Functions ..
@@ -103,8 +98,7 @@
             WORK( INDLPL+I ) = LD( I ) / DPLUS
             IF(DPLUS.LT.ZERO) NEG1 = NEG1 + 1
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
-            IF( WORK( INDLPL+I ).EQ.ZERO )
-     $                      WORK( INDS+I ) = LLD( I )
+            IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
  70      CONTINUE
          DO 71 I = R1, R2 - 1
@@ -112,8 +106,7 @@
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
             WORK( INDLPL+I ) = LD( I ) / DPLUS
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
-            IF( WORK( INDLPL+I ).EQ.ZERO )
-     $                      WORK( INDS+I ) = LLD( I )
+            IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
  71      CONTINUE
       END IF
@@ -144,8 +137,7 @@
             IF(DMINUS.LT.ZERO) NEG2 = NEG2 + 1
             WORK( INDUMN+I ) = L( I )*TMP
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
-            IF( TMP.EQ.ZERO )
-     $          WORK( INDP+I-1 ) = D( I ) - LAMBDA
+            IF( TMP.EQ.ZERO ) WORK( INDP+I-1 ) = D( I ) - LAMBDA
  100     CONTINUE
       END IF
 *
@@ -159,13 +151,11 @@
       ELSE
          NEGCNT = -1
       ENDIF
-      IF( ABS(MINGMA).EQ.ZERO )
-     $   MINGMA = EPS*WORK( INDS+R1-1 )
+      IF( ABS(MINGMA).EQ.ZERO ) MINGMA = EPS*WORK( INDS+R1-1 )
       R = R1
       DO 110 I = R1, R2 - 1
          TMP = WORK( INDS+I ) + WORK( INDP+I )
-         IF( TMP.EQ.ZERO )
-     $      TMP = EPS*WORK( INDS+I )
+         IF( TMP.EQ.ZERO ) TMP = EPS*WORK( INDS+I )
          IF( ABS( TMP ).LE.ABS( MINGMA ) ) THEN
             MINGMA = TMP
             R = I + 1
@@ -184,8 +174,7 @@
       IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
          DO 210 I = R-1, B1, -1
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL )
-     $           THEN
+            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GOTO 220
@@ -201,8 +190,7 @@
             ELSE
                Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) )
             END IF
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL )
-     $           THEN
+            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
                Z( I ) = ZERO
                ISUPPZ( 1 ) = I + 1
                GO TO 240
@@ -216,8 +204,7 @@
       IF( .NOT.SAWNAN1 .AND. .NOT.SAWNAN2 ) THEN
          DO 250 I = R, BN-1
             Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL )
-     $         THEN
+            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 260
@@ -233,8 +220,7 @@
             ELSE
                Z( I+1 ) = -( WORK( INDUMN+I )*Z( I ) )
             END IF
-            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL )
-     $           THEN
+            IF( (ABS(Z(I))+ABS(Z(I+1)))* ABS(LD(I)).LT.GAPTOL ) THEN
                Z( I+1 ) = ZERO
                ISUPPZ( 2 ) = I
                GO TO 280

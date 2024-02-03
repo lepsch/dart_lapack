@@ -1,5 +1,4 @@
-      SUBROUTINE CSYT01( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC,
-     $                   RWORK, RESID )
+      SUBROUTINE CSYT01( UPLO, N, A, LDA, AFAC, LDAFAC, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -60,13 +58,11 @@
 *
 *     Call CLAVSY to form the product D * U' (or D * L' ).
 *
-      CALL CLAVSY( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC,
-     $             IPIV, C, LDC, INFO )
+      CALL CLAVSY( UPLO, 'Transpose', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     Call CLAVSY again to multiply by U (or L ).
 *
-      CALL CLAVSY( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC,
-     $             IPIV, C, LDC, INFO )
+      CALL CLAVSY( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     Compute the difference  C - A .
 *
@@ -89,8 +85,7 @@
       RESID = CLANSY( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID/REAL( N ) )/ANORM ) / EPS
       END IF

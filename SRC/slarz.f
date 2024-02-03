@@ -40,8 +40,7 @@
 *
 *           w( 1:n ) = w( 1:n ) + C( m-l+1:m, 1:n )**T * v( 1:l )
 *
-            CALL SGEMV( 'Transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V,
-     $                  INCV, ONE, WORK, 1 )
+            CALL SGEMV( 'Transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 )
 *
 *           C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
 *
@@ -50,8 +49,7 @@
 *           C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
 *                               tau * v( 1:l ) * w( 1:n )**T
 *
-            CALL SGER( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ),
-     $                 LDC )
+            CALL SGER( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
          END IF
 *
       ELSE
@@ -66,8 +64,7 @@
 *
 *           w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
 *
-            CALL SGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC,
-     $                  V, INCV, ONE, WORK, 1 )
+            CALL SGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 )
 *
 *           C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
 *
@@ -76,8 +73,7 @@
 *           C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
 *                               tau * w( 1:m ) * v( 1:l )**T
 *
-            CALL SGER( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ),
-     $                 LDC )
+            CALL SGER( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
 *
          END IF
 *

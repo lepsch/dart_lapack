@@ -63,13 +63,11 @@
       IF( LSAME( UPLO, 'U' ) ) THEN
          JC = 1
          DO 10 J = 1, N
-            IF( UNITD )
-     $         AINVP( JC+J-1 ) = ONE
+            IF( UNITD ) AINVP( JC+J-1 ) = ONE
 *
 *           Form the j-th column of A*AINV
 *
-            CALL STPMV( 'Upper', 'No transpose', DIAG, J, AP,
-     $                  AINVP( JC ), 1 )
+            CALL STPMV( 'Upper', 'No transpose', DIAG, J, AP, AINVP( JC ), 1 )
 *
 *           Subtract 1 from the diagonal
 *
@@ -79,13 +77,11 @@
       ELSE
          JC = 1
          DO 20 J = 1, N
-            IF( UNITD )
-     $         AINVP( JC ) = ONE
+            IF( UNITD ) AINVP( JC ) = ONE
 *
 *           Form the j-th column of A*AINV
 *
-            CALL STPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ),
-     $                  AINVP( JC ), 1 )
+            CALL STPMV( 'Lower', 'No transpose', DIAG, N-J+1, AP( JC ), AINVP( JC ), 1 )
 *
 *           Subtract 1 from the diagonal
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV,
-     $                   SNV, CSQ, SNQ )
+      SUBROUTINE ZLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,11 +17,8 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   A, AUA11, AUA12, AUA21, AUA22, AVB12, AVB11,
-     $                   AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2,
-     $                   SNL, SNR, UA11R, UA22R, VB11R, VB22R
-      COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11,
-     $                   VB12, VB21, VB22
+      DOUBLE PRECISION   A, AUA11, AUA12, AUA21, AUA22, AVB12, AVB11, AVB21, AVB22, CSL, CSR, D, FB, FC, S1, S2, SNL, SNR, UA11R, UA22R, VB11R, VB22R
+      COMPLEX*16         B, C, D1, R, T, UA11, UA12, UA21, UA22, VB11, VB12, VB21, VB22
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DLASV2, ZLARTG
@@ -54,8 +50,7 @@
 *        diagonal matrix diag(1,D1).
 *
          D1 = ONE
-         IF( FB.NE.ZERO )
-     $      D1 = B / FB
+         IF( FB.NE.ZERO ) D1 = B / FB
 *
 *        The SVD of real 2 by 2 triangular C
 *
@@ -64,8 +59,7 @@
 *
          CALL DLASV2( A, FB, D, S1, S2, SNR, CSR, SNL, CSL )
 *
-         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) )
-     $        THEN
+         IF( ABS( CSL ).GE.ABS( SNL ) .OR. ABS( CSR ).GE.ABS( SNR ) ) THEN
 *
 *           Compute the (1,1) and (1,2) elements of U**H *A and V**H *B,
 *           and (1,2) element of |U|**H *|A| and |V|**H *|B|.
@@ -82,18 +76,11 @@
 *           zero (1,2) elements of U**H *A and V**H *B
 *
             IF( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) THEN
-               CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R )
             ELSE IF( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) THEN
-               CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ,
-     $                      R )
-            ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 /
-     $               ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN
-               CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )
             ELSE
-               CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R )
             END IF
 *
             CSU = CSL
@@ -118,18 +105,11 @@
 *           zero (2,2) elements of U**H *A and V**H *B, and then swap.
 *
             IF( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) THEN
-               CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R )
             ELSE IF( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) THEN
-               CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ,
-     $                      R )
-            ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 /
-     $               ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN
-               CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN                CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )
             ELSE
-               CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ,
-     $                      R )
+               CALL ZLARTG( -DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R )
             END IF
 *
             CSU = SNL
@@ -155,8 +135,7 @@
 *        diagonal matrix diag(d1,1).
 *
          D1 = ONE
-         IF( FC.NE.ZERO )
-     $      D1 = C / FC
+         IF( FC.NE.ZERO ) D1 = C / FC
 *
 *        The SVD of real 2 by 2 triangular C
 *
@@ -165,8 +144,7 @@
 *
          CALL DLASV2( A, FC, D, S1, S2, SNR, CSR, SNL, CSL )
 *
-         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) )
-     $        THEN
+         IF( ABS( CSR ).GE.ABS( SNR ) .OR. ABS( CSL ).GE.ABS( SNL ) ) THEN
 *
 *           Compute the (2,1) and (2,2) elements of U**H *A and V**H *B,
 *           and (2,1) element of |U|**H *|A| and |V|**H *|B|.
@@ -186,8 +164,7 @@
                CALL ZLARTG( DCMPLX( VB22R ), VB21, CSQ, SNQ, R )
             ELSE IF( ( ABS1( VB21 )+ABS( VB22R ) ).EQ.ZERO ) THEN
                CALL ZLARTG( DCMPLX( UA22R ), UA21, CSQ, SNQ, R )
-            ELSE IF( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 /
-     $               ( ABS1( VB21 )+ABS( VB22R ) ) ) THEN
+            ELSE IF( AUA21 / ( ABS1( UA21 )+ABS( UA22R ) ).LE.AVB21 / ( ABS1( VB21 )+ABS( VB22R ) ) ) THEN
                CALL ZLARTG( DCMPLX( UA22R ), UA21, CSQ, SNQ, R )
             ELSE
                CALL ZLARTG( DCMPLX( VB22R ), VB21, CSQ, SNQ, R )
@@ -218,8 +195,7 @@
                CALL ZLARTG( VB12, VB11, CSQ, SNQ, R )
             ELSE IF( ( ABS1( VB11 )+ABS1( VB12 ) ).EQ.ZERO ) THEN
                CALL ZLARTG( UA12, UA11, CSQ, SNQ, R )
-            ELSE IF( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 /
-     $               ( ABS1( VB11 )+ABS1( VB12 ) ) ) THEN
+            ELSE IF( AUA11 / ( ABS1( UA11 )+ABS1( UA12 ) ).LE.AVB11 / ( ABS1( VB11 )+ABS1( VB12 ) ) ) THEN
                CALL ZLARTG( UA12, UA11, CSQ, SNQ, R )
             ELSE
                CALL ZLARTG( VB12, VB11, CSQ, SNQ, R )

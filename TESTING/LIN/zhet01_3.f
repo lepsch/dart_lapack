@@ -1,5 +1,4 @@
-      SUBROUTINE ZHET01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C,
-     $                     LDC, RWORK, RESID )
+      SUBROUTINE ZHET01_3( UPLO, N, A, LDA, AFAC, LDAFAC, E, IPIV, C, LDC, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ),
-     $                   E( * )
+      COMPLEX*16         A( LDA, * ), AFAC( LDAFAC, * ), C( LDC, * ), E( * )
 *     ..
 *
 *  =====================================================================
@@ -23,8 +21,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, J
@@ -75,13 +72,11 @@
 *
 *     3) Call ZLAVHE_ROOK to form the product D * U' (or D * L' ).
 *
-      CALL ZLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL ZLAVHE_ROOK( UPLO, 'Conjugate', 'Non-unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     4) Call ZLAVHE_RK again to multiply by U (or L ).
 *
-      CALL ZLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC,
-     $                  LDAFAC, IPIV, C, LDC, INFO )
+      CALL ZLAVHE_ROOK( UPLO, 'No transpose', 'Unit', N, N, AFAC, LDAFAC, IPIV, C, LDC, INFO )
 *
 *     5) Compute the difference  C - A .
 *
@@ -106,8 +101,7 @@
       RESID = ZLANHE( '1', UPLO, N, C, LDC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID/DBLE( N ) )/ANORM ) / EPS
       END IF

@@ -1,6 +1,4 @@
-      SUBROUTINE ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX,
-     $                   A, AFAC, B, X, WORK,
-     $                   RWORK, SWORK, NOUT )
+      SUBROUTINE ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, NMAX, A, AFAC, B, X, WORK, RWORK, SWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       INTEGER            MVAL( * ), NSVAL( * )
       DOUBLE PRECISION   RWORK( * )
       COMPLEX            SWORK(*)
-      COMPLEX*16         A( * ), AFAC( * ), B( * ),
-     $                   WORK( * ), X( * )
+      COMPLEX*16         A( * ), AFAC( * ), B( * ), WORK( * ), X( * )
 *     ..
 *
 *  =====================================================================
@@ -33,9 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS, IUPLO,
-     $                   IZERO, KL, KU, LDA, MODE, N,
-     $                   NERRS, NFAIL, NIMAT, NRHS, NRUN
+      INTEGER            I, IM, IMAT, INFO, IOFF, IRHS, IUPLO, IZERO, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -47,9 +42,7 @@
       INTEGER            ITER, KASE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ZLACPY, ZLAIPD,
-     $                   ZLARHS, ZLATB4, ZLATMS,
-     $                   ZPOT06, ZCPOSV
+      EXTERNAL           ALAERH, ZLACPY, ZLAIPD, ZLARHS, ZLATB4, ZLATMS, ZPOT06, ZCPOSV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, SQRT
@@ -89,21 +82,18 @@
          N = MVAL( IM )
          LDA = MAX( N, 1 )
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 110 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 110
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
 *           Skip types 3, 4, or 5 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.5
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 110
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 110
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -113,19 +103,15 @@
 *              Set up parameters with ZLATB4 and generate a test matrix
 *              with ZLATMS.
 *
-               CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK,
-     $                      INFO )
+               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
 *              Check error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
                END IF
 *
@@ -179,9 +165,7 @@
 *                 Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'ZLARHS'
-                  CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU,
-     $                         NRHS, A, LDA, X, LDA, B, LDA,
-     $                         ISEED, INFO )
+                  CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, X, LDA, B, LDA, ISEED, INFO )
 *
 *                 Compute the L*L' or U'*U factorization of the
 *                 matrix and solve the system.
@@ -191,8 +175,7 @@
 *
                   CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA)
 *
-                  CALL ZCPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA,
-     $                         WORK, SWORK, RWORK, ITER, INFO )
+                  CALL ZCPOSV( UPLO, N, NRHS, AFAC, LDA, B, LDA, X, LDA, WORK, SWORK, RWORK, ITER, INFO )
 *
                   IF (ITER.LT.0) THEN
                      CALL ZLACPY( 'All', N, N, A, LDA, AFAC, LDA )
@@ -202,13 +185,11 @@
 *
                   IF( INFO.NE.IZERO ) THEN
 *
-                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                  CALL ALAHD( NOUT, PATH )
+                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                      NERRS = NERRS + 1
 *
                      IF( INFO.NE.IZERO .AND. IZERO.NE.0 ) THEN
-                        WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N,
-     $                     IMAT
+                        WRITE( NOUT, FMT = 9988 )'ZCPOSV',INFO,IZERO,N, IMAT
                      ELSE
                         WRITE( NOUT, FMT = 9975 )'ZCPOSV',INFO,N,IMAT
                      END IF
@@ -216,15 +197,13 @@
 *
 *                 Skip the remaining test if the matrix is singular.
 *
-                  IF( INFO.NE.0 )
-     $               GO TO 110
+                  IF( INFO.NE.0 ) GO TO 110
 *
 *                 Check the quality of the solution
 *
                   CALL ZLACPY( 'All', N, NRHS, B, LDA, WORK, LDA )
 *
-                  CALL ZPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK,
-     $               LDA, RWORK, RESULT( 1 ) )
+                  CALL ZPOT06( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
 *
 *                 Check if the test passes the testing.
 *                 Print information about the tests that did not
@@ -238,10 +217,7 @@
 *                 NORM1(B - A*X)/(NORM1(A)*NORM1(X)*EPS) < THRES
 *                 (Cf. the linear solver testing routines)
 *
-                  IF ((THRESH.LE.0.0E+00)
-     $               .OR.((ITER.GE.0).AND.(N.GT.0)
-     $               .AND.(RESULT(1).GE.SQRT(DBLE(N))))
-     $               .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
+                  IF ((THRESH.LE.0.0E+00) .OR.((ITER.GE.0).AND.(N.GT.0) .AND.(RESULT(1).GE.SQRT(DBLE(N)))) .OR.((ITER.LT.0).AND.(RESULT(1).GE.THRESH))) THEN
 *
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) THEN
                         WRITE( NOUT, FMT = 8999 )'ZPO'
@@ -252,8 +228,7 @@
                         WRITE( NOUT, FMT = '( '' Messages:'' )' )
                      END IF
 *
-                     WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1,
-     $                  RESULT( 1 )
+                     WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, 1, RESULT( 1 )
 *
                      NFAIL = NFAIL + 1
 *

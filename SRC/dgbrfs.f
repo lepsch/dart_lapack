@@ -1,6 +1,4 @@
-      SUBROUTINE DGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB,
-     $                   IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE DGBRFS( TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * ), IWORK( * )
-      DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
+      DOUBLE PRECISION   AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -56,8 +53,7 @@
 *
       INFO = 0
       NOTRAN = LSAME( TRANS, 'N' )
-      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $    LSAME( TRANS, 'C' ) ) THEN
+      IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -119,8 +115,7 @@
 *        where op(A) = A, A**T, or A**H, depending on TRANS.
 *
          CALL DCOPY( N, B( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL DGBMV( TRANS, N, N, KL, KU, -ONE, AB, LDAB, X( 1, J ), 1,
-     $               ONE, WORK( N+1 ), 1 )
+         CALL DGBMV( TRANS, N, N, KL, KU, -ONE, AB, LDAB, X( 1, J ), 1, ONE, WORK( N+1 ), 1 )
 *
 *        Compute componentwise relative backward error from formula
 *
@@ -160,8 +155,7 @@
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             ELSE
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) /
-     $             ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
          BERR( J ) = S
@@ -172,13 +166,11 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
-            CALL DGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV,
-     $                   WORK( N+1 ), N, INFO )
+            CALL DGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK( N+1 ), N, INFO )
             CALL DAXPY( N, ONE, WORK( N+1 ), 1, X( 1, J ), 1 )
             LSTRES = BERR( J )
             COUNT = COUNT + 1
@@ -217,15 +209,13 @@
 *
          KASE = 0
   100    CONTINUE
-         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ),
-     $                KASE, ISAVE )
+         CALL DLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
 *              Multiply by diag(W)*inv(op(A)**T).
 *
-               CALL DGBTRS( TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV,
-     $                      WORK( N+1 ), N, INFO )
+               CALL DGBTRS( TRANST, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK( N+1 ), N, INFO )
                DO 110 I = 1, N
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   110          CONTINUE
@@ -236,8 +226,7 @@
                DO 120 I = 1, N
                   WORK( N+I ) = WORK( N+I )*WORK( I )
   120          CONTINUE
-               CALL DGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV,
-     $                      WORK( N+1 ), N, INFO )
+               CALL DGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, WORK( N+1 ), N, INFO )
             END IF
             GO TO 100
          END IF
@@ -248,8 +237,7 @@
          DO 130 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   130    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   140 CONTINUE
 *

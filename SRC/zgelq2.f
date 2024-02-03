@@ -52,15 +52,13 @@
 *
          CALL ZLACGV( N-I+1, A( I, I ), LDA )
          ALPHA = A( I, I )
-         CALL ZLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA,
-     $                TAU( I ) )
+         CALL ZLARFG( N-I+1, ALPHA, A( I, MIN( I+1, N ) ), LDA, TAU( I ) )
          IF( I.LT.M ) THEN
 *
 *           Apply H(i) to A(i+1:m,i:n) from the right
 *
             A( I, I ) = ONE
-            CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ),
-     $                  A( I+1, I ), LDA, WORK )
+            CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK )
          END IF
          A( I, I ) = ALPHA
          CALL ZLACGV( N-I+1, A( I, I ), LDA )

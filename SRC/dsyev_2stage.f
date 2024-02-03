@@ -1,5 +1,4 @@
-      SUBROUTINE DSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK,
-     $                         INFO )
+      SUBROUTINE DSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -23,10 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS       DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -35,8 +31,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANSY, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASCL, DORGTR, DSCAL, DSTEQR, DSTERF,
-     $                   XERBLA, DSYTRD_2STAGE
+      EXTERNAL           DLASCL, DORGTR, DSCAL, DSTEQR, DSTERF, XERBLA, DSYTRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -68,8 +63,7 @@
          LWMIN = 2*N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -8
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -88,8 +82,7 @@
       IF( N.EQ.1 ) THEN
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
-         IF( WANTZ )
-     $      A( 1, 1 ) = ONE
+         IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -113,8 +106,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
@@ -124,9 +116,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ),
-     $                    WORK( INDTAU ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, first call
 *     DORGTR to generate the orthogonal matrix, then call DSTEQR.
@@ -137,10 +127,7 @@
 *        Not available in this release, and argument checking should not
 *        let it getting here
          RETURN
-         CALL DORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ),
-     $                LLWORK, IINFO )
-         CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ),
-     $                INFO )
+         CALL DORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

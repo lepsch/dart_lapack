@@ -24,8 +24,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J, ITER
-      DOUBLE PRECISION   AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE,
-     $                   SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
+      DOUBLE PRECISION   AVG, STD, TOL, C0, C1, C2, T, U, SI, D, BASE, SMIN, SMAX, SMLNUM, BIGNUM, SCALE, SUMSQ
       LOGICAL            UP
       COMPLEX*16         ZDUM
 *     ..

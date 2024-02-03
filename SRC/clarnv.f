@@ -56,16 +56,14 @@
 *           Convert generated numbers to uniform (-1,1) distribution
 *
             DO 20 I = 1, IL
-               X( IV+I-1 ) = CMPLX( TWO*U( 2*I-1 )-ONE,
-     $                       TWO*U( 2*I )-ONE )
+               X( IV+I-1 ) = CMPLX( TWO*U( 2*I-1 )-ONE, TWO*U( 2*I )-ONE )
    20       CONTINUE
          ELSE IF( IDIST.EQ.3 ) THEN
 *
 *           Convert generated numbers to normal (0,1) distribution
 *
             DO 30 I = 1, IL
-               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )*
-     $                       EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
+               X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
    30       CONTINUE
          ELSE IF( IDIST.EQ.4 ) THEN
 *
@@ -73,8 +71,7 @@
 *           distributed on the unit disk
 *
             DO 40 I = 1, IL
-               X( IV+I-1 ) = SQRT( U( 2*I-1 ) )*
-     $                       EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
+               X( IV+I-1 ) = SQRT( U( 2*I-1 ) )* EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
    40       CONTINUE
          ELSE IF( IDIST.EQ.5 ) THEN
 *

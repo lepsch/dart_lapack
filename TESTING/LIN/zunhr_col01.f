@@ -14,17 +14,14 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX*16      , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:),
-     $                   WORK( : ), T1(:,:), T2(:,:), DIAG(:),
-     $                   C(:,:), CF(:,:), D(:,:), DF(:,:)
+      COMPLEX*16      , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:)
       DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ),
-     $                     CZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TESTZEROS
@@ -40,8 +37,7 @@
       EXTERNAL           DLAMCH, ZLANGE, ZLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZLACPY, ZLARNV, ZLASET, ZLATSQR, ZUNHR_COL,
-     $                   ZUNGTSQR, ZSCAL, ZGEMM, ZGEMQRT, ZHERK
+      EXTERNAL           ZLACPY, ZLARNV, ZLASET, ZLATSQR, ZUNHR_COL, ZUNGTSQR, ZSCAL, ZGEMM, ZGEMQRT, ZHERK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CEILING, DBLE, MAX, MIN
@@ -65,9 +61,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L),
-     $           C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -101,11 +95,9 @@
 *
       NB2_UB = MIN( NB2, N)
 *
-      CALL ZLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1,
-     $              WORKQUERY, -1, INFO )
+      CALL ZLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1, WORKQUERY, -1, INFO )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL ZUNGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORKQUERY, -1,
-     $               INFO )
+      CALL ZUNGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORKQUERY, -1, INFO )
 
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
 *
@@ -124,8 +116,7 @@
 *     Factor the matrix A in the array AF.
 *
       SRNAMT = 'ZLATSQR'
-      CALL ZLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1, WORK, LWORK,
-     $              INFO )
+      CALL ZLATSQR( M, N, MB1, NB1_UB, AF, M, T1, NB1, WORK, LWORK, INFO )
 *
 *     Copy the factor R into the array R.
 *
@@ -135,8 +126,7 @@
 *     Reconstruct the orthogonal matrix Q.
 *
       SRNAMT = 'ZUNGTSQR'
-      CALL ZUNGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK,
-     $               INFO )
+      CALL ZUNGTSQR( M, N, MB1, NB1, AF, M, T1, NB1, WORK, LWORK, INFO )
 *
 *     Perform the Householder reconstruction, the result is stored
 *     the arrays AF and T2.
@@ -168,8 +158,7 @@
       CALL ZLASET( 'Full', M, M, CZERO, CONE, Q, M )
 *
       SRNAMT = 'ZGEMQRT'
-      CALL ZGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M,
-     $              WORK, INFO )
+      CALL ZGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO )
 *
 *     Copy R
 *
@@ -209,8 +198,7 @@
 *     Apply Q to C as Q*C = CF
 *
       SRNAMT = 'ZGEMQRT'
-      CALL ZGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M,
-     $               WORK, INFO )
+      CALL ZGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
 *
 *     TEST 3
 *     Compute |CF - Q*C| / ( eps *  m * |C| )
@@ -230,8 +218,7 @@
 *     Apply Q to C as (Q**H)*C = CF
 *
       SRNAMT = 'ZGEMQRT'
-      CALL ZGEMQRT( 'L', 'C', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M,
-     $               WORK, INFO )
+      CALL ZGEMQRT( 'L', 'C', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
 *
 *     TEST 4
 *     Compute |CF - (Q**H)*C| / ( eps * m * |C|)
@@ -255,8 +242,7 @@
 *     Apply Q to D as D*Q = DF
 *
       SRNAMT = 'ZGEMQRT'
-      CALL ZGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N,
-     $               WORK, INFO )
+      CALL ZGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
 *
 *     TEST 5
 *     Compute |DF - D*Q| / ( eps * m * |D| )
@@ -276,8 +262,7 @@
 *     Apply Q to D as D*QT = DF
 *
       SRNAMT = 'ZGEMQRT'
-      CALL ZGEMQRT( 'R', 'C', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N,
-     $               WORK, INFO )
+      CALL ZGEMQRT( 'R', 'C', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
 *
 *     TEST 6
 *     Compute |DF - D*(Q**H)| / ( eps * m * |D| )
@@ -292,8 +277,7 @@
 *
 *     Deallocate all arrays
 *
-      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T1, T2, DIAG,
-     $             C, D, CF, DF )
+      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T1, T2, DIAG, C, D, CF, DF )
 *
       RETURN
 *

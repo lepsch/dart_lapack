@@ -64,8 +64,7 @@
 *
 *           Compute the rest of column K.
 *
-            CALL DTRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC,
-     $                  LDAFAC, AFAC( 1, K ), 1 )
+            CALL DTRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
    10    CONTINUE
 *
@@ -77,9 +76,7 @@
 *           Add a multiple of column K of the factor L to each of
 *           columns K+1 through N.
 *
-            IF( K+1.LE.N )
-     $         CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1,
-     $                    AFAC( K+1, K+1 ), LDAFAC )
+            IF( K+1.LE.N ) CALL DSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
 *           Scale column K by the diagonal element.
 *

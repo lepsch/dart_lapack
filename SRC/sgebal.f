@@ -25,8 +25,7 @@
 *     .. Local Scalars ..
       LOGICAL            NOCONV, CANSWAP
       INTEGER            I, ICA, IRA, J, K, L
-      REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1,
-     $                   SFMIN2
+      REAL               C, CA, F, G, R, RA, S, SFMAX1, SFMAX2, SFMIN1, SFMIN2
 *     ..
 *     .. External Functions ..
       LOGICAL            SISNAN, LSAME
@@ -43,8 +42,7 @@
 *     Test the input parameters
 *
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND.
-     $    .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -200,8 +198,7 @@
             F = ONE
             S = C + R
 *
-            DO WHILE( C.LT.G .AND. MAX( F, C, CA ).LT.SFMAX2 .AND.
-     $                MIN( R, G, RA ).GT.SFMIN2 )
+            DO WHILE( C.LT.G .AND. MAX( F, C, CA ).LT.SFMAX2 .AND. MIN( R, G, RA ).GT.SFMIN2 )
                F = F*SCLFAC
                C = C*SCLFAC
                CA = CA*SCLFAC
@@ -212,8 +209,7 @@
 *
             G = C / SCLFAC
 *
-            DO WHILE( G.GE.R .AND. MAX( R, RA ).LT.SFMAX2 .AND.
-     $                MIN( F, C, G, CA ).GT.SFMIN2 )
+            DO WHILE( G.GE.R .AND. MAX( R, RA ).LT.SFMAX2 .AND. MIN( F, C, G, CA ).GT.SFMIN2 )
                F = F / SCLFAC
                C = C / SCLFAC
                G = G / SCLFAC

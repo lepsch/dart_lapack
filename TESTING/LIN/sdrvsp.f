@@ -1,6 +1,4 @@
-      SUBROUTINE SDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX,
-     $                   A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK,
-     $                   NOUT )
+      SUBROUTINE SDRVSP( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
-      REAL               A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   RWORK( * ), WORK( * ), X( * ), XACT( * )
+      REAL               A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -32,9 +29,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, PACKIT, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO,
-     $                   IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N,
-     $                   NERRS, NFAIL, NIMAT, NPP, NRUN, NT
+      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, K1, KL, KU, LDA, LWORK, MODE, N, NERRS, NFAIL, NIMAT, NPP, NRUN, NT
       REAL               AINVNM, ANORM, CNDNUM, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -47,9 +42,7 @@
       EXTERNAL           SGET06, SLANSP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, SCOPY, SERRVX, SGET04,
-     $                   SLACPY, SLARHS, SLASET, SLATB4, SLATMS, SPPT02,
-     $                   SPPT05, SSPSV, SSPSVX, SSPT01, SSPTRF, SSPTRI
+      EXTERNAL           ALADHD, ALAERH, ALASVM, SCOPY, SERRVX, SGET04, SLACPY, SLARHS, SLASET, SLATB4, SLATMS, SPPT02, SPPT05, SSPSV, SSPSVX, SSPT01, SSPTRF, SSPTRI
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -83,8 +76,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL SERRVX( PATH, NOUT )
       INFOT = 0
 *
 *     Do for each value of N in NVAL
@@ -95,21 +87,18 @@
          NPP = N*( N+1 ) / 2
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 170 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 170
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 170
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -125,19 +114,15 @@
 *              Set up parameters with SLATB4 and generate a test matrix
 *              with SLATMS.
 *
-               CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'SLATMS'
-               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK,
-     $                      INFO )
+               CALL SLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, LDA, WORK, INFO )
 *
 *              Check error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 160
                END IF
 *
@@ -218,8 +203,7 @@
 *                 the value returned by SSPSVX.
 *
                   IF( ZEROT ) THEN
-                     IF( IFACT.EQ.1 )
-     $                  GO TO 150
+                     IF( IFACT.EQ.1 ) GO TO 150
                      RCONDC = ZERO
 *
                   ELSE IF( IFACT.EQ.1 ) THEN
@@ -251,9 +235,7 @@
 *                 Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'SLARHS'
-                  CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU,
-     $                         NRHS, A, LDA, XACT, LDA, B, LDA, ISEED,
-     $                         INFO )
+                  CALL SLARHS( PATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   XTYPE = 'C'
 *
 *                 --- Test SSPSV  ---
@@ -265,8 +247,7 @@
 *                    Factor the matrix and solve the system using SSPSV.
 *
                      SRNAMT = 'SSPSV '
-                     CALL SSPSV( UPLO, N, NRHS, AFAC, IWORK, X, LDA,
-     $                           INFO )
+                     CALL SSPSV( UPLO, N, NRHS, AFAC, IWORK, X, LDA, INFO )
 *
 *                    Adjust the expected value of INFO to account for
 *                    pivoting.
@@ -288,9 +269,7 @@
 *                    Check error code from SSPSV .
 *
                      IF( INFO.NE.K ) THEN
-                        CALL ALAERH( PATH, 'SSPSV ', INFO, K, UPLO, N,
-     $                               N, -1, -1, NRHS, IMAT, NFAIL,
-     $                               NERRS, NOUT )
+                        CALL ALAERH( PATH, 'SSPSV ', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 120
                      ELSE IF( INFO.NE.0 ) THEN
                         GO TO 120
@@ -299,19 +278,16 @@
 *                    Reconstruct matrix from factors and compute
 *                    residual.
 *
-                     CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA,
-     $                            RWORK, RESULT( 1 ) )
+                     CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK, RESULT( 1 ) )
 *
 *                    Compute residual of the computed solution.
 *
                      CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA,
-     $                            RWORK, RESULT( 2 ) )
+                     CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
 *                    Check solution from generated exact solution.
 *
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 3 ) )
+                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
                      NT = 3
 *
 *                    Print information about the tests that did not pass
@@ -319,10 +295,7 @@
 *
                      DO 110 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )'SSPSV ', UPLO, N,
-     $                        IMAT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'SSPSV ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
   110                CONTINUE
@@ -332,19 +305,14 @@
 *
 *                 --- Test SSPSVX ---
 *
-                  IF( IFACT.EQ.2 .AND. NPP.GT.0 )
-     $               CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC,
-     $                            NPP )
+                  IF( IFACT.EQ.2 .AND. NPP.GT.0 ) CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP )
                   CALL SLASET( 'Full', N, NRHS, ZERO, ZERO, X, LDA )
 *
 *                 Solve the system and compute the condition number and
 *                 error bounds using SSPSVX.
 *
                   SRNAMT = 'SSPSVX'
-                  CALL SSPSVX( FACT, UPLO, N, NRHS, A, AFAC, IWORK, B,
-     $                         LDA, X, LDA, RCOND, RWORK,
-     $                         RWORK( NRHS+1 ), WORK, IWORK( N+1 ),
-     $                         INFO )
+                  CALL SSPSVX( FACT, UPLO, N, NRHS, A, AFAC, IWORK, B, LDA, X, LDA, RCOND, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
 *                 Adjust the expected value of INFO to account for
 *                 pivoting.
@@ -366,9 +334,7 @@
 *                 Check the error code from SSPSVX.
 *
                   IF( INFO.NE.K ) THEN
-                     CALL ALAERH( PATH, 'SSPSVX', INFO, K, FACT // UPLO,
-     $                            N, N, -1, -1, NRHS, IMAT, NFAIL,
-     $                            NERRS, NOUT )
+                     CALL ALAERH( PATH, 'SSPSVX', INFO, K, FACT // UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 150
                   END IF
 *
@@ -378,8 +344,7 @@
 *                       Reconstruct matrix from factors and compute
 *                       residual.
 *
-                        CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA,
-     $                               RWORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        CALL SSPT01( UPLO, N, A, AFAC, IWORK, AINV, LDA, RWORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
                      ELSE
                         K1 = 2
@@ -388,19 +353,15 @@
 *                    Compute residual of the computed solution.
 *
                      CALL SLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA,
-     $                            RWORK( 2*NRHS+1 ), RESULT( 2 ) )
+                     CALL SPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
 *                    Check solution from generated exact solution.
 *
-                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                            RESULT( 3 ) )
+                     CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *                    Check the error bounds from iterative refinement.
 *
-                     CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA,
-     $                            XACT, LDA, RWORK, RWORK( NRHS+1 ),
-     $                            RESULT( 4 ) )
+                     CALL SPPT05( UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                   ELSE
                      K1 = 6
                   END IF
@@ -415,10 +376,7 @@
 *
                   DO 140 K = K1, 6
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALADHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9998 )'SSPSVX', FACT, UPLO,
-     $                     N, IMAT, K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'SSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
   140             CONTINUE

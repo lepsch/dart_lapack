@@ -1,5 +1,4 @@
-      SUBROUTINE ZSTEIN( N, D, E, M, W, IBLOCK, ISPLIT, Z, LDZ, WORK,
-     $                   IWORK, IFAIL, INFO )
+      SUBROUTINE ZSTEIN( N, D, E, M, W, IBLOCK, ISPLIT, Z, LDZ, WORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDZ, M, N
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), IFAIL( * ), ISPLIT( * ),
-     $                   IWORK( * )
+      INTEGER            IBLOCK( * ), IFAIL( * ), ISPLIT( * ), IWORK( * )
       DOUBLE PRECISION   D( * ), E( * ), W( * ), WORK( * )
       COMPLEX*16         Z( LDZ, * )
 *     ..
@@ -19,20 +17,15 @@
 *
 *     .. Parameters ..
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       DOUBLE PRECISION   ZERO, ONE, TEN, ODM3, ODM1
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1,
-     $                   ODM3 = 1.0D-3, ODM1 = 1.0D-1 )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 1.0D+1, ODM3 = 1.0D-3, ODM1 = 1.0D-1 )
       INTEGER            MAXITS, EXTRA
       PARAMETER          ( MAXITS = 5, EXTRA = 2 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1,
-     $                   INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1,
-     $                   JBLK, JMAX, JR, NBLK, NRMCHK
-      DOUBLE PRECISION   DTPCRT, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL,
-     $                   SCL, SEP, TOL, XJ, XJM, ZTR
+      INTEGER            B1, BLKSIZ, BN, GPIND, I, IINFO, INDRV1, INDRV2, INDRV3, INDRV4, INDRV5, ITS, J, J1, JBLK, JMAX, JR, NBLK, NRMCHK
+      DOUBLE PRECISION   DTPCRT, EPS, EPS1, NRM, ONENRM, ORTOL, PERTOL, SCL, SEP, TOL, XJ, XJM, ZTR
 *     ..
 *     .. Local Arrays ..
       INTEGER            ISEED( 4 )
@@ -69,8 +62,7 @@
                INFO = -6
                GO TO 30
             END IF
-            IF( IBLOCK( J ).EQ.IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) )
-     $           THEN
+            IF( IBLOCK( J ).EQ.IBLOCK( J-1 ) .AND. W( J ).LT.W( J-1 ) ) THEN
                INFO = -5
                GO TO 30
             END IF
@@ -124,8 +116,7 @@
          END IF
          BN = ISPLIT( NBLK )
          BLKSIZ = BN - B1 + 1
-         IF( BLKSIZ.EQ.1 )
-     $      GO TO 60
+         IF( BLKSIZ.EQ.1 ) GO TO 60
          GPIND = J1
 *
 *        Compute reorthogonalization criterion and stopping criterion.
@@ -133,8 +124,7 @@
          ONENRM = ABS( D( B1 ) ) + ABS( E( B1 ) )
          ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) )
          DO 50 I = B1 + 1, BN - 1
-            ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+
-     $               ABS( E( I ) ) )
+            ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) )
    50    CONTINUE
          ORTOL = ODM3*ONENRM
 *
@@ -166,8 +156,7 @@
                EPS1 = ABS( EPS*XJ )
                PERTOL = TEN*EPS1
                SEP = XJ - XJM
-               IF( SEP.LT.PERTOL )
-     $            XJ = XJM + PERTOL
+               IF( SEP.LT.PERTOL ) XJ = XJM + PERTOL
             END IF
 *
             ITS = 0
@@ -186,48 +175,36 @@
 *           Compute LU factors with partial pivoting  ( PT = LU )
 *
             TOL = ZERO
-            CALL DLAGTF( BLKSIZ, WORK( INDRV4+1 ), XJ, WORK( INDRV2+2 ),
-     $                   WORK( INDRV3+1 ), TOL, WORK( INDRV5+1 ), IWORK,
-     $                   IINFO )
+            CALL DLAGTF( BLKSIZ, WORK( INDRV4+1 ), XJ, WORK( INDRV2+2 ), WORK( INDRV3+1 ), TOL, WORK( INDRV5+1 ), IWORK, IINFO )
 *
 *           Update iteration count.
 *
    70       CONTINUE
             ITS = ITS + 1
-            IF( ITS.GT.MAXITS )
-     $         GO TO 120
+            IF( ITS.GT.MAXITS ) GO TO 120
 *
 *           Normalize and scale the righthand side vector Pb.
 *
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            SCL = BLKSIZ*ONENRM*MAX( EPS,
-     $            ABS( WORK( INDRV4+BLKSIZ ) ) ) /
-     $            ABS( WORK( INDRV1+JMAX ) )
+            SCL = BLKSIZ*ONENRM*MAX( EPS, ABS( WORK( INDRV4+BLKSIZ ) ) ) / ABS( WORK( INDRV1+JMAX ) )
             CALL DSCAL( BLKSIZ, SCL, WORK( INDRV1+1 ), 1 )
 *
 *           Solve the system LU = Pb.
 *
-            CALL DLAGTS( -1, BLKSIZ, WORK( INDRV4+1 ), WORK( INDRV2+2 ),
-     $                   WORK( INDRV3+1 ), WORK( INDRV5+1 ), IWORK,
-     $                   WORK( INDRV1+1 ), TOL, IINFO )
+            CALL DLAGTS( -1, BLKSIZ, WORK( INDRV4+1 ), WORK( INDRV2+2 ), WORK( INDRV3+1 ), WORK( INDRV5+1 ), IWORK, WORK( INDRV1+1 ), TOL, IINFO )
 *
 *           Reorthogonalize by modified Gram-Schmidt if eigenvalues are
 *           close enough.
 *
-            IF( JBLK.EQ.1 )
-     $         GO TO 110
-            IF( ABS( XJ-XJM ).GT.ORTOL )
-     $         GPIND = J
+            IF( JBLK.EQ.1 ) GO TO 110             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J
             IF( GPIND.NE.J ) THEN
                DO 100 I = GPIND, J - 1
                   ZTR = ZERO
                   DO 80 JR = 1, BLKSIZ
-                     ZTR = ZTR + WORK( INDRV1+JR )*
-     $                     DBLE( Z( B1-1+JR, I ) )
+                     ZTR = ZTR + WORK( INDRV1+JR )* DBLE( Z( B1-1+JR, I ) )
    80             CONTINUE
                   DO 90 JR = 1, BLKSIZ
-                     WORK( INDRV1+JR ) = WORK( INDRV1+JR ) -
-     $                                   ZTR*DBLE( Z( B1-1+JR, I ) )
+                     WORK( INDRV1+JR ) = WORK( INDRV1+JR ) - ZTR*DBLE( Z( B1-1+JR, I ) )
    90             CONTINUE
   100          CONTINUE
             END IF
@@ -241,11 +218,9 @@
 *           Continue for additional iterations after norm reaches
 *           stopping criterion.
 *
-            IF( NRM.LT.DTPCRT )
-     $         GO TO 70
+            IF( NRM.LT.DTPCRT ) GO TO 70
             NRMCHK = NRMCHK + 1
-            IF( NRMCHK.LT.EXTRA+1 )
-     $         GO TO 70
+            IF( NRMCHK.LT.EXTRA+1 ) GO TO 70
 *
             GO TO 130
 *
@@ -261,8 +236,7 @@
   130       CONTINUE
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 )
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
-            IF( WORK( INDRV1+JMAX ).LT.ZERO )
-     $         SCL = -SCL
+            IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
             CALL DSCAL( BLKSIZ, SCL, WORK( INDRV1+1 ), 1 )
   140       CONTINUE
             DO 150 I = 1, N

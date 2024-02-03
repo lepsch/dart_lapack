@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZLA_SYRCOND_X( UPLO, N, A, LDA, AF,
-     $                                         LDAF, IPIV, X, INFO,
-     $                                         WORK, RWORK )
+      DOUBLE PRECISION FUNCTION ZLA_SYRCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -121,11 +119,9 @@
             END DO
 *
             IF ( UP ) THEN
-               CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(X).
@@ -142,11 +138,9 @@
             END DO
 *
             IF ( UP ) THEN
-               CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZSYTRS( 'U', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL ZSYTRS( 'L', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -160,8 +154,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   ZLA_SYRCOND_X = 1.0D+0 / AINVNM
+      IF( AINVNM .NE. 0.0D+0 ) ZLA_SYRCOND_X = 1.0D+0 / AINVNM
 *
       RETURN
 *

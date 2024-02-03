@@ -1,5 +1,4 @@
-      SUBROUTINE CLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK,
-     $     INFO, PATH)
+      SUBROUTINE CLAHILB( N, NRHS, A, LDA, X, LDX, B, LDB, WORK, INFO, PATH)
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,11 +33,7 @@
       COMPLEX D1(8), D2(8), INVD1(8), INVD2(8)
       DATA D1 /(-1,0),(0,1),(-1,-1),(0,-1),(1,0),(-1,1),(1,1),(1,-1)/
       DATA D2 /(-1,0),(0,-1),(-1,1),(0,1),(1,0),(-1,-1),(1,-1),(1,1)/
-
-      DATA INVD1 /(-1,0),(0,-1),(-.5,.5),(0,1),(1,0),
-     $     (-.5,-.5),(.5,-.5),(.5,.5)/
-      DATA INVD2 /(-1,0),(0,1),(-.5,-.5),(0,-1),(1,0),
-     $     (-.5,.5),(.5,.5),(.5,-.5)/
+       DATA INVD1 /(-1,0),(0,-1),(-.5,.5),(0,1),(1,0), (-.5,-.5),(.5,-.5),(.5,.5)/       DATA INVD2 /(-1,0),(0,1),(-.5,-.5),(0,-1),(1,0), (-.5,.5),(.5,.5),(.5,-.5)/
 *     ..
 *     .. External Subroutines ..
       EXTERNAL XERBLA
@@ -94,15 +89,13 @@
       IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
          DO J = 1, N
             DO I = 1, N
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1))
-     $              * D1(MOD(I,SIZE_D)+1)
+               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D1(MOD(I,SIZE_D)+1)
             END DO
          END DO
       ELSE
          DO J = 1, N
             DO I = 1, N
-               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1))
-     $              * D2(MOD(I,SIZE_D)+1)
+               A(I, J) = D1(MOD(J,SIZE_D)+1) * (REAL(M) / (I + J - 1)) * D2(MOD(I,SIZE_D)+1)
             END DO
          END DO
       END IF
@@ -117,8 +110,7 @@
 *     of the inverse Hilbert matrix.
       WORK(1) = N
       DO J = 2, N
-         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  )
-     $        * (N +J -1)
+         WORK(J) = (  ( (WORK(J-1)/(J-1)) * (J-1 - N) ) /(J-1)  ) * (N +J -1)
       END DO
 
 *     If we are testing SY routines,
@@ -126,19 +118,13 @@
       IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
          DO J = 1, NRHS
             DO I = 1, N
-               X(I, J) =
-     $              INVD1(MOD(J,SIZE_D)+1) *
-     $              ((WORK(I)*WORK(J)) / (I + J - 1))
-     $              * INVD1(MOD(I,SIZE_D)+1)
+               X(I, J) = INVD1(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO
       ELSE
          DO J = 1, NRHS
             DO I = 1, N
-               X(I, J) =
-     $              INVD2(MOD(J,SIZE_D)+1) *
-     $              ((WORK(I)*WORK(J)) / (I + J - 1))
-     $              * INVD1(MOD(I,SIZE_D)+1)
+               X(I, J) = INVD2(MOD(J,SIZE_D)+1) * ((WORK(I)*WORK(J)) / (I + J - 1)) * INVD1(MOD(I,SIZE_D)+1)
             END DO
          END DO
       END IF

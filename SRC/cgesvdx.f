@@ -1,6 +1,4 @@
-      SUBROUTINE CGESVDX( JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU,
-     $                    IL, IU, NS, S, U, LDU, VT, LDVT, WORK,
-     $                    LWORK, RWORK, IWORK, INFO )
+      SUBROUTINE CGESVDX( JOBU, JOBVT, RANGE, M, N, A, LDA, VL, VU, IL, IU, NS, S, U, LDU, VT, LDVT, WORK, LWORK, RWORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,34 +12,28 @@
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
       REAL               S( * ), RWORK( * )
-      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ),
-     $                   CONE = ( 1.0E0, 0.0E0 ) )
+      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          JOBZ, RNGTGK
       LOGICAL            ALLS, INDS, LQUERY, VALS, WANTU, WANTVT
-      INTEGER            I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL,
-     $                   ITAU, ITAUP, ITAUQ, ITEMP, ITEMPR, ITGKZ,
-     $                   IUTGK, J, K, MAXWRK, MINMN, MINWRK, MNTHR
+      INTEGER            I, ID, IE, IERR, ILQF, ILTGK, IQRF, ISCL, ITAU, ITAUP, ITAUQ, ITEMP, ITEMPR, ITGKZ, IUTGK, J, K, MAXWRK, MINMN, MINWRK, MNTHR
       REAL               ABSTOL, ANRM, BIGNUM, EPS, SMLNUM
 *     ..
 *     .. Local Arrays ..
       REAL               DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEBRD, CGELQF, CGEQRF, CLASCL, CLASET,
-     $                   CUNMBR, CUNMQR, CUNMLQ, CLACPY, 
-     $                   SBDSVDX, SLASCL, XERBLA
+      EXTERNAL           CGEBRD, CGELQF, CGEQRF, CLASCL, CLASET, CUNMBR, CUNMQR, CUNMLQ, CLACPY, SBDSVDX, SLASCL, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -74,11 +66,9 @@
       INDS = LSAME( RANGE, 'I' )
 *
       INFO = 0
-      IF( .NOT.LSAME( JOBU, 'V' ) .AND.
-     $    .NOT.LSAME( JOBU, 'N' ) ) THEN
+      IF( .NOT.LSAME( JOBU, 'V' ) .AND. .NOT.LSAME( JOBU, 'N' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( JOBVT, 'V' ) .AND.
-     $         .NOT.LSAME( JOBVT, 'N' ) ) THEN
+      ELSE IF( .NOT.LSAME( JOBVT, 'V' ) .AND. .NOT.LSAME( JOBVT, 'N' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.( ALLS .OR. VALS .OR. INDS ) ) THEN
          INFO = -3
@@ -136,11 +126,9 @@
 *
                   MINWRK = N*(N+5)
                   MAXWRK = N + N*ILAENV(1,'CGEQRF',' ',M,N,-1,-1)
-                  MAXWRK = MAX(MAXWRK,
-     $                     N*N+2*N+2*N*ILAENV(1,'CGEBRD',' ',N,N,-1,-1))
+                  MAXWRK = MAX(MAXWRK, N*N+2*N+2*N*ILAENV(1,'CGEBRD',' ',N,N,-1,-1))
                   IF (WANTU .OR. WANTVT) THEN
-                     MAXWRK = MAX(MAXWRK,
-     $                       N*N+2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1))
+                     MAXWRK = MAX(MAXWRK, N*N+2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1))
                   END IF
                ELSE
 *
@@ -149,8 +137,7 @@
                   MINWRK = 3*N + M
                   MAXWRK = 2*N + (M+N)*ILAENV(1,'CGEBRD',' ',M,N,-1,-1)
                   IF (WANTU .OR. WANTVT) THEN
-                     MAXWRK = MAX(MAXWRK,
-     $                        2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1))
+                     MAXWRK = MAX(MAXWRK, 2*N+N*ILAENV(1,'CUNMQR','LN',N,N,N,-1))
                   END IF
                END IF
             ELSE
@@ -161,11 +148,9 @@
 *
                   MINWRK = M*(M+5)
                   MAXWRK = M + M*ILAENV(1,'CGELQF',' ',M,N,-1,-1)
-                  MAXWRK = MAX(MAXWRK,
-     $                     M*M+2*M+2*M*ILAENV(1,'CGEBRD',' ',M,M,-1,-1))
+                  MAXWRK = MAX(MAXWRK, M*M+2*M+2*M*ILAENV(1,'CGEBRD',' ',M,M,-1,-1))
                   IF (WANTU .OR. WANTVT) THEN
-                     MAXWRK = MAX(MAXWRK,
-     $                       M*M+2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1))
+                     MAXWRK = MAX(MAXWRK, M*M+2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1))
                   END IF
                ELSE
 *
@@ -175,8 +160,7 @@
                   MINWRK = 3*M + N
                   MAXWRK = 2*M + (M+N)*ILAENV(1,'CGEBRD',' ',M,N,-1,-1)
                   IF (WANTU .OR. WANTVT) THEN
-                     MAXWRK = MAX(MAXWRK,
-     $                        2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1))
+                     MAXWRK = MAX(MAXWRK, 2*M+M*ILAENV(1,'CUNMQR','LN',M,M,M,-1))
                   END IF
                END IF
             END IF
@@ -254,8 +238,7 @@
 *
             ITAU = 1
             ITEMP = ITAU + N
-            CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ),
-     $                   LWORK-ITEMP+1, INFO )
+            CALL CGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
 *           Copy R into WORK and bidiagonalize it:
 *           (Workspace: need N*N+3*N, prefer N*N+N+2*N*NB)
@@ -268,20 +251,13 @@
             IE = ID + N
             ITGKZ = IE + N
             CALL CLACPY( 'U', N, N, A, LDA, WORK( IQRF ), N )
-            CALL CLASET( 'L', N-1, N-1, CZERO, CZERO,
-     $                   WORK( IQRF+1 ), N )
-            CALL CGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ),
-     $                   RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ),
-     $                   WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            CALL CLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL CGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             ITEMPR = ITGKZ + N*(N*2+1)
 *
 *           Solve eigenvalue problem TGK*Z=Z*S.
 *           (Workspace: need 2*N*N+14*N)
 *
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ),
-     $                    RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S,
-     $                    RWORK( ITGKZ ), N*2, RWORK( ITEMPR ),
-     $                    IWORK, INFO)
+            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
 *
 *           If needed, compute left singular vectors.
 *
@@ -299,16 +275,12 @@
 *              Call CUNMBR to compute QB*UB.
 *              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
-               CALL CUNMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N,
-     $                      WORK( ITAUQ ), U, LDU, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'Q', 'L', 'N', N, NS, N, WORK( IQRF ), N, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
 *              Call CUNMQR to compute Q*(QB*UB).
 *              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
-               CALL CUNMQR( 'L', 'N', M, NS, N, A, LDA,
-     $                      WORK( ITAU ), U, LDU, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMQR( 'L', 'N', M, NS, N, A, LDA, WORK( ITAU ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
 *           If needed, compute right singular vectors.
@@ -326,9 +298,7 @@
 *              Call CUNMBR to compute VB**T * PB**T
 *              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N,
-     $                      WORK( ITAUP ), VT, LDVT, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, WORK( IQRF ), N, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          ELSE
 *
@@ -346,18 +316,13 @@
             ID = 1
             IE = ID + N
             ITGKZ = IE + N
-            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ),
-     $                   WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ),
-     $                   LWORK-ITEMP+1, INFO )
+            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             ITEMPR = ITGKZ + N*(N*2+1)
 *
 *           Solve eigenvalue problem TGK*Z=Z*S.
 *           (Workspace: need 2*N*N+14*N)
 *
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ),
-     $                    RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S,
-     $                    RWORK( ITGKZ ), N*2, RWORK( ITEMPR ),
-     $                    IWORK, INFO)
+            CALL SBDSVDX( 'U', JOBZ, RNGTGK, N, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), N*2, RWORK( ITEMPR ), IWORK, INFO)
 *
 *           If needed, compute left singular vectors.
 *
@@ -375,9 +340,7 @@
 *              Call CUNMBR to compute QB*UB.
 *              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA,
-     $                      WORK( ITAUQ ), U, LDU, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, IERR )
+               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
             END IF
 *
 *           If needed, compute right singular vectors.
@@ -395,9 +358,7 @@
 *              Call CUNMBR to compute VB**T * PB**T
 *              (Workspace in WORK( ITEMP ): need N, prefer N*NB)
 *
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA,
-     $                      WORK( ITAUP ), VT, LDVT, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, IERR )
+               CALL CUNMBR( 'P', 'R', 'C', NS, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, IERR )
             END IF
          END IF
       ELSE
@@ -417,8 +378,7 @@
 *
             ITAU = 1
             ITEMP = ITAU + M
-            CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ),
-     $                   LWORK-ITEMP+1, INFO )
+            CALL CGELQF( M, N, A, LDA, WORK( ITAU ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 
 *           Copy L into WORK and bidiagonalize it:
 *           (Workspace in WORK( ITEMP ): need M*M+3*M, prefer M*M+M+2*M*NB)
@@ -431,20 +391,13 @@
             IE = ID + M
             ITGKZ = IE + M
             CALL CLACPY( 'L', M, M, A, LDA, WORK( ILQF ), M )
-            CALL CLASET( 'U', M-1, M-1, CZERO, CZERO,
-     $                   WORK( ILQF+M ), M )
-            CALL CGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ),
-     $                   RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ),
-     $                   WORK( ITEMP ), LWORK-ITEMP+1, INFO )
+            CALL CLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL CGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             ITEMPR = ITGKZ + M*(M*2+1)
 *
 *           Solve eigenvalue problem TGK*Z=Z*S.
 *           (Workspace: need 2*M*M+14*M)
 *
-            CALL SBDSVDX( 'U', JOBZ, RNGTGK, M, RWORK( ID ),
-     $                    RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S,
-     $                    RWORK( ITGKZ ), M*2, RWORK( ITEMPR ),
-     $                    IWORK, INFO)
+            CALL SBDSVDX( 'U', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
 *
 *           If needed, compute left singular vectors.
 *
@@ -461,9 +414,7 @@
 *              Call CUNMBR to compute QB*UB.
 *              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M,
-     $                      WORK( ITAUQ ), U, LDU, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'Q', 'L', 'N', M, NS, M, WORK( ILQF ), M, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
 *           If needed, compute right singular vectors.
@@ -477,22 +428,17 @@
                   END DO
                   K = K + M
                END DO
-               CALL CLASET( 'A', NS, N-M, CZERO, CZERO,
-     $                      VT( 1,M+1 ), LDVT )
+               CALL CLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
 *
 *              Call CUNMBR to compute (VB**T)*(PB**T)
 *              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
-               CALL CUNMBR( 'P', 'R', 'C', NS, M, M, WORK( ILQF ), M,
-     $                      WORK( ITAUP ), VT, LDVT, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'P', 'R', 'C', NS, M, M, WORK( ILQF ), M, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
 *
 *              Call CUNMLQ to compute ((VB**T)*(PB**T))*Q.
 *              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
-               CALL CUNMLQ( 'R', 'N', NS, N, M, A, LDA,
-     $                      WORK( ITAU ), VT, LDVT, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMLQ( 'R', 'N', NS, N, M, A, LDA, WORK( ITAU ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          ELSE
 *
@@ -510,18 +456,13 @@
             ID = 1
             IE = ID + M
             ITGKZ = IE + M
-            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ),
-     $                   WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ),
-     $                   LWORK-ITEMP+1, INFO )
+            CALL CGEBRD( M, N, A, LDA, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             ITEMPR = ITGKZ + M*(M*2+1)
 *
 *           Solve eigenvalue problem TGK*Z=Z*S.
 *           (Workspace: need 2*M*M+14*M)
 *
-            CALL SBDSVDX( 'L', JOBZ, RNGTGK, M, RWORK( ID ),
-     $                    RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S,
-     $                    RWORK( ITGKZ ), M*2, RWORK( ITEMPR ),
-     $                    IWORK, INFO)
+            CALL SBDSVDX( 'L', JOBZ, RNGTGK, M, RWORK( ID ), RWORK( IE ), VL, VU, ILTGK, IUTGK, NS, S, RWORK( ITGKZ ), M*2, RWORK( ITEMPR ), IWORK, INFO)
 *
 *           If needed, compute left singular vectors.
 *
@@ -538,9 +479,7 @@
 *              Call CUNMBR to compute QB*UB.
 *              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
-               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA,
-     $                      WORK( ITAUQ ), U, LDU, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'Q', 'L', 'N', M, NS, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
 *
 *           If needed, compute right singular vectors.
@@ -554,15 +493,12 @@
                   END DO
                   K = K + M
                END DO
-               CALL CLASET( 'A', NS, N-M, CZERO, CZERO,
-     $                      VT( 1,M+1 ), LDVT )
+               CALL CLASET( 'A', NS, N-M, CZERO, CZERO, VT( 1,M+1 ), LDVT )
 *
 *              Call CUNMBR to compute VB**T * PB**T
 *              (Workspace in WORK( ITEMP ): need M, prefer M*NB)
 *
-               CALL CUNMBR( 'P', 'R', 'C', NS, N, M, A, LDA,
-     $                      WORK( ITAUP ), VT, LDVT, WORK( ITEMP ),
-     $                      LWORK-ITEMP+1, INFO )
+               CALL CUNMBR( 'P', 'R', 'C', NS, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( ITEMP ), LWORK-ITEMP+1, INFO )
             END IF
          END IF
       END IF
@@ -570,12 +506,7 @@
 *     Undo scaling if necessary
 *
       IF( ISCL.EQ.1 ) THEN
-         IF( ANRM.GT.BIGNUM )
-     $      CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1,
-     $                   S, MINMN, INFO )
-         IF( ANRM.LT.SMLNUM )
-     $      CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1,
-     $                   S, MINMN, INFO )
+         IF( ANRM.GT.BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )          IF( ANRM.LT.SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
       END IF
 *
 *     Return optimal workspace in WORK(1)

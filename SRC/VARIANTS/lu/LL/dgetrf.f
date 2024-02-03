@@ -50,8 +50,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -79,16 +78,11 @@
 *
 *              Compute block row of U.
 *
-               CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit',
-     $                    NB, JB, ONE, A( K, K ), LDA,
-     $                    A( K, J ), LDA )
+               CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', NB, JB, ONE, A( K, K ), LDA, A( K, J ), LDA )
 *
 *              Update trailing submatrix.
 *
-               CALL DGEMM( 'No transpose', 'No transpose',
-     $                    M-K-NB+1, JB, NB, -ONE,
-     $                    A( K+NB, K ), LDA, A( K, J ), LDA, ONE,
-     $                    A( K+NB, J ), LDA )
+               CALL DGEMM( 'No transpose', 'No transpose', M-K-NB+1, JB, NB, -ONE, A( K+NB, K ), LDA, A( K, J ), LDA, ONE, A( K+NB, J ), LDA )
    30       CONTINUE
 *
 *           Factor diagonal and subdiagonal blocks and test for exact
@@ -98,8 +92,7 @@
 *
 *           Adjust INFO and the pivot indices.
 *
-            IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $         INFO = IINFO + J - 1
+            IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
    10       CONTINUE
@@ -110,8 +103,7 @@
 *        Apply interchanges to the left-overs
 *
          DO 40 K = 1, MIN( M, N ), NB
-            CALL DLASWP( K-1, A( 1, 1 ), LDA, K,
-     $                  MIN (K+NB-1, MIN ( M, N )), IPIV, 1 )
+            CALL DLASWP( K-1, A( 1, 1 ), LDA, K, MIN (K+NB-1, MIN ( M, N )), IPIV, 1 )
    40    CONTINUE
 *
 *        Apply update to the M+1:N columns when N > M
@@ -124,16 +116,11 @@
 
                JB = MIN( M-K+1, NB )
 *
-               CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit',
-     $                    JB, N-M, ONE, A( K, K ), LDA,
-     $                    A( K, M+1 ), LDA )
+               CALL DTRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-M, ONE, A( K, K ), LDA, A( K, M+1 ), LDA )
 
 *
                IF ( K+NB.LE.M ) THEN
-                    CALL DGEMM( 'No transpose', 'No transpose',
-     $                         M-K-NB+1, N-M, NB, -ONE,
-     $                         A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE,
-     $                        A( K+NB, M+1 ), LDA )
+                    CALL DGEMM( 'No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA )
                END IF
    50       CONTINUE
          END IF

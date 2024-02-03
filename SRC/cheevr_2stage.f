@@ -1,7 +1,4 @@
-      SUBROUTINE CHEEVR_2STAGE( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU,
-     $                          IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ,
-     $                          WORK, LWORK, RWORK, LRWORK, IWORK,
-     $                          LIWORK, INFO )
+      SUBROUTINE CHEEVR_2STAGE( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -11,8 +8,7 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK,
-     $                   M, N
+      INTEGER            IL, INFO, IU, LDA, LDZ, LIWORK, LRWORK, LWORK, M, N
       REAL               ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
@@ -28,27 +24,19 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG,
-     $                   WANTZ, TRYRAC
+      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, TEST, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP,
-     $                   INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK,
-     $                   INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ,
-     $                   LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN,
-     $                   LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS
-      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IEEEOK, IINFO, IMAX, INDIBL, INDIFL, INDISP, INDIWO, INDRD, INDRDD, INDRE, INDREE, INDRWK, INDTAU, INDWK, INDWKN, ISCALE, ITMP1, J, JJ, LIWMIN, LLWORK, LLRWORK, LLWRKN, LRWMIN, LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS
+      REAL               ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ILAENV, ILAENV2STAGE
       REAL               SLAMCH, CLANSY, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, CLANSY, ILAENV, ILAENV2STAGE,
-     $                   SROUNDUP_LWORK 
+      EXTERNAL           LSAME, SLAMCH, CLANSY, ILAENV, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA, CSSCAL,
-     $                   CHETRD_2STAGE, CSTEMR, CSTEIN, CSWAP, CUNMTR
+      EXTERNAL           SCOPY, SSCAL, SSTEBZ, SSTERF, XERBLA, CSSCAL, CHETRD_2STAGE, CSTEMR, CSTEIN, CSWAP, CUNMTR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          REAL, MAX, MIN, SQRT
@@ -65,8 +53,7 @@
       VALEIG = LSAME( RANGE, 'V' )
       INDEIG = LSAME( RANGE, 'I' )
 *
-      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR.
-     $         ( LIWORK.EQ.-1 ) )
+      LQUERY = ( ( LWORK.EQ.-1 ) .OR. ( LRWORK.EQ.-1 ) .OR. ( LIWORK.EQ.-1 ) )
 *
       KD     = ILAENV2STAGE( 1, 'CHETRD_2STAGE', JOBZ, N, -1, -1, -1 )
       IB     = ILAENV2STAGE( 2, 'CHETRD_2STAGE', JOBZ, N, KD, -1, -1 )
@@ -96,8 +83,7 @@
          INFO = -6
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -8
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -9
@@ -147,8 +133,7 @@
             M = 1
             W( 1 ) = REAL( A( 1, 1 ) )
          ELSE
-            IF( VL.LT.REAL( A( 1, 1 ) ) .AND. VU.GE.REAL( A( 1, 1 ) ) )
-     $           THEN
+            IF( VL.LT.REAL( A( 1, 1 ) ) .AND. VU.GE.REAL( A( 1, 1 ) ) ) THEN
                M = 1
                W( 1 ) = REAL( A( 1, 1 ) )
             END IF
@@ -196,8 +181,7 @@
                CALL CSSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -250,10 +234,7 @@
 *
 *     Call CHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 *
-      CALL CHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, RWORK( INDRD ),
-     $                    RWORK( INDRE ), WORK( INDTAU ),
-     $                    WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWK ), LLWORK, IINFO )
+      CALL CHETRD_2STAGE( JOBZ, UPLO, N, A, LDA, RWORK( INDRD ), RWORK( INDRE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
 *
 *     If all eigenvalues are desired
 *     then call SSTERF or CSTEMR and CUNMTR.
@@ -278,11 +259,7 @@
             ELSE
                TRYRAC = .FALSE.
             END IF
-            CALL CSTEMR( JOBZ, 'A', N, RWORK( INDRDD ),
-     $                   RWORK( INDREE ), VL, VU, IL, IU, M, W,
-     $                   Z, LDZ, N, ISUPPZ, TRYRAC,
-     $                   RWORK( INDRWK ), LLRWORK,
-     $                   IWORK, LIWORK, INFO )
+            CALL CSTEMR( JOBZ, 'A', N, RWORK( INDRDD ), RWORK( INDREE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, RWORK( INDRWK ), LLRWORK, IWORK, LIWORK, INFO )
 *
 *           Apply unitary matrix used in reduction to tridiagonal
 *           form to eigenvectors returned by CSTEMR.
@@ -290,9 +267,7 @@
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDWK
                LLWRKN = LWORK - INDWKN + 1
-               CALL CUNMTR( 'L', UPLO, 'N', N, M, A, LDA,
-     $                      WORK( INDTAU ), Z, LDZ, WORK( INDWKN ),
-     $                      LLWRKN, IINFO )
+               CALL CUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
 *
@@ -312,25 +287,17 @@
       ELSE
          ORDER = 'E'
       END IF
-
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ),
-     $             IWORK( INDIWO ), INFO )
+       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, RWORK( INDRD ), RWORK( INDRE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL CSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ),
-     $                INFO )
+         CALL CSTEIN( N, RWORK( INDRD ), RWORK( INDRE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
 *        Apply unitary matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by CSTEIN.
 *
          INDWKN = INDWK
          LLWRKN = LWORK - INDWKN + 1
-         CALL CUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z,
-     $                LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         CALL CUNMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

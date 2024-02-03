@@ -1,5 +1,4 @@
-      SUBROUTINE ZPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX,
-     $                   RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,10 +10,7 @@
       DOUBLE PRECISION   RCOND
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ),
-     $                   RWORK( * )
-      COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX*16         B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -33,8 +29,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, XERBLA, ZCOPY, ZLACPY, ZPTCON, ZPTRFS,
-     $                   ZPTTRF, ZPTTRS
+      EXTERNAL           DCOPY, XERBLA, ZCOPY, ZLACPY, ZPTCON, ZPTRFS, ZPTTRF, ZPTTRS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -66,8 +61,7 @@
 *        Compute the L*D*L**H (or U**H*D*U) factorization of A.
 *
          CALL DCOPY( N, D, 1, DF, 1 )
-         IF( N.GT.1 )
-     $      CALL ZCOPY( N-1, E, 1, EF, 1 )
+         IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, EF, 1 )
          CALL ZPTTRF( N, DF, EF, INFO )
 *
 *        Return if INFO is non-zero.
@@ -94,13 +88,11 @@
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL ZPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR,
-     $             BERR, WORK, RWORK, INFO )
+      CALL ZPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.DLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.DLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

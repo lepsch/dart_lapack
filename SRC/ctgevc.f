@@ -1,5 +1,4 @@
-      SUBROUTINE CTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL,
-     $                   LDVL, VR, LDVR, MM, M, WORK, RWORK, INFO )
+      SUBROUTINE CTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL, LDVL, VR, LDVR, MM, M, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       REAL               RWORK( * )
-      COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ),
-     $                   VR( LDVR, * ), WORK( * )
+      COMPLEX            P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *
@@ -23,17 +21,10 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP,
-     $                   LSA, LSB
-      INTEGER            I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC,
-     $                   J, JE, JR
-      REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG,
-     $                   BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA,
-     $                   SCALE, SMALL, TEMP, ULP, XMAX
+      LOGICAL            COMPL, COMPR, ILALL, ILBACK, ILBBAD, ILCOMP, LSA, LSB       INTEGER            I, IBEG, IEIG, IEND, IHWMNY, IM, ISIDE, ISRC, J, JE, JR       REAL               ACOEFA, ACOEFF, ANORM, ASCALE, BCOEFA, BIG, BIGNUM, BNORM, BSCALE, DMIN, SAFMIN, SBETA, SCALE, SMALL, TEMP, ULP, XMAX
       COMPLEX            BCOEFF, CA, CB, D, SALPHA, SUM, SUMA, SUMB, X
 *     ..
 *     .. External Functions ..
@@ -112,8 +103,7 @@
       IF( .NOT.ILALL ) THEN
          IM = 0
          DO 10 J = 1, N
-            IF( SELECT( J ) )
-     $         IM = IM + 1
+            IF( SELECT( J ) ) IM = IM + 1
    10    CONTINUE
       ELSE
          IM = N
@@ -123,8 +113,7 @@
 *
       ILBBAD = .FALSE.
       DO 20 J = 1, N
-         IF( AIMAG( P( J, J ) ).NE.ZERO )
-     $      ILBBAD = .TRUE.
+         IF( AIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = .TRUE.
    20 CONTINUE
 *
       IF( ILBBAD ) THEN
@@ -144,8 +133,7 @@
 *     Quick return if possible
 *
       M = IM
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Machine Constants
 *
@@ -194,8 +182,7 @@
             IF( ILCOMP ) THEN
                IEIG = IEIG + 1
 *
-               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND.
-     $             ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
+               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
 *
 *                 Singular matrix pencil -- return unit eigenvector
 *
@@ -211,8 +198,7 @@
 *                   H
 *                 y  ( a A - b B ) = 0
 *
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE,
-     $                ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
+               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
                SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE
                ACOEFF = SBETA*ASCALE
@@ -221,19 +207,12 @@
 *              Scale to avoid underflow
 *
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT.
-     $               SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
 *
                SCALE = ONE
-               IF( LSA )
-     $            SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )
-               IF( LSB )
-     $            SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )*
-     $                    MIN( BNORM, BIG ) )
+               IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
                IF( LSA .OR. LSB ) THEN
-                  SCALE = MIN( SCALE, ONE /
-     $                    ( SAFMIN*MAX( ONE, ABS( ACOEFF ),
-     $                    ABS1( BCOEFF ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   IF( LSA ) THEN
                      ACOEFF = ASCALE*( SCALE*SBETA )
                   ELSE
@@ -270,8 +249,7 @@
 *                 (Scale if necessary)
 *
                   TEMP = ONE / XMAX
-                  IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM*
-     $                TEMP ) THEN
+                  IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) THEN
                      DO 70 JR = JE, J - 1
                         WORK( JR ) = TEMP*WORK( JR )
    70                CONTINUE
@@ -291,8 +269,7 @@
 *                 with scaling and perturbation of the denominator
 *
                   D = CONJG( ACOEFF*S( J, J )-BCOEFF*P( J, J ) )
-                  IF( ABS1( D ).LE.DMIN )
-     $               D = CMPLX( DMIN )
+                  IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
 *
                   IF( ABS1( D ).LT.ONE ) THEN
                      IF( ABS1( SUM ).GE.BIGNUM*ABS1( D ) ) THEN
@@ -311,8 +288,7 @@
 *              Back transform eigenvector if HOWMNY='B'.
 *
                IF( ILBACK ) THEN
-                  CALL CGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL,
-     $                        WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
+                  CALL CGEMV( 'N', N, N+1-JE, CONE, VL( 1, JE ), LDVL, WORK( JE ), 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IBEG = 1
                ELSE
@@ -360,8 +336,7 @@
             IF( ILCOMP ) THEN
                IEIG = IEIG - 1
 *
-               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND.
-     $             ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
+               IF( ABS1( S( JE, JE ) ).LE.SAFMIN .AND. ABS( REAL( P( JE, JE ) ) ).LE.SAFMIN ) THEN
 *
 *                 Singular matrix pencil -- return unit eigenvector
 *
@@ -377,8 +352,7 @@
 *
 *              ( a A - b B ) x  = 0
 *
-               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE,
-     $                ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
+               TEMP = ONE / MAX( ABS1( S( JE, JE ) )*ASCALE, ABS( REAL( P( JE, JE ) ) )*BSCALE, SAFMIN )
                SALPHA = ( TEMP*S( JE, JE ) )*ASCALE
                SBETA = ( TEMP*REAL( P( JE, JE ) ) )*BSCALE
                ACOEFF = SBETA*ASCALE
@@ -387,19 +361,12 @@
 *              Scale to avoid underflow
 *
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEFF ).LT.SMALL
-               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT.
-     $               SMALL
+               LSB = ABS1( SALPHA ).GE.SAFMIN .AND. ABS1( BCOEFF ).LT. SMALL
 *
                SCALE = ONE
-               IF( LSA )
-     $            SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )
-               IF( LSB )
-     $            SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )*
-     $                    MIN( BNORM, BIG ) )
+               IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS1( SALPHA ) )* MIN( BNORM, BIG ) )
                IF( LSA .OR. LSB ) THEN
-                  SCALE = MIN( SCALE, ONE /
-     $                    ( SAFMIN*MAX( ONE, ABS( ACOEFF ),
-     $                    ABS1( BCOEFF ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEFF ), ABS1( BCOEFF ) ) ) )
                   IF( LSA ) THEN
                      ACOEFF = ASCALE*( SCALE*SBETA )
                   ELSE
@@ -437,8 +404,7 @@
 *                 with scaling and perturbation of the denominator
 *
                   D = ACOEFF*S( J, J ) - BCOEFF*P( J, J )
-                  IF( ABS1( D ).LE.DMIN )
-     $               D = CMPLX( DMIN )
+                  IF( ABS1( D ).LE.DMIN ) D = CMPLX( DMIN )
 *
                   IF( ABS1( D ).LT.ONE ) THEN
                      IF( ABS1( WORK( J ) ).GE.BIGNUM*ABS1( D ) ) THEN
@@ -457,8 +423,7 @@
 *
                      IF( ABS1( WORK( J ) ).GT.ONE ) THEN
                         TEMP = ONE / ABS1( WORK( J ) )
-                        IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE.
-     $                      BIGNUM*TEMP ) THEN
+                        IF( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) THEN
                            DO 190 JR = 1, JE
                               WORK( JR ) = TEMP*WORK( JR )
   190                      CONTINUE
@@ -468,8 +433,7 @@
                      CA = ACOEFF*WORK( J )
                      CB = BCOEFF*WORK( J )
                      DO 200 JR = 1, J - 1
-                        WORK( JR ) = WORK( JR ) + CA*S( JR, J ) -
-     $                               CB*P( JR, J )
+                        WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J )
   200                CONTINUE
                   END IF
   210          CONTINUE
@@ -477,8 +441,7 @@
 *              Back transform eigenvector if HOWMNY='B'.
 *
                IF( ILBACK ) THEN
-                  CALL CGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1,
-     $                        CZERO, WORK( N+1 ), 1 )
+                  CALL CGEMV( 'N', N, JE, CONE, VR, LDVR, WORK, 1, CZERO, WORK( N+1 ), 1 )
                   ISRC = 2
                   IEND = N
                ELSE

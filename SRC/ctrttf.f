@@ -85,12 +85,10 @@
       IF( MOD( N, 2 ).EQ.0 ) THEN
          K = N / 2
          NISODD = .FALSE.
-         IF( .NOT.LOWER )
-     $      NP1X2 = N + N + 2
+         IF( .NOT.LOWER ) NP1X2 = N + N + 2
       ELSE
          NISODD = .TRUE.
-         IF( .NOT.LOWER )
-     $      NX2 = N + N
+         IF( .NOT.LOWER ) NX2 = N + N
       END IF
 *
       IF( NISODD ) THEN

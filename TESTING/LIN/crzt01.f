@@ -1,5 +1,4 @@
-      REAL             FUNCTION CRZT01( M, N, A, AF, LDA, TAU, WORK,
-     $                 LWORK )
+      REAL             FUNCTION CRZT01( M, N, A, AF, LDA, TAU, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ),
-     $                   WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -47,8 +45,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = CLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
@@ -63,21 +60,18 @@
 *
 *     R = R * P(1) * ... *P(m)
 *
-      CALL CUNMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU,
-     $             WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      CALL CUNMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
 *     R = R - A
 *
       DO 30 I = 1, N
-         CALL CAXPY( M, CMPLX( -ONE ), A( 1, I ), 1,
-     $               WORK( ( I-1 )*M+1 ), 1 )
+         CALL CAXPY( M, CMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 )
    30 CONTINUE
 *
       CRZT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK )
 *
       CRZT01 = CRZT01 / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO )
-     $   CRZT01 = CRZT01 / NORMA
+      IF( NORMA.NE.ZERO ) CRZT01 = CRZT01 / NORMA
 *
       RETURN
 *

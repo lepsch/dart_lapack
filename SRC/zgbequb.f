@@ -1,5 +1,4 @@
-      SUBROUTINE ZGBEQUB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $                    AMAX, INFO )
+      SUBROUTINE ZGBEQUB( M, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,8 +21,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, J, KD
-      DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX,
-     $                   LOGRDX
+      DOUBLE PRECISION   BIGNUM, RCMAX, RCMIN, SMLNUM, RADIX, LOGRDX
       COMPLEX*16         ZDUM
 *     ..
 *     .. External Functions ..

@@ -1,5 +1,4 @@
-      SUBROUTINE DQRT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE DQRT03( M, N, K, AF, C, CC, Q, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   AF( LDA, * ), C( LDA, * ), CC( LDA, * ),
-     $                   Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   AF( LDA, * ), C( LDA, * ), CC( LDA, * ), Q( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -81,8 +78,7 @@
             CALL DLARNV( 2, ISEED, MC, C( 1, J ) )
    10    CONTINUE
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
-         IF( CNORM.EQ.0.0D0 )
-     $      CNORM = ONE
+         IF( CNORM.EQ.0.0D0 ) CNORM = ONE
 *
          DO 20 ITRANS = 1, 2
             IF( ITRANS.EQ.1 ) THEN
@@ -98,24 +94,20 @@
 *           Apply Q or Q' to C
 *
             SRNAMT = 'DORMQR'
-            CALL DORMQR( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA,
-     $                   WORK, LWORK, INFO )
+            CALL DORMQR( SIDE, TRANS, MC, NC, K, AF, LDA, TAU, CC, LDA, WORK, LWORK, INFO )
 *
 *           Form explicit product and subtract
 *
             IF( LSAME( SIDE, 'L' ) ) THEN
-               CALL DGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q,
-     $                     LDA, C, LDA, ONE, CC, LDA )
+               CALL DGEMM( TRANS, 'No transpose', MC, NC, MC, -ONE, Q, LDA, C, LDA, ONE, CC, LDA )
             ELSE
-               CALL DGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C,
-     $                     LDA, Q, LDA, ONE, CC, LDA )
+               CALL DGEMM( 'No transpose', TRANS, MC, NC, NC, -ONE, C, LDA, Q, LDA, ONE, CC, LDA )
             END IF
 *
 *           Compute error in the difference
 *
             RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK )
-            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID /
-     $         ( DBLE( MAX( 1, M ) )*CNORM*EPS )
+            RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS )
 *
    20    CONTINUE
    30 CONTINUE

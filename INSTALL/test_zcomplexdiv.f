@@ -10,26 +10,17 @@
       integer           N, nNaN, nInf
       parameter       ( N = 4, nNaN = 3, nInf = 5 )
       double precision  threeFourth, fiveFourth
-      parameter       ( threeFourth = 3.0d0 / 4,
-     $                  fiveFourth = 5.0d0 / 4 )
+      parameter       ( threeFourth = 3.0d0 / 4, fiveFourth = 5.0d0 / 4 )
       double complex    czero, cone
-      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ),
-     $                  cone  = DCMPLX( 1.0d0, 0.0d0 ) )
+      parameter       ( czero = DCMPLX( 0.0d0, 0.0d0 ), cone  = DCMPLX( 1.0d0, 0.0d0 ) )
 *     ..
 *     .. Local Variables ..
-      integer           i, min, Max, m,
-     $                  subnormalTreatedAs0, caseAFails, caseBFails,
-     $                  caseCFails, caseDFails, caseEFails, caseFFails,
-     $                  caseInfFails, caseNaNFails, nFailingTests,
-     $                  nTests
-      double precision  X( N ), aInf, aNaN, b,
-     $                  eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N)
+      integer           i, min, Max, m, subnormalTreatedAs0, caseAFails, caseBFails, caseCFails, caseDFails, caseEFails, caseFFails, caseInfFails, caseNaNFails, nFailingTests, nTests
+      double precision  X( N ), aInf, aNaN, b, eps, blueMin, blueMax, OV, Xj, stepX(N), limX(N)
       double complex    Y, Y2, R, cInf( nInf ), cNaN( nNaN )
 *
 *     .. Intrinsic Functions ..
-      intrinsic         DCONJG, DBLE, RADIX, CEILING, TINY, DIGITS,
-     $                  MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX,
-     $                  EPSILON
+      intrinsic         DCONJG, DBLE, RADIX, CEILING, TINY, DIGITS, MAXEXPONENT, MINEXPONENT, FLOOR, HUGE, DCMPLX, EPSILON
 
 *
 *     .. Initialize error counts ..
@@ -132,8 +123,7 @@
                     if( caseAFails .eq. 1 ) then
                         print *, "!! Some (x+0*I)/(x+0*I) differ from 1"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'a',i, Xj,
-     $                                     '(x+0*I)/(x+0*I)', R, 1.0D0
+                    WRITE( 0, FMT = 9999 ) 'a',i, Xj, '(x+0*I)/(x+0*I)', R, 1.0D0
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -158,8 +148,7 @@
                     if( caseBFails .eq. 1 ) then
                         print *, "!! Some (0+x*I)/(0+x*I) differ from 1"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'b',i, Xj,
-     $                                     '(0+x*I)/(0+x*I)', R, 1.0D0
+                    WRITE( 0, FMT = 9999 ) 'b',i, Xj, '(0+x*I)/(0+x*I)', R, 1.0D0
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -184,8 +173,7 @@
                     if( caseCFails .eq. 1 ) then
                         print *, "!! Some (x+x*I)/(x+x*I) differ from 1"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'c',i, Xj,
-     $                                     '(x+x*I)/(x+x*I)', R, 1.0D0
+                    WRITE( 0, FMT = 9999 ) 'c',i, Xj, '(x+x*I)/(x+x*I)', R, 1.0D0
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -211,8 +199,7 @@
                     if( caseDFails .eq. 1 ) then
                         print *, "!! Some (0+x*I)/(x+0*I) differ from I"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'd',i, Xj, '(0+x*I)/(x+0*I)',
-     $                                      R, DCMPLX(0.0D0,1.0D0)
+                    WRITE( 0, FMT = 9999 ) 'd',i, Xj, '(0+x*I)/(x+0*I)', R, DCMPLX(0.0D0,1.0D0)
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -238,8 +225,7 @@
                     if( caseEFails .eq. 1 ) then
                         print *,"!! Some (x+0*I)/(0+x*I) differ from -I"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'e',i, Xj, '(x+0*I)/(0+x*I)',
-     $                                      R, DCMPLX(0.0D0,-1.0D0)
+                    WRITE( 0, FMT = 9999 ) 'e',i, Xj, '(x+0*I)/(0+x*I)', R, DCMPLX(0.0D0,-1.0D0)
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -264,8 +250,7 @@
                     if( caseFFails .eq. 1 ) then
                         print *, "!! Some (x+x*I)/(x-x*I) differ from I"
                     endif
-                    WRITE( 0, FMT = 9999 ) 'f',i, Xj, '(x+x*I)/(x-x*I)',
-     $                                      R, DCMPLX(0.0D0,1.0D0)
+                    WRITE( 0, FMT = 9999 ) 'f',i, Xj, '(x+x*I)/(x-x*I)', R, DCMPLX(0.0D0,1.0D0)
                 endif
                 Xj = Xj * stepX(i)
             end do
@@ -315,21 +300,15 @@
   80  continue
 *
 *     If any test fails, displays a message
-      nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails
-     $                + caseEFails + caseFFails + caseInfFails
-     $                + caseNaNFails
+      nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails
       if( nFailingTests .gt. 0 ) then
-         print *, "# ", nTests-nFailingTests, " tests out of ", nTests,
-     $            " pass for complex division,", nFailingTests," fail."
+         print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex division,", nFailingTests," fail."
       else
          print *, "# All tests pass for complex division."
       endif
 *
 *     If anything was written to stderr, print the message
-      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or.
-     $    (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or.
-     $    (caseEFails .gt. 0) .or. (caseFFails .gt. 0) )
-     $      print *, "# Please check the failed divisions in [stderr]"
+      if( (caseAFails .gt. 0) .or. (caseBFails .gt. 0) .or. (caseCFails .gt. 0) .or. (caseDFails .gt. 0) .or. (caseEFails .gt. 0) .or. (caseFFails .gt. 0) ) print *, "# Please check the failed divisions in [stderr]"
 *
 *     .. Formats ..
  9998 FORMAT( '[',A2,I1, '] ', (ES24.16E3,SP,ES24.16E3,"*I"), ' * ',

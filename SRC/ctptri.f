@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
@@ -57,14 +56,12 @@
             JJ = 0
             DO 10 INFO = 1, N
                JJ = JJ + INFO
-               IF( AP( JJ ).EQ.ZERO )
-     $            RETURN
+               IF( AP( JJ ).EQ.ZERO ) RETURN
    10       CONTINUE
          ELSE
             JJ = 1
             DO 20 INFO = 1, N
-               IF( AP( JJ ).EQ.ZERO )
-     $            RETURN
+               IF( AP( JJ ).EQ.ZERO ) RETURN
                JJ = JJ + N - INFO + 1
    20       CONTINUE
          END IF
@@ -86,8 +83,7 @@
 *
 *           Compute elements 1:j-1 of j-th column.
 *
-            CALL CTPMV( 'Upper', 'No transpose', DIAG, J-1, AP,
-     $                  AP( JC ), 1 )
+            CALL CTPMV( 'Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 )
             CALL CSCAL( J-1, AJJ, AP( JC ), 1 )
             JC = JC + J
    30    CONTINUE
@@ -108,8 +104,7 @@
 *
 *              Compute elements j+1:n of j-th column.
 *
-               CALL CTPMV( 'Lower', 'No transpose', DIAG, N-J,
-     $                     AP( JCLAST ), AP( JC+1 ), 1 )
+               CALL CTPMV( 'Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 )
                CALL CSCAL( N-J, AJJ, AP( JC+1 ), 1 )
             END IF
             JCLAST = JC

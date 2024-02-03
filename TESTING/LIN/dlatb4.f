@@ -1,5 +1,4 @@
-      SUBROUTINE DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                   CNDNUM, DIST )
+      SUBROUTINE DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -64,8 +63,7 @@
       DIST = 'S'
       MODE = 3
 *
-      IF( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR.
-     $    LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
+      IF( LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
 *        xQR, xLQ, xQL, xRQ:  Set parameters to generate a general
 *                             M x N matrix.
@@ -514,8 +512,7 @@
             ANORM = ONE
          END IF
       END IF
-      IF( N.LE.1 )
-     $   CNDNUM = ONE
+      IF( N.LE.1 ) CNDNUM = ONE
 *
       RETURN
 *

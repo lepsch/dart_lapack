@@ -1,24 +1,18 @@
-      SUBROUTINE CDRGSX( NSIZE, NCMAX, THRESH, NIN, NOUT, A, LDA, B,
-     $                   AI, BI, Z, Q, ALPHA, BETA, C, LDC, S, WORK,
-     $                   LWORK, RWORK, IWORK, LIWORK, BWORK, INFO )
+      SUBROUTINE CDRGSX( NSIZE, NCMAX, THRESH, NIN, NOUT, A, LDA, B, AI, BI, Z, Q, ALPHA, BETA, C, LDC, S, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN,
-     $                   NOUT, NSIZE
+      INTEGER            INFO, LDA, LDC, LIWORK, LWORK, NCMAX, NIN, NOUT, NSIZE
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            BWORK( * )
       INTEGER            IWORK( * )
       REAL               RWORK( * ), S( * )
-      COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ),
-     $                   B( LDA, * ), BETA( * ), BI( LDA, * ),
-     $                   C( LDC, * ), Q( LDA, * ), WORK( * ),
-     $                   Z( LDA, * )
+      COMPLEX            A( LDA, * ), AI( LDA, * ), ALPHA( * ), B( LDA, * ), BETA( * ), BI( LDA, * ), C( LDC, * ), Q( LDA, * ), WORK( * ), Z( LDA, * )
 *     ..
 *
 *  =====================================================================
@@ -32,11 +26,8 @@
 *     .. Local Scalars ..
       LOGICAL            ILABAD
       CHARACTER          SENSE
-      INTEGER            BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM,
-     $                   MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA,
-     $                   QBB
-      REAL               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1,
-     $                   TEMP2, THRSH2, ULP, ULPINV, WEIGHT
+      INTEGER            BDSPAC, I, IFUNC, J, LINFO, MAXWRK, MINWRK, MM, MN2, NERRS, NPTKNT, NTEST, NTESTT, PRTYPE, QBA, QBB
+      REAL               ABNRM, BIGNUM, DIFTRU, PLTRU, SMLNUM, TEMP1, TEMP2, THRSH2, ULP, ULPINV, WEIGHT
       COMPLEX            X
 *     ..
 *     .. Local Arrays ..
@@ -49,8 +40,7 @@
       EXTERNAL           CLCTSX, ILAENV, CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2,
-     $                   CLASET, CLATM5, XERBLA
+      EXTERNAL           ALASVM, CGESVD, CGET51, CGGESX, CLACPY, CLAKF2, CLASET, CLATM5, XERBLA
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            FS
@@ -101,17 +91,12 @@
 *
 *        workspace for cggesx
 *
-         MAXWRK = NSIZE*( 1+ILAENV( 1, 'CGEQRF', ' ', NSIZE, 1, NSIZE,
-     $            0 ) )
-         MAXWRK = MAX( MAXWRK, NSIZE*( 1+ILAENV( 1, 'CUNGQR', ' ',
-     $            NSIZE, 1, NSIZE, -1 ) ) )
+         MAXWRK = NSIZE*( 1+ILAENV( 1, 'CGEQRF', ' ', NSIZE, 1, NSIZE, 0 ) )          MAXWRK = MAX( MAXWRK, NSIZE*( 1+ILAENV( 1, 'CUNGQR', ' ', NSIZE, 1, NSIZE, -1 ) ) )
 *
 *        workspace for cgesvd
 *
          BDSPAC = 3*NSIZE*NSIZE / 2
-         MAXWRK = MAX( MAXWRK, NSIZE*NSIZE*
-     $            ( 1+ILAENV( 1, 'CGEBRD', ' ', NSIZE*NSIZE / 2,
-     $            NSIZE*NSIZE / 2, -1, -1 ) ) )
+         MAXWRK = MAX( MAXWRK, NSIZE*NSIZE* ( 1+ILAENV( 1, 'CGEBRD', ' ', NSIZE*NSIZE / 2, NSIZE*NSIZE / 2, -1, -1 ) ) )
          MAXWRK = MAX( MAXWRK, BDSPAC )
 *
          MAXWRK = MAX( MAXWRK, MINWRK )
@@ -119,8 +104,7 @@
          WORK( 1 ) = MAXWRK
       END IF
 *
-      IF( LWORK.LT.MINWRK )
-     $   INFO = -18
+      IF( LWORK.LT.MINWRK ) INFO = -18
 *
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CDRGSX', -INFO )
@@ -140,8 +124,7 @@
 *     Go to the tests for read-in matrix pairs
 *
       IFUNC = 0
-      IF( NSIZE.EQ.0 )
-     $   GO TO 70
+      IF( NSIZE.EQ.0 ) GO TO 70
 *
 *     Test the built-in matrix pairs.
 *     Loop over different functions (IFUNC) of CGGESX, types (PRTYPE)
@@ -165,15 +148,9 @@
                   FS = .TRUE.
                   K = 0
 *
-                  CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, AI,
-     $                         LDA )
-                  CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI,
-     $                         LDA )
+                  CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL CLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA )
 *
-                  CALL CLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ),
-     $                         LDA, AI( 1, M+1 ), LDA, BI, LDA,
-     $                         BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA,
-     $                         Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
+                  CALL CLATM5( PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB )
 *
 *                 Compute the Schur factorization and swapping the
 *                 m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
@@ -193,39 +170,23 @@
                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, A, LDA )
                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, B, LDA )
 *
-                  CALL CGGESX( 'V', 'V', 'S', CLCTSX, SENSE, MPLUSN, AI,
-     $                         LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z,
-     $                         LDA, PL, DIFEST, WORK, LWORK, RWORK,
-     $                         IWORK, LIWORK, BWORK, LINFO )
+                  CALL CGGESX( 'V', 'V', 'S', CLCTSX, SENSE, MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
 *
                   IF( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) THEN
                      RESULT( 1 ) = ULPINV
-                     WRITE( NOUT, FMT = 9999 )'CGGESX', LINFO, MPLUSN,
-     $                  PRTYPE
+                     WRITE( NOUT, FMT = 9999 )'CGGESX', LINFO, MPLUSN, PRTYPE
                      INFO = LINFO
                      GO TO 30
                   END IF
 *
 *                 Compute the norm(A, B)
 *
-                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK,
-     $                         MPLUSN )
-                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA,
-     $                         WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
-                  ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN,
-     $                    RWORK )
+                  CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 *
 *                 Do tests (1) to (4)
 *
                   RESULT( 2 ) = ZERO
-                  CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z,
-     $                         LDA, WORK, RWORK, RESULT( 1 ) )
-                  CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z,
-     $                         LDA, WORK, RWORK, RESULT( 2 ) )
-                  CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q,
-     $                         LDA, WORK, RWORK, RESULT( 3 ) )
-                  CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z,
-     $                         LDA, WORK, RWORK, RESULT( 4 ) )
+                  CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
                   NTEST = 4
 *
 *                 Do tests (5) and (6): check Schur form of A and
@@ -237,12 +198,7 @@
 *
                   DO 10 J = 1, MPLUSN
                      ILABAD = .FALSE.
-                     TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) /
-     $                       MAX( SMLNUM, ABS1( ALPHA( J ) ),
-     $                       ABS1( AI( J, J ) ) )+
-     $                       ABS1( BETA( J )-BI( J, J ) ) /
-     $                       MAX( SMLNUM, ABS1( BETA( J ) ),
-     $                       ABS1( BI( J, J ) ) ) ) / ULP
+                     TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
                      IF( J.LT.MPLUSN ) THEN
                         IF( AI( J+1, J ).NE.ZERO ) THEN
                            ILABAD = .TRUE.
@@ -283,25 +239,15 @@
 *                    Note: for either following two cases, there are
 *                    almost same number of test cases fail the test.
 *
-                     CALL CLAKF2( MM, MPLUSN-MM, AI, LDA,
-     $                            AI( MM+1, MM+1 ), BI,
-     $                            BI( MM+1, MM+1 ), C, LDC )
+                     CALL CLAKF2( MM, MPLUSN-MM, AI, LDA, AI( MM+1, MM+1 ), BI, BI( MM+1, MM+1 ), C, LDC )
 *
-                     CALL CGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK,
-     $                            1, WORK( 2 ), 1, WORK( 3 ), LWORK-2,
-     $                            RWORK, INFO )
+                     CALL CGESVD( 'N', 'N', MN2, MN2, C, LDC, S, WORK, 1, WORK( 2 ), 1, WORK( 3 ), LWORK-2, RWORK, INFO )
                      DIFTRU = S( MN2 )
 *
                      IF( DIFEST( 2 ).EQ.ZERO ) THEN
-                        IF( DIFTRU.GT.ABNRM*ULP )
-     $                     RESULT( 8 ) = ULPINV
+                        IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
                      ELSE IF( DIFTRU.EQ.ZERO ) THEN
-                        IF( DIFEST( 2 ).GT.ABNRM*ULP )
-     $                     RESULT( 8 ) = ULPINV
-                     ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR.
-     $                        ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN
-                        RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ),
-     $                                DIFEST( 2 ) / DIFTRU )
+                        IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV                      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN                         RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
                      END IF
                      NTEST = NTEST + 1
                   END IF
@@ -310,12 +256,7 @@
 *
                   RESULT( 9 ) = ZERO
                   IF( LINFO.EQ.( MPLUSN+2 ) ) THEN
-                     IF( DIFTRU.GT.ABNRM*ULP )
-     $                  RESULT( 9 ) = ULPINV
-                     IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) )
-     $                  RESULT( 9 ) = ULPINV
-                     IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) )
-     $                  RESULT( 9 ) = ULPINV
+                     IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV                      IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
                      NTEST = NTEST + 1
                   END IF
 *
@@ -338,17 +279,14 @@
 *
 *                          Tests performed
 *
-                           WRITE( NOUT, FMT = 9993 )'unitary', '''',
-     $                        'transpose', ( '''', I = 1, 4 )
+                           WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 )
 *
                         END IF
                         NERRS = NERRS + 1
                         IF( RESULT( J ).LT.10000.0 ) THEN
-                           WRITE( NOUT, FMT = 9992 )MPLUSN, PRTYPE,
-     $                        WEIGHT, M, J, RESULT( J )
+                           WRITE( NOUT, FMT = 9992 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         ELSE
-                           WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE,
-     $                        WEIGHT, M, J, RESULT( J )
+                           WRITE( NOUT, FMT = 9991 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         END IF
                      END IF
    20             CONTINUE
@@ -369,8 +307,7 @@
 *
    80 CONTINUE
       READ( NIN, FMT = *, END = 140 )MPLUSN
-      IF( MPLUSN.EQ.0 )
-     $   GO TO 140
+      IF( MPLUSN.EQ.0 ) GO TO 140
       READ( NIN, FMT = *, END = 140 )N
       DO 90 I = 1, MPLUSN
          READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN )
@@ -391,9 +328,7 @@
 *     Compute the Schur factorization while swapping the
 *     m-by-m (1,1)-blocks with n-by-n (2,2)-blocks.
 *
-      CALL CGGESX( 'V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA,
-     $             MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK,
-     $             LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
+      CALL CGGESX( 'V', 'V', 'S', CLCTSX, 'B', MPLUSN, AI, LDA, BI, LDA, MM, ALPHA, BETA, Q, LDA, Z, LDA, PL, DIFEST, WORK, LWORK, RWORK, IWORK, LIWORK, BWORK, LINFO )
 *
       IF( LINFO.NE.0 .AND. LINFO.NE.MPLUSN+2 ) THEN
          RESULT( 1 ) = ULPINV
@@ -405,20 +340,12 @@
 *        (should this be norm of (A,B) or (AI,BI)?)
 *
       CALL CLACPY( 'Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )
-      CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA,
-     $             WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
+      CALL CLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )
       ABNRM = CLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK )
 *
 *     Do tests (1) to (4)
 *
-      CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK,
-     $             RWORK, RESULT( 1 ) )
-      CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK,
-     $             RWORK, RESULT( 2 ) )
-      CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK,
-     $             RWORK, RESULT( 3 ) )
-      CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK,
-     $             RWORK, RESULT( 4 ) )
+      CALL CGET51( 1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )       CALL CGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )       CALL CGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) )
 *
 *     Do tests (5) and (6): check Schur form of A and compare
 *     eigenvalues with diagonals.
@@ -430,11 +357,7 @@
 *
       DO 110 J = 1, MPLUSN
          ILABAD = .FALSE.
-         TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) /
-     $           MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+
-     $           ABS1( BETA( J )-BI( J, J ) ) /
-     $           MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) )
-     $            / ULP
+         TEMP2 = ( ABS1( ALPHA( J )-AI( J, J ) ) / MAX( SMLNUM, ABS1( ALPHA( J ) ), ABS1( AI( J, J ) ) )+ ABS1( BETA( J )-BI( J, J ) ) / MAX( SMLNUM, ABS1( BETA( J ) ), ABS1( BI( J, J ) ) ) ) / ULP
          IF( J.LT.MPLUSN ) THEN
             IF( AI( J+1, J ).NE.ZERO ) THEN
                ILABAD = .TRUE.
@@ -458,21 +381,16 @@
 *
       NTEST = 7
       RESULT( 7 ) = ZERO
-      IF( LINFO.EQ.MPLUSN+3 )
-     $   RESULT( 7 ) = ULPINV
+      IF( LINFO.EQ.MPLUSN+3 ) RESULT( 7 ) = ULPINV
 *
 *     Test (8): compare the estimated value of DIF and its true value.
 *
       NTEST = 8
       RESULT( 8 ) = ZERO
       IF( DIFEST( 2 ).EQ.ZERO ) THEN
-         IF( DIFTRU.GT.ABNRM*ULP )
-     $      RESULT( 8 ) = ULPINV
+         IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV
       ELSE IF( DIFTRU.EQ.ZERO ) THEN
-         IF( DIFEST( 2 ).GT.ABNRM*ULP )
-     $      RESULT( 8 ) = ULPINV
-      ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR.
-     $         ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN
+         IF( DIFEST( 2 ).GT.ABNRM*ULP ) RESULT( 8 ) = ULPINV       ELSE IF( ( DIFTRU.GT.THRSH2*DIFEST( 2 ) ) .OR. ( DIFTRU*THRSH2.LT.DIFEST( 2 ) ) ) THEN
          RESULT( 8 ) = MAX( DIFTRU / DIFEST( 2 ), DIFEST( 2 ) / DIFTRU )
       END IF
 *
@@ -481,12 +399,7 @@
       NTEST = 9
       RESULT( 9 ) = ZERO
       IF( LINFO.EQ.( MPLUSN+2 ) ) THEN
-         IF( DIFTRU.GT.ABNRM*ULP )
-     $      RESULT( 9 ) = ULPINV
-         IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) )
-     $      RESULT( 9 ) = ULPINV
-         IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) )
-     $      RESULT( 9 ) = ULPINV
+         IF( DIFTRU.GT.ABNRM*ULP ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.GT.1 ) .AND. ( DIFEST( 2 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV          IF( ( IFUNC.EQ.1 ) .AND. ( PL( 1 ).NE.ZERO ) ) RESULT( 9 ) = ULPINV
       END IF
 *
 *     Test (10): compare the estimated value of PL and it true value.
@@ -494,13 +407,9 @@
       NTEST = 10
       RESULT( 10 ) = ZERO
       IF( PL( 1 ).EQ.ZERO ) THEN
-         IF( PLTRU.GT.ABNRM*ULP )
-     $      RESULT( 10 ) = ULPINV
+         IF( PLTRU.GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV
       ELSE IF( PLTRU.EQ.ZERO ) THEN
-         IF( PL( 1 ).GT.ABNRM*ULP )
-     $      RESULT( 10 ) = ULPINV
-      ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR.
-     $         ( PLTRU*THRESH.LT.PL( 1 ) ) ) THEN
+         IF( PL( 1 ).GT.ABNRM*ULP ) RESULT( 10 ) = ULPINV       ELSE IF( ( PLTRU.GT.THRESH*PL( 1 ) ) .OR. ( PLTRU*THRESH.LT.PL( 1 ) ) ) THEN
          RESULT( 10 ) = ULPINV
       END IF
 *
@@ -523,8 +432,7 @@
 *
 *              Tests performed
 *
-               WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose',
-     $            ( '''', I = 1, 4 )
+               WRITE( NOUT, FMT = 9993 )'unitary', '''', 'transpose', ( '''', I = 1, 4 )
 *
             END IF
             NERRS = NERRS + 1

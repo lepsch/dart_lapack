@@ -15,9 +15,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), WORK( : ), T(:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
+      COMPLEX*16, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), WORK( : ), T(:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:), LQ(:,:)
       DOUBLE PRECISION, ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
@@ -67,9 +65,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L),
-     $           C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M), LQ(L,N) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M), LQ(L,N) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -92,20 +88,15 @@
       CALL ZGEQR( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
@@ -116,8 +107,7 @@
 *
       CALL ZLASET( 'Full', M, M, CZERO, ONE, Q, M )
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M,
-     $              WORK, LWORK, INFO )
+      CALL ZGEMQR( 'L', 'N', M, M, K, AF, M, T, TSIZE, Q, M, WORK, LWORK, INFO )
 *
 *     Copy R
 *
@@ -153,8 +143,7 @@
 *     Apply Q to C as Q*C
 *
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMQR( 'L', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -173,8 +162,7 @@
 *     Apply Q to C as QT*C
 *
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMQR( 'L', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -197,8 +185,7 @@
 *     Apply Q to D as D*Q
 *
       srnamt = 'ZGEMQR'
-      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMQR( 'R', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -216,8 +203,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMQR( 'R', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |D*QT - D*QT| / |D|
 *
@@ -235,20 +221,15 @@
       CALL ZGELQ( M, N, AF, M, TQUERY, -1, WORKQUERY, -1, INFO )
       TSIZE = INT( TQUERY( 1 ) )
       LWORK = INT( WORKQUERY( 1 ) )
-      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N,
-     $              WORKQUERY, -1, INFO )
+      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, TQUERY, TSIZE, Q, N, WORKQUERY, -1, INFO )
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, TQUERY, TSIZE, DF, N, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
-      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M,
-     $             WORKQUERY, -1, INFO)
+      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, TQUERY, TSIZE, CF, M, WORKQUERY, -1, INFO)
       LWORK = MAX( LWORK, INT( WORKQUERY( 1 ) ) )
       ALLOCATE ( T( TSIZE ) )
       ALLOCATE ( WORK( LWORK ) )
@@ -260,8 +241,7 @@
 *
       CALL ZLASET( 'Full', N, N, CZERO, ONE, Q, N )
       srnamt = 'ZGEMLQ'
-      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N,
-     $              WORK, LWORK, INFO )
+      CALL ZGEMLQ( 'R', 'N', N, N, K, AF, M, T, TSIZE, Q, N, WORK, LWORK, INFO )
 *
 *     Copy R
 *
@@ -296,8 +276,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMLQ( 'L', 'N', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |Q*D - Q*D| / |D|
 *
@@ -315,8 +294,7 @@
 *
 *     Apply Q to D as QT*D
 *
-      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, T, TSIZE, DF, N,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMLQ( 'L', 'C', N, M, K, AF, M, T, TSIZE, DF, N, WORK, LWORK, INFO)
 *
 *     Compute |QT*D - QT*D| / |D|
 *
@@ -338,8 +316,7 @@
 *
 *     Apply Q to C as C*Q
 *
-      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMLQ( 'R', 'N', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |C*Q - C*Q| / |C|
 *
@@ -357,8 +334,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, T, TSIZE, CF, M,
-     $             WORK, LWORK, INFO)
+      CALL ZGEMLQ( 'R', 'C', M, N, K, AF, M, T, TSIZE, CF, M, WORK, LWORK, INFO)
 *
 *     Compute |C*QT - C*QT| / |C|
 *

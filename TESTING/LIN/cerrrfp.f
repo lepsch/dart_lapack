@@ -20,9 +20,7 @@
       COMPLEX            A( 1, 1), B( 1, 1)
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CTFSM, CTFTRI, CHFRK, CTFTTP, CTFTTR,
-     +                   CPFTRI, CPFTRF, CPFTRS, CTPTTF, CTPTTR, CTRTTF,
-     +                   CTRTTP
+      EXTERNAL           CHKXER, CTFSM, CTFTRI, CHFRK, CTFTTP, CTFTTR, CPFTRI, CPFTRF, CPFTRS, CTPTTF, CTPTTR, CTRTTF, CTRTTP
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

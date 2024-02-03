@@ -1,5 +1,4 @@
-      SUBROUTINE CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ,
-     $                   IHIZ, Z, LDZ, WORK, LWORK, INFO )
+      SUBROUTINE CLAQR0( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, WORK, LWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -39,18 +38,14 @@
       REAL               WILK1
       PARAMETER          ( WILK1 = 0.75e0 )
       COMPLEX            ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ),
-     $                   ONE = ( 1.0e0, 0.0e0 ) )
+      PARAMETER          ( ZERO = ( 0.0e0, 0.0e0 ), ONE = ( 1.0e0, 0.0e0 ) )
       REAL               TWO
       PARAMETER          ( TWO = 2.0e0 )
 *     ..
 *     .. Local Scalars ..
       COMPLEX            AA, BB, CC, CDUM, DD, DET, RTDISC, SWAP, TR2
       REAL               S
-      INTEGER            I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS,
-     $                   KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS,
-     $                   LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS,
-     $                   NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
+      INTEGER            I, INF, IT, ITMAX, K, KACC22, KBOT, KDU, KS, KT, KTOP, KU, KV, KWH, KWTOP, KWV, LD, LS, LWKOPT, NDEC, NDFL, NH, NHO, NIBBLE, NMIN, NS, NSMAX, NSR, NVE, NW, NWMAX, NWR, NWUPBD
       LOGICAL            SORTED
       CHARACTER          JBCMPZ*2
 *     ..
@@ -65,8 +60,7 @@
       EXTERNAL           CLACPY, CLAHQR, CLAQR3, CLAQR4, CLAQR5
 *     ..
 *     .. Intrinsic Functions ..
-      INTRINSIC          ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL,
-     $                   SQRT
+      INTRINSIC          ABS, AIMAG, CMPLX, INT, MAX, MIN, MOD, REAL, SQRT
 *     ..
 *     .. Statement Functions ..
       REAL               CABS1
@@ -89,9 +83,7 @@
 *        ==== Tiny matrices must use CLAHQR. ====
 *
          LWKOPT = 1
-         IF( LWORK.NE.-1 )
-     $      CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ,
-     $                   IHIZ, Z, LDZ, INFO )
+         IF( LWORK.NE.-1 ) CALL CLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO )
       ELSE
 *
 *        ==== Use small bulge multi-shift QR with aggressive early
@@ -137,9 +129,7 @@
 *
 *        ==== Workspace query call to CLAQR3 ====
 *
-         CALL CLAQR3( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ,
-     $                IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H,
-     $                LDH, WORK, -1 )
+         CALL CLAQR3( WANTT, WANTZ, N, ILO, IHI, NWR+1, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H, LDH, N, H, LDH, N, H, LDH, WORK, -1 )
 *
 *        ==== Optimal workspace = MAX(CLAQR5, CLAQR3) ====
 *
@@ -199,14 +189,12 @@
 *
 *           ==== Done when KBOT falls below ILO ====
 *
-            IF( KBOT.LT.ILO )
-     $         GO TO 80
+            IF( KBOT.LT.ILO ) GO TO 80
 *
 *           ==== Locate active block ====
 *
             DO 10 K = KBOT, ILO + 1, -1
-               IF( H( K, K-1 ).EQ.ZERO )
-     $            GO TO 20
+               IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
    10       CONTINUE
             K = ILO
    20       CONTINUE
@@ -240,16 +228,14 @@
                   NW = NH
                ELSE
                   KWTOP = KBOT - NW + 1
-                  IF( CABS1( H( KWTOP, KWTOP-1 ) ).GT.
-     $                CABS1( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
+                  IF( CABS1( H( KWTOP, KWTOP-1 ) ).GT. CABS1( H( KWTOP-1, KWTOP-2 ) ) )NW = NW + 1
                END IF
             END IF
             IF( NDFL.LT.KEXNW ) THEN
                NDEC = -1
             ELSE IF( NDEC.GE.0 .OR. NW.GE.NWUPBD ) THEN
                NDEC = NDEC + 1
-               IF( NW-NDEC.LT.2 )
-     $            NDEC = 0
+               IF( NW-NDEC.LT.2 ) NDEC = 0
                NW = NW - NDEC
             END IF
 *
@@ -272,10 +258,7 @@
 *
 *           ==== Aggressive early deflation ====
 *
-            CALL CLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ,
-     $                   IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO,
-     $                   H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK,
-     $                   LWORK )
+            CALL CLAQR3( WANTT, WANTZ, N, KTOP, KBOT, NW, H, LDH, ILOZ, IHIZ, Z, LDZ, LS, LD, W, H( KV, 1 ), LDH, NHO, H( KV, KT ), LDH, NVE, H( KWV, 1 ), LDH, WORK, LWORK )
 *
 *           ==== Adjust KBOT accounting for new deflations. ====
 *
@@ -291,8 +274,7 @@
 *           .    skipped if many eigenvalues have just been deflated
 *           .    or if the remaining active block is small.
 *
-            IF( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT-
-     $          KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) THEN
+            IF( ( LD.EQ.0 ) .OR. ( ( 100*LD.LE.NW*NIBBLE ) .AND. ( KBOT- KTOP+1.GT.MIN( NMIN, NWMAX ) ) ) ) THEN
 *
 *              ==== NS = nominal number of simultaneous shifts.
 *              .    This may be lowered (slightly) if CLAQR3
@@ -325,16 +307,11 @@
                   IF( KBOT-KS+1.LE.NS / 2 ) THEN
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     CALL CLACPY( 'A', NS, NS, H( KS, KS ), LDH,
-     $                            H( KT, 1 ), LDH )
+                     CALL CLACPY( 'A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )
                      IF( NS.GT.NMIN ) THEN
-                        CALL CLAQR4( .false., .false., NS, 1, NS,
-     $                               H( KT, 1 ), LDH, W( KS ), 1, 1,
-     $                               ZDUM, 1, WORK, LWORK, INF )
+                        CALL CLAQR4( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, WORK, LWORK, INF )
                      ELSE
-                        CALL CLAHQR( .false., .false., NS, 1, NS,
-     $                               H( KT, 1 ), LDH, W( KS ), 1, 1,
-     $                               ZDUM, 1, INF )
+                        CALL CLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF )
                      END IF
                      KS = KS + INF
 *
@@ -346,10 +323,7 @@
 *                    .    because H(KBOT,KBOT-1) is nonzero.) ====
 *
                      IF( KS.GE.KBOT ) THEN
-                        S = CABS1( H( KBOT-1, KBOT-1 ) ) +
-     $                      CABS1( H( KBOT, KBOT-1 ) ) +
-     $                      CABS1( H( KBOT-1, KBOT ) ) +
-     $                      CABS1( H( KBOT, KBOT ) )
+                        S = CABS1( H( KBOT-1, KBOT-1 ) ) + CABS1( H( KBOT, KBOT-1 ) ) + CABS1( H( KBOT-1, KBOT ) ) + CABS1( H( KBOT, KBOT ) )
                         AA = H( KBOT-1, KBOT-1 ) / S
                         CC = H( KBOT, KBOT-1 ) / S
                         BB = H( KBOT-1, KBOT ) / S
@@ -370,12 +344,10 @@
 *
                      SORTED = .false.
                      DO 50 K = KBOT, KS + 1, -1
-                        IF( SORTED )
-     $                     GO TO 60
+                        IF( SORTED ) GO TO 60
                         SORTED = .true.
                         DO 40 I = KS, K - 1
-                           IF( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) )
-     $                          THEN
+                           IF( CABS1( W( I ) ).LT.CABS1( W( I+1 ) ) ) THEN
                               SORTED = .false.
                               SWAP = W( I )
                               W( I ) = W( I+1 )
@@ -391,8 +363,7 @@
 *              .    only one.  ====
 *
                IF( KBOT-KS+1.EQ.2 ) THEN
-                  IF( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT.
-     $                CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
+                  IF( CABS1( W( KBOT )-H( KBOT, KBOT ) ).LT. CABS1( W( KBOT-1 )-H( KBOT, KBOT ) ) ) THEN
                      W( KBOT-1 ) = W( KBOT )
                   ELSE
                      W( KBOT ) = W( KBOT-1 )
@@ -428,10 +399,7 @@
 *
 *              ==== Small-bulge multi-shift QR sweep ====
 *
-               CALL CLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS,
-     $                      W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK,
-     $                      3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH,
-     $                      NHO, H( KU, KWH ), LDH )
+               CALL CLAQR5( WANTT, WANTZ, KACC22, N, KTOP, KBOT, NS, W( KS ), H, LDH, ILOZ, IHIZ, Z, LDZ, WORK, 3, H( KU, 1 ), LDH, NVE, H( KWV, 1 ), LDH, NHO, H( KU, KWH ), LDH )
             END IF
 *
 *           ==== Note progress (or the lack of it). ====

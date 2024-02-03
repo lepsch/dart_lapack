@@ -1,5 +1,4 @@
-      SUBROUTINE CHETRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU,
-     $                          HOUS2, LHOUS2, WORK, LWORK, INFO )
+      SUBROUTINE CHETRD_2STAGE( VECT, UPLO, N, A, LDA, D, E, TAU, HOUS2, LHOUS2, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -13,8 +12,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               D( * ), E( * )
-      COMPLEX            A( LDA, * ), TAU( * ),
-     $                   HOUS2( * ), WORK( * )
+      COMPLEX            A( LDA, * ), TAU( * ), HOUS2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -92,15 +90,12 @@
       LWRK  = LWORK-LDAB*N
       ABPOS = 1
       WPOS  = ABPOS + LDAB*N
-      CALL CHETRD_HE2HB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB,
-     $                   TAU, WORK( WPOS ), LWRK, INFO )
+      CALL CHETRD_HE2HB( UPLO, N, KD, A, LDA, WORK( ABPOS ), LDAB, TAU, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CHETRD_HE2HB', -INFO )
          RETURN
       END IF
-      CALL CHETRD_HB2ST( 'Y', VECT, UPLO, N, KD,
-     $                   WORK( ABPOS ), LDAB, D, E,
-     $                   HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
+      CALL CHETRD_HB2ST( 'Y', VECT, UPLO, N, KD, WORK( ABPOS ), LDAB, D, E, HOUS2, LHOUS2, WORK( WPOS ), LWRK, INFO )
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'CHETRD_HB2ST', -INFO )
          RETURN

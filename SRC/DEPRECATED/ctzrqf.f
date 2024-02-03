@@ -15,8 +15,7 @@
 *
 *     .. Parameters ..
       COMPLEX            CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, K, M1
@@ -26,8 +25,7 @@
       INTRINSIC          CONJG, MAX, MIN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGEMV, CGERC, CLACGV, CLARFG,
-     $                   XERBLA
+      EXTERNAL           CAXPY, CCOPY, CGEMV, CGERC, CLACGV, CLARFG, XERBLA
 *     ..
 *     .. Executable Statements ..
 *
@@ -48,8 +46,7 @@
 *
 *     Perform the factorization.
 *
-      IF( M.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 ) RETURN
       IF( M.EQ.N ) THEN
          DO 10 I = 1, N
             TAU( I ) = CZERO
@@ -81,16 +78,12 @@
 *
 *              Form   w = a( k ) + B*z( k )  in TAU.
 *
-               CALL CGEMV( 'No transpose', K-1, N-M, CONE, A( 1, M1 ),
-     $                     LDA, A( K, M1 ), LDA, CONE, TAU, 1 )
+               CALL CGEMV( 'No transpose', K-1, N-M, CONE, A( 1, M1 ), LDA, A( K, M1 ), LDA, CONE, TAU, 1 )
 *
 *              Now form  a( k ) := a( k ) - conjg(tau)*w
 *              and       B      := B      - conjg(tau)*w*z( k )**H.
 *
-               CALL CAXPY( K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ),
-     $                     1 )
-               CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1,
-     $                     A( K, M1 ), LDA, A( 1, M1 ), LDA )
+               CALL CAXPY( K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA )
             END IF
    20    CONTINUE
       END IF

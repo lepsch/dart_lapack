@@ -1,5 +1,4 @@
-      SUBROUTINE SGEQLS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE SGEQLS( M, N, NRHS, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), TAU( * ),
-     $                   WORK( LWORK )
+      REAL               A( LDA, * ), B( LDB, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -40,8 +38,7 @@
          INFO = -5
       ELSE IF( LDB.LT.MAX( 1, M ) ) THEN
          INFO = -8
-      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 )
-     $          THEN
+      ELSE IF( LWORK.LT.1 .OR. LWORK.LT.NRHS .AND. M.GT.0 .AND. N.GT.0 ) THEN
          INFO = -10
       END IF
       IF( INFO.NE.0 ) THEN
@@ -51,18 +48,15 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 .OR. M.EQ.0 ) RETURN
 *
 *     B := Q' * B
 *
-      CALL SORMQL( 'Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB,
-     $             WORK, LWORK, INFO )
+      CALL SORMQL( 'Left', 'Transpose', M, NRHS, N, A, LDA, TAU, B, LDB, WORK, LWORK, INFO )
 *
 *     Solve L*X = B(m-n+1:m,:)
 *
-      CALL STRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS,
-     $            ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB )
+      CALL STRSM( 'Left', 'Lower', 'No transpose', 'Non-unit', N, NRHS, ONE, A( M-N+1, 1 ), LDA, B( M-N+1, 1 ), LDB )
 *
       RETURN
 *

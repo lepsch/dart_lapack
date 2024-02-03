@@ -1,6 +1,4 @@
-      SUBROUTINE SGEEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, WR, WI,
-     $                   VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM,
-     $                   RCONDE, RCONDV, WORK, LWORK, IWORK, INFO )
+      SUBROUTINE SGEEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, WR, WI, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, IWORK, INFO )
       implicit none
 *
 *  -- LAPACK driver routine --
@@ -14,9 +12,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      REAL               A( LDA, * ), RCONDE( * ), RCONDV( * ),
-     $                   SCALE( * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WI( * ), WORK( * ), WR( * )
+      REAL               A( LDA, * ), RCONDE( * ), RCONDV( * ), SCALE( * ), VL( LDVL, * ), VR( LDVR, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
 *  =====================================================================
@@ -26,29 +22,22 @@
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE,
-     $                   WNTSNN, WNTSNV
+      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV
       CHARACTER          JOB, SIDE
-      INTEGER            HSWORK, I, ICOND, IERR, ITAU, IWRK, K,
-     $                   LWORK_TREVC, MAXWRK, MINWRK, NOUT
-      REAL               ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM,
-     $                   SN
+      INTEGER            HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT       REAL               ANRM, BIGNUM, CS, CSCALE, EPS, R, SCL, SMLNUM, SN
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( 1 )
       REAL               DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY,
-     $                   SLARTG, SLASCL, SORGHR, SROT, SSCAL, STREVC3,
-     $                   STRSNA, XERBLA
+      EXTERNAL           SGEBAK, SGEBAL, SGEHRD, SHSEQR, SLACPY, SLARTG, SLASCL, SORGHR, SROT, SSCAL, STREVC3, STRSNA, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ISAMAX, ILAENV
       REAL               SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SLANGE, SLAPY2,
-     $                   SNRM2, SROUNDUP_LWORK
+      EXTERNAL           LSAME, ISAMAX, ILAENV, SLAMCH, SLANGE, SLAPY2, SNRM2, SROUNDUP_LWORK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -65,17 +54,13 @@
       WNTSNE = LSAME( SENSE, 'E' )
       WNTSNV = LSAME( SENSE, 'V' )
       WNTSNB = LSAME( SENSE, 'B' )
-      IF( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' )
-     $      .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) )
-     $     THEN
+      IF( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
          INFO = -1
       ELSE IF( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) THEN
          INFO = -2
       ELSE IF( ( .NOT.WANTVR ) .AND. ( .NOT.LSAME( JOBVR, 'N' ) ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR.
-     $         ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND.
-     $         WANTVR ) ) ) THEN
+      ELSE IF( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND. WANTVR ) ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -105,48 +90,34 @@
             MAXWRK = N + N*ILAENV( 1, 'SGEHRD', ' ', N, 1, N, 0 )
 *
             IF( WANTVL ) THEN
-               CALL STREVC3( 'L', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR,
-     $                       N, NOUT, WORK, -1, IERR )
+               CALL STREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL,
-     $                WORK, -1, INFO )
+               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
             ELSE IF( WANTVR ) THEN
-               CALL STREVC3( 'R', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR,
-     $                       N, NOUT, WORK, -1, IERR )
+               CALL STREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + LWORK_TREVC )
-               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR,
-     $                WORK, -1, INFO )
+               CALL SHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
             ELSE
                IF( WNTSNN ) THEN
-                  CALL SHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR,
-     $                LDVR, WORK, -1, INFO )
+                  CALL SHSEQR( 'E', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                ELSE
-                  CALL SHSEQR( 'S', 'N', N, 1, N, A, LDA, WR, WI, VR,
-     $                LDVR, WORK, -1, INFO )
+                  CALL SHSEQR( 'S', 'N', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
                END IF
             END IF
             HSWORK = INT( WORK(1) )
 *
             IF( ( .NOT.WANTVL ) .AND. ( .NOT.WANTVR ) ) THEN
                MINWRK = 2*N
-               IF( .NOT.WNTSNN )
-     $            MINWRK = MAX( MINWRK, N*N+6*N )
+               IF( .NOT.WNTSNN ) MINWRK = MAX( MINWRK, N*N+6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               IF( .NOT.WNTSNN )
-     $            MAXWRK = MAX( MAXWRK, N*N + 6*N )
+               IF( .NOT.WNTSNN ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
             ELSE
                MINWRK = 3*N
-               IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) )
-     $            MINWRK = MAX( MINWRK, N*N + 6*N )
+               IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR',
-     $                       ' ', N, 1, N, -1 ) )
-               IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) )
-     $            MAXWRK = MAX( MAXWRK, N*N + 6*N )
+               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'SORGHR', ' ', N, 1, N, -1 ) )                IF( ( .NOT.WNTSNN ) .AND. ( .NOT.WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 6*N )
                MAXWRK = MAX( MAXWRK, 3*N )
             END IF
             MAXWRK = MAX( MAXWRK, MINWRK )
@@ -167,8 +138,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -190,8 +160,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       END IF
-      IF( SCALEA )
-     $   CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      IF( SCALEA ) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *     Balance the matrix and compute ABNRM
 *
@@ -208,8 +177,7 @@
 *
       ITAU = 1
       IWRK = ITAU + N
-      CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ),
-     $             LWORK-IWRK+1, IERR )
+      CALL SGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
       IF( WANTVL ) THEN
 *
@@ -222,15 +190,13 @@
 *        Generate orthogonal matrix in VL
 *        (Workspace: need 2*N-1, prefer N+(N-1)*NB)
 *
-         CALL SORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL SORGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VL
 *        (Workspace: need 1, prefer HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
          IF( WANTVR ) THEN
 *
@@ -252,15 +218,13 @@
 *        Generate orthogonal matrix in VR
 *        (Workspace: need 2*N-1, prefer N+(N-1)*NB)
 *
-         CALL SORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL SORGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VR
 *        (Workspace: need 1, prefer HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL SHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
       ELSE
 *
@@ -276,39 +240,33 @@
 *        (Workspace: need 1, prefer HSWORK (see comments) )
 *
          IWRK = ITAU
-         CALL SHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL SHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, WR, WI, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
       END IF
 *
 *     If INFO .NE. 0 from SHSEQR, then quit
 *
-      IF( INFO.NE.0 )
-     $   GO TO 50
+      IF( INFO.NE.0 ) GO TO 50
 *
       IF( WANTVL .OR. WANTVR ) THEN
 *
 *        Compute left and/or right eigenvectors
 *        (Workspace: need 3*N, prefer N + 2*N*NB)
 *
-         CALL STREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR,
-     $                 N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
+         CALL STREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, IERR )
       END IF
 *
 *     Compute condition numbers if desired
 *     (Workspace: need N*N+6*N unless SENSE = 'E')
 *
       IF( .NOT.WNTSNN ) THEN
-         CALL STRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR,
-     $                RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, IWORK,
-     $                ICOND )
+         CALL STRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, IWORK, ICOND )
       END IF
 *
       IF( WANTVL ) THEN
 *
 *        Undo balancing of left eigenvectors
 *
-         CALL SGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL,
-     $                IERR )
+         CALL SGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR )
 *
 *        Normalize left eigenvectors and make largest component real
 *
@@ -317,8 +275,7 @@
                SCL = ONE / SNRM2( N, VL( 1, I ), 1 )
                CALL SSCAL( N, SCL, VL( 1, I ), 1 )
             ELSE IF( WI( I ).GT.ZERO ) THEN
-               SCL = ONE / SLAPY2( SNRM2( N, VL( 1, I ), 1 ),
-     $               SNRM2( N, VL( 1, I+1 ), 1 ) )
+               SCL = ONE / SLAPY2( SNRM2( N, VL( 1, I ), 1 ), SNRM2( N, VL( 1, I+1 ), 1 ) )
                CALL SSCAL( N, SCL, VL( 1, I ), 1 )
                CALL SSCAL( N, SCL, VL( 1, I+1 ), 1 )
                DO 10 K = 1, N
@@ -336,8 +293,7 @@
 *
 *        Undo balancing of right eigenvectors
 *
-         CALL SGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR,
-     $                IERR )
+         CALL SGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR )
 *
 *        Normalize right eigenvectors and make largest component real
 *
@@ -346,8 +302,7 @@
                SCL = ONE / SNRM2( N, VR( 1, I ), 1 )
                CALL SSCAL( N, SCL, VR( 1, I ), 1 )
             ELSE IF( WI( I ).GT.ZERO ) THEN
-               SCL = ONE / SLAPY2( SNRM2( N, VR( 1, I ), 1 ),
-     $               SNRM2( N, VR( 1, I+1 ), 1 ) )
+               SCL = ONE / SLAPY2( SNRM2( N, VR( 1, I ), 1 ), SNRM2( N, VR( 1, I+1 ), 1 ) )
                CALL SSCAL( N, SCL, VR( 1, I ), 1 )
                CALL SSCAL( N, SCL, VR( 1, I+1 ), 1 )
                DO 30 K = 1, N
@@ -365,19 +320,11 @@
 *
    50 CONTINUE
       IF( SCALEA ) THEN
-         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ),
-     $                MAX( N-INFO, 1 ), IERR )
-         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ),
-     $                MAX( N-INFO, 1 ), IERR )
+         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR )
          IF( INFO.EQ.0 ) THEN
-            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 )
-     $         CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N,
-     $                      IERR )
+            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          ELSE
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N,
-     $                   IERR )
-            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N,
-     $                   IERR )
+            CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR )
          END IF
       END IF
 *

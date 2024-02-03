@@ -1,5 +1,4 @@
-      SUBROUTINE ZUNBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI,
-     $                    TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO )
+      SUBROUTINE ZUNBDB1( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   PHI(*), THETA(*)
-      COMPLEX*16         TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*),
-     $                   X11(LDX11,*), X21(LDX21,*)
+      COMPLEX*16         TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
 *     ..
 *
 *  ====================================================================
@@ -22,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       DOUBLE PRECISION   C, S
-      INTEGER            CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5,
-     $                   LWORKMIN, LWORKOPT
+      INTEGER            CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT
       LOGICAL            LQUERY
 *     ..
 *     .. External Subroutines ..
@@ -88,30 +85,19 @@
          S = SIN( THETA(I) )
          X11(I,I) = ONE
          X21(I,I) = ONE
-         CALL ZLARF( 'L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)),
-     $               X11(I,I+1), LDX11, WORK(ILARF) )
-         CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)),
-     $               X21(I,I+1), LDX21, WORK(ILARF) )
+         CALL ZLARF( 'L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )          CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) )
 *
          IF( I .LT. Q ) THEN
-            CALL ZDROT( Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C,
-     $                  S )
+            CALL ZDROT( Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S )
             CALL ZLACGV( Q-I, X21(I,I+1), LDX21 )
             CALL ZLARFGP( Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) )
             S = DBLE( X21(I,I+1) )
             X21(I,I+1) = ONE
-            CALL ZLARF( 'R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I),
-     $                  X11(I+1,I+1), LDX11, WORK(ILARF) )
-            CALL ZLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I),
-     $                  X21(I+1,I+1), LDX21, WORK(ILARF) )
+            CALL ZLARF( 'R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL ZLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) )
             CALL ZLACGV( Q-I, X21(I,I+1), LDX21 )
-            C = SQRT( DZNRM2( P-I, X11(I+1,I+1), 1 )**2
-     $          + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
+            C = SQRT( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
             PHI(I) = ATAN2( S, C )
-            CALL ZUNBDB5( P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1,
-     $                    X21(I+1,I+1), 1, X11(I+1,I+2), LDX11,
-     $                    X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5,
-     $                    CHILDINFO )
+            CALL ZUNBDB5( P-I, M-P-I, Q-I-1, X11(I+1,I+1), 1, X21(I+1,I+1), 1, X11(I+1,I+2), LDX11, X21(I+1,I+2), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
          END IF
 *
       END DO

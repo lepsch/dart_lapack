@@ -17,9 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ONE, ZERO, HALF
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   HALF = ( 0.5E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       COMPLEX            ALPHA
@@ -33,8 +31,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( TAU.EQ.ZERO )
-     $   RETURN
+      IF( TAU.EQ.ZERO ) RETURN
 *
 *     Form  w:= C * v
 *

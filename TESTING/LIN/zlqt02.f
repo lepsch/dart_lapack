@@ -1,5 +1,4 @@
-      SUBROUTINE ZLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE ZLQT02( M, N, K, A, AF, Q, L, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( * ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ),
-     $                   Q( LDA, * ), TAU( * ), WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), L( LDA, * ), Q( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -58,15 +56,12 @@
 *
 *     Copy L(1:k,1:m)
 *
-      CALL ZLASET( 'Full', K, M, DCMPLX( ZERO ), DCMPLX( ZERO ), L,
-     $             LDA )
+      CALL ZLASET( 'Full', K, M, DCMPLX( ZERO ), DCMPLX( ZERO ), L, LDA )
       CALL ZLACPY( 'Lower', K, M, AF, LDA, L, LDA )
 *
 *     Compute L(1:k,1:m) - A(1:k,1:n) * Q(1:m,1:n)'
 *
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', K, M, N,
-     $            DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L,
-     $            LDA )
+      CALL ZGEMM( 'No transpose', 'Conjugate transpose', K, M, N, DCMPLX( -ONE ), A, LDA, Q, LDA, DCMPLX( ONE ), L, LDA )
 *
 *     Compute norm( L - A*Q' ) / ( N * norm(A) * EPS ) .
 *
@@ -81,8 +76,7 @@
 *     Compute I - Q*Q'
 *
       CALL ZLASET( 'Full', M, M, DCMPLX( ZERO ), DCMPLX( ONE ), L, LDA )
-      CALL ZHERK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L,
-     $            LDA )
+      CALL ZHERK( 'Upper', 'No transpose', M, N, -ONE, Q, LDA, ONE, L, LDA )
 *
 *     Compute norm( I - Q*Q' ) / ( N * EPS ) .
 *

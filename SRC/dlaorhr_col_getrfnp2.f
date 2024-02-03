@@ -51,8 +51,7 @@
 *
 *     Quick return if possible
 *
-      IF( MIN( M, N ).EQ.0 )
-     $   RETURN
+      IF( MIN( M, N ).EQ.0 ) RETURN
 
       IF ( M.EQ.1 ) THEN
 *
@@ -110,24 +109,20 @@
 *
 *        Solve for B21
 *
-         CALL DTRSM( 'R', 'U', 'N', 'N', M-N1, N1, ONE, A, LDA,
-     $               A( N1+1, 1 ), LDA )
+         CALL DTRSM( 'R', 'U', 'N', 'N', M-N1, N1, ONE, A, LDA, A( N1+1, 1 ), LDA )
 *
 *        Solve for B12
 *
-         CALL DTRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA,
-     $               A( 1, N1+1 ), LDA )
+         CALL DTRSM( 'L', 'L', 'N', 'U', N1, N2, ONE, A, LDA, A( 1, N1+1 ), LDA )
 *
 *        Update B22, i.e. compute the Schur complement
 *        B22 := B22 - B21*B12
 *
-         CALL DGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA,
-     $               A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
+         CALL DGEMM( 'N', 'N', M-N1, N2, N1, -ONE, A( N1+1, 1 ), LDA, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
 *
 *        Factor B22, recursive call
 *
-         CALL DLAORHR_COL_GETRFNP2( M-N1, N2, A( N1+1, N1+1 ), LDA,
-     $                              D( N1+1 ), IINFO )
+         CALL DLAORHR_COL_GETRFNP2( M-N1, N2, A( N1+1, N1+1 ), LDA, D( N1+1 ), IINFO )
 *
       END IF
       RETURN

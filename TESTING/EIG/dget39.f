@@ -18,10 +18,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N,
-     $                   NDIM
-      DOUBLE PRECISION   BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID,
-     $                   SCALE, SMLNUM, W, XNORM
+      INTEGER            I, INFO, IVM1, IVM2, IVM3, IVM4, IVM5, J, K, N, NDIM       DOUBLE PRECISION   BIGNUM, DOMIN, DUMM, EPS, NORM, NORMTB, RESID, SCALE, SMLNUM, W, XNORM
 *     ..
 *     .. External Functions ..
       INTEGER            IDAMAX
@@ -36,20 +33,11 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IDIM( 6 ), IVAL( 5, 5, 6 )
-      DOUBLE PRECISION   B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ),
-     $                   VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ),
-     $                   VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 )
+      DOUBLE PRECISION   B( LDT ), D( LDT2 ), DUM( 1 ), T( LDT, LDT ), VM1( 5 ), VM2( 5 ), VM3( 5 ), VM4( 5 ), VM5( 3 ), WORK( LDT ), X( LDT2 ), Y( LDT2 )
 *     ..
 *     .. Data statements ..
       DATA               IDIM / 4, 5*5 /
-      DATA               IVAL / 3, 4*0, 1, 1, -1, 0, 0, 3, 2, 1, 0, 0,
-     $                   4, 3, 2, 2, 0, 5*0, 1, 4*0, 2, 2, 3*0, 3, 3, 4,
-     $                   0, 0, 4, 2, 2, 3, 0, 4*1, 5, 1, 4*0, 2, 4, -2,
-     $                   0, 0, 3, 3, 4, 0, 0, 4, 2, 2, 3, 0, 5*1, 1,
-     $                   4*0, 2, 1, -1, 0, 0, 9, 8, 1, 0, 0, 4, 9, 1, 2,
-     $                   -1, 5*2, 9, 4*0, 6, 4, 0, 0, 0, 3, 2, 1, 1, 0,
-     $                   5, 1, -1, 1, 0, 5*2, 4, 4*0, 2, 2, 0, 0, 0, 1,
-     $                   4, 4, 0, 0, 2, 4, 2, 2, -1, 5*2 /
+      DATA               IVAL / 3, 4*0, 1, 1, -1, 0, 0, 3, 2, 1, 0, 0, 4, 3, 2, 2, 0, 5*0, 1, 4*0, 2, 2, 3*0, 3, 3, 4, 0, 0, 4, 2, 2, 3, 0, 4*1, 5, 1, 4*0, 2, 4, -2, 0, 0, 3, 3, 4, 0, 0, 4, 2, 2, 3, 0, 5*1, 1, 4*0, 2, 1, -1, 0, 0, 9, 8, 1, 0, 0, 4, 9, 1, 2, -1, 5*2, 9, 4*0, 6, 4, 0, 0, 0, 3, 2, 1, 1, 0, 5, 1, -1, 1, 0, 5*2, 4, 4*0, 2, 2, 0, 0, 0, 1, 4, 4, 0, 0, 2, 4, 2, 2, -1, 5*2 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -108,10 +96,7 @@
                         N = IDIM( NDIM )
                         DO 20 I = 1, N
                            DO 10 J = 1, N
-                              T( I, J ) = DBLE( IVAL( I, J, NDIM ) )*
-     $                                    VM1( IVM1 )
-                              IF( I.GE.J )
-     $                           T( I, J ) = T( I, J )*VM5( IVM5 )
+                              T( I, J ) = DBLE( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I.GE.J ) T( I, J ) = T( I, J )*VM5( IVM5 )
    10                      CONTINUE
    20                   CONTINUE
 *
@@ -131,21 +116,16 @@
 *
                         CALL DCOPY( N, D, 1, X, 1 )
                         KNT = KNT + 1
-                        CALL DLAQTR( .FALSE., .TRUE., N, T, LDT, DUM,
-     $                               DUMM, SCALE, X, WORK, INFO )
-                        IF( INFO.NE.0 )
-     $                     NINFO = NINFO + 1
+                        CALL DLAQTR( .FALSE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
 *                       || T*x - scale*d || /
 *                         max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 *
                         CALL DCOPY( N, D, 1, Y, 1 )
-                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT,
-     $                              X, 1, -SCALE, Y, 1 )
+                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
                         XNORM = DASUM( N, X, 1 )
                         RESID = DASUM( N, Y, 1 )
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM,
-     $                          ( NORM*EPS )*XNORM )
+                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
                         IF( RESID.GT.RMAX ) THEN
                            RMAX = RESID
@@ -154,21 +134,16 @@
 *
                         CALL DCOPY( N, D, 1, X, 1 )
                         KNT = KNT + 1
-                        CALL DLAQTR( .TRUE., .TRUE., N, T, LDT, DUM,
-     $                               DUMM, SCALE, X, WORK, INFO )
-                        IF( INFO.NE.0 )
-     $                     NINFO = NINFO + 1
+                        CALL DLAQTR( .TRUE., .TRUE., N, T, LDT, DUM, DUMM, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
 *                       || T*x - scale*d || /
 *                         max(ulp*||T||*||x||,smlnum/ulp*||T||,smlnum)
 *
                         CALL DCOPY( N, D, 1, Y, 1 )
-                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X,
-     $                              1, -SCALE, Y, 1 )
+                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X, 1, -SCALE, Y, 1 )
                         XNORM = DASUM( N, X, 1 )
                         RESID = DASUM( N, Y, 1 )
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM,
-     $                          ( NORM*EPS )*XNORM )
+                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORM, ( NORM*EPS )*XNORM )
                         RESID = RESID / DOMIN
                         IF( RESID.GT.RMAX ) THEN
                            RMAX = RESID
@@ -177,10 +152,7 @@
 *
                         CALL DCOPY( 2*N, D, 1, X, 1 )
                         KNT = KNT + 1
-                        CALL DLAQTR( .FALSE., .FALSE., N, T, LDT, B, W,
-     $                               SCALE, X, WORK, INFO )
-                        IF( INFO.NE.0 )
-     $                     NINFO = NINFO + 1
+                        CALL DLAQTR( .FALSE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
 *                       ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
 *                          max(ulp*(||T||+||B||)*(||x1||+||x2||),
@@ -188,25 +160,20 @@
 *
 *
                         CALL DCOPY( 2*N, D, 1, Y, 1 )
-                        Y( 1 ) = DDOT( N, B, 1, X( 1+N ), 1 ) +
-     $                           SCALE*Y( 1 )
+                        Y( 1 ) = DDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 )
                         DO 50 I = 2, N
                            Y( I ) = W*X( I+N ) + SCALE*Y( I )
    50                   CONTINUE
-                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT,
-     $                              X, 1, -ONE, Y, 1 )
+                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 )
 *
-                        Y( 1+N ) = DDOT( N, B, 1, X, 1 ) -
-     $                             SCALE*Y( 1+N )
+                        Y( 1+N ) = DDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N )
                         DO 60 I = 2, N
                            Y( I+N ) = W*X( I ) - SCALE*Y( I+N )
    60                   CONTINUE
-                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT,
-     $                              X( 1+N ), 1, ONE, Y( 1+N ), 1 )
+                        CALL DGEMV( 'No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 )
 *
                         RESID = DASUM( 2*N, Y, 1 )
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB,
-     $                          EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
+                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
                         IF( RESID.GT.RMAX ) THEN
                            RMAX = RESID
@@ -215,10 +182,7 @@
 *
                         CALL DCOPY( 2*N, D, 1, X, 1 )
                         KNT = KNT + 1
-                        CALL DLAQTR( .TRUE., .FALSE., N, T, LDT, B, W,
-     $                               SCALE, X, WORK, INFO )
-                        IF( INFO.NE.0 )
-     $                     NINFO = NINFO + 1
+                        CALL DLAQTR( .TRUE., .FALSE., N, T, LDT, B, W, SCALE, X, WORK, INFO )                         IF( INFO.NE.0 ) NINFO = NINFO + 1
 *
 *                       ||(T+i*B)*(x1+i*x2) - scale*(d1+i*d2)|| /
 *                          max(ulp*(||T||+||B||)*(||x1||+||x2||),
@@ -227,23 +191,18 @@
                         CALL DCOPY( 2*N, D, 1, Y, 1 )
                         Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 )
                         DO 70 I = 2, N
-                           Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) -
-     $                              SCALE*Y( I )
+                           Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I )
    70                   CONTINUE
-                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X,
-     $                              1, ONE, Y, 1 )
+                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 )
 *
                         Y( 1+N ) = B( 1 )*X( 1 ) + SCALE*Y( 1+N )
                         DO 80 I = 2, N
-                           Y( I+N ) = B( I )*X( 1 ) + W*X( I ) +
-     $                                SCALE*Y( I+N )
+                           Y( I+N ) = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N )
    80                   CONTINUE
-                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT,
-     $                              X( 1+N ), 1, -ONE, Y( 1+N ), 1 )
+                        CALL DGEMV( 'Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 )
 *
                         RESID = DASUM( 2*N, Y, 1 )
-                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB,
-     $                          EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
+                        DOMIN = MAX( SMLNUM, ( SMLNUM / EPS )*NORMTB, EPS*( NORMTB*DASUM( 2*N, X, 1 ) ) )
                         RESID = RESID / DOMIN
                         IF( RESID.GT.RMAX ) THEN
                            RMAX = RESID

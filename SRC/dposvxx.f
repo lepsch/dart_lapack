@@ -1,7 +1,4 @@
-      SUBROUTINE DPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED,
-     $                    S, B, LDB, X, LDX, RCOND, RPVGRW, BERR,
-     $                    N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP,
-     $                    NPARAMS, PARAMS, WORK, IWORK, INFO )
+      SUBROUTINE DPOSVXX( FACT, UPLO, N, NRHS, A, LDA, AF, LDAF, EQUED, S, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,17 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, UPLO
-      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS,
-     $                   N_ERR_BNDS
+      INTEGER            INFO, LDA, LDAF, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       DOUBLE PRECISION   RCOND, RPVGRW
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ),
-     $                   X( LDX, * ), WORK( * )
-      DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ),
-     $                   ERR_BNDS_NORM( NRHS, * ),
-     $                   ERR_BNDS_COMP( NRHS, * )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDAF, * ), B( LDB, * ), X( LDX, * ), WORK( * )       DOUBLE PRECISION   S( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
 *  ==================================================================
@@ -30,17 +22,14 @@
       INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
       INTEGER            CMP_ERR_I, PIV_GROWTH_I
-      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2,
-     $                   BERR_I = 3 )
+      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8,
-     $                   PIV_GROWTH_I = 9 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            EQUIL, NOFACT, RCEQU
       INTEGER            INFEQU, J
-      DOUBLE PRECISION   AMAX, BIGNUM, SMIN, SMAX,
-     $                   SCOND, SMLNUM
+      DOUBLE PRECISION   AMAX, BIGNUM, SMIN, SMAX, SCOND, SMLNUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, DLAMCH, DLA_PORPVGRW
@@ -48,8 +37,7 @@
       DOUBLE PRECISION   DLAMCH, DLA_PORPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DPOEQUB, DPOTRF, DPOTRS, DLACPY, DLAQSY,
-     $                   XERBLA, DLASCL2, DPORFSX
+      EXTERNAL           DPOEQUB, DPOTRF, DPOTRS, DLACPY, DLAQSY, XERBLA, DLASCL2, DPORFSX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -76,11 +64,9 @@
 *
 *     Test the input parameters.  PARAMS is not tested until DPORFSX.
 *
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.
-     $     LSAME( FACT, 'F' ) ) THEN
+      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND.
-     $         .NOT.LSAME( UPLO, 'L' ) ) THEN
+      ELSE IF( .NOT.LSAME( UPLO, 'U' ) .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -90,8 +76,7 @@
          INFO = -6
       ELSE IF( LDAF.LT.MAX( 1, N ) ) THEN
          INFO = -8
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT.
-     $        ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -9
       ELSE
          IF ( RCEQU ) THEN
@@ -173,9 +158,7 @@
 *     Use iterative refinement to improve the computed solution and
 *     compute error bounds and backward error estimates for it.
 *
-      CALL DPORFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF,
-     $     S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM,
-     $     ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
+      CALL DPORFSX( UPLO, EQUED, N, NRHS, A, LDA, AF, LDAF, S, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, IWORK, INFO )
 
 *
 *     Scale solutions.

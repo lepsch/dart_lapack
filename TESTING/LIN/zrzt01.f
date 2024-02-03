@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION ZRZT01( M, N, A, AF, LDA, TAU, WORK,
-     $                 LWORK )
+      DOUBLE PRECISION FUNCTION ZRZT01( M, N, A, AF, LDA, TAU, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ),
-     $                   WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -47,15 +45,13 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = ZLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
 *     Copy upper triangle R
 *
-      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK,
-     $             M )
+      CALL ZLASET( 'Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), WORK, M )
       DO 20 J = 1, M
          DO 10 I = 1, J
             WORK( ( J-1 )*M+I ) = AF( I, J )
@@ -64,21 +60,18 @@
 *
 *     R = R * P(1) * ... *P(m)
 *
-      CALL ZUNMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU,
-     $             WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      CALL ZUNMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
 *     R = R - A
 *
       DO 30 I = 1, N
-         CALL ZAXPY( M, DCMPLX( -ONE ), A( 1, I ), 1,
-     $               WORK( ( I-1 )*M+1 ), 1 )
+         CALL ZAXPY( M, DCMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 )
    30 CONTINUE
 *
       ZRZT01 = ZLANGE( 'One-norm', M, N, WORK, M, RWORK )
 *
       ZRZT01 = ZRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO )
-     $   ZRZT01 = ZRZT01 / NORMA
+      IF( NORMA.NE.ZERO ) ZRZT01 = ZRZT01 / NORMA
 *
       RETURN
 *

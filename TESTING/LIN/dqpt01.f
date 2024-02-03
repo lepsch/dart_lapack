@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DQPT01( M, N, K, A, AF, LDA, TAU, JPVT,
-     $                 WORK, LWORK )
+      DOUBLE PRECISION FUNCTION DQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            JPVT( * )
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -50,8 +48,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
@@ -80,21 +77,16 @@
          CALL DCOPY( M, AF( 1, J ), 1, WORK( ( J-1 )*M+1 ), 1 )
       END DO
 *
-      CALL DORMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK,
-     $             M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      CALL DORMQR( 'Left', 'No transpose', M, N, K, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
       DO J = 1, N
 *
 *        Compare J-th column of QR and JPVT(J)-th column of A.
 *
-         CALL DAXPY( M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ),
-     $               1 )
+         CALL DAXPY( M, -ONE, A( 1, JPVT( J ) ), 1, WORK( ( J-1 )*M+1 ), 1 )
       END DO
 *
-      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) /
-     $         ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )
-      IF( NORMA.NE.ZERO )
-     $   DQPT01 = DQPT01 / NORMA
+      DQPT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK ) / ( DBLE( MAX( M, N ) )*DLAMCH( 'Epsilon' ) )       IF( NORMA.NE.ZERO ) DQPT01 = DQPT01 / NORMA
 *
       RETURN
 *

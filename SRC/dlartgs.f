@@ -30,8 +30,7 @@
 *     Compute the first column of B**T*B - SIGMA^2*I, up to a scale
 *     factor.
 *
-      IF( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR.
-     $          (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) THEN
+      IF( (SIGMA .EQ. ZERO .AND. ABS(X) .LT. THRESH) .OR. (ABS(X) .EQ. SIGMA .AND. Y .EQ. ZERO) ) THEN
          Z = ZERO
          W = ZERO
       ELSE IF( SIGMA .EQ. ZERO ) THEN

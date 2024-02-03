@@ -23,8 +23,7 @@
       DOUBLE PRECISION   ALPHA, TAU, WA, WB, WN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DGEMV, DGER, DLARNV, DSCAL, DSYMV,
-     $                   DSYR2, XERBLA
+      EXTERNAL           DAXPY, DGEMV, DGER, DLARNV, DSCAL, DSYMV, DSYR2, XERBLA
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DDOT, DNRM2
@@ -84,8 +83,7 @@
 *
 *        compute  y := tau * A * u
 *
-         CALL DSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO,
-     $               WORK( N+1 ), 1 )
+         CALL DSYMV( 'Lower', N-I+1, TAU, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )
 *
 *        compute  v := y - 1/2 * tau * ( y, u ) * u
 *
@@ -94,8 +92,7 @@
 *
 *        apply the transformation as a rank-2 update to A(i:n,i:n)
 *
-         CALL DSYR2( 'Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1,
-     $               A( I, I ), LDA )
+         CALL DSYR2( 'Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA )
    40 CONTINUE
 *
 *     Reduce number of subdiagonals to K
@@ -117,17 +114,13 @@
 *
 *        apply reflection to A(k+i:n,i+1:k+i-1) from the left
 *
-         CALL DGEMV( 'Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA,
-     $               A( K+I, I ), 1, ZERO, WORK, 1 )
-         CALL DGER( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1,
-     $              A( K+I, I+1 ), LDA )
+         CALL DGEMV( 'Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL DGER( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA )
 *
 *        apply reflection to A(k+i:n,k+i:n) from the left and the right
 *
 *        compute  y := tau * A * u
 *
-         CALL DSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA,
-     $               A( K+I, I ), 1, ZERO, WORK, 1 )
+         CALL DSYMV( 'Lower', N-K-I+1, TAU, A( K+I, K+I ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )
 *
 *        compute  v := y - 1/2 * tau * ( y, u ) * u
 *
@@ -136,8 +129,7 @@
 *
 *        apply symmetric rank-2 update to A(k+i:n,k+i:n)
 *
-         CALL DSYR2( 'Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1,
-     $               A( K+I, K+I ), LDA )
+         CALL DSYR2( 'Lower', N-K-I+1, -ONE, A( K+I, I ), 1, WORK, 1, A( K+I, K+I ), LDA )
 *
          A( K+I, I ) = -WA
          DO 50 J = K + I + 1, N

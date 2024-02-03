@@ -80,8 +80,7 @@
          MA = MIN( ITEMP, M )
          CALL CGEQR2( M, MA, A, LDA, TAU, WORK, INFO )
          IF( MA.LT.N ) THEN
-            CALL CUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A,
-     $                   LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
+            CALL CUNM2R( 'Left', 'Conjugate transpose', M, N-MA, MA, A, LDA, TAU, A( 1, MA+1 ), LDA, WORK, INFO )
          END IF
       END IF
 *
@@ -115,8 +114,7 @@
 *           Generate elementary reflector H(i)
 *
             AII = A( I, I )
-            CALL CLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1,
-     $                   TAU( I ) )
+            CALL CLARFG( M-I+1, AII, A( MIN( I+1, M ), I ), 1, TAU( I ) )
             A( I, I ) = AII
 *
             IF( I.LT.N ) THEN
@@ -125,8 +123,7 @@
 *
                AII = A( I, I )
                A( I, I ) = CMPLX( ONE )
-               CALL CLARF( 'Left', M-I+1, N-I, A( I, I ), 1,
-     $                     CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
+               CALL CLARF( 'Left', M-I+1, N-I, A( I, I ), 1, CONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK )
                A( I, I ) = AII
             END IF
 *

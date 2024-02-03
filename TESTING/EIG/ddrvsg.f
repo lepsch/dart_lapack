@@ -1,22 +1,17 @@
-      SUBROUTINE DDRVSG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, B, LDB, D, Z, LDZ, AB, BB, AP,
-     $                   BP, WORK, NWORK, IWORK, LIWORK, RESULT, INFO )
+      SUBROUTINE DDRVSG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, B, LDB, D, Z, LDZ, AB, BB, AP, BP, WORK, NWORK, IWORK, LIWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES,
-     $                   NTYPES, NWORK
+      INTEGER            INFO, LDA, LDB, LDZ, LIWORK, NOUNIT, NSIZES, NTYPES, NWORK
       DOUBLE PRECISION   THRESH
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), AB( LDA, * ), AP( * ),
-     $                   B( LDB, * ), BB( LDB, * ), BP( * ), D( * ),
-     $                   RESULT( * ), WORK( * ), Z( LDZ, * )
+      DOUBLE PRECISION   A( LDA, * ), AB( LDA, * ), AP( * ), B( LDB, * ), BB( LDB, * ), BP( * ), D( * ), RESULT( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -30,17 +25,11 @@
 *     .. Local Scalars ..
       LOGICAL            BADNN
       CHARACTER          UPLO
-      INTEGER            I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP,
-     $                   ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB,
-     $                   KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST,
-     $                   NTESTT
-      DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL,
-     $                   RTUNFL, ULP, ULPINV, UNFL, VL, VU
+      INTEGER            I, IBTYPE, IBUPLO, IINFO, IJ, IL, IMODE, ITEMP, ITYPE, IU, J, JCOL, JSIZE, JTYPE, KA, KA9, KB, KB9, M, MTYPES, N, NERRS, NMATS, NMAX, NTEST, NTESTT
+      DOUBLE PRECISION   ABSTOL, ANINV, ANORM, COND, OVFL, RTOVFL, RTUNFL, ULP, ULPINV, UNFL, VL, VU
 *     ..
 *     .. Local Arrays ..
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), ISEED2( 4 ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -48,19 +37,14 @@
       EXTERNAL           LSAME, DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLACPY, DLAFTS, DLASET, DLASUM, DLATMR,
-     $                   DLATMS, DSBGV, DSBGVD, DSBGVX, DSGT01, DSPGV,
-     $                   DSPGVD, DSPGVX, DSYGV, DSYGVD, DSYGVX, XERBLA
+      EXTERNAL           DLACPY, DLAFTS, DLASET, DLASUM, DLATMR, DLATMS, DSBGV, DSBGVD, DSBGVX, DSGT01, DSPGV, DSPGVD, DSPGVX, DSYGV, DSYGVD, DSYGVX, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 5*4, 5*5, 3*8, 6*9 /
-      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1,
-     $                   2, 3, 6*1 /
-      DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0,
-     $                   0, 0, 6*4 /
+      DATA               KMAGN / 2*1, 1, 1, 1, 2, 3, 1, 1, 1, 2, 3, 1, 2, 3, 6*1 /       DATA               KMODE / 2*0, 4, 3, 1, 4, 4, 4, 3, 1, 4, 4, 0, 0, 0, 6*4 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -73,8 +57,7 @@
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -102,8 +85,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More Important constants
 *
@@ -136,8 +118,7 @@
          KA9 = 0
          KB9 = 0
          DO 640 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 640
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 640
             NMATS = NMATS + 1
             NTEST = 0
 *
@@ -160,8 +141,7 @@
 *           =8                      random hermitian
 *           =9                      banded, w/ eigenvalues
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 90
+            IF( MTYPES.GT.MAXTYP ) GO TO 90
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -214,9 +194,7 @@
 *
                KA = 0
                KB = 0
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
@@ -224,9 +202,7 @@
 *
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
@@ -234,10 +210,7 @@
 *
                KA = 0
                KB = 0
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
@@ -245,10 +218,7 @@
 *
                KA = MAX( 0, N-1 )
                KB = KA
-               CALL DLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'H', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
@@ -270,9 +240,7 @@
                END IF
                KA = MAX( 0, MIN( N-1, KA9 ) )
                KB = MAX( 0, MIN( N-1, KB9 ) )
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, KA, KA, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE
 *
@@ -280,8 +248,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -315,17 +282,12 @@
 *              loop over the setting UPLO
 *
                DO 620 IBUPLO = 1, 2
-                  IF( IBUPLO.EQ.1 )
-     $               UPLO = 'U'
-                  IF( IBUPLO.EQ.2 )
-     $               UPLO = 'L'
+                  IF( IBUPLO.EQ.1 ) UPLO = 'U'                   IF( IBUPLO.EQ.2 ) UPLO = 'L'
 *
 *                 Generate random well-conditioned positive definite
 *                 matrix B, of bandwidth not greater than that of A.
 *
-                  CALL DLATMS( N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE,
-     $                         KB, KB, UPLO, B, LDB, WORK( N+1 ),
-     $                         IINFO )
+                  CALL DLATMS( N, N, 'U', ISEED, 'P', WORK, 5, TEN, ONE, KB, KB, UPLO, B, LDB, WORK( N+1 ), IINFO )
 *
 *                 Test DSYGV
 *
@@ -334,11 +296,9 @@
                   CALL DLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL DSYGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D,
-     $                        WORK, NWORK, IINFO )
+                  CALL DSYGV( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -350,8 +310,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                 Test DSYGVD
 *
@@ -360,11 +319,9 @@
                   CALL DLACPY( ' ', N, N, A, LDA, Z, LDZ )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL DSYGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D,
-     $                         WORK, NWORK, IWORK, LIWORK, IINFO )
+                  CALL DSYGVD( IBTYPE, 'V', UPLO, N, Z, LDZ, BB, LDB, D, WORK, NWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -376,8 +333,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                 Test DSYGVX
 *
@@ -386,13 +342,9 @@
                   CALL DLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL DSYGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, IWORK( N+1 ), IWORK,
-     $                         IINFO )
+                  CALL DSYGVX( IBTYPE, 'V', 'A', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -404,8 +356,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -419,13 +370,9 @@
 *
                   VL = ZERO
                   VU = ANORM
-                  CALL DSYGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, IWORK( N+1 ), IWORK,
-     $                         IINFO )
+                  CALL DSYGVX( IBTYPE, 'V', 'V', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,V,' //
-     $                  UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -437,21 +384,16 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
                   CALL DLACPY( ' ', N, N, A, LDA, AB, LDA )
                   CALL DLACPY( UPLO, N, N, B, LDB, BB, LDB )
 *
-                  CALL DSYGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB,
-     $                         LDB, VL, VU, IL, IU, ABSTOL, M, D, Z,
-     $                         LDZ, WORK, NWORK, IWORK( N+1 ), IWORK,
-     $                         IINFO )
+                  CALL DSYGVX( IBTYPE, 'V', 'I', UPLO, N, AB, LDA, BB, LDB, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, NWORK, IWORK( N+1 ), IWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' //
-     $                  UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSYGVX(V,I,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -463,8 +405,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
   100             CONTINUE
 *
@@ -494,11 +435,9 @@
   140                CONTINUE
                   END IF
 *
-                  CALL DSPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ,
-     $                        WORK, IINFO )
+                  CALL DSPGV( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -510,8 +449,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                 Test DSPGVD
 *
@@ -539,11 +477,9 @@
   180                CONTINUE
                   END IF
 *
-                  CALL DSPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ,
-     $                         WORK, NWORK, IWORK, LIWORK, IINFO )
+                  CALL DSPGVD( IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -555,8 +491,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                 Test DSPGVX
 *
@@ -584,12 +519,9 @@
   220                CONTINUE
                   END IF
 *
-                  CALL DSPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         IWORK( N+1 ), IWORK, INFO )
+                  CALL DSPGVX( IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -601,8 +533,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -630,12 +561,9 @@
 *
                   VL = ZERO
                   VU = ANORM
-                  CALL DSPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         IWORK( N+1 ), IWORK, INFO )
+                  CALL DSPGVX( IBTYPE, 'V', 'V', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,V' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -647,8 +575,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   NTEST = NTEST + 1
 *
@@ -674,12 +601,9 @@
   300                CONTINUE
                   END IF
 *
-                  CALL DSPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL,
-     $                         VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                         IWORK( N+1 ), IWORK, INFO )
+                  CALL DSPGVX( IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO )
                   IF( IINFO.NE.0 ) THEN
-                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO //
-     $                  ')', IINFO, N, JTYPE, IOLDSD
+                     WRITE( NOUNIT, FMT = 9999 )'DSPGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                      INFO = ABS( IINFO )
                      IF( IINFO.LT.0 ) THEN
                         RETURN
@@ -691,8 +615,7 @@
 *
 *                 Do Test
 *
-                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                         LDZ, D, WORK, RESULT( NTEST ) )
+                  CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
   310             CONTINUE
 *
@@ -724,11 +647,9 @@
   370                   CONTINUE
                      END IF
 *
-                     CALL DSBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB,
-     $                           D, Z, LDZ, WORK, IINFO )
+                     CALL DSBGV( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGV(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -740,8 +661,7 @@
 *
 *                    Do Test
 *
-                     CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RESULT( NTEST ) )
+                     CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                    TEST DSBGVD
 *
@@ -769,12 +689,9 @@
   430                   CONTINUE
                      END IF
 *
-                     CALL DSBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB,
-     $                            LDB, D, Z, LDZ, WORK, NWORK, IWORK,
-     $                            LIWORK, IINFO )
+                     CALL DSBGVD( 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVD(V,' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -786,8 +703,7 @@
 *
 *                    Do Test
 *
-                     CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RESULT( NTEST ) )
+                     CALL DSGT01( IBTYPE, UPLO, N, N, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *                    Test DSBGVX
 *
@@ -815,13 +731,9 @@
   490                   CONTINUE
                      END IF
 *
-                     CALL DSBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL DSBGVX( 'V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,A' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -833,8 +745,7 @@
 *
 *                    Do Test
 *
-                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RESULT( NTEST ) )
+                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
 *
                      NTEST = NTEST + 1
@@ -863,13 +774,9 @@
 *
                      VL = ZERO
                      VU = ANORM
-                     CALL DSBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL DSBGVX( 'V', 'V', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,V' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,V' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -881,8 +788,7 @@
 *
 *                    Do Test
 *
-                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RESULT( NTEST ) )
+                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                      NTEST = NTEST + 1
 *
@@ -908,13 +814,9 @@
   610                   CONTINUE
                      END IF
 *
-                     CALL DSBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA,
-     $                            BB, LDB, BP, MAX( 1, N ), VL, VU, IL,
-     $                            IU, ABSTOL, M, D, Z, LDZ, WORK,
-     $                            IWORK( N+1 ), IWORK, IINFO )
+                     CALL DSBGVX( 'V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO )
                      IF( IINFO.NE.0 ) THEN
-                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' //
-     $                     UPLO // ')', IINFO, N, JTYPE, IOLDSD
+                        WRITE( NOUNIT, FMT = 9999 )'DSBGVX(V,I' // UPLO // ')', IINFO, N, JTYPE, IOLDSD
                         INFO = ABS( IINFO )
                         IF( IINFO.LT.0 ) THEN
                            RETURN
@@ -926,8 +828,7 @@
 *
 *                    Do Test
 *
-                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z,
-     $                            LDZ, D, WORK, RESULT( NTEST ) )
+                     CALL DSGT01( IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) )
 *
                   END IF
 *
@@ -937,8 +838,7 @@
 *           End of Loop -- Check for RESULT(j) > THRESH
 *
             NTESTT = NTESTT + NTEST
-            CALL DLAFTS( 'DSG', N, N, JTYPE, NTEST, RESULT, IOLDSD,
-     $                   THRESH, NOUNIT, NERRS )
+            CALL DLAFTS( 'DSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
   640    CONTINUE
   650 CONTINUE
 *

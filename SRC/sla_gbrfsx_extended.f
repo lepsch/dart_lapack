@@ -1,28 +1,17 @@
-      SUBROUTINE SLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE, N, KL, KU,
-     $                                NRHS, AB, LDAB, AFB, LDAFB, IPIV,
-     $                                COLEQU, C, B, LDB, Y, LDY,
-     $                                BERR_OUT, N_NORMS, ERR_BNDS_NORM,
-     $                                ERR_BNDS_COMP, RES, AYB, DY,
-     $                                Y_TAIL, RCOND, ITHRESH, RTHRESH,
-     $                                DZ_UB, IGNORE_CWISE, INFO )
+      SUBROUTINE SLA_GBRFSX_EXTENDED( PREC_TYPE, TRANS_TYPE, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, COLEQU, C, B, LDB, Y, LDY, BERR_OUT, N_NORMS, ERR_BNDS_NORM, ERR_BNDS_COMP, RES, AYB, DY, Y_TAIL, RCOND, ITHRESH, RTHRESH, DZ_UB, IGNORE_CWISE, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INFO, LDAB, LDAFB, LDB, LDY, N, KL, KU, NRHS,
-     $                   PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH
+      INTEGER            INFO, LDAB, LDAFB, LDB, LDY, N, KL, KU, NRHS, PREC_TYPE, TRANS_TYPE, N_NORMS, ITHRESH
       LOGICAL            COLEQU, IGNORE_CWISE
       REAL               RTHRESH, DZ_UB
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   Y( LDY, * ), RES(*), DY(*), Y_TAIL(*)
-      REAL               C( * ), AYB(*), RCOND, BERR_OUT(*),
-     $                   ERR_BNDS_NORM( NRHS, * ),
-     $                   ERR_BNDS_COMP( NRHS, * )
+      REAL               AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), Y( LDY, * ), RES(*), DY(*), Y_TAIL(*)       REAL               C( * ), AYB(*), RCOND, BERR_OUT(*), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * )
 *     ..
 *
 *  =====================================================================
@@ -30,42 +19,25 @@
 *     .. Local Scalars ..
       CHARACTER          TRANS
       INTEGER            CNT, I, J, M, X_STATE, Z_STATE, Y_PREC_STATE
-      REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT,
-     $                   DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX,
-     $                   DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z,
-     $                   EPS, HUGEVAL, INCR_THRESH
+      REAL               YK, DYK, YMIN, NORMY, NORMX, NORMDX, DXRAT, DZRAT, PREVNORMDX, PREV_DZ_Z, DXRATMAX, DZRATMAX, DX_X, DZ_Z, FINAL_DX_X, FINAL_DZ_Z, EPS, HUGEVAL, INCR_THRESH
       LOGICAL            INCR_PREC
 *     ..
 *     .. Parameters ..
-      INTEGER            UNSTABLE_STATE, WORKING_STATE, CONV_STATE,
-     $                   NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL,
-     $                   EXTRA_Y
-      PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1,
-     $                   CONV_STATE = 2, NOPROG_STATE = 3 )
-      PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1,
-     $                   EXTRA_Y = 2 )
+      INTEGER            UNSTABLE_STATE, WORKING_STATE, CONV_STATE, NOPROG_STATE, BASE_RESIDUAL, EXTRA_RESIDUAL, EXTRA_Y
+      PARAMETER          ( UNSTABLE_STATE = 0, WORKING_STATE = 1, CONV_STATE = 2, NOPROG_STATE = 3 )       PARAMETER          ( BASE_RESIDUAL = 0, EXTRA_RESIDUAL = 1, EXTRA_Y = 2 )
       INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
       INTEGER            CMP_ERR_I, PIV_GROWTH_I
-      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2,
-     $                   BERR_I = 3 )
+      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8,
-     $                   PIV_GROWTH_I = 9 )
-      INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I,
-     $                   LA_LINRX_CWISE_I
-      PARAMETER          ( LA_LINRX_ITREF_I = 1,
-     $                   LA_LINRX_ITHRESH_I = 2 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )       INTEGER            LA_LINRX_ITREF_I, LA_LINRX_ITHRESH_I, LA_LINRX_CWISE_I       PARAMETER          ( LA_LINRX_ITREF_I = 1, LA_LINRX_ITHRESH_I = 2 )
       PARAMETER          ( LA_LINRX_CWISE_I = 3 )
-      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I,
-     $                   LA_LINRX_RCOND_I
+      INTEGER            LA_LINRX_TRUST_I, LA_LINRX_ERR_I, LA_LINRX_RCOND_I
       PARAMETER          ( LA_LINRX_TRUST_I = 1, LA_LINRX_ERR_I = 2 )
       PARAMETER          ( LA_LINRX_RCOND_I = 3 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGBTRS, SGBMV, BLAS_SGBMV_X,
-     $                   BLAS_SGBMV2_X, SLA_GBAMV, SLA_WWADDW, SLAMCH,
-     $                   CHLA_TRANSTYPE, SLA_LIN_BERR
+      EXTERNAL           SAXPY, SCOPY, SGBTRS, SGBMV, BLAS_SGBMV_X, BLAS_SGBMV2_X, SLA_GBAMV, SLA_WWADDW, SLAMCH, CHLA_TRANSTYPE, SLA_LIN_BERR
       REAL               SLAMCH
       CHARACTER          CHLA_TRANSTYPE
 *     ..
@@ -114,22 +86,16 @@
 *
             CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
             IF ( Y_PREC_STATE .EQ. BASE_RESIDUAL ) THEN
-               CALL SGBMV( TRANS, M, N, KL, KU, -1.0, AB, LDAB,
-     $              Y( 1, J ), 1, 1.0, RES, 1 )
+               CALL SGBMV( TRANS, M, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1 )
             ELSE IF ( Y_PREC_STATE .EQ. EXTRA_RESIDUAL ) THEN
-               CALL BLAS_SGBMV_X( TRANS_TYPE, N, N, KL, KU,
-     $              -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1,
-     $              PREC_TYPE )
+               CALL BLAS_SGBMV_X( TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), 1, 1.0, RES, 1, PREC_TYPE )
             ELSE
-               CALL BLAS_SGBMV2_X( TRANS_TYPE, N, N, KL, KU, -1.0,
-     $              AB, LDAB, Y( 1, J ), Y_TAIL, 1, 1.0, RES, 1,
-     $              PREC_TYPE )
+               CALL BLAS_SGBMV2_X( TRANS_TYPE, N, N, KL, KU, -1.0, AB, LDAB, Y( 1, J ), Y_TAIL, 1, 1.0, RES, 1, PREC_TYPE )
             END IF
 
 !        XXX: RES is no longer needed.
             CALL SCOPY( N, RES, 1, DY, 1 )
-            CALL SGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, DY, N,
-     $           INFO )
+            CALL SGBTRS( TRANS, N, KL, KU, 1, AFB, LDAFB, IPIV, DY, N, INFO )
 *
 *         Calculate relative changes DX_X, DZ_Z and ratios DXRAT, DZRAT.
 *
@@ -175,13 +141,8 @@
 *
 *         Check termination criteria.
 *
-            IF ( .NOT.IGNORE_CWISE
-     $           .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY
-     $           .AND. Y_PREC_STATE .LT. EXTRA_Y )
-     $           INCR_PREC = .TRUE.
-
-            IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH )
-     $           X_STATE = WORKING_STATE
+            IF ( .NOT.IGNORE_CWISE .AND. YMIN*RCOND .LT. INCR_THRESH*NORMY .AND. Y_PREC_STATE .LT. EXTRA_Y ) INCR_PREC = .TRUE.
+             IF ( X_STATE .EQ. NOPROG_STATE .AND. DXRAT .LE. RTHRESH ) X_STATE = WORKING_STATE
             IF ( X_STATE .EQ. WORKING_STATE ) THEN
                IF ( DX_X .LE. EPS ) THEN
                   X_STATE = CONV_STATE
@@ -196,11 +157,7 @@
                END IF
                IF ( X_STATE .GT. WORKING_STATE ) FINAL_DX_X = DX_X
             END IF
-
-            IF ( Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB )
-     $           Z_STATE = WORKING_STATE
-            IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH )
-     $           Z_STATE = WORKING_STATE
+             IF ( Z_STATE .EQ. UNSTABLE_STATE .AND. DZ_Z .LE. DZ_UB ) Z_STATE = WORKING_STATE             IF ( Z_STATE .EQ. NOPROG_STATE .AND. DZRAT .LE. RTHRESH ) Z_STATE = WORKING_STATE
             IF ( Z_STATE .EQ. WORKING_STATE ) THEN
                IF ( DZ_Z .LE. EPS ) THEN
                   Z_STATE = CONV_STATE
@@ -226,8 +183,7 @@
 *
             IF ( X_STATE.NE.WORKING_STATE ) THEN
                IF ( IGNORE_CWISE ) GOTO 666
-               IF ( Z_STATE.EQ.NOPROG_STATE .OR. Z_STATE.EQ.CONV_STATE )
-     $              GOTO 666
+               IF ( Z_STATE.EQ.NOPROG_STATE .OR. Z_STATE.EQ.CONV_STATE ) GOTO 666
                IF ( Z_STATE.EQ.UNSTABLE_STATE .AND. CNT.GT.1 ) GOTO 666
             END IF
 
@@ -262,12 +218,10 @@
 *     Compute error bounds.
 *
          IF ( N_NORMS .GE. 1 ) THEN
-            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) =
-     $           FINAL_DX_X / (1 - DXRATMAX)
+            ERR_BNDS_NORM( J, LA_LINRX_ERR_I ) = FINAL_DX_X / (1 - DXRATMAX)
          END IF
          IF (N_NORMS .GE. 2) THEN
-            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) =
-     $           FINAL_DZ_Z / (1 - DZRATMAX)
+            ERR_BNDS_COMP( J, LA_LINRX_ERR_I ) = FINAL_DZ_Z / (1 - DZRATMAX)
          END IF
 *
 *     Compute componentwise relative backward error from formula
@@ -279,8 +233,7 @@
 *            op(A) = A, A**T, or A**H depending on TRANS (and type).
 *
          CALL SCOPY( N, B( 1, J ), 1, RES, 1 )
-         CALL SGBMV(TRANS, N, N, KL, KU, -1.0, AB, LDAB, Y(1,J),
-     $        1, 1.0, RES, 1 )
+         CALL SGBMV(TRANS, N, N, KL, KU, -1.0, AB, LDAB, Y(1,J), 1, 1.0, RES, 1 )
 
          DO I = 1, N
             AYB( I ) = ABS( B( I, J ) )
@@ -288,8 +241,7 @@
 *
 *     Compute abs(op(A_s))*abs(Y) + abs(B_s).
 *
-        CALL SLA_GBAMV( TRANS_TYPE, N, N, KL, KU, 1.0,
-     $        AB, LDAB, Y(1, J), 1, 1.0, AYB, 1 )
+        CALL SLA_GBAMV( TRANS_TYPE, N, N, KL, KU, 1.0, AB, LDAB, Y(1, J), 1, 1.0, AYB, 1 )
 
          CALL SLA_LIN_BERR( N, N, 1, RES, AYB, BERR_OUT( J ) )
 *

@@ -16,13 +16,11 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ZERO, ONE
-      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   ONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = ( 0.0D+0, 0.0D+0 ), ONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IWS, J, JB, JJ, JP, LDWORK, LWKOPT, NB,
-     $                   NBMIN, NN
+      INTEGER            I, IWS, J, JB, JJ, JP, LDWORK, LWKOPT, NB, NBMIN, NN
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -59,15 +57,13 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form inv(U).  If INFO > 0 from ZTRTRI, then U is singular,
 *     and the inverse is not computed.
 *
       CALL ZTRTRI( 'Upper', 'Non-unit', N, A, LDA, INFO )
-      IF( INFO.GT.0 )
-     $   RETURN
+      IF( INFO.GT.0 ) RETURN
 *
       NBMIN = 2
       LDWORK = N
@@ -98,9 +94,7 @@
 *
 *           Compute current column of inv(A).
 *
-            IF( J.LT.N )
-     $         CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ),
-     $                     LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 )
+            IF( J.LT.N ) CALL ZGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 )
    20    CONTINUE
       ELSE
 *
@@ -122,12 +116,8 @@
 *
 *           Compute current block column of inv(A).
 *
-            IF( J+JB.LE.N )
-     $         CALL ZGEMM( 'No transpose', 'No transpose', N, JB,
-     $                     N-J-JB+1, -ONE, A( 1, J+JB ), LDA,
-     $                     WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA )
-            CALL ZTRSM( 'Right', 'Lower', 'No transpose', 'Unit', N, JB,
-     $                  ONE, WORK( J ), LDWORK, A( 1, J ), LDA )
+            IF( J+JB.LE.N ) CALL ZGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA )
+            CALL ZTRSM( 'Right', 'Lower', 'No transpose', 'Unit', N, JB, ONE, WORK( J ), LDWORK, A( 1, J ), LDA )
    50    CONTINUE
       END IF
 *
@@ -135,8 +125,7 @@
 *
       DO 60 J = N - 1, 1, -1
          JP = IPIV( J )
-         IF( JP.NE.J )
-     $      CALL ZSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 )
+         IF( JP.NE.J ) CALL ZSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 )
    60 CONTINUE
 *
       WORK( 1 ) = IWS

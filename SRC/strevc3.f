@@ -1,5 +1,4 @@
-      SUBROUTINE STREVC3( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL,
-     $                    VR, LDVR, MM, M, WORK, LWORK, INFO )
+      SUBROUTINE STREVC3( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, LWORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      REAL               T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( * )
+      REAL               T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -25,13 +23,7 @@
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR,
-     $                   RIGHTV, SOMEV
-      INTEGER            I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI,
-     $                   IV, MAXWRK, NB, KI2
-      REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE,
-     $                   SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR,
-     $                   XNORM
+      LOGICAL            ALLV, BOTHV, LEFTV, LQUERY, OVER, PAIR, RIGHTV, SOMEV       INTEGER            I, IERR, II, IP, IS, J, J1, J2, JNXT, K, KI, IV, MAXWRK, NB, KI2       REAL               BETA, BIGNUM, EMAX, OVFL, REC, REMAX, SCALE, SMIN, SMLNUM, ULP, UNFL, VCRIT, VMAX, WI, WR, XNORM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -40,8 +32,7 @@
       EXTERNAL           LSAME, ISAMAX, ILAENV, SDOT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SAXPY, SCOPY, SGEMV, SLALN2, SSCAL, XERBLA,
-     $                   SLACPY, SGEMM, SLASET
+      EXTERNAL           SAXPY, SCOPY, SGEMV, SLALN2, SSCAL, XERBLA, SLACPY, SGEMM, SLASET
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SQRT
@@ -97,8 +88,7 @@
                ELSE
                   IF( J.LT.N ) THEN
                      IF( T( J+1, J ).EQ.ZERO ) THEN
-                        IF( SELECT( J ) )
-     $                     M = M + 1
+                        IF( SELECT( J ) ) M = M + 1
                      ELSE
                         PAIR = .TRUE.
                         IF( SELECT( J ) .OR. SELECT( J+1 ) ) THEN
@@ -107,8 +97,7 @@
                         END IF
                      END IF
                   ELSE
-                     IF( SELECT( N ) )
-     $                  M = M + 1
+                     IF( SELECT( N ) ) M = M + 1
                   END IF
                END IF
    10       CONTINUE
@@ -129,8 +118,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Use blocked version of back-transformation if sufficient workspace.
 *     Zero-out the workspace to avoid potential NaN propagation.
@@ -204,11 +192,9 @@
 
             IF( SOMEV ) THEN
                IF( IP.EQ.0 ) THEN
-                  IF( .NOT.SELECT( KI ) )
-     $               GO TO 140
+                  IF( .NOT.SELECT( KI ) ) GO TO 140
                ELSE
-                  IF( .NOT.SELECT( KI-1 ) )
-     $               GO TO 140
+                  IF( .NOT.SELECT( KI-1 ) ) GO TO 140
                END IF
             END IF
 *
@@ -216,9 +202,7 @@
 *
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 )
-     $         WI = SQRT( ABS( T( KI, KI-1 ) ) )*
-     $              SQRT( ABS( T( KI-1, KI ) ) )
+            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI-1 ) ) )* SQRT( ABS( T( KI-1, KI ) ) )
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 *
             IF( IP.EQ.0 ) THEN
@@ -239,8 +223,7 @@
 *
                JNXT = KI - 1
                DO 60 J = KI - 1, 1, -1
-                  IF( J.GT.JNXT )
-     $               GO TO 60
+                  IF( J.GT.JNXT ) GO TO 60
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -255,9 +238,7 @@
 *
 *                    1-by-1 diagonal block
 *
-                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+IV*N ), N, WR,
-     $                            ZERO, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale X(1,1) to avoid overflow when updating
 *                    the right-hand side.
@@ -271,23 +252,18 @@
 *
 *                    Scale if necessary
 *
-                     IF( SCALE.NE.ONE )
-     $                  CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
+                     IF( SCALE.NE.ONE ) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
                      WORK( J+IV*N ) = X( 1, 1 )
 *
 *                    Update right-hand side
 *
-                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1,
-     $                           WORK( 1+IV*N ), 1 )
+                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 )
 *
                   ELSE
 *
 *                    2-by-2 diagonal block
 *
-                     CALL SLALN2( .FALSE., 2, 1, SMIN, ONE,
-     $                            T( J-1, J-1 ), LDT, ONE, ONE,
-     $                            WORK( J-1+IV*N ), N, WR, ZERO, X, 2,
-     $                            SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale X(1,1) and X(2,1) to avoid overflow when
 *                    updating the right-hand side.
@@ -303,17 +279,13 @@
 *
 *                    Scale if necessary
 *
-                     IF( SCALE.NE.ONE )
-     $                  CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
+                     IF( SCALE.NE.ONE ) CALL SSCAL( KI, SCALE, WORK( 1+IV*N ), 1 )
                      WORK( J-1+IV*N ) = X( 1, 1 )
                      WORK( J  +IV*N ) = X( 2, 1 )
 *
 *                    Update right-hand side
 *
-                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1,
-     $                           WORK( 1+IV*N ), 1 )
-                     CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1,
-     $                           WORK( 1+IV*N ), 1 )
+                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+IV*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 )
                   END IF
    60          CONTINUE
 *
@@ -335,10 +307,7 @@
                ELSE IF( NB.EQ.1 ) THEN
 *                 ------------------------------
 *                 version 1: back-transform each vector with GEMV, Q*x.
-                  IF( KI.GT.1 )
-     $               CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR,
-     $                           WORK( 1 + IV*N ), 1, WORK( KI + IV*N ),
-     $                           VR( 1, KI ), 1 )
+                  IF( KI.GT.1 ) CALL SGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 )
 *
                   II = ISAMAX( N, VR( 1, KI ), 1 )
                   REMAX = ONE / ABS( VR( II, KI ) )
@@ -385,8 +354,7 @@
 *
                JNXT = KI - 2
                DO 90 J = KI - 2, 1, -1
-                  IF( J.GT.JNXT )
-     $               GO TO 90
+                  IF( J.GT.JNXT ) GO TO 90
                   J1 = J
                   J2 = J
                   JNXT = J - 1
@@ -401,9 +369,7 @@
 *
 *                    1-by-1 diagonal block
 *
-                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+(IV-1)*N ), N,
-     $                            WR, WI, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale X(1,1) and X(1,2) to avoid overflow when
 *                    updating the right-hand side.
@@ -427,19 +393,13 @@
 *
 *                    Update the right-hand side
 *
-                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1,
-     $                           WORK( 1+(IV-1)*N ), 1 )
-                     CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1,
-     $                           WORK( 1+(IV  )*N ), 1 )
+                     CALL SAXPY( J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 )                      CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 )
 *
                   ELSE
 *
 *                    2-by-2 diagonal block
 *
-                     CALL SLALN2( .FALSE., 2, 2, SMIN, ONE,
-     $                            T( J-1, J-1 ), LDT, ONE, ONE,
-     $                            WORK( J-1+(IV-1)*N ), N, WR, WI, X, 2,
-     $                            SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 2, 2, SMIN, ONE, T( J-1, J-1 ), LDT, ONE, ONE, WORK( J-1+(IV-1)*N ), N, WR, WI, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale X to avoid overflow when updating
 *                    the right-hand side.
@@ -469,14 +429,7 @@
 *
 *                    Update the right-hand side
 *
-                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1,
-     $                           WORK( 1+(IV-1)*N   ), 1 )
-                     CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1,
-     $                           WORK( 1+(IV-1)*N   ), 1 )
-                     CALL SAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1,
-     $                           WORK( 1+(IV  )*N ), 1 )
-                     CALL SAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1,
-     $                           WORK( 1+(IV  )*N ), 1 )
+                     CALL SAXPY( J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+(IV  )*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 )
                   END IF
    90          CONTINUE
 *
@@ -490,8 +443,7 @@
 *
                   EMAX = ZERO
                   DO 100 K = 1, KI
-                     EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+
-     $                                 ABS( VR( K, IS   ) ) )
+                     EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS   ) ) )
   100             CONTINUE
                   REMAX = ONE / EMAX
                   CALL SSCAL( KI, REMAX, VR( 1, IS-1 ), 1 )
@@ -506,12 +458,7 @@
 *                 ------------------------------
 *                 version 1: back-transform each vector with GEMV, Q*x.
                   IF( KI.GT.2 ) THEN
-                     CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR,
-     $                           WORK( 1    + (IV-1)*N ), 1,
-     $                           WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)
-                     CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR,
-     $                           WORK( 1  + (IV)*N ), 1,
-     $                           WORK( KI + (IV)*N ), VR( 1, KI ), 1 )
+                     CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 )
                   ELSE
                      CALL SSCAL( N, WORK(KI-1+(IV-1)*N), VR(1,KI-1), 1)
                      CALL SSCAL( N, WORK(KI  +(IV  )*N), VR(1,KI  ), 1)
@@ -519,8 +466,7 @@
 *
                   EMAX = ZERO
                   DO 120 K = 1, N
-                     EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+
-     $                                 ABS( VR( K, KI   ) ) )
+                     EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI   ) ) )
   120             CONTINUE
                   REMAX = ONE / EMAX
                   CALL SSCAL( N, REMAX, VR( 1, KI-1 ), 1 )
@@ -555,11 +501,7 @@
 *              When the number of vectors stored reaches NB-1 or NB,
 *              or if this was last vector, do the GEMM
                IF( (IV.LE.2) .OR. (KI2.EQ.1) ) THEN
-                  CALL SGEMM( 'N', 'N', N, NB-IV+1, KI2+NB-IV, ONE,
-     $                        VR, LDVR,
-     $                        WORK( 1 + (IV)*N    ), N,
-     $                        ZERO,
-     $                        WORK( 1 + (NB+IV)*N ), N )
+                  CALL SGEMM( 'N', 'N', N, NB-IV+1, KI2+NB-IV, ONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, ZERO, WORK( 1 + (NB+IV)*N ), N )
 *                 normalize vectors
                   DO K = IV, NB
                      IF( ISCOMPLEX(K).EQ.0 ) THEN
@@ -570,9 +512,7 @@
 *                       first eigenvector of conjugate pair
                         EMAX = ZERO
                         DO II = 1, N
-                           EMAX = MAX( EMAX,
-     $                                 ABS( WORK( II + (NB+K  )*N ) )+
-     $                                 ABS( WORK( II + (NB+K+1)*N ) ) )
+                           EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         END DO
                         REMAX = ONE / EMAX
 *                    else if ISCOMPLEX(K).EQ.-1
@@ -581,9 +521,7 @@
                      END IF
                      CALL SSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
                   END DO
-                  CALL SLACPY( 'F', N, NB-IV+1,
-     $                         WORK( 1 + (NB+IV)*N ), N,
-     $                         VR( 1, KI2 ), LDVR )
+                  CALL SLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI2 ), LDVR )
                   IV = NB
                ELSE
                   IV = IV - 1
@@ -591,8 +529,7 @@
             END IF ! blocked back-transform
 *
             IS = IS - 1
-            IF( IP.NE.0 )
-     $         IS = IS - 1
+            IF( IP.NE.0 ) IS = IS - 1
   140    CONTINUE
       END IF
 
@@ -627,17 +564,14 @@
             END IF
 *
             IF( SOMEV ) THEN
-               IF( .NOT.SELECT( KI ) )
-     $            GO TO 260
+               IF( .NOT.SELECT( KI ) ) GO TO 260
             END IF
 *
 *           Compute the KI-th eigenvalue (WR,WI).
 *
             WR = T( KI, KI )
             WI = ZERO
-            IF( IP.NE.0 )
-     $         WI = SQRT( ABS( T( KI, KI+1 ) ) )*
-     $              SQRT( ABS( T( KI+1, KI ) ) )
+            IF( IP.NE.0 ) WI = SQRT( ABS( T( KI, KI+1 ) ) )* SQRT( ABS( T( KI+1, KI ) ) )
             SMIN = MAX( ULP*( ABS( WR )+ABS( WI ) ), SMLNUM )
 *
             IF( IP.EQ.0 ) THEN
@@ -661,8 +595,7 @@
 *
                JNXT = KI + 1
                DO 170 J = KI + 1, N
-                  IF( J.LT.JNXT )
-     $               GO TO 170
+                  IF( J.LT.JNXT ) GO TO 170
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -687,20 +620,15 @@
                         VCRIT = BIGNUM
                      END IF
 *
-                     WORK( J+IV*N ) = WORK( J+IV*N ) -
-     $                                SDOT( J-KI-1, T( KI+1, J ), 1,
-     $                                      WORK( KI+1+IV*N ), 1 )
+                     WORK( J+IV*N ) = WORK( J+IV*N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 )
 *
 *                    Solve [ T(J,J) - WR ]**T * X = WORK
 *
-                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+IV*N ), N, WR,
-     $                            ZERO, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 1, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale if necessary
 *
-                     IF( SCALE.NE.ONE )
-     $                  CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
+                     IF( SCALE.NE.ONE ) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
                      WORK( J+IV*N ) = X( 1, 1 )
                      VMAX = MAX( ABS( WORK( J+IV*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
@@ -720,31 +648,23 @@
                         VCRIT = BIGNUM
                      END IF
 *
-                     WORK( J+IV*N ) = WORK( J+IV*N ) -
-     $                                SDOT( J-KI-1, T( KI+1, J ), 1,
-     $                                      WORK( KI+1+IV*N ), 1 )
+                     WORK( J+IV*N ) = WORK( J+IV*N ) - SDOT( J-KI-1, T( KI+1, J ), 1, WORK( KI+1+IV*N ), 1 )
 *
-                     WORK( J+1+IV*N ) = WORK( J+1+IV*N ) -
-     $                                  SDOT( J-KI-1, T( KI+1, J+1 ), 1,
-     $                                        WORK( KI+1+IV*N ), 1 )
+                     WORK( J+1+IV*N ) = WORK( J+1+IV*N ) - SDOT( J-KI-1, T( KI+1, J+1 ), 1, WORK( KI+1+IV*N ), 1 )
 *
 *                    Solve
 *                    [ T(J,J)-WR   T(J,J+1)      ]**T * X = SCALE*( WORK1 )
 *                    [ T(J+1,J)    T(J+1,J+1)-WR ]                ( WORK2 )
 *
-                     CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+IV*N ), N, WR,
-     $                            ZERO, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, ZERO, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale if necessary
 *
-                     IF( SCALE.NE.ONE )
-     $                  CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
+                     IF( SCALE.NE.ONE ) CALL SSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 )
                      WORK( J  +IV*N ) = X( 1, 1 )
                      WORK( J+1+IV*N ) = X( 2, 1 )
 *
-                     VMAX = MAX( ABS( WORK( J  +IV*N ) ),
-     $                           ABS( WORK( J+1+IV*N ) ), VMAX )
+                     VMAX = MAX( ABS( WORK( J  +IV*N ) ), ABS( WORK( J+1+IV*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 *
                   END IF
@@ -755,8 +675,7 @@
                IF( .NOT.OVER ) THEN
 *                 ------------------------------
 *                 no back-transform: copy x to VL and normalize.
-                  CALL SCOPY( N-KI+1, WORK( KI + IV*N ), 1,
-     $                                VL( KI, IS ), 1 )
+                  CALL SCOPY( N-KI+1, WORK( KI + IV*N ), 1, VL( KI, IS ), 1 )
 *
                   II = ISAMAX( N-KI+1, VL( KI, IS ), 1 ) + KI - 1
                   REMAX = ONE / ABS( VL( II, IS ) )
@@ -769,11 +688,7 @@
                ELSE IF( NB.EQ.1 ) THEN
 *                 ------------------------------
 *                 version 1: back-transform each vector with GEMV, Q*x.
-                  IF( KI.LT.N )
-     $               CALL SGEMV( 'N', N, N-KI, ONE,
-     $                           VL( 1, KI+1 ), LDVL,
-     $                           WORK( KI+1 + IV*N ), 1,
-     $                           WORK( KI   + IV*N ), VL( 1, KI ), 1 )
+                  IF( KI.LT.N ) CALL SGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 )
 *
                   II = ISAMAX( N, VL( 1, KI ), 1 )
                   REMAX = ONE / ABS( VL( II, KI ) )
@@ -824,8 +739,7 @@
 *
                JNXT = KI + 2
                DO 200 J = KI + 2, N
-                  IF( J.LT.JNXT )
-     $               GO TO 200
+                  IF( J.LT.JNXT ) GO TO 200
                   J1 = J
                   J2 = J
                   JNXT = J + 1
@@ -851,18 +765,11 @@
                         VCRIT = BIGNUM
                      END IF
 *
-                     WORK( J+(IV  )*N ) = WORK( J+(IV)*N ) -
-     $                                  SDOT( J-KI-2, T( KI+2, J ), 1,
-     $                                        WORK( KI+2+(IV)*N ), 1 )
-                     WORK( J+(IV+1)*N ) = WORK( J+(IV+1)*N ) -
-     $                                  SDOT( J-KI-2, T( KI+2, J ), 1,
-     $                                        WORK( KI+2+(IV+1)*N ), 1 )
+                     WORK( J+(IV  )*N ) = WORK( J+(IV)*N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 )                      WORK( J+(IV+1)*N ) = WORK( J+(IV+1)*N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 )
 *
 *                    Solve [ T(J,J)-(WR-i*WI) ]*(X11+i*X12)= WK+I*WK2
 *
-                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+IV*N ), N, WR,
-     $                            -WI, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .FALSE., 1, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale if necessary
 *
@@ -872,8 +779,7 @@
                      END IF
                      WORK( J+(IV  )*N ) = X( 1, 1 )
                      WORK( J+(IV+1)*N ) = X( 1, 2 )
-                     VMAX = MAX( ABS( WORK( J+(IV  )*N ) ),
-     $                           ABS( WORK( J+(IV+1)*N ) ), VMAX )
+                     VMAX = MAX( ABS( WORK( J+(IV  )*N ) ), ABS( WORK( J+(IV+1)*N ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 *
                   ELSE
@@ -892,29 +798,19 @@
                         VCRIT = BIGNUM
                      END IF
 *
-                     WORK( J  +(IV  )*N ) = WORK( J+(IV)*N ) -
-     $                                SDOT( J-KI-2, T( KI+2, J ), 1,
-     $                                      WORK( KI+2+(IV)*N ), 1 )
+                     WORK( J  +(IV  )*N ) = WORK( J+(IV)*N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV)*N ), 1 )
 *
-                     WORK( J  +(IV+1)*N ) = WORK( J+(IV+1)*N ) -
-     $                                SDOT( J-KI-2, T( KI+2, J ), 1,
-     $                                      WORK( KI+2+(IV+1)*N ), 1 )
+                     WORK( J  +(IV+1)*N ) = WORK( J+(IV+1)*N ) - SDOT( J-KI-2, T( KI+2, J ), 1, WORK( KI+2+(IV+1)*N ), 1 )
 *
-                     WORK( J+1+(IV  )*N ) = WORK( J+1+(IV)*N ) -
-     $                                SDOT( J-KI-2, T( KI+2, J+1 ), 1,
-     $                                      WORK( KI+2+(IV)*N ), 1 )
+                     WORK( J+1+(IV  )*N ) = WORK( J+1+(IV)*N ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV)*N ), 1 )
 *
-                     WORK( J+1+(IV+1)*N ) = WORK( J+1+(IV+1)*N ) -
-     $                                SDOT( J-KI-2, T( KI+2, J+1 ), 1,
-     $                                      WORK( KI+2+(IV+1)*N ), 1 )
+                     WORK( J+1+(IV+1)*N ) = WORK( J+1+(IV+1)*N ) - SDOT( J-KI-2, T( KI+2, J+1 ), 1, WORK( KI+2+(IV+1)*N ), 1 )
 *
 *                    Solve 2-by-2 complex linear equation
 *                    [ (T(j,j)   T(j,j+1)  )**T - (wr-i*wi)*I ]*X = SCALE*B
 *                    [ (T(j+1,j) T(j+1,j+1))                  ]
 *
-                     CALL SLALN2( .TRUE., 2, 2, SMIN, ONE, T( J, J ),
-     $                            LDT, ONE, ONE, WORK( J+IV*N ), N, WR,
-     $                            -WI, X, 2, SCALE, XNORM, IERR )
+                     CALL SLALN2( .TRUE., 2, 2, SMIN, ONE, T( J, J ), LDT, ONE, ONE, WORK( J+IV*N ), N, WR, -WI, X, 2, SCALE, XNORM, IERR )
 *
 *                    Scale if necessary
 *
@@ -926,9 +822,7 @@
                      WORK( J  +(IV+1)*N ) = X( 1, 2 )
                      WORK( J+1+(IV  )*N ) = X( 2, 1 )
                      WORK( J+1+(IV+1)*N ) = X( 2, 2 )
-                     VMAX = MAX( ABS( X( 1, 1 ) ), ABS( X( 1, 2 ) ),
-     $                           ABS( X( 2, 1 ) ), ABS( X( 2, 2 ) ),
-     $                           VMAX )
+                     VMAX = MAX( ABS( X( 1, 1 ) ), ABS( X( 1, 2 ) ), ABS( X( 2, 1 ) ), ABS( X( 2, 2 ) ), VMAX )
                      VCRIT = BIGNUM / VMAX
 *
                   END IF
@@ -939,15 +833,11 @@
                IF( .NOT.OVER ) THEN
 *                 ------------------------------
 *                 no back-transform: copy x to VL and normalize.
-                  CALL SCOPY( N-KI+1, WORK( KI + (IV  )*N ), 1,
-     $                        VL( KI, IS   ), 1 )
-                  CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1,
-     $                        VL( KI, IS+1 ), 1 )
+                  CALL SCOPY( N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 )                   CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 )
 *
                   EMAX = ZERO
                   DO 220 K = KI, N
-                     EMAX = MAX( EMAX, ABS( VL( K, IS   ) )+
-     $                                 ABS( VL( K, IS+1 ) ) )
+                     EMAX = MAX( EMAX, ABS( VL( K, IS   ) )+ ABS( VL( K, IS+1 ) ) )
   220             CONTINUE
                   REMAX = ONE / EMAX
                   CALL SSCAL( N-KI+1, REMAX, VL( KI, IS   ), 1 )
@@ -962,16 +852,7 @@
 *                 ------------------------------
 *                 version 1: back-transform each vector with GEMV, Q*x.
                   IF( KI.LT.N-1 ) THEN
-                     CALL SGEMV( 'N', N, N-KI-1, ONE,
-     $                           VL( 1, KI+2 ), LDVL,
-     $                           WORK( KI+2 + (IV)*N ), 1,
-     $                           WORK( KI   + (IV)*N ),
-     $                           VL( 1, KI ), 1 )
-                     CALL SGEMV( 'N', N, N-KI-1, ONE,
-     $                           VL( 1, KI+2 ), LDVL,
-     $                           WORK( KI+2 + (IV+1)*N ), 1,
-     $                           WORK( KI+1 + (IV+1)*N ),
-     $                           VL( 1, KI+1 ), 1 )
+                     CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 )                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 )
                   ELSE
                      CALL SSCAL( N, WORK(KI+  (IV  )*N), VL(1, KI  ), 1)
                      CALL SSCAL( N, WORK(KI+1+(IV+1)*N), VL(1, KI+1), 1)
@@ -979,8 +860,7 @@
 *
                   EMAX = ZERO
                   DO 240 K = 1, N
-                     EMAX = MAX( EMAX, ABS( VL( K, KI   ) )+
-     $                                 ABS( VL( K, KI+1 ) ) )
+                     EMAX = MAX( EMAX, ABS( VL( K, KI   ) )+ ABS( VL( K, KI+1 ) ) )
   240             CONTINUE
                   REMAX = ONE / EMAX
                   CALL SSCAL( N, REMAX, VL( 1, KI   ), 1 )
@@ -1016,11 +896,7 @@
 *              When the number of vectors stored reaches NB-1 or NB,
 *              or if this was last vector, do the GEMM
                IF( (IV.GE.NB-1) .OR. (KI2.EQ.N) ) THEN
-                  CALL SGEMM( 'N', 'N', N, IV, N-KI2+IV, ONE,
-     $                        VL( 1, KI2-IV+1 ), LDVL,
-     $                        WORK( KI2-IV+1 + (1)*N ), N,
-     $                        ZERO,
-     $                        WORK( 1 + (NB+1)*N ), N )
+                  CALL SGEMM( 'N', 'N', N, IV, N-KI2+IV, ONE, VL( 1, KI2-IV+1 ), LDVL, WORK( KI2-IV+1 + (1)*N ), N, ZERO, WORK( 1 + (NB+1)*N ), N )
 *                 normalize vectors
                   DO K = 1, IV
                      IF( ISCOMPLEX(K).EQ.0) THEN
@@ -1031,9 +907,7 @@
 *                       first eigenvector of conjugate pair
                         EMAX = ZERO
                         DO II = 1, N
-                           EMAX = MAX( EMAX,
-     $                                 ABS( WORK( II + (NB+K  )*N ) )+
-     $                                 ABS( WORK( II + (NB+K+1)*N ) ) )
+                           EMAX = MAX( EMAX, ABS( WORK( II + (NB+K  )*N ) )+ ABS( WORK( II + (NB+K+1)*N ) ) )
                         END DO
                         REMAX = ONE / EMAX
 *                    else if ISCOMPLEX(K).EQ.-1
@@ -1042,9 +916,7 @@
                      END IF
                      CALL SSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
                   END DO
-                  CALL SLACPY( 'F', N, IV,
-     $                         WORK( 1 + (NB+1)*N ), N,
-     $                         VL( 1, KI2-IV+1 ), LDVL )
+                  CALL SLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI2-IV+1 ), LDVL )
                   IV = 1
                ELSE
                   IV = IV + 1
@@ -1052,8 +924,7 @@
             END IF ! blocked back-transform
 *
             IS = IS + 1
-            IF( IP.NE.0 )
-     $         IS = IS + 1
+            IF( IP.NE.0 ) IS = IS + 1
   260    CONTINUE
       END IF
 *

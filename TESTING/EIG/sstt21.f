@@ -1,5 +1,4 @@
-      SUBROUTINE SSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK,
-     $                   RESULT )
+      SUBROUTINE SSTT21( N, KBAND, AD, AE, SD, SE, U, LDU, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            KBAND, LDU, N
 *     ..
 *     .. Array Arguments ..
-      REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ),
-     $                   SE( * ), U( LDU, * ), WORK( * )
+      REAL               AD( * ), AE( * ), RESULT( 2 ), SD( * ), SE( * ), U( LDU, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -39,8 +37,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       UNFL = SLAMCH( 'Safe minimum' )
       ULP = SLAMCH( 'Precision' )
@@ -73,8 +70,7 @@
 *
       IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
          DO 30 J = 1, N - 1
-            CALL SSYR2( 'L', N, -SE( J ), U( 1, J ), 1, U( 1, J+1 ), 1,
-     $                  WORK, N )
+            CALL SSYR2( 'L', N, -SE( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
    30    CONTINUE
       END IF
 *
@@ -94,15 +90,13 @@
 *
 *     Compute  UU' - I
 *
-      CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK,
-     $            N )
+      CALL SGEMM( 'N', 'C', N, N, N, ONE, U, LDU, U, LDU, ZERO, WORK, N )
 *
       DO 40 J = 1, N
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
    40 CONTINUE
 *
-      RESULT( 2 ) = MIN( REAL( N ), SLANGE( '1', N, N, WORK, N,
-     $              WORK( N**2+1 ) ) ) / ( N*ULP )
+      RESULT( 2 ) = MIN( REAL( N ), SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ) ) / ( N*ULP )
 *
       RETURN
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE CTRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE,
-     $                   CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
+      SUBROUTINE CTRT03( UPLO, TRANS, DIAG, N, NRHS, A, LDA, SCALE, CNORM, TSCAL, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               CNORM( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -80,18 +78,14 @@
          IX = ICAMAX( N, X( 1, J ), 1 )
          XNORM = ABS( X( IX, J ) )
          IF( ERR*SMLNUM.LE.XNORM ) THEN
-            IF( XNORM.GT.ZERO )
-     $         ERR = ERR / XNORM
+            IF( XNORM.GT.ZERO ) ERR = ERR / XNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          IF( ERR*SMLNUM.LE.TNORM ) THEN
-            IF( TNORM.GT.ZERO )
-     $         ERR = ERR / TNORM
+            IF( TNORM.GT.ZERO ) ERR = ERR / TNORM
          ELSE
-            IF( ERR.GT.ZERO )
-     $         ERR = ONE / EPS
+            IF( ERR.GT.ZERO ) ERR = ONE / EPS
          END IF
          RESID = MAX( RESID, ERR )
    30 CONTINUE

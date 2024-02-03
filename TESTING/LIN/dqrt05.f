@@ -14,9 +14,7 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:),
-     $  R(:,:), RWORK(:), WORK( : ), T(:,:),
-     $  CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
+      DOUBLE PRECISION, ALLOCATABLE :: AF(:,:), Q(:,:), R(:,:), RWORK(:), WORK( : ), T(:,:), CF(:,:), DF(:,:), A(:,:), C(:,:), D(:,:)
 *
 *     .. Parameters ..
       DOUBLE PRECISION ONE, ZERO
@@ -49,9 +47,7 @@
 *
 *     Dynamically allocate all arrays
 *
-      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2),
-     $           WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N),
-     $           D(N,M2),DF(N,M2) )
+      ALLOCATE(A(M2,N),AF(M2,N),Q(M2,M2),R(M2,M2),RWORK(M2), WORK(LWORK),T(NB,N),C(M2,N),CF(M2,N), D(N,M2),DF(N,M2) )
 *
 *     Put random stuff into A
 *
@@ -83,8 +79,7 @@
 *     Generate the (M+N)-by-(M+N) matrix Q by applying H to I
 *
       CALL DLASET( 'Full', M2, M2, ZERO, ONE, Q, M2 )
-      CALL DGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2,
-     $              WORK, INFO )
+      CALL DGEMQRT( 'R', 'N', M2, M2, K, NB, AF, M2, T, LDT, Q, M2, WORK, INFO )
 *
 *     Copy R
 *
@@ -119,8 +114,7 @@
 *
 *     Apply Q to C as Q*C
 *
-      CALL DTPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2,
-     $               CF(NP1,1),M2,WORK,INFO)
+      CALL DTPMQRT( 'L','N', M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |Q*C - Q*C| / |C|
 *
@@ -138,8 +132,7 @@
 *
 *     Apply Q to C as QT*C
 *
-      CALL DTPMQRT( 'L','T',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2,
-     $              CF(NP1,1),M2,WORK,INFO)
+      CALL DTPMQRT( 'L','T',M,N,K,L,NB,AF(NP1,1),M2,T,LDT,CF,M2, CF(NP1,1),M2,WORK,INFO)
 *
 *     Compute |QT*C - QT*C| / |C|
 *
@@ -161,8 +154,7 @@
 *
 *     Apply Q to D as D*Q
 *
-      CALL DTPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL DTPMQRT('R','N',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 *
 *     Compute |D*Q - D*Q| / |D|
 *
@@ -180,8 +172,7 @@
 *
 *     Apply Q to D as D*QT
 *
-      CALL DTPMQRT('R','T',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N,
-     $             DF(1,NP1),N,WORK,INFO)
+      CALL DTPMQRT('R','T',N,M,N,L,NB,AF(NP1,1),M2,T,LDT,DF,N, DF(1,NP1),N,WORK,INFO)
 
 *
 *     Compute |D*QT - D*QT| / |D|

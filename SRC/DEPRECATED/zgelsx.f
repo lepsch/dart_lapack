@@ -1,5 +1,4 @@
-      SUBROUTINE ZGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK,
-     $                   WORK, RWORK, INFO )
+      SUBROUTINE ZGELSX( M, N, NRHS, A, LDA, B, LDB, JPVT, RCOND, RANK, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,21 +20,17 @@
       INTEGER            IMAX, IMIN
       PARAMETER          ( IMAX = 1, IMIN = 2 )
       DOUBLE PRECISION   ZERO, ONE, DONE, NTDONE
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, DONE = ZERO,
-     $                   NTDONE = ONE )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, DONE = ZERO, NTDONE = ONE )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, IASCL, IBSCL, ISMAX, ISMIN, J, K, MN
-      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR,
-     $                   SMLNUM
+      DOUBLE PRECISION   ANRM, BIGNUM, BNRM, SMAX, SMAXPR, SMIN, SMINPR, SMLNUM
       COMPLEX*16         C1, C2, S1, S2, T1, T2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM,
-     $                   ZTRSM, ZTZRQF, ZUNM2R
+      EXTERNAL           XERBLA, ZGEQPF, ZLAIC1, ZLASCL, ZLASET, ZLATZM, ZTRSM, ZTZRQF, ZUNM2R
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH, ZLANGE
@@ -126,8 +121,7 @@
 *     Compute QR factorization with column pivoting of A:
 *        A * P = Q * R
 *
-      CALL ZGEQPF( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), RWORK,
-     $             INFO )
+      CALL ZGEQPF( M, N, A, LDA, JPVT, WORK( 1 ), WORK( MN+1 ), RWORK, INFO )
 *
 *     complex workspace MN+N. Real workspace 2*N. Details of Householder
 *     rotations stored in WORK(1:MN).
@@ -149,10 +143,7 @@
    10 CONTINUE
       IF( RANK.LT.MN ) THEN
          I = RANK + 1
-         CALL ZLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ),
-     $                A( I, I ), SMINPR, S1, C1 )
-         CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ),
-     $                A( I, I ), SMAXPR, S2, C2 )
+         CALL ZLAIC1( IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 )
 *
          IF( SMAXPR*RCOND.LE.SMINPR ) THEN
             DO 20 I = 1, RANK
@@ -174,22 +165,19 @@
 *
 *     [R11,R12] = [ T11, 0 ] * Y
 *
-      IF( RANK.LT.N )
-     $   CALL ZTZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO )
+      IF( RANK.LT.N ) CALL ZTZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO )
 *
 *     Details of Householder rotations stored in WORK(MN+1:2*MN)
 *
 *     B(1:M,1:NRHS) := Q**H * B(1:M,1:NRHS)
 *
-      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, NRHS, MN, A, LDA,
-     $             WORK( 1 ), B, LDB, WORK( 2*MN+1 ), INFO )
+      CALL ZUNM2R( 'Left', 'Conjugate transpose', M, NRHS, MN, A, LDA, WORK( 1 ), B, LDB, WORK( 2*MN+1 ), INFO )
 *
 *     workspace NRHS
 *
 *      B(1:RANK,1:NRHS) := inv(T11) * B(1:RANK,1:NRHS)
 *
-      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK,
-     $            NRHS, CONE, A, LDA, B, LDB )
+      CALL ZTRSM( 'Left', 'Upper', 'No transpose', 'Non-unit', RANK, NRHS, CONE, A, LDA, B, LDB )
 *
       DO 40 I = RANK + 1, N
          DO 30 J = 1, NRHS
@@ -201,9 +189,7 @@
 *
       IF( RANK.LT.N ) THEN
          DO 50 I = 1, RANK
-            CALL ZLATZM( 'Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA,
-     $                   DCONJG( WORK( MN+I ) ), B( I, 1 ),
-     $                   B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) )
+            CALL ZLATZM( 'Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, DCONJG( WORK( MN+I ) ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) )
    50    CONTINUE
       END IF
 *
@@ -227,8 +213,7 @@
                   T1 = T2
                   K = JPVT( K )
                   T2 = B( JPVT( K ), J )
-                  IF( JPVT( K ).NE.I )
-     $               GO TO 70
+                  IF( JPVT( K ).NE.I ) GO TO 70
                   B( I, J ) = T1
                   WORK( 2*MN+K ) = DONE
                END IF
@@ -240,12 +225,10 @@
 *
       IF( IASCL.EQ.1 ) THEN
          CALL ZLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL ZLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL ZLASCL( 'U', 0, 0, SMLNUM, ANRM, RANK, RANK, A, LDA, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
          CALL ZLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL ZLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA,
-     $                INFO )
+         CALL ZLASCL( 'U', 0, 0, BIGNUM, ANRM, RANK, RANK, A, LDA, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
          CALL ZLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )

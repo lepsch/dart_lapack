@@ -1,13 +1,11 @@
-      SUBROUTINE CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2,
-     $                    LDQ2, WORK, LWORK, INFO )
+      SUBROUTINE CUNBDB6( M1, M2, N, X1, INCX1, X2, INCX2, Q1, LDQ1, Q2, LDQ2, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2,
-     $                   N
+      INTEGER            INCX1, INCX2, INFO, LDQ1, LDQ2, LWORK, M1, M2, N
 *     ..
 *     .. Array Arguments ..
       COMPLEX            Q1(LDQ1,*), Q2(LDQ2,*), WORK(*), X1(*), X2(*)
@@ -17,11 +15,9 @@
 *
 *     .. Parameters ..
       REAL               ALPHA, REALONE, REALZERO
-      PARAMETER          ( ALPHA = 0.83E0, REALONE = 1.0E0,
-     $                     REALZERO = 0.0E0 )
+      PARAMETER          ( ALPHA = 0.83E0, REALONE = 1.0E0, REALZERO = 0.0E0 )
       COMPLEX            NEGONE, ONE, ZERO
-      PARAMETER          ( NEGONE = (-1.0E0,0.0E0), ONE = (1.0E0,0.0E0),
-     $                     ZERO = (0.0E0,0.0E0) )
+      PARAMETER          ( NEGONE = (-1.0E0,0.0E0), ONE = (1.0E0,0.0E0), ZERO = (0.0E0,0.0E0) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, IX
@@ -82,16 +78,12 @@
             WORK(I) = ZERO
          END DO
       ELSE
-         CALL CGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK,
-     $               1 )
+         CALL CGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
       END IF
 *
       CALL CGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
 *
-      CALL CGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1,
-     $            INCX1 )
-      CALL CGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2,
-     $            INCX2 )
+      CALL CGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL CGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
 *
       SCL = REALZERO
       SSQ = REALZERO
@@ -128,16 +120,12 @@
             WORK(I) = ZERO
          END DO
       ELSE
-         CALL CGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK,
-     $               1 )
+         CALL CGEMV( 'C', M1, N, ONE, Q1, LDQ1, X1, INCX1, ZERO, WORK, 1 )
       END IF
 *
       CALL CGEMV( 'C', M2, N, ONE, Q2, LDQ2, X2, INCX2, ONE, WORK, 1 )
 *
-      CALL CGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1,
-     $            INCX1 )
-      CALL CGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2,
-     $            INCX2 )
+      CALL CGEMV( 'N', M1, N, NEGONE, Q1, LDQ1, WORK, 1, ONE, X1, INCX1 )       CALL CGEMV( 'N', M2, N, NEGONE, Q2, LDQ2, WORK, 1, ONE, X2, INCX2 )
 *
       SCL = REALZERO
       SSQ = REALZERO

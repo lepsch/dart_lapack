@@ -1,8 +1,4 @@
-      SUBROUTINE DCHKHS( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1,
-     $                   WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR,
-     $                   EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK,
-     $                   SELECT, RESULT, INFO )
+      SUBROUTINE DCHKHS( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, NOUNIT, A, LDA, H, T1, T2, U, LDU, Z, UZ, WR1, WI1, WR2, WI2, WR3, WI3, EVECTL, EVECTR, EVECTY, EVECTX, UU, TAU, WORK, NWORK, IWORK, SELECT, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,13 +11,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * ), SELECT( * )
       INTEGER            ISEED( 4 ), IWORK( * ), NN( * )
-      DOUBLE PRECISION   A( LDA, * ), EVECTL( LDU, * ),
-     $                   EVECTR( LDU, * ), EVECTX( LDU, * ),
-     $                   EVECTY( LDU, * ), H( LDA, * ), RESULT( 16 ),
-     $                   T1( LDA, * ), T2( LDA, * ), TAU( * ),
-     $                   U( LDU, * ), UU( LDU, * ), UZ( LDU, * ),
-     $                   WI1( * ), WI2( * ), WI3( * ), WORK( * ),
-     $                   WR1( * ), WR2( * ), WR3( * ), Z( LDU, * )
+      DOUBLE PRECISION   A( LDA, * ), EVECTL( LDU, * ), EVECTR( LDU, * ), EVECTX( LDU, * ), EVECTY( LDU, * ), H( LDA, * ), RESULT( 16 ), T1( LDA, * ), T2( LDA, * ), TAU( * ), U( LDU, * ), UU( LDU, * ), UZ( LDU, * ), WI1( * ), WI2( * ), WI3( * ), WORK( * ), WR1( * ), WR2( * ), WR3( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
@@ -34,17 +24,12 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN, MATCH
-      INTEGER            I, IHI, IINFO, ILO, IMODE, IN, ITYPE, J, JCOL,
-     $                   JJ, JSIZE, JTYPE, K, MTYPES, N, N1, NERRS,
-     $                   NMATS, NMAX, NSELC, NSELR, NTEST, NTESTT
-      DOUBLE PRECISION   ANINV, ANORM, COND, CONDS, OVFL, RTOVFL, RTULP,
-     $                   RTULPI, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL
+      INTEGER            I, IHI, IINFO, ILO, IMODE, IN, ITYPE, J, JCOL, JJ, JSIZE, JTYPE, K, MTYPES, N, N1, NERRS, NMATS, NMAX, NSELC, NSELR, NTEST, NTESTT
+      DOUBLE PRECISION   ANINV, ANORM, COND, CONDS, OVFL, RTOVFL, RTULP, RTULPI, RTUNFL, TEMP1, TEMP2, ULP, ULPINV, UNFL
 *     ..
 *     .. Local Arrays ..
       CHARACTER          ADUMMA( 1 )
-      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ),
-     $                   KMAGN( MAXTYP ), KMODE( MAXTYP ),
-     $                   KTYPE( MAXTYP )
+      INTEGER            IDUMMA( 1 ), IOLDSD( 4 ), KCONDS( MAXTYP ), KMAGN( MAXTYP ), KMODE( MAXTYP ), KTYPE( MAXTYP )
       DOUBLE PRECISION   DUMMA( 6 )
 *     ..
 *     .. External Functions ..
@@ -52,20 +37,14 @@
       EXTERNAL           DLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEHRD, DGEMM, DGET10, DGET22, DHSEIN,
-     $                   DHSEQR, DHST01, DLACPY, DLAFTS, DLASET, DLASUM,
-     $                   DLATME, DLATMR, DLATMS, DORGHR, DORMHR, DTREVC,
-     $                   DTREVC3, XERBLA
+      EXTERNAL           DCOPY, DGEHRD, DGEMM, DGET10, DGET22, DHSEIN, DHSEQR, DHST01, DLACPY, DLAFTS, DLASET, DLASUM, DLATME, DLATMR, DLATMS, DORGHR, DORMHR, DTREVC, DTREVC3, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, MIN, SQRT
 *     ..
 *     .. Data statements ..
       DATA               KTYPE / 1, 2, 3, 5*4, 4*6, 6*6, 3*9 /
-      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2,
-     $                   3, 1, 2, 3 /
-      DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3,
-     $                   1, 5, 5, 5, 4, 3, 1 /
+      DATA               KMAGN / 3*1, 1, 1, 1, 2, 3, 4*1, 1, 1, 1, 1, 2, 3, 1, 2, 3 /       DATA               KMODE / 3*0, 4, 3, 1, 4, 4, 4, 3, 1, 5, 4, 3, 1, 5, 5, 5, 4, 3, 1 /
       DATA               KCONDS / 3*0, 5*0, 4*1, 6*2, 3*0 /
 *     ..
 *     .. Executable Statements ..
@@ -79,8 +58,7 @@
       NMAX = 0
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
 *     Check for errors
@@ -108,8 +86,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
 *     More important constants
 *
@@ -129,8 +106,7 @@
 *
       DO 270 JSIZE = 1, NSIZES
          N = NN( JSIZE )
-         IF( N.EQ.0 )
-     $      GO TO 270
+         IF( N.EQ.0 ) GO TO 270
          N1 = MAX( 1, N )
          ANINV = ONE / DBLE( N1 )
 *
@@ -141,8 +117,7 @@
          END IF
 *
          DO 260 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 260
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 260
             NMATS = NMATS + 1
             NTEST = 0
 *
@@ -174,8 +149,7 @@
 *       =9                              random general
 *       =10                             random triangular
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 100
+            IF( MTYPES.GT.MAXTYP ) GO TO 100
 *
             ITYPE = KTYPE( JTYPE )
             IMODE = KMODE( JTYPE )
@@ -224,25 +198,20 @@
 *
                DO 90 JCOL = 1, N
                   A( JCOL, JCOL ) = ANORM
-                  IF( JCOL.GT.1 )
-     $               A( JCOL, JCOL-1 ) = ONE
+                  IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
    90          CONTINUE
 *
             ELSE IF( ITYPE.EQ.4 ) THEN
 *
 *              Diagonal Matrix, [Eigen]values Specified
 *
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, 0, 0, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.5 ) THEN
 *
 *              Symmetric, eigenvalues specified
 *
-               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND,
-     $                      ANORM, N, N, 'N', A, LDA, WORK( N+1 ),
-     $                      IINFO )
+               CALL DLATMS( N, N, 'S', ISEED, 'S', WORK, IMODE, COND, ANORM, N, N, 'N', A, LDA, WORK( N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.6 ) THEN
 *
@@ -257,46 +226,31 @@
                END IF
 *
                ADUMMA( 1 ) = ' '
-               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE,
-     $                      ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4,
-     $                      CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ),
-     $                      IINFO )
+               CALL DLATME( N, 'S', ISEED, WORK, IMODE, COND, ONE, ADUMMA, 'T', 'T', 'T', WORK( N+1 ), 4, CONDS, N, N, ANORM, A, LDA, WORK( 2*N+1 ), IINFO )
 *
             ELSE IF( ITYPE.EQ.7 ) THEN
 *
 *              Diagonal, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, 0, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.8 ) THEN
 *
 *              Symmetric, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'S', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.9 ) THEN
 *
 *              General, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE IF( ITYPE.EQ.10 ) THEN
 *
 *              Triangular, random eigenvalues
 *
-               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE,
-     $                      'T', 'N', WORK( N+1 ), 1, ONE,
-     $                      WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0,
-     $                      ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
+               CALL DLATMR( N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, 0, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO )
 *
             ELSE
 *
@@ -304,8 +258,7 @@
             END IF
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -321,13 +274,11 @@
             ILO = 1
             IHI = N
 *
-            CALL DGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ),
-     $                   NWORK-N, IINFO )
+            CALL DGEHRD( N, ILO, IHI, H, LDA, WORK, WORK( N+1 ), NWORK-N, IINFO )
 *
             IF( IINFO.NE.0 ) THEN
                RESULT( 1 ) = ULPINV
-               WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DGEHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -341,12 +292,10 @@
   110          CONTINUE
   120       CONTINUE
             CALL DCOPY( N-1, WORK, 1, TAU, 1 )
-            CALL DORGHR( N, ILO, IHI, U, LDU, WORK, WORK( N+1 ),
-     $                   NWORK-N, IINFO )
+            CALL DORGHR( N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO )
             NTEST = 2
 *
-            CALL DHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK,
-     $                   NWORK, RESULT( 1 ) )
+            CALL DHST01( N, ILO, IHI, A, LDA, H, LDA, U, LDU, WORK, NWORK, RESULT( 1 ) )
 *
 *           Call DHSEQR to compute T1, T2 and Z, do tests.
 *
@@ -356,11 +305,9 @@
             NTEST = 3
             RESULT( 3 ) = ULPINV
 *
-            CALL DHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ,
-     $                   LDU, WORK, NWORK, IINFO )
+            CALL DHSEQR( 'E', 'N', N, ILO, IHI, T2, LDA, WR3, WI3, UZ, LDU, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(E)', IINFO, N, JTYPE, IOLDSD
                IF( IINFO.LE.N+2 ) THEN
                   INFO = ABS( IINFO )
                   GO TO 250
@@ -371,11 +318,9 @@
 *
             CALL DLACPY( ' ', N, N, H, LDA, T2, LDA )
 *
-            CALL DHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ,
-     $                   LDU, WORK, NWORK, IINFO )
+            CALL DHSEQR( 'S', 'N', N, ILO, IHI, T2, LDA, WR2, WI2, UZ, LDU, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 .AND. IINFO.LE.N+2 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -386,32 +331,27 @@
             CALL DLACPY( ' ', N, N, H, LDA, T1, LDA )
             CALL DLACPY( ' ', N, N, U, LDU, UZ, LDU )
 *
-            CALL DHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ,
-     $                   LDU, WORK, NWORK, IINFO )
+            CALL DHSEQR( 'S', 'V', N, ILO, IHI, T1, LDA, WR1, WI1, UZ, LDU, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 .AND. IINFO.LE.N+2 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEQR(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
 *
 *           Compute Z = U' UZ
 *
-            CALL DGEMM( 'T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO,
-     $                  Z, LDU )
+            CALL DGEMM( 'T', 'N', N, N, N, ONE, U, LDU, UZ, LDU, ZERO, Z, LDU )
             NTEST = 8
 *
 *           Do Tests 3: | H - Z T Z' | / ( |H| n ulp )
 *                and 4: | I - Z Z' | / ( n ulp )
 *
-            CALL DHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK,
-     $                   NWORK, RESULT( 3 ) )
+            CALL DHST01( N, ILO, IHI, H, LDA, T1, LDA, Z, LDU, WORK, NWORK, RESULT( 3 ) )
 *
 *           Do Tests 5: | A - UZ T (UZ)' | / ( |A| n ulp )
 *                and 6: | I - UZ (UZ)' | / ( n ulp )
 *
-            CALL DHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK,
-     $                   NWORK, RESULT( 5 ) )
+            CALL DHST01( N, ILO, IHI, A, LDA, T1, LDA, UZ, LDU, WORK, NWORK, RESULT( 5 ) )
 *
 *           Do Test 7: | T2 - T1 | / ( |T| n ulp )
 *
@@ -422,10 +362,7 @@
             TEMP1 = ZERO
             TEMP2 = ZERO
             DO 130 J = 1, N
-               TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ),
-     $                 ABS( WR2( J ) )+ABS( WI2( J ) ) )
-               TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+
-     &                 ABS( WI1( J )-WI2( J ) ) )
+               TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) )
   130       CONTINUE
 *
             RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
@@ -462,36 +399,29 @@
                END IF
                J = J - 2
             END IF
-            IF( J.GT.0 )
-     $         GO TO 140
+            IF( J.GT.0 ) GO TO 140
 *
-            CALL DTREVC( 'Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU,
-     $                   EVECTR, LDU, N, IN, WORK, IINFO )
+            CALL DTREVC( 'Right', 'All', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
 *
 *           Test 9:  | TR - RW | / ( |T| |R| ulp )
 *
-            CALL DGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1,
-     $                   WI1, WORK, DUMMA( 1 ) )
+            CALL DGET22( 'N', 'N', 'N', N, T1, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
             RESULT( 9 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Compute selected right eigenvectors and confirm that
 *           they agree with previous right eigenvectors
 *
-            CALL DTREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA,
-     $                   LDU, EVECTL, LDU, N, IN, WORK, IINFO )
+            CALL DTREVC( 'Right', 'Some', SELECT, N, T1, LDA, DUMMA, LDU, EVECTL, LDU, N, IN, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(R,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -509,8 +439,7 @@
                   K = K + 1
                ELSE IF( SELECT( J ) .AND. WI1( J ).NE.ZERO ) THEN
                   DO 160 JJ = 1, N
-                     IF( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR.
-     $                   EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) THEN
+                     IF( EVECTR( JJ, J ).NE.EVECTL( JJ, K ) .OR. EVECTR( JJ, J+1 ).NE.EVECTL( JJ, K+1 ) ) THEN
                         MATCH = .FALSE.
                         GO TO 180
                      END IF
@@ -519,41 +448,33 @@
                END IF
   170       CONTINUE
   180       CONTINUE
-            IF( .NOT.MATCH )
-     $         WRITE( NOUNIT, FMT = 9997 )'Right', 'DTREVC', N, JTYPE,
-     $         IOLDSD
+            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'DTREVC', N, JTYPE, IOLDSD
 *
 *           Compute the Left eigenvector Matrix:
 *
             NTEST = 10
             RESULT( 10 ) = ULPINV
-            CALL DTREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU,
-     $                   DUMMA, LDU, N, IN, WORK, IINFO )
+            CALL DTREVC( 'Left', 'All', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,A)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
 *
 *           Test 10:  | LT - WL | / ( |T| |L| ulp )
 *
-            CALL DGET22( 'Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU,
-     $                   WR1, WI1, WORK, DUMMA( 3 ) )
+            CALL DGET22( 'Trans', 'N', 'Conj', N, T1, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
             RESULT( 10 ) = DUMMA( 3 )
             IF( DUMMA( 4 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ),
-     $            N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC', DUMMA( 4 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Compute selected left eigenvectors and confirm that
 *           they agree with previous left eigenvectors
 *
-            CALL DTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR,
-     $                   LDU, DUMMA, LDU, N, IN, WORK, IINFO )
+            CALL DTREVC( 'Left', 'Some', SELECT, N, T1, LDA, EVECTR, LDU, DUMMA, LDU, N, IN, WORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC(L,S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -571,8 +492,7 @@
                   K = K + 1
                ELSE IF( SELECT( J ) .AND. WI1( J ).NE.ZERO ) THEN
                   DO 200 JJ = 1, N
-                     IF( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR.
-     $                   EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) THEN
+                     IF( EVECTL( JJ, J ).NE.EVECTR( JJ, K ) .OR. EVECTL( JJ, J+1 ).NE.EVECTR( JJ, K+1 ) ) THEN
                         MATCH = .FALSE.
                         GO TO 220
                      END IF
@@ -581,9 +501,7 @@
                END IF
   210       CONTINUE
   220       CONTINUE
-            IF( .NOT.MATCH )
-     $         WRITE( NOUNIT, FMT = 9997 )'Left', 'DTREVC', N, JTYPE,
-     $         IOLDSD
+            IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'DTREVC', N, JTYPE, IOLDSD
 *
 *           Call DHSEIN for Right eigenvectors of H, do test 11
 *
@@ -593,28 +511,20 @@
                SELECT( J ) = .TRUE.
   230       CONTINUE
 *
-            CALL DHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA,
-     $                   WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN,
-     $                   WORK, IWORK, IWORK, IINFO )
+            CALL DHSEIN( 'Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 )
-     $            GO TO 250
+               IF( IINFO.LT.0 ) GO TO 250
             ELSE
 *
 *              Test 11:  | HX - XW | / ( |H| |X| ulp )
 *
 *                        (from inverse iteration)
 *
-               CALL DGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3,
-     $                      WI3, WORK, DUMMA( 1 ) )
-               IF( DUMMA( 1 ).LT.ULPINV )
-     $            RESULT( 11 ) = DUMMA( 1 )*ANINV
+               CALL DGET22( 'N', 'N', 'N', N, H, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 11 ) = DUMMA( 1 )*ANINV
                IF( DUMMA( 2 ).GT.THRESH ) THEN
-                  WRITE( NOUNIT, FMT = 9998 )'Right', 'DHSEIN',
-     $               DUMMA( 2 ), N, JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9998 )'Right', 'DHSEIN', DUMMA( 2 ), N, JTYPE, IOLDSD
                END IF
             END IF
 *
@@ -626,28 +536,20 @@
                SELECT( J ) = .TRUE.
   240       CONTINUE
 *
-            CALL DHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3,
-     $                   WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK,
-     $                   IWORK, IWORK, IINFO )
+            CALL DHSEIN( 'Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DHSEIN(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 )
-     $            GO TO 250
+               IF( IINFO.LT.0 ) GO TO 250
             ELSE
 *
 *              Test 12:  | YH - WY | / ( |H| |Y| ulp )
 *
 *                        (from inverse iteration)
 *
-               CALL DGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3,
-     $                      WI3, WORK, DUMMA( 3 ) )
-               IF( DUMMA( 3 ).LT.ULPINV )
-     $            RESULT( 12 ) = DUMMA( 3 )*ANINV
+               CALL DGET22( 'C', 'N', 'C', N, H, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 12 ) = DUMMA( 3 )*ANINV
                IF( DUMMA( 4 ).GT.THRESH ) THEN
-                  WRITE( NOUNIT, FMT = 9998 )'Left', 'DHSEIN',
-     $               DUMMA( 4 ), N, JTYPE, IOLDSD
+                  WRITE( NOUNIT, FMT = 9998 )'Left', 'DHSEIN', DUMMA( 4 ), N, JTYPE, IOLDSD
                END IF
             END IF
 *
@@ -656,24 +558,18 @@
             NTEST = 13
             RESULT( 13 ) = ULPINV
 *
-            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU,
-     $                   LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
+            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTX, LDU, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DORMHR(R)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 )
-     $            GO TO 250
+               IF( IINFO.LT.0 ) GO TO 250
             ELSE
 *
 *              Test 13:  | AX - XW | / ( |A| |X| ulp )
 *
 *                        (from inverse iteration)
 *
-               CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3,
-     $                      WI3, WORK, DUMMA( 1 ) )
-               IF( DUMMA( 1 ).LT.ULPINV )
-     $            RESULT( 13 ) = DUMMA( 1 )*ANINV
+               CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTX, LDU, WR3, WI3, WORK, DUMMA( 1 ) )                IF( DUMMA( 1 ).LT.ULPINV ) RESULT( 13 ) = DUMMA( 1 )*ANINV
             END IF
 *
 *           Call DORMHR for Left eigenvectors of A, do test 14
@@ -681,24 +577,18 @@
             NTEST = 14
             RESULT( 14 ) = ULPINV
 *
-            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU,
-     $                   LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
+            CALL DORMHR( 'Left', 'No transpose', N, N, ILO, IHI, UU, LDU, TAU, EVECTY, LDU, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DORMHR(L)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
-               IF( IINFO.LT.0 )
-     $            GO TO 250
+               IF( IINFO.LT.0 ) GO TO 250
             ELSE
 *
 *              Test 14:  | YA - WY | / ( |A| |Y| ulp )
 *
 *                        (from inverse iteration)
 *
-               CALL DGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3,
-     $                      WI3, WORK, DUMMA( 3 ) )
-               IF( DUMMA( 3 ).LT.ULPINV )
-     $            RESULT( 14 ) = DUMMA( 3 )*ANINV
+               CALL DGET22( 'C', 'N', 'C', N, A, LDA, EVECTY, LDU, WR3, WI3, WORK, DUMMA( 3 ) )                IF( DUMMA( 3 ).LT.ULPINV ) RESULT( 14 ) = DUMMA( 3 )*ANINV
             END IF
 *
 *           Compute Left and Right Eigenvectors of A
@@ -710,11 +600,9 @@
 *
             CALL DLACPY( ' ', N, N, UZ, LDU, EVECTR, LDU )
 *
-            CALL DTREVC3( 'Right', 'Back', SELECT, N, T1, LDA, DUMMA,
-     $                    LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO )
+            CALL DTREVC3( 'Right', 'Back', SELECT, N, T1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -723,12 +611,10 @@
 *
 *                     (from Schur decomposition)
 *
-            CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1,
-     $                   WI1, WORK, DUMMA( 1 ) )
+            CALL DGET22( 'N', 'N', 'N', N, A, LDA, EVECTR, LDU, WR1, WI1, WORK, DUMMA( 1 ) )
             RESULT( 15 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'DTREVC3', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Compute a Left eigenvector matrix:
@@ -738,11 +624,9 @@
 *
             CALL DLACPY( ' ', N, N, UZ, LDU, EVECTL, LDU )
 *
-            CALL DTREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL,
-     $                    LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO )
+            CALL DTREVC3( 'Left', 'Back', SELECT, N, T1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, NWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'DTREVC3(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 250
             END IF
@@ -751,12 +635,10 @@
 *
 *                     (from Schur decomposition)
 *
-            CALL DGET22( 'Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU,
-     $                   WR1, WI1, WORK, DUMMA( 3 ) )
+            CALL DGET22( 'Trans', 'N', 'Conj', N, A, LDA, EVECTL, LDU, WR1, WI1, WORK, DUMMA( 3 ) )
             RESULT( 16 ) = DUMMA( 3 )
             IF( DUMMA( 4 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ),
-     $            N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'DTREVC3', DUMMA( 4 ), N, JTYPE, IOLDSD
             END IF
 *
 *           End of Loop -- Check for RESULT(j) > THRESH
@@ -764,8 +646,7 @@
   250       CONTINUE
 *
             NTESTT = NTESTT + NTEST
-            CALL DLAFTS( 'DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD,
-     $                   THRESH, NOUNIT, NERRS )
+            CALL DLAFTS( 'DHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS )
 *
   260    CONTINUE
   270 CONTINUE

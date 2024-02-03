@@ -1,5 +1,4 @@
-      SUBROUTINE CUNM2R( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC,
-     $                   WORK, INFO )
+      SUBROUTINE CUNM2R( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -71,8 +70,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 .OR. K.EQ.0 ) RETURN
 *
       IF( ( LEFT .AND. .NOT.NOTRAN .OR. .NOT.LEFT .AND. NOTRAN ) ) THEN
          I1 = 1
@@ -116,8 +114,7 @@
          END IF
          AII = A( I, I )
          A( I, I ) = ONE
-         CALL CLARF( SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC,
-     $               WORK )
+         CALL CLARF( SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC, WORK )
          A( I, I ) = AII
    10 CONTINUE
       RETURN

@@ -22,8 +22,7 @@
       PARAMETER          ( HALF = 0.5E0, FOUR = 4.0E0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2,
-     $                   SCL, T, TEST, TMP, ZETA1, ZETA2
+      REAL               ABSALP, ABSEST, ABSGAM, B, EPS, NORMA, S1, S2, SCL, T, TEST, TMP, ZETA1, ZETA2
       COMPLEX            ALPHA, COSINE, SINE
 *     ..
 *     .. Intrinsic Functions ..
@@ -119,8 +118,7 @@
 *
             SINE = -( ALPHA / ABSEST ) / T
             COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
-            TMP = REAL( SQRT( SINE * CONJG( SINE )
-     $        + COSINE * CONJG( COSINE ) ) )
+            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) )
             S = SINE / TMP
             C = COSINE / TMP
             SESTPR = SQRT( T+ONE )*ABSEST
@@ -191,8 +189,7 @@
             ZETA1 = ABSALP / ABSEST
             ZETA2 = ABSGAM / ABSEST
 *
-            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2,
-     $              ZETA1*ZETA2+ZETA2*ZETA2 )
+            NORMA = MAX( ONE+ZETA1*ZETA1+ZETA1*ZETA2, ZETA1*ZETA2+ZETA2*ZETA2 )
 *
 *           See if root is closer to zero or to ONE
 *
@@ -222,8 +219,7 @@
                COSINE = -( GAMMA / ABSEST ) / ( ONE+T )
                SESTPR = SQRT( ONE+T+FOUR*EPS*EPS*NORMA )*ABSEST
             END IF
-            TMP = REAL( SQRT( SINE * CONJG( SINE )
-     $        + COSINE * CONJG( COSINE ) ) )
+            TMP = REAL( SQRT( SINE * CONJG( SINE ) + COSINE * CONJG( COSINE ) ) )
             S = SINE / TMP
             C = COSINE / TMP
             RETURN

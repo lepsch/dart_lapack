@@ -1,5 +1,4 @@
-      SUBROUTINE DTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, WORK,
-     $                   INFO )
+      SUBROUTINE DTREXC( COMPQ, N, T, LDT, Q, LDQ, IFST, ILST, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -59,46 +58,37 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
 *     Determine the first row of specified block
 *     and find out it is 1 by 1 or 2 by 2.
 *
       IF( IFST.GT.1 ) THEN
-         IF( T( IFST, IFST-1 ).NE.ZERO )
-     $      IFST = IFST - 1
+         IF( T( IFST, IFST-1 ).NE.ZERO ) IFST = IFST - 1
       END IF
       NBF = 1
       IF( IFST.LT.N ) THEN
-         IF( T( IFST+1, IFST ).NE.ZERO )
-     $      NBF = 2
+         IF( T( IFST+1, IFST ).NE.ZERO ) NBF = 2
       END IF
 *
 *     Determine the first row of the final block
 *     and find out it is 1 by 1 or 2 by 2.
 *
       IF( ILST.GT.1 ) THEN
-         IF( T( ILST, ILST-1 ).NE.ZERO )
-     $      ILST = ILST - 1
+         IF( T( ILST, ILST-1 ).NE.ZERO ) ILST = ILST - 1
       END IF
       NBL = 1
       IF( ILST.LT.N ) THEN
-         IF( T( ILST+1, ILST ).NE.ZERO )
-     $      NBL = 2
+         IF( T( ILST+1, ILST ).NE.ZERO ) NBL = 2
       END IF
 *
-      IF( IFST.EQ.ILST )
-     $   RETURN
+      IF( IFST.EQ.ILST ) RETURN
 *
       IF( IFST.LT.ILST ) THEN
 *
 *        Update ILST
 *
-         IF( NBF.EQ.2 .AND. NBL.EQ.1 )
-     $      ILST = ILST - 1
-         IF( NBF.EQ.1 .AND. NBL.EQ.2 )
-     $      ILST = ILST + 1
+         IF( NBF.EQ.2 .AND. NBL.EQ.1 ) ILST = ILST - 1          IF( NBF.EQ.1 .AND. NBL.EQ.2 ) ILST = ILST + 1
 *
          HERE = IFST
 *
@@ -112,11 +102,9 @@
 *
             NBNEXT = 1
             IF( HERE+NBF+1.LE.N ) THEN
-               IF( T( HERE+NBF+1, HERE+NBF ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( T( HERE+NBF+1, HERE+NBF ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT,
-     $                   WORK, INFO )
+            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBF, NBNEXT, WORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -126,8 +114,7 @@
 *           Test if 2 by 2 block breaks into two 1 by 1 blocks
 *
             IF( NBF.EQ.2 ) THEN
-               IF( T( HERE+1, HERE ).EQ.ZERO )
-     $            NBF = 3
+               IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 *
          ELSE
@@ -137,11 +124,9 @@
 *
             NBNEXT = 1
             IF( HERE+3.LE.N ) THEN
-               IF( T( HERE+3, HERE+2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( T( HERE+3, HERE+2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT,
-     $                   WORK, INFO )
+            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, NBNEXT, WORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -150,21 +135,18 @@
 *
 *              Swap two 1 by 1 blocks, no problems possible
 *
-               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT,
-     $                      WORK, INFO )
+               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
                HERE = HERE + 1
             ELSE
 *
 *              Recompute NBNEXT in case 2 by 2 split
 *
-               IF( T( HERE+2, HERE+1 ).EQ.ZERO )
-     $            NBNEXT = 1
+               IF( T( HERE+2, HERE+1 ).EQ.ZERO ) NBNEXT = 1
                IF( NBNEXT.EQ.2 ) THEN
 *
 *                 2 by 2 Block did not split
 *
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1,
-     $                         NBNEXT, WORK, INFO )
+                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, NBNEXT, WORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -174,16 +156,12 @@
 *
 *                 2 by 2 Block did split
 *
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1,
-     $                         WORK, INFO )
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1,
-     $                         WORK, INFO )
+                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO )
                   HERE = HERE + 2
                END IF
             END IF
          END IF
-         IF( HERE.LT.ILST )
-     $      GO TO 10
+         IF( HERE.LT.ILST ) GO TO 10
 *
       ELSE
 *
@@ -198,11 +176,9 @@
 *
             NBNEXT = 1
             IF( HERE.GE.3 ) THEN
-               IF( T( HERE-1, HERE-2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT,
-     $                   NBF, WORK, INFO )
+            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, NBF, WORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -212,8 +188,7 @@
 *           Test if 2 by 2 block breaks into two 1 by 1 blocks
 *
             IF( NBF.EQ.2 ) THEN
-               IF( T( HERE+1, HERE ).EQ.ZERO )
-     $            NBF = 3
+               IF( T( HERE+1, HERE ).EQ.ZERO ) NBF = 3
             END IF
 *
          ELSE
@@ -223,11 +198,9 @@
 *
             NBNEXT = 1
             IF( HERE.GE.3 ) THEN
-               IF( T( HERE-1, HERE-2 ).NE.ZERO )
-     $            NBNEXT = 2
+               IF( T( HERE-1, HERE-2 ).NE.ZERO ) NBNEXT = 2
             END IF
-            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT,
-     $                   1, WORK, INFO )
+            CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-NBNEXT, NBNEXT, 1, WORK, INFO )
             IF( INFO.NE.0 ) THEN
                ILST = HERE
                RETURN
@@ -236,21 +209,18 @@
 *
 *              Swap two 1 by 1 blocks, no problems possible
 *
-               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1,
-     $                      WORK, INFO )
+               CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, NBNEXT, 1, WORK, INFO )
                HERE = HERE - 1
             ELSE
 *
 *              Recompute NBNEXT in case 2 by 2 split
 *
-               IF( T( HERE, HERE-1 ).EQ.ZERO )
-     $            NBNEXT = 1
+               IF( T( HERE, HERE-1 ).EQ.ZERO ) NBNEXT = 1
                IF( NBNEXT.EQ.2 ) THEN
 *
 *                 2 by 2 Block did not split
 *
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1,
-     $                         WORK, INFO )
+                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 2, 1, WORK, INFO )
                   IF( INFO.NE.0 ) THEN
                      ILST = HERE
                      RETURN
@@ -260,16 +230,12 @@
 *
 *                 2 by 2 Block did split
 *
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1,
-     $                         WORK, INFO )
-                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1,
-     $                         WORK, INFO )
+                  CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL DLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO )
                   HERE = HERE - 2
                END IF
             END IF
          END IF
-         IF( HERE.GT.ILST )
-     $      GO TO 20
+         IF( HERE.GT.ILST ) GO TO 20
       END IF
       ILST = HERE
 *

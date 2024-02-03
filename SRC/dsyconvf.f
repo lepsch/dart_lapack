@@ -51,8 +51,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -98,8 +97,7 @@
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL DSWAP( N-I, A( I, I+1 ), LDA,
-     $                              A( IP, I+1 ), LDA )
+                        CALL DSWAP( N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -112,8 +110,7 @@
                   IP = -IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.(I-1) ) THEN
-                        CALL DSWAP( N-I, A( I-1, I+1 ), LDA,
-     $                              A( IP, I+1 ), LDA )
+                        CALL DSWAP( N-I, A( I-1, I+1 ), LDA, A( IP, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -151,8 +148,7 @@
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL DSWAP( N-I, A( IP, I+1 ), LDA,
-     $                              A( I, I+1 ), LDA )
+                        CALL DSWAP( N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -166,8 +162,7 @@
                   IP = -IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.(I-1) ) THEN
-                        CALL DSWAP( N-I, A( IP, I+1 ), LDA,
-     $                              A( I-1, I+1 ), LDA )
+                        CALL DSWAP( N-I, A( IP, I+1 ), LDA, A( I-1, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -242,8 +237,7 @@
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL DSWAP( I-1, A( I, 1 ), LDA,
-     $                              A( IP, 1 ), LDA )
+                        CALL DSWAP( I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
                      END IF
                   END IF
 *
@@ -256,8 +250,7 @@
                   IP = -IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.(I+1) ) THEN
-                        CALL DSWAP( I-1, A( I+1, 1 ), LDA,
-     $                              A( IP, 1 ), LDA )
+                        CALL DSWAP( I-1, A( I+1, 1 ), LDA, A( IP, 1 ), LDA )
                      END IF
                   END IF
 *
@@ -295,8 +288,7 @@
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL DSWAP( I-1, A( IP, 1 ), LDA,
-     $                              A( I, 1 ), LDA )
+                        CALL DSWAP( I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA )
                      END IF
                   END IF
 *
@@ -310,8 +302,7 @@
                   IP = -IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.(I+1) ) THEN
-                        CALL DSWAP( I-1, A( IP, 1 ), LDA,
-     $                              A( I+1, 1 ), LDA )
+                        CALL DSWAP( I-1, A( IP, 1 ), LDA, A( I+1, 1 ), LDA )
                      END IF
                   END IF
 *

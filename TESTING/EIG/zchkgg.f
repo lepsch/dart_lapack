@@ -1,8 +1,4 @@
-      SUBROUTINE ZCHKGG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH,
-     $                   TSTDIF, THRSHN, NOUNIT, A, LDA, B, H, T, S1,
-     $                   S2, P1, P2, U, LDU, V, Q, Z, ALPHA1, BETA1,
-     $                   ALPHA3, BETA3, EVECTL, EVECTR, WORK, LWORK,
-     $                   RWORK, LLWORK, RESULT, INFO )
+      SUBROUTINE ZCHKGG( NSIZES, NN, NTYPES, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUNIT, A, LDA, B, H, T, S1, S2, P1, P2, U, LDU, V, Q, Z, ALPHA1, BETA1, ALPHA3, BETA3, EVECTL, EVECTR, WORK, LWORK, RWORK, LLWORK, RESULT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,13 +13,7 @@
       LOGICAL            DOTYPE( * ), LLWORK( * )
       INTEGER            ISEED( 4 ), NN( * )
       DOUBLE PRECISION   RESULT( 15 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), ALPHA1( * ), ALPHA3( * ),
-     $                   B( LDA, * ), BETA1( * ), BETA3( * ),
-     $                   EVECTL( LDU, * ), EVECTR( LDU, * ),
-     $                   H( LDA, * ), P1( LDA, * ), P2( LDA, * ),
-     $                   Q( LDU, * ), S1( LDA, * ), S2( LDA, * ),
-     $                   T( LDA, * ), U( LDU, * ), V( LDU, * ),
-     $                   WORK( * ), Z( LDU, * )
+      COMPLEX*16         A( LDA, * ), ALPHA1( * ), ALPHA3( * ), B( LDA, * ), BETA1( * ), BETA3( * ), EVECTL( LDU, * ), EVECTR( LDU, * ), H( LDA, * ), P1( LDA, * ), P2( LDA, * ), Q( LDU, * ), S1( LDA, * ), S2( LDA, * ), T( LDA, * ), U( LDU, * ), V( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
@@ -32,27 +22,19 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       INTEGER            MAXTYP
       PARAMETER          ( MAXTYP = 26 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            BADNN
-      INTEGER            I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE,
-     $                   LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX,
-     $                   NTEST, NTESTT
-      DOUBLE PRECISION   ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2,
-     $                   ULP, ULPINV
+      INTEGER            I1, IADD, IINFO, IN, J, JC, JR, JSIZE, JTYPE, LWKOPT, MTYPES, N, N1, NERRS, NMATS, NMAX, NTEST, NTESTT
+      DOUBLE PRECISION   ANORM, BNORM, SAFMAX, SAFMIN, TEMP1, TEMP2, ULP, ULPINV
       COMPLEX*16         CTEMP
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LASIGN( MAXTYP ), LBSIGN( MAXTYP )
-      INTEGER            IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ),
-     $                   KATYPE( MAXTYP ), KAZERO( MAXTYP ),
-     $                   KBMAGN( MAXTYP ), KBTYPE( MAXTYP ),
-     $                   KBZERO( MAXTYP ), KCLASS( MAXTYP ),
-     $                   KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
+      INTEGER            IOLDSD( 4 ), KADD( 6 ), KAMAGN( MAXTYP ), KATYPE( MAXTYP ), KAZERO( MAXTYP ), KBMAGN( MAXTYP ), KBTYPE( MAXTYP ), KBZERO( MAXTYP ), KCLASS( MAXTYP ), KTRIAN( MAXTYP ), KZ1( 6 ), KZ2( 6 )
       DOUBLE PRECISION   DUMMA( 4 ), RMAGN( 0: 3 )
       COMPLEX*16         CDUMMA( 4 )
 *     ..
@@ -62,9 +44,7 @@
       EXTERNAL           DLAMCH, ZLANGE, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD,
-     $                   ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC,
-     $                   ZUNM2R
+      EXTERNAL           DLASUM, XERBLA, ZGEQR2, ZGET51, ZGET52, ZGGHRD, ZHGEQZ, ZLACPY, ZLARFG, ZLASET, ZLATM4, ZTGEVC, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCONJG, MAX, MIN, SIGN
@@ -74,25 +54,9 @@
       DATA               KZ1 / 0, 1, 2, 1, 3, 3 /
       DATA               KZ2 / 0, 0, 1, 2, 1, 1 /
       DATA               KADD / 0, 0, 0, 0, 3, 2 /
-      DATA               KATYPE / 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4,
-     $                   4, 4, 2, 4, 5, 8, 7, 9, 4*4, 0 /
-      DATA               KBTYPE / 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4,
-     $                   1, 1, -4, 2, -4, 8*8, 0 /
-      DATA               KAZERO / 6*1, 2, 1, 2*2, 2*1, 2*2, 3, 1, 3,
-     $                   4*5, 4*3, 1 /
-      DATA               KBZERO / 6*1, 1, 2, 2*1, 2*2, 2*1, 4, 1, 4,
-     $                   4*6, 4*4, 1 /
-      DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3,
-     $                   2, 1 /
-      DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3,
-     $                   2, 1 /
+      DATA               KATYPE / 0, 1, 0, 1, 2, 3, 4, 1, 4, 4, 1, 1, 4, 4, 4, 2, 4, 5, 8, 7, 9, 4*4, 0 /       DATA               KBTYPE / 0, 0, 1, 1, 2, -3, 1, 4, 1, 1, 4, 4, 1, 1, -4, 2, -4, 8*8, 0 /       DATA               KAZERO / 6*1, 2, 1, 2*2, 2*1, 2*2, 3, 1, 3, 4*5, 4*3, 1 /       DATA               KBZERO / 6*1, 1, 2, 2*1, 2*2, 2*1, 4, 1, 4, 4*6, 4*4, 1 /       DATA               KAMAGN / 8*1, 2, 3, 2, 3, 2, 3, 7*1, 2, 3, 3, 2, 1 /       DATA               KBMAGN / 8*1, 3, 2, 3, 2, 2, 3, 7*1, 3, 2, 3, 2, 1 /
       DATA               KTRIAN / 16*0, 10*1 /
-      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE.,
-     $                   2*.FALSE., 3*.TRUE., .FALSE., .TRUE.,
-     $                   3*.FALSE., 5*.TRUE., .FALSE. /
-      DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE.,
-     $                   2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE.,
-     $                   9*.FALSE. /
+      DATA               LASIGN / 6*.FALSE., .TRUE., .FALSE., 2*.TRUE., 2*.FALSE., 3*.TRUE., .FALSE., .TRUE., 3*.FALSE., 5*.TRUE., .FALSE. /       DATA               LBSIGN / 7*.FALSE., .TRUE., 2*.FALSE., 2*.TRUE., 2*.FALSE., .TRUE., .FALSE., .TRUE., 9*.FALSE. /
 *     ..
 *     .. Executable Statements ..
 *
@@ -104,8 +68,7 @@
       NMAX = 1
       DO 10 J = 1, NSIZES
          NMAX = MAX( NMAX, NN( J ) )
-         IF( NN( J ).LT.0 )
-     $      BADNN = .TRUE.
+         IF( NN( J ).LT.0 ) BADNN = .TRUE.
    10 CONTINUE
 *
       LWKOPT = MAX( 2*NMAX*NMAX, 4*NMAX, 1 )
@@ -135,8 +98,7 @@
 *
 *     Quick return if possible
 *
-      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 )
-     $   RETURN
+      IF( NSIZES.EQ.0 .OR. NTYPES.EQ.0 ) RETURN
 *
       SAFMIN = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Epsilon' )*DLAMCH( 'Base' )
@@ -168,8 +130,7 @@
          END IF
 *
          DO 230 JTYPE = 1, MTYPES
-            IF( .NOT.DOTYPE( JTYPE ) )
-     $         GO TO 230
+            IF( .NOT.DOTYPE( JTYPE ) ) GO TO 230
             NMATS = NMATS + 1
             NTEST = 0
 *
@@ -206,8 +167,7 @@
 *           KZ1, KZ2, KADD: used to implement KAZERO and KBZERO.
 *           RMAGN:  used to implement KAMAGN and KBMAGN.
 *
-            IF( MTYPES.GT.MAXTYP )
-     $         GO TO 110
+            IF( MTYPES.GT.MAXTYP ) GO TO 110
             IINFO = 0
             IF( KCLASS( JTYPE ).LT.3 ) THEN
 *
@@ -215,37 +175,25 @@
 *
                IF( ABS( KATYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N )
-     $               CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
+                  IF( IN.NE.N ) CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA )
                ELSE
                   IN = N
                END IF
-               CALL ZLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ),
-     $                      KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ),
-     $                      RMAGN( KAMAGN( JTYPE ) ), ULP,
-     $                      RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4,
-     $                      ISEED, A, LDA )
+               CALL ZLATM4( KATYPE( JTYPE ), IN, KZ1( KAZERO( JTYPE ) ), KZ2( KAZERO( JTYPE ) ), LASIGN( JTYPE ), RMAGN( KAMAGN( JTYPE ) ), ULP, RMAGN( KTRIAN( JTYPE )*KAMAGN( JTYPE ) ), 4, ISEED, A, LDA )
                IADD = KADD( KAZERO( JTYPE ) )
-               IF( IADD.GT.0 .AND. IADD.LE.N )
-     $            A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
+               IF( IADD.GT.0 .AND. IADD.LE.N ) A( IADD, IADD ) = RMAGN( KAMAGN( JTYPE ) )
 *
 *              Generate B (w/o rotation)
 *
                IF( ABS( KBTYPE( JTYPE ) ).EQ.3 ) THEN
                   IN = 2*( ( N-1 ) / 2 ) + 1
-                  IF( IN.NE.N )
-     $               CALL ZLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
+                  IF( IN.NE.N ) CALL ZLASET( 'Full', N, N, CZERO, CZERO, B, LDA )
                ELSE
                   IN = N
                END IF
-               CALL ZLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ),
-     $                      KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ),
-     $                      RMAGN( KBMAGN( JTYPE ) ), ONE,
-     $                      RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4,
-     $                      ISEED, B, LDA )
+               CALL ZLATM4( KBTYPE( JTYPE ), IN, KZ1( KBZERO( JTYPE ) ), KZ2( KBZERO( JTYPE ) ), LBSIGN( JTYPE ), RMAGN( KBMAGN( JTYPE ) ), ONE, RMAGN( KTRIAN( JTYPE )*KBMAGN( JTYPE ) ), 4, ISEED, B, LDA )
                IADD = KADD( KBZERO( JTYPE ) )
-               IF( IADD.NE.0 )
-     $            B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
+               IF( IADD.NE.0 ) B( IADD, IADD ) = RMAGN( KBMAGN( JTYPE ) )
 *
                IF( KCLASS( JTYPE ).EQ.2 .AND. N.GT.0 ) THEN
 *
@@ -260,12 +208,10 @@
                         U( JR, JC ) = ZLARND( 3, ISEED )
                         V( JR, JC ) = ZLARND( 3, ISEED )
    40                CONTINUE
-                     CALL ZLARFG( N+1-JC, U( JC, JC ), U( JC+1, JC ), 1,
-     $                            WORK( JC ) )
+                     CALL ZLARFG( N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) )
                      WORK( 2*N+JC ) = SIGN( ONE, DBLE( U( JC, JC ) ) )
                      U( JC, JC ) = CONE
-                     CALL ZLARFG( N+1-JC, V( JC, JC ), V( JC+1, JC ), 1,
-     $                            WORK( N+JC ) )
+                     CALL ZLARFG( N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) )
                      WORK( 3*N+JC ) = SIGN( ONE, DBLE( V( JC, JC ) ) )
                      V( JC, JC ) = CONE
    50             CONTINUE
@@ -282,30 +228,10 @@
 *
                   DO 70 JC = 1, N
                      DO 60 JR = 1, N
-                        A( JR, JC ) = WORK( 2*N+JR )*
-     $                                DCONJG( WORK( 3*N+JC ) )*
-     $                                A( JR, JC )
-                        B( JR, JC ) = WORK( 2*N+JR )*
-     $                                DCONJG( WORK( 3*N+JC ) )*
-     $                                B( JR, JC )
+                        A( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* B( JR, JC )
    60                CONTINUE
    70             CONTINUE
-                  CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A,
-     $                         LDA, WORK( 2*N+1 ), IINFO )
-                  IF( IINFO.NE.0 )
-     $               GO TO 100
-                  CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ),
-     $                         A, LDA, WORK( 2*N+1 ), IINFO )
-                  IF( IINFO.NE.0 )
-     $               GO TO 100
-                  CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B,
-     $                         LDA, WORK( 2*N+1 ), IINFO )
-                  IF( IINFO.NE.0 )
-     $               GO TO 100
-                  CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ),
-     $                         B, LDA, WORK( 2*N+1 ), IINFO )
-                  IF( IINFO.NE.0 )
-     $               GO TO 100
+                  CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL ZUNM2R( 'R', 'C', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                END IF
             ELSE
 *
@@ -313,10 +239,7 @@
 *
                DO 90 JC = 1, N
                   DO 80 JR = 1, N
-                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )*
-     $                             ZLARND( 4, ISEED )
-                     B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )*
-     $                             ZLARND( 4, ISEED )
+                     A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED )
    80             CONTINUE
    90          CONTINUE
             END IF
@@ -327,8 +250,7 @@
   100       CONTINUE
 *
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                RETURN
             END IF
@@ -344,36 +266,29 @@
 *
             CALL ZGEQR2( N, N, T, LDA, WORK, WORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZGEQR2', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZGEQR2', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZUNM2R( 'L', 'C', N, N, N, T, LDA, WORK, H, LDA,
-     $                   WORK( N+1 ), IINFO )
+            CALL ZUNM2R( 'L', 'C', N, N, N, T, LDA, WORK, H, LDA, WORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
             CALL ZLASET( 'Full', N, N, CZERO, CONE, U, LDU )
-            CALL ZUNM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU,
-     $                   WORK( N+1 ), IINFO )
+            CALL ZUNM2R( 'R', 'N', N, N, N, T, LDA, WORK, U, LDU, WORK( N+1 ), IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZUNM2R', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V,
-     $                   LDU, IINFO )
+            CALL ZGGHRD( 'V', 'I', N, 1, N, H, LDA, T, LDA, U, LDU, V, LDU, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZGGHRD', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZGGHRD', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -381,14 +296,7 @@
 *
 *           Do tests 1--4
 *
-            CALL ZGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK,
-     $                   RWORK, RESULT( 1 ) )
-            CALL ZGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK,
-     $                   RWORK, RESULT( 2 ) )
-            CALL ZGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK,
-     $                   RWORK, RESULT( 3 ) )
-            CALL ZGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK,
-     $                   RWORK, RESULT( 4 ) )
+            CALL ZGET51( 1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 1 ) )             CALL ZGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RWORK, RESULT( 2 ) )             CALL ZGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RWORK, RESULT( 3 ) )             CALL ZGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RWORK, RESULT( 4 ) )
 *
 *           Call ZHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 *
@@ -401,12 +309,9 @@
             NTEST = 5
             RESULT( 5 ) = ULPINV
 *
-            CALL ZHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA,
-     $                   ALPHA3, BETA3, Q, LDU, Z, LDU, WORK, LWORK,
-     $                   RWORK, IINFO )
+            CALL ZHGEQZ( 'E', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA3, BETA3, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(E)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(E)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -416,12 +321,9 @@
             CALL ZLACPY( ' ', N, N, H, LDA, S2, LDA )
             CALL ZLACPY( ' ', N, N, T, LDA, P2, LDA )
 *
-            CALL ZHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA,
-     $                   ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK,
-     $                   RWORK, IINFO )
+            CALL ZHGEQZ( 'S', 'N', 'N', N, 1, N, S2, LDA, P2, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(S)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(S)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -431,12 +333,9 @@
             CALL ZLACPY( ' ', N, N, H, LDA, S1, LDA )
             CALL ZLACPY( ' ', N, N, T, LDA, P1, LDA )
 *
-            CALL ZHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA,
-     $                   ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK,
-     $                   RWORK, IINFO )
+            CALL ZHGEQZ( 'S', 'I', 'I', N, 1, N, S1, LDA, P1, LDA, ALPHA1, BETA1, Q, LDU, Z, LDU, WORK, LWORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(V)', IINFO, N, JTYPE,
-     $            IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZHGEQZ(V)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -445,14 +344,7 @@
 *
 *           Do Tests 5--8
 *
-            CALL ZGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK,
-     $                   RWORK, RESULT( 5 ) )
-            CALL ZGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK,
-     $                   RWORK, RESULT( 6 ) )
-            CALL ZGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK,
-     $                   RWORK, RESULT( 7 ) )
-            CALL ZGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK,
-     $                   RWORK, RESULT( 8 ) )
+            CALL ZGET51( 1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 5 ) )             CALL ZGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 6 ) )             CALL ZGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RWORK, RESULT( 7 ) )             CALL ZGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RWORK, RESULT( 8 ) )
 *
 *           Compute the Left and Right Eigenvectors of (S1,P1)
 *
@@ -473,11 +365,9 @@
                LLWORK( J ) = .FALSE.
   130       CONTINUE
 *
-            CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL,
-     $                   LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S1)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -490,22 +380,17 @@
                LLWORK( J ) = .TRUE.
   150       CONTINUE
 *
-            CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA,
-     $                   EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN,
-     $                   WORK, RWORK, IINFO )
+            CALL ZTGEVC( 'L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S2)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU,
-     $                   ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            CALL ZGET52( .TRUE., N, S1, LDA, P1, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 9 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRSHN ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=S)',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           10: Compute the left eigenvector Matrix with
@@ -514,21 +399,17 @@
             NTEST = 10
             RESULT( 10 ) = ULPINV
             CALL ZLACPY( 'F', N, N, Q, LDU, EVECTL, LDU )
-            CALL ZTGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL,
-     $                   LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
+            CALL ZTGEVC( 'L', 'B', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, CDUMMA, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,B)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(L,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1,
-     $                   BETA1, WORK, RWORK, DUMMA( 1 ) )
+            CALL ZGET52( .TRUE., N, H, LDA, T, LDA, EVECTL, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 10 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRSHN ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=B)',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Left', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           11: Compute the right eigenvector Matrix without
@@ -548,11 +429,9 @@
                LLWORK( J ) = .FALSE.
   170       CONTINUE
 *
-            CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA,
-     $                   LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
+            CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S1)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S1)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
@@ -565,22 +444,17 @@
                LLWORK( J ) = .TRUE.
   190       CONTINUE
 *
-            CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA,
-     $                   LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK,
-     $                   RWORK, IINFO )
+            CALL ZTGEVC( 'R', 'S', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S2)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,S2)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU,
-     $                   ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            CALL ZGET52( .FALSE., N, S1, LDA, P1, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 11 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=S)',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=S)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           12: Compute the right eigenvector Matrix with
@@ -589,21 +463,17 @@
             NTEST = 12
             RESULT( 12 ) = ULPINV
             CALL ZLACPY( 'F', N, N, Z, LDU, EVECTR, LDU )
-            CALL ZTGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, CDUMMA,
-     $                   LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
+            CALL ZTGEVC( 'R', 'B', LLWORK, N, S1, LDA, P1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO )
             IF( IINFO.NE.0 ) THEN
-               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,B)', IINFO, N,
-     $            JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9999 )'ZTGEVC(R,B)', IINFO, N, JTYPE, IOLDSD
                INFO = ABS( IINFO )
                GO TO 210
             END IF
 *
-            CALL ZGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU,
-     $                   ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
+            CALL ZGET52( .FALSE., N, H, LDA, T, LDA, EVECTR, LDU, ALPHA1, BETA1, WORK, RWORK, DUMMA( 1 ) )
             RESULT( 12 ) = DUMMA( 1 )
             IF( DUMMA( 2 ).GT.THRESH ) THEN
-               WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=B)',
-     $            DUMMA( 2 ), N, JTYPE, IOLDSD
+               WRITE( NOUNIT, FMT = 9998 )'Right', 'ZTGEVC(HOWMNY=B)', DUMMA( 2 ), N, JTYPE, IOLDSD
             END IF
 *
 *           Tests 13--15 are done only on request
@@ -612,10 +482,7 @@
 *
 *              Do Tests 13--14
 *
-               CALL ZGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU,
-     $                      WORK, RWORK, RESULT( 13 ) )
-               CALL ZGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU,
-     $                      WORK, RWORK, RESULT( 14 ) )
+               CALL ZGET51( 2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 13 ) )                CALL ZGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RWORK, RESULT( 14 ) )
 *
 *              Do Test 15
 *
@@ -662,17 +529,14 @@
 *
 *                    Tests performed
 *
-                     WRITE( NOUNIT, FMT = 9993 )'unitary', '*',
-     $                  'conjugate transpose', ( '*', J = 1, 10 )
+                     WRITE( NOUNIT, FMT = 9993 )'unitary', '*', 'conjugate transpose', ( '*', J = 1, 10 )
 *
                   END IF
                   NERRS = NERRS + 1
                   IF( RESULT( JR ).LT.10000.0D0 ) THEN
-                     WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9992 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   ELSE
-                     WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR,
-     $                  RESULT( JR )
+                     WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   END IF
                END IF
   220       CONTINUE

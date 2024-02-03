@@ -1,5 +1,4 @@
-      SUBROUTINE SGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK,
-     $                   WORK, LWORK, INFO )
+      SUBROUTINE SGELSS( M, N, NRHS, A, LDA, B, LDB, S, RCOND, RANK, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -21,20 +20,15 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL,
-     $                   ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN,
-     $                   MAXWRK, MINMN, MINWRK, MM, MNTHR
-      INTEGER            LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD,
-     $                   LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ
+      INTEGER            BDSPAC, BL, CHUNK, I, IASCL, IBSCL, IE, IL, ITAU, ITAUP, ITAUQ, IWORK, LDWORK, MAXMN, MAXWRK, MINMN, MINWRK, MM, MNTHR
+      INTEGER            LWORK_SGEQRF, LWORK_SORMQR, LWORK_SGEBRD, LWORK_SORMBR, LWORK_SORGBR, LWORK_SORMLQ
       REAL               ANRM, BIGNUM, BNRM, EPS, SFMIN, SMLNUM, THR
 *     ..
 *     .. Local Arrays ..
       REAL               DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SBDSQR, SCOPY, SGEBRD, SGELQF, SGEMM, SGEMV,
-     $                   SGEQRF, SLACPY, SLASCL, SLASET, SORGBR,
-     $                   SORMBR, SORMLQ, SORMQR, SRSCL, XERBLA
+      EXTERNAL           SBDSQR, SCOPY, SGEBRD, SGELQF, SGEMM, SGEMV, SGEQRF, SLACPY, SLASCL, SLASET, SORGBR, SORMBR, SORMLQ, SORMQR, SRSCL, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -86,8 +80,7 @@
                CALL SGEQRF( M, N, A, LDA, DUM(1), DUM(1), -1, INFO )
                LWORK_SGEQRF = INT( DUM(1) )
 *              Compute space needed for SORMQR
-               CALL SORMQR( 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B,
-     $                   LDB, DUM(1), -1, INFO )
+               CALL SORMQR( 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                LWORK_SORMQR = INT( DUM(1) )
                MM = N
                MAXWRK = MAX( MAXWRK, N + LWORK_SGEQRF )
@@ -101,16 +94,13 @@
 *
                BDSPAC = MAX( 1, 5*N )
 *              Compute space needed for SGEBRD
-               CALL SGEBRD( MM, N, A, LDA, S, DUM(1), DUM(1),
-     $                      DUM(1), DUM(1), -1, INFO )
+               CALL SGEBRD( MM, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
                LWORK_SGEBRD = INT( DUM(1) )
 *              Compute space needed for SORMBR
-               CALL SORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, DUM(1),
-     $                B, LDB, DUM(1), -1, INFO )
+               CALL SORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                LWORK_SORMBR = INT( DUM(1) )
 *              Compute space needed for SORGBR
-               CALL SORGBR( 'P', N, N, N, A, LDA, DUM(1),
-     $                   DUM(1), -1, INFO )
+               CALL SORGBR( 'P', N, N, N, A, LDA, DUM(1), DUM(1), -1, INFO )
                LWORK_SORGBR = INT( DUM(1) )
 *              Compute total workspace needed
                MAXWRK = MAX( MAXWRK, 3*N + LWORK_SGEBRD )
@@ -133,24 +123,19 @@
 *                 than rows
 *
 *                 Compute space needed for SGEBRD
-                  CALL SGEBRD( M, M, A, LDA, S, DUM(1), DUM(1),
-     $                      DUM(1), DUM(1), -1, INFO )
+                  CALL SGEBRD( M, M, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
                   LWORK_SGEBRD = INT( DUM(1) )
 *                 Compute space needed for SORMBR
-                  CALL SORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA,
-     $                DUM(1), B, LDB, DUM(1), -1, INFO )
+                  CALL SORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_SORMBR = INT( DUM(1) )
 *                 Compute space needed for SORGBR
-                  CALL SORGBR( 'P', M, M, M, A, LDA, DUM(1),
-     $                   DUM(1), -1, INFO )
+                  CALL SORGBR( 'P', M, M, M, A, LDA, DUM(1), DUM(1), -1, INFO )
                   LWORK_SORGBR = INT( DUM(1) )
 *                 Compute space needed for SORMLQ
-                  CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, DUM(1),
-     $                 B, LDB, DUM(1), -1, INFO )
+                  CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_SORMLQ = INT( DUM(1) )
 *                 Compute total workspace needed
-                  MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1,
-     $                                  -1 )
+                  MAXWRK = M + M*ILAENV( 1, 'SGELQF', ' ', M, N, -1, -1 )
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SGEBRD )
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SORMBR )
                   MAXWRK = MAX( MAXWRK, M*M + 4*M + LWORK_SORGBR )
@@ -166,16 +151,13 @@
 *                 Path 2 - underdetermined
 *
 *                 Compute space needed for SGEBRD
-                  CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1),
-     $                      DUM(1), DUM(1), -1, INFO )
+                  CALL SGEBRD( M, N, A, LDA, S, DUM(1), DUM(1), DUM(1), DUM(1), -1, INFO )
                   LWORK_SGEBRD = INT( DUM(1) )
 *                 Compute space needed for SORMBR
-                  CALL SORMBR( 'Q', 'L', 'T', M, NRHS, M, A, LDA,
-     $                DUM(1), B, LDB, DUM(1), -1, INFO )
+                  CALL SORMBR( 'Q', 'L', 'T', M, NRHS, M, A, LDA, DUM(1), B, LDB, DUM(1), -1, INFO )
                   LWORK_SORMBR = INT( DUM(1) )
 *                 Compute space needed for SORGBR
-                  CALL SORGBR( 'P', M, N, M, A, LDA, DUM(1),
-     $                   DUM(1), -1, INFO )
+                  CALL SORGBR( 'P', M, N, M, A, LDA, DUM(1), DUM(1), -1, INFO )
                   LWORK_SORGBR = INT( DUM(1) )
                   MAXWRK = 3*M + LWORK_SGEBRD
                   MAXWRK = MAX( MAXWRK, 3*M + LWORK_SORMBR )
@@ -188,8 +170,7 @@
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 *
-         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY )
-     $      INFO = -12
+         IF( LWORK.LT.MINWRK .AND. .NOT.LQUERY ) INFO = -12
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -275,19 +256,16 @@
 *           Compute A=Q*R
 *           (Workspace: need 2*N, prefer N+N*NB)
 *
-            CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ),
-     $                   LWORK-IWORK+1, INFO )
+            CALL SGEQRF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *           Multiply B by transpose(Q)
 *           (Workspace: need N+NRHS, prefer N+NRHS*NB)
 *
-            CALL SORMQR( 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B,
-     $                   LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+            CALL SORMQR( 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *           Zero out below R
 *
-            IF( N.GT.1 )
-     $         CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
+            IF( N.GT.1 ) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA )
          END IF
 *
          IE = 1
@@ -298,21 +276,17 @@
 *        Bidiagonalize R in A
 *        (Workspace: need 3*N+MM, prefer 3*N+(MM+N)*NB)
 *
-         CALL SGEBRD( MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ),
-     $                WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                INFO )
+         CALL SGEBRD( MM, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Multiply B by transpose of left bidiagonalizing vectors of R
 *        (Workspace: need 3*N+NRHS, prefer 3*N+NRHS*NB)
 *
-         CALL SORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ),
-     $                B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORMBR( 'Q', 'L', 'T', MM, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Generate right bidiagonalizing vectors of R in A
 *        (Workspace: need 4*N-1, prefer 3*N+(N-1)*NB)
 *
-         CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ),
-     $                WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORGBR( 'P', N, N, N, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IWORK = IE + N
 *
 *        Perform bidiagonal QR iteration
@@ -320,16 +294,12 @@
 *          compute right singular vectors in A
 *        (Workspace: need BDSPAC)
 *
-         CALL SBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM,
-     $                1, B, LDB, WORK( IWORK ), INFO )
-         IF( INFO.NE.0 )
-     $      GO TO 70
+         CALL SBDSQR( 'U', N, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
 *        Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO )
-     $      THR = MAX( EPS*S( 1 ), SFMIN )
+         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 10 I = 1, N
             IF( S( I ).GT.THR ) THEN
@@ -344,15 +314,13 @@
 *        (Workspace: need N, prefer N*NRHS)
 *
          IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
-            CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO,
-     $                  WORK, LDB )
+            CALL SGEMM( 'T', 'N', N, NRHS, N, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
             CALL SLACPY( 'G', N, NRHS, WORK, LDB, B, LDB )
          ELSE IF( NRHS.GT.1 ) THEN
             CHUNK = LWORK / N
             DO 20 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL SGEMM( 'T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ),
-     $                     LDB, ZERO, WORK, N )
+               CALL SGEMM( 'T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
                CALL SLACPY( 'G', N, BL, WORK, N, B( 1, I ), LDB )
    20       CONTINUE
          ELSE IF( NRHS.EQ.1 ) THEN
@@ -360,30 +328,26 @@
             CALL SCOPY( N, WORK, 1, B, 1 )
          END IF
 *
-      ELSE IF( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+
-     $         MAX( M, 2*M-4, NRHS, N-3*M ) ) THEN
+      ELSE IF( N.GE.MNTHR .AND. LWORK.GE.4*M+M*M+ MAX( M, 2*M-4, NRHS, N-3*M ) ) THEN
 *
 *        Path 2a - underdetermined, with many more columns than rows
 *        and sufficient workspace for an efficient algorithm
 *
          LDWORK = M
-         IF( LWORK.GE.MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ),
-     $       M*LDA+M+M*NRHS ) )LDWORK = LDA
+         IF( LWORK.GE.MAX( 4*M+M*LDA+MAX( M, 2*M-4, NRHS, N-3*M ), M*LDA+M+M*NRHS ) )LDWORK = LDA
          ITAU = 1
          IWORK = M + 1
 *
 *        Compute A=L*Q
 *        (Workspace: need 2*M, prefer M+M*NB)
 *
-         CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ),
-     $                LWORK-IWORK+1, INFO )
+         CALL SGELQF( M, N, A, LDA, WORK( ITAU ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IL = IWORK
 *
 *        Copy L to WORK(IL), zeroing out above it
 *
          CALL SLACPY( 'L', M, M, A, LDA, WORK( IL ), LDWORK )
-         CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ),
-     $                LDWORK )
+         CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IL+LDWORK ), LDWORK )
          IE = IL + LDWORK*M
          ITAUQ = IE + M
          ITAUP = ITAUQ + M
@@ -392,22 +356,17 @@
 *        Bidiagonalize L in WORK(IL)
 *        (Workspace: need M*M+5*M, prefer M*M+4*M+2*M*NB)
 *
-         CALL SGEBRD( M, M, WORK( IL ), LDWORK, S, WORK( IE ),
-     $                WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ),
-     $                LWORK-IWORK+1, INFO )
+         CALL SGEBRD( M, M, WORK( IL ), LDWORK, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Multiply B by transpose of left bidiagonalizing vectors of L
 *        (Workspace: need M*M+4*M+NRHS, prefer M*M+4*M+NRHS*NB)
 *
-         CALL SORMBR( 'Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK,
-     $                WORK( ITAUQ ), B, LDB, WORK( IWORK ),
-     $                LWORK-IWORK+1, INFO )
+         CALL SORMBR( 'Q', 'L', 'T', M, NRHS, M, WORK( IL ), LDWORK, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Generate right bidiagonalizing vectors of R in WORK(IL)
 *        (Workspace: need M*M+5*M-1, prefer M*M+4*M+(M-1)*NB)
 *
-         CALL SORGBR( 'P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ),
-     $                WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORGBR( 'P', M, M, M, WORK( IL ), LDWORK, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IWORK = IE + M
 *
 *        Perform bidiagonal QR iteration,
@@ -415,16 +374,12 @@
 *           multiplying B by transpose of left singular vectors
 *        (Workspace: need M*M+M+BDSPAC)
 *
-         CALL SBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ),
-     $                LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )
-         IF( INFO.NE.0 )
-     $      GO TO 70
+         CALL SBDSQR( 'U', M, M, 0, NRHS, S, WORK( IE ), WORK( IL ), LDWORK, A, LDA, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
 *        Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO )
-     $      THR = MAX( EPS*S( 1 ), SFMIN )
+         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 30 I = 1, M
             IF( S( I ).GT.THR ) THEN
@@ -440,21 +395,16 @@
 *        (Workspace: need M*M+2*M, prefer M*M+M+M*NRHS)
 *
          IF( LWORK.GE.LDB*NRHS+IWORK-1 .AND. NRHS.GT.1 ) THEN
-            CALL SGEMM( 'T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK,
-     $                  B, LDB, ZERO, WORK( IWORK ), LDB )
+            CALL SGEMM( 'T', 'N', M, NRHS, M, ONE, WORK( IL ), LDWORK, B, LDB, ZERO, WORK( IWORK ), LDB )
             CALL SLACPY( 'G', M, NRHS, WORK( IWORK ), LDB, B, LDB )
          ELSE IF( NRHS.GT.1 ) THEN
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL SGEMM( 'T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK,
-     $                     B( 1, I ), LDB, ZERO, WORK( IWORK ), M )
-               CALL SLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ),
-     $                      LDB )
+               CALL SGEMM( 'T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL SLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB )
    40       CONTINUE
          ELSE IF( NRHS.EQ.1 ) THEN
-            CALL SGEMV( 'T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ),
-     $                  1, ZERO, WORK( IWORK ), 1 )
+            CALL SGEMV( 'T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 )
             CALL SCOPY( M, WORK( IWORK ), 1, B( 1, 1 ), 1 )
          END IF
 *
@@ -466,8 +416,7 @@
 *        Multiply transpose(Q) by B
 *        (Workspace: need M+NRHS, prefer M+NRHS*NB)
 *
-         CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B,
-     $                LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORMLQ( 'L', 'T', N, NRHS, M, A, LDA, WORK( ITAU ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
       ELSE
 *
@@ -481,21 +430,17 @@
 *        Bidiagonalize A
 *        (Workspace: need 3*M+N, prefer 3*M+(M+N)*NB)
 *
-         CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ),
-     $                WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1,
-     $                INFO )
+         CALL SGEBRD( M, N, A, LDA, S, WORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Multiply B by transpose of left bidiagonalizing vectors
 *        (Workspace: need 3*M+NRHS, prefer 3*M+NRHS*NB)
 *
-         CALL SORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ),
-     $                B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORMBR( 'Q', 'L', 'T', M, NRHS, N, A, LDA, WORK( ITAUQ ), B, LDB, WORK( IWORK ), LWORK-IWORK+1, INFO )
 *
 *        Generate right bidiagonalizing vectors in A
 *        (Workspace: need 4*M, prefer 3*M+M*NB)
 *
-         CALL SORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ),
-     $                WORK( IWORK ), LWORK-IWORK+1, INFO )
+         CALL SORGBR( 'P', M, N, M, A, LDA, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, INFO )
          IWORK = IE + M
 *
 *        Perform bidiagonal QR iteration,
@@ -503,16 +448,12 @@
 *           multiplying B by transpose of left singular vectors
 *        (Workspace: need BDSPAC)
 *
-         CALL SBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM,
-     $                1, B, LDB, WORK( IWORK ), INFO )
-         IF( INFO.NE.0 )
-     $      GO TO 70
+         CALL SBDSQR( 'L', M, N, 0, NRHS, S, WORK( IE ), A, LDA, DUM, 1, B, LDB, WORK( IWORK ), INFO )          IF( INFO.NE.0 ) GO TO 70
 *
 *        Multiply B by reciprocals of singular values
 *
          THR = MAX( RCOND*S( 1 ), SFMIN )
-         IF( RCOND.LT.ZERO )
-     $      THR = MAX( EPS*S( 1 ), SFMIN )
+         IF( RCOND.LT.ZERO ) THR = MAX( EPS*S( 1 ), SFMIN )
          RANK = 0
          DO 50 I = 1, M
             IF( S( I ).GT.THR ) THEN
@@ -527,15 +468,13 @@
 *        (Workspace: need N, prefer N*NRHS)
 *
          IF( LWORK.GE.LDB*NRHS .AND. NRHS.GT.1 ) THEN
-            CALL SGEMM( 'T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO,
-     $                  WORK, LDB )
+            CALL SGEMM( 'T', 'N', N, NRHS, M, ONE, A, LDA, B, LDB, ZERO, WORK, LDB )
             CALL SLACPY( 'F', N, NRHS, WORK, LDB, B, LDB )
          ELSE IF( NRHS.GT.1 ) THEN
             CHUNK = LWORK / N
             DO 60 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               CALL SGEMM( 'T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ),
-     $                     LDB, ZERO, WORK, N )
+               CALL SGEMM( 'T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N )
                CALL SLACPY( 'F', N, BL, WORK, N, B( 1, I ), LDB )
    60       CONTINUE
          ELSE IF( NRHS.EQ.1 ) THEN
@@ -548,12 +487,10 @@
 *
       IF( IASCL.EQ.1 ) THEN
          CALL SLASCL( 'G', 0, 0, ANRM, SMLNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO )
       ELSE IF( IASCL.EQ.2 ) THEN
          CALL SLASCL( 'G', 0, 0, ANRM, BIGNUM, N, NRHS, B, LDB, INFO )
-         CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN,
-     $                INFO )
+         CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO )
       END IF
       IF( IBSCL.EQ.1 ) THEN
          CALL SLASCL( 'G', 0, 0, SMLNUM, BNRM, N, NRHS, B, LDB, INFO )

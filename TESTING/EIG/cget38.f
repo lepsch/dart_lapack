@@ -26,28 +26,19 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, INFO, ISCL, ISRT, ITMP, J, KMIN, M, N, NDIM
-      REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN,
-     $                   SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN,
-     $                   VMUL
+      REAL               BIGNUM, EPS, S, SEP, SEPIN, SEPTMP, SIN, SMLNUM, STMP, TNRM, TOL, TOLIN, V, VMAX, VMIN, VMUL
 *     ..
 *     .. Local Arrays ..
       LOGICAL            SELECT( LDT )
       INTEGER            IPNT( LDT ), ISELEC( LDT )
-      REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ),
-     $                   WSRT( LDT )
-      COMPLEX            Q( LDT, LDT ), QSAV( LDT, LDT ),
-     $                   QTMP( LDT, LDT ), T( LDT, LDT ),
-     $                   TMP( LDT, LDT ), TSAV( LDT, LDT ),
-     $                   TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ),
-     $                   WORK( LWORK ), WTMP( LDT )
+      REAL               RESULT( 2 ), RWORK( LDT ), VAL( 3 ), WSRT( LDT )       COMPLEX            Q( LDT, LDT ), QSAV( LDT, LDT ), QTMP( LDT, LDT ), T( LDT, LDT ), TMP( LDT, LDT ), TSAV( LDT, LDT ), TSAV1( LDT, LDT ), TTMP( LDT, LDT ), W( LDT ), WORK( LWORK ), WTMP( LDT )
 *     ..
 *     .. External Functions ..
       REAL               CLANGE, SLAMCH
       EXTERNAL           CLANGE, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN,
-     $                   CUNGHR
+      EXTERNAL           CGEHRD, CHSEQR, CHST01, CLACPY, CSSCAL, CTRSEN, CUNGHR
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          AIMAG, MAX, REAL, SQRT
@@ -81,8 +72,7 @@
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, NDIM, ISRT
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -100,14 +90,12 @@
          DO 30 I = 1, N
             CALL CSSCAL( N, VMUL, T( 1, I ), 1 )
    30    CONTINUE
-         IF( TNRM.EQ.ZERO )
-     $      VMUL = ONE
+         IF( TNRM.EQ.ZERO ) VMUL = ONE
          CALL CLACPY( 'F', N, N, T, LDT, TSAV, LDT )
 *
 *        Compute Schur form
 *
-         CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N,
-     $                INFO )
+         CALL CGEHRD( N, 1, N, T, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 1 ) = KNT
             NINFO( 1 ) = NINFO( 1 ) + 1
@@ -117,8 +105,7 @@
 *        Generate unitary matrix
 *
          CALL CLACPY( 'L', N, N, T, LDT, Q, LDT )
-         CALL CUNGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N,
-     $                INFO )
+         CALL CUNGHR( N, 1, N, Q, LDT, WORK( 1 ), WORK( N+1 ), LWORK-N, INFO )
 *
 *        Compute Schur form
 *
@@ -127,8 +114,7 @@
                T( I, J ) = CZERO
    40       CONTINUE
    50    CONTINUE
-         CALL CHSEQR( 'S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK,
-     $                INFO )
+         CALL CHSEQR( 'S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 2 ) = KNT
             NINFO( 2 ) = NINFO( 2 ) + 1
@@ -173,8 +159,7 @@
 *
          CALL CLACPY( 'F', N, N, Q, LDT, QSAV, LDT )
          CALL CLACPY( 'F', N, N, T, LDT, TSAV1, LDT )
-         CALL CTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S,
-     $                SEP, WORK, LWORK, INFO )
+         CALL CTRSEN( 'B', 'V', SELECT, N, T, LDT, Q, LDT, WTMP, M, S, SEP, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
@@ -185,21 +170,18 @@
 *
 *        Compute residuals
 *
-         CALL CHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK,
-     $                RWORK, RESULT )
+         CALL CHST01( N, 1, N, TSAV, LDT, T, LDT, Q, LDT, WORK, LWORK, RWORK, RESULT )
          VMAX = MAX( RESULT( 1 ), RESULT( 2 ) )
          IF( VMAX.GT.RMAX( 1 ) ) THEN
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 )
-     $         LMAX( 1 ) = KNT
+            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
 *
 *        Compare condition number for eigenvalue cluster
 *        taking its condition number into account
 *
          V = MAX( TWO*REAL( N )*EPS*TNRM, SMLNUM )
-         IF( TNRM.EQ.ZERO )
-     $      V = ONE
+         IF( TNRM.EQ.ZERO ) V = ONE
          IF( V.GT.SEPTMP ) THEN
             TOL = ONE
          ELSE
@@ -225,8 +207,7 @@
          END IF
          IF( VMAX.GT.RMAX( 2 ) ) THEN
             RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ).EQ.0 )
-     $         LMAX( 2 ) = KNT
+            IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
 *        Compare condition numbers for invariant subspace
@@ -257,8 +238,7 @@
          END IF
          IF( VMAX.GT.RMAX( 2 ) ) THEN
             RMAX( 2 ) = VMAX
-            IF( NINFO( 2 ).EQ.0 )
-     $         LMAX( 2 ) = KNT
+            IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
          END IF
 *
 *        Compare condition number for eigenvalue cluster
@@ -279,8 +259,7 @@
          END IF
          IF( VMAX.GT.RMAX( 3 ) ) THEN
             RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ).EQ.0 )
-     $         LMAX( 3 ) = KNT
+            IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
 *        Compare condition numbers for invariant subspace
@@ -301,8 +280,7 @@
          END IF
          IF( VMAX.GT.RMAX( 3 ) ) THEN
             RMAX( 3 ) = VMAX
-            IF( NINFO( 3 ).EQ.0 )
-     $         LMAX( 3 ) = KNT
+            IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
          END IF
 *
 *        Compute eigenvalue condition number only and compare
@@ -313,23 +291,16 @@
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP,
-     $                M, STMP, SEPTMP, WORK, LWORK, INFO )
+         CALL CTRSEN( 'E', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
          END IF
-         IF( S.NE.STMP )
-     $      VMAX = ONE / EPS
-         IF( -ONE.NE.SEPTMP )
-     $      VMAX = ONE / EPS
+         IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
          DO 130 I = 1, N
             DO 120 J = 1, N
-               IF( TTMP( I, J ).NE.T( I, J ) )
-     $            VMAX = ONE / EPS
-               IF( QTMP( I, J ).NE.Q( I, J ) )
-     $            VMAX = ONE / EPS
+               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
   120       CONTINUE
   130    CONTINUE
 *
@@ -340,23 +311,16 @@
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP,
-     $                M, STMP, SEPTMP, WORK, LWORK, INFO )
+         CALL CTRSEN( 'V', 'V', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
          END IF
-         IF( -ONE.NE.STMP )
-     $      VMAX = ONE / EPS
-         IF( SEP.NE.SEPTMP )
-     $      VMAX = ONE / EPS
+         IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
          DO 150 I = 1, N
             DO 140 J = 1, N
-               IF( TTMP( I, J ).NE.T( I, J ) )
-     $            VMAX = ONE / EPS
-               IF( QTMP( I, J ).NE.Q( I, J ) )
-     $            VMAX = ONE / EPS
+               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
   140       CONTINUE
   150    CONTINUE
 *
@@ -367,23 +331,16 @@
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP,
-     $                M, STMP, SEPTMP, WORK, LWORK, INFO )
+         CALL CTRSEN( 'E', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
          END IF
-         IF( S.NE.STMP )
-     $      VMAX = ONE / EPS
-         IF( -ONE.NE.SEPTMP )
-     $      VMAX = ONE / EPS
+         IF( S.NE.STMP ) VMAX = ONE / EPS          IF( -ONE.NE.SEPTMP ) VMAX = ONE / EPS
          DO 170 I = 1, N
             DO 160 J = 1, N
-               IF( TTMP( I, J ).NE.T( I, J ) )
-     $            VMAX = ONE / EPS
-               IF( QTMP( I, J ).NE.QSAV( I, J ) )
-     $            VMAX = ONE / EPS
+               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   160       CONTINUE
   170    CONTINUE
 *
@@ -394,29 +351,21 @@
          CALL CLACPY( 'F', N, N, QSAV, LDT, QTMP, LDT )
          SEPTMP = -ONE
          STMP = -ONE
-         CALL CTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP,
-     $                M, STMP, SEPTMP, WORK, LWORK, INFO )
+         CALL CTRSEN( 'V', 'N', SELECT, N, TTMP, LDT, QTMP, LDT, WTMP, M, STMP, SEPTMP, WORK, LWORK, INFO )
          IF( INFO.NE.0 ) THEN
             LMAX( 3 ) = KNT
             NINFO( 3 ) = NINFO( 3 ) + 1
             GO TO 200
          END IF
-         IF( -ONE.NE.STMP )
-     $      VMAX = ONE / EPS
-         IF( SEP.NE.SEPTMP )
-     $      VMAX = ONE / EPS
+         IF( -ONE.NE.STMP ) VMAX = ONE / EPS          IF( SEP.NE.SEPTMP ) VMAX = ONE / EPS
          DO 190 I = 1, N
             DO 180 J = 1, N
-               IF( TTMP( I, J ).NE.T( I, J ) )
-     $            VMAX = ONE / EPS
-               IF( QTMP( I, J ).NE.QSAV( I, J ) )
-     $            VMAX = ONE / EPS
+               IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
   180       CONTINUE
   190    CONTINUE
          IF( VMAX.GT.RMAX( 1 ) ) THEN
             RMAX( 1 ) = VMAX
-            IF( NINFO( 1 ).EQ.0 )
-     $         LMAX( 1 ) = KNT
+            IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          END IF
   200 CONTINUE
       GO TO 10

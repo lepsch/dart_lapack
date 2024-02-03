@@ -1,5 +1,4 @@
-      SUBROUTINE ZTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT,
-     $                    A, LDA, B, LDB, WORK, INFO )
+      SUBROUTINE ZTPMQRT( SIDE, TRANS, M, N, K, L, NB, V, LDV, T, LDT, A, LDA, B, LDB, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER   INFO, K, LDV, LDA, LDB, M, N, L, NB, LDT
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ),
-     $          WORK( * )
+      COMPLEX*16   V( LDV, * ), A( LDA, * ), B( LDB, * ), T( LDT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -91,9 +89,7 @@
             ELSE
                LB = MB-M+L-I+1
             END IF
-            CALL ZTPRFB( 'L', 'C', 'F', 'C', MB, N, IB, LB,
-     $                   V( 1, I ), LDV, T( 1, I ), LDT,
-     $                   A( I, 1 ), LDA, B, LDB, WORK, IB )
+            CALL ZTPRFB( 'L', 'C', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 *
       ELSE IF( RIGHT .AND. NOTRAN ) THEN
@@ -106,9 +102,7 @@
             ELSE
                LB = MB-N+L-I+1
             END IF
-            CALL ZTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB,
-     $                   V( 1, I ), LDV, T( 1, I ), LDT,
-     $                   A( 1, I ), LDA, B, LDB, WORK, M )
+            CALL ZTPRFB( 'R', 'N', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 *
       ELSE IF( LEFT .AND. NOTRAN ) THEN
@@ -122,9 +116,7 @@
             ELSE
                LB = MB-M+L-I+1
             END IF
-            CALL ZTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB,
-     $                   V( 1, I ), LDV, T( 1, I ), LDT,
-     $                   A( I, 1 ), LDA, B, LDB, WORK, IB )
+            CALL ZTPRFB( 'L', 'N', 'F', 'C', MB, N, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( I, 1 ), LDA, B, LDB, WORK, IB )
          END DO
 *
       ELSE IF( RIGHT .AND. TRAN ) THEN
@@ -138,9 +130,7 @@
             ELSE
                LB = MB-N+L-I+1
             END IF
-            CALL ZTPRFB( 'R', 'C', 'F', 'C', M, MB, IB, LB,
-     $                   V( 1, I ), LDV, T( 1, I ), LDT,
-     $                   A( 1, I ), LDA, B, LDB, WORK, M )
+            CALL ZTPRFB( 'R', 'C', 'F', 'C', M, MB, IB, LB, V( 1, I ), LDV, T( 1, I ), LDT, A( 1, I ), LDA, B, LDB, WORK, M )
          END DO
 *
       END IF

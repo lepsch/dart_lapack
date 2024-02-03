@@ -1,6 +1,4 @@
-      SUBROUTINE DSYGVX( ITYPE, JOBZ, RANGE, UPLO, N, A, LDA, B, LDB,
-     $                   VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK,
-     $                   LWORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSYGVX( ITYPE, JOBZ, RANGE, UPLO, N, A, LDA, B, LDB, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), W( * ), WORK( * ),
-     $                   Z( LDZ, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 * =====================================================================
@@ -67,8 +64,7 @@
          INFO = -9
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -11
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -11
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -12
@@ -119,15 +115,13 @@
 *     Transform problem to standard eigenvalue problem and solve.
 *
       CALL DSYGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL DSYEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL,
-     $             M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
+      CALL DSYEVX( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, LWORK, IWORK, IFAIL, INFO )
 *
       IF( WANTZ ) THEN
 *
 *        Backtransform eigenvectors to the original problem.
 *
-         IF( INFO.GT.0 )
-     $      M = INFO - 1
+         IF( INFO.GT.0 ) M = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
 *           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
@@ -139,8 +133,7 @@
                TRANS = 'T'
             END IF
 *
-            CALL DTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B,
-     $                  LDB, Z, LDZ )
+            CALL DTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
@@ -153,8 +146,7 @@
                TRANS = 'N'
             END IF
 *
-            CALL DTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B,
-     $                  LDB, Z, LDZ )
+            CALL DTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, M, ONE, B, LDB, Z, LDZ )
          END IF
       END IF
 *

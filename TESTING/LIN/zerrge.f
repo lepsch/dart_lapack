@@ -23,17 +23,14 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       DOUBLE PRECISION   R( NMAX ), R1( NMAX ), R2( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   W( 2*NMAX ), X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZGBCON, ZGBEQU, ZGBRFS, ZGBTF2,
-     $                   ZGBTRF, ZGBTRS, ZGECON, ZGEEQU, ZGERFS, ZGETF2,
-     $                   ZGETRF, ZGETRI, ZGETRS
+      EXTERNAL           ALAESM, CHKXER, ZGBCON, ZGBEQU, ZGBRFS, ZGBTF2, ZGBTRF, ZGBTRS, ZGECON, ZGEEQU, ZGERFS, ZGETF2, ZGETRF, ZGETRI, ZGETRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -57,10 +54,7 @@
 *
       DO 20 J = 1, NMAX
          DO 10 I = 1, NMAX
-            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                  -1.D0 / DBLE( I+J ) )
-            AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ),
-     $                   -1.D0 / DBLE( I+J ) )
+            A( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )             AF( I, J ) = DCMPLX( 1.D0 / DBLE( I+J ), -1.D0 / DBLE( I+J ) )
    10    CONTINUE
          B( J ) = 0.D0
          R1( J ) = 0.D0
@@ -138,32 +132,25 @@
 *
          SRNAMT = 'ZGERFS'
          INFOT = 1
-         CALL ZGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZGERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZGERFS( 'N', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL ZGERFS( 'N', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZGERFS( 'N', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL ZGERFS( 'N', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGERFS', INFOT, NOUT, LERR, OK )
 *
 *        ZGECON
@@ -264,40 +251,31 @@
 *
          SRNAMT = 'ZGBRFS'
          INFOT = 1
-         CALL ZGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( '/', 0, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 1, 0, 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 2, 1, 1, 1, A, 2, AF, 4, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1,
-     $                R2, W, R, INFO )
+         CALL ZGBRFS( 'N', 2, 0, 0, 1, A, 1, AF, 1, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'ZGBRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZGBCON
@@ -323,24 +301,19 @@
 *
          SRNAMT = 'ZGBEQU'
          INFOT = 1
-         CALL ZGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL ZGBEQU( -1, 0, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL ZGBEQU( 0, -1, 0, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL ZGBEQU( 1, 1, -1, 0, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL ZGBEQU( 1, 1, 0, -1, A, 1, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQU', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM,
-     $                INFO )
+         CALL ZGBEQU( 2, 2, 1, 1, A, 2, R1, R2, RCOND, CCOND, ANRM, INFO )
          CALL CHKXER( 'ZGBEQU', INFOT, NOUT, LERR, OK )
       END IF
 *

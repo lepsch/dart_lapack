@@ -1,6 +1,4 @@
-      SUBROUTINE DCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS,
-     $                   NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B,
-     $                   X, XACT, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE DCHKGE( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,10 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ),
-     $                   NVAL( * )
-      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   RWORK( * ), WORK( * ), X( * ), XACT( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NSVAL( * ), NVAL( * )       DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ), RWORK( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -35,11 +30,8 @@
       LOGICAL            TRFCON, ZEROT
       CHARACTER          DIST, NORM, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN,
-     $                   IZERO, K, KL, KU, LDA, LWORK, M, MODE, N, NB,
-     $                   NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
-      DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, DUMMY,
-     $                   RCOND, RCONDC, RCONDI, RCONDO
+      INTEGER            I, IM, IMAT, IN, INB, INFO, IOFF, IRHS, ITRAN, IZERO, K, KL, KU, LDA, LWORK, M, MODE, N, NB, NERRS, NFAIL, NIMAT, NRHS, NRUN, NT
+      DOUBLE PRECISION   AINVNM, ANORM, ANORMI, ANORMO, CNDNUM, DUMMY, RCOND, RCONDC, RCONDI, RCONDO
 *     ..
 *     .. Local Arrays ..
       CHARACTER          TRANSS( NTRAN )
@@ -51,10 +43,7 @@
       EXTERNAL           DGET06, DLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRGE, DGECON, DGERFS,
-     $                   DGET01, DGET02, DGET03, DGET04, DGET07, DGETRF,
-     $                   DGETRI, DGETRS, DLACPY, DLARHS, DLASET, DLATB4,
-     $                   DLATMS, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DERRGE, DGECON, DGERFS, DGET01, DGET02, DGET03, DGET04, DGET07, DGETRF, DGETRI, DGETRS, DLACPY, DLARHS, DLASET, DLATB4, DLATMS, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -69,8 +58,7 @@
       COMMON             / SRNAMC / SRNAMT
 *     ..
 *     .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 / ,
-     $                   TRANSS / 'N', 'T', 'C' /
+      DATA               ISEEDY / 1988, 1989, 1990, 1991 / , TRANSS / 'N', 'T', 'C' /
 *     ..
 *     .. Executable Statements ..
 *
@@ -88,8 +76,7 @@
 *     Test the error exits
 *
       CALL XLAENV( 1, 1 )
-      IF( TSTERR )
-     $   CALL DERRGE( PATH, NOUT )
+      IF( TSTERR ) CALL DERRGE( PATH, NOUT )
       INFOT = 0
       CALL XLAENV( 2, 2 )
 *
@@ -105,38 +92,31 @@
             N = NVAL( IN )
             XTYPE = 'N'
             NIMAT = NTYPES
-            IF( M.LE.0 .OR. N.LE.0 )
-     $         NIMAT = 1
+            IF( M.LE.0 .OR. N.LE.0 ) NIMAT = 1
 *
             DO 100 IMAT = 1, NIMAT
 *
 *              Do the tests only if DOTYPE( IMAT ) is true.
 *
-               IF( .NOT.DOTYPE( IMAT ) )
-     $            GO TO 100
+               IF( .NOT.DOTYPE( IMAT ) ) GO TO 100
 *
 *              Skip types 5, 6, or 7 if the matrix size is too small.
 *
                ZEROT = IMAT.GE.5 .AND. IMAT.LE.7
-               IF( ZEROT .AND. N.LT.IMAT-4 )
-     $            GO TO 100
+               IF( ZEROT .AND. N.LT.IMAT-4 ) GO TO 100
 *
 *              Set up parameters with DLATB4 and generate a test matrix
 *              with DLATMS.
 *
-               CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL DLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'DLATMS'
-               CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, 'No packing', A, LDA,
-     $                      WORK, INFO )
+               CALL DLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *              Check error code from DLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'DLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 100
                END IF
 *
@@ -157,8 +137,7 @@
                         A( IOFF+I ) = ZERO
    20                CONTINUE
                   ELSE
-                     CALL DLASET( 'Full', M, N-IZERO+1, ZERO, ZERO,
-     $                            A( IOFF+1 ), LDA )
+                     CALL DLASET( 'Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA )
                   END IF
                ELSE
                   IZERO = 0
@@ -184,18 +163,14 @@
 *
 *                 Check error code from DGETRF.
 *
-                  IF( INFO.NE.IZERO )
-     $               CALL ALAERH( PATH, 'DGETRF', INFO, IZERO, ' ', M,
-     $                            N, -1, -1, NB, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'DGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
                   TRFCON = .FALSE.
 *
 *+    TEST 1
 *                 Reconstruct matrix from factors and compute residual.
 *
                   CALL DLACPY( 'Full', M, N, AFAC, LDA, AINV, LDA )
-                  CALL DGET01( M, N, A, LDA, AINV, LDA, IWORK, RWORK,
-     $                         RESULT( 1 ) )
+                  CALL DGET01( M, N, A, LDA, AINV, LDA, IWORK, RWORK, RESULT( 1 ) )
                   NT = 1
 *
 *+    TEST 2
@@ -207,22 +182,17 @@
                      SRNAMT = 'DGETRI'
                      NRHS = NSVAL( 1 )
                      LWORK = NMAX*MAX( 3, NRHS )
-                     CALL DGETRI( N, AINV, LDA, IWORK, WORK, LWORK,
-     $                            INFO )
+                     CALL DGETRI( N, AINV, LDA, IWORK, WORK, LWORK, INFO )
 *
 *                    Check error code from DGETRI.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'DGETRI', INFO, 0, ' ', N, N,
-     $                               -1, -1, NB, IMAT, NFAIL, NERRS,
-     $                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
 *                    Compute the residual for the matrix times its
 *                    inverse.  Also compute the 1-norm condition number
 *                    of A.
 *
-                     CALL DGET03( N, A, LDA, AINV, LDA, WORK, LDA,
-     $                            RWORK, RCONDO, RESULT( 2 ) )
+                     CALL DGET03( N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDO, RESULT( 2 ) )
                      ANORMO = DLANGE( 'O', M, N, A, LDA, RWORK )
 *
 *                    Compute the infinity-norm condition number of A.
@@ -251,10 +221,7 @@
 *
                   DO 30 K = 1, NT
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    30             CONTINUE
@@ -264,10 +231,7 @@
 *                 block size or if M .ne. N.  Skip the solve tests if
 *                 the matrix is singular.
 *
-                  IF( INB.GT.1 .OR. M.NE.N )
-     $               GO TO 90
-                  IF( TRFCON )
-     $               GO TO 70
+                  IF( INB.GT.1 .OR. M.NE.N ) GO TO 90                   IF( TRFCON ) GO TO 70
 *
                   DO 60 IRHS = 1, NNS
                      NRHS = NSVAL( IRHS )
@@ -285,66 +249,43 @@
 *                       Solve and compute residual for A * X = B.
 *
                         SRNAMT = 'DLARHS'
-                        CALL DLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL,
-     $                               KU, NRHS, A, LDA, XACT, LDA, B,
-     $                               LDA, ISEED, INFO )
+                        CALL DLARHS( PATH, XTYPE, ' ', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                         XTYPE = 'C'
 *
                         CALL DLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
                         SRNAMT = 'DGETRS'
-                        CALL DGETRS( TRANS, N, NRHS, AFAC, LDA, IWORK,
-     $                               X, LDA, INFO )
+                        CALL DGETRS( TRANS, N, NRHS, AFAC, LDA, IWORK, X, LDA, INFO )
 *
 *                       Check error code from DGETRS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'DGETRS', INFO, 0, TRANS,
-     $                                  N, N, -1, -1, NRHS, IMAT, NFAIL,
-     $                                  NERRS, NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK,
-     $                               LDA )
-                        CALL DGET02( TRANS, N, N, NRHS, A, LDA, X, LDA,
-     $                               WORK, LDA, RWORK, RESULT( 3 ) )
+                        CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) )
 *
 *+    TEST 4
 *                       Check solution from generated exact solution.
 *
-                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 4 ) )
+                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )
 *
 *+    TESTS 5, 6, and 7
 *                       Use iterative refinement to improve the
 *                       solution.
 *
                         SRNAMT = 'DGERFS'
-                        CALL DGERFS( TRANS, N, NRHS, A, LDA, AFAC, LDA,
-     $                               IWORK, B, LDA, X, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), WORK,
-     $                               IWORK( N+1 ), INFO )
+                        CALL DGERFS( TRANS, N, NRHS, A, LDA, AFAC, LDA, IWORK, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, IWORK( N+1 ), INFO )
 *
 *                       Check error code from DGERFS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'DGERFS', INFO, 0, TRANS,
-     $                                  N, N, -1, -1, NRHS, IMAT, NFAIL,
-     $                                  NERRS, NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 5 ) )
-                        CALL DGET07( TRANS, N, NRHS, A, LDA, B, LDA, X,
-     $                               LDA, XACT, LDA, RWORK, .TRUE.,
-     $                               RWORK( NRHS+1 ), RESULT( 6 ) )
+                        CALL DGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL DGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) )
 *
 *                       Print information about the tests that did not
 *                       pass the threshold.
 *
                         DO 40 K = 3, 7
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS,
-     $                           IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    40                   CONTINUE
@@ -367,15 +308,11 @@
                         NORM = 'I'
                      END IF
                      SRNAMT = 'DGECON'
-                     CALL DGECON( NORM, N, AFAC, LDA, ANORM, RCOND,
-     $                            WORK, IWORK( N+1 ), INFO )
+                     CALL DGECON( NORM, N, AFAC, LDA, ANORM, RCOND, WORK, IWORK( N+1 ), INFO )
 *
 *                       Check error code from DGECON.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'DGECON', INFO, 0, NORM, N,
-     $                               N, -1, -1, -1, IMAT, NFAIL, NERRS,
-     $                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
 *                       This line is needed on a Sun SPARCstation.
 *
@@ -387,10 +324,7 @@
 *                    the threshold.
 *
                      IF( RESULT( 8 ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8,
-     $                     RESULT( 8 )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 )
                         NFAIL = NFAIL + 1
                      END IF
                      NRUN = NRUN + 1

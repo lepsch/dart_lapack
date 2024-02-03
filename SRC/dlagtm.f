@@ -1,5 +1,4 @@
-      SUBROUTINE DLAGTM( TRANS, N, NRHS, ALPHA, DL, D, DU, X, LDX, BETA,
-     $                   B, LDB )
+      SUBROUTINE DLAGTM( TRANS, N, NRHS, ALPHA, DL, D, DU, X, LDX, BETA, B, LDB )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   ALPHA, BETA
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), D( * ), DL( * ), DU( * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   B( LDB, * ), D( * ), DL( * ), DU( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -30,8 +28,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Multiply B by BETA if BETA.NE.1.
 *
@@ -58,13 +55,9 @@
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                ELSE
-                  B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) +
-     $                        DU( 1 )*X( 2, J )
-                  B( N, J ) = B( N, J ) + DL( N-1 )*X( N-1, J ) +
-     $                        D( N )*X( N, J )
+                  B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DL( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 50 I = 2, N - 1
-                     B( I, J ) = B( I, J ) + DL( I-1 )*X( I-1, J ) +
-     $                           D( I )*X( I, J ) + DU( I )*X( I+1, J )
+                     B( I, J ) = B( I, J ) + DL( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DU( I )*X( I+1, J )
    50             CONTINUE
                END IF
    60       CONTINUE
@@ -76,13 +69,9 @@
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J )
                ELSE
-                  B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) +
-     $                        DL( 1 )*X( 2, J )
-                  B( N, J ) = B( N, J ) + DU( N-1 )*X( N-1, J ) +
-     $                        D( N )*X( N, J )
+                  B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + DU( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 70 I = 2, N - 1
-                     B( I, J ) = B( I, J ) + DU( I-1 )*X( I-1, J ) +
-     $                           D( I )*X( I, J ) + DL( I )*X( I+1, J )
+                     B( I, J ) = B( I, J ) + DU( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + DL( I )*X( I+1, J )
    70             CONTINUE
                END IF
    80       CONTINUE
@@ -96,13 +85,9 @@
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                ELSE
-                  B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) -
-     $                        DU( 1 )*X( 2, J )
-                  B( N, J ) = B( N, J ) - DL( N-1 )*X( N-1, J ) -
-     $                        D( N )*X( N, J )
+                  B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DU( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DL( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 90 I = 2, N - 1
-                     B( I, J ) = B( I, J ) - DL( I-1 )*X( I-1, J ) -
-     $                           D( I )*X( I, J ) - DU( I )*X( I+1, J )
+                     B( I, J ) = B( I, J ) - DL( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DU( I )*X( I+1, J )
    90             CONTINUE
                END IF
   100       CONTINUE
@@ -114,13 +99,9 @@
                IF( N.EQ.1 ) THEN
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J )
                ELSE
-                  B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) -
-     $                        DL( 1 )*X( 2, J )
-                  B( N, J ) = B( N, J ) - DU( N-1 )*X( N-1, J ) -
-     $                        D( N )*X( N, J )
+                  B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - DL( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - DU( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 110 I = 2, N - 1
-                     B( I, J ) = B( I, J ) - DU( I-1 )*X( I-1, J ) -
-     $                           D( I )*X( I, J ) - DL( I )*X( I+1, J )
+                     B( I, J ) = B( I, J ) - DU( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - DL( I )*X( I+1, J )
   110             CONTINUE
                END IF
   120       CONTINUE

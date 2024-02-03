@@ -1,6 +1,4 @@
-      SUBROUTINE DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, D, E,
-     $                   M, NSPLIT, W, IBLOCK, ISPLIT, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IBLOCK, ISPLIT, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,19 +18,14 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, HALF
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   HALF = 1.0D0 / TWO )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, HALF = 1.0D0 / TWO )
       DOUBLE PRECISION   FUDGE, RELFAC
       PARAMETER          ( FUDGE = 2.1D0, RELFAC = 2.0D0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NCNVRG, TOOFEW
-      INTEGER            IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO,
-     $                   IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX,
-     $                   ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL,
-     $                   NWU
-      DOUBLE PRECISION   ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN,
-     $                   TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
+      INTEGER            IB, IBEGIN, IDISCL, IDISCU, IE, IEND, IINFO, IM, IN, IOFF, IORDER, IOUT, IRANGE, ITMAX, ITMP1, IW, IWOFF, J, JB, JDISC, JE, NB, NWL, NWU
+      DOUBLE PRECISION   ATOLI, BNORM, GL, GU, PIVMIN, RTOLI, SAFEMN, TMP1, TMP2, TNORM, ULP, WKILL, WL, WLU, WU, WUL
 *     ..
 *     .. Local Arrays ..
       INTEGER            IDUMMA( 1 )
@@ -84,13 +77,9 @@
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
       ELSE IF( IRANGE.EQ.2 ) THEN
-         IF( VL.GE.VU )
-     $      INFO = -5
-      ELSE IF( IRANGE.EQ.3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) )
-     $          THEN
+         IF( VL.GE.VU ) INFO = -5       ELSE IF( IRANGE.EQ.3 .AND. ( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) ) THEN
          INFO = -6
-      ELSE IF( IRANGE.EQ.3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) )
-     $          THEN
+      ELSE IF( IRANGE.EQ.3 .AND. ( IU.LT.MIN( N, IL ) .OR. IU.GT.N ) ) THEN
          INFO = -7
       END IF
 *
@@ -108,13 +97,11 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Simplifications:
 *
-      IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N )
-     $   IRANGE = 1
+      IF( IRANGE.EQ.3 .AND. IL.EQ.1 .AND. IU.EQ.N ) IRANGE = 1
 *
 *     Get machine constants
 *     NB is the minimum vector length for vector bisection, or 0
@@ -124,8 +111,7 @@
       ULP = DLAMCH( 'P' )
       RTOLI = ULP*RELFAC
       NB = ILAENV( 1, 'DSTEBZ', ' ', N, -1, -1, -1 )
-      IF( NB.LE.1 )
-     $   NB = 0
+      IF( NB.LE.1 ) NB = 0
 *
 *     Special Case when N=1
 *
@@ -191,8 +177,7 @@
 *
 *        Compute Iteration parameters
 *
-         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) /
-     $           LOG( TWO ) ) + 2
+         ITMAX = INT( ( LOG( TNORM+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2
          IF( ABSTOL.LE.ZERO ) THEN
             ATOLI = ULP*TNORM
          ELSE
@@ -212,9 +197,7 @@
          IWORK( 5 ) = IL - 1
          IWORK( 6 ) = IU
 *
-         CALL DLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E,
-     $                WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT,
-     $                IWORK, W, IBLOCK, IINFO )
+         CALL DLAEBZ( 3, ITMAX, N, 2, 2, NB, ATOLI, RTOLI, PIVMIN, D, E, WORK, IWORK( 5 ), WORK( N+1 ), WORK( N+5 ), IOUT, IWORK, W, IBLOCK, IINFO )
 *
          IF( IWORK( 6 ).EQ.IU ) THEN
             WL = WORK( N+1 )
@@ -240,12 +223,10 @@
 *
 *        RANGE='A' or 'V' -- Set ATOLI
 *
-         TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ),
-     $           ABS( D( N ) )+ABS( E( N-1 ) ) )
+         TNORM = MAX( ABS( D( 1 ) )+ABS( E( 1 ) ), ABS( D( N ) )+ABS( E( N-1 ) ) )
 *
          DO 30 J = 2, N - 1
-            TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+
-     $              ABS( E( J ) ) )
+            TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
    30    CONTINUE
 *
          IF( ABSTOL.LE.ZERO ) THEN
@@ -283,12 +264,7 @@
 *
 *           Special Case -- IN=1
 *
-            IF( IRANGE.EQ.1 .OR. WL.GE.D( IBEGIN )-PIVMIN )
-     $         NWL = NWL + 1
-            IF( IRANGE.EQ.1 .OR. WU.GE.D( IBEGIN )-PIVMIN )
-     $         NWU = NWU + 1
-            IF( IRANGE.EQ.1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE.
-     $          D( IBEGIN )-PIVMIN ) ) THEN
+            IF( IRANGE.EQ.1 .OR. WL.GE.D( IBEGIN )-PIVMIN ) NWL = NWL + 1             IF( IRANGE.EQ.1 .OR. WU.GE.D( IBEGIN )-PIVMIN ) NWU = NWU + 1             IF( IRANGE.EQ.1 .OR. ( WL.LT.D( IBEGIN )-PIVMIN .AND. WU.GE. D( IBEGIN )-PIVMIN ) ) THEN
                M = M + 1
                W( M ) = D( IBEGIN )
                IBLOCK( M ) = JB
@@ -333,18 +309,14 @@
                END IF
                GL = MAX( GL, WL )
                GU = MIN( GU, WU )
-               IF( GL.GE.GU )
-     $            GO TO 70
+               IF( GL.GE.GU ) GO TO 70
             END IF
 *
 *           Set Up Initial Interval
 *
             WORK( N+1 ) = GL
             WORK( N+IN+1 ) = GU
-            CALL DLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN,
-     $                   D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ),
-     $                   IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM,
-     $                   IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
+            CALL DLAEBZ( 1, 0, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IM, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
 *
             NWL = NWL + IWORK( 1 )
             NWU = NWU + IWORK( IN+1 )
@@ -352,12 +324,7 @@
 *
 *           Compute Eigenvalues
 *
-            ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) /
-     $              LOG( TWO ) ) + 2
-            CALL DLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN,
-     $                   D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ),
-     $                   IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT,
-     $                   IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
+            ITMAX = INT( ( LOG( GU-GL+PIVMIN )-LOG( PIVMIN ) ) / LOG( TWO ) ) + 2             CALL DLAEBZ( 2, ITMAX, IN, IN, 1, NB, ATOLI, RTOLI, PIVMIN, D( IBEGIN ), E( IBEGIN ), WORK( IBEGIN ), IDUMMA, WORK( N+1 ), WORK( N+2*IN+1 ), IOUT, IWORK, W( M+1 ), IBLOCK( M+1 ), IINFO )
 *
 *           Copy Eigenvalues Into W and IBLOCK
 *           Use -JB for block number for unconverged eigenvalues.
@@ -373,8 +340,7 @@
                ELSE
                   IB = JB
                END IF
-               DO 50 JE = IWORK( J ) + 1 + IWOFF,
-     $                 IWORK( J+IN ) + IWOFF
+               DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
                   W( JE ) = TMP1
                   IBLOCK( JE ) = IB
    50          CONTINUE
@@ -423,8 +389,7 @@
                DO 100 JDISC = 1, IDISCL
                   IW = 0
                   DO 90 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND.
-     $                   ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) THEN
+                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).LT.WKILL .OR. IW.EQ.0 ) ) THEN
                         IW = JE
                         WKILL = W( JE )
                      END IF
@@ -438,8 +403,7 @@
                DO 120 JDISC = 1, IDISCU
                   IW = 0
                   DO 110 JE = 1, M
-                     IF( IBLOCK( JE ).NE.0 .AND.
-     $                   ( W( JE ).GT.WKILL .OR. IW.EQ.0 ) ) THEN
+                     IF( IBLOCK( JE ).NE.0 .AND. ( W( JE ).GT.WKILL .OR. IW.EQ.0 ) ) THEN
                         IW = JE
                         WKILL = W( JE )
                      END IF
@@ -488,10 +452,7 @@
       END IF
 *
       INFO = 0
-      IF( NCNVRG )
-     $   INFO = INFO + 1
-      IF( TOOFEW )
-     $   INFO = INFO + 2
+      IF( NCNVRG ) INFO = INFO + 1       IF( TOOFEW ) INFO = INFO + 2
       RETURN
 *
 *     End of DSTEBZ

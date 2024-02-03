@@ -1,5 +1,4 @@
-      SUBROUTINE CGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA,
-     $                   VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE CGGEV3( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,9 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( * )
+      COMPLEX            A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -22,25 +19,20 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ),
-     $                   CONE = ( 1.0E0, 0.0E0 ) )
+      PARAMETER          ( CZERO = ( 0.0E0, 0.0E0 ), CONE = ( 1.0E0, 0.0E0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILASCL, ILBSCL, ILV, ILVL, ILVR, LQUERY
       CHARACTER          CHTEMP
-      INTEGER            ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO,
-     $                   IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR,
-     $                   LWKOPT, LWKMIN
-      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS,
-     $                   SMLNUM, TEMP
+      INTEGER            ICOLS, IERR, IHI, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, IRWRK, ITAU, IWRK, JC, JR, LWKOPT, LWKMIN
+      REAL               ANRM, ANRMTO, BIGNUM, BNRM, BNRMTO, EPS, SMLNUM, TEMP
       COMPLEX            X
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LDUMMA( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHD3, CLAQZ0, CLACPY,
-     $                   CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
+      EXTERNAL           CGEQRF, CGGBAK, CGGBAL, CGGHD3, CLAQZ0, CLACPY, CLASCL, CLASET, CTGEVC, CUNGQR, CUNMQR, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -111,28 +103,21 @@
       IF( INFO.EQ.0 ) THEN
          CALL CGEQRF( N, N, B, LDB, WORK, WORK, -1, IERR )
          LWKOPT = MAX( LWKMIN, N+INT( WORK( 1 ) ) )
-         CALL CUNMQR( 'L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK,
-     $                -1, IERR )
+         CALL CUNMQR( 'L', 'C', N, N, N, B, LDB, WORK, A, LDA, WORK, -1, IERR )
          LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
          IF( ILVL ) THEN
             CALL CUNGQR( N, N, N, VL, LDVL, WORK, WORK, -1, IERR )
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
          END IF
          IF( ILV ) THEN
-            CALL CGGHD3( JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL,
-     $                   LDVL, VR, LDVR, WORK, -1, IERR )
+            CALL CGGHD3( JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
-            CALL CLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB,
-     $                   ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1,
-     $                   RWORK, 0, IERR )
+            CALL CLAQZ0( 'S', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1, RWORK, 0, IERR )
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
          ELSE
-            CALL CGGHD3( 'N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL,
-     $                   VR, LDVR, WORK, -1, IERR )
+            CALL CGGHD3( 'N', 'N', N, 1, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK, -1, IERR )
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
-            CALL CLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB,
-     $                   ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1,
-     $                   RWORK, 0, IERR )
+            CALL CLAQZ0( 'E', JOBVL, JOBVR, N, 1, N, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK, -1, RWORK, 0, IERR )
             LWKOPT = MAX( LWKOPT, N+INT( WORK( 1 ) ) )
          END IF
          IF( N.EQ.0 ) THEN
@@ -151,8 +136,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -173,8 +157,7 @@
          ANRMTO = BIGNUM
          ILASCL = .TRUE.
       END IF
-      IF( ILASCL )
-     $   CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
+      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR )
 *
 *     Scale B if max element outside range [SMLNUM,BIGNUM]
 *
@@ -187,16 +170,14 @@
          BNRMTO = BIGNUM
          ILBSCL = .TRUE.
       END IF
-      IF( ILBSCL )
-     $   CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
+      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR )
 *
 *     Permute the matrices A, B to isolate eigenvalues if possible
 *
       ILEFT = 1
       IRIGHT = N + 1
       IRWRK = IRIGHT + N
-      CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ),
-     $             RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
+      CALL CGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), RWORK( IRWRK ), IERR )
 *
 *     Reduce B to triangular form (QR decomposition of B)
 *
@@ -208,31 +189,25 @@
       END IF
       ITAU = 1
       IWRK = ITAU + IROWS
-      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWRK ), LWORK+1-IWRK, IERR )
+      CALL CGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Apply the orthogonal transformation to matrix A
 *
-      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ),
-     $             LWORK+1-IWRK, IERR )
+      CALL CUNMQR( 'L', 'C', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWRK ), LWORK+1-IWRK, IERR )
 *
 *     Initialize VL
 *
       IF( ILVL ) THEN
          CALL CLASET( 'Full', N, N, CZERO, CONE, VL, LDVL )
          IF( IROWS.GT.1 ) THEN
-            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                   VL( ILO+1, ILO ), LDVL )
+            CALL CLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )
          END IF
-         CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL,
-     $                WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL CUNGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
 *     Initialize VR
 *
-      IF( ILVR )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
+      IF( ILVR ) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR )
 *
 *     Reduce to generalized Hessenberg form
 *
@@ -240,13 +215,9 @@
 *
 *        Eigenvectors requested -- work on whole matrix.
 *
-         CALL CGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL,
-     $                LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK,
-     $                IERR )
+         CALL CGGHD3( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       ELSE
-         CALL CGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA,
-     $                B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR,
-     $                WORK( IWRK ), LWORK+1-IWRK, IERR )
+         CALL CGGHD3( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, IERR )
       END IF
 *
 *     Perform QZ algorithm (Compute eigenvalues, and optionally, the
@@ -258,9 +229,7 @@
       ELSE
          CHTEMP = 'E'
       END IF
-      CALL CLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ),
-     $             LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR )
+      CALL CLAQZ0( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHA, BETA, VL, LDVL, VR, LDVR, WORK( IWRK ), LWORK+1-IWRK, RWORK( IRWRK ), 0, IERR )
       IF( IERR.NE.0 ) THEN
          IF( IERR.GT.0 .AND. IERR.LE.N ) THEN
             INFO = IERR
@@ -285,9 +254,7 @@
             CHTEMP = 'R'
          END IF
 *
-         CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL,
-     $                VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ),
-     $                IERR )
+         CALL CTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWRK ), RWORK( IRWRK ), IERR )
          IF( IERR.NE.0 ) THEN
             INFO = N + 2
             GO TO 70
@@ -296,15 +263,13 @@
 *        Undo balancing on VL and VR and normalization
 *
          IF( ILVL ) THEN
-            CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ),
-     $                   RWORK( IRIGHT ), N, VL, LDVL, IERR )
+            CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VL, LDVL, IERR )
             DO 30 JC = 1, N
                TEMP = ZERO
                DO 10 JR = 1, N
                   TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
    10          CONTINUE
-               IF( TEMP.LT.SMLNUM )
-     $            GO TO 30
+               IF( TEMP.LT.SMLNUM ) GO TO 30
                TEMP = ONE / TEMP
                DO 20 JR = 1, N
                   VL( JR, JC ) = VL( JR, JC )*TEMP
@@ -312,15 +277,13 @@
    30       CONTINUE
          END IF
          IF( ILVR ) THEN
-            CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ),
-     $                   RWORK( IRIGHT ), N, VR, LDVR, IERR )
+            CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IERR )
             DO 60 JC = 1, N
                TEMP = ZERO
                DO 40 JR = 1, N
                   TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
    40          CONTINUE
-               IF( TEMP.LT.SMLNUM )
-     $            GO TO 60
+               IF( TEMP.LT.SMLNUM ) GO TO 60
                TEMP = ONE / TEMP
                DO 50 JR = 1, N
                   VR( JR, JC ) = VR( JR, JC )*TEMP
@@ -333,11 +296,9 @@
 *
    70 CONTINUE
 *
-      IF( ILASCL )
-     $   CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
+      IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
 *
-      IF( ILBSCL )
-     $   CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
+      IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR )
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE ZTPRFS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, X, LDX,
-     $                   FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZTPRFS( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -60,8 +59,7 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
@@ -139,8 +137,7 @@
                   DO 40 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 30 I = 1, K
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AP( KC+I-1 ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-1 ) )*XK
    30                CONTINUE
                      KC = KC + K
    40             CONTINUE
@@ -148,8 +145,7 @@
                   DO 60 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 50 I = 1, K - 1
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AP( KC+I-1 ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-1 ) )*XK
    50                CONTINUE
                      RWORK( K ) = RWORK( K ) + XK
                      KC = KC + K
@@ -161,8 +157,7 @@
                   DO 80 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 70 I = K, N
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AP( KC+I-K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-K ) )*XK
    70                CONTINUE
                      KC = KC + N - K + 1
    80             CONTINUE
@@ -170,8 +165,7 @@
                   DO 100 K = 1, N
                      XK = CABS1( X( K, J ) )
                      DO 90 I = K + 1, N
-                        RWORK( I ) = RWORK( I ) +
-     $                               CABS1( AP( KC+I-K ) )*XK
+                        RWORK( I ) = RWORK( I ) + CABS1( AP( KC+I-K ) )*XK
    90                CONTINUE
                      RWORK( K ) = RWORK( K ) + XK
                      KC = KC + N - K + 1
@@ -231,8 +225,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
          BERR( J ) = S
@@ -263,8 +256,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
   200    CONTINUE
 *
@@ -298,8 +290,7 @@
          DO 240 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   240    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   250 CONTINUE
 *

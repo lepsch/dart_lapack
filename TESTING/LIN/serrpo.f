@@ -22,18 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IW( NMAX )
-      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX )
+      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SPBCON, SPBEQU, SPBRFS, SPBTF2,
-     $                   SPBTRF, SPBTRS, SPOCON, SPOEQU, SPORFS, SPOTF2,
-     $                   SPOTRF, SPOTRI, SPOTRS, SPPCON, SPPEQU, SPPRFS,
-     $                   SPPTRF, SPPTRI, SPPTRS
+      EXTERNAL           ALAESM, CHKXER, SPBCON, SPBEQU, SPBRFS, SPBTF2, SPBTRF, SPBTRS, SPOCON, SPOEQU, SPORFS, SPOTF2, SPOTRF, SPOTRI, SPOTRS, SPPCON, SPPEQU, SPPRFS, SPPTRF, SPPTRI, SPPTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -136,32 +132,25 @@
 *
          SRNAMT = 'SPORFS'
          INFOT = 1
-         CALL SPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPORFS( '/', 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPORFS( 'U', -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPORFS( 'U', 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL SPORFS( 'U', 2, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL SPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL SPORFS( 'U', 2, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL SPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL SPORFS( 'U', 2, 1, A, 2, AF, 2, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL SPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPORFS( 'U', 2, 1, A, 2, AF, 2, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPORFS', INFOT, NOUT, LERR, OK )
 *
 *        SPOCON
@@ -232,24 +221,19 @@
 *
          SRNAMT = 'SPPRFS'
          INFOT = 1
-         CALL SPPRFS( '/', 0, 0, A, AF, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPPRFS( '/', 0, 0, A, AF, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPPRFS( 'U', -1, 0, A, AF, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPPRFS( 'U', 0, -1, A, AF, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL SPPRFS( 'U', 2, 1, A, AF, B, 1, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL SPPRFS( 'U', 2, 1, A, AF, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL SPPRFS( 'U', 2, 1, A, AF, B, 2, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL SPPRFS( 'U', 2, 1, A, AF, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPRFS', INFOT, NOUT, LERR, OK )
 *
 *        SPPCON
@@ -335,36 +319,28 @@
 *
          SRNAMT = 'SPBRFS'
          INFOT = 1
-         CALL SPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( '/', 0, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', -1, 0, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 1, -1, 0, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 0, 0, -1, A, 1, AF, 1, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 2, 1, 1, A, 1, AF, 2, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 2, 1, 1, A, 2, AF, 1, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL SPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL SPBRFS( 'U', 2, 0, 1, A, 1, AF, 1, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBRFS', INFOT, NOUT, LERR, OK )
 *
 *        SPBCON

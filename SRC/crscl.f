@@ -19,8 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR
-     %                   , UI
+      REAL               SAFMAX, SAFMIN, OV, AR, AI, ABSR, ABSI, UR , UI
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -37,8 +36,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Get machine parameters
 *
@@ -104,8 +102,7 @@
                   END IF
                   CALL CSCAL( N, CMPLX( ONE / UR, -ONE / UI ), X, INCX )
                ELSE
-                  CALL CSCAL( N, CMPLX( SAFMAX / UR, -SAFMAX / UI ),
-     $                        X, INCX )
+                  CALL CSCAL( N, CMPLX( SAFMAX / UR, -SAFMAX / UI ), X, INCX )
                END IF
             END IF
          ELSE

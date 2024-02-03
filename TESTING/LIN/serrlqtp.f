@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   B( NMAX, NMAX ), C( NMAX, NMAX )
+      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, STPLQT2, STPLQT,
-     $                   STPMLQT
+      EXTERNAL           ALAESM, CHKXER, STPLQT2, STPLQT, STPMLQT
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -115,47 +113,36 @@
 *
       SRNAMT = 'STPMLQT'
       INFOT = 1
-      CALL STPMLQT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( '/', 'N', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL STPMLQT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', '/', 0, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL STPMLQT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', -1, 0, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL STPMLQT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 0, -1, 0, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL STPMLQT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 0, 0, -1, 0, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       INFOT = 6
-      CALL STPMLQT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 0, 0, 0, -1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL STPMLQT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 0, 0, 0, 0, 0, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL STPMLQT( 'R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'R', 'N', 2, 2, 2, 1, 1, A, 1, T, 1, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL STPMLQT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'R', 'N', 1, 1, 1, 1, 1, A, 1, T, 0, B, 1, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 0, C, 1, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
       INFOT = 15
-      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0,
-     $              W, INFO )
+      CALL STPMLQT( 'L', 'N', 1, 1, 1, 1, 1, A, 1, T, 1, B, 1, C, 0, W, INFO )
       CALL CHKXER( 'STPMLQT', INFOT, NOUT, LERR, OK )
 *
 *     Print a summary line.

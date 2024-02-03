@@ -1,5 +1,4 @@
-      SUBROUTINE CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z,
-     $                   LDZ, J1, INFO )
+      SUBROUTINE CTGEX2( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, J1, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +9,14 @@
       INTEGER            INFO, J1, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               TWENTY
       PARAMETER          ( TWENTY = 2.0E+1 )
       INTEGER            LDST
@@ -30,8 +27,7 @@
 *     .. Local Scalars ..
       LOGICAL            STRONG, WEAK
       INTEGER            I, M
-      REAL               CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM,
-     $                   THRESHA, THRESHB
+      REAL               CQ, CZ, EPS, SA, SB, SCALE, SMLNUM, SUM, THRESHA, THRESHB
       COMPLEX            CDUM, F, G, SQ, SZ
 *     ..
 *     .. Local Arrays ..
@@ -53,8 +49,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
       M = LDST
       WEAK = .FALSE.
@@ -113,10 +108,7 @@
 *     Weak stability test: |S21| <= O(EPS F-norm((A)))
 *                          and  |T21| <= O(EPS F-norm((B)))
 *
-      WEAK = ABS( S( 2, 1 ) ).LE.THRESHA .AND. 
-     $ ABS( T( 2, 1 ) ).LE.THRESHB
-      IF( .NOT.WEAK )
-     $   GO TO 20
+      WEAK = ABS( S( 2, 1 ) ).LE.THRESHA .AND.  ABS( T( 2, 1 ) ).LE.THRESHB       IF( .NOT.WEAK ) GO TO 20
 *
       IF( WANDS ) THEN
 *
@@ -144,8 +136,7 @@
          CALL CLASSQ( M*M, WORK(M*M+1), 1, SCALE, SUM )
          SB = SCALE*SQRT( SUM )
          STRONG = SA.LE.THRESHA .AND. SB.LE.THRESHB
-         IF( .NOT.STRONG )
-     $      GO TO 20
+         IF( .NOT.STRONG ) GO TO 20
       END IF
 *
 *     If the swap is accepted ("weakly" and "strongly"), apply the
@@ -163,10 +154,7 @@
 *
 *     Accumulate transformations into Q and Z if requested.
 *
-      IF( WANTZ )
-     $   CALL CROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, CONJG( SZ ) )
-      IF( WANTQ )
-     $   CALL CROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, CONJG( SQ ) )
+      IF( WANTZ ) CALL CROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, CONJG( SZ ) )       IF( WANTQ ) CALL CROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, CONJG( SQ ) )
 *
 *     Exit with INFO = 0 if swap was successfully performed.
 *

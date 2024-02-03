@@ -1,5 +1,4 @@
-      SUBROUTINE DLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, B,
-     $                   WORK, INFO )
+      SUBROUTINE DLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, B, WORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,9 +24,7 @@
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
       INTEGER            I, IY, J, JCOUNT, KL, KU, MODE
-      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1,
-     $                   PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1,
-     $                   TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
+      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -36,8 +33,7 @@
       EXTERNAL           LSAME, IDAMAX, DLAMCH, DLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLARNV, DLATB4, DLATMS, DROT,
-     $                   DROTG, DSCAL, DSWAP
+      EXTERNAL           DCOPY, DLARNV, DLATB4, DLATMS, DROT, DROTG, DSCAL, DSWAP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX, SIGN, SQRT
@@ -59,25 +55,21 @@
 *
 *     Quick return if N.LE.0.
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Call DLATB4 to set parameters for DLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
-         CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL DLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       ELSE
-         CALL DLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL DLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       END IF
 *
 *     IMAT <= 6:  Non-unit triangular matrix
 *
       IF( IMAT.LE.6 ) THEN
-         CALL DLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM,
-     $                KL, KU, 'No packing', A, LDA, WORK, INFO )
+         CALL DLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *     IMAT > 6:  Unit triangular matrix
 *     The diagonal is deliberately set to something other than 1.
@@ -214,8 +206,7 @@
          IF( UPPER ) THEN
             IF( N.GT.3 ) THEN
                CALL DCOPY( N-3, WORK, 1, A( 2, 3 ), LDA+1 )
-               IF( N.GT.4 )
-     $            CALL DCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
+               IF( N.GT.4 ) CALL DCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
             END IF
             DO 100 J = 2, N - 1
                A( 1, J ) = Y
@@ -225,8 +216,7 @@
          ELSE
             IF( N.GT.3 ) THEN
                CALL DCOPY( N-3, WORK, 1, A( 3, 2 ), LDA+1 )
-               IF( N.GT.4 )
-     $            CALL DCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
+               IF( N.GT.4 ) CALL DCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
             END IF
             DO 110 J = 2, N - 1
                A( J, 1 ) = Y
@@ -245,14 +235,11 @@
 *
 *              Multiply by [ c  s; -s  c] on the left.
 *
-               IF( N.GT.J+1 )
-     $            CALL DROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ),
-     $                       LDA, C, S )
+               IF( N.GT.J+1 ) CALL DROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S )
 *
 *              Multiply by [-c -s;  s -c] on the right.
 *
-               IF( J.GT.1 )
-     $            CALL DROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
+               IF( J.GT.1 ) CALL DROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
 *
 *              Negate A(J,J+1).
 *
@@ -266,15 +253,11 @@
 *
 *              Multiply by [ c -s;  s  c] on the right.
 *
-               IF( N.GT.J+1 )
-     $            CALL DROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C,
-     $                       -S )
+               IF( N.GT.J+1 ) CALL DROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S )
 *
 *              Multiply by [-c  s; -s -c] on the left.
 *
-               IF( J.GT.1 )
-     $            CALL DROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C,
-     $                       S )
+               IF( J.GT.1 ) CALL DROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S )
 *
 *              Negate A(J+1,J).
 *
@@ -330,8 +313,7 @@
          ELSE
             DO 170 J = 1, N
                CALL DLARNV( 2, ISEED, N-J+1, A( J, J ) )
-               IF( N.GT.J )
-     $            CALL DSCAL( N-J, TSCAL, A( J+1, J ), 1 )
+               IF( N.GT.J ) CALL DSCAL( N-J, TSCAL, A( J+1, J ), 1 )
                A( J, J ) = SIGN( ONE, A( J, J ) )
   170       CONTINUE
             A( 1, 1 ) = SMLNUM*A( 1, 1 )
@@ -376,8 +358,7 @@
                   A( J, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
          ELSE
             JCOUNT = 1
@@ -391,8 +372,7 @@
                   A( J, J ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   230       CONTINUE
          END IF
 *
@@ -426,8 +406,7 @@
                DO 260 I = 1, J - 2
                   A( I, J ) = 0.D0
   260          CONTINUE
-               IF( J.GT.1 )
-     $            A( J-1, J ) = -ONE
+               IF( J.GT.1 ) A( J-1, J ) = -ONE
                A( J, J ) = TSCAL
   270       CONTINUE
             B( N ) = ONE
@@ -436,8 +415,7 @@
                DO 280 I = J + 2, N
                   A( I, J ) = 0.D0
   280          CONTINUE
-               IF( J.LT.N )
-     $            A( J+1, J ) = -ONE
+               IF( J.LT.N ) A( J+1, J ) = -ONE
                A( J, J ) = TSCAL
   290       CONTINUE
             B( 1 ) = ONE
@@ -522,8 +500,7 @@
   360       CONTINUE
          ELSE
             DO 370 J = 1, N
-               IF( J.LT.N )
-     $            CALL DLARNV( 2, ISEED, N-J, A( J+1, J ) )
+               IF( J.LT.N ) CALL DLARNV( 2, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZERO
   370       CONTINUE
          END IF
@@ -569,13 +546,11 @@
       IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
          IF( UPPER ) THEN
             DO 420 J = 1, N / 2
-               CALL DSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ),
-     $                     -1 )
+               CALL DSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 )
   420       CONTINUE
          ELSE
             DO 430 J = 1, N / 2
-               CALL DSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ),
-     $                     -LDA )
+               CALL DSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA )
   430       CONTINUE
          END IF
       END IF

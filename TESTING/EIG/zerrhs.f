@@ -23,17 +23,14 @@
       LOGICAL            SEL( NMAX )
       INTEGER            IFAILL( NMAX ), IFAILR( NMAX )
       DOUBLE PRECISION   RW( NMAX ), S( NMAX )
-      COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ),
-     $                   VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ),
-     $                   X( NMAX )
+      COMPLEX*16         A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEIN, ZHSEQR,
-     $                   ZUNGHR, ZUNMHR, ZTREVC, ZTREVC3
+      EXTERNAL           CHKXER, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEIN, ZHSEQR, ZUNGHR, ZUNMHR, ZTREVC, ZTREVC3
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE
@@ -193,68 +190,52 @@
 *
          SRNAMT = 'ZUNMHR'
          INFOT = 1
-         CALL ZUNMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZUNMHR( 'L', '/', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', '/', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZUNMHR( 'L', 'N', -1, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', -1, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZUNMHR( 'L', 'N', 0, -1, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 0, -1, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZUNMHR( 'L', 'N', 0, 0, 0, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 0, 0, 0, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZUNMHR( 'L', 'N', 0, 0, 2, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 0, 0, 2, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZUNMHR( 'L', 'N', 1, 2, 2, 1, A, 1, TAU, C, 1, W, 2,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 1, 2, 2, 1, A, 1, TAU, C, 1, W, 2, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZUNMHR( 'R', 'N', 2, 1, 2, 1, A, 1, TAU, C, 2, W, 2,
-     $                INFO )
+         CALL ZUNMHR( 'R', 'N', 2, 1, 2, 1, A, 1, TAU, C, 2, W, 2, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZUNMHR( 'L', 'N', 1, 1, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 1, 1, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZUNMHR( 'L', 'N', 0, 1, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 0, 1, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZUNMHR( 'R', 'N', 1, 0, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'R', 'N', 1, 0, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZUNMHR( 'L', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZUNMHR( 'R', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'R', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZUNMHR( 'L', 'N', 2, 1, 1, 1, A, 2, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 2, 1, 1, 1, A, 2, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZUNMHR( 'L', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'L', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZUNMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1,
-     $                INFO )
+         CALL ZUNMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'ZUNMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
 *
@@ -294,36 +275,28 @@
 *
          SRNAMT = 'ZHSEIN'
          INFOT = 1
-         CALL ZHSEIN( '/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( '/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZHSEIN( 'R', '/', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', '/', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZHSEIN( 'R', 'N', '/', SEL, 0, A, 1, X, VL, 1, VR, 1, 0,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', 'N', '/', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL ZHSEIN( 'R', 'N', 'N', SEL, -1, A, 1, X, VL, 1, VR, 1, 0,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', 'N', 'N', SEL, -1, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 1, X, VL, 1, VR, 2, 4,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 1, X, VL, 1, VR, 2, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZHSEIN( 'L', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'L', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2, 1,
-     $                M, W, RW, IFAILL, IFAILR, INFO )
+         CALL ZHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2, 1, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'ZHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
@@ -331,32 +304,25 @@
 *
          SRNAMT = 'ZTREVC'
          INFOT = 1
-         CALL ZTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZTREVC( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZTREVC( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                RW, INFO )
+         CALL ZTREVC( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZTREVC( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZTREVC( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZTREVC( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, RW,
-     $                INFO )
+         CALL ZTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, RW, INFO )
          CALL CHKXER( 'ZTREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
@@ -364,40 +330,31 @@
 *
          SRNAMT = 'ZTREVC3'
          INFOT = 1
-         CALL ZTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL ZTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZTREVC3( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL ZTREVC3( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL ZTREVC3( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL ZTREVC3( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL ZTREVC3( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W,
-     $                 2, RW, 2, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, 2, RW, 2, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL ZTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'ZTREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
       END IF

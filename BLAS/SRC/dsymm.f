@@ -47,8 +47,7 @@
 *     Test the input parameters.
 *
       INFO = 0
-      IF ((.NOT.LSAME(SIDE,'L')) .AND.
-     +    (.NOT.LSAME(SIDE,'R'))) THEN
+      IF ((.NOT.LSAME(SIDE,'L')) .AND. (.NOT.LSAME(SIDE,'R'))) THEN
           INFO = 1
       ELSE IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 2
@@ -70,8 +69,7 @@
 *
 *     Quick return if possible.
 *
-      IF ((M.EQ.0) .OR. (N.EQ.0) .OR.
-     +    ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
+      IF ((M.EQ.0) .OR. (N.EQ.0) .OR. ((ALPHA.EQ.ZERO).AND. (BETA.EQ.ONE))) RETURN
 *
 *     And when  alpha.eq.zero.
 *
@@ -110,8 +108,7 @@
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       ELSE
-                          C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) +
-     +                             ALPHA*TEMP2
+                          C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       END IF
    60             CONTINUE
    70         CONTINUE
@@ -127,8 +124,7 @@
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       ELSE
-                          C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) +
-     +                             ALPHA*TEMP2
+                          C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       END IF
    90             CONTINUE
   100         CONTINUE

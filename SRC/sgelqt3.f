@@ -44,8 +44,7 @@
 *
 *        Compute Householder transform when M=1
 *
-         CALL SLARFG( N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA,
-     &                T( 1, 1 ) )
+         CALL SLARFG( N, A( 1, 1 ), A( 1, MIN( 2, N ) ), LDA, T( 1, 1 ) )
 *
       ELSE
 *
@@ -67,20 +66,15 @@
                T(  I+M1, J ) = A( I+M1, J )
             END DO
          END DO
-         CALL STRMM( 'R', 'U', 'T', 'U', M2, M1, ONE,
-     &               A, LDA, T( I1, 1 ), LDT )
+         CALL STRMM( 'R', 'U', 'T', 'U', M2, M1, ONE, A, LDA, T( I1, 1 ), LDT )
 *
-         CALL SGEMM( 'N', 'T', M2, M1, N-M1, ONE, A( I1, I1 ), LDA,
-     &               A( 1, I1 ), LDA, ONE, T( I1, 1 ), LDT)
+         CALL SGEMM( 'N', 'T', M2, M1, N-M1, ONE, A( I1, I1 ), LDA, A( 1, I1 ), LDA, ONE, T( I1, 1 ), LDT)
 *
-         CALL STRMM( 'R', 'U', 'N', 'N', M2, M1, ONE,
-     &               T, LDT, T( I1, 1 ), LDT )
+         CALL STRMM( 'R', 'U', 'N', 'N', M2, M1, ONE, T, LDT, T( I1, 1 ), LDT )
 *
-         CALL SGEMM( 'N', 'N', M2, N-M1, M1, -ONE, T( I1, 1 ), LDT,
-     &                A( 1, I1 ), LDA, ONE, A( I1, I1 ), LDA )
+         CALL SGEMM( 'N', 'N', M2, N-M1, M1, -ONE, T( I1, 1 ), LDT, A( 1, I1 ), LDA, ONE, A( I1, I1 ), LDA )
 *
-         CALL STRMM( 'R', 'U', 'N', 'U', M2, M1 , ONE,
-     &               A, LDA, T( I1, 1 ), LDT )
+         CALL STRMM( 'R', 'U', 'N', 'U', M2, M1 , ONE, A, LDA, T( I1, 1 ), LDT )
 *
          DO I=1,M2
             DO J=1,M1
@@ -91,8 +85,7 @@
 *
 *        Compute A(J1:M,J1:N) <- (Y2,R2,T2) where Q2 = I - Y2 T2 Y2^H
 *
-         CALL SGELQT3( M2, N-M1, A( I1, I1 ), LDA,
-     &                T( I1, I1 ), LDT, IINFO )
+         CALL SGELQT3( M2, N-M1, A( I1, I1 ), LDA, T( I1, I1 ), LDT, IINFO )
 *
 *        Compute T3 = T(J1:N1,1:N) = -T1 Y1^H Y2 T2
 *
@@ -102,17 +95,13 @@
             END DO
          END DO
 *
-         CALL STRMM( 'R', 'U', 'T', 'U', M1, M2, ONE,
-     &               A( I1, I1 ), LDA, T( 1, I1 ), LDT )
+         CALL STRMM( 'R', 'U', 'T', 'U', M1, M2, ONE, A( I1, I1 ), LDA, T( 1, I1 ), LDT )
 *
-         CALL SGEMM( 'N', 'T', M1, M2, N-M, ONE, A( 1, J1 ), LDA,
-     &               A( I1, J1 ), LDA, ONE, T( 1, I1 ), LDT )
+         CALL SGEMM( 'N', 'T', M1, M2, N-M, ONE, A( 1, J1 ), LDA, A( I1, J1 ), LDA, ONE, T( 1, I1 ), LDT )
 *
-         CALL STRMM( 'L', 'U', 'N', 'N', M1, M2, -ONE, T, LDT,
-     &               T( 1, I1 ), LDT )
+         CALL STRMM( 'L', 'U', 'N', 'N', M1, M2, -ONE, T, LDT, T( 1, I1 ), LDT )
 *
-         CALL STRMM( 'R', 'U', 'N', 'N', M1, M2, ONE,
-     &               T( I1, I1 ), LDT, T( 1, I1 ), LDT )
+         CALL STRMM( 'R', 'U', 'N', 'N', M1, M2, ONE, T( I1, I1 ), LDT, T( 1, I1 ), LDT )
 *
 *
 *

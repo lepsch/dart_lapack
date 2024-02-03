@@ -1,5 +1,4 @@
-      SUBROUTINE ZCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR,
-     $                   A, D, E, B, X, XACT, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKPT( DOTYPE, NN, NVAL, NNS, NSVAL, THRESH, TSTERR, A, D, E, B, X, XACT, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   D( * ), RWORK( * )
-      COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ),
-     $                   XACT( * )
+      COMPLEX*16         A( * ), B( * ), E( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -32,9 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, TYPE, UPLO
       CHARACTER*3        PATH
-      INTEGER            I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO,
-     $                   J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL,
-     $                   NIMAT, NRHS, NRUN
+      INTEGER            I, IA, IMAT, IN, INFO, IRHS, IUPLO, IX, IZERO, J, K, KL, KU, LDA, MODE, N, NERRS, NFAIL, NIMAT, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, COND, DMAX, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -49,10 +45,7 @@
       EXTERNAL           IDAMAX, DGET06, DZASUM, ZLANHT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DLARNV, DSCAL,
-     $                   ZCOPY, ZDSCAL, ZERRGT, ZGET04, ZLACPY, ZLAPTM,
-     $                   ZLARNV, ZLATB4, ZLATMS, ZPTCON, ZPTRFS, ZPTT01,
-     $                   ZPTT02, ZPTT05, ZPTTRF, ZPTTRS
+      EXTERNAL           ALAERH, ALAHD, ALASUM, DCOPY, DLARNV, DSCAL, ZCOPY, ZDSCAL, ZERRGT, ZGET04, ZLACPY, ZLAPTM, ZLARNV, ZLATB4, ZLATMS, ZPTCON, ZPTRFS, ZPTT01, ZPTT02, ZPTT05, ZPTTRF, ZPTTRS
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, MAX
@@ -82,8 +75,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRGT( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRGT( PATH, NOUT )
       INFOT = 0
 *
       DO 120 IN = 1, NN
@@ -93,20 +85,17 @@
          N = NVAL( IN )
          LDA = MAX( 1, N )
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 110 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) )
-     $         GO TO 110
+            IF( N.GT.0 .AND. .NOT.DOTYPE( IMAT ) ) GO TO 110
 *
 *           Set up parameters with ZLATB4.
 *
-            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                   COND, DIST )
+            CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, COND, DIST )
 *
             ZEROT = IMAT.GE.8 .AND. IMAT.LE.10
             IF( IMAT.LE.6 ) THEN
@@ -115,14 +104,12 @@
 *              known condition number in lower triangular band storage.
 *
                SRNAMT = 'ZLATMS'
-               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND,
-     $                      ANORM, KL, KU, 'B', A, 2, WORK, INFO )
+               CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, COND, ANORM, KL, KU, 'B', A, 2, WORK, INFO )
 *
 *              Check the error code from ZLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL,
-     $                         KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'ZLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 110
                END IF
                IZERO = 0
@@ -135,8 +122,7 @@
                   E( I ) = A( IA+1 )
                   IA = IA + 2
    20          CONTINUE
-               IF( N.GT.0 )
-     $            D( N ) = DBLE( A( IA ) )
+               IF( N.GT.0 ) D( N ) = DBLE( A( IA ) )
             ELSE
 *
 *              Type 7-12:  generate a diagonally dominant matrix with
@@ -157,8 +143,7 @@
                      D( 1 ) = ABS( D( 1 ) ) + ABS( E( 1 ) )
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
-                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) +
-     $                           ABS( E( I-1 ) )
+                        D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
    30                CONTINUE
                   END IF
 *
@@ -176,8 +161,7 @@
 *
                   IF( IZERO.EQ.1 ) THEN
                      D( 1 ) = DBLE( Z( 2 ) )
-                     IF( N.GT.1 )
-     $                  E( 1 ) = Z( 3 )
+                     IF( N.GT.1 ) E( 1 ) = Z( 3 )
                   ELSE IF( IZERO.EQ.N ) THEN
                      E( N-1 ) = Z( 1 )
                      D( N ) = DBLE( Z( 2 ) )
@@ -222,8 +206,7 @@
             END IF
 *
             CALL DCOPY( N, D, 1, D( N+1 ), 1 )
-            IF( N.GT.1 )
-     $         CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
+            IF( N.GT.1 ) CALL ZCOPY( N-1, E, 1, E( N+1 ), 1 )
 *
 *+    TEST 1
 *           Factor A as L*D*L' and compute the ratio
@@ -234,8 +217,7 @@
 *           Check error code from ZPTTRF.
 *
             IF( INFO.NE.IZERO ) THEN
-               CALL ALAERH( PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1,
-     $                      -1, -1, IMAT, NFAIL, NERRS, NOUT )
+               CALL ALAERH( PATH, 'ZPTTRF', INFO, IZERO, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                GO TO 110
             END IF
 *
@@ -244,14 +226,12 @@
                GO TO 100
             END IF
 *
-            CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK,
-     $                   RESULT( 1 ) )
+            CALL ZPTT01( N, D, E, D( N+1 ), E( N+1 ), WORK, RESULT( 1 ) )
 *
 *           Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 1 ).GE.THRESH ) THEN
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $            CALL ALAHD( NOUT, PATH )
+               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 )
                NFAIL = NFAIL + 1
             END IF
@@ -272,8 +252,7 @@
                   X( J ) = ZERO
    40          CONTINUE
                X( I ) = ONE
-               CALL ZPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA,
-     $                      INFO )
+               CALL ZPTTRS( 'Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO )
                AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
    50       CONTINUE
             RCONDC = ONE / MAX( ONE, ANORM*AINVNM )
@@ -297,62 +276,44 @@
 *
 *              Set the right hand side.
 *
-                  CALL ZLAPTM( UPLO, N, NRHS, ONE, D, E, XACT, LDA,
-     $                         ZERO, B, LDA )
+                  CALL ZLAPTM( UPLO, N, NRHS, ONE, D, E, XACT, LDA, ZERO, B, LDA )
 *
 *+    TEST 2
 *              Solve A*x = b and compute the residual.
 *
                   CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
-                  CALL ZPTTRS( UPLO, N, NRHS, D( N+1 ), E( N+1 ), X,
-     $                         LDA, INFO )
+                  CALL ZPTTRS( UPLO, N, NRHS, D( N+1 ), E( N+1 ), X, LDA, INFO )
 *
 *              Check error code from ZPTTRS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, NRHS, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
                   CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                  CALL ZPTT02( UPLO, N, NRHS, D, E, X, LDA, WORK, LDA,
-     $                         RESULT( 2 ) )
+                  CALL ZPTT02( UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) )
 *
 *+    TEST 3
 *              Check solution from generated exact solution.
 *
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                         RESULT( 3 ) )
+                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *              Use iterative refinement to improve the solution.
 *
                   SRNAMT = 'ZPTRFS'
-                  CALL ZPTRFS( UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ),
-     $                         B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ),
-     $                         WORK, RWORK( 2*NRHS+1 ), INFO )
+                  CALL ZPTRFS( UPLO, N, NRHS, D, E, D( N+1 ), E( N+1 ), B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *              Check error code from ZPTRFS.
 *
-                  IF( INFO.NE.0 )
-     $               CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, NRHS, IMAT, NFAIL, NERRS,
-     $                            NOUT )
+                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                         RESULT( 4 ) )
-                  CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA,
-     $                         RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
+                  CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL ZPTT05( N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *              Print information about the tests that did not pass the
 *              threshold.
 *
                   DO 70 K = 2, 6
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT,
-     $                     K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    70             CONTINUE
@@ -367,22 +328,18 @@
 *
   100       CONTINUE
             SRNAMT = 'ZPTCON'
-            CALL ZPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK,
-     $                   INFO )
+            CALL ZPTCON( N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO )
 *
 *           Check error code from ZPTCON.
 *
-            IF( INFO.NE.0 )
-     $         CALL ALAERH( PATH, 'ZPTCON', INFO, 0, ' ', N, N, -1, -1,
-     $                      -1, IMAT, NFAIL, NERRS, NOUT )
+            IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
 *
             RESULT( 7 ) = DGET06( RCOND, RCONDC )
 *
 *           Print the test ratio if greater than or equal to THRESH.
 *
             IF( RESULT( 7 ).GE.THRESH ) THEN
-               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $            CALL ALAHD( NOUT, PATH )
+               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 )
                NFAIL = NFAIL + 1
             END IF

@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       KLD = MAX( 1, LDAB-1 )
 *
@@ -83,8 +82,7 @@
             IF( KN.GT.0 ) THEN
                CALL CSSCAL( KN, ONE / AJJ, AB( KD, J+1 ), KLD )
                CALL CLACGV( KN, AB( KD, J+1 ), KLD )
-               CALL CHER( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD,
-     $                    AB( KD+1, J+1 ), KLD )
+               CALL CHER( 'Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD )
                CALL CLACGV( KN, AB( KD, J+1 ), KLD )
             END IF
    10    CONTINUE
@@ -110,8 +108,7 @@
             KN = MIN( KD, N-J )
             IF( KN.GT.0 ) THEN
                CALL CSSCAL( KN, ONE / AJJ, AB( 2, J ), 1 )
-               CALL CHER( 'Lower', KN, -ONE, AB( 2, J ), 1,
-     $                    AB( 1, J+1 ), KLD )
+               CALL CHER( 'Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD )
             END IF
    20    CONTINUE
       END IF

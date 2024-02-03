@@ -1,5 +1,4 @@
-      SUBROUTINE CTBT05( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B,
-     $                   LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE CTBT05( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX            AB( LDAB, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -95,41 +93,32 @@
 *     (*) = NZ*UNFL / (min_i (abs(A)*abs(X) +abs(b))_i )
 *
       IFU = 0
-      IF( UNIT )
-     $   IFU = 1
+      IF( UNIT ) IFU = 1
       DO 90 K = 1, NRHS
          DO 80 I = 1, N
             TMP = CABS1( B( I, K ) )
             IF( UPPER ) THEN
                IF( .NOT.NOTRAN ) THEN
                   DO 40 J = MAX( I-KD, 1 ), I - IFU
-                     TMP = TMP + CABS1( AB( KD+1-I+J, I ) )*
-     $                     CABS1( X( J, K ) )
+                     TMP = TMP + CABS1( AB( KD+1-I+J, I ) )* CABS1( X( J, K ) )
    40             CONTINUE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                ELSE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 50 J = I + IFU, MIN( I+KD, N )
-                     TMP = TMP + CABS1( AB( KD+1+I-J, J ) )*
-     $                     CABS1( X( J, K ) )
+                     TMP = TMP + CABS1( AB( KD+1+I-J, J ) )* CABS1( X( J, K ) )
    50             CONTINUE
                END IF
             ELSE
                IF( NOTRAN ) THEN
                   DO 60 J = MAX( I-KD, 1 ), I - IFU
-                     TMP = TMP + CABS1( AB( 1+I-J, J ) )*
-     $                     CABS1( X( J, K ) )
+                     TMP = TMP + CABS1( AB( 1+I-J, J ) )* CABS1( X( J, K ) )
    60             CONTINUE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                ELSE
-                  IF( UNIT )
-     $               TMP = TMP + CABS1( X( I, K ) )
+                  IF( UNIT ) TMP = TMP + CABS1( X( I, K ) )
                   DO 70 J = I + IFU, MIN( I+KD, N )
-                     TMP = TMP + CABS1( AB( 1+J-I, I ) )*
-     $                     CABS1( X( J, K ) )
+                     TMP = TMP + CABS1( AB( 1+J-I, I ) )* CABS1( X( J, K ) )
    70             CONTINUE
                END IF
             END IF

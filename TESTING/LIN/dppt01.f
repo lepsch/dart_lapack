@@ -66,8 +66,7 @@
 *           Compute the rest of column K.
 *
             IF( K.GT.1 ) THEN
-               CALL DTPMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC,
-     $                     AFAC( KC ), 1 )
+               CALL DTPMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 )
                KC = KC - ( K-1 )
             END IF
    10    CONTINUE
@@ -81,9 +80,7 @@
 *           Add a multiple of column K of the factor L to each of
 *           columns K+1 through N.
 *
-            IF( K.LT.N )
-     $         CALL DSPR( 'Lower', N-K, ONE, AFAC( KC+1 ), 1,
-     $                    AFAC( KC+N-K+1 ) )
+            IF( K.LT.N ) CALL DSPR( 'Lower', N-K, ONE, AFAC( KC+1 ), 1, AFAC( KC+N-K+1 ) )
 *
 *           Scale column K by the diagonal element.
 *

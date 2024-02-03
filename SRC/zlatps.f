@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATPS( UPLO, TRANS, DIAG, NORMIN, N, AP, X, SCALE,
-     $                   CNORM, INFO )
+      SUBROUTINE ZLATPS( UPLO, TRANS, DIAG, NORMIN, N, AP, X, SCALE, CNORM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -19,14 +18,12 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, HALF, ONE, TWO
-      PARAMETER          ( ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0,
-     $                   TWO = 2.0D+0 )
+      PARAMETER          ( ZERO = 0.0D+0, HALF = 0.5D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOTRAN, NOUNIT, UPPER
       INTEGER            I, IMAX, IP, J, JFIRST, JINC, JLAST, JLEN
-      DOUBLE PRECISION   BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL,
-     $                   XBND, XJ, XMAX
+      DOUBLE PRECISION   BIGNUM, GROW, REC, SMLNUM, TJJ, TMAX, TSCAL, XBND, XJ, XMAX
       COMPLEX*16         CSUMJ, TJJS, USCAL, ZDUM
 *     ..
 *     .. External Functions ..
@@ -34,8 +31,7 @@
       INTEGER            IDAMAX, IZAMAX
       DOUBLE PRECISION   DLAMCH, DZASUM
       COMPLEX*16         ZDOTC, ZDOTU, ZLADIV
-      EXTERNAL           LSAME, IDAMAX, IZAMAX, DLAMCH, DZASUM, ZDOTC,
-     $                   ZDOTU, ZLADIV
+      EXTERNAL           LSAME, IDAMAX, IZAMAX, DLAMCH, DZASUM, ZDOTC, ZDOTU, ZLADIV
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DSCAL, XERBLA, ZAXPY, ZDSCAL, ZTPSV
@@ -48,8 +44,7 @@
 *     ..
 *     .. Statement Function definitions ..
       CABS1( ZDUM ) = ABS( DBLE( ZDUM ) ) + ABS( DIMAG( ZDUM ) )
-      CABS2( ZDUM ) = ABS( DBLE( ZDUM ) / 2.D0 ) +
-     $                ABS( DIMAG( ZDUM ) / 2.D0 )
+      CABS2( ZDUM ) = ABS( DBLE( ZDUM ) / 2.D0 ) + ABS( DIMAG( ZDUM ) / 2.D0 )
 *     ..
 *     .. Executable Statements ..
 *
@@ -62,13 +57,11 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT.
-     $         LSAME( NORMIN, 'N' ) ) THEN
+      ELSE IF( .NOT.LSAME( NORMIN, 'Y' ) .AND. .NOT. LSAME( NORMIN, 'N' ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -80,8 +73,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine machine dependent parameters to control overflow.
 *
@@ -171,8 +163,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 60
+               IF( GROW.LE.SMLNUM ) GO TO 60
 *
                TJJS = AP( IP )
                TJJ = CABS1( TJJS )
@@ -215,8 +206,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 60
+               IF( GROW.LE.SMLNUM ) GO TO 60
 *
 *              G(j) = G(j-1)*( 1 + CNORM(j) )
 *
@@ -259,8 +249,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 90
+               IF( GROW.LE.SMLNUM ) GO TO 90
 *
 *              G(j) = max( G(j-1), M(j-1)*( 1 + CNORM(j) ) )
 *
@@ -274,8 +263,7 @@
 *
 *                 M(j) = M(j-1)*( 1 + CNORM(j) ) / abs(A(j,j))
 *
-                  IF( XJ.GT.TJJ )
-     $               XBND = XBND*( TJJ / XJ )
+                  IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
                ELSE
 *
 *                 M(j) could overflow, set XBND to 0.
@@ -297,8 +285,7 @@
 *
 *              Exit the loop if the growth factor is too small.
 *
-               IF( GROW.LE.SMLNUM )
-     $            GO TO 90
+               IF( GROW.LE.SMLNUM ) GO TO 90
 *
 *              G(j) = ( 1 + CNORM(j) )*G(j-1)
 *
@@ -345,8 +332,7 @@
                   TJJS = AP( IP )*TSCAL
                ELSE
                   TJJS = TSCAL
-                  IF( TSCAL.EQ.ONE )
-     $               GO TO 110
+                  IF( TSCAL.EQ.ONE ) GO TO 110
                END IF
                TJJ = CABS1( TJJS )
                IF( TJJ.GT.SMLNUM ) THEN
@@ -431,8 +417,7 @@
 *                    Compute the update
 *                       x(1:j-1) := x(1:j-1) - x(j) * A(1:j-1,j)
 *
-                     CALL ZAXPY( J-1, -X( J )*TSCAL, AP( IP-J+1 ), 1, X,
-     $                           1 )
+                     CALL ZAXPY( J-1, -X( J )*TSCAL, AP( IP-J+1 ), 1, X, 1 )
                      I = IZAMAX( J-1, X, 1 )
                      XMAX = CABS1( X( I ) )
                   END IF
@@ -443,8 +428,7 @@
 *                    Compute the update
 *                       x(j+1:n) := x(j+1:n) - x(j) * A(j+1:n,j)
 *
-                     CALL ZAXPY( N-J, -X( J )*TSCAL, AP( IP+1 ), 1,
-     $                           X( J+1 ), 1 )
+                     CALL ZAXPY( N-J, -X( J )*TSCAL, AP( IP+1 ), 1, X( J+1 ), 1 )
                      I = J + IZAMAX( N-J, X( J+1 ), 1 )
                      XMAX = CABS1( X( I ) )
                   END IF
@@ -531,8 +515,7 @@
                      TJJS = AP( IP )*TSCAL
                   ELSE
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE )
-     $                  GO TO 160
+                     IF( TSCAL.EQ.ONE ) GO TO 160
                   END IF
                   TJJ = CABS1( TJJS )
                   IF( TJJ.GT.SMLNUM ) THEN
@@ -646,13 +629,11 @@
 *
                   IF( UPPER ) THEN
                      DO 180 I = 1, J - 1
-                        CSUMJ = CSUMJ + ( DCONJG( AP( IP-J+I ) )*USCAL )
-     $                          *X( I )
+                        CSUMJ = CSUMJ + ( DCONJG( AP( IP-J+I ) )*USCAL ) *X( I )
   180                CONTINUE
                   ELSE IF( J.LT.N ) THEN
                      DO 190 I = 1, N - J
-                        CSUMJ = CSUMJ + ( DCONJG( AP( IP+I ) )*USCAL )*
-     $                          X( J+I )
+                        CSUMJ = CSUMJ + ( DCONJG( AP( IP+I ) )*USCAL )* X( J+I )
   190                CONTINUE
                   END IF
                END IF
@@ -671,8 +652,7 @@
                      TJJS = DCONJG( AP( IP ) )*TSCAL
                   ELSE
                      TJJS = TSCAL
-                     IF( TSCAL.EQ.ONE )
-     $                  GO TO 210
+                     IF( TSCAL.EQ.ONE ) GO TO 210
                   END IF
                   TJJ = CABS1( TJJS )
                   IF( TJJ.GT.SMLNUM ) THEN

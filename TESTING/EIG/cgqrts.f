@@ -1,5 +1,4 @@
-      SUBROUTINE CGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T,
-     $                   BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,10 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * ), RESULT( 4 )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), R( LDA, * ),
-     $                   Q( LDA, * ), B( LDB, * ), BF( LDB, * ),
-     $                   T( LDB, * ), Z( LDB, * ), BWK( LDB, * ),
-     $                   TAUA( * ), TAUB( * ), WORK( LWORK )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -22,8 +18,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       COMPLEX            CROGUE
       PARAMETER          ( CROGUE = ( -1.0E+10, 0.0E+0 ) )
 *     ..
@@ -36,8 +31,7 @@
       EXTERNAL           SLAMCH, CLANGE, CLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEMM, CLACPY, CLASET, CUNGQR,
-     $                   CUNGRQ, CHERK
+      EXTERNAL           CGEMM, CLACPY, CLASET, CUNGQR, CUNGRQ, CHERK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, REAL
@@ -57,8 +51,7 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL CGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK,
-     $             LWORK, INFO )
+      CALL CGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
 *
 *     Generate the N-by-N matrix Q
 *
@@ -70,15 +63,9 @@
 *
       CALL CLASET( 'Full', P, P, CROGUE, CROGUE, Z, LDB )
       IF( N.LE.P ) THEN
-         IF( N.GT.0 .AND. N.LT.P )
-     $      CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )
-         IF( N.GT.1 )
-     $      CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB,
-     $                    Z( P-N+2, P-N+1 ), LDB )
+         IF( N.GT.0 .AND. N.LT.P ) CALL CLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL CLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       ELSE
-         IF( P.GT.1)
-     $      CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB,
-     $                    Z( 2, 1 ), LDB )
+         IF( P.GT.1) CALL CLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       END IF
       CALL CUNGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
 *
@@ -91,18 +78,15 @@
 *
       CALL CLASET( 'Full', N, P, CZERO, CZERO, T, LDB )
       IF( N.LE.P ) THEN
-         CALL CLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ),
-     $                LDB )
+         CALL CLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
       ELSE
          CALL CLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
-         CALL CLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ),
-     $                LDB )
+         CALL CLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
       END IF
 *
 *     Compute R - Q'*A
 *
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, M, N, -CONE,
-     $            Q, LDA, A, LDA, CONE, R, LDA )
+      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, M, N, -CONE, Q, LDA, A, LDA, CONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 *
@@ -115,10 +99,7 @@
 *
 *     Compute T*Z - Q'*B
 *
-      CALL CGEMM( 'No Transpose', 'No transpose', N, P, P, CONE, T, LDB,
-     $            Z, LDB, CZERO, BWK, LDB )
-      CALL CGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE,
-     $            Q, LDA, B, LDB, CONE, BWK, LDB )
+      CALL CGEMM( 'No Transpose', 'No transpose', N, P, P, CONE, T, LDB, Z, LDB, CZERO, BWK, LDB )       CALL CGEMM( 'Conjugate transpose', 'No transpose', N, P, N, -CONE, Q, LDA, B, LDB, CONE, BWK, LDB )
 *
 *     Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 *
@@ -132,8 +113,7 @@
 *     Compute I - Q'*Q
 *
       CALL CLASET( 'Full', N, N, CZERO, CONE, R, LDA )
-      CALL CHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA,
-     $            ONE, R, LDA )
+      CALL CHERK( 'Upper', 'Conjugate transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -143,8 +123,7 @@
 *     Compute I - Z'*Z
 *
       CALL CLASET( 'Full', P, P, CZERO, CONE, T, LDB )
-      CALL CHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB,
-     $            ONE, T, LDB )
+      CALL CHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
 *
 *     Compute norm( I - Z'*Z ) / ( P*ULP ) .
 *

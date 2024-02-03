@@ -1,6 +1,4 @@
-      SUBROUTINE DSYEVR_2STAGE( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU,
-     $                   IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK,
-     $                   LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DSYEVR_2STAGE( JOBZ, RANGE, UPLO, N, A, LDA, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -25,16 +23,10 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, VALEIG, WANTZ,
-     $                   TRYRAC
+      LOGICAL            ALLEIG, INDEIG, LOWER, LQUERY, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE,
-     $                   INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU,
-     $                   INDWK, INDWKN, ISCALE, J, JJ, LIWMIN,
-     $                   LLWORK, LLWRKN, LWMIN, NSPLIT,
-     $                   LHTRD, LWTRD, KD, IB, INDHOUS
-      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN,
-     $                   SIGMA, SMLNUM, TMP1, VLL, VUU
+      INTEGER            I, IEEEOK, IINFO, IMAX, INDD, INDDD, INDE, INDEE, INDIBL, INDIFL, INDISP, INDIWO, INDTAU, INDWK, INDWKN, ISCALE, J, JJ, LIWMIN, LLWORK, LLWRKN, LWMIN, NSPLIT, LHTRD, LWTRD, KD, IB, INDHOUS
+      DOUBLE PRECISION   ABSTLL, ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -43,8 +35,7 @@
       EXTERNAL           LSAME, DLAMCH, DLANSY, ILAENV, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DORMTR, DSCAL, DSTEBZ, DSTEMR, DSTEIN,
-     $                   DSTERF, DSWAP, DSYTRD_2STAGE, XERBLA
+      EXTERNAL           DCOPY, DORMTR, DSCAL, DSTEBZ, DSTEMR, DSTEIN, DSTERF, DSWAP, DSYTRD_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -89,8 +80,7 @@
          INFO = -6
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -8
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -8
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -9
@@ -186,8 +176,7 @@
                CALL DSCAL( J, SIGMA, A( 1, J ), 1 )
    20       CONTINUE
          END IF
-         IF( ABSTOL.GT.0 )
-     $      ABSTLL = ABSTOL*SIGMA
+         IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          IF( VALEIG ) THEN
             VLL = VL*SIGMA
             VUU = VU*SIGMA
@@ -237,15 +226,12 @@
 *     Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
 *
-      CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ),
-     $                    WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ),
-     $                    LHTRD, WORK( INDWK ), LLWORK, IINFO )
+      CALL DSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, WORK( INDD ), WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
 *
 *     If all eigenvalues are desired
 *     then call DSTERF or DSTEMR and DORMTR.
 *
-      IF( ( ALLEIG .OR. ( INDEIG .AND. IL.EQ.1 .AND. IU.EQ.N ) ) .AND.
-     $    IEEEOK.EQ.1 ) THEN
+      IF( ( ALLEIG .OR. ( INDEIG .AND. IL.EQ.1 .AND. IU.EQ.N ) ) .AND. IEEEOK.EQ.1 ) THEN
          IF( .NOT.WANTZ ) THEN
             CALL DCOPY( N, WORK( INDD ), 1, W, 1 )
             CALL DCOPY( N-1, WORK( INDE ), 1, WORK( INDEE ), 1 )
@@ -259,10 +245,7 @@
             ELSE
                TRYRAC = .FALSE.
             END IF
-            CALL DSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ),
-     $                   VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ,
-     $                   TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK,
-     $                   INFO )
+            CALL DSTEMR( JOBZ, 'A', N, WORK( INDDD ), WORK( INDEE ), VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( INDWK ), LWORK, IWORK, LIWORK, INFO )
 *
 *
 *
@@ -272,9 +255,7 @@
             IF( WANTZ .AND. INFO.EQ.0 ) THEN
                INDWKN = INDE
                LLWRKN = LWORK - INDWKN + 1
-               CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA,
-     $                      WORK( INDTAU ), Z, LDZ, WORK( INDWKN ),
-     $                      LLWRKN, IINFO )
+               CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
             END IF
          END IF
 *
@@ -296,25 +277,17 @@
       ELSE
          ORDER = 'E'
       END IF
-
-      CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL,
-     $             WORK( INDD ), WORK( INDE ), M, NSPLIT, W,
-     $             IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ),
-     $             IWORK( INDIWO ), INFO )
+       CALL DSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTLL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK( INDWK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W,
-     $                IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ,
-     $                WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ),
-     $                INFO )
+         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK( INDWK ), IWORK( INDIWO ), IWORK( INDIFL ), INFO )
 *
 *        Apply orthogonal matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by DSTEIN.
 *
          INDWKN = INDE
          LLWRKN = LWORK - INDWKN + 1
-         CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z,
-     $                LDZ, WORK( INDWKN ), LLWRKN, IINFO )
+         CALL DORMTR( 'L', UPLO, 'N', N, M, A, LDA, WORK( INDTAU ), Z, LDZ, WORK( INDWKN ), LLWRKN, IINFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

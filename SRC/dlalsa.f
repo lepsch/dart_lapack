@@ -1,24 +1,14 @@
-      SUBROUTINE DLALSA( ICOMPQ, SMLSIZ, N, NRHS, B, LDB, BX, LDBX, U,
-     $                   LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR,
-     $                   GIVCOL, LDGCOL, PERM, GIVNUM, C, S, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE DLALSA( ICOMPQ, SMLSIZ, N, NRHS, B, LDB, BX, LDBX, U, LDU, VT, K, DIFL, DIFR, Z, POLES, GIVPTR, GIVCOL, LDGCOL, PERM, GIVNUM, C, S, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS,
-     $                   SMLSIZ
+      INTEGER            ICOMPQ, INFO, LDB, LDBX, LDGCOL, LDU, N, NRHS, SMLSIZ
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ),
-     $                   K( * ), PERM( LDGCOL, * )
-      DOUBLE PRECISION   B( LDB, * ), BX( LDBX, * ), C( * ),
-     $                   DIFL( LDU, * ), DIFR( LDU, * ),
-     $                   GIVNUM( LDU, * ), POLES( LDU, * ), S( * ),
-     $                   U( LDU, * ), VT( LDU, * ), WORK( * ),
-     $                   Z( LDU, * )
+      INTEGER            GIVCOL( LDGCOL, * ), GIVPTR( * ), IWORK( * ), K( * ), PERM( LDGCOL, * )       DOUBLE PRECISION   B( LDB, * ), BX( LDBX, * ), C( * ), DIFL( LDU, * ), DIFR( LDU, * ), GIVNUM( LDU, * ), POLES( LDU, * ), S( * ), U( LDU, * ), VT( LDU, * ), WORK( * ), Z( LDU, * )
 *     ..
 *
 *  =====================================================================
@@ -28,9 +18,7 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, I1, IC, IM1, INODE, J, LF, LL, LVL, LVL2,
-     $                   ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL,
-     $                   NR, NRF, NRP1, SQRE
+      INTEGER            I, I1, IC, IM1, INODE, J, LF, LL, LVL, LVL2, ND, NDB1, NDIML, NDIMR, NL, NLF, NLP1, NLVL, NR, NRF, NRP1, SQRE
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DGEMM, DLALS0, DLASDT, XERBLA
@@ -69,8 +57,7 @@
       NDIML = INODE + N
       NDIMR = NDIML + N
 *
-      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ),
-     $             IWORK( NDIMR ), SMLSIZ )
+      CALL DLASDT( N, NLVL, ND, IWORK( INODE ), IWORK( NDIML ), IWORK( NDIMR ), SMLSIZ )
 *
 *     The following code applies back the left singular vector factors.
 *     For applying back the right singular vector factors, go to 50.
@@ -99,10 +86,7 @@
          NR = IWORK( NDIMR+I1 )
          NLF = IC - NL
          NRF = IC + 1
-         CALL DGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU,
-     $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
-         CALL DGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU,
-     $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
+         CALL DGEMM( 'T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )          CALL DGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
    10 CONTINUE
 *
 *     Next copy the rows of B that correspond to unchanged rows
@@ -140,13 +124,7 @@
             NLF = IC - NL
             NRF = IC + 1
             J = J - 1
-            CALL DLALS0( ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX,
-     $                   B( NLF, 1 ), LDB, PERM( NLF, LVL ),
-     $                   GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL,
-     $                   GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ),
-     $                   DIFL( NLF, LVL ), DIFR( NLF, LVL2 ),
-     $                   Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK,
-     $                   INFO )
+            CALL DLALS0( ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX, B( NLF, 1 ), LDB, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK, INFO )
    30    CONTINUE
    40 CONTINUE
       GO TO 90
@@ -185,13 +163,7 @@
                SQRE = 1
             END IF
             J = J + 1
-            CALL DLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB,
-     $                   BX( NLF, 1 ), LDBX, PERM( NLF, LVL ),
-     $                   GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL,
-     $                   GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ),
-     $                   DIFL( NLF, LVL ), DIFR( NLF, LVL2 ),
-     $                   Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK,
-     $                   INFO )
+            CALL DLALS0( ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK, INFO )
    60    CONTINUE
    70 CONTINUE
 *
@@ -213,10 +185,7 @@
          END IF
          NLF = IC - NL
          NRF = IC + 1
-         CALL DGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU,
-     $               B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )
-         CALL DGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU,
-     $               B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
+         CALL DGEMM( 'T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )          CALL DGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX )
    80 CONTINUE
 *
    90 CONTINUE

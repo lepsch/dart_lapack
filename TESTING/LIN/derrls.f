@@ -22,16 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), B( NMAX, NMAX ), S( NMAX ),
-     $                   W( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), B( NMAX, NMAX ), S( NMAX ), W( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DGELS, DGELSD, DGELSS, DGELST,
-     $                   DGELSY, DGETSLS
+      EXTERNAL           ALAESM, CHKXER, DGELS, DGELSD, DGELSS, DGELST, DGELSY, DGETSLS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -161,24 +159,19 @@
 *
          SRNAMT = 'DGELSY'
          INFOT = 1
-         CALL DGELSY( -1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10,
-     $                INFO )
+         CALL DGELSY( -1, 0, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
          CALL CHKXER( 'DGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGELSY( 0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10,
-     $                INFO )
+         CALL DGELSY( 0, -1, 0, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
          CALL CHKXER( 'DGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGELSY( 0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10,
-     $                INFO )
+         CALL DGELSY( 0, 0, -1, A, 1, B, 1, IP, RCOND, IRNK, W, 10, INFO )
          CALL CHKXER( 'DGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGELSY( 2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10,
-     $                INFO )
+         CALL DGELSY( 2, 0, 0, A, 1, B, 2, IP, RCOND, IRNK, W, 10, INFO )
          CALL CHKXER( 'DGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGELSY( 2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10,
-     $                INFO )
+         CALL DGELSY( 2, 0, 0, A, 2, B, 1, IP, RCOND, IRNK, W, 10, INFO )
          CALL CHKXER( 'DGELSY', INFOT, NOUT, LERR, OK )
          INFOT = 12
          CALL DGELSY( 2, 2, 1, A, 2, B, 2, IP, RCOND, IRNK, W, 1, INFO )
@@ -188,28 +181,22 @@
 *
          SRNAMT = 'DGELSD'
          INFOT = 1
-         CALL DGELSD( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP,
-     $                INFO )
+         CALL DGELSD( -1, 0, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGELSD( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP,
-     $                INFO )
+         CALL DGELSD( 0, -1, 0, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGELSD( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP,
-     $                INFO )
+         CALL DGELSD( 0, 0, -1, A, 1, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGELSD( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, IP,
-     $                INFO )
+         CALL DGELSD( 2, 0, 0, A, 1, B, 2, S, RCOND, IRNK, W, 10, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGELSD( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, IP,
-     $                INFO )
+         CALL DGELSD( 2, 0, 0, A, 2, B, 1, S, RCOND, IRNK, W, 10, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP,
-     $                INFO )
+         CALL DGELSD( 2, 2, 1, A, 2, B, 2, S, RCOND, IRNK, W, 1, IP, INFO )
          CALL CHKXER( 'DGELSD', INFOT, NOUT, LERR, OK )
       END IF
 *

@@ -47,8 +47,7 @@
    10 CONTINUE
 *
       READ( NIN, FMT = * )N, ILO, IHI
-      IF( N.EQ.0 )
-     $   GO TO 60
+      IF( N.EQ.0 ) GO TO 60
 *
       READ( NIN, FMT = * )( SCALE( I ), I = 1, N )
       DO 20 I = 1, N
@@ -71,8 +70,7 @@
       DO 50 I = 1, N
          DO 40 J = 1, N
             X = ABS( E( I, J )-EIN( I, J ) ) / EPS
-            IF( ABS( E( I, J ) ).GT.SAFMIN )
-     $         X = X / ABS( E( I, J ) )
+            IF( ABS( E( I, J ) ).GT.SAFMIN ) X = X / ABS( E( I, J ) )
             VMAX = MAX( VMAX, X )
    40    CONTINUE
    50 CONTINUE

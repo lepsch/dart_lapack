@@ -1,5 +1,4 @@
-      SUBROUTINE SGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T,
-     $                   BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE SGQRTS( N, M, P, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,11 +8,7 @@
       INTEGER            LDA, LDB, LWORK, M, P, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ),
-     $                   Q( LDA, * ), B( LDB, * ), BF( LDB, * ),
-     $                   T( LDB, * ), Z( LDB, * ), BWK( LDB, * ),
-     $                   TAUA( * ), TAUB( * ), RESULT( 4 ),
-     $                   RWORK( * ), WORK( LWORK )
+      REAL               A( LDA, * ), AF( LDA, * ), R( LDA, * ), Q( LDA, * ), B( LDB, * ), BF( LDB, * ), T( LDB, * ), Z( LDB, * ), BWK( LDB, * ), TAUA( * ), TAUB( * ), RESULT( 4 ), RWORK( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -33,8 +28,7 @@
       EXTERNAL           SLAMCH, SLANGE, SLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SGEMM, SLACPY, SLASET, SORGQR,
-     $                   SORGRQ, SSYRK
+      EXTERNAL           SGEMM, SLACPY, SLASET, SORGQR, SORGRQ, SSYRK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, REAL
@@ -54,8 +48,7 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL SGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK,
-     $             LWORK, INFO )
+      CALL SGGQRF( N, M, P, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
 *
 *     Generate the N-by-N matrix Q
 *
@@ -67,15 +60,9 @@
 *
       CALL SLASET( 'Full', P, P, ROGUE, ROGUE, Z, LDB )
       IF( N.LE.P ) THEN
-         IF( N.GT.0 .AND. N.LT.P )
-     $      CALL SLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )
-         IF( N.GT.1 )
-     $      CALL SLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB,
-     $                    Z( P-N+2, P-N+1 ), LDB )
+         IF( N.GT.0 .AND. N.LT.P ) CALL SLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB )          IF( N.GT.1 ) CALL SLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB )
       ELSE
-         IF( P.GT.1)
-     $      CALL SLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB,
-     $                    Z( 2, 1 ), LDB )
+         IF( P.GT.1) CALL SLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB )
       END IF
       CALL SORGRQ( P, P, MIN( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO )
 *
@@ -88,18 +75,15 @@
 *
       CALL SLASET( 'Full', N, P, ZERO, ZERO, T, LDB )
       IF( N.LE.P ) THEN
-         CALL SLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ),
-     $                LDB )
+         CALL SLACPY( 'Upper', N, N, BF( 1, P-N+1 ), LDB, T( 1, P-N+1 ), LDB )
       ELSE
          CALL SLACPY( 'Full', N-P, P, BF, LDB, T, LDB )
-         CALL SLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ),
-     $                LDB )
+         CALL SLACPY( 'Upper', P, P, BF( N-P+1, 1 ), LDB, T( N-P+1, 1 ), LDB )
       END IF
 *
 *     Compute R - Q'*A
 *
-      CALL SGEMM( 'Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A,
-     $            LDA, ONE, R, LDA )
+      CALL SGEMM( 'Transpose', 'No transpose', N, M, N, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( MAX(M,N)*norm(A)*ULP ) .
 *
@@ -112,10 +96,7 @@
 *
 *     Compute T*Z - Q'*B
 *
-      CALL SGEMM( 'No Transpose', 'No transpose', N, P, P, ONE, T, LDB,
-     $            Z, LDB, ZERO, BWK, LDB )
-      CALL SGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA,
-     $            B, LDB, ONE, BWK, LDB )
+      CALL SGEMM( 'No Transpose', 'No transpose', N, P, P, ONE, T, LDB, Z, LDB, ZERO, BWK, LDB )       CALL SGEMM( 'Transpose', 'No transpose', N, P, N, -ONE, Q, LDA, B, LDB, ONE, BWK, LDB )
 *
 *     Compute norm( T*Z - Q'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 *
@@ -129,8 +110,7 @@
 *     Compute I - Q'*Q
 *
       CALL SLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL SSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL SSYRK( 'Upper', 'Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -140,8 +120,7 @@
 *     Compute I - Z'*Z
 *
       CALL SLASET( 'Full', P, P, ZERO, ONE, T, LDB )
-      CALL SSYRK( 'Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T,
-     $            LDB )
+      CALL SSYRK( 'Upper', 'Transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
 *
 *     Compute norm( I - Z'*Z ) / ( P*ULP ) .
 *

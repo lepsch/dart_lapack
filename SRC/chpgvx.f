@@ -1,6 +1,4 @@
-      SUBROUTINE CHPGVX( ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU,
-     $                   IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK,
-     $                   IWORK, IFAIL, INFO )
+      SUBROUTINE CHPGVX( ITYPE, JOBZ, RANGE, UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -81,8 +79,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a Cholesky factorization of B.
 *
@@ -95,15 +92,13 @@
 *     Transform problem to standard eigenvalue problem and solve.
 *
       CALL CHPGST( ITYPE, UPLO, N, AP, BP, INFO )
-      CALL CHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M,
-     $             W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
+      CALL CHPEVX( JOBZ, RANGE, UPLO, N, AP, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
 *
       IF( WANTZ ) THEN
 *
 *        Backtransform eigenvectors to the original problem.
 *
-         IF( INFO.GT.0 )
-     $      M = INFO - 1
+         IF( INFO.GT.0 ) M = INFO - 1
          IF( ITYPE.EQ.1 .OR. ITYPE.EQ.2 ) THEN
 *
 *           For A*x=(lambda)*B*x and A*B*x=(lambda)*x;
@@ -116,8 +111,7 @@
             END IF
 *
             DO 10 J = 1, M
-               CALL CTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ),
-     $                     1 )
+               CALL CTPSV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
    10       CONTINUE
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
@@ -132,8 +126,7 @@
             END IF
 *
             DO 20 J = 1, M
-               CALL CTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ),
-     $                     1 )
+               CALL CTPMV( UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 )
    20       CONTINUE
          END IF
       END IF

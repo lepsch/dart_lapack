@@ -39,8 +39,7 @@
 *     Get machine constants
 *
       INFO = 0
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
       UNFL = SLAMCH( 'Safe minimum' )
       OVFL = SLAMCH( 'Overflow' )
       EPS = SLAMCH( 'Epsilon' )*SLAMCH( 'Base' )
@@ -49,8 +48,7 @@
 *     scale factor sqrt(OVFL)*sqrt(sqrt(UNFL))/MX in SSVDCT, it exceeds
 *     sqrt(UNFL), which is the lower limit for SSVDCT.
 *
-      UNFLEP = ( SQRT( SQRT( UNFL ) ) / SQRT( OVFL ) )*SVD( 1 ) +
-     $         UNFL / EPS
+      UNFLEP = ( SQRT( SQRT( UNFL ) ) / SQRT( OVFL ) )*SVD( 1 ) + UNFL / EPS
 *
 *     The value of EPS works best when TOL .GE. 10.
 *
@@ -67,24 +65,20 @@
    10 CONTINUE
       UPPER = ( ONE+EPS )*SVD( TPNT ) + UNFLEP
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      IF( LOWER.LE.UNFLEP )
-     $   LOWER = -UPPER
+      IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
 *
 *     Begin loop merging overlapping intervals
 *
    20 CONTINUE
-      IF( BPNT.EQ.N )
-     $   GO TO 30
+      IF( BPNT.EQ.N ) GO TO 30
       TUPPR = ( ONE+EPS )*SVD( BPNT+1 ) + UNFLEP
-      IF( TUPPR.LT.LOWER )
-     $   GO TO 30
+      IF( TUPPR.LT.LOWER ) GO TO 30
 *
 *     Merge
 *
       BPNT = BPNT + 1
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
-      IF( LOWER.LE.UNFLEP )
-     $   LOWER = -UPPER
+      IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
       GO TO 20
    30 CONTINUE
 *
@@ -93,8 +87,7 @@
       CALL SSVDCT( N, S, E, LOWER, NUML )
       CALL SSVDCT( N, S, E, UPPER, NUMU )
       COUNT = NUMU - NUML
-      IF( LOWER.LT.ZERO )
-     $   COUNT = COUNT / 2
+      IF( LOWER.LT.ZERO ) COUNT = COUNT / 2
       IF( COUNT.NE.BPNT-TPNT+1 ) THEN
 *
 *        Wrong number of singular values in interval
@@ -104,8 +97,7 @@
       END IF
       TPNT = BPNT + 1
       BPNT = TPNT
-      IF( TPNT.LE.N )
-     $   GO TO 10
+      IF( TPNT.LE.N ) GO TO 10
    40 CONTINUE
       RETURN
 *

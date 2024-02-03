@@ -50,8 +50,7 @@
 *
 *     Quick return if possible
 *
-      IF( MIN( M, N ).EQ.0 )
-     $   RETURN
+      IF( MIN( M, N ).EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -72,24 +71,18 @@
 *
 *           Factor diagonal and subdiagonal blocks.
 *
-            CALL SLAORHR_COL_GETRFNP2( M-J+1, JB, A( J, J ), LDA,
-     $                                 D( J ), IINFO )
+            CALL SLAORHR_COL_GETRFNP2( M-J+1, JB, A( J, J ), LDA, D( J ), IINFO )
 *
             IF( J+JB.LE.N ) THEN
 *
 *              Compute block row of U.
 *
-               CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB,
-     $                     N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ),
-     $                     LDA )
+               CALL STRSM( 'Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA )
                IF( J+JB.LE.M ) THEN
 *
 *                 Update trailing submatrix.
 *
-                  CALL SGEMM( 'No transpose', 'No transpose', M-J-JB+1,
-     $                        N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA,
-     $                        A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ),
-     $                        LDA )
+                  CALL SGEMM( 'No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
                END IF
             END IF
          END DO

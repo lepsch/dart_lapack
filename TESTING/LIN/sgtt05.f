@@ -1,5 +1,4 @@
-      SUBROUTINE SGTT05( TRANS, N, NRHS, DL, D, DU, B, LDB, X, LDX,
-     $                   XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE SGTT05( TRANS, N, NRHS, DL, D, DU, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,9 +9,7 @@
       INTEGER            LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               B( LDB, * ), BERR( * ), D( * ), DL( * ),
-     $                   DU( * ), FERR( * ), RESLTS( * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      REAL               B( LDB, * ), BERR( * ), D( * ), DL( * ), DU( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -90,32 +87,24 @@
             IF( N.EQ.1 ) THEN
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
             ELSE
-               AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) +
-     $                ABS( DU( 1 )*X( 2, K ) )
+               AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DU( 1 )*X( 2, K ) )
                DO 40 I = 2, N - 1
-                  TMP = ABS( B( I, K ) ) + ABS( DL( I-1 )*X( I-1, K ) )
-     $                   + ABS( D( I )*X( I, K ) ) +
-     $                  ABS( DU( I )*X( I+1, K ) )
+                  TMP = ABS( B( I, K ) ) + ABS( DL( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DU( I )*X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
    40          CONTINUE
-               TMP = ABS( B( N, K ) ) + ABS( DL( N-1 )*X( N-1, K ) ) +
-     $               ABS( D( N )*X( N, K ) )
+               TMP = ABS( B( N, K ) ) + ABS( DL( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
          ELSE
             IF( N.EQ.1 ) THEN
                AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) )
             ELSE
-               AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) +
-     $                ABS( DL( 1 )*X( 2, K ) )
+               AXBI = ABS( B( 1, K ) ) + ABS( D( 1 )*X( 1, K ) ) + ABS( DL( 1 )*X( 2, K ) )
                DO 50 I = 2, N - 1
-                  TMP = ABS( B( I, K ) ) + ABS( DU( I-1 )*X( I-1, K ) )
-     $                   + ABS( D( I )*X( I, K ) ) +
-     $                  ABS( DL( I )*X( I+1, K ) )
+                  TMP = ABS( B( I, K ) ) + ABS( DU( I-1 )*X( I-1, K ) ) + ABS( D( I )*X( I, K ) ) + ABS( DL( I )*X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
    50          CONTINUE
-               TMP = ABS( B( N, K ) ) + ABS( DU( N-1 )*X( N-1, K ) ) +
-     $               ABS( D( N )*X( N, K ) )
+               TMP = ABS( B( N, K ) ) + ABS( DU( N-1 )*X( N-1, K ) ) + ABS( D( N )*X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             END IF
          END IF

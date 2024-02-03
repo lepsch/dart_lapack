@@ -1,5 +1,4 @@
-      SUBROUTINE DGET22( TRANSA, TRANSE, TRANSW, N, A, LDA, E, LDE, WR,
-     $                   WI, WORK, RESULT )
+      SUBROUTINE DGET22( TRANSA, TRANSE, TRANSW, N, A, LDA, E, LDE, WR, WI, WORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            LDA, LDE, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ),
-     $                   WORK( * ), WR( * )
+      DOUBLE PRECISION   A( LDA, * ), E( LDE, * ), RESULT( 2 ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
 *  =====================================================================
@@ -22,10 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMA, NORME
-      INTEGER            IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL,
-     $                   JVEC
-      DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1,
-     $                   ULP, UNFL
+      INTEGER            IECOL, IEROW, INCE, IPAIR, ITRNSE, J, JCOL, JVEC       DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
 *     ..
 *     .. Local Arrays ..
       DOUBLE PRECISION   WMAT( 2, 2 )
@@ -47,8 +42,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
@@ -78,15 +72,13 @@
          IPAIR = 0
          DO 30 JVEC = 1, N
             TEMP1 = ZERO
-            IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO )
-     $         IPAIR = 1
+            IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
             IF( IPAIR.EQ.1 ) THEN
 *
 *              Complex eigenvector
 *
                DO 10 J = 1, N
-                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+
-     $                    ABS( E( J, JVEC+1 ) ) )
+                  TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
    10          CONTINUE
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
@@ -117,18 +109,14 @@
          DO 60 J = 1, N
             IPAIR = 0
             DO 50 JVEC = 1, N
-               IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO )
-     $            IPAIR = 1
+               IF( IPAIR.EQ.0 .AND. JVEC.LT.N .AND. WI( JVEC ).NE.ZERO ) IPAIR = 1
                IF( IPAIR.EQ.1 ) THEN
-                  WORK( JVEC ) = MAX( WORK( JVEC ),
-     $                           ABS( E( J, JVEC ) )+ABS( E( J,
-     $                           JVEC+1 ) ) )
+                  WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) )+ABS( E( J, JVEC+1 ) ) )
                   WORK( JVEC+1 ) = WORK( JVEC )
                ELSE IF( IPAIR.EQ.2 ) THEN
                   IPAIR = 0
                ELSE
-                  WORK( JVEC ) = MAX( WORK( JVEC ),
-     $                           ABS( E( J, JVEC ) ) )
+                  WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) )
                   IPAIR = 0
                END IF
    50       CONTINUE
@@ -165,31 +153,27 @@
             IECOL = JCOL
          END IF
 *
-         IF( IPAIR.EQ.0 .AND. WI( JCOL ).NE.ZERO )
-     $      IPAIR = 1
+         IF( IPAIR.EQ.0 .AND. WI( JCOL ).NE.ZERO ) IPAIR = 1
 *
          IF( IPAIR.EQ.1 ) THEN
             WMAT( 1, 1 ) = WR( JCOL )
             WMAT( 2, 1 ) = -WI( JCOL )
             WMAT( 1, 2 ) = WI( JCOL )
             WMAT( 2, 2 ) = WR( JCOL )
-            CALL DGEMM( TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ),
-     $                  LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N )
+            CALL DGEMM( TRANSE, TRANSW, N, 2, 2, ONE, E( IEROW, IECOL ), LDE, WMAT, 2, ZERO, WORK( N*( JCOL-1 )+1 ), N )
             IPAIR = 2
          ELSE IF( IPAIR.EQ.2 ) THEN
             IPAIR = 0
 *
          ELSE
 *
-            CALL DAXPY( N, WR( JCOL ), E( IEROW, IECOL ), INCE,
-     $                  WORK( N*( JCOL-1 )+1 ), 1 )
+            CALL DAXPY( N, WR( JCOL ), E( IEROW, IECOL ), INCE, WORK( N*( JCOL-1 )+1 ), 1 )
             IPAIR = 0
          END IF
 *
    80 CONTINUE
 *
-      CALL DGEMM( TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE,
-     $            WORK, N )
+      CALL DGEMM( TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE, WORK, N )
 *
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N*N+1 ) ) / ENORM
 *
@@ -207,8 +191,7 @@
 *
 *     Compute RESULT(2) : the normalization error in E.
 *
-      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) /
-     $              ( DBLE( N )*ULP )
+      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP )
 *
       RETURN
 *

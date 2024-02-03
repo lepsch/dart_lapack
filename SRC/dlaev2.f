@@ -22,8 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            SGN1, SGN2
-      DOUBLE PRECISION   AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM,
-     $                   TB, TN
+      DOUBLE PRECISION   AB, ACMN, ACMX, ACS, ADF, CS, CT, DF, RT, SM, TB, TN
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, SQRT

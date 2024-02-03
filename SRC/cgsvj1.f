@@ -1,5 +1,4 @@
-      SUBROUTINE CGSVJ1( JOBV, M, N, N1, A, LDA, D, SVA, MV, V, LDV,
-     $                   EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO )
+      SUBROUTINE CGSVJ1( JOBV, M, N, N1, A, LDA, D, SVA, MV, V, LDV, EPS, SFMIN, TOL, NSWEEP, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,13 +22,8 @@
 *     ..
 *     .. Local Scalars ..
       COMPLEX            AAPQ, OMPQ
-      REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG,
-     $                   BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG,
-     $                   ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T,
-     $                   TEMP1, THETA, THSIGN
-      INTEGER            BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK,
-     $                   ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr,
-     $                   p, PSKIPPED, q, ROWSKIP, SWBAND
+      REAL               AAPP, AAPP0, AAPQ1, AAQQ, APOAQ, AQOAP, BIG, BIGTHETA, CS, MXAAPQ, MXSINJ, ROOTBIG, ROOTEPS, ROOTSFMIN, ROOTTOL, SMALL, SN, T, TEMP1, THETA, THSIGN
+      INTEGER            BLSKIP, EMPTSW, i, ibr, igl, IERR, IJBLSK, ISWROT, jbc, jgl, KBL, MVL, NOTROT, nblc, nblr, p, PSKIPPED, q, ROWSKIP, SWBAND
       LOGICAL            APPLV, ROTOK, RSVEC
 *     ..
 *     ..
@@ -67,8 +61,7 @@
          INFO = -6
       ELSE IF( ( RSVEC.OR.APPLV ) .AND. ( MV.LT.0 ) ) THEN
          INFO = -9
-      ELSE IF( ( RSVEC.AND.( LDV.LT.N ) ).OR.
-     $         ( APPLV.AND.( LDV.LT.MV ) )  ) THEN
+      ELSE IF( ( RSVEC.AND.( LDV.LT.N ) ).OR. ( APPLV.AND.( LDV.LT.MV ) )  ) THEN
          INFO = -11
       ELSE IF( TOL.LE.EPS ) THEN
          INFO = -14
@@ -196,16 +189,10 @@
                                  ROTOK = ( SMALL*AAQQ ).LE.AAPP
                               END IF
                               IF( AAPP.LT.( BIG / AAQQ ) ) THEN
-                                 AAPQ = ( CDOTC( M, A( 1, p ), 1,
-     $                                  A( 1, q ), 1 ) / AAQQ ) / AAPP
+                                 AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               ELSE
-                                 CALL CCOPY( M, A( 1, p ), 1,
-     $                                       WORK, 1 )
-                                 CALL CLASCL( 'G', 0, 0, AAPP,
-     $                                        ONE, M, 1,
-     $                                        WORK, LDA, IERR )
-                                 AAPQ = CDOTC( M, WORK, 1,
-     $                                  A( 1, q ), 1 ) / AAQQ
+                                 CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )
+                                 AAPQ = CDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
                               END IF
                            ELSE
                               IF( AAPP.GE.AAQQ ) THEN
@@ -214,17 +201,10 @@
                                  ROTOK = AAQQ.LE.( AAPP / SMALL )
                               END IF
                               IF( AAPP.GT.( SMALL / AAQQ ) ) THEN
-                                 AAPQ = ( CDOTC( M, A( 1, p ), 1,
-     $                                 A( 1, q ), 1 ) / MAX(AAQQ,AAPP) )
-     $                                               / MIN(AAQQ,AAPP)
+                                 AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               ELSE
-                                 CALL CCOPY( M, A( 1, q ), 1,
-     $                                       WORK, 1 )
-                                 CALL CLASCL( 'G', 0, 0, AAQQ,
-     $                                        ONE, M, 1,
-     $                                        WORK, LDA, IERR )
-                                 AAPQ = CDOTC( M, A( 1, p ), 1,
-     $                                  WORK, 1 ) / AAPP
+                                 CALL CCOPY( M, A( 1, q ), 1, WORK, 1 )                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR )
+                                 AAPQ = CDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
                               END IF
                            END IF
 *
@@ -251,16 +231,11 @@
                                  IF( ABS( THETA ).GT.BIGTHETA ) THEN
                                     T  = HALF / THETA
                                     CS = ONE
-                                    CALL CROT( M, A(1,p), 1, A(1,q), 1,
-     $                                          CS, CONJG(OMPQ)*T )
+                                    CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*T )
                                     IF( RSVEC ) THEN
-                                        CALL CROT( MVL, V(1,p), 1,
-     $                                  V(1,q), 1, CS, CONJG(OMPQ)*T )
+                                        CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*T )
                                     END IF
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO,
-     $                                         ONE+T*APOAQ*AAPQ1 ) )
-                                    AAPP = AAPP*SQRT( MAX( ZERO,
-     $                                     ONE-T*AQOAP*AAPQ1 ) )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, ABS( T ) )
                                  ELSE
 *
@@ -268,21 +243,15 @@
 *
                                     THSIGN = -SIGN( ONE, AAPQ1 )
                                     IF( AAQQ.GT.AAPP0 )THSIGN = -THSIGN
-                                    T = ONE / ( THETA+THSIGN*
-     $                                  SQRT( ONE+THETA*THETA ) )
+                                    T = ONE / ( THETA+THSIGN* SQRT( ONE+THETA*THETA ) )
                                     CS = SQRT( ONE / ( ONE+T*T ) )
                                     SN = T*CS
                                     MXSINJ = MAX( MXSINJ, ABS( SN ) )
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO,
-     $                                         ONE+T*APOAQ*AAPQ1 ) )
-                                    AAPP = AAPP*SQRT( MAX( ZERO,
-     $                                         ONE-T*AQOAP*AAPQ1 ) )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ1 ) )                                     AAPP = AAPP*SQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ1 ) )
 *
-                                    CALL CROT( M, A(1,p), 1, A(1,q), 1,
-     $                                          CS, CONJG(OMPQ)*SN )
+                                    CALL CROT( M, A(1,p), 1, A(1,q), 1, CS, CONJG(OMPQ)*SN )
                                     IF( RSVEC ) THEN
-                                        CALL CROT( MVL, V(1,p), 1,
-     $                                  V(1,q), 1, CS, CONJG(OMPQ)*SN )
+                                        CALL CROT( MVL, V(1,p), 1, V(1,q), 1, CS, CONJG(OMPQ)*SN )
                                     END IF
                                  END IF
                                  D(p) = -D(q) * OMPQ
@@ -290,38 +259,12 @@
                               ELSE
 *              .. have to use modified Gram-Schmidt like transformation
                                IF( AAPP.GT.AAQQ ) THEN
-                                    CALL CCOPY( M, A( 1, p ), 1,
-     $                                          WORK, 1 )
-                                    CALL CLASCL( 'G', 0, 0, AAPP, ONE,
-     $                                           M, 1, WORK,LDA,
-     $                                           IERR )
-                                    CALL CLASCL( 'G', 0, 0, AAQQ, ONE,
-     $                                           M, 1, A( 1, q ), LDA,
-     $                                           IERR )
-                                    CALL CAXPY( M, -AAPQ, WORK,
-     $                                          1, A( 1, q ), 1 )
-                                    CALL CLASCL( 'G', 0, 0, ONE, AAQQ,
-     $                                           M, 1, A( 1, q ), LDA,
-     $                                           IERR )
-                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO,
-     $                                         ONE-AAPQ1*AAPQ1 ) )
+                                    CALL CCOPY( M, A( 1, p ), 1, WORK, 1 )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL CAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )
+                                    SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                ELSE
-                                   CALL CCOPY( M, A( 1, q ), 1,
-     $                                          WORK, 1 )
-                                    CALL CLASCL( 'G', 0, 0, AAQQ, ONE,
-     $                                           M, 1, WORK,LDA,
-     $                                           IERR )
-                                    CALL CLASCL( 'G', 0, 0, AAPP, ONE,
-     $                                           M, 1, A( 1, p ), LDA,
-     $                                           IERR )
-                                    CALL CAXPY( M, -CONJG(AAPQ),
-     $                                   WORK, 1, A( 1, p ), 1 )
-                                    CALL CLASCL( 'G', 0, 0, ONE, AAPP,
-     $                                           M, 1, A( 1, p ), LDA,
-     $                                           IERR )
-                                    SVA( p ) = AAPP*SQRT( MAX( ZERO,
-     $                                         ONE-AAPQ1*AAPQ1 ) )
+                                   CALL CCOPY( M, A( 1, q ), 1, WORK, 1 )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK,LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR )                                     CALL CAXPY( M, -CONJG(AAPQ), WORK, 1, A( 1, p ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR )
+                                    SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                END IF
                               END IF
@@ -329,28 +272,22 @@
 *
 *           In the case of cancellation in updating SVA(q), SVA(p)
 *           .. recompute SVA(q), SVA(p)
-                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS )
-     $                            THEN
-                                 IF( ( AAQQ.LT.ROOTBIG ) .AND.
-     $                               ( AAQQ.GT.ROOTSFMIN ) ) THEN
+                              IF( ( SVA( q ) / AAQQ )**2.LE.ROOTEPS ) THEN                                  IF( ( AAQQ.LT.ROOTBIG ) .AND. ( AAQQ.GT.ROOTSFMIN ) ) THEN
                                     SVA( q ) = SCNRM2( M, A( 1, q ), 1)
                                   ELSE
                                     T = ZERO
                                     AAQQ = ONE
-                                    CALL CLASSQ( M, A( 1, q ), 1, T,
-     $                                           AAQQ )
+                                    CALL CLASSQ( M, A( 1, q ), 1, T, AAQQ )
                                     SVA( q ) = T*SQRT( AAQQ )
                                  END IF
                               END IF
                               IF( ( AAPP / AAPP0 )**2.LE.ROOTEPS ) THEN
-                                 IF( ( AAPP.LT.ROOTBIG ) .AND.
-     $                               ( AAPP.GT.ROOTSFMIN ) ) THEN
+                                 IF( ( AAPP.LT.ROOTBIG ) .AND. ( AAPP.GT.ROOTSFMIN ) ) THEN
                                     AAPP = SCNRM2( M, A( 1, p ), 1 )
                                  ELSE
                                     T = ZERO
                                     AAPP = ONE
-                                    CALL CLASSQ( M, A( 1, p ), 1, T,
-     $                                           AAPP )
+                                    CALL CLASSQ( M, A( 1, p ), 1, T, AAPP )
                                     AAPP = T*SQRT( AAPP )
                                  END IF
                                  SVA( p ) = AAPP
@@ -368,14 +305,12 @@
                            IJBLSK = IJBLSK + 1
                         END IF
 *
-                        IF( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) )
-     $                      THEN
+                        IF( ( i.LE.SWBAND ) .AND. ( IJBLSK.GE.BLSKIP ) ) THEN
                            SVA( p ) = AAPP
                            NOTROT = 0
                            GO TO 2011
                         END IF
-                        IF( ( i.LE.SWBAND ) .AND.
-     $                      ( PSKIPPED.GT.ROWSKIP ) ) THEN
+                        IF( ( i.LE.SWBAND ) .AND. ( PSKIPPED.GT.ROWSKIP ) ) THEN
                            AAPP = -AAPP
                            NOTROT = 0
                            GO TO 2203
@@ -389,8 +324,7 @@
 *
                   ELSE
 *
-                     IF( AAPP.EQ.ZERO )NOTROT = NOTROT +
-     $                   MIN( jgl+KBL-1, N ) - jgl + 1
+                     IF( AAPP.EQ.ZERO )NOTROT = NOTROT + MIN( jgl+KBL-1, N ) - jgl + 1
                      IF( AAPP.LT.ZERO )NOTROT = 0
 *
                   END IF
@@ -409,8 +343,7 @@
 *2000 :: end of the ibr-loop
 *
 *     .. update SVA(N)
-         IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) )
-     $       THEN
+         IF( ( SVA( N ).LT.ROOTBIG ) .AND. ( SVA( N ).GT.ROOTSFMIN ) ) THEN
             SVA( N ) = SCNRM2( M, A( 1, N ), 1 )
          ELSE
             T = ZERO
@@ -421,11 +354,9 @@
 *
 *     Additional steering devices
 *
-         IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR.
-     $       ( ISWROT.LE.N ) ) )SWBAND = i
+         IF( ( i.LT.SWBAND ) .AND. ( ( MXAAPQ.LE.ROOTTOL ) .OR. ( ISWROT.LE.N ) ) )SWBAND = i
 *
-         IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.SQRT( REAL( N ) )*
-     $       TOL ) .AND. ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
+         IF( ( i.GT.SWBAND+1 ) .AND. ( MXAAPQ.LT.SQRT( REAL( N ) )* TOL ) .AND. ( REAL( N )*MXAAPQ*MXSINJ.LT.TOL ) ) THEN
             GO TO 1994
          END IF
 *

@@ -1,6 +1,4 @@
-      SUBROUTINE ZHBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ,
-     $                          WORK, LWORK, RWORK, LRWORK, IWORK,
-     $                          LIWORK, INFO )
+      SUBROUTINE ZHBEVD_2STAGE( JOBZ, UPLO, N, KD, AB, LDAB, W, Z, LDZ, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -24,16 +22,12 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDWK2, INDRWK, ISCALE,
-     $                   LLWORK, INDWK, LHTRD, LWTRD, IB, INDHOUS,
-     $                   LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN
-      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDWK2, INDRWK, ISCALE, LLWORK, INDWK, LHTRD, LWTRD, IB, INDHOUS, LIWMIN, LLRWK, LLWK2, LRWMIN, LWMIN
+      DOUBLE PRECISION   ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -42,8 +36,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANHB, ILAENV2STAGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSCAL, DSTERF, XERBLA, ZGEMM, ZLACPY,
-     $                   ZLASCL, ZSTEDC, ZHETRD_HB2ST
+      EXTERNAL           DSCAL, DSTERF, XERBLA, ZGEMM, ZLACPY, ZLASCL, ZSTEDC, ZHETRD_HB2ST
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, SQRT
@@ -112,13 +105,11 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          W( 1 ) = DBLE( AB( 1, 1 ) )
-         IF( WANTZ )
-     $      Z( 1, 1 ) = CONE
+         IF( WANTZ ) Z( 1, 1 ) = CONE
          RETURN
       END IF
 *
@@ -161,20 +152,15 @@
       INDWK2  = INDWK + N*N
       LLWK2   = LWORK - INDWK2 + 1
 *
-      CALL ZHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W,
-     $                    RWORK( INDE ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWK ), LLWORK, IINFO )
+      CALL ZHETRD_HB2ST( "N", JOBZ, UPLO, N, KD, AB, LDAB, W, RWORK( INDE ), WORK( INDHOUS ), LHTRD, WORK( INDWK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call DSTERF.  For eigenvectors, call ZSTEDC.
 *
       IF( .NOT.WANTZ ) THEN
          CALL DSTERF( N, W, RWORK( INDE ), INFO )
       ELSE
-         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ),
-     $                LLWK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK,
-     $                INFO )
-         CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO,
-     $               WORK( INDWK2 ), N )
+         CALL ZSTEDC( 'I', N, W, RWORK( INDE ), WORK, N, WORK( INDWK2 ), LLWK2, RWORK( INDRWK ), LLRWK, IWORK, LIWORK, INFO )
+         CALL ZGEMM( 'N', 'N', N, N, N, CONE, Z, LDZ, WORK, N, CZERO, WORK( INDWK2 ), N )
          CALL ZLACPY( 'A', N, N, WORK( INDWK2 ), N, Z, LDZ )
       END IF
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE DTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL,
-     $                   LDVL, VR, LDVR, MM, M, WORK, INFO )
+      SUBROUTINE DTGEVC( SIDE, HOWMNY, SELECT, N, S, LDS, P, LDP, VL, LDVL, VR, LDVR, MM, M, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
-      DOUBLE PRECISION   P( LDP, * ), S( LDS, * ), VL( LDVL, * ),
-     $                   VR( LDVR, * ), WORK( * )
+      DOUBLE PRECISION   P( LDP, * ), S( LDS, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *
@@ -20,24 +18,13 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, SAFETY
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0,
-     $                   SAFETY = 1.0D+2 )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, SAFETY = 1.0D+2 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK,
-     $                   ILBBAD, ILCOMP, ILCPLX, LSA, LSB
-      INTEGER            I, IBEG, IEIG, IEND, IHWMNY, IINFO, IM, ISIDE,
-     $                   J, JA, JC, JE, JR, JW, NA, NW
-      DOUBLE PRECISION   ACOEF, ACOEFA, ANORM, ASCALE, BCOEFA, BCOEFI,
-     $                   BCOEFR, BIG, BIGNUM, BNORM, BSCALE, CIM2A,
-     $                   CIM2B, CIMAGA, CIMAGB, CRE2A, CRE2B, CREALA,
-     $                   CREALB, DMIN, SAFMIN, SALFAR, SBETA, SCALE,
-     $                   SMALL, TEMP, TEMP2, TEMP2I, TEMP2R, ULP, XMAX,
-     $                   XSCALE
+      LOGICAL            COMPL, COMPR, IL2BY2, ILABAD, ILALL, ILBACK, ILBBAD, ILCOMP, ILCPLX, LSA, LSB       INTEGER            I, IBEG, IEIG, IEND, IHWMNY, IINFO, IM, ISIDE, J, JA, JC, JE, JR, JW, NA, NW       DOUBLE PRECISION   ACOEF, ACOEFA, ANORM, ASCALE, BCOEFA, BCOEFI, BCOEFR, BIG, BIGNUM, BNORM, BSCALE, CIM2A, CIM2B, CIMAGA, CIMAGB, CRE2A, CRE2B, CREALA, CREALB, DMIN, SAFMIN, SALFAR, SBETA, SCALE, SMALL, TEMP, TEMP2, TEMP2I, TEMP2R, ULP, XMAX, XSCALE
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ),
-     $                   SUMP( 2, 2 )
+      DOUBLE PRECISION   BDIAG( 2 ), SUM( 2, 2 ), SUMS( 2, 2 ), SUMP( 2, 2 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -115,15 +102,12 @@
                GO TO 10
             END IF
             IF( J.LT.N ) THEN
-               IF( S( J+1, J ).NE.ZERO )
-     $            ILCPLX = .TRUE.
+               IF( S( J+1, J ).NE.ZERO ) ILCPLX = .TRUE.
             END IF
             IF( ILCPLX ) THEN
-               IF( SELECT( J ) .OR. SELECT( J+1 ) )
-     $            IM = IM + 2
+               IF( SELECT( J ) .OR. SELECT( J+1 ) ) IM = IM + 2
             ELSE
-               IF( SELECT( J ) )
-     $            IM = IM + 1
+               IF( SELECT( J ) ) IM = IM + 1
             END IF
    10    CONTINUE
       ELSE
@@ -136,11 +120,9 @@
       ILBBAD = .FALSE.
       DO 20 J = 1, N - 1
          IF( S( J+1, J ).NE.ZERO ) THEN
-            IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR.
-     $          P( J, J+1 ).NE.ZERO )ILBBAD = .TRUE.
+            IF( P( J, J ).EQ.ZERO .OR. P( J+1, J+1 ).EQ.ZERO .OR. P( J, J+1 ).NE.ZERO )ILBBAD = .TRUE.
             IF( J.LT.N-1 ) THEN
-               IF( S( J+2, J+1 ).NE.ZERO )
-     $            ILABAD = .TRUE.
+               IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = .TRUE.
             END IF
          END IF
    20 CONTINUE
@@ -164,8 +146,7 @@
 *     Quick return if possible
 *
       M = IM
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Machine Constants
 *
@@ -182,8 +163,7 @@
 *     triangular solver.
 *
       ANORM = ABS( S( 1, 1 ) )
-      IF( N.GT.1 )
-     $   ANORM = ANORM + ABS( S( 2, 1 ) )
+      IF( N.GT.1 ) ANORM = ANORM + ABS( S( 2, 1 ) )
       BNORM = ABS( P( 1, 1 ) )
       WORK( 1 ) = ZERO
       WORK( N+1 ) = ZERO
@@ -246,15 +226,13 @@
             ELSE
                ILCOMP = SELECT( JE )
             END IF
-            IF( .NOT.ILCOMP )
-     $         GO TO 220
+            IF( .NOT.ILCOMP ) GO TO 220
 *
 *           Decide if (a) singular pencil, (b) real eigenvalue, or
 *           (c) complex eigenvalue.
 *
             IF( .NOT.ILCPLX ) THEN
-               IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND.
-     $             ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
+               IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
 *
 *                 Singular matrix pencil -- return unit eigenvector
 *
@@ -281,8 +259,7 @@
 *
 *              Real eigenvalue
 *
-               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE,
-     $                ABS( P( JE, JE ) )*BSCALE, SAFMIN )
+               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN )
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE
                ACOEF = SBETA*ASCALE
@@ -293,17 +270,9 @@
 *
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT.
-     $               SMALL
-               IF( LSA )
-     $            SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )
-               IF( LSB )
-     $            SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )*
-     $                    MIN( BNORM, BIG ) )
+               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                IF( LSA .OR. LSB ) THEN
-                  SCALE = MIN( SCALE, ONE /
-     $                    ( SAFMIN*MAX( ONE, ABS( ACOEF ),
-     $                    ABS( BCOEFR ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   IF( LSA ) THEN
                      ACOEF = ASCALE*( SCALE*SBETA )
                   ELSE
@@ -326,9 +295,7 @@
 *
 *              Complex eigenvalue
 *
-               CALL DLAG2( S( JE, JE ), LDS, P( JE, JE ), LDP,
-     $                     SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2,
-     $                     BCOEFI )
+               CALL DLAG2( S( JE, JE ), LDS, P( JE, JE ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
                BCOEFI = -BCOEFI
                IF( BCOEFI.EQ.ZERO ) THEN
                   INFO = JE
@@ -340,14 +307,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN )
-     $            SCALE = ( SAFMIN / ULP ) / ACOEFA
-               IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN )
-     $            SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )
-               IF( SAFMIN*ACOEFA.GT.ASCALE )
-     $            SCALE = ASCALE / ( SAFMIN*ACOEFA )
-               IF( SAFMIN*BCOEFA.GT.BSCALE )
-     $            SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
+               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN ) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
                IF( SCALE.NE.ONE ) THEN
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -370,12 +330,10 @@
                   WORK( 2*N+JE+1 ) = ONE
                   WORK( 3*N+JE+1 ) = ZERO
                   TEMP = ACOEF*S( JE, JE+1 )
-                  WORK( 2*N+JE ) = ( BCOEFR*P( JE+1, JE+1 )-ACOEF*
-     $                             S( JE+1, JE+1 ) ) / TEMP
+                  WORK( 2*N+JE ) = ( BCOEFR*P( JE+1, JE+1 )-ACOEF* S( JE+1, JE+1 ) ) / TEMP
                   WORK( 3*N+JE ) = BCOEFI*P( JE+1, JE+1 ) / TEMP
                END IF
-               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ),
-     $                ABS( WORK( 2*N+JE+1 ) )+ABS( WORK( 3*N+JE+1 ) ) )
+               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE+1 ) )+ABS( WORK( 3*N+JE+1 ) ) )
             END IF
 *
             DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
@@ -407,16 +365,11 @@
 *              Check whether scaling is necessary for dot products
 *
                XSCALE = ONE / MAX( ONE, XMAX )
-               TEMP = MAX( WORK( J ), WORK( N+J ),
-     $                ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )
-               IF( IL2BY2 )
-     $            TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ),
-     $                   ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) )
+               TEMP = MAX( WORK( J ), WORK( N+J ), ACOEFA*WORK( J )+BCOEFA*WORK( N+J ) )                IF( IL2BY2 ) TEMP = MAX( TEMP, WORK( J+1 ), WORK( N+J+1 ), ACOEFA*WORK( J+1 )+BCOEFA*WORK( N+J+1 ) )
                IF( TEMP.GT.BIGNUM*XSCALE ) THEN
                   DO 90 JW = 0, NW - 1
                      DO 80 JR = JE, J - 1
-                        WORK( ( JW+2 )*N+JR ) = XSCALE*
-     $                     WORK( ( JW+2 )*N+JR )
+                        WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
    80                CONTINUE
    90             CONTINUE
                   XMAX = XMAX*XSCALE
@@ -444,27 +397,16 @@
                      SUMP( JA, JW ) = ZERO
 *
                      DO 100 JR = JE, J - 1
-                        SUMS( JA, JW ) = SUMS( JA, JW ) +
-     $                                   S( JR, J+JA-1 )*
-     $                                   WORK( ( JW+1 )*N+JR )
-                        SUMP( JA, JW ) = SUMP( JA, JW ) +
-     $                                   P( JR, J+JA-1 )*
-     $                                   WORK( ( JW+1 )*N+JR )
+                        SUMS( JA, JW ) = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )
   100                CONTINUE
   110             CONTINUE
   120          CONTINUE
 *
                DO 130 JA = 1, NA
                   IF( ILCPLX ) THEN
-                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) +
-     $                              BCOEFR*SUMP( JA, 1 ) -
-     $                              BCOEFI*SUMP( JA, 2 )
-                     SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) +
-     $                              BCOEFR*SUMP( JA, 2 ) +
-     $                              BCOEFI*SUMP( JA, 1 )
+                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 ) - BCOEFI*SUMP( JA, 2 )                      SUM( JA, 2 ) = -ACOEF*SUMS( JA, 2 ) + BCOEFR*SUMP( JA, 2 ) + BCOEFI*SUMP( JA, 1 )
                   ELSE
-                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) +
-     $                              BCOEFR*SUMP( JA, 1 )
+                     SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 )
                   END IF
   130          CONTINUE
 *
@@ -472,15 +414,11 @@
 *              Solve  ( a A - b B )  y = SUM(,)
 *              with scaling and perturbation of the denominator
 *
-               CALL DLALN2( .TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS,
-     $                      BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR,
-     $                      BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP,
-     $                      IINFO )
+               CALL DLALN2( .TRUE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), SUM, 2, BCOEFR, BCOEFI, WORK( 2*N+J ), N, SCALE, TEMP, IINFO )
                IF( SCALE.LT.ONE ) THEN
                   DO 150 JW = 0, NW - 1
                      DO 140 JR = JE, J - 1
-                        WORK( ( JW+2 )*N+JR ) = SCALE*
-     $                     WORK( ( JW+2 )*N+JR )
+                        WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
   140                CONTINUE
   150             CONTINUE
                   XMAX = SCALE*XMAX
@@ -494,16 +432,12 @@
             IEIG = IEIG + 1
             IF( ILBACK ) THEN
                DO 170 JW = 0, NW - 1
-                  CALL DGEMV( 'N', N, N+1-JE, ONE, VL( 1, JE ), LDVL,
-     $                        WORK( ( JW+2 )*N+JE ), 1, ZERO,
-     $                        WORK( ( JW+4 )*N+1 ), 1 )
+                  CALL DGEMV( 'N', N, N+1-JE, ONE, VL( 1, JE ), LDVL, WORK( ( JW+2 )*N+JE ), 1, ZERO, WORK( ( JW+4 )*N+1 ), 1 )
   170          CONTINUE
-               CALL DLACPY( ' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ),
-     $                      LDVL )
+               CALL DLACPY( ' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL )
                IBEG = 1
             ELSE
-               CALL DLACPY( ' ', N, NW, WORK( 2*N+1 ), N, VL( 1, IEIG ),
-     $                      LDVL )
+               CALL DLACPY( ' ', N, NW, WORK( 2*N+1 ), N, VL( 1, IEIG ), LDVL )
                IBEG = JE
             END IF
 *
@@ -512,8 +446,7 @@
             XMAX = ZERO
             IF( ILCPLX ) THEN
                DO 180 J = IBEG, N
-                  XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+
-     $                   ABS( VL( J, IEIG+1 ) ) )
+                  XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) )
   180          CONTINUE
             ELSE
                DO 190 J = IBEG, N
@@ -571,15 +504,13 @@
             ELSE
                ILCOMP = SELECT( JE )
             END IF
-            IF( .NOT.ILCOMP )
-     $         GO TO 500
+            IF( .NOT.ILCOMP ) GO TO 500
 *
 *           Decide if (a) singular pencil, (b) real eigenvalue, or
 *           (c) complex eigenvalue.
 *
             IF( .NOT.ILCPLX ) THEN
-               IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND.
-     $             ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
+               IF( ABS( S( JE, JE ) ).LE.SAFMIN .AND. ABS( P( JE, JE ) ).LE.SAFMIN ) THEN
 *
 *                 Singular matrix pencil -- unit eigenvector
 *
@@ -608,8 +539,7 @@
 *
 *              Real eigenvalue
 *
-               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE,
-     $                ABS( P( JE, JE ) )*BSCALE, SAFMIN )
+               TEMP = ONE / MAX( ABS( S( JE, JE ) )*ASCALE, ABS( P( JE, JE ) )*BSCALE, SAFMIN )
                SALFAR = ( TEMP*S( JE, JE ) )*ASCALE
                SBETA = ( TEMP*P( JE, JE ) )*BSCALE
                ACOEF = SBETA*ASCALE
@@ -620,17 +550,9 @@
 *
                SCALE = ONE
                LSA = ABS( SBETA ).GE.SAFMIN .AND. ABS( ACOEF ).LT.SMALL
-               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT.
-     $               SMALL
-               IF( LSA )
-     $            SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )
-               IF( LSB )
-     $            SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )*
-     $                    MIN( BNORM, BIG ) )
+               LSB = ABS( SALFAR ).GE.SAFMIN .AND. ABS( BCOEFR ).LT. SMALL                IF( LSA ) SCALE = ( SMALL / ABS( SBETA ) )*MIN( ANORM, BIG )                IF( LSB ) SCALE = MAX( SCALE, ( SMALL / ABS( SALFAR ) )* MIN( BNORM, BIG ) )
                IF( LSA .OR. LSB ) THEN
-                  SCALE = MIN( SCALE, ONE /
-     $                    ( SAFMIN*MAX( ONE, ABS( ACOEF ),
-     $                    ABS( BCOEFR ) ) ) )
+                  SCALE = MIN( SCALE, ONE / ( SAFMIN*MAX( ONE, ABS( ACOEF ), ABS( BCOEFR ) ) ) )
                   IF( LSA ) THEN
                      ACOEF = ASCALE*( SCALE*SBETA )
                   ELSE
@@ -654,16 +576,13 @@
 *              (See "Further Details", above.)
 *
                DO 260 JR = 1, JE - 1
-                  WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) -
-     $                             ACOEF*S( JR, JE )
+                  WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE )
   260          CONTINUE
             ELSE
 *
 *              Complex eigenvalue
 *
-               CALL DLAG2( S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP,
-     $                     SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2,
-     $                     BCOEFI )
+               CALL DLAG2( S( JE-1, JE-1 ), LDS, P( JE-1, JE-1 ), LDP, SAFMIN*SAFETY, ACOEF, TEMP, BCOEFR, TEMP2, BCOEFI )
                IF( BCOEFI.EQ.ZERO ) THEN
                   INFO = JE - 1
                   RETURN
@@ -674,14 +593,7 @@
                ACOEFA = ABS( ACOEF )
                BCOEFA = ABS( BCOEFR ) + ABS( BCOEFI )
                SCALE = ONE
-               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN )
-     $            SCALE = ( SAFMIN / ULP ) / ACOEFA
-               IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN )
-     $            SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )
-               IF( SAFMIN*ACOEFA.GT.ASCALE )
-     $            SCALE = ASCALE / ( SAFMIN*ACOEFA )
-               IF( SAFMIN*BCOEFA.GT.BSCALE )
-     $            SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
+               IF( ACOEFA*ULP.LT.SAFMIN .AND. ACOEFA.GE.SAFMIN ) SCALE = ( SAFMIN / ULP ) / ACOEFA                IF( BCOEFA*ULP.LT.SAFMIN .AND. BCOEFA.GE.SAFMIN ) SCALE = MAX( SCALE, ( SAFMIN / ULP ) / BCOEFA )                IF( SAFMIN*ACOEFA.GT.ASCALE ) SCALE = ASCALE / ( SAFMIN*ACOEFA )                IF( SAFMIN*BCOEFA.GT.BSCALE ) SCALE = MIN( SCALE, BSCALE / ( SAFMIN*BCOEFA ) )
                IF( SCALE.NE.ONE ) THEN
                   ACOEF = SCALE*ACOEF
                   ACOEFA = ABS( ACOEF )
@@ -705,34 +617,24 @@
                   WORK( 2*N+JE-1 ) = ONE
                   WORK( 3*N+JE-1 ) = ZERO
                   TEMP = ACOEF*S( JE-1, JE )
-                  WORK( 2*N+JE ) = ( BCOEFR*P( JE-1, JE-1 )-ACOEF*
-     $                             S( JE-1, JE-1 ) ) / TEMP
+                  WORK( 2*N+JE ) = ( BCOEFR*P( JE-1, JE-1 )-ACOEF* S( JE-1, JE-1 ) ) / TEMP
                   WORK( 3*N+JE ) = BCOEFI*P( JE-1, JE-1 ) / TEMP
                END IF
 *
-               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ),
-     $                ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) )
+               XMAX = MAX( ABS( WORK( 2*N+JE ) )+ABS( WORK( 3*N+JE ) ), ABS( WORK( 2*N+JE-1 ) )+ABS( WORK( 3*N+JE-1 ) ) )
 *
 *              Compute contribution from columns JE and JE-1
 *              of A and B to the sums.
 *
                CREALA = ACOEF*WORK( 2*N+JE-1 )
                CIMAGA = ACOEF*WORK( 3*N+JE-1 )
-               CREALB = BCOEFR*WORK( 2*N+JE-1 ) -
-     $                  BCOEFI*WORK( 3*N+JE-1 )
-               CIMAGB = BCOEFI*WORK( 2*N+JE-1 ) +
-     $                  BCOEFR*WORK( 3*N+JE-1 )
+               CREALB = BCOEFR*WORK( 2*N+JE-1 ) - BCOEFI*WORK( 3*N+JE-1 )                CIMAGB = BCOEFI*WORK( 2*N+JE-1 ) + BCOEFR*WORK( 3*N+JE-1 )
                CRE2A = ACOEF*WORK( 2*N+JE )
                CIM2A = ACOEF*WORK( 3*N+JE )
                CRE2B = BCOEFR*WORK( 2*N+JE ) - BCOEFI*WORK( 3*N+JE )
                CIM2B = BCOEFI*WORK( 2*N+JE ) + BCOEFR*WORK( 3*N+JE )
                DO 270 JR = 1, JE - 2
-                  WORK( 2*N+JR ) = -CREALA*S( JR, JE-1 ) +
-     $                             CREALB*P( JR, JE-1 ) -
-     $                             CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )
-                  WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) +
-     $                             CIMAGB*P( JR, JE-1 ) -
-     $                             CIM2A*S( JR, JE ) + CIM2B*P( JR, JE )
+                  WORK( 2*N+JR ) = -CREALA*S( JR, JE-1 ) + CREALB*P( JR, JE-1 ) - CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )                   WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) + CIMAGB*P( JR, JE-1 ) - CIM2A*S( JR, JE ) + CIM2B*P( JR, JE )
   270          CONTINUE
             END IF
 *
@@ -762,16 +664,12 @@
 *
 *              Compute x(j) (and x(j+1), if 2-by-2 block)
 *
-               CALL DLALN2( .FALSE., NA, NW, DMIN, ACOEF, S( J, J ),
-     $                      LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ),
-     $                      N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP,
-     $                      IINFO )
+               CALL DLALN2( .FALSE., NA, NW, DMIN, ACOEF, S( J, J ), LDS, BDIAG( 1 ), BDIAG( 2 ), WORK( 2*N+J ), N, BCOEFR, BCOEFI, SUM, 2, SCALE, TEMP, IINFO )
                IF( SCALE.LT.ONE ) THEN
 *
                   DO 290 JW = 0, NW - 1
                      DO 280 JR = 1, JE
-                        WORK( ( JW+2 )*N+JR ) = SCALE*
-     $                     WORK( ( JW+2 )*N+JR )
+                        WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
   280                CONTINUE
   290             CONTINUE
                END IF
@@ -791,16 +689,13 @@
 *
                   XSCALE = ONE / MAX( ONE, XMAX )
                   TEMP = ACOEFA*WORK( J ) + BCOEFA*WORK( N+J )
-                  IF( IL2BY2 )
-     $               TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA*
-     $                      WORK( N+J+1 ) )
+                  IF( IL2BY2 ) TEMP = MAX( TEMP, ACOEFA*WORK( J+1 )+BCOEFA* WORK( N+J+1 ) )
                   TEMP = MAX( TEMP, ACOEFA, BCOEFA )
                   IF( TEMP.GT.BIGNUM*XSCALE ) THEN
 *
                      DO 330 JW = 0, NW - 1
                         DO 320 JR = 1, JE
-                           WORK( ( JW+2 )*N+JR ) = XSCALE*
-     $                        WORK( ( JW+2 )*N+JR )
+                           WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
   320                   CONTINUE
   330                CONTINUE
                      XMAX = XMAX*XSCALE
@@ -815,25 +710,15 @@
                      IF( ILCPLX ) THEN
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CIMAGA = ACOEF*WORK( 3*N+J+JA-1 )
-                        CREALB = BCOEFR*WORK( 2*N+J+JA-1 ) -
-     $                           BCOEFI*WORK( 3*N+J+JA-1 )
-                        CIMAGB = BCOEFI*WORK( 2*N+J+JA-1 ) +
-     $                           BCOEFR*WORK( 3*N+J+JA-1 )
+                        CREALB = BCOEFR*WORK( 2*N+J+JA-1 ) - BCOEFI*WORK( 3*N+J+JA-1 )                         CIMAGB = BCOEFI*WORK( 2*N+J+JA-1 ) + BCOEFR*WORK( 3*N+J+JA-1 )
                         DO 340 JR = 1, J - 1
-                           WORK( 2*N+JR ) = WORK( 2*N+JR ) -
-     $                                      CREALA*S( JR, J+JA-1 ) +
-     $                                      CREALB*P( JR, J+JA-1 )
-                           WORK( 3*N+JR ) = WORK( 3*N+JR ) -
-     $                                      CIMAGA*S( JR, J+JA-1 ) +
-     $                                      CIMAGB*P( JR, J+JA-1 )
+                           WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 )
   340                   CONTINUE
                      ELSE
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 )
                         DO 350 JR = 1, J - 1
-                           WORK( 2*N+JR ) = WORK( 2*N+JR ) -
-     $                                      CREALA*S( JR, J+JA-1 ) +
-     $                                      CREALB*P( JR, J+JA-1 )
+                           WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )
   350                   CONTINUE
                      END IF
   360             CONTINUE
@@ -850,8 +735,7 @@
 *
                DO 410 JW = 0, NW - 1
                   DO 380 JR = 1, N
-                     WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )*
-     $                                       VR( JR, 1 )
+                     WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 )
   380             CONTINUE
 *
 *                 A series of compiler directives to defeat
@@ -860,8 +744,7 @@
 *
                   DO 400 JC = 2, JE
                      DO 390 JR = 1, N
-                        WORK( ( JW+4 )*N+JR ) = WORK( ( JW+4 )*N+JR ) +
-     $                     WORK( ( JW+2 )*N+JC )*VR( JR, JC )
+                        WORK( ( JW+4 )*N+JR ) = WORK( ( JW+4 )*N+JR ) + WORK( ( JW+2 )*N+JC )*VR( JR, JC )
   390                CONTINUE
   400             CONTINUE
   410          CONTINUE
@@ -888,8 +771,7 @@
             XMAX = ZERO
             IF( ILCPLX ) THEN
                DO 460 J = 1, IEND
-                  XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+
-     $                   ABS( VR( J, IEIG+1 ) ) )
+                  XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) )
   460          CONTINUE
             ELSE
                DO 470 J = 1, IEND

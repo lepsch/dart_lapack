@@ -27,9 +27,7 @@
       CHARACTER*3        PATH
       CHARACTER*10       INTSTR
       CHARACTER*72       ALINE
-      INTEGER            I, IC, K, LDA, NM, NMATS,
-     $                   NNS, NRHS, NTYPES,
-     $                   VERS_MAJOR, VERS_MINOR, VERS_PATCH
+      INTEGER            I, IC, K, LDA, NM, NMATS, NNS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       DOUBLE PRECISION   EPS, S1, S2, THRESH
       REAL               SEPS
 *     ..
@@ -37,8 +35,7 @@
       LOGICAL            DOTYPE( MATMAX )
       INTEGER            IWORK( NMAX ), MVAL( MAXIN ), NSVAL( MAXIN )
       DOUBLE PRECISION   RWORK(NMAX)
-      COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ),
-     $                   WORK( NMAX*MAXRHS*2 )
+      COMPLEX*16         A( LDAMAX*NMAX, 2 ), B( NMAX*MAXRHS, 2 ), WORK( NMAX*MAXRHS*2 )
       COMPLEX            SWORK(NMAX*(NMAX+MAXRHS))
 *     ..
 *     .. External Functions ..
@@ -48,8 +45,7 @@
       EXTERNAL           DLAMCH, DSECND, LSAME, LSAMEN, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAREQ, ZDRVAB, ZDRVAC, ZERRAB, ZERRAC,
-     $                   ILAVER
+      EXTERNAL           ALAREQ, ZDRVAB, ZDRVAC, ZERRAB, ZERRAC, ILAVER
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -100,8 +96,7 @@
             FATAL = .TRUE.
          END IF
    10 CONTINUE
-      IF( NM.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
+      IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 *
 *     Read the values of NRHS
 *
@@ -125,8 +120,7 @@
             FATAL = .TRUE.
          END IF
    30 CONTINUE
-      IF( NNS.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
 *     Read the threshold value for the test ratios.
 *
@@ -178,8 +172,7 @@
          NMATS = MATMAX
          GO TO 130
       END IF
-      IF( ALINE( I: I ).EQ.' ' )
-     $   GO TO 90
+      IF( ALINE( I: I ).EQ.' ' ) GO TO 90
       NMATS = 0
   100 CONTINUE
       C1 = ALINE( I: I )
@@ -193,8 +186,7 @@
   120 CONTINUE
       NMATS = NMATS*10 + IC
       I = I + 1
-      IF( I.GT.72 )
-     $   GO TO 130
+      IF( I.GT.72 ) GO TO 130
       GO TO 100
   130 CONTINUE
       C1 = PATH( 1: 1 )
@@ -223,14 +215,10 @@
 *
 *        Test the error exits
 *
-         IF( TSTERR )
-     $     CALL ZERRAB( NOUT )
+         IF( TSTERR ) CALL ZERRAB( NOUT )
 *
          IF( TSTDRV ) THEN
-            CALL ZDRVAB( DOTYPE, NM, MVAL, NNS,
-     $                   NSVAL, THRESH, LDA, A( 1, 1 ),
-     $                   A( 1, 2 ), B( 1, 1 ), B( 1, 2 ),
-     $                   WORK, RWORK, SWORK, IWORK, NOUT )
+            CALL ZDRVAB( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT )
          ELSE
             WRITE( NOUT, FMT = 9989 )'ZCGESV'
          END IF
@@ -242,15 +230,11 @@
          NTYPES = 9
          CALL ALAREQ( 'DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT )
 *
-         IF( TSTERR )
-     $      CALL ZERRAC( NOUT )
+         IF( TSTERR ) CALL ZERRAC( NOUT )
 *
 *
          IF( TSTDRV ) THEN
-            CALL ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL,
-     $                   THRESH, LDA, A( 1, 1 ), A( 1, 2 ),
-     $                   B( 1, 1 ), B( 1, 2 ),
-     $                   WORK, RWORK, SWORK, NOUT )
+            CALL ZDRVAC( DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, NOUT )
          ELSE
             WRITE( NOUT, FMT = 9989 )'ZCPOSV'
          END IF

@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           ZAXPY, ZCOPY, ZGEMV, ZGERC, ZGERU, ZLACGV
@@ -42,8 +41,7 @@
 *
 *           w( 1:n ) = conjg( w( 1:n ) + C( m-l+1:m, 1:n )**H * v( 1:l ) )
 *
-            CALL ZGEMV( 'Conjugate transpose', L, N, ONE, C( M-L+1, 1 ),
-     $                  LDC, V, INCV, ONE, WORK, 1 )
+            CALL ZGEMV( 'Conjugate transpose', L, N, ONE, C( M-L+1, 1 ), LDC, V, INCV, ONE, WORK, 1 )
             CALL ZLACGV( N, WORK, 1 )
 *
 *           C( 1, 1:n ) = C( 1, 1:n ) - tau * w( 1:n )
@@ -53,8 +51,7 @@
 *           C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
 *                               tau * v( 1:l ) * w( 1:n )**H
 *
-            CALL ZGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ),
-     $                  LDC )
+            CALL ZGERU( L, N, -TAU, V, INCV, WORK, 1, C( M-L+1, 1 ), LDC )
          END IF
 *
       ELSE
@@ -69,8 +66,7 @@
 *
 *           w( 1:m ) = w( 1:m ) + C( 1:m, n-l+1:n, 1:n ) * v( 1:l )
 *
-            CALL ZGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC,
-     $                  V, INCV, ONE, WORK, 1 )
+            CALL ZGEMV( 'No transpose', M, L, ONE, C( 1, N-L+1 ), LDC, V, INCV, ONE, WORK, 1 )
 *
 *           C( 1:m, 1 ) = C( 1:m, 1 ) - tau * w( 1:m )
 *
@@ -79,8 +75,7 @@
 *           C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
 *                               tau * w( 1:m ) * v( 1:l )**H
 *
-            CALL ZGERC( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ),
-     $                  LDC )
+            CALL ZGERC( M, L, -TAU, WORK, 1, V, INCV, C( 1, N-L+1 ), LDC )
 *
          END IF
 *

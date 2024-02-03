@@ -1,5 +1,4 @@
-      SUBROUTINE CPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX,
-     $                   RCOND, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE CPTSVX( FACT, N, NRHS, D, E, DF, EF, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,10 +10,7 @@
       REAL               RCOND
 *     ..
 *     .. Array Arguments ..
-      REAL               BERR( * ), D( * ), DF( * ), FERR( * ),
-     $                   RWORK( * )
-      COMPLEX            B( LDB, * ), E( * ), EF( * ), WORK( * ),
-     $                   X( LDX, * )
+      REAL               BERR( * ), D( * ), DF( * ), FERR( * ), RWORK( * )       COMPLEX            B( LDB, * ), E( * ), EF( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -33,8 +29,7 @@
       EXTERNAL           LSAME, CLANHT, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CPTCON, CPTRFS, CPTTRF, CPTTRS,
-     $                   SCOPY, XERBLA
+      EXTERNAL           CCOPY, CLACPY, CPTCON, CPTRFS, CPTTRF, CPTTRS, SCOPY, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -66,8 +61,7 @@
 *        Compute the L*D*L**H (or U**H*D*U) factorization of A.
 *
          CALL SCOPY( N, D, 1, DF, 1 )
-         IF( N.GT.1 )
-     $      CALL CCOPY( N-1, E, 1, EF, 1 )
+         IF( N.GT.1 ) CALL CCOPY( N-1, E, 1, EF, 1 )
          CALL CPTTRF( N, DF, EF, INFO )
 *
 *        Return if INFO is non-zero.
@@ -94,13 +88,11 @@
 *     Use iterative refinement to improve the computed solutions and
 *     compute error bounds and backward error estimates for them.
 *
-      CALL CPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR,
-     $             BERR, WORK, RWORK, INFO )
+      CALL CPTRFS( 'Lower', N, NRHS, D, E, DF, EF, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

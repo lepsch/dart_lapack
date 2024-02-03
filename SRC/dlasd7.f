@@ -1,36 +1,26 @@
-      SUBROUTINE DLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, ZW, VF, VFW, VL,
-     $                   VLW, ALPHA, BETA, DSIGMA, IDX, IDXP, IDXQ,
-     $                   PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM,
-     $                   C, S, INFO )
+      SUBROUTINE DLASD7( ICOMPQ, NL, NR, SQRE, K, D, Z, ZW, VF, VFW, VL, VLW, ALPHA, BETA, DSIGMA, IDX, IDXP, IDXQ, PERM, GIVPTR, GIVCOL, LDGCOL, GIVNUM, LDGNUM, C, S, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 *
 *     .. Scalar Arguments ..
-      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL,
-     $                   NR, SQRE
+      INTEGER            GIVPTR, ICOMPQ, INFO, K, LDGCOL, LDGNUM, NL, NR, SQRE
       DOUBLE PRECISION   ALPHA, BETA, C, S
 *     ..
 *     .. Array Arguments ..
-      INTEGER            GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ),
-     $                   IDXQ( * ), PERM( * )
-      DOUBLE PRECISION   D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ),
-     $                   VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ),
-     $                   ZW( * )
+      INTEGER            GIVCOL( LDGCOL, * ), IDX( * ), IDXP( * ), IDXQ( * ), PERM( * )       DOUBLE PRECISION   D( * ), DSIGMA( * ), GIVNUM( LDGNUM, * ), VF( * ), VFW( * ), VL( * ), VLW( * ), Z( * ), ZW( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, EIGHT
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0,
-     $                   EIGHT = 8.0D+0 )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TWO = 2.0D+0, EIGHT = 8.0D+0 )
 *     ..
 *     .. Local Scalars ..
 *
-      INTEGER            I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N,
-     $                   NLP1, NLP2
+      INTEGER            I, IDXI, IDXJ, IDXJP, J, JP, JPREV, K2, M, N, NLP1, NLP2
       DOUBLE PRECISION   EPS, HLFTOL, TAU, TOL, Z1
 *     ..
 *     .. External Subroutines ..
@@ -156,8 +146,7 @@
 *
             K2 = K2 - 1
             IDXP( K2 ) = J
-            IF( J.EQ.N )
-     $         GO TO 100
+            IF( J.EQ.N ) GO TO 100
          ELSE
             JPREV = J
             GO TO 70
@@ -167,8 +156,7 @@
       J = JPREV
    80 CONTINUE
       J = J + 1
-      IF( J.GT.N )
-     $   GO TO 90
+      IF( J.GT.N ) GO TO 90
       IF( ABS( Z( J ) ).LE.TOL ) THEN
 *
 *        Deflate due to small z component.
@@ -267,8 +255,7 @@
 *
       DSIGMA( 1 ) = ZERO
       HLFTOL = TOL / TWO
-      IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL )
-     $   DSIGMA( 2 ) = HLFTOL
+      IF( ABS( DSIGMA( 2 ) ).LE.HLFTOL ) DSIGMA( 2 ) = HLFTOL
       IF( M.GT.N ) THEN
          Z( 1 ) = DLAPY2( Z1, Z( M ) )
          IF( Z( 1 ).LE.TOL ) THEN

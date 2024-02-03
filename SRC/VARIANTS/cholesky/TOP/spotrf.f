@@ -53,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -78,20 +77,13 @@
 *
 *              Compute the current block.
 *
-               CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit',
-     $                      J-1, JB, ONE, A( 1, 1 ), LDA,
-     $                      A( 1, J ), LDA )
-
-               CALL SSYRK( 'Upper', 'Transpose', JB, J-1, -ONE,
-     $                      A( 1, J ), LDA,
-     $                      ONE, A( J, J ), LDA )
+               CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', J-1, JB, ONE, A( 1, 1 ), LDA, A( 1, J ), LDA )                 CALL SSYRK( 'Upper', 'Transpose', JB, J-1, -ONE, A( 1, J ), LDA, ONE, A( J, J ), LDA )
 *
 *              Update and factorize the current diagonal block and test
 *              for non-positive-definiteness.
 *
                CALL SPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
-               IF( INFO.NE.0 )
-     $            GO TO 30
+               IF( INFO.NE.0 ) GO TO 30
 
    10       CONTINUE
 *
@@ -105,20 +97,13 @@
 *
 *              Compute the current block.
 *
-               CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit',
-     $                     JB, J-1, ONE, A( 1, 1 ), LDA,
-     $                     A( J, 1 ), LDA )
-
-               CALL SSYRK( 'Lower', 'No Transpose', JB, J-1,
-     $                     -ONE, A( J, 1 ), LDA,
-     $                     ONE, A( J, J ), LDA )
+               CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', JB, J-1, ONE, A( 1, 1 ), LDA, A( J, 1 ), LDA )                 CALL SSYRK( 'Lower', 'No Transpose', JB, J-1, -ONE, A( J, 1 ), LDA, ONE, A( J, J ), LDA )
 *
 *              Update and factorize the current diagonal block and test
 *              for non-positive-definiteness.
 *
                CALL SPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
-               IF( INFO.NE.0 )
-     $            GO TO 30
+               IF( INFO.NE.0 ) GO TO 30
 
    20       CONTINUE
          END IF

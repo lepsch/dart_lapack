@@ -1,5 +1,4 @@
-      SUBROUTINE STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C,
-     $                   LDC, SCALE, INFO )
+      SUBROUTINE STRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB
       INTEGER            IERR, J, K, K1, K2, KNEXT, L, L1, L2, LNEXT
-      REAL               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN,
-     $                   SMLNUM, SUML, SUMR, XNORM
+      REAL               A11, BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM, SUML, SUMR, XNORM
 *     ..
 *     .. Local Arrays ..
       REAL               DUM( 1 ), VEC( 2, 2 ), X( 2, 2 )
@@ -48,11 +46,9 @@
       NOTRNB = LSAME( TRANB, 'N' )
 *
       INFO = 0
-      IF( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT.
-     $    LSAME( TRANA, 'C' ) ) THEN
+      IF( .NOT.NOTRNA .AND. .NOT.LSAME( TRANA, 'T' ) .AND. .NOT. LSAME( TRANA, 'C' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT.
-     $         LSAME( TRANB, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRNB .AND. .NOT.LSAME( TRANB, 'T' ) .AND. .NOT. LSAME( TRANB, 'C' ) ) THEN
          INFO = -2
       ELSE IF( ISGN.NE.1 .AND. ISGN.NE.-1 ) THEN
          INFO = -3
@@ -75,8 +71,7 @@
 *     Quick return if possible
 *
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Set constants to control overflow
 *
@@ -86,8 +81,7 @@
       SMLNUM = SMLNUM*REAL( M*N ) / EPS
       BIGNUM = ONE / SMLNUM
 *
-      SMIN = MAX( SMLNUM, EPS*SLANGE( 'M', M, M, A, LDA, DUM ),
-     $       EPS*SLANGE( 'M', N, N, B, LDB, DUM ) )
+      SMIN = MAX( SMLNUM, EPS*SLANGE( 'M', M, M, A, LDA, DUM ), EPS*SLANGE( 'M', N, N, B, LDB, DUM ) )
 *
       SGN = ISGN
 *
@@ -110,8 +104,7 @@
 *
          LNEXT = 1
          DO 70 L = 1, N
-            IF( L.LT.LNEXT )
-     $         GO TO 70
+            IF( L.LT.LNEXT ) GO TO 70
             IF( L.EQ.N ) THEN
                L1 = L
                L2 = L
@@ -132,8 +125,7 @@
 *
             KNEXT = M
             DO 60 K = M, 1, -1
-               IF( K.GT.KNEXT )
-     $            GO TO 60
+               IF( K.GT.KNEXT ) GO TO 60
                IF( K.EQ.1 ) THEN
                   K1 = K
                   K2 = K
@@ -150,8 +142,7 @@
                END IF
 *
                IF( L1.EQ.L2 .AND. K1.EQ.K2 ) THEN
-                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA,
-     $                         C( MIN( K1+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
                   SCALOC = ONE
@@ -165,8 +156,7 @@
                   END IF
                   DB = ABS( VEC( 1, 1 ) )
                   IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                     IF( DB.GT.BIGNUM*DA11 )
-     $                  SCALOC = ONE / DB
+                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                   END IF
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 *
@@ -180,21 +170,16 @@
 *
                ELSE IF( L1.EQ.L2 .AND. K1.NE.K2 ) THEN
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ),
-     $                         LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 20 J = 1, N
@@ -207,21 +192,16 @@
 *
                ELSE IF( L1.NE.L2 .AND. K1.EQ.K2 ) THEN
 *
-                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA,
-     $                         C( MIN( K1+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )
 *
-                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA,
-     $                         C( MIN( K1+1, M ), L2 ), 1 )
+                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 *
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ),
-     $                         LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 40 J = 1, N
@@ -234,31 +214,24 @@
 *
                ELSE IF( L1.NE.L2 .AND. K1.NE.K2 ) THEN
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L2 ), 1 )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L2 ), 1 )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLASY2( .FALSE., .FALSE., ISGN, 2, 2,
-     $                         A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC,
-     $                         2, SCALOC, X, 2, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLASY2( .FALSE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 50 J = 1, N
@@ -295,8 +268,7 @@
 *
          LNEXT = 1
          DO 130 L = 1, N
-            IF( L.LT.LNEXT )
-     $         GO TO 130
+            IF( L.LT.LNEXT ) GO TO 130
             IF( L.EQ.N ) THEN
                L1 = L
                L2 = L
@@ -317,8 +289,7 @@
 *
             KNEXT = 1
             DO 120 K = 1, M
-               IF( K.LT.KNEXT )
-     $            GO TO 120
+               IF( K.LT.KNEXT ) GO TO 120
                IF( K.EQ.M ) THEN
                   K1 = K
                   K2 = K
@@ -349,8 +320,7 @@
                   END IF
                   DB = ABS( VEC( 1, 1 ) )
                   IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                     IF( DB.GT.BIGNUM*DA11 )
-     $                  SCALOC = ONE / DB
+                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                   END IF
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 *
@@ -372,11 +342,8 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L1 ), 1 )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ),
-     $                         LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 90 J = 1, N
@@ -397,11 +364,8 @@
                   SUMR = SDOT( L1-1, C( K1, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 *
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ),
-     $                         LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 100 J = 1, N
@@ -430,11 +394,8 @@
                   SUMR = SDOT( L1-1, C( K2, 1 ), LDC, B( 1, L2 ), 1 )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLASY2( .TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ),
-     $                         LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X,
-     $                         2, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLASY2( .TRUE., .FALSE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 110 J = 1, N
@@ -470,8 +431,7 @@
 *
          LNEXT = N
          DO 190 L = N, 1, -1
-            IF( L.GT.LNEXT )
-     $         GO TO 190
+            IF( L.GT.LNEXT ) GO TO 190
             IF( L.EQ.1 ) THEN
                L1 = L
                L2 = L
@@ -492,8 +452,7 @@
 *
             KNEXT = 1
             DO 180 K = 1, M
-               IF( K.LT.KNEXT )
-     $            GO TO 180
+               IF( K.LT.KNEXT ) GO TO 180
                IF( K.EQ.M ) THEN
                   K1 = K
                   K2 = K
@@ -511,8 +470,7 @@
 *
                IF( L1.EQ.L2 .AND. K1.EQ.K2 ) THEN
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC,
-     $                         B( L1, MIN( L1+1, N ) ), LDB )
+                  SUMR = SDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
                   SCALOC = ONE
 *
@@ -525,8 +483,7 @@
                   END IF
                   DB = ABS( VEC( 1, 1 ) )
                   IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                     IF( DB.GT.BIGNUM*DA11 )
-     $                  SCALOC = ONE / DB
+                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                   END IF
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 *
@@ -541,20 +498,15 @@
                ELSE IF( L1.EQ.L2 .AND. K1.NE.K2 ) THEN
 *
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ),
-     $                         LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .TRUE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 150 J = 1, N
@@ -568,20 +520,15 @@
                ELSE IF( L1.NE.L2 .AND. K1.EQ.K2 ) THEN
 *
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )
 *
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 *
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ),
-     $                         LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 160 J = 1, N
@@ -595,30 +542,23 @@
                ELSE IF( L1.NE.L2 .AND. K1.NE.K2 ) THEN
 *
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
                   SUML = SDOT( K1-1, A( 1, K1 ), 1, C( 1, L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR )
 *
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
                   SUML = SDOT( K1-1, A( 1, K2 ), 1, C( 1, L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN(L2+1, N ) ), LDB )
+                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN(L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLASY2( .TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ),
-     $                         LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X,
-     $                         2, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLASY2( .TRUE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 170 J = 1, N
@@ -654,8 +594,7 @@
 *
          LNEXT = N
          DO 250 L = N, 1, -1
-            IF( L.GT.LNEXT )
-     $         GO TO 250
+            IF( L.GT.LNEXT ) GO TO 250
             IF( L.EQ.1 ) THEN
                L1 = L
                L2 = L
@@ -676,8 +615,7 @@
 *
             KNEXT = M
             DO 240 K = M, 1, -1
-               IF( K.GT.KNEXT )
-     $            GO TO 240
+               IF( K.GT.KNEXT ) GO TO 240
                IF( K.EQ.1 ) THEN
                   K1 = K
                   K2 = K
@@ -694,10 +632,7 @@
                END IF
 *
                IF( L1.EQ.L2 .AND. K1.EQ.K2 ) THEN
-                  SUML = SDOT( M-K1, A( K1, MIN(K1+1, M ) ), LDA,
-     $                   C( MIN( K1+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC,
-     $                         B( L1, MIN( L1+1, N ) ), LDB )
+                  SUML = SDOT( M-K1, A( K1, MIN(K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L1, C( K1, MIN( L1+1, N ) ), LDC, B( L1, MIN( L1+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
                   SCALOC = ONE
 *
@@ -710,8 +645,7 @@
                   END IF
                   DB = ABS( VEC( 1, 1 ) )
                   IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                     IF( DB.GT.BIGNUM*DA11 )
-     $                  SCALOC = ONE / DB
+                     IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                   END IF
                   X( 1, 1 ) = ( VEC( 1, 1 )*SCALOC ) / A11
 *
@@ -725,23 +659,14 @@
 *
                ELSE IF( L1.EQ.L2 .AND. K1.NE.K2 ) THEN
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ),
-     $                         LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, A( K1, K1 ), LDA, ONE, ONE, VEC, 2, -SGN*B( L1, L1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 210 J = 1, N
@@ -754,23 +679,14 @@
 *
                ELSE IF( L1.NE.L2 .AND. K1.EQ.K2 ) THEN
 *
-                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA,
-     $                         C( MIN( K1+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = SGN*( C( K1, L1 )-( SUML+SGN*SUMR ) )
 *
-                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA,
-     $                         C( MIN( K1+1, M ), L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K1, A( K1, MIN( K1+1, M ) ), LDA, C( MIN( K1+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = SGN*( C( K1, L2 )-( SUML+SGN*SUMR ) )
 *
-                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ),
-     $                         LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ),
-     $                         ZERO, X, 2, SCALOC, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLALN2( .FALSE., 2, 1, SMIN, ONE, B( L1, L1 ), LDB, ONE, ONE, VEC, 2, -SGN*A( K1, K1 ), ZERO, X, 2, SCALOC, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 220 J = 1, N
@@ -783,35 +699,20 @@
 *
                ELSE IF( L1.NE.L2 .AND. K1.NE.K2 ) THEN
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 1 ) = C( K1, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K1, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K1, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 1, 2 ) = C( K1, L2 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L1 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L1, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L1 ), 1 )                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L1, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 1 ) = C( K2, L1 ) - ( SUML+SGN*SUMR )
 *
-                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA,
-     $                         C( MIN( K2+1, M ), L2 ), 1 )
-                  SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC,
-     $                         B( L2, MIN( L2+1, N ) ), LDB )
+                  SUML = SDOT( M-K2, A( K2, MIN( K2+1, M ) ), LDA, C( MIN( K2+1, M ), L2 ), 1 )                   SUMR = SDOT( N-L2, C( K2, MIN( L2+1, N ) ), LDC, B( L2, MIN( L2+1, N ) ), LDB )
                   VEC( 2, 2 ) = C( K2, L2 ) - ( SUML+SGN*SUMR )
 *
-                  CALL SLASY2( .FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ),
-     $                         LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X,
-     $                         2, XNORM, IERR )
-                  IF( IERR.NE.0 )
-     $               INFO = 1
+                  CALL SLASY2( .FALSE., .TRUE., ISGN, 2, 2, A( K1, K1 ), LDA, B( L1, L1 ), LDB, VEC, 2, SCALOC, X, 2, XNORM, IERR )
+                  IF( IERR.NE.0 ) INFO = 1
 *
                   IF( SCALOC.NE.ONE ) THEN
                      DO 230 J = 1, N

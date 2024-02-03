@@ -1,5 +1,4 @@
-      SUBROUTINE SLAGV2( A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, CSL, SNL,
-     $                   CSR, SNR )
+      SUBROUTINE SLAGV2( A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, CSL, SNL, CSR, SNR )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       REAL               CSL, CSR, SNL, SNR
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ),
-     $                   B( LDB, * ), BETA( 2 )
+      REAL               A( LDA, * ), ALPHAI( 2 ), ALPHAR( 2 ), B( LDB, * ), BETA( 2 )
 *     ..
 *
 *  =====================================================================
@@ -21,9 +19,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ,
-     $                   R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1,
-     $                   WR2
+      REAL               ANORM, ASCALE, BNORM, BSCALE, H1, H2, H3, QQ, R, RR, SAFMIN, SCALE1, SCALE2, T, ULP, WI, WR1, WR2
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLAG2, SLARTG, SLASV2, SROT
@@ -42,8 +38,7 @@
 *
 *     Scale A
 *
-      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ),
-     $        ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
+      ANORM = MAX( ABS( A( 1, 1 ) )+ABS( A( 2, 1 ) ), ABS( A( 1, 2 ) )+ABS( A( 2, 2 ) ), SAFMIN )
       ASCALE = ONE / ANORM
       A( 1, 1 ) = ASCALE*A( 1, 1 )
       A( 1, 2 ) = ASCALE*A( 1, 2 )
@@ -52,8 +47,7 @@
 *
 *     Scale B
 *
-      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ),
-     $        SAFMIN )
+      BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 1, 2 ) )+ABS( B( 2, 2 ) ), SAFMIN )
       BSCALE = ONE / BNORM
       B( 1, 1 ) = BSCALE*B( 1, 1 )
       B( 1, 2 ) = BSCALE*B( 1, 2 )
@@ -99,8 +93,7 @@
 *
 *        B is nonsingular, first compute the eigenvalues of (A,B)
 *
-         CALL SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2,
-     $               WI )
+         CALL SLAG2( A, LDA, B, LDB, SAFMIN, SCALE1, SCALE2, WR1, WR2, WI )
 *
          IF( WI.EQ.ZERO ) THEN
 *
@@ -135,10 +128,7 @@
 *
 *           compute inf norms of A and B
 *
-            H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ),
-     $           ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )
-            H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ),
-     $           ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
+            H1 = MAX( ABS( A( 1, 1 ) )+ABS( A( 1, 2 ) ), ABS( A( 2, 1 ) )+ABS( A( 2, 2 ) ) )             H2 = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
 *
             IF( ( SCALE1*H1 ).GE.ABS( WR1 )*H2 ) THEN
 *
@@ -165,8 +155,7 @@
 *           a pair of complex conjugate eigenvalues
 *           first compute the SVD of the matrix B
 *
-            CALL SLASV2( B( 1, 1 ), B( 1, 2 ), B( 2, 2 ), R, T, SNR,
-     $                   CSR, SNL, CSL )
+            CALL SLASV2( B( 1, 1 ), B( 1, 2 ), B( 2, 2 ), R, T, SNR, CSR, SNL, CSL )
 *
 *           Form (A,B) := Q(A,B)Z**T where Q is left rotation matrix and
 *           Z is right rotation matrix computed from SLASV2

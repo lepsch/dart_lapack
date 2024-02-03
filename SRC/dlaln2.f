@@ -1,5 +1,4 @@
-      SUBROUTINE DLALN2( LTRANS, NA, NW, SMIN, CA, A, LDA, D1, D2, B,
-     $                   LDB, WR, WI, X, LDX, SCALE, XNORM, INFO )
+      SUBROUTINE DLALN2( LTRANS, NA, NW, SMIN, CA, A, LDA, D1, D2, B, LDB, WR, WI, X, LDX, SCALE, XNORM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,11 +23,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            ICMAX, J
-      DOUBLE PRECISION   BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21,
-     $                   CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21,
-     $                   LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R,
-     $                   UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S,
-     $                   UR22, XI1, XI2, XR1, XR2
+      DOUBLE PRECISION   BBND, BI1, BI2, BIGNUM, BNORM, BR1, BR2, CI21, CI22, CMAX, CNORM, CR21, CR22, CSI, CSR, LI21, LR21, SMINI, SMLNUM, TEMP, U22ABS, UI11, UI11R, UI12, UI12S, UI22, UR11, UR11R, UR12, UR12S, UR22, XI1, XI2, XR1, XR2
 *     ..
 *     .. Local Arrays ..
       LOGICAL            RSWAP( 4 ), ZSWAP( 4 )
@@ -46,14 +41,12 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. Equivalences ..
-      EQUIVALENCE        ( CI( 1, 1 ), CIV( 1 ) ),
-     $                   ( CR( 1, 1 ), CRV( 1 ) )
+      EQUIVALENCE        ( CI( 1, 1 ), CIV( 1 ) ), ( CR( 1, 1 ), CRV( 1 ) )
 *     ..
 *     .. Data statements ..
       DATA               ZSWAP / .FALSE., .FALSE., .TRUE., .TRUE. /
       DATA               RSWAP / .FALSE., .TRUE., .FALSE., .TRUE. /
-      DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4,
-     $                   3, 2, 1 /
+      DATA               IPIVOT / 1, 2, 3, 4, 2, 1, 4, 3, 3, 4, 1, 2, 4, 3, 2, 1 /
 *     ..
 *     .. Executable Statements ..
 *
@@ -96,8 +89,7 @@
 *
             BNORM = ABS( B( 1, 1 ) )
             IF( CNORM.LT.ONE .AND. BNORM.GT.ONE ) THEN
-               IF( BNORM.GT.BIGNUM*CNORM )
-     $            SCALE = ONE / BNORM
+               IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
             END IF
 *
 *           Compute X
@@ -127,14 +119,12 @@
 *
             BNORM = ABS( B( 1, 1 ) ) + ABS( B( 1, 2 ) )
             IF( CNORM.LT.ONE .AND. BNORM.GT.ONE ) THEN
-               IF( BNORM.GT.BIGNUM*CNORM )
-     $            SCALE = ONE / BNORM
+               IF( BNORM.GT.BIGNUM*CNORM ) SCALE = ONE / BNORM
             END IF
 *
 *           Compute X
 *
-            CALL DLADIV( SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI,
-     $                   X( 1, 1 ), X( 1, 2 ) )
+            CALL DLADIV( SCALE*B( 1, 1 ), SCALE*B( 1, 2 ), CSR, CSI, X( 1, 1 ), X( 1, 2 ) )
             XNORM = ABS( X( 1, 1 ) ) + ABS( X( 1, 2 ) )
          END IF
 *
@@ -175,8 +165,7 @@
             IF( CMAX.LT.SMINI ) THEN
                BNORM = MAX( ABS( B( 1, 1 ) ), ABS( B( 2, 1 ) ) )
                IF( SMINI.LT.ONE .AND. BNORM.GT.ONE ) THEN
-                  IF( BNORM.GT.BIGNUM*SMINI )
-     $               SCALE = ONE / BNORM
+                  IF( BNORM.GT.BIGNUM*SMINI ) SCALE = ONE / BNORM
                END IF
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )
@@ -212,8 +201,7 @@
             BR2 = BR2 - LR21*BR1
             BBND = MAX( ABS( BR1*( UR22*UR11R ) ), ABS( BR2 ) )
             IF( BBND.GT.ONE .AND. ABS( UR22 ).LT.ONE ) THEN
-               IF( BBND.GE.BIGNUM*ABS( UR22 ) )
-     $            SCALE = ONE / BBND
+               IF( BBND.GE.BIGNUM*ABS( UR22 ) ) SCALE = ONE / BBND
             END IF
 *
             XR2 = ( BR2*SCALE ) / UR22
@@ -261,11 +249,9 @@
 *           If norm(C) < SMINI, use SMINI*identity.
 *
             IF( CMAX.LT.SMINI ) THEN
-               BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ),
-     $                 ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
+               BNORM = MAX( ABS( B( 1, 1 ) )+ABS( B( 1, 2 ) ), ABS( B( 2, 1 ) )+ABS( B( 2, 2 ) ) )
                IF( SMINI.LT.ONE .AND. BNORM.GT.ONE ) THEN
-                  IF( BNORM.GT.BIGNUM*SMINI )
-     $               SCALE = ONE / BNORM
+                  IF( BNORM.GT.BIGNUM*SMINI ) SCALE = ONE / BNORM
                END IF
                TEMP = SCALE / SMINI
                X( 1, 1 ) = TEMP*B( 1, 1 )
@@ -341,9 +327,7 @@
             END IF
             BR2 = BR2 - LR21*BR1 + LI21*BI1
             BI2 = BI2 - LI21*BR1 - LR21*BI1
-            BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )*
-     $             ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ),
-     $             ABS( BR2 )+ABS( BI2 ) )
+            BBND = MAX( ( ABS( BR1 )+ABS( BI1 ) )* ( U22ABS*( ABS( UR11R )+ABS( UI11R ) ) ), ABS( BR2 )+ABS( BI2 ) )
             IF( BBND.GT.ONE .AND. U22ABS.LT.ONE ) THEN
                IF( BBND.GE.BIGNUM*U22ABS ) THEN
                   SCALE = ONE / BBND

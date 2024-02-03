@@ -1,11 +1,8 @@
-      SUBROUTINE DGESVDQ( JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA,
-     $                    S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK,
-     $                    WORK, LWORK, RWORK, LRWORK, INFO )
+      SUBROUTINE DGESVDQ( JOBA, JOBP, JOBR, JOBU, JOBV, M, N, A, LDA, S, U, LDU, V, LDV, NUMRANK, IWORK, LIWORK, WORK, LWORK, RWORK, LRWORK, INFO )
 *     .. Scalar Arguments ..
       IMPLICIT    NONE
       CHARACTER   JOBA, JOBP, JOBR, JOBU, JOBV
-      INTEGER     M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK,
-     $            INFO
+      INTEGER     M, N, LDA, LDU, LDV, NUMRANK, LIWORK, LWORK, LRWORK, INFO
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION A( LDA, * ), U( LDU, * ), V( LDV, * ), WORK( * )
@@ -19,22 +16,14 @@
       PARAMETER      ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     .. Local Scalars ..
       INTEGER     IERR, IWOFF, NR, N1, OPTRATIO, p, q
-      INTEGER     LWCON, LWQP3, LWRK_DGELQF, LWRK_DGESVD, LWRK_DGESVD2,
-     $            LWRK_DGEQP3,  LWRK_DGEQRF, LWRK_DORMLQ, LWRK_DORMQR,
-     $            LWRK_DORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ,
-     $            LWORQ2, LWORLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2,
-     $            IMINWRK, RMINWRK
-      LOGICAL     ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV,
-     $            LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA,
-     $            WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR
+      INTEGER     LWCON, LWQP3, LWRK_DGELQF, LWRK_DGESVD, LWRK_DGESVD2, LWRK_DGEQP3,  LWRK_DGEQRF, LWRK_DORMLQ, LWRK_DORMQR, LWRK_DORMQR2, LWLQF, LWQRF, LWSVD, LWSVD2, LWORQ, LWORQ2, LWORLQ, MINWRK, MINWRK2, OPTWRK, OPTWRK2, IMINWRK, RMINWRK
+      LOGICAL     ACCLA,  ACCLM, ACCLH, ASCALED, CONDA, DNTWU,  DNTWV, LQUERY, LSVC0, LSVEC, ROWPRM,  RSVEC, RTRANS, WNTUA, WNTUF,  WNTUR, WNTUS, WNTVA,   WNTVR
       DOUBLE PRECISION BIG, EPSLN, RTMP, SCONDA, SFMIN
 *     .. Local Arrays
       DOUBLE PRECISION RDUMMY(1)
 *     ..
 *     .. External Subroutines (BLAS, LAPACK)
-      EXTERNAL    DGELQF, DGEQP3, DGEQRF, DGESVD, DLACPY, DLAPMT,
-     $            DLASCL, DLASET, DLASWP, DSCAL,  DPOCON, DORMLQ,
-     $            DORMQR, XERBLA
+      EXTERNAL    DGELQF, DGEQP3, DGEQRF, DGESVD, DLACPY, DLAPMT, DLASCL, DLASET, DLASWP, DSCAL,  DPOCON, DORMLQ, DORMQR, XERBLA
 *     ..
 *     .. External Functions (BLAS, LAPACK)
       LOGICAL    LSAME
@@ -104,11 +93,9 @@
          INFO = -7
       ELSE IF ( LDA.LT.MAX( 1, M ) ) THEN
          INFO = -9
-      ELSE IF ( LDU.LT.1 .OR. ( LSVC0 .AND. LDU.LT.M ) .OR.
-     $       ( WNTUF .AND. LDU.LT.N ) ) THEN
+      ELSE IF ( LDU.LT.1 .OR. ( LSVC0 .AND. LDU.LT.M ) .OR. ( WNTUF .AND. LDU.LT.N ) ) THEN
          INFO = -12
-      ELSE IF ( LDV.LT.1 .OR. ( RSVEC .AND. LDV.LT.N ) .OR.
-     $          ( CONDA .AND. LDV.LT.N ) ) THEN
+      ELSE IF ( LDV.LT.1 .OR. ( RSVEC .AND. LDV.LT.N ) .OR. ( CONDA .AND. LDV.LT.N ) ) THEN
          INFO = -14
       ELSE IF ( LIWORK .LT. IMINWRK .AND. .NOT. LQUERY ) THEN
          INFO = -17
@@ -135,16 +122,13 @@
 *        .. DGESVD of an N x N matrix
          LWSVD = MAX( 5 * N, 1 )
          IF ( LQUERY ) THEN
-             CALL DGEQP3( M, N, A, LDA, IWORK, RDUMMY, RDUMMY, -1,
-     $           IERR )
+             CALL DGEQP3( M, N, A, LDA, IWORK, RDUMMY, RDUMMY, -1, IERR )
              LWRK_DGEQP3 = INT( RDUMMY(1) )
              IF ( WNTUS .OR. WNTUR ) THEN
-                 CALL DORMQR( 'L', 'N', M, N, N, A, LDA, RDUMMY, U,
-     $                LDU, RDUMMY, -1, IERR )
+                 CALL DORMQR( 'L', 'N', M, N, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR )
                  LWRK_DORMQR = INT( RDUMMY(1) )
              ELSE IF ( WNTUA ) THEN
-                 CALL DORMQR( 'L', 'N', M, M, N, A, LDA, RDUMMY, U,
-     $                LDU, RDUMMY, -1, IERR )
+                 CALL DORMQR( 'L', 'N', M, M, N, A, LDA, RDUMMY, U, LDU, RDUMMY, -1, IERR )
                  LWRK_DORMQR = INT( RDUMMY(1) )
              ELSE
                  LWRK_DORMQR = 0
@@ -161,8 +145,7 @@
                 MINWRK = MAX( N+LWQP3, LWSVD )
              END IF
              IF ( LQUERY ) THEN
-                 CALL DGESVD( 'N', 'N', N, N, A, LDA, S, U, LDU,
-     $                V, LDV, RDUMMY, -1, IERR )
+                 CALL DGESVD( 'N', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                  LWRK_DGESVD = INT( RDUMMY(1) )
                  IF ( CONDA ) THEN
                     OPTWRK = MAX( N+LWRK_DGEQP3, N+LWCON, LWRK_DGESVD )
@@ -180,19 +163,15 @@
              END IF
              IF ( LQUERY ) THEN
                 IF ( RTRANS ) THEN
-                   CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU,
-     $                  V, LDV, RDUMMY, -1, IERR )
+                   CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                 ELSE
-                   CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU,
-     $                  V, LDV, RDUMMY, -1, IERR )
+                   CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                 END IF
                 LWRK_DGESVD = INT( RDUMMY(1) )
                 IF ( CONDA ) THEN
-                    OPTWRK = N + MAX( LWRK_DGEQP3, LWCON, LWRK_DGESVD,
-     $                               LWRK_DORMQR )
+                    OPTWRK = N + MAX( LWRK_DGEQP3, LWCON, LWRK_DGESVD, LWRK_DORMQR )
                 ELSE
-                    OPTWRK = N + MAX( LWRK_DGEQP3, LWRK_DGESVD,
-     $                               LWRK_DORMQR )
+                    OPTWRK = N + MAX( LWRK_DGEQP3, LWRK_DGESVD, LWRK_DORMQR )
                 END IF
              END IF
          ELSE IF ( RSVEC .AND. (.NOT.LSVEC) ) THEN
@@ -205,11 +184,9 @@
              END IF
              IF ( LQUERY ) THEN
                  IF ( RTRANS ) THEN
-                     CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU,
-     $                    V, LDV, RDUMMY, -1, IERR )
+                     CALL DGESVD( 'O', 'N', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                  ELSE
-                     CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU,
-     $                    V, LDV, RDUMMY, -1, IERR )
+                     CALL DGESVD( 'N', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                  END IF
                  LWRK_DGESVD = INT( RDUMMY(1) )
                  IF ( CONDA ) THEN
@@ -231,8 +208,7 @@
 *                   .. minimal workspace length for N/2 x N/2 DGESVD
                     LWSVD2 = MAX( 5 * (N/2), 1 )
                     LWORQ2 = MAX( N, 1 )
-                    MINWRK2 = MAX( LWQP3, N/2+LWQRF, N/2+LWSVD2,
-     $                        N/2+LWORQ2, LWORQ )
+                    MINWRK2 = MAX( LWQP3, N/2+LWQRF, N/2+LWSVD2, N/2+LWORQ2, LWORQ )
                     IF ( CONDA ) MINWRK2 = MAX( MINWRK2, LWCON )
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
@@ -246,8 +222,7 @@
                     LWLQF  = MAX( N/2, 1 )
                     LWSVD2 = MAX( 5 * (N/2), 1 )
                     LWORLQ = MAX( N , 1 )
-                    MINWRK2 = MAX( LWQP3, N/2+LWLQF, N/2+LWSVD2,
-     $                        N/2+LWORLQ, LWORQ )
+                    MINWRK2 = MAX( LWQP3, N/2+LWLQF, N/2+LWSVD2, N/2+LWORLQ, LWORQ )
                     IF ( CONDA ) MINWRK2 = MAX( MINWRK2, LWCON )
                     MINWRK2 = N + MINWRK2
                     MINWRK = MAX( MINWRK, MINWRK2 )
@@ -255,8 +230,7 @@
              END IF
              IF ( LQUERY ) THEN
                 IF ( RTRANS ) THEN
-                   CALL DGESVD( 'O', 'A', N, N, A, LDA, S, U, LDU,
-     $                  V, LDV, RDUMMY, -1, IERR )
+                   CALL DGESVD( 'O', 'A', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                    LWRK_DGESVD = INT( RDUMMY(1) )
                    OPTWRK = MAX(LWRK_DGEQP3,LWRK_DGESVD,LWRK_DORMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
@@ -264,21 +238,17 @@
                    IF ( WNTVA ) THEN
                        CALL DGEQRF(N,N/2,U,LDU,RDUMMY,RDUMMY,-1,IERR)
                        LWRK_DGEQRF = INT( RDUMMY(1) )
-                       CALL DGESVD( 'S', 'O', N/2,N/2, V,LDV, S, U,LDU,
-     $                      V, LDV, RDUMMY, -1, IERR )
+                       CALL DGESVD( 'S', 'O', N/2,N/2, V,LDV, S, U,LDU, V, LDV, RDUMMY, -1, IERR )
                        LWRK_DGESVD2 = INT( RDUMMY(1) )
-                       CALL DORMQR( 'R', 'C', N, N, N/2, U, LDU, RDUMMY,
-     $                      V, LDV, RDUMMY, -1, IERR )
+                       CALL DORMQR( 'R', 'C', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY, -1, IERR )
                        LWRK_DORMQR2 = INT( RDUMMY(1) )
-                       OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGEQRF,
-     $                           N/2+LWRK_DGESVD2, N/2+LWRK_DORMQR2 )
+                       OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGEQRF, N/2+LWRK_DGESVD2, N/2+LWRK_DORMQR2 )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
                    END IF
                 ELSE
-                   CALL DGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU,
-     $                  V, LDV, RDUMMY, -1, IERR )
+                   CALL DGESVD( 'S', 'O', N, N, A, LDA, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                    LWRK_DGESVD = INT( RDUMMY(1) )
                    OPTWRK = MAX(LWRK_DGEQP3,LWRK_DGESVD,LWRK_DORMQR)
                    IF ( CONDA ) OPTWRK = MAX( OPTWRK, LWCON )
@@ -286,14 +256,11 @@
                    IF ( WNTVA ) THEN
                       CALL DGELQF(N/2,N,U,LDU,RDUMMY,RDUMMY,-1,IERR)
                       LWRK_DGELQF = INT( RDUMMY(1) )
-                      CALL DGESVD( 'S','O', N/2,N/2, V, LDV, S, U, LDU,
-     $                     V, LDV, RDUMMY, -1, IERR )
+                      CALL DGESVD( 'S','O', N/2,N/2, V, LDV, S, U, LDU, V, LDV, RDUMMY, -1, IERR )
                       LWRK_DGESVD2 = INT( RDUMMY(1) )
-                      CALL DORMLQ( 'R', 'N', N, N, N/2, U, LDU, RDUMMY,
-     $                     V, LDV, RDUMMY,-1,IERR )
+                      CALL DORMLQ( 'R', 'N', N, N, N/2, U, LDU, RDUMMY, V, LDV, RDUMMY,-1,IERR )
                       LWRK_DORMLQ = INT( RDUMMY(1) )
-                      OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGELQF,
-     $                           N/2+LWRK_DGESVD2, N/2+LWRK_DORMLQ )
+                      OPTWRK2 = MAX( LWRK_DGEQP3, N/2+LWRK_DGELQF, N/2+LWRK_DGESVD2, N/2+LWRK_DORMLQ )
                        IF ( CONDA ) OPTWRK2 = MAX( OPTWRK2, LWCON )
                        OPTWRK2 = N + OPTWRK2
                        OPTWRK = MAX( OPTWRK, OPTWRK2 )
@@ -345,8 +312,7 @@
 *               [[DLANGE will return NaN if an entry of the p-th row is Nan]]
                 RWORK(p) = DLANGE( 'M', 1, N, A(p,1), LDA, RDUMMY )
 *               .. check for NaN's and Inf's
-                IF ( ( RWORK(p) .NE. RWORK(p) ) .OR.
-     $               ( (RWORK(p)*ZERO) .NE. ZERO ) ) THEN
+                IF ( ( RWORK(p) .NE. RWORK(p) ) .OR. ( (RWORK(p)*ZERO) .NE. ZERO ) ) THEN
                     INFO = -8
                     CALL XERBLA( 'DGESVDQ', -INFO )
                     RETURN
@@ -402,8 +368,7 @@
 *
       IF ( .NOT.ROWPRM ) THEN
           RTMP = DLANGE( 'M', M, N, A, LDA, RDUMMY )
-          IF ( ( RTMP .NE. RTMP ) .OR.
-     $         ( (RTMP*ZERO) .NE. ZERO ) ) THEN
+          IF ( ( RTMP .NE. RTMP ) .OR. ( (RTMP*ZERO) .NE. ZERO ) ) THEN
                INFO = -8
                CALL XERBLA( 'DGESVDQ', -INFO )
                RETURN
@@ -425,8 +390,7 @@
 *        .. all columns are free columns
          IWORK(p) = 0
  1963 CONTINUE
-      CALL DGEQP3( M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N,
-     $      IERR )
+      CALL DGEQP3( M, N, A, LDA, IWORK, WORK, WORK(N+1), LWORK-N, IERR )
 *
 *    If the user requested accuracy level allows truncation in the
 *    computed upper triangular factor, the matrix R is examined and,
@@ -460,8 +424,7 @@
 *        will be truncated.
          NR = 1
          DO 3401 p = 2, N
-            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR.
-     $           ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
+            IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
             NR = NR + 1
  3401    CONTINUE
  3402    CONTINUE
@@ -493,11 +456,9 @@
                   CALL DSCAL( p, ONE/RTMP, V(1,p), 1 )
  3053          CONTINUE
                IF ( .NOT. ( LSVEC .OR. RSVEC ) ) THEN
-                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP,
-     $                  WORK, IWORK(N+IWOFF), IERR )
+                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK, IWORK(N+IWOFF), IERR )
                ELSE
-                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP,
-     $                  WORK(N+1), IWORK(N+IWOFF), IERR )
+                   CALL DPOCON( 'U', NR, V, LDV, ONE, RTMP, WORK(N+1), IWORK(N+IWOFF), IERR )
                END IF
                SCONDA = ONE / SQRT(RTMP)
 *           For NR=N, SCONDA is an estimate of SQRT(||(R^* * R)^(-1)||_1),
@@ -531,17 +492,13 @@
  1147          CONTINUE
  1146       CONTINUE
 *
-            CALL DGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU,
-     $           V, LDV, WORK, LWORK, INFO )
+            CALL DGESVD( 'N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
 *
          ELSE
 *
 *           .. compute the singular values of R = [A](1:NR,1:N)
 *
-            IF ( NR .GT. 1 )
-     $          CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA )
-            CALL DGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU,
-     $           V, LDV, WORK, LWORK, INFO )
+            IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA )             CALL DGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO )
 *
          END IF
 *
@@ -558,13 +515,11 @@
                   U(q,p) = A(p,q)
  1193          CONTINUE
  1192       CONTINUE
-            IF ( NR .GT. 1 )
-     $          CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU )
+            IF ( NR .GT. 1 ) CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, U(1,2), LDU )
 *           .. the left singular vectors not computed, the NR right singular
 *           vectors overwrite [U](1:NR,1:NR) as transposed. These
 *           will be pre-multiplied by Q to build the left singular vectors of A.
-               CALL DGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU,
-     $              U, LDU, WORK(N+1), LWORK-N, INFO )
+               CALL DGESVD( 'N', 'O', N, NR, U, LDU, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
 *
                DO 1119 p = 1, NR
                    DO 1120 q = p + 1, NR
@@ -578,12 +533,10 @@
 *            .. apply DGESVD to R
 *            .. copy R into [U] and overwrite [U] with the left singular vectors
              CALL DLACPY( 'U', NR, N, A, LDA, U, LDU )
-             IF ( NR .GT. 1 )
-     $         CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, U(2,1), LDU )
+             IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, U(2,1), LDU )
 *            .. the right singular vectors not computed, the NR left singular
 *            vectors overwrite [U](1:NR,1:NR)
-                CALL DGESVD( 'O', 'N', NR, N, U, LDU, S, U, LDU,
-     $               V, LDV, WORK(N+1), LWORK-N, INFO )
+                CALL DGESVD( 'O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
 *               .. now [U](1:NR,1:NR) contains the NR left singular vectors of
 *               R. These will be pre-multiplied by Q to build the left singular
 *               vectors of A.
@@ -595,19 +548,15 @@
              CALL DLASET('A', M-NR, NR, ZERO, ZERO, U(NR+1,1), LDU)
              IF ( NR .LT. N1 ) THEN
                 CALL DLASET( 'A',NR,N1-NR,ZERO,ZERO,U(1,NR+1), LDU )
-                CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE,
-     $               U(NR+1,NR+1), LDU )
+                CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
              END IF
          END IF
 *
 *           The Q matrix from the first QRF is built into the left singular
 *           vectors matrix U.
 *
-         IF ( .NOT.WNTUF )
-     $       CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U,
-     $            LDU, WORK(N+1), LWORK-N, IERR )
-         IF ( ROWPRM .AND. .NOT.WNTUF )
-     $          CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
+         IF ( .NOT.WNTUF ) CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+         IF ( ROWPRM .AND. .NOT.WNTUF ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
 *
       ELSE IF ( RSVEC .AND. ( .NOT. LSVEC ) ) THEN
 *.......................................................................
@@ -621,13 +570,11 @@
                   V(q,p) = (A(p,q))
  1166          CONTINUE
  1165       CONTINUE
-            IF ( NR .GT. 1 )
-     $          CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
+            IF ( NR .GT. 1 ) CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
 *           .. the left singular vectors of R**T overwrite V, the right singular
 *           vectors not computed
             IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
-               CALL DGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU,
-     $              U, LDU, WORK(N+1), LWORK-N, INFO )
+               CALL DGESVD( 'O', 'N', N, NR, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
 *
                DO 1121 p = 1, NR
                    DO 1122 q = p + 1, NR
@@ -652,8 +599,7 @@
 *               way is to first use the QR factorization. For more details
 *               how to implement this, see the " FULL SVD " branch.
                 CALL DLASET('G', N, N-NR, ZERO, ZERO, V(1,NR+1), LDV)
-                CALL DGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU,
-     $               U, LDU, WORK(N+1), LWORK-N, INFO )
+                CALL DGESVD( 'O', 'N', N, N, V, LDV, S, U, LDU, U, LDU, WORK(N+1), LWORK-N, INFO )
 *
                 DO 1123 p = 1, N
                    DO 1124 q = p + 1, N
@@ -669,13 +615,11 @@
 *            .. aply DGESVD to R
 *            .. copy R into V and overwrite V with the right singular vectors
              CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
-             IF ( NR .GT. 1 )
-     $         CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV )
+             IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1, NR-1, ZERO, ZERO, V(2,1), LDV )
 *            .. the right singular vectors overwrite V, the NR left singular
 *            vectors stored in U(1:NR,1:NR)
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
-                CALL DGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU,
-     $               V, LDV, WORK(N+1), LWORK-N, INFO )
+                CALL DGESVD( 'N', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
                 CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
 *               .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
              ELSE
@@ -685,8 +629,7 @@
 *               way is to first use the LQ factorization. For more details
 *               how to implement this, see the " FULL SVD " branch.
                  CALL DLASET('G', N-NR, N, ZERO,ZERO, V(NR+1,1), LDV)
-                 CALL DGESVD( 'N', 'O', N, N, V, LDV, S, U, LDU,
-     $                V, LDV, WORK(N+1), LWORK-N, INFO )
+                 CALL DGESVD( 'N', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
                  CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
              END IF
 *            .. now [V] contains the transposed matrix of the right singular
@@ -709,13 +652,11 @@
                   V(q,p) = A(p,q)
  1169          CONTINUE
  1168       CONTINUE
-            IF ( NR .GT. 1 )
-     $          CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
+            IF ( NR .GT. 1 ) CALL DLASET( 'U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV )
 *
 *           .. the left singular vectors of R**T overwrite [V], the NR right
 *           singular vectors of R**T stored in [U](1:NR,1:NR) as transposed
-               CALL DGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV,
-     $              U, LDU, WORK(N+1), LWORK-N, INFO )
+               CALL DGESVD( 'O', 'A', N, NR, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
 *              .. assemble V
                DO 1115 p = 1, NR
                   DO 1116 q = p + 1, NR
@@ -745,8 +686,7 @@
                   CALL DLASET('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU)
                   IF ( NR .LT. N1 ) THEN
                      CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE,
-     $                    U(NR+1,NR+1), LDU )
+                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
 *
@@ -766,12 +706,10 @@
                          V(q,p) = A(p,q)
  1199                 CONTINUE
  1198              CONTINUE
-                   IF ( NR .GT. 1 )
-     $             CALL DLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV)
+                   IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1, ZERO,ZERO, V(1,2),LDV)
 *
                    CALL DLASET('A',N,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
-                   CALL DGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV,
-     $                  U, LDU, WORK(N+1), LWORK-N, INFO )
+                   CALL DGESVD( 'O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, WORK(N+1), LWORK-N, INFO )
 *
                    DO 1113 p = 1, N
                       DO 1114 q = p + 1, N
@@ -796,8 +734,7 @@
                       CALL DLASET('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU)
                       IF ( N .LT. N1 ) THEN
                         CALL DLASET('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU)
-                        CALL DLASET('A',M-N,N1-N,ZERO,ONE,
-     $                       U(N+1,N+1), LDU )
+                        CALL DLASET('A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
                       END IF
                    END IF
                 ELSE
@@ -808,23 +745,18 @@
                          U(q,NR+p) = A(p,q)
  1197                 CONTINUE
  1196              CONTINUE
-                   IF ( NR .GT. 1 )
-     $             CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU)
-                   CALL DGEQRF( N, NR, U(1,NR+1), LDU, WORK(N+1),
-     $                  WORK(N+NR+1), LWORK-N-NR, IERR )
+                   IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU)                    CALL DGEQRF( N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR )
                    DO 1143 p = 1, NR
                        DO 1144 q = 1, N
                            V(q,p) = U(p,NR+q)
  1144                  CONTINUE
  1143              CONTINUE
                   CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)
-                  CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU,
-     $                 V,LDV, WORK(N+NR+1),LWORK-N-NR, INFO )
+                  CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, WORK(N+NR+1),LWORK-N-NR, INFO )
                   CALL DLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
                   CALL DLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
                   CALL DLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
-                  CALL DORMQR('R','C', N, N, NR, U(1,NR+1), LDU,
-     $                 WORK(N+1),V,LDV,WORK(N+NR+1),LWORK-N-NR,IERR)
+                  CALL DORMQR('R','C', N, N, NR, U(1,NR+1), LDU, WORK(N+1),V,LDV,WORK(N+NR+1),LWORK-N-NR,IERR)
                   CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
 *                 .. assemble the left singular vector matrix U of dimensions
 *                 (M x NR) or (M x N) or (M x M).
@@ -832,8 +764,7 @@
                      CALL DLASET('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU)
                      IF ( NR .LT. N1 ) THEN
                      CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE,
-     $                    U(NR+1,NR+1),LDU)
+                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1),LDU)
                      END IF
                   END IF
                 END IF
@@ -846,12 +777,10 @@
              IF ( WNTVR .OR. ( NR .EQ. N ) ) THEN
 *                .. copy R into [V] and overwrite V with the right singular vectors
                  CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
-                IF ( NR .GT. 1 )
-     $          CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV )
+                IF ( NR .GT. 1 ) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, V(2,1), LDV )
 *               .. the right singular vectors of R overwrite [V], the NR left
 *               singular vectors of R stored in [U](1:NR,1:NR)
-                CALL DGESVD( 'S', 'O', NR, N, V, LDV, S, U, LDU,
-     $               V, LDV, WORK(N+1), LWORK-N, INFO )
+                CALL DGESVD( 'S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
                 CALL DLAPMT( .FALSE., NR, N, V, LDV, IWORK )
 *               .. now [V](1:NR,1:N) contains V(1:N,1:NR)**T
 *               .. assemble the left singular vector matrix U of dimensions
@@ -860,8 +789,7 @@
                   CALL DLASET('A', M-NR,NR, ZERO,ZERO, U(NR+1,1), LDU)
                   IF ( NR .LT. N1 ) THEN
                      CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE,
-     $                    U(NR+1,NR+1), LDU )
+                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
                   END IF
                END IF
 *
@@ -877,13 +805,11 @@
                OPTRATIO = 2
                IF ( OPTRATIO * NR .GT. N ) THEN
                   CALL DLACPY( 'U', NR, N, A, LDA, V, LDV )
-                  IF ( NR .GT. 1 )
-     $            CALL DLASET('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV)
+                  IF ( NR .GT. 1 ) CALL DLASET('L', NR-1,NR-1, ZERO,ZERO, V(2,1),LDV)
 *              .. the right singular vectors of R overwrite [V], the NR left
 *                 singular vectors of R stored in [U](1:NR,1:NR)
                   CALL DLASET('A', N-NR,N, ZERO,ZERO, V(NR+1,1),LDV)
-                  CALL DGESVD( 'S', 'O', N, N, V, LDV, S, U, LDU,
-     $                 V, LDV, WORK(N+1), LWORK-N, INFO )
+                  CALL DGESVD( 'S', 'O', N, N, V, LDV, S, U, LDU, V, LDV, WORK(N+1), LWORK-N, INFO )
                   CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
 *                 .. now [V] contains the transposed matrix of the right
 *                 singular vectors of A. The leading N left singular vectors
@@ -894,26 +820,18 @@
                       CALL DLASET('A',M-N,N,ZERO,ZERO,U(N+1,1),LDU)
                       IF ( N .LT. N1 ) THEN
                         CALL DLASET('A',N,N1-N,ZERO,ZERO,U(1,N+1),LDU)
-                        CALL DLASET( 'A',M-N,N1-N,ZERO,ONE,
-     $                       U(N+1,N+1), LDU )
+                        CALL DLASET( 'A',M-N,N1-N,ZERO,ONE, U(N+1,N+1), LDU )
                       END IF
                   END IF
                ELSE
                   CALL DLACPY( 'U', NR, N, A, LDA, U(NR+1,1), LDU )
-                  IF ( NR .GT. 1 )
-     $            CALL DLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)
-                  CALL DGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1),
-     $                 WORK(N+NR+1), LWORK-N-NR, IERR )
+                  IF ( NR .GT. 1 ) CALL DLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)                   CALL DGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR )
                   CALL DLACPY('L',NR,NR,U(NR+1,1),LDU,V,LDV)
-                  IF ( NR .GT. 1 )
-     $            CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)
-                  CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU,
-     $                 V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO )
+                  IF ( NR .GT. 1 ) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)                   CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO )
                   CALL DLASET('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV)
                   CALL DLASET('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV)
                   CALL DLASET('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV)
-                  CALL DORMLQ('R','N',N,N,NR,U(NR+1,1),LDU,WORK(N+1),
-     $                 V, LDV, WORK(N+NR+1),LWORK-N-NR,IERR)
+                  CALL DORMLQ('R','N',N,N,NR,U(NR+1,1),LDU,WORK(N+1), V, LDV, WORK(N+NR+1),LWORK-N-NR,IERR)
                   CALL DLAPMT( .FALSE., N, N, V, LDV, IWORK )
 *               .. assemble the left singular vector matrix U of dimensions
 *              (M x NR) or (M x N) or (M x M).
@@ -921,8 +839,7 @@
                      CALL DLASET('A',M-NR,NR,ZERO,ZERO,U(NR+1,1),LDU)
                      IF ( NR .LT. N1 ) THEN
                      CALL DLASET('A',NR,N1-NR,ZERO,ZERO,U(1,NR+1),LDU)
-                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE,
-     $                    U(NR+1,NR+1), LDU )
+                     CALL DLASET( 'A',M-NR,N1-NR,ZERO,ONE, U(NR+1,NR+1), LDU )
                      END IF
                   END IF
                END IF
@@ -933,11 +850,8 @@
 *           The Q matrix from the first QRF is built into the left singular
 *           vectors matrix U.
 *
-         IF ( .NOT. WNTUF )
-     $       CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U,
-     $            LDU, WORK(N+1), LWORK-N, IERR )
-         IF ( ROWPRM .AND. .NOT.WNTUF )
-     $          CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
+         IF ( .NOT. WNTUF ) CALL DORMQR( 'L', 'N', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR )
+         IF ( ROWPRM .AND. .NOT.WNTUF ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 )
 *
 *     ... end of the "full SVD" branch
       END IF
@@ -956,8 +870,7 @@
       IF ( NR .LT. N ) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N )
 *     .. undo scaling; this may cause overflow in the largest singular
 *     values.
-      IF ( ASCALED )
-     $   CALL DLASCL( 'G',0,0, ONE,SQRT(DBLE(M)), NR,1, S, N, IERR )
+      IF ( ASCALED ) CALL DLASCL( 'G',0,0, ONE,SQRT(DBLE(M)), NR,1, S, N, IERR )
       IF ( CONDA ) RWORK(1) = SCONDA
       RWORK(2) = p - NR
 *     .. p-NR is the number of singular values that are computed as

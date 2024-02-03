@@ -1,6 +1,4 @@
-      SUBROUTINE ZCHKPB( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL,
-     $                   THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X,
-     $                   XACT, WORK, RWORK, NOUT )
+      SUBROUTINE ZCHKPB( DOTYPE, NN, NVAL, NNB, NBVAL, NNS, NSVAL, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            NBVAL( * ), NSVAL( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      COMPLEX*16         A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,10 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, PACKIT, TYPE, UPLO, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IKD, IMAT, IN, INB, INFO, IOFF,
-     $                   IRHS, IUPLO, IW, IZERO, K, KD, KL, KOFF, KU,
-     $                   LDA, LDAB, MODE, N, NB, NERRS, NFAIL, NIMAT,
-     $                   NKD, NRHS, NRUN
+      INTEGER            I, I1, I2, IKD, IMAT, IN, INB, INFO, IOFF, IRHS, IUPLO, IW, IZERO, K, KD, KL, KOFF, KU, LDA, LDAB, MODE, N, NB, NERRS, NFAIL, NIMAT, NKD, NRHS, NRUN
       DOUBLE PRECISION   AINVNM, ANORM, CNDNUM, RCOND, RCONDC
 *     ..
 *     .. Local Arrays ..
@@ -48,10 +42,7 @@
       EXTERNAL           DGET06, ZLANGE, ZLANHB
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZCOPY, ZERRPO,
-     $                   ZGET04, ZLACPY, ZLAIPD, ZLARHS, ZLASET, ZLATB4,
-     $                   ZLATMS, ZPBCON, ZPBRFS, ZPBT01, ZPBT02, ZPBT05,
-     $                   ZPBTRF, ZPBTRS, ZSWAP
+      EXTERNAL           ALAERH, ALAHD, ALASUM, XLAENV, ZCOPY, ZERRPO, ZGET04, ZLACPY, ZLAIPD, ZLARHS, ZLASET, ZLATB4, ZLATMS, ZPBCON, ZPBRFS, ZPBT01, ZPBT02, ZPBT05, ZPBTRF, ZPBTRS, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DCMPLX, MAX, MIN
@@ -83,8 +74,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL ZERRPO( PATH, NOUT )
+      IF( TSTERR ) CALL ZERRPO( PATH, NOUT )
       INFOT = 0
       KDVAL( 1 ) = 0
 *
@@ -99,8 +89,7 @@
 *
          NKD = MAX( 1, MIN( N, 4 ) )
          NIMAT = NTYPES
-         IF( N.EQ.0 )
-     $      NIMAT = 1
+         IF( N.EQ.0 ) NIMAT = 1
 *
          KDVAL( 2 ) = N + ( N+1 ) / 4
          KDVAL( 3 ) = ( 3*N-1 ) / 4
@@ -132,34 +121,27 @@
 *
 *                 Do the tests only if DOTYPE( IMAT ) is true.
 *
-                  IF( .NOT.DOTYPE( IMAT ) )
-     $               GO TO 60
+                  IF( .NOT.DOTYPE( IMAT ) ) GO TO 60
 *
 *                 Skip types 2, 3, or 4 if the matrix size is too small.
 *
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 )
-     $               GO TO 60
+                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 60
 *
                   IF( .NOT.ZEROT .OR. .NOT.DOTYPE( 1 ) ) THEN
 *
 *                    Set up parameters with ZLATB4 and generate a test
 *                    matrix with ZLATMS.
 *
-                     CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM,
-     $                            MODE, CNDNUM, DIST )
+                     CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                      SRNAMT = 'ZLATMS'
-                     CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                            CNDNUM, ANORM, KD, KD, PACKIT,
-     $                            A( KOFF ), LDAB, WORK, INFO )
+                     CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KD, KD, PACKIT, A( KOFF ), LDAB, WORK, INFO )
 *
 *                    Check error code from ZLATMS.
 *
                      IF( INFO.NE.0 ) THEN
-                        CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N,
-     $                               N, KD, KD, -1, IMAT, NFAIL, NERRS,
-     $                               NOUT )
+                        CALL ALAERH( PATH, 'ZLATMS', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 60
                      END IF
                   ELSE IF( IZERO.GT.0 ) THEN
@@ -170,20 +152,15 @@
                      IW = 2*LDA + 1
                      IF( IUPLO.EQ.1 ) THEN
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1,
-     $                              A( IOFF-IZERO+I1 ), 1 )
+                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF-IZERO+I1 ), 1 )
                         IW = IW + IZERO - I1
-                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1,
-     $                              A( IOFF ), MAX( LDAB-1, 1 ) )
+                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), MAX( LDAB-1, 1 ) )
                      ELSE
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1,
-     $                              A( IOFF+IZERO-I1 ),
-     $                              MAX( LDAB-1, 1 ) )
+                        CALL ZCOPY( IZERO-I1, WORK( IW ), 1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ) )
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1,
-     $                              A( IOFF ), 1 )
+                        CALL ZCOPY( I2-IZERO+1, WORK( IW ), 1, A( IOFF ), 1 )
                      END IF
                   END IF
 *
@@ -212,19 +189,15 @@
 *
                      IF( IUPLO.EQ.1 ) THEN
                         IOFF = ( IZERO-1 )*LDAB + KD + 1
-                        CALL ZSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1,
-     $                              WORK( IW ), 1 )
+                        CALL ZSWAP( IZERO-I1, A( IOFF-IZERO+I1 ), 1, WORK( IW ), 1 )
                         IW = IW + IZERO - I1
-                        CALL ZSWAP( I2-IZERO+1, A( IOFF ),
-     $                              MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        CALL ZSWAP( I2-IZERO+1, A( IOFF ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
                      ELSE
                         IOFF = ( I1-1 )*LDAB + 1
-                        CALL ZSWAP( IZERO-I1, A( IOFF+IZERO-I1 ),
-     $                              MAX( LDAB-1, 1 ), WORK( IW ), 1 )
+                        CALL ZSWAP( IZERO-I1, A( IOFF+IZERO-I1 ), MAX( LDAB-1, 1 ), WORK( IW ), 1 )
                         IOFF = ( IZERO-1 )*LDAB + 1
                         IW = IW + IZERO - I1
-                        CALL ZSWAP( I2-IZERO+1, A( IOFF ), 1,
-     $                              WORK( IW ), 1 )
+                        CALL ZSWAP( I2-IZERO+1, A( IOFF ), 1, WORK( IW ), 1 )
                      END IF
                   END IF
 *
@@ -252,50 +225,38 @@
 *                    Check error code from ZPBTRF.
 *
                      IF( INFO.NE.IZERO ) THEN
-                        CALL ALAERH( PATH, 'ZPBTRF', INFO, IZERO, UPLO,
-     $                               N, N, KD, KD, NB, IMAT, NFAIL,
-     $                               NERRS, NOUT )
+                        CALL ALAERH( PATH, 'ZPBTRF', INFO, IZERO, UPLO, N, N, KD, KD, NB, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 50
                      END IF
 *
 *                    Skip the tests if INFO is not 0.
 *
-                     IF( INFO.NE.0 )
-     $                  GO TO 50
+                     IF( INFO.NE.0 ) GO TO 50
 *
 *+    TEST 1
 *                    Reconstruct matrix from factors and compute
 *                    residual.
 *
-                     CALL ZLACPY( 'Full', KD+1, N, AFAC, LDAB, AINV,
-     $                            LDAB )
-                     CALL ZPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB,
-     $                            RWORK, RESULT( 1 ) )
+                     CALL ZLACPY( 'Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL ZPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) )
 *
 *                    Print the test ratio if it is .GE. THRESH.
 *
                      IF( RESULT( 1 ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT,
-     $                     1, RESULT( 1 )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, KD, NB, IMAT, 1, RESULT( 1 )
                         NFAIL = NFAIL + 1
                      END IF
                      NRUN = NRUN + 1
 *
 *                    Only do other tests if this is the first blocksize.
 *
-                     IF( INB.GT.1 )
-     $                  GO TO 50
+                     IF( INB.GT.1 ) GO TO 50
 *
 *                    Form the inverse of A so we can get a good estimate
 *                    of RCONDC = 1/(norm(A) * norm(inv(A))).
 *
-                     CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ),
-     $                            DCMPLX( ONE ), AINV, LDA )
+                     CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ONE ), AINV, LDA )
                      SRNAMT = 'ZPBTRS'
-                     CALL ZPBTRS( UPLO, N, KD, N, AFAC, LDAB, AINV, LDA,
-     $                            INFO )
+                     CALL ZPBTRS( UPLO, N, KD, N, AFAC, LDAB, AINV, LDA, INFO )
 *
 *                    Compute RCONDC = 1/(norm(A) * norm(inv(A))).
 *
@@ -314,64 +275,41 @@
 *                    Solve and compute residual for A * X = B.
 *
                         SRNAMT = 'ZLARHS'
-                        CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD,
-     $                               KD, NRHS, A, LDAB, XACT, LDA, B,
-     $                               LDA, ISEED, INFO )
+                        CALL ZLARHS( PATH, XTYPE, UPLO, ' ', N, N, KD, KD, NRHS, A, LDAB, XACT, LDA, B, LDA, ISEED, INFO )
                         CALL ZLACPY( 'Full', N, NRHS, B, LDA, X, LDA )
 *
                         SRNAMT = 'ZPBTRS'
-                        CALL ZPBTRS( UPLO, N, KD, NRHS, AFAC, LDAB, X,
-     $                               LDA, INFO )
+                        CALL ZPBTRS( UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO )
 *
 *                    Check error code from ZPBTRS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO,
-     $                                  N, N, KD, KD, NRHS, IMAT, NFAIL,
-     $                                  NERRS, NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK,
-     $                               LDA )
-                        CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA,
-     $                               WORK, LDA, RWORK, RESULT( 2 ) )
+                        CALL ZLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) )
 *
 *+    TEST 3
 *                    Check solution from generated exact solution.
 *
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 3 ) )
+                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
 *
 *+    TESTS 4, 5, and 6
 *                    Use iterative refinement to improve the solution.
 *
                         SRNAMT = 'ZPBRFS'
-                        CALL ZPBRFS( UPLO, N, KD, NRHS, A, LDAB, AFAC,
-     $                               LDAB, B, LDA, X, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), WORK,
-     $                               RWORK( 2*NRHS+1 ), INFO )
+                        CALL ZPBRFS( UPLO, N, KD, NRHS, A, LDAB, AFAC, LDAB, B, LDA, X, LDA, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *                    Check error code from ZPBRFS.
 *
-                        IF( INFO.NE.0 )
-     $                     CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO,
-     $                                  N, N, KD, KD, NRHS, IMAT, NFAIL,
-     $                                  NERRS, NOUT )
+                        IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
-                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC,
-     $                               RESULT( 4 ) )
-                        CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA,
-     $                               X, LDA, XACT, LDA, RWORK,
-     $                               RWORK( NRHS+1 ), RESULT( 5 ) )
+                        CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) )
 *
 *                       Print information about the tests that did not
 *                       pass the threshold.
 *
                         DO 30 K = 2, 6
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALAHD( NOUT, PATH )
-                              WRITE( NOUT, FMT = 9998 )UPLO, N, KD,
-     $                           NRHS, IMAT, K, RESULT( K )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            END IF
    30                   CONTINUE
@@ -382,25 +320,18 @@
 *                    Get an estimate of RCOND = 1/CNDNUM.
 *
                      SRNAMT = 'ZPBCON'
-                     CALL ZPBCON( UPLO, N, KD, AFAC, LDAB, ANORM, RCOND,
-     $                            WORK, RWORK, INFO )
+                     CALL ZPBCON( UPLO, N, KD, AFAC, LDAB, ANORM, RCOND, WORK, RWORK, INFO )
 *
 *                    Check error code from ZPBCON.
 *
-                     IF( INFO.NE.0 )
-     $                  CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N,
-     $                               N, KD, KD, -1, IMAT, NFAIL, NERRS,
-     $                               NOUT )
+                     IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZPBCON', INFO, 0, UPLO, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT )
 *
                      RESULT( 7 ) = DGET06( RCOND, RCONDC )
 *
 *                    Print the test ratio if it is .GE. THRESH.
 *
                      IF( RESULT( 7 ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7,
-     $                     RESULT( 7 )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9997 )UPLO, N, KD, IMAT, 7, RESULT( 7 )
                         NFAIL = NFAIL + 1
                      END IF
                      NRUN = NRUN + 1

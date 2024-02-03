@@ -21,8 +21,7 @@
       PARAMETER          ( HALF = 0.5D0, FOUR = 4.0D0 )
 *     ..
 *     .. Local Scalars ..
-      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS,
-     $                   NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2
+      DOUBLE PRECISION   ABSALP, ABSEST, ABSGAM, ALPHA, B, COSINE, EPS, NORMA, S1, S2, SINE, T, TEST, TMP, ZETA1, ZETA2
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, SIGN, SQRT
@@ -187,8 +186,7 @@
             ZETA1 = ALPHA / ABSEST
             ZETA2 = GAMMA / ABSEST
 *
-            NORMA = MAX( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ),
-     $              ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 )
+            NORMA = MAX( ONE+ZETA1*ZETA1+ABS( ZETA1*ZETA2 ), ABS( ZETA1*ZETA2 )+ZETA2*ZETA2 )
 *
 *           See if root is closer to zero or to ONE
 *

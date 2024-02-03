@@ -56,14 +56,12 @@
             JJ = 0
             DO 10 INFO = 1, N
                JJ = JJ + INFO
-               IF( AP( JJ ).EQ.ZERO )
-     $            RETURN
+               IF( AP( JJ ).EQ.ZERO ) RETURN
    10       CONTINUE
          ELSE
             JJ = 1
             DO 20 INFO = 1, N
-               IF( AP( JJ ).EQ.ZERO )
-     $            RETURN
+               IF( AP( JJ ).EQ.ZERO ) RETURN
                JJ = JJ + N - INFO + 1
    20       CONTINUE
          END IF
@@ -85,8 +83,7 @@
 *
 *           Compute elements 1:j-1 of j-th column.
 *
-            CALL STPMV( 'Upper', 'No transpose', DIAG, J-1, AP,
-     $                  AP( JC ), 1 )
+            CALL STPMV( 'Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 )
             CALL SSCAL( J-1, AJJ, AP( JC ), 1 )
             JC = JC + J
    30    CONTINUE
@@ -107,8 +104,7 @@
 *
 *              Compute elements j+1:n of j-th column.
 *
-               CALL STPMV( 'Lower', 'No transpose', DIAG, N-J,
-     $                     AP( JCLAST ), AP( JC+1 ), 1 )
+               CALL STPMV( 'Lower', 'No transpose', DIAG, N-J, AP( JCLAST ), AP( JC+1 ), 1 )
                CALL SSCAL( N-J, AJJ, AP( JC+1 ), 1 )
             END IF
             JCLAST = JC

@@ -54,8 +54,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -81,20 +80,13 @@
                JB = MIN( NB, N-J+1 )
 
                CALL CPOTRF2( 'Upper', JB, A( J, J ), LDA, INFO )
-
-               IF( INFO.NE.0 )
-     $            GO TO 30
+                IF( INFO.NE.0 ) GO TO 30
 
                IF( J+JB.LE.N ) THEN
 *
 *                 Updating the trailing submatrix.
 *
-                  CALL CTRSM( 'Left', 'Upper', 'Conjugate Transpose',
-     $                        'Non-unit', JB, N-J-JB+1, CONE, A( J, J ),
-     $                        LDA, A( J, J+JB ), LDA )
-                  CALL CHERK( 'Upper', 'Conjugate transpose', N-J-JB+1,
-     $                        JB, -ONE, A( J, J+JB ), LDA,
-     $                        ONE, A( J+JB, J+JB ), LDA )
+                  CALL CTRSM( 'Left', 'Upper', 'Conjugate Transpose', 'Non-unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA )                   CALL CHERK( 'Upper', 'Conjugate transpose', N-J-JB+1, JB, -ONE, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA )
                END IF
    10       CONTINUE
 *
@@ -110,21 +102,13 @@
                JB = MIN( NB, N-J+1 )
 
                CALL CPOTRF2( 'Lower', JB, A( J, J ), LDA, INFO )
-
-               IF( INFO.NE.0 )
-     $            GO TO 30
+                IF( INFO.NE.0 ) GO TO 30
 
                IF( J+JB.LE.N ) THEN
 *
 *                Updating the trailing submatrix.
 *
-                 CALL CTRSM( 'Right', 'Lower', 'Conjugate Transpose',
-     $                       'Non-unit', N-J-JB+1, JB, CONE, A( J, J ),
-     $                       LDA, A( J+JB, J ), LDA )
-
-                 CALL CHERK( 'Lower', 'No Transpose', N-J-JB+1, JB,
-     $                       -ONE, A( J+JB, J ), LDA,
-     $                       ONE, A( J+JB, J+JB ), LDA )
+                 CALL CTRSM( 'Right', 'Lower', 'Conjugate Transpose', 'Non-unit', N-J-JB+1, JB, CONE, A( J, J ), LDA, A( J+JB, J ), LDA )                   CALL CHERK( 'Lower', 'No Transpose', N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, ONE, A( J+JB, J+JB ), LDA )
                END IF
    20       CONTINUE
          END IF

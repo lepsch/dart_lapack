@@ -1,5 +1,4 @@
-      REAL             FUNCTION CQRT12( M, N, A, LDA, S, WORK, LWORK,
-     $                 RWORK )
+      REAL             FUNCTION CQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +30,7 @@
       EXTERNAL           CLANGE, SASUM, SLAMCH, SNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL,
-     $                   XERBLA
+      EXTERNAL           CGEBD2, CLASCL, CLASET, SAXPY, SBDSQR, SLASCL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CMPLX, MAX, MIN, REAL
@@ -51,8 +49,7 @@
 *     Quick return if possible
 *
       MN = MIN( M, N )
-      IF( MN.LE.ZERO )
-     $   RETURN
+      IF( MN.LE.ZERO ) RETURN
 *
       NRMSVL = SNRM2( MN, S, 1 )
 *
@@ -92,21 +89,14 @@
 *
 *        Compute SVD of work
 *
-         CALL CGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ),
-     $                WORK( M*N+1 ), WORK( M*N+MN+1 ),
-     $                WORK( M*N+2*MN+1 ), INFO )
-         CALL SBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ),
-     $                DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ),
-     $                INFO )
+         CALL CGEBD2( M, N, WORK, M, RWORK( 1 ), RWORK( MN+1 ), WORK( M*N+1 ), WORK( M*N+MN+1 ), WORK( M*N+2*MN+1 ), INFO )          CALL SBDSQR( 'Upper', MN, 0, 0, 0, RWORK( 1 ), RWORK( MN+1 ), DUMMY, MN, DUMMY, 1, DUMMY, MN, RWORK( 2*MN+1 ), INFO )
 *
          IF( ISCL.EQ.1 ) THEN
             IF( ANRM.GT.BIGNUM ) THEN
-               CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ),
-     $                      MN, INFO )
+               CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
             END IF
             IF( ANRM.LT.SMLNUM ) THEN
-               CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ),
-     $                      MN, INFO )
+               CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MN, 1, RWORK( 1 ), MN, INFO )
             END IF
          END IF
 *
@@ -120,10 +110,7 @@
 *     Compare s and singular values of work
 *
       CALL SAXPY( MN, -ONE, S, 1, RWORK( 1 ), 1 )
-      CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) /
-     $         ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )
-      IF( NRMSVL.NE.ZERO )
-     $   CQRT12 = CQRT12 / NRMSVL
+      CQRT12 = SASUM( MN, RWORK( 1 ), 1 ) / ( SLAMCH( 'Epsilon' )*REAL( MAX( M, N ) ) )       IF( NRMSVL.NE.ZERO ) CQRT12 = CQRT12 / NRMSVL
 *
       RETURN
 *

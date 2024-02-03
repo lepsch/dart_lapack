@@ -55,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     N=1 case
 *
@@ -94,13 +93,11 @@
 *
 *           Update and scale A12
 *
-            CALL CTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE,
-     $                  A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
+            CALL CTRSM( 'L', 'U', 'C', 'N', N1, N2, CONE, A( 1, 1 ), LDA, A( 1, N1+1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL CHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL CHERK( UPLO, 'C', N2, N1, -ONE, A( 1, N1+1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
 *
             CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
 *
@@ -115,13 +112,11 @@
 *
 *           Update and scale A21
 *
-            CALL CTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE,
-     $                  A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
+            CALL CTRSM( 'R', 'L', 'C', 'N', N2, N1, CONE, A( 1, 1 ), LDA, A( N1+1, 1 ), LDA )
 *
 *           Update and factor A22
 *
-            CALL CHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA,
-     $                  ONE, A( N1+1, N1+1 ), LDA )
+            CALL CHERK( UPLO, 'N', N2, N1, -ONE, A( N1+1, 1 ), LDA, ONE, A( N1+1, N1+1 ), LDA )
 *
             CALL CPOTRF2( UPLO, N2, A( N1+1, N1+1 ), LDA, IINFO )
 *

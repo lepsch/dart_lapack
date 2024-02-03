@@ -22,19 +22,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
-      DOUBLE PRECISION   D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   RW( NMAX )
-      COMPLEX*16         B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ),
-     $                   DU2( NMAX ), DUF( NMAX ), E( NMAX ),
-     $                   EF( NMAX ), W( NMAX ), X( NMAX )
+      DOUBLE PRECISION   D( NMAX ), DF( NMAX ), R1( NMAX ), R2( NMAX ), RW( NMAX )       COMPLEX*16         B( NMAX ), DL( NMAX ), DLF( NMAX ), DU( NMAX ), DU2( NMAX ), DUF( NMAX ), E( NMAX ), EF( NMAX ), W( NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, ZGTCON, ZGTRFS, ZGTTRF, ZGTTRS,
-     $                   ZPTCON, ZPTRFS, ZPTTRF, ZPTTRS
+      EXTERNAL           ALAESM, CHKXER, ZGTCON, ZGTRFS, ZGTTRF, ZGTTRS, ZPTCON, ZPTRFS, ZPTTRF, ZPTTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -90,40 +85,32 @@
 *
          SRNAMT = 'ZGTRFS'
          INFOT = 1
-         CALL ZGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1,
-     $                X, 1, R1, R2, W, RW, INFO )
+         CALL ZGTRFS( '/', 0, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGTRFS( 'N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B,
-     $                1, X, 1, R1, R2, W, RW, INFO )
+         CALL ZGTRFS( 'N', -1, 0, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZGTRFS( 'N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B,
-     $                1, X, 1, R1, R2, W, RW, INFO )
+         CALL ZGTRFS( 'N', 0, -1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1,
-     $                X, 2, R1, R2, W, RW, INFO )
+         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2,
-     $                X, 1, R1, R2, W, RW, INFO )
+         CALL ZGTRFS( 'N', 2, 1, DL, E, DU, DLF, EF, DUF, DU2, IP, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZGTRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZGTCON
 *
          SRNAMT = 'ZGTCON'
          INFOT = 1
-         CALL ZGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W,
-     $                INFO )
+         CALL ZGTCON( '/', 0, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
          CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZGTCON( 'I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W,
-     $                INFO )
+         CALL ZGTCON( 'I', -1, DL, E, DU, DU2, IP, ANORM, RCOND, W, INFO )
          CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL ZGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W,
-     $                INFO )
+         CALL ZGTCON( 'I', 0, DL, E, DU, DU2, IP, -ANORM, RCOND, W, INFO )
          CALL CHKXER( 'ZGTCON', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
@@ -158,24 +145,19 @@
 *
          SRNAMT = 'ZPTRFS'
          INFOT = 1
-         CALL ZPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZPTRFS( '/', 1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL ZPTRFS( 'U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZPTRFS( 'U', -1, 0, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL ZPTRFS( 'U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZPTRFS( 'U', 0, -1, D, E, DF, EF, B, 1, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W,
-     $                RW, INFO )
+         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 1, X, 2, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W,
-     $                RW, INFO )
+         CALL ZPTRFS( 'U', 2, 1, D, E, DF, EF, B, 2, X, 1, R1, R2, W, RW, INFO )
          CALL CHKXER( 'ZPTRFS', INFOT, NOUT, LERR, OK )
 *
 *        ZPTCON

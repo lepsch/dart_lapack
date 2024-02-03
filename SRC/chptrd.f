@@ -17,9 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ONE, ZERO, HALF
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   HALF = ( 0.5E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ), HALF = ( 0.5E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            UPPER
@@ -55,8 +53,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -82,8 +79,7 @@
 *
 *              Compute  y := tau * A * v  storing y in TAU(1:i)
 *
-               CALL CHPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU,
-     $                     1 )
+               CALL CHPMV( UPLO, I, TAUI, AP, AP( I1 ), 1, ZERO, TAU, 1 )
 *
 *              Compute  w := y - 1/2 * tau * (y**H *v) * v
 *
@@ -127,20 +123,17 @@
 *
 *              Compute  y := tau * A * v  storing y in TAU(i:n-1)
 *
-               CALL CHPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1,
-     $                     ZERO, TAU( I ), 1 )
+               CALL CHPMV( UPLO, N-I, TAUI, AP( I1I1 ), AP( II+1 ), 1, ZERO, TAU( I ), 1 )
 *
 *              Compute  w := y - 1/2 * tau * (y**H *v) * v
 *
-               ALPHA = -HALF*TAUI*CDOTC( N-I, TAU( I ), 1, AP( II+1 ),
-     $                 1 )
+               ALPHA = -HALF*TAUI*CDOTC( N-I, TAU( I ), 1, AP( II+1 ), 1 )
                CALL CAXPY( N-I, ALPHA, AP( II+1 ), 1, TAU( I ), 1 )
 *
 *              Apply the transformation as a rank-2 update:
 *                 A := A - v * w**H - w * v**H
 *
-               CALL CHPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1,
-     $                     AP( I1I1 ) )
+               CALL CHPR2( UPLO, N-I, -ONE, AP( II+1 ), 1, TAU( I ), 1, AP( I1I1 ) )
 *
             END IF
             AP( II+1 ) = E( I )

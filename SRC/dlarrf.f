@@ -1,7 +1,4 @@
-      SUBROUTINE DLARRF( N, D, L, LD, CLSTRT, CLEND,
-     $                   W, WGAP, WERR,
-     $                   SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA,
-     $                   DPLUS, LPLUS, WORK, INFO )
+      SUBROUTINE DLARRF( N, D, L, LD, CLSTRT, CLEND, W, WGAP, WERR, SPDIAM, CLGAPL, CLGAPR, PIVMIN, SIGMA, DPLUS, LPLUS, WORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,27 +9,20 @@
       DOUBLE PRECISION   CLGAPL, CLGAPR, PIVMIN, SIGMA, SPDIAM
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   D( * ), DPLUS( * ), L( * ), LD( * ),
-     $          LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * )
+      DOUBLE PRECISION   D( * ), DPLUS( * ), L( * ), LD( * ), LPLUS( * ), W( * ), WGAP( * ), WERR( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       DOUBLE PRECISION   FOUR, MAXGROWTH1, MAXGROWTH2, ONE, QUART, TWO
-      PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0,
-     $                     QUART = 0.25D0,
-     $                     MAXGROWTH1 = 8.D0,
-     $                     MAXGROWTH2 = 8.D0 )
+      PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0, FOUR = 4.0D0, QUART = 0.25D0, MAXGROWTH1 = 8.D0, MAXGROWTH2 = 8.D0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL   DORRR1, FORCER, NOFAIL, SAWNAN1, SAWNAN2, TRYRRR1
       INTEGER            I, INDX, KTRY, KTRYMAX, SLEFT, SRIGHT, SHIFT
       PARAMETER          ( KTRYMAX = 1, SLEFT = 1, SRIGHT = 2 )
-      DOUBLE PRECISION   AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL,
-     $                   FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA,
-     $                   MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX,
-     $                   RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2
+      DOUBLE PRECISION   AVGAP, BESTSHIFT, CLWDTH, EPS, FACT, FAIL, FAIL2, GROWTHBOUND, LDELTA, LDMAX, LSIGMA, MAX1, MAX2, MINGAP, OLDP, PROD, RDELTA, RDMAX, RRR1, RRR2, RSIGMA, S, SMLGROWTH, TMP, ZNM2
 *     ..
 *     .. External Functions ..
       LOGICAL DISNAN
@@ -141,9 +131,7 @@
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
  6    CONTINUE
       SAWNAN1 = SAWNAN1 .OR.  DISNAN( MAX1 )
-
-      IF( FORCER .OR.
-     $   (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) THEN
+       IF( FORCER .OR. (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) THEN
          SIGMA = LSIGMA
          SHIFT = SLEFT
          GOTO 100
@@ -172,9 +160,7 @@
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
  7    CONTINUE
       SAWNAN2 = SAWNAN2 .OR.  DISNAN( MAX2 )
-
-      IF( FORCER .OR.
-     $   (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) THEN
+       IF( FORCER .OR. (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) THEN
          SIGMA = RSIGMA
          SHIFT = SRIGHT
          GOTO 100
@@ -207,9 +193,7 @@
 *     we may still accept the representation, if it passes a
 *     refined test for RRR. This test supposes that no NaN occurred.
 *     Moreover, we use the refined RRR test only for isolated clusters.
-      IF((CLWDTH.LT.MINGAP/DBLE(128)) .AND.
-     $   (MIN(MAX1,MAX2).LT.FAIL2)
-     $  .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) THEN
+      IF((CLWDTH.LT.MINGAP/DBLE(128)) .AND. (MIN(MAX1,MAX2).LT.FAIL2) .AND.(.NOT.SAWNAN1).AND.(.NOT.SAWNAN2)) THEN
          DORRR1 = .TRUE.
       ELSE
          DORRR1 = .FALSE.
@@ -223,8 +207,7 @@
          OLDP = ONE
          DO 15 I = N-1, 1, -1
             IF( PROD .LE. EPS ) THEN
-               PROD =
-     $         ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP
+               PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP
             ELSE
                PROD = PROD*ABS(WORK(N+I))
             END IF
@@ -267,10 +250,7 @@
       IF (KTRY.LT.KTRYMAX) THEN
 *        If we are here, both shifts failed also the RRR test.
 *        Back off to the outside
-         LSIGMA = MAX( LSIGMA - LDELTA,
-     $     LSIGMA - LDMAX)
-         RSIGMA = MIN( RSIGMA + RDELTA,
-     $     RSIGMA + RDMAX )
+         LSIGMA = MAX( LSIGMA - LDELTA, LSIGMA - LDMAX)          RSIGMA = MIN( RSIGMA + RDELTA, RSIGMA + RDMAX )
          LDELTA = TWO * LDELTA
          RDELTA = TWO * RDELTA
          KTRY = KTRY + 1

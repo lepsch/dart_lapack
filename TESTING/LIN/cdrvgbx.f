@@ -1,6 +1,4 @@
-      SUBROUTINE CDRVGB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, LA,
-     $                   AFB, LAFB, ASAV, B, BSAV, X, XACT, S, WORK,
-     $                   RWORK, IWORK, NOUT )
+      SUBROUTINE CDRVGB( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, A, LA, AFB, LAFB, ASAV, B, BSAV, X, XACT, S, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -15,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
       REAL               RWORK( * ), S( * )
-      COMPLEX            A( * ), AFB( * ), ASAV( * ), B( * ), BSAV( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      COMPLEX            A( * ), AFB( * ), ASAV( * ), B( * ), BSAV( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -35,34 +32,20 @@
       LOGICAL            EQUIL, NOFACT, PREFAC, TRFCON, ZEROT
       CHARACTER          DIST, EQUED, FACT, TRANS, TYPE, XTYPE
       CHARACTER*3        PATH
-      INTEGER            I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN,
-     $                   INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU,
-     $                   LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS,
-     $                   NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT,
-     $                   N_ERR_BNDS
-      REAL               AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV,
-     $                   CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO,
-     $                   ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW,
-     $                   RPVGRW_SVXX
+      INTEGER            I, I1, I2, IEQUED, IFACT, IKL, IKU, IMAT, IN, INFO, IOFF, ITRAN, IZERO, J, K, K1, KL, KU, LDA, LDAFB, LDB, MODE, N, NB, NBMIN, NERRS, NFACT, NFAIL, NIMAT, NKL, NKU, NRUN, NT, N_ERR_BNDS
+      REAL               AINVNM, AMAX, ANORM, ANORMI, ANORMO, ANRMPV, CNDNUM, COLCND, RCOND, RCONDC, RCONDI, RCONDO, ROLDC, ROLDI, ROLDO, ROWCND, RPVGRW, RPVGRW_SVXX
 *     ..
 *     .. Local Arrays ..
       CHARACTER          EQUEDS( 4 ), FACTS( 3 ), TRANSS( NTRAN )
       INTEGER            ISEED( 4 ), ISEEDY( 4 )
-      REAL               RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ),
-     $                   ERRBNDS_N( NRHS,3 ), ERRBNDS_C( NRHS, 3 )
+      REAL               RDUM( 1 ), RESULT( NTESTS ), BERR( NRHS ), ERRBNDS_N( NRHS,3 ), ERRBNDS_C( NRHS, 3 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      REAL               CLANGB, CLANGE, CLANTB, SGET06, SLAMCH,
-     $                   CLA_GBRPVGRW
-      EXTERNAL           LSAME, CLANGB, CLANGE, CLANTB, SGET06, SLAMCH,
-     $                   CLA_GBRPVGRW
+      REAL               CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW       EXTERNAL           LSAME, CLANGB, CLANGE, CLANTB, SGET06, SLAMCH, CLA_GBRPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGBEQU, CGBSV,
-     $                   CGBSVX, CGBT01, CGBT02, CGBT05, CGBTRF, CGBTRS,
-     $                   CGET04, CLACPY, CLAQGB, CLARHS, CLASET, CLATB4,
-     $                   CLATMS, XLAENV, CGBSVXX
+      EXTERNAL           ALADHD, ALAERH, ALASVM, CERRVX, CGBEQU, CGBSV, CGBSVX, CGBT01, CGBT02, CGBT05, CGBTRF, CGBTRS, CGET04, CLACPY, CLAQGB, CLARHS, CLASET, CLATB4, CLATMS, XLAENV, CGBSVXX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, CMPLX, MAX, MIN
@@ -97,8 +80,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL CERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL CERRVX( PATH, NOUT )
       INFOT = 0
 *
 *     Set the block size and minimum block size for testing.
@@ -118,12 +100,10 @@
 *        Set limits on the number of loop iterations.
 *
          NKL = MAX( 1, MIN( N, 4 ) )
-         IF( N.EQ.0 )
-     $      NKL = 1
+         IF( N.EQ.0 ) NKL = 1
          NKU = NKL
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 140 IKL = 1, NKL
 *
@@ -161,16 +141,13 @@
                LDA = KL + KU + 1
                LDAFB = 2*KL + KU + 1
                IF( LDA*N.GT.LA .OR. LDAFB*N.GT.LAFB ) THEN
-                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $               CALL ALADHD( NOUT, PATH )
+                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                   IF( LDA*N.GT.LA ) THEN
-                     WRITE( NOUT, FMT = 9999 )LA, N, KL, KU,
-     $                  N*( KL+KU+1 )
+                     WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 )
                      NERRS = NERRS + 1
                   END IF
                   IF( LDAFB*N.GT.LAFB ) THEN
-                     WRITE( NOUT, FMT = 9998 )LAFB, N, KL, KU,
-     $                  N*( 2*KL+KU+1 )
+                     WRITE( NOUT, FMT = 9998 )LAFB, N, KL, KU, N*( 2*KL+KU+1 )
                      NERRS = NERRS + 1
                   END IF
                   GO TO 130
@@ -180,32 +157,26 @@
 *
 *                 Do the tests only if DOTYPE( IMAT ) is true.
 *
-                  IF( .NOT.DOTYPE( IMAT ) )
-     $               GO TO 120
+                  IF( .NOT.DOTYPE( IMAT ) ) GO TO 120
 *
 *                 Skip types 2, 3, or 4 if the matrix is too small.
 *
                   ZEROT = IMAT.GE.2 .AND. IMAT.LE.4
-                  IF( ZEROT .AND. N.LT.IMAT-1 )
-     $               GO TO 120
+                  IF( ZEROT .AND. N.LT.IMAT-1 ) GO TO 120
 *
 *                 Set up parameters with CLATB4 and generate a
 *                 test matrix with CLATMS.
 *
-                  CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM,
-     $                         MODE, CNDNUM, DIST )
+                  CALL CLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
                   RCONDC = ONE / CNDNUM
 *
                   SRNAMT = 'CLATMS'
-                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                         CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK,
-     $                         INFO )
+                  CALL CLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A, LDA, WORK, INFO )
 *
 *                 Check the error code from CLATMS.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N,
-     $                            KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
+                     CALL ALAERH( PATH, 'CLATMS', INFO, 0, ' ', N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 120
                   END IF
 *
@@ -230,8 +201,7 @@
    20                   CONTINUE
                      ELSE
                         DO 40 J = IZERO, N
-                           DO 30 I = MAX( 1, KU+2-J ),
-     $                             MIN( KL+KU+1, KU+1+( N-J ) )
+                           DO 30 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( N-J ) )
                               A( IOFF+I ) = ZERO
    30                      CONTINUE
                            IOFF = IOFF + LDA
@@ -258,8 +228,7 @@
                         EQUIL = LSAME( FACT, 'E' )
 *
                         IF( ZEROT ) THEN
-                           IF( PREFAC )
-     $                        GO TO 100
+                           IF( PREFAC ) GO TO 100
                            RCONDO = ZERO
                            RCONDI = ZERO
 *
@@ -270,16 +239,13 @@
 *                          'N' reuses the condition number from the
 *                          previous iteration with FACT = 'F').
 *
-                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA,
-     $                                  AFB( KL+1 ), LDAFB )
+                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, AFB( KL+1 ), LDAFB )
                            IF( EQUIL .OR. IEQUED.GT.1 ) THEN
 *
 *                             Compute row and column scale factors to
 *                             equilibrate the matrix A.
 *
-                              CALL CGBEQU( N, N, KL, KU, AFB( KL+1 ),
-     $                                     LDAFB, S, S( N+1 ), ROWCND,
-     $                                     COLCND, AMAX, INFO )
+                              CALL CGBEQU( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, INFO )
                               IF( INFO.EQ.0 .AND. N.GT.0 ) THEN
                                  IF( LSAME( EQUED, 'R' ) ) THEN
                                     ROWCND = ZERO
@@ -294,10 +260,7 @@
 *
 *                                Equilibrate the matrix.
 *
-                                 CALL CLAQGB( N, N, KL, KU, AFB( KL+1 ),
-     $                                        LDAFB, S, S( N+1 ),
-     $                                        ROWCND, COLCND, AMAX,
-     $                                        EQUED )
+                                 CALL CLAQGB( N, N, KL, KU, AFB( KL+1 ), LDAFB, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                               END IF
                            END IF
 *
@@ -311,29 +274,21 @@
 *
 *                          Compute the 1-norm and infinity-norm of A.
 *
-                           ANORMO = CLANGB( '1', N, KL, KU, AFB( KL+1 ),
-     $                              LDAFB, RWORK )
-                           ANORMI = CLANGB( 'I', N, KL, KU, AFB( KL+1 ),
-     $                              LDAFB, RWORK )
+                           ANORMO = CLANGB( '1', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )                            ANORMI = CLANGB( 'I', N, KL, KU, AFB( KL+1 ), LDAFB, RWORK )
 *
 *                          Factor the matrix A.
 *
-                           CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IWORK,
-     $                                  INFO )
+                           CALL CGBTRF( N, N, KL, KU, AFB, LDAFB, IWORK, INFO )
 *
 *                          Form the inverse of A.
 *
-                           CALL CLASET( 'Full', N, N, CMPLX( ZERO ),
-     $                                  CMPLX( ONE ), WORK, LDB )
+                           CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ONE ), WORK, LDB )
                            SRNAMT = 'CGBTRS'
-                           CALL CGBTRS( 'No transpose', N, KL, KU, N,
-     $                                  AFB, LDAFB, IWORK, WORK, LDB,
-     $                                  INFO )
+                           CALL CGBTRS( 'No transpose', N, KL, KU, N, AFB, LDAFB, IWORK, WORK, LDB, INFO )
 *
 *                          Compute the 1-norm condition number of A.
 *
-                           AINVNM = CLANGE( '1', N, N, WORK, LDB,
-     $                              RWORK )
+                           AINVNM = CLANGE( '1', N, N, WORK, LDB, RWORK )
                            IF( ANORMO.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDO = ONE
                            ELSE
@@ -343,8 +298,7 @@
 *                          Compute the infinity-norm condition number
 *                          of A.
 *
-                           AINVNM = CLANGE( 'I', N, N, WORK, LDB,
-     $                              RWORK )
+                           AINVNM = CLANGE( 'I', N, N, WORK, LDB, RWORK )
                            IF( ANORMI.LE.ZERO .OR. AINVNM.LE.ZERO ) THEN
                               RCONDI = ONE
                            ELSE
@@ -365,19 +319,15 @@
 *
 *                          Restore the matrix A.
 *
-                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA,
-     $                                  A, LDA )
+                           CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
 *
 *                          Form an exact solution and set the right hand
 *                          side.
 *
                            SRNAMT = 'CLARHS'
-                           CALL CLARHS( PATH, XTYPE, 'Full', TRANS, N,
-     $                                  N, KL, KU, NRHS, A, LDA, XACT,
-     $                                  LDB, B, LDB, ISEED, INFO )
+                           CALL CLARHS( PATH, XTYPE, 'Full', TRANS, N, N, KL, KU, NRHS, A, LDA, XACT, LDB, B, LDB, ISEED, INFO )
                            XTYPE = 'C'
-                           CALL CLACPY( 'Full', N, NRHS, B, LDB, BSAV,
-     $                                  LDB )
+                           CALL CLACPY( 'Full', N, NRHS, B, LDB, BSAV, LDB )
 *
                            IF( NOFACT .AND. ITRAN.EQ.1 ) THEN
 *
@@ -386,47 +336,31 @@
 *                             Compute the LU factorization of the matrix
 *                             and solve the system.
 *
-                              CALL CLACPY( 'Full', KL+KU+1, N, A, LDA,
-     $                                     AFB( KL+1 ), LDAFB )
-                              CALL CLACPY( 'Full', N, NRHS, B, LDB, X,
-     $                                     LDB )
+                              CALL CLACPY( 'Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL CLACPY( 'Full', N, NRHS, B, LDB, X, LDB )
 *
                               SRNAMT = 'CGBSV '
-                              CALL CGBSV( N, KL, KU, NRHS, AFB, LDAFB,
-     $                                    IWORK, X, LDB, INFO )
+                              CALL CGBSV( N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO )
 *
 *                             Check error code from CGBSV .
 *
-                              IF( INFO.NE.IZERO )
-     $                           CALL ALAERH( PATH, 'CGBSV ', INFO,
-     $                                        IZERO, ' ', N, N, KL, KU,
-     $                                        NRHS, IMAT, NFAIL, NERRS,
-     $                                        NOUT )
+                              IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                             Reconstruct matrix from factors and
 *                             compute residual.
 *
-                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB,
-     $                                     LDAFB, IWORK, WORK,
-     $                                     RESULT( 1 ) )
+                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               NT = 1
                               IF( IZERO.EQ.0 ) THEN
 *
 *                                Compute residual of the computed
 *                                solution.
 *
-                                 CALL CLACPY( 'Full', N, NRHS, B, LDB,
-     $                                        WORK, LDB )
-                                 CALL CGBT02( 'No transpose', N, N, KL,
-     $                                        KU, NRHS, A, LDA, X, LDB,
-     $                                        WORK, LDB, RWORK,
-     $                                        RESULT( 2 ) )
+                                 CALL CLACPY( 'Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL CGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
 *
 *                                Check solution from generated exact
 *                                solution.
 *
-                                 CALL CGET04( N, NRHS, X, LDB, XACT,
-     $                                        LDB, RCONDC, RESULT( 3 ) )
+                                 CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                                  NT = 3
                               END IF
 *
@@ -435,10 +369,7 @@
 *
                               DO 50 K = 1, NT
                                  IF( RESULT( K ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                                 CALL ALADHD( NOUT, PATH )
-                                    WRITE( NOUT, FMT = 9997 )'CGBSV ',
-     $                                 N, KL, KU, IMAT, K, RESULT( K )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'CGBSV ', N, KL, KU, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  END IF
    50                         CONTINUE
@@ -447,39 +378,25 @@
 *
 *                          --- Test CGBSVX ---
 *
-                           IF( .NOT.PREFAC )
-     $                        CALL CLASET( 'Full', 2*KL+KU+1, N,
-     $                                     CMPLX( ZERO ), CMPLX( ZERO ),
-     $                                     AFB, LDAFB )
-                           CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ),
-     $                                  CMPLX( ZERO ), X, LDB )
+                           IF( .NOT.PREFAC ) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB )
+                           CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB )
                            IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
 *                             Equilibrate the matrix if FACT = 'F' and
 *                             EQUED = 'R', 'C', or 'B'.
 *
-                              CALL CLAQGB( N, N, KL, KU, A, LDA, S,
-     $                                     S( N+1 ), ROWCND, COLCND,
-     $                                     AMAX, EQUED )
+                              CALL CLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                            END IF
 *
 *                          Solve the system and compute the condition
 *                          number and error bounds using CGBSVX.
 *
                            SRNAMT = 'CGBSVX'
-                           CALL CGBSVX( FACT, TRANS, N, KL, KU, NRHS, A,
-     $                                  LDA, AFB, LDAFB, IWORK, EQUED,
-     $                                  S, S( LDB+1 ), B, LDB, X, LDB,
-     $                                  RCOND, RWORK, RWORK( NRHS+1 ),
-     $                                  WORK, RWORK( 2*NRHS+1 ), INFO )
+                           CALL CGBSVX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( LDB+1 ), B, LDB, X, LDB, RCOND, RWORK, RWORK( NRHS+1 ), WORK, RWORK( 2*NRHS+1 ), INFO )
 *
 *                          Check the error code from CGBSVX.
 *
-                           IF( INFO.NE.IZERO )
-     $                        CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO,
-     $                                     FACT // TRANS, N, N, KL, KU,
-     $                                     NRHS, IMAT, NFAIL, NERRS,
-     $                                     NOUT )
+                           IF( INFO.NE.IZERO ) CALL ALAERH( PATH, 'CGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT )
 *
 *                          Compare RWORK(2*NRHS+1) from CGBSVX with the
 *                          computed reciprocal pivot growth RPVGRW
@@ -487,43 +404,31 @@
                            IF( INFO.NE.0 ) THEN
                               ANRMPV = ZERO
                               DO 70 J = 1, INFO
-                                 DO 60 I = MAX( KU+2-J, 1 ),
-     $                                   MIN( N+KU+1-J, KL+KU+1 )
-                                    ANRMPV = MAX( ANRMPV,
-     $                                       ABS( A( I+( J-1 )*LDA ) ) )
+                                 DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )
    60                            CONTINUE
    70                         CONTINUE
-                              RPVGRW = CLANTB( 'M', 'U', 'N', INFO,
-     $                                 MIN( INFO-1, KL+KU ),
-     $                                 AFB( MAX( 1, KL+KU+2-INFO ) ),
-     $                                 LDAFB, RDUM )
+                              RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, RDUM )
                               IF( RPVGRW.EQ.ZERO ) THEN
                                  RPVGRW = ONE
                               ELSE
                                  RPVGRW = ANRMPV / RPVGRW
                               END IF
                            ELSE
-                              RPVGRW = CLANTB( 'M', 'U', 'N', N, KL+KU,
-     $                                 AFB, LDAFB, RDUM )
+                              RPVGRW = CLANTB( 'M', 'U', 'N', N, KL+KU, AFB, LDAFB, RDUM )
                               IF( RPVGRW.EQ.ZERO ) THEN
                                  RPVGRW = ONE
                               ELSE
-                                 RPVGRW = CLANGB( 'M', N, KL, KU, A,
-     $                                    LDA, RDUM ) / RPVGRW
+                                 RPVGRW = CLANGB( 'M', N, KL, KU, A, LDA, RDUM ) / RPVGRW
                               END IF
                            END IF
-                           RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) )
-     $                                    / MAX( RWORK( 2*NRHS+1 ),
-     $                                   RPVGRW ) / SLAMCH( 'E' )
+                           RESULT( 7 ) = ABS( RPVGRW-RWORK( 2*NRHS+1 ) ) / MAX( RWORK( 2*NRHS+1 ), RPVGRW ) / SLAMCH( 'E' )
 *
                            IF( .NOT.PREFAC ) THEN
 *
 *                             Reconstruct matrix from factors and
 *                             compute residual.
 *
-                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB,
-     $                                     LDAFB, IWORK, WORK,
-     $                                     RESULT( 1 ) )
+                              CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK, RESULT( 1 ) )
                               K1 = 1
                            ELSE
                               K1 = 2
@@ -534,37 +439,25 @@
 *
 *                             Compute residual of the computed solution.
 *
-                              CALL CLACPY( 'Full', N, NRHS, BSAV, LDB,
-     $                                     WORK, LDB )
-                              CALL CGBT02( TRANS, N, N, KL, KU, NRHS,
-     $                                     ASAV, LDA, X, LDB, WORK, LDB,
-     $                                     RWORK( 2*NRHS+1 ),
-     $                                     RESULT( 2 ) )
+                              CALL CLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL CGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) )
 *
 *                             Check solution from generated exact
 *                             solution.
 *
-                              IF( NOFACT .OR. ( PREFAC .AND.
-     $                            LSAME( EQUED, 'N' ) ) ) THEN
-                                 CALL CGET04( N, NRHS, X, LDB, XACT,
-     $                                        LDB, RCONDC, RESULT( 3 ) )
+                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                               ELSE
                                  IF( ITRAN.EQ.1 ) THEN
                                     ROLDC = ROLDO
                                  ELSE
                                     ROLDC = ROLDI
                                  END IF
-                                 CALL CGET04( N, NRHS, X, LDB, XACT,
-     $                                        LDB, ROLDC, RESULT( 3 ) )
+                                 CALL CGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
                               END IF
 *
 *                             Check the error bounds from iterative
 *                             refinement.
 *
-                              CALL CGBT05( TRANS, N, KL, KU, NRHS, ASAV,
-     $                                     LDA, BSAV, LDB, X, LDB, XACT,
-     $                                     LDB, RWORK, RWORK( NRHS+1 ),
-     $                                     RESULT( 4 ) )
+                              CALL CGBT05( TRANS, N, KL, KU, NRHS, ASAV, LDA, BSAV, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) )
                            ELSE
                               TRFCON = .TRUE.
                            END IF
@@ -580,65 +473,42 @@
                            IF( .NOT.TRFCON ) THEN
                               DO 80 K = K1, NTESTS
                                  IF( RESULT( K ).GE.THRESH ) THEN
-                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                                 CALL ALADHD( NOUT, PATH )
+                                    IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                     IF( PREFAC ) THEN
-                                       WRITE( NOUT, FMT = 9995 )
-     $                                    'CGBSVX', FACT, TRANS, N, KL,
-     $                                    KU, EQUED, IMAT, K,
-     $                                    RESULT( K )
+                                       WRITE( NOUT, FMT = 9995 ) 'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                                     ELSE
-                                       WRITE( NOUT, FMT = 9996 )
-     $                                    'CGBSVX', FACT, TRANS, N, KL,
-     $                                    KU, IMAT, K, RESULT( K )
+                                       WRITE( NOUT, FMT = 9996 ) 'CGBSVX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
                                     END IF
                                     NFAIL = NFAIL + 1
                                  END IF
    80                         CONTINUE
                               NRUN = NRUN + 7 - K1
                            ELSE
-                              IF( RESULT( 1 ).GE.THRESH .AND. .NOT.
-     $                            PREFAC ) THEN
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                              CALL ALADHD( NOUT, PATH )
+                              IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
-                                    WRITE( NOUT, FMT = 9995 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, EQUED,
-     $                                 IMAT, 1, RESULT( 1 )
+                                    WRITE( NOUT, FMT = 9995 )'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                                  ELSE
-                                    WRITE( NOUT, FMT = 9996 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, IMAT, 1,
-     $                                 RESULT( 1 )
+                                    WRITE( NOUT, FMT = 9996 )'CGBSVX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
                                  END IF
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
                               END IF
                               IF( RESULT( 6 ).GE.THRESH ) THEN
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                              CALL ALADHD( NOUT, PATH )
+                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
-                                    WRITE( NOUT, FMT = 9995 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, EQUED,
-     $                                 IMAT, 6, RESULT( 6 )
+                                    WRITE( NOUT, FMT = 9995 )'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                                  ELSE
-                                    WRITE( NOUT, FMT = 9996 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, IMAT, 6,
-     $                                 RESULT( 6 )
+                                    WRITE( NOUT, FMT = 9996 )'CGBSVX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
                                  END IF
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
                               END IF
                               IF( RESULT( 7 ).GE.THRESH ) THEN
-                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                              CALL ALADHD( NOUT, PATH )
+                                 IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                                  IF( PREFAC ) THEN
-                                    WRITE( NOUT, FMT = 9995 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, EQUED,
-     $                                 IMAT, 7, RESULT( 7 )
+                                    WRITE( NOUT, FMT = 9995 )'CGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                                  ELSE
-                                    WRITE( NOUT, FMT = 9996 )'CGBSVX',
-     $                                 FACT, TRANS, N, KL, KU, IMAT, 7,
-     $                                 RESULT( 7 )
+                                    WRITE( NOUT, FMT = 9996 )'CGBSVX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
                                  END IF
                                  NFAIL = NFAIL + 1
                                  NRUN = NRUN + 1
@@ -650,25 +520,16 @@
 *                    Restore the matrices A and B.
 
 c                     write(*,*) 'begin cgbsvxx testing'
-
-                     CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A,
-     $                          LDA )
+                      CALL CLACPY( 'Full', KL+KU+1, N, ASAV, LDA, A, LDA )
                      CALL CLACPY( 'Full', N, NRHS, BSAV, LDB, B, LDB )
-
-                     IF( .NOT.PREFAC )
-     $                  CALL CLASET( 'Full', 2*KL+KU+1, N,
-     $                               CMPLX( ZERO ), CMPLX( ZERO ),
-     $                               AFB, LDAFB )
-                     CALL CLASET( 'Full', N, NRHS,
-     $                            CMPLX( ZERO ), CMPLX( ZERO ),
-     $                               X, LDB )
+                      IF( .NOT.PREFAC ) CALL CLASET( 'Full', 2*KL+KU+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFB, LDAFB )
+                     CALL CLASET( 'Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDB )
                      IF( IEQUED.GT.1 .AND. N.GT.0 ) THEN
 *
 *                       Equilibrate the matrix if FACT = 'F' and
 *                       EQUED = 'R', 'C', or 'B'.
 *
-                        CALL CLAQGB( N, N, KL, KU, A, LDA, S,
-     $                       S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
+                        CALL CLAQGB( N, N, KL, KU, A, LDA, S, S( N+1 ), ROWCND, COLCND, AMAX, EQUED )
                      END IF
 *
 *                    Solve the system and compute the condition number
@@ -676,19 +537,13 @@ c                     write(*,*) 'begin cgbsvxx testing'
 *
                      SRNAMT = 'CGBSVXX'
                      N_ERR_BNDS = 3
-                     CALL CGBSVXX( FACT, TRANS, N, KL, KU, NRHS, A, LDA,
-     $                    AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB,
-     $                    X, LDB, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS,
-     $                    ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK,
-     $                    RWORK, INFO )
+                     CALL CGBSVXX( FACT, TRANS, N, KL, KU, NRHS, A, LDA, AFB, LDAFB, IWORK, EQUED, S, S( N+1 ), B, LDB, X, LDB, RCOND, RPVGRW_SVXX, BERR, N_ERR_BNDS, ERRBNDS_N, ERRBNDS_C, 0, ZERO, WORK, RWORK, INFO )
 *
 *                    Check the error code from CGBSVXX.
 *
                      IF( INFO.EQ.N+1 ) GOTO 90
                      IF( INFO.NE.IZERO ) THEN
-                        CALL ALAERH( PATH, 'CGBSVXX', INFO, IZERO,
-     $                               FACT // TRANS, N, N, -1, -1, NRHS,
-     $                               IMAT, NFAIL, NERRS, NOUT )
+                        CALL ALAERH( PATH, 'CGBSVXX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GOTO 90
                      END IF
 *
@@ -697,24 +552,18 @@ c                     write(*,*) 'begin cgbsvxx testing'
 *
 
                      IF ( INFO .GT. 0 .AND. INFO .LT. N+1 ) THEN
-                        RPVGRW = CLA_GBRPVGRW(N, KL, KU, INFO, A, LDA,
-     $                       AFB, LDAFB)
+                        RPVGRW = CLA_GBRPVGRW(N, KL, KU, INFO, A, LDA, AFB, LDAFB)
                      ELSE
-                        RPVGRW = CLA_GBRPVGRW(N, KL, KU, N, A, LDA,
-     $                       AFB, LDAFB)
+                        RPVGRW = CLA_GBRPVGRW(N, KL, KU, N, A, LDA, AFB, LDAFB)
                      ENDIF
-
-                     RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) /
-     $                             MAX( rpvgrw_svxx, RPVGRW ) /
-     $                             SLAMCH( 'E' )
+                      RESULT( 7 ) = ABS( RPVGRW-rpvgrw_svxx ) / MAX( rpvgrw_svxx, RPVGRW ) / SLAMCH( 'E' )
 *
                      IF( .NOT.PREFAC ) THEN
 *
 *                       Reconstruct matrix from factors and compute
 *                       residual.
 *
-                        CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB,
-     $                       IWORK, WORK( 2*NRHS+1 ), RESULT( 1 ) )
+                        CALL CGBT01( N, N, KL, KU, A, LDA, AFB, LDAFB, IWORK, WORK( 2*NRHS+1 ), RESULT( 1 ) )
                         K1 = 1
                      ELSE
                         K1 = 2
@@ -725,26 +574,18 @@ c                     write(*,*) 'begin cgbsvxx testing'
 *
 *                       Compute residual of the computed solution.
 *
-                        CALL CLACPY( 'Full', N, NRHS, BSAV, LDB, WORK,
-     $                               LDB )
-                        CALL CGBT02( TRANS, N, N, KL, KU, NRHS, ASAV,
-     $                               LDA, X, LDB, WORK, LDB, RWORK,
-     $                               RESULT( 2 ) )
+                        CALL CLACPY( 'Full', N, NRHS, BSAV, LDB, WORK, LDB )                         CALL CGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) )
 *
 *                       Check solution from generated exact solution.
 *
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED,
-     $                      'N' ) ) ) THEN
-                           CALL CGET04( N, NRHS, X, LDB, XACT, LDB,
-     $                                  RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
                         ELSE
                            IF( ITRAN.EQ.1 ) THEN
                               ROLDC = ROLDO
                            ELSE
                               ROLDC = ROLDI
                            END IF
-                           CALL CGET04( N, NRHS, X, LDB, XACT, LDB,
-     $                                  ROLDC, RESULT( 3 ) )
+                           CALL CGET04( N, NRHS, X, LDB, XACT, LDB, ROLDC, RESULT( 3 ) )
                         END IF
                      ELSE
                         TRFCON = .TRUE.
@@ -761,64 +602,42 @@ c                     write(*,*) 'begin cgbsvxx testing'
                      IF( .NOT.TRFCON ) THEN
                         DO 45 K = K1, NTESTS
                            IF( RESULT( K ).GE.THRESH ) THEN
-                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                           CALL ALADHD( NOUT, PATH )
+                              IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                               IF( PREFAC ) THEN
-                                 WRITE( NOUT, FMT = 9995 )'CGBSVXX',
-     $                                FACT, TRANS, N, KL, KU, EQUED,
-     $                                IMAT, K, RESULT( K )
+                                 WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K )
                               ELSE
-                                 WRITE( NOUT, FMT = 9996 )'CGBSVXX',
-     $                                FACT, TRANS, N, KL, KU, IMAT, K,
-     $                                RESULT( K )
+                                 WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT, TRANS, N, KL, KU, IMAT, K, RESULT( K )
                               END IF
                               NFAIL = NFAIL + 1
                            END IF
  45                     CONTINUE
                         NRUN = NRUN + 7 - K1
                      ELSE
-                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC )
-     $                       THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                        IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, EQUED, IMAT, 1,
-     $                             RESULT( 1 )
+                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 )
                            ELSE
-                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, IMAT, 1,
-     $                             RESULT( 1 )
+                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 1, RESULT( 1 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 6 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, EQUED, IMAT, 6,
-     $                             RESULT( 6 )
+                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 )
                            ELSE
-                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, IMAT, 6,
-     $                             RESULT( 6 )
+                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 6, RESULT( 6 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1
                         END IF
                         IF( RESULT( 7 ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
                            IF( PREFAC ) THEN
-                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, EQUED, IMAT, 7,
-     $                             RESULT( 7 )
+                              WRITE( NOUT, FMT = 9995 )'CGBSVXX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 )
                            ELSE
-                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT,
-     $                             TRANS, N, KL, KU, IMAT, 7,
-     $                             RESULT( 7 )
+                              WRITE( NOUT, FMT = 9996 )'CGBSVXX', FACT, TRANS, N, KL, KU, IMAT, 7, RESULT( 7 )
                            END IF
                            NFAIL = NFAIL + 1
                            NRUN = NRUN + 1

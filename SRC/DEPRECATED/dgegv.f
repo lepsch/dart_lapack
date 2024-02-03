@@ -1,5 +1,4 @@
-      SUBROUTINE DGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI,
-     $                  BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
+      SUBROUTINE DGEGV( JOBVL, JOBVR, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,9 +9,7 @@
       INTEGER            INFO, LDA, LDB, LDVL, LDVR, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ),
-     $                   B( LDB, * ), BETA( * ), VL( LDVL, * ),
-     $                   VR( LDVR, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), ALPHAI( * ), ALPHAR( * ), B( LDB, * ), BETA( * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -24,19 +21,13 @@
 *     .. Local Scalars ..
       LOGICAL            ILIMIT, ILV, ILVL, ILVR, LQUERY
       CHARACTER          CHTEMP
-      INTEGER            ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO,
-     $                   IN, IRIGHT, IROWS, ITAU, IWORK, JC, JR, LOPT,
-     $                   LWKMIN, LWKOPT, NB, NB1, NB2, NB3
-      DOUBLE PRECISION   ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM,
-     $                   BNRM1, BNRM2, EPS, ONEPLS, SAFMAX, SAFMIN,
-     $                   SALFAI, SALFAR, SBETA, SCALE, TEMP
+      INTEGER            ICOLS, IHI, IINFO, IJOBVL, IJOBVR, ILEFT, ILO, IN, IRIGHT, IROWS, ITAU, IWORK, JC, JR, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3       DOUBLE PRECISION   ABSAI, ABSAR, ABSB, ANRM, ANRM1, ANRM2, BNRM, BNRM1, BNRM2, EPS, ONEPLS, SAFMAX, SAFMIN, SALFAI, SALFAR, SBETA, SCALE, TEMP
 *     ..
 *     .. Local Arrays ..
       LOGICAL            LDUMMA( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY,
-     $                   DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
+      EXTERNAL           DGEQRF, DGGBAK, DGGBAL, DGGHRD, DHGEQZ, DLACPY, DLASCL, DLASET, DORGQR, DORMQR, DTGEVC, XERBLA
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -117,8 +108,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -175,8 +165,7 @@
       ILEFT = 1
       IRIGHT = N + 1
       IWORK = IRIGHT + N
-      CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ),
-     $             WORK( IRIGHT ), WORK( IWORK ), IINFO )
+      CALL DGGBAL( 'P', N, A, LDA, B, LDB, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), WORK( IWORK ), IINFO )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 1
          GO TO 120
@@ -194,20 +183,14 @@
       END IF
       ITAU = IWORK
       IWORK = ITAU + IROWS
-      CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ),
-     $             WORK( IWORK ), LWORK+1-IWORK, IINFO )
-      IF( IINFO.GE.0 )
-     $   LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      CALL DGEQRF( IROWS, ICOLS, B( ILO, ILO ), LDB, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )       IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 2
          GO TO 120
       END IF
 *
-      CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB,
-     $             WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ),
-     $             LWORK+1-IWORK, IINFO )
-      IF( IINFO.GE.0 )
-     $   LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      CALL DORMQR( 'L', 'T', IROWS, ICOLS, IROWS, B( ILO, ILO ), LDB, WORK( ITAU ), A( ILO, ILO ), LDA, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          INFO = N + 3
          GO TO 120
@@ -215,21 +198,15 @@
 *
       IF( ILVL ) THEN
          CALL DLASET( 'Full', N, N, ZERO, ONE, VL, LDVL )
-         CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB,
-     $                VL( ILO+1, ILO ), LDVL )
-         CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL,
-     $                WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK,
-     $                IINFO )
-         IF( IINFO.GE.0 )
-     $      LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+         CALL DLACPY( 'L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VL( ILO+1, ILO ), LDVL )          CALL DORGQR( IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO )
+         IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
          IF( IINFO.NE.0 ) THEN
             INFO = N + 4
             GO TO 120
          END IF
       END IF
 *
-      IF( ILVR )
-     $   CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
+      IF( ILVR ) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR )
 *
 *     Reduce to generalized Hessenberg form
 *
@@ -237,11 +214,9 @@
 *
 *        Eigenvectors requested -- work on whole matrix.
 *
-         CALL DGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL,
-     $                LDVL, VR, LDVR, IINFO )
+         CALL DGGHRD( JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, VL, LDVL, VR, LDVR, IINFO )
       ELSE
-         CALL DGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA,
-     $                B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
+         CALL DGGHRD( 'N', 'N', IROWS, 1, IROWS, A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, VL, LDVL, VR, LDVR, IINFO )
       END IF
       IF( IINFO.NE.0 ) THEN
          INFO = N + 5
@@ -258,11 +233,8 @@
       ELSE
          CHTEMP = 'E'
       END IF
-      CALL DHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB,
-     $             ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR,
-     $             WORK( IWORK ), LWORK+1-IWORK, IINFO )
-      IF( IINFO.GE.0 )
-     $   LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
+      CALL DHGEQZ( CHTEMP, JOBVL, JOBVR, N, ILO, IHI, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VL, LDVL, VR, LDVR, WORK( IWORK ), LWORK+1-IWORK, IINFO )
+      IF( IINFO.GE.0 ) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 )
       IF( IINFO.NE.0 ) THEN
          IF( IINFO.GT.0 .AND. IINFO.LE.N ) THEN
             INFO = IINFO
@@ -288,8 +260,7 @@
             CHTEMP = 'R'
          END IF
 *
-         CALL DTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL,
-     $                VR, LDVR, N, IN, WORK( IWORK ), IINFO )
+         CALL DTGEVC( CHTEMP, 'B', LDUMMA, N, A, LDA, B, LDB, VL, LDVL, VR, LDVR, N, IN, WORK( IWORK ), IINFO )
          IF( IINFO.NE.0 ) THEN
             INFO = N + 7
             GO TO 120
@@ -298,15 +269,13 @@
 *        Undo balancing on VL and VR, rescale
 *
          IF( ILVL ) THEN
-            CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ),
-     $                   WORK( IRIGHT ), N, VL, LDVL, IINFO )
+            CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VL, LDVL, IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = N + 8
                GO TO 120
             END IF
             DO 50 JC = 1, N
-               IF( ALPHAI( JC ).LT.ZERO )
-     $            GO TO 50
+               IF( ALPHAI( JC ).LT.ZERO ) GO TO 50
                TEMP = ZERO
                IF( ALPHAI( JC ).EQ.ZERO ) THEN
                   DO 10 JR = 1, N
@@ -314,12 +283,10 @@
    10             CONTINUE
                ELSE
                   DO 20 JR = 1, N
-                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+
-     $                      ABS( VL( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
    20             CONTINUE
                END IF
-               IF( TEMP.LT.SAFMIN )
-     $            GO TO 50
+               IF( TEMP.LT.SAFMIN ) GO TO 50
                TEMP = ONE / TEMP
                IF( ALPHAI( JC ).EQ.ZERO ) THEN
                   DO 30 JR = 1, N
@@ -334,15 +301,13 @@
    50       CONTINUE
          END IF
          IF( ILVR ) THEN
-            CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ),
-     $                   WORK( IRIGHT ), N, VR, LDVR, IINFO )
+            CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = N + 9
                GO TO 120
             END IF
             DO 100 JC = 1, N
-               IF( ALPHAI( JC ).LT.ZERO )
-     $            GO TO 100
+               IF( ALPHAI( JC ).LT.ZERO ) GO TO 100
                TEMP = ZERO
                IF( ALPHAI( JC ).EQ.ZERO ) THEN
                   DO 60 JR = 1, N
@@ -350,12 +315,10 @@
    60             CONTINUE
                ELSE
                   DO 70 JR = 1, N
-                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+
-     $                      ABS( VR( JR, JC+1 ) ) )
+                     TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
    70             CONTINUE
                END IF
-               IF( TEMP.LT.SAFMIN )
-     $            GO TO 100
+               IF( TEMP.LT.SAFMIN ) GO TO 100
                TEMP = ONE / TEMP
                IF( ALPHAI( JC ).EQ.ZERO ) THEN
                   DO 80 JR = 1, N
@@ -394,11 +357,9 @@
 *
 *        Check for significant underflow in ALPHAI
 *
-         IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE.
-     $       MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
+         IF( ABS( SALFAI ).LT.SAFMIN .AND. ABSAI.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
-            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) /
-     $              MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
+            SCALE = ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAI )
 *
          ELSE IF( SALFAI.EQ.ZERO ) THEN
 *
@@ -414,31 +375,22 @@
 *
 *        Check for significant underflow in ALPHAR
 *
-         IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE.
-     $       MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
+         IF( ABS( SALFAR ).LT.SAFMIN .AND. ABSAR.GE. MAX( SAFMIN, EPS*ABSAI, EPS*ABSB ) ) THEN
             ILIMIT = .TRUE.
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) /
-     $              MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
+            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / ANRM1 ) / MAX( ONEPLS*SAFMIN, ANRM2*ABSAR ) )
          END IF
 *
 *        Check for significant underflow in BETA
 *
-         IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE.
-     $       MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
+         IF( ABS( SBETA ).LT.SAFMIN .AND. ABSB.GE. MAX( SAFMIN, EPS*ABSAR, EPS*ABSAI ) ) THEN
             ILIMIT = .TRUE.
-            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) /
-     $              MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
+            SCALE = MAX( SCALE, ( ONEPLS*SAFMIN / BNRM1 ) / MAX( ONEPLS*SAFMIN, BNRM2*ABSB ) )
          END IF
 *
 *        Check for possible overflow when limiting scaling
 *
          IF( ILIMIT ) THEN
-            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ),
-     $             ABS( SBETA ) )
-            IF( TEMP.GT.ONE )
-     $         SCALE = SCALE / TEMP
-            IF( SCALE.LT.ONE )
-     $         ILIMIT = .FALSE.
+            TEMP = ( SCALE*SAFMIN )*MAX( ABS( SALFAR ), ABS( SALFAI ), ABS( SBETA ) )             IF( TEMP.GT.ONE ) SCALE = SCALE / TEMP             IF( SCALE.LT.ONE ) ILIMIT = .FALSE.
          END IF
 *
 *        Recompute un-scaled ALPHAR, ALPHAI, BETA if necessary.

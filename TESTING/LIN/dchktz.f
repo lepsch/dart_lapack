@@ -1,5 +1,4 @@
-      SUBROUTINE DCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A,
-     $                   COPYA, S, TAU, WORK, NOUT )
+      SUBROUTINE DCHKTZ( DOTYPE, NM, MVAL, NN, NVAL, THRESH, TSTERR, A, COPYA, S, TAU, WORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
       INTEGER            MVAL( * ), NVAL( * )
-      DOUBLE PRECISION   A( * ), COPYA( * ), S( * ),
-     $                   TAU( * ), WORK( * )
+      DOUBLE PRECISION   A( * ), COPYA( * ), S( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -29,8 +27,7 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, IM, IMODE, IN, INFO, K, LDA, LWORK, M,
-     $                   MNMIN, MODE, N, NERRS, NFAIL, NRUN
+      INTEGER            I, IM, IMODE, IN, INFO, K, LDA, LWORK, M, MNMIN, MODE, N, NERRS, NFAIL, NRUN
       DOUBLE PRECISION   EPS
 *     ..
 *     .. Local Arrays ..
@@ -42,8 +39,7 @@
       EXTERNAL           DLAMCH, DQRT12, DRZT01, DRZT02
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, DERRTZ, DGEQR2, DLACPY, DLAORD,
-     $                   DLASET, DLATMS, DTZRZF
+      EXTERNAL           ALAHD, ALASUM, DERRTZ, DGEQR2, DLACPY, DLAORD, DLASET, DLATMS, DTZRZF
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -76,8 +72,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL DERRTZ( PATH, NOUT )
+      IF( TSTERR ) CALL DERRTZ( PATH, NOUT )
       INFOT = 0
 *
       DO 70 IM = 1, NM
@@ -97,8 +92,7 @@
 *
             IF( M.LE.N ) THEN
                DO 50 IMODE = 1, NTYPES
-                  IF( .NOT.DOTYPE( IMODE ) )
-     $               GO TO 50
+                  IF( .NOT.DOTYPE( IMODE ) ) GO TO 50
 *
 *                 Do for each type of singular value distribution.
 *                    0:  zero matrix
@@ -118,14 +112,8 @@
                         S( I ) = ZERO
    30                CONTINUE
                   ELSE
-                     CALL DLATMS( M, N, 'Uniform', ISEED,
-     $                            'Nonsymmetric', S, IMODE,
-     $                            ONE / EPS, ONE, M, N, 'No packing', A,
-     $                            LDA, WORK, INFO )
-                     CALL DGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ),
-     $                            INFO )
-                     CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ),
-     $                            LDA )
+                     CALL DLATMS( M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO )
+                     CALL DGEQR2( M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA )
                      CALL DLAORD( 'Decreasing', MNMIN, S, 1 )
                   END IF
 *
@@ -141,13 +129,11 @@
 *
 *                 Compute norm(svd(a) - svd(r))
 *
-                  RESULT( 1 ) = DQRT12( M, M, A, LDA, S, WORK,
-     $                          LWORK )
+                  RESULT( 1 ) = DQRT12( M, M, A, LDA, S, WORK, LWORK )
 *
 *                 Compute norm( A - R*Q )
 *
-                  RESULT( 2 ) = DRZT01( M, N, COPYA, A, LDA, TAU, WORK,
-     $                          LWORK )
+                  RESULT( 2 ) = DRZT01( M, N, COPYA, A, LDA, TAU, WORK, LWORK )
 *
 *                 Compute norm(Q'*Q - I).
 *
@@ -158,10 +144,7 @@
 *
                   DO 40 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )M, N, IMODE, K,
-     $                     RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    40             CONTINUE

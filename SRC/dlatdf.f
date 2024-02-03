@@ -1,5 +1,4 @@
-      SUBROUTINE DLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV,
-     $                   JPIV )
+      SUBROUTINE DLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -31,8 +30,7 @@
       DOUBLE PRECISION   WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP,
-     $                   DSCAL
+      EXTERNAL           DAXPY, DCOPY, DGECON, DGESC2, DLASSQ, DLASWP, DSCAL
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DASUM, DDOT
@@ -108,8 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
    30    CONTINUE
-         IF( SPLUS.GT.SMINU )
-     $      CALL DCOPY( N, XP, 1, RHS, 1 )
+         IF( SPLUS.GT.SMINU ) CALL DCOPY( N, XP, 1, RHS, 1 )
 *
 *        Apply the permutations JPIV to the computed solution (RHS)
 *
@@ -136,8 +133,7 @@
          CALL DAXPY( N, -ONE, XM, 1, RHS, 1 )
          CALL DGESC2( N, Z, LDZ, RHS, IPIV, JPIV, TEMP )
          CALL DGESC2( N, Z, LDZ, XP, IPIV, JPIV, TEMP )
-         IF( DASUM( N, XP, 1 ).GT.DASUM( N, RHS, 1 ) )
-     $      CALL DCOPY( N, XP, 1, RHS, 1 )
+         IF( DASUM( N, XP, 1 ).GT.DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 )
 *
 *        Compute the sum of squares
 *

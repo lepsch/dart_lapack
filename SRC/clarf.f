@@ -17,8 +17,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            APPLYLEFT
@@ -73,8 +72,7 @@
 *
 *           w(1:lastc,1) := C(1:lastv,1:lastc)**H * v(1:lastv,1)
 *
-            CALL CGEMV( 'Conjugate transpose', LASTV, LASTC, ONE,
-     $           C, LDC, V, INCV, ZERO, WORK, 1 )
+            CALL CGEMV( 'Conjugate transpose', LASTV, LASTC, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
 *
 *           C(1:lastv,1:lastc) := C(...) - v(1:lastv,1) * w(1:lastc,1)**H
 *
@@ -88,8 +86,7 @@
 *
 *           w(1:lastc,1) := C(1:lastc,1:lastv) * v(1:lastv,1)
 *
-            CALL CGEMV( 'No transpose', LASTC, LASTV, ONE, C, LDC,
-     $           V, INCV, ZERO, WORK, 1 )
+            CALL CGEMV( 'No transpose', LASTC, LASTV, ONE, C, LDC, V, INCV, ZERO, WORK, 1 )
 *
 *           C(1:lastc,1:lastv) := C(...) - w(1:lastc,1) * v(1:lastv,1)**H
 *

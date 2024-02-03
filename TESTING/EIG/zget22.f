@@ -1,5 +1,4 @@
-      SUBROUTINE ZGET22( TRANSA, TRANSE, TRANSW, N, A, LDA, E, LDE, W,
-     $                   WORK, RWORK, RESULT )
+      SUBROUTINE ZGET22( TRANSA, TRANSE, TRANSW, N, A, LDA, E, LDE, W, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -20,14 +19,12 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       CHARACTER          NORMA, NORME
       INTEGER            ITRNSE, ITRNSW, J, JCOL, JOFF, JROW, JVEC
-      DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1,
-     $                   ULP, UNFL
+      DOUBLE PRECISION   ANORM, ENORM, ENRMAX, ENRMIN, ERRNRM, TEMP1, ULP, UNFL
       COMPLEX*16         WTEMP
 *     ..
 *     .. External Functions ..
@@ -47,8 +44,7 @@
 *
       RESULT( 1 ) = ZERO
       RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
       UNFL = DLAMCH( 'Safe minimum' )
       ULP = DLAMCH( 'Precision' )
@@ -82,8 +78,7 @@
          DO 20 JVEC = 1, N
             TEMP1 = ZERO
             DO 10 J = 1, N
-               TEMP1 = MAX( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+
-     $                 ABS( DIMAG( E( J, JVEC ) ) ) )
+               TEMP1 = MAX( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+ ABS( DIMAG( E( J, JVEC ) ) ) )
    10       CONTINUE
             ENRMIN = MIN( ENRMIN, TEMP1 )
             ENRMAX = MAX( ENRMAX, TEMP1 )
@@ -95,9 +90,7 @@
 *
          DO 50 J = 1, N
             DO 40 JVEC = 1, N
-               RWORK( JVEC ) = MAX( RWORK( JVEC ),
-     $                         ABS( DBLE( E( JVEC, J ) ) )+
-     $                         ABS( DIMAG( E( JVEC, J ) ) ) )
+               RWORK( JVEC ) = MAX( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) )
    40       CONTINUE
    50    CONTINUE
 *
@@ -145,8 +138,7 @@
          JOFF = JOFF + N
   100 CONTINUE
 *
-      CALL ZGEMM( TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE,
-     $            WORK, N )
+      CALL ZGEMM( TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE, WORK, N )
 *
       ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 *
@@ -164,8 +156,7 @@
 *
 *     Compute RESULT(2) : the normalization error in E.
 *
-      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) /
-     $              ( DBLE( N )*ULP )
+      RESULT( 2 ) = MAX( ABS( ENRMAX-ONE ), ABS( ENRMIN-ONE ) ) / ( DBLE( N )*ULP )
 *
       RETURN
 *

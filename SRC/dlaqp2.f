@@ -1,5 +1,4 @@
-      SUBROUTINE DLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2,
-     $                   WORK )
+      SUBROUTINE DLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            JPVT( * )
-      DOUBLE PRECISION   A( LDA, * ), TAU( * ), VN1( * ), VN2( * ),
-     $                   WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), TAU( * ), VN1( * ), VN2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -62,8 +60,7 @@
 *        Generate elementary reflector H(i).
 *
          IF( OFFPI.LT.M ) THEN
-            CALL DLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1,
-     $                   TAU( I ) )
+            CALL DLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
          ELSE
             CALL DLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
          END IF
@@ -74,8 +71,7 @@
 *
             AII = A( OFFPI, I )
             A( OFFPI, I ) = ONE
-            CALL DLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1,
-     $                  TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
+            CALL DLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, TAU( I ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
             A( OFFPI, I ) = AII
          END IF
 *

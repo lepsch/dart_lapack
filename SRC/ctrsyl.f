@@ -1,5 +1,4 @@
-      SUBROUTINE CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C,
-     $                   LDC, SCALE, INFO )
+      SUBROUTINE CTRSYL( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,8 +22,7 @@
 *     .. Local Scalars ..
       LOGICAL            NOTRNA, NOTRNB
       INTEGER            J, K, L
-      REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN,
-     $                   SMLNUM
+      REAL               BIGNUM, DA11, DB, EPS, SCALOC, SGN, SMIN, SMLNUM
       COMPLEX            A11, SUML, SUMR, VEC, X11
 *     ..
 *     .. Local Arrays ..
@@ -75,8 +73,7 @@
 *     Quick return if possible
 *
       SCALE = ONE
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
 *     Set constants to control overflow
 *
@@ -85,8 +82,7 @@
       BIGNUM = ONE / SMLNUM
       SMLNUM = SMLNUM*REAL( M*N ) / EPS
       BIGNUM = ONE / SMLNUM
-      SMIN = MAX( SMLNUM, EPS*CLANGE( 'M', M, M, A, LDA, DUM ),
-     $       EPS*CLANGE( 'M', N, N, B, LDB, DUM ) )
+      SMIN = MAX( SMLNUM, EPS*CLANGE( 'M', M, M, A, LDA, DUM ), EPS*CLANGE( 'M', N, N, B, LDB, DUM ) )
       SGN = ISGN
 *
       IF( NOTRNA .AND. NOTRNB ) THEN
@@ -106,8 +102,7 @@
          DO 30 L = 1, N
             DO 20 K = M, 1, -1
 *
-               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA,
-     $                C( MIN( K+1, M ), L ), 1 )
+               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )
                SUMR = CDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 )
                VEC = C( K, L ) - ( SUML+SGN*SUMR )
 *
@@ -121,8 +116,7 @@
                END IF
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                  IF( DB.GT.BIGNUM*DA11 )
-     $               SCALOC = ONE / DB
+                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                END IF
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
 *
@@ -168,8 +162,7 @@
                END IF
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                  IF( DB.GT.BIGNUM*DA11 )
-     $               SCALOC = ONE / DB
+                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                END IF
 *
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -206,8 +199,7 @@
             DO 80 K = 1, M
 *
                SUML = CDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 )
-               SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC,
-     $                B( L, MIN( L+1, N ) ), LDB )
+               SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
                VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) )
 *
                SCALOC = ONE
@@ -220,8 +212,7 @@
                END IF
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                  IF( DB.GT.BIGNUM*DA11 )
-     $               SCALOC = ONE / DB
+                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                END IF
 *
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )
@@ -254,10 +245,7 @@
          DO 120 L = N, 1, -1
             DO 110 K = M, 1, -1
 *
-               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA,
-     $                C( MIN( K+1, M ), L ), 1 )
-               SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC,
-     $                B( L, MIN( L+1, N ) ), LDB )
+               SUML = CDOTU( M-K, A( K, MIN( K+1, M ) ), LDA, C( MIN( K+1, M ), L ), 1 )                SUMR = CDOTC( N-L, C( K, MIN( L+1, N ) ), LDC, B( L, MIN( L+1, N ) ), LDB )
                VEC = C( K, L ) - ( SUML+SGN*CONJG( SUMR ) )
 *
                SCALOC = ONE
@@ -270,8 +258,7 @@
                END IF
                DB = ABS( REAL( VEC ) ) + ABS( AIMAG( VEC ) )
                IF( DA11.LT.ONE .AND. DB.GT.ONE ) THEN
-                  IF( DB.GT.BIGNUM*DA11 )
-     $               SCALOC = ONE / DB
+                  IF( DB.GT.BIGNUM*DA11 ) SCALOC = ONE / DB
                END IF
 *
                X11 = CLADIV( VEC*CMPLX( SCALOC ), A11 )

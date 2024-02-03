@@ -1,5 +1,4 @@
-      SUBROUTINE DQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S,
-     $                   RANK, NORMA, NORMB, ISEED, WORK, LWORK )
+      SUBROUTINE DQRT15( SCALE, RKSEL, M, N, NRHS, A, LDA, B, LDB, S, RANK, NORMA, NORMB, ISEED, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -18,8 +17,7 @@
 *
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE, TWO, SVMIN
-      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0,
-     $                   SVMIN = 0.1D0 )
+      PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0, TWO = 2.0D0, SVMIN = 0.1D0 )
 *     ..
 *     .. Local Scalars ..
       INTEGER            INFO, J, MN
@@ -33,8 +31,7 @@
       EXTERNAL           DASUM, DLAMCH, DLANGE, DLARND, DNRM2
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGEMM, DLAORD, DLARF, DLARNV, DLAROR, DLASCL,
-     $                   DLASET, DSCAL, XERBLA
+      EXTERNAL           DGEMM, DLAORD, DLARF, DLARNV, DLAROR, DLASCL, DLASET, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -87,16 +84,14 @@
          CALL DLARNV( 2, ISEED, M, WORK )
          CALL DSCAL( M, ONE / DNRM2( M, WORK, 1 ), WORK, 1 )
          CALL DLASET( 'Full', M, RANK, ZERO, ONE, A, LDA )
-         CALL DLARF( 'Left', M, RANK, WORK, 1, TWO, A, LDA,
-     $               WORK( M+1 ) )
+         CALL DLARF( 'Left', M, RANK, WORK, 1, TWO, A, LDA, WORK( M+1 ) )
 *
 *        workspace used: m+mn
 *
 *        Generate consistent rhs in the range space of A
 *
          CALL DLARNV( 2, ISEED, RANK*NRHS, WORK )
-         CALL DGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, ONE,
-     $               A, LDA, WORK, RANK, ZERO, B, LDB )
+         CALL DGEMM( 'No transpose', 'No transpose', M, NRHS, RANK, ONE, A, LDA, WORK, RANK, ZERO, B, LDB )
 *
 *        work space used: <= mn *nrhs
 *
@@ -105,11 +100,8 @@
          DO 40 J = 1, RANK
             CALL DSCAL( M, S( J ), A( 1, J ), 1 )
    40    CONTINUE
-         IF( RANK.LT.N )
-     $      CALL DLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ),
-     $                   LDA )
-         CALL DLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED,
-     $                WORK, INFO )
+         IF( RANK.LT.N ) CALL DLASET( 'Full', M, N-RANK, ZERO, ZERO, A( 1, RANK+1 ), LDA )
+         CALL DLAROR( 'Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO )
 *
       ELSE
 *
@@ -134,22 +126,12 @@
 *
 *              matrix scaled up
 *
-               CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A,
-     $                      LDA, INFO )
-               CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S,
-     $                      MN, INFO )
-               CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B,
-     $                      LDB, INFO )
+               CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO )
             ELSE IF( SCALE.EQ.3 ) THEN
 *
 *              matrix scaled down
 *
-               CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A,
-     $                      LDA, INFO )
-               CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S,
-     $                      MN, INFO )
-               CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B,
-     $                      LDB, INFO )
+               CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO )
             ELSE
                CALL XERBLA( 'DQRT15', 1 )
                RETURN

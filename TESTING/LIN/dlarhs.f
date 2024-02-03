@@ -1,5 +1,4 @@
-      SUBROUTINE DLARHS( PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS,
-     $                   A, LDA, X, LDX, B, LDB, ISEED, INFO )
+      SUBROUTINE DLARHS( PATH, XTYPE, UPLO, TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDX, B, LDB, ISEED, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -32,8 +31,7 @@
       EXTERNAL           LSAME, LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DGBMV, DGEMM, DLACPY, DLARNV, DSBMV, DSPMV,
-     $                   DSYMM, DTBMV, DTPMV, DTRMM, XERBLA
+      EXTERNAL           DGBMV, DGEMM, DLACPY, DLARNV, DSBMV, DSPMV, DSYMM, DTBMV, DTPMV, DTRMM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -54,14 +52,11 @@
       BAND = LSAME( PATH( 3: 3 ), 'B' )
       IF( .NOT.LSAME( C1, 'Double precision' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) )
-     $          THEN
+      ELSE IF( .NOT.( LSAME( XTYPE, 'N' ) .OR. LSAME( XTYPE, 'C' ) ) ) THEN
          INFO = -2
-      ELSE IF( ( SYM .OR. TRI ) .AND. .NOT.
-     $         ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
+      ELSE IF( ( SYM .OR. TRI ) .AND. .NOT. ( LSAME( UPLO, 'U' ) .OR. LSAME( UPLO, 'L' ) ) ) THEN
          INFO = -3
-      ELSE IF( ( GEN .OR. QRS ) .AND. .NOT.
-     $         ( TRAN .OR. LSAME( TRANS, 'N' ) ) ) THEN
+      ELSE IF( ( GEN .OR. QRS ) .AND. .NOT. ( TRAN .OR. LSAME( TRANS, 'N' ) ) ) THEN
          INFO = -4
       ELSE IF( M.LT.0 ) THEN
          INFO = -5
@@ -73,15 +68,11 @@
          INFO = -8
       ELSE IF( NRHS.LT.0 ) THEN
          INFO = -9
-      ELSE IF( ( .NOT.BAND .AND. LDA.LT.MAX( 1, M ) ) .OR.
-     $         ( BAND .AND. ( SYM .OR. TRI ) .AND. LDA.LT.KL+1 ) .OR.
-     $         ( BAND .AND. GEN .AND. LDA.LT.KL+KU+1 ) ) THEN
+      ELSE IF( ( .NOT.BAND .AND. LDA.LT.MAX( 1, M ) ) .OR. ( BAND .AND. ( SYM .OR. TRI ) .AND. LDA.LT.KL+1 ) .OR. ( BAND .AND. GEN .AND. LDA.LT.KL+KU+1 ) ) THEN
          INFO = -11
-      ELSE IF( ( NOTRAN .AND. LDX.LT.MAX( 1, N ) ) .OR.
-     $         ( TRAN .AND. LDX.LT.MAX( 1, M ) ) ) THEN
+      ELSE IF( ( NOTRAN .AND. LDX.LT.MAX( 1, N ) ) .OR. ( TRAN .AND. LDX.LT.MAX( 1, M ) ) ) THEN
          INFO = -13
-      ELSE IF( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR.
-     $         ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( NOTRAN .AND. LDB.LT.MAX( 1, M ) ) .OR. ( TRAN .AND. LDB.LT.MAX( 1, N ) ) ) THEN
          INFO = -15
       END IF
       IF( INFO.NE.0 ) THEN
@@ -107,29 +98,24 @@
 *     Multiply X by op(A) using an appropriate
 *     matrix multiply routine.
 *
-      IF( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR.
-     $    LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR.
-     $    LSAMEN( 2, C2, 'RQ' ) ) THEN
+      IF( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'QR' ) .OR. LSAMEN( 2, C2, 'LQ' ) .OR. LSAMEN( 2, C2, 'QL' ) .OR. LSAMEN( 2, C2, 'RQ' ) ) THEN
 *
 *        General matrix
 *
-         CALL DGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX,
-     $               ZERO, B, LDB )
+         CALL DGEMM( TRANS, 'N', MB, NRHS, NX, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) ) THEN
 *
 *        Symmetric matrix, 2-D storage
 *
-         CALL DSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO,
-     $               B, LDB )
+         CALL DSYMM( 'Left', UPLO, N, NRHS, ONE, A, LDA, X, LDX, ZERO, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
 *
 *        General matrix, band storage
 *
          DO 20 J = 1, NRHS
-            CALL DGBMV( TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ),
-     $                  1, ZERO, B( 1, J ), 1 )
+            CALL DGBMV( TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    20    CONTINUE
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
@@ -137,8 +123,7 @@
 *        Symmetric matrix, band storage
 *
          DO 30 J = 1, NRHS
-            CALL DSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO,
-     $                  B( 1, J ), 1 )
+            CALL DSBMV( UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    30    CONTINUE
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'SP' ) ) THEN
@@ -146,8 +131,7 @@
 *        Symmetric matrix, packed storage
 *
          DO 40 J = 1, NRHS
-            CALL DSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ),
-     $                  1 )
+            CALL DSPMV( UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 )
    40    CONTINUE
 *
       ELSE IF( LSAMEN( 2, C2, 'TR' ) ) THEN
@@ -162,8 +146,7 @@
          ELSE
             DIAG = 'N'
          END IF
-         CALL DTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B,
-     $               LDB )
+         CALL DTRMM( 'Left', UPLO, TRANS, DIAG, N, NRHS, ONE, A, LDA, B, LDB )
 *
       ELSE IF( LSAMEN( 2, C2, 'TP' ) ) THEN
 *

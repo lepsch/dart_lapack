@@ -75,8 +75,7 @@
       ELSE
          IWS = 1
       END IF
-      IF( NB.LT.NBMIN )
-     $   NB = N
+      IF( NB.LT.NBMIN ) NB = N
 *
       IF( UPPER ) THEN
 *
@@ -91,16 +90,14 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 40
+         IF( K.LT.1 ) GO TO 40
 *
          IF( K.GT.NB ) THEN
 *
 *           Factorize columns k-kb+1:k of A and use blocked code to
 *           update columns 1:k-kb
 *
-            CALL SLASYF( UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK,
-     $                   IINFO )
+            CALL SLASYF( UPLO, K, NB, KB, A, LDA, IPIV, WORK, LDWORK, IINFO )
          ELSE
 *
 *           Use unblocked code to factorize columns 1:k of A
@@ -111,8 +108,7 @@
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO
+         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO
 *
 *        Decrease K and return to the start of the main loop
 *
@@ -132,16 +128,14 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 40
+         IF( K.GT.N ) GO TO 40
 *
          IF( K.LE.N-NB ) THEN
 *
 *           Factorize columns k:k+kb-1 of A and use blocked code to
 *           update columns k+kb:n
 *
-            CALL SLASYF( UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ),
-     $                   WORK, LDWORK, IINFO )
+            CALL SLASYF( UPLO, N-K+1, NB, KB, A( K, K ), LDA, IPIV( K ), WORK, LDWORK, IINFO )
          ELSE
 *
 *           Use unblocked code to factorize columns k:n of A
@@ -152,8 +146,7 @@
 *
 *        Set INFO on the first occurrence of a zero pivot
 *
-         IF( INFO.EQ.0 .AND. IINFO.GT.0 )
-     $      INFO = IINFO + K - 1
+         IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + K - 1
 *
 *        Adjust IPIV
 *

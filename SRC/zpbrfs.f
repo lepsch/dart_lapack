@@ -1,5 +1,4 @@
-      SUBROUTINE ZPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B,
-     $                   LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
+      SUBROUTINE ZPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   BERR( * ), FERR( * ), RWORK( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   WORK( * ), X( LDX, * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -114,8 +112,7 @@
 *        Compute residual R = B - A * X
 *
          CALL ZCOPY( N, B( 1, J ), 1, WORK, 1 )
-         CALL ZHBMV( UPLO, N, KD, -ONE, AB, LDAB, X( 1, J ), 1, ONE,
-     $               WORK, 1 )
+         CALL ZHBMV( UPLO, N, KD, -ONE, AB, LDAB, X( 1, J ), 1, ONE, WORK, 1 )
 *
 *        Compute componentwise relative backward error from formula
 *
@@ -141,8 +138,7 @@
                   RWORK( I ) = RWORK( I ) + CABS1( AB( L+I, K ) )*XK
                   S = S + CABS1( AB( L+I, K ) )*CABS1( X( I, J ) )
    40          CONTINUE
-               RWORK( K ) = RWORK( K ) + ABS( DBLE( AB( KD+1, K ) ) )*
-     $                      XK + S
+               RWORK( K ) = RWORK( K ) + ABS( DBLE( AB( KD+1, K ) ) )* XK + S
    50       CONTINUE
          ELSE
             DO 70 K = 1, N
@@ -162,8 +158,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, CABS1( WORK( I ) ) / RWORK( I ) )
             ELSE
-               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) /
-     $             ( RWORK( I )+SAFE1 ) )
+               S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             END IF
    80    CONTINUE
          BERR( J ) = S
@@ -174,8 +169,7 @@
 *              last iteration, and
 *           3) At most ITMAX iterations tried.
 *
-         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND.
-     $       COUNT.LE.ITMAX ) THEN
+         IF( BERR( J ).GT.EPS .AND. TWO*BERR( J ).LE.LSTRES .AND. COUNT.LE.ITMAX ) THEN
 *
 *           Update solution and try again.
 *
@@ -212,8 +206,7 @@
             IF( RWORK( I ).GT.SAFE2 ) THEN
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I )
             ELSE
-               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) +
-     $                      SAFE1
+               RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             END IF
    90    CONTINUE
 *
@@ -247,8 +240,7 @@
          DO 130 I = 1, N
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
   130    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   140 CONTINUE
 *

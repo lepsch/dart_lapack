@@ -22,8 +22,7 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            I
-      DOUBLE PRECISION   M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP,
-     $                   TOM, U, UNFL
+      DOUBLE PRECISION   M1, M2, MX, OVFL, SOV, SSHIFT, SSUN, SUN, TMP, TOM, U, UNFL
 *     ..
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
@@ -78,8 +77,7 @@
       IF( U.LE.SUN ) THEN
          IF( U.LE.ZERO ) THEN
             NUM = NUM + 1
-            IF( U.GT.-SUN )
-     $         U = -SUN
+            IF( U.GT.-SUN ) U = -SUN
          ELSE
             U = SUN
          END IF
@@ -89,8 +87,7 @@
       IF( U.LE.SUN ) THEN
          IF( U.LE.ZERO ) THEN
             NUM = NUM + 1
-            IF( U.GT.-SUN )
-     $         U = -SUN
+            IF( U.GT.-SUN ) U = -SUN
          ELSE
             U = SUN
          END IF
@@ -101,8 +98,7 @@
          IF( U.LE.SUN ) THEN
             IF( U.LE.ZERO ) THEN
                NUM = NUM + 1
-               IF( U.GT.-SUN )
-     $            U = -SUN
+               IF( U.GT.-SUN ) U = -SUN
             ELSE
                U = SUN
             END IF
@@ -112,8 +108,7 @@
          IF( U.LE.SUN ) THEN
             IF( U.LE.ZERO ) THEN
                NUM = NUM + 1
-               IF( U.GT.-SUN )
-     $            U = -SUN
+               IF( U.GT.-SUN ) U = -SUN
             ELSE
                U = SUN
             END IF

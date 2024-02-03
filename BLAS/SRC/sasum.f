@@ -41,9 +41,7 @@
          END IF
          MP1 = M + 1
          DO I = MP1,N,6
-            STEMP = STEMP + ABS(SX(I)) + ABS(SX(I+1)) +
-     $              ABS(SX(I+2)) + ABS(SX(I+3)) +
-     $              ABS(SX(I+4)) + ABS(SX(I+5))
+            STEMP = STEMP + ABS(SX(I)) + ABS(SX(I+1)) + ABS(SX(I+2)) + ABS(SX(I+3)) + ABS(SX(I+4)) + ABS(SX(I+5))
          END DO
       ELSE
 *

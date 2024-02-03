@@ -119,8 +119,7 @@
 *
 *           Generate Q(2:n,2:n)
 *
-            CALL DORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK,
-     $                   LWORK, IINFO )
+            CALL DORGQR( N-1, N-1, N-1, A( 2, 2 ), LDA, TAU, WORK, LWORK, IINFO )
          END IF
       END IF
       WORK( 1 ) = LWKOPT

@@ -25,10 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            DONE, UPPER
-      INTEGER            I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP,
-     $                   P
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, DTEMP,
-     $                   ROWMAX, TT, SFMIN
+      INTEGER            I, II, IMAX, ITEMP, J, JMAX, K, KK, KP, KSTEP, P       DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D, D11, D22, R1, DTEMP, ROWMAX, TT, SFMIN
       COMPLEX*16         D12, D21, T, WK, WKM1, WKP1, Z
 *     ..
 *     .. External Functions ..
@@ -93,8 +90,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 34
+         IF( K.LT.1 ) GO TO 34
          KSTEP = 1
          P = K
 *
@@ -118,15 +114,13 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
 *
 *           Set E( K ) to zero
 *
-            IF( K.GT.1 )
-     $         E( K ) = CZERO
+            IF( K.GT.1 ) E( K ) = CZERO
 *
          ELSE
 *
@@ -160,8 +154,7 @@
 *                 Determine both ROWMAX and JMAX.
 *
                   IF( IMAX.NE.K ) THEN
-                     JMAX = IMAX + IZAMAX( K-IMAX, A( IMAX, IMAX+1 ),
-     $                                     LDA )
+                     JMAX = IMAX + IZAMAX( K-IMAX, A( IMAX, IMAX+1 ), LDA )
                      ROWMAX = CABS1( A( IMAX, JMAX ) )
                   ELSE
                      ROWMAX = ZERO
@@ -181,8 +174,7 @@
 *                 ABS( DBLE( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
 *                 (used to handle NaN and Inf)
 *
-                  IF( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) )
-     $                       .LT.ALPHA*ROWMAX ) ) THEN
+                  IF( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) ) .LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -194,8 +186,7 @@
 *                 Equivalent to testing for ROWMAX.EQ.COLMAX,
 *                 (used to handle NaN and Inf)
 *
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) )
-     $            THEN
+                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
 *
 *                    interchange rows and columns K-1 and IMAX,
 *                    use 2-by-2 pivot block
@@ -233,8 +224,7 @@
 *
             IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
 *              (1) Swap columnar parts
-               IF( P.GT.1 )
-     $            CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )
+               IF( P.GT.1 ) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 )
 *              (2) Swap and conjugate middle parts
                DO 14 J = P + 1, K - 1
                   T = DCONJG( A( J, K ) )
@@ -251,8 +241,7 @@
 *              Convert upper triangle of A into U form by applying
 *              the interchanges in columns k+1:N.
 *
-               IF( K.LT.N )
-     $            CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
+               IF( K.LT.N ) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA )
 *
             END IF
 *
@@ -261,8 +250,7 @@
 *
             IF( KP.NE.KK ) THEN
 *              (1) Swap columnar parts
-               IF( KP.GT.1 )
-     $            CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
+               IF( KP.GT.1 ) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
 *              (2) Swap and conjugate middle parts
                DO 15 J = KP + 1, KK - 1
                   T = DCONJG( A( J, KK ) )
@@ -288,15 +276,12 @@
 *              Convert upper triangle of A into U form by applying
 *              the interchanges in columns k+1:N.
 *
-               IF( K.LT.N )
-     $            CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ),
-     $                        LDA )
+               IF( K.LT.N ) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA )
 *
             ELSE
 *              (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 )
-     $            A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
+               IF( KSTEP.EQ.2 ) A( K-1, K-1 ) = DBLE( A( K-1, K-1 ) )
             END IF
 *
 *           Update the leading submatrix
@@ -367,8 +352,7 @@
 *
                IF( K.GT.2 ) THEN
 *                 D = |A12|
-                  D = DLAPY2( DBLE( A( K-1, K ) ),
-     $                DIMAG( A( K-1, K ) ) )
+                  D = DLAPY2( DBLE( A( K-1, K ) ), DIMAG( A( K-1, K ) ) )
                   D11 = DBLE( A( K, K ) / D )
                   D22 = DBLE( A( K-1, K-1 ) / D )
                   D12 = A( K-1, K ) / D
@@ -378,16 +362,13 @@
 *
 *                    Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 *
-                     WKM1 = TT*( D11*A( J, K-1 )-DCONJG( D12 )*
-     $                      A( J, K ) )
+                     WKM1 = TT*( D11*A( J, K-1 )-DCONJG( D12 )* A( J, K ) )
                      WK = TT*( D22*A( J, K )-D12*A( J, K-1 ) )
 *
 *                    Perform a rank-2 update of A(1:k-2,1:k-2)
 *
                      DO 20 I = J, 1, -1
-                        A( I, J ) = A( I, J ) -
-     $                              ( A( I, K ) / D )*DCONJG( WK ) -
-     $                              ( A( I, K-1 ) / D )*DCONJG( WKM1 )
+                        A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K-1 ) / D )*DCONJG( WKM1 )
    20                CONTINUE
 *
 *                    Store U(k) and U(k-1) in cols k and k-1 for row J
@@ -446,8 +427,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 64
+         IF( K.GT.N ) GO TO 64
          KSTEP = 1
          P = K
 *
@@ -471,15 +451,13 @@
 *
 *           Column K is zero or underflow: set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
             A( K, K ) = DBLE( A( K, K ) )
 *
 *           Set E( K ) to zero
 *
-            IF( K.LT.N )
-     $         E( K ) = CZERO
+            IF( K.LT.N ) E( K ) = CZERO
 *
          ELSE
 *
@@ -520,8 +498,7 @@
                   END IF
 *
                   IF( IMAX.LT.N ) THEN
-                     ITEMP = IMAX + IZAMAX( N-IMAX, A( IMAX+1, IMAX ),
-     $                                     1 )
+                     ITEMP = IMAX + IZAMAX( N-IMAX, A( IMAX+1, IMAX ), 1 )
                      DTEMP = CABS1( A( ITEMP, IMAX ) )
                      IF( DTEMP.GT.ROWMAX ) THEN
                         ROWMAX = DTEMP
@@ -534,8 +511,7 @@
 *                 ABS( DBLE( W( IMAX,KW-1 ) ) ).GE.ALPHA*ROWMAX
 *                 (used to handle NaN and Inf)
 *
-                  IF( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) )
-     $                       .LT.ALPHA*ROWMAX ) ) THEN
+                  IF( .NOT.( ABS( DBLE( A( IMAX, IMAX ) ) ) .LT.ALPHA*ROWMAX ) ) THEN
 *
 *                    interchange rows and columns K and IMAX,
 *                    use 1-by-1 pivot block
@@ -547,8 +523,7 @@
 *                 Equivalent to testing for ROWMAX.EQ.COLMAX,
 *                 (used to handle NaN and Inf)
 *
-                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) )
-     $            THEN
+                  ELSE IF( ( P.EQ.JMAX ) .OR. ( ROWMAX.LE.COLMAX ) ) THEN
 *
 *                    interchange rows and columns K+1 and IMAX,
 *                    use 2-by-2 pivot block
@@ -587,8 +562,7 @@
 *
             IF( ( KSTEP.EQ.2 ) .AND. ( P.NE.K ) ) THEN
 *              (1) Swap columnar parts
-               IF( P.LT.N )
-     $            CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
+               IF( P.LT.N ) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 )
 *              (2) Swap and conjugate middle parts
                DO 44 J = K + 1, P - 1
                   T = DCONJG( A( J, K ) )
@@ -605,8 +579,7 @@
 *              Convert lower triangle of A into L form by applying
 *              the interchanges in columns 1:k-1.
 *
-               IF ( K.GT.1 )
-     $            CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
+               IF ( K.GT.1 ) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA )
 *
             END IF
 *
@@ -615,8 +588,7 @@
 *
             IF( KP.NE.KK ) THEN
 *              (1) Swap columnar parts
-               IF( KP.LT.N )
-     $            CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
+               IF( KP.LT.N ) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
 *              (2) Swap and conjugate middle parts
                DO 45 J = KK + 1, KP - 1
                   T = DCONJG( A( J, KK ) )
@@ -642,14 +614,12 @@
 *              Convert lower triangle of A into L form by applying
 *              the interchanges in columns 1:k-1.
 *
-               IF ( K.GT.1 )
-     $            CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
+               IF ( K.GT.1 ) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA )
 *
             ELSE
 *              (*) Make sure that diagonal element of pivot is real
                A( K, K ) = DBLE( A( K, K ) )
-               IF( KSTEP.EQ.2 )
-     $            A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
+               IF( KSTEP.EQ.2 ) A( K+1, K+1 ) = DBLE( A( K+1, K+1 ) )
             END IF
 *
 *           Update the trailing submatrix
@@ -676,8 +646,7 @@
 *                       = A - W(k)*(1/D(k))*W(k)**T
 *
                      D11 = ONE / DBLE( A( K, K ) )
-                     CALL ZHER( UPLO, N-K, -D11, A( K+1, K ), 1,
-     $                          A( K+1, K+1 ), LDA )
+                     CALL ZHER( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
 *
 *                    Store L(k) in column k
 *
@@ -696,8 +665,7 @@
 *                       = A - W(k)*(1/D(k))*W(k)**T
 *                       = A - (W(k)/D(k))*(D(k))*(W(k)/D(K))**T
 *
-                     CALL ZHER( UPLO, N-K, -D11, A( K+1, K ), 1,
-     $                          A( K+1, K+1 ), LDA )
+                     CALL ZHER( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
                   END IF
 *
 *                 Store the subdiagonal element of D in array E
@@ -725,8 +693,7 @@
 *
                IF( K.LT.N-1 ) THEN
 *                 D = |A21|
-                  D = DLAPY2( DBLE( A( K+1, K ) ),
-     $                DIMAG( A( K+1, K ) ) )
+                  D = DLAPY2( DBLE( A( K+1, K ) ), DIMAG( A( K+1, K ) ) )
                   D11 = DBLE( A( K+1, K+1 ) ) / D
                   D22 = DBLE( A( K, K ) ) / D
                   D21 = A( K+1, K ) / D
@@ -737,15 +704,12 @@
 *                    Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 *
                      WK = TT*( D11*A( J, K )-D21*A( J, K+1 ) )
-                     WKP1 = TT*( D22*A( J, K+1 )-DCONJG( D21 )*
-     $                      A( J, K ) )
+                     WKP1 = TT*( D22*A( J, K+1 )-DCONJG( D21 )* A( J, K ) )
 *
 *                    Perform a rank-2 update of A(k+2:n,k+2:n)
 *
                      DO 50 I = J, N
-                        A( I, J ) = A( I, J ) -
-     $                              ( A( I, K ) / D )*DCONJG( WK ) -
-     $                              ( A( I, K+1 ) / D )*DCONJG( WKP1 )
+                        A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K+1 ) / D )*DCONJG( WKP1 )
    50                CONTINUE
 *
 *                    Store L(k) and L(k+1) in cols k and k+1 for row J

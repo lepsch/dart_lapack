@@ -52,8 +52,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -66,9 +65,7 @@
 *
 *           Compute elements 1:J-1 of column J.
 *
-            IF( J.GT.1 )
-     $         CALL STPSV( 'Upper', 'Transpose', 'Non-unit', J-1, AP,
-     $                     AP( JC ), 1 )
+            IF( J.GT.1 ) CALL STPSV( 'Upper', 'Transpose', 'Non-unit', J-1, AP, AP( JC ), 1 )
 *
 *           Compute U(J,J) and test for non-positive-definiteness.
 *
@@ -101,8 +98,7 @@
 *
             IF( J.LT.N ) THEN
                CALL SSCAL( N-J, ONE / AJJ, AP( JJ+1 ), 1 )
-               CALL SSPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1,
-     $                    AP( JJ+N-J+1 ) )
+               CALL SSPR( 'Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) )
                JJ = JJ + N - J + 1
             END IF
    20    CONTINUE

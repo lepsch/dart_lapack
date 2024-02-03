@@ -23,17 +23,14 @@
       LOGICAL            SEL( NMAX )
       INTEGER            IFAILL( NMAX ), IFAILR( NMAX )
       REAL               RW( NMAX ), S( NMAX )
-      COMPLEX            A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ),
-     $                   VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ),
-     $                   X( NMAX )
+      COMPLEX            A( NMAX, NMAX ), C( NMAX, NMAX ), TAU( NMAX ), VL( NMAX, NMAX ), VR( NMAX, NMAX ), W( LW ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, CGEBAK, CGEBAL, CGEHRD, CHSEIN, CHSEQR,
-     $                   CUNGHR, CUNMHR, CTREVC, CTREVC3, CGEHD2
+      EXTERNAL           CHKXER, CGEBAK, CGEBAL, CGEHRD, CHSEIN, CHSEQR, CUNGHR, CUNMHR, CTREVC, CTREVC3, CGEHD2
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          REAL
@@ -193,68 +190,52 @@
 *
          SRNAMT = 'CUNMHR'
          INFOT = 1
-         CALL CUNMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( '/', 'N', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CUNMHR( 'L', '/', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', '/', 0, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CUNMHR( 'L', 'N', -1, 0, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', -1, 0, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CUNMHR( 'L', 'N', 0, -1, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 0, -1, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CUNMHR( 'L', 'N', 0, 0, 0, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 0, 0, 0, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CUNMHR( 'L', 'N', 0, 0, 2, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 0, 0, 2, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CUNMHR( 'L', 'N', 1, 2, 2, 1, A, 1, TAU, C, 1, W, 2,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 1, 2, 2, 1, A, 1, TAU, C, 1, W, 2, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CUNMHR( 'R', 'N', 2, 1, 2, 1, A, 1, TAU, C, 2, W, 2,
-     $                INFO )
+         CALL CUNMHR( 'R', 'N', 2, 1, 2, 1, A, 1, TAU, C, 2, W, 2, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CUNMHR( 'L', 'N', 1, 1, 1, 0, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 1, 1, 1, 0, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CUNMHR( 'L', 'N', 0, 1, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 0, 1, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CUNMHR( 'R', 'N', 1, 0, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'R', 'N', 1, 0, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMHR( 'L', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CUNMHR( 'R', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'R', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CUNMHR( 'L', 'N', 2, 1, 1, 1, A, 2, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 2, 1, 1, 1, A, 2, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CUNMHR( 'L', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'L', 'N', 1, 2, 1, 1, A, 1, TAU, C, 1, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CUNMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1,
-     $                INFO )
+         CALL CUNMHR( 'R', 'N', 2, 1, 1, 1, A, 1, TAU, C, 2, W, 1, INFO )
          CALL CHKXER( 'CUNMHR', INFOT, NOUT, LERR, OK )
          NT = NT + 16
 *
@@ -262,40 +243,31 @@
 *
          SRNAMT = 'CHSEQR'
          INFOT = 1
-         CALL CHSEQR( '/', 'N', 0, 1, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( '/', 'N', 0, 1, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHSEQR( 'E', '/', 0, 1, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', '/', 0, 1, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHSEQR( 'E', 'N', -1, 1, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', -1, 1, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CHSEQR( 'E', 'N', 0, 0, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', 0, 0, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CHSEQR( 'E', 'N', 0, 2, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', 0, 2, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHSEQR( 'E', 'N', 1, 1, 0, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', 1, 1, 0, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHSEQR( 'E', 'N', 1, 1, 2, A, 1, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', 1, 1, 2, A, 1, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CHSEQR( 'E', 'N', 2, 1, 2, A, 1, X, C, 2, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'N', 2, 1, 2, A, 1, X, C, 2, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHSEQR( 'E', 'V', 2, 1, 2, A, 2, X, C, 1, W, 1,
-     $                INFO )
+         CALL CHSEQR( 'E', 'V', 2, 1, 2, A, 2, X, C, 1, W, 1, INFO )
          CALL CHKXER( 'CHSEQR', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
@@ -303,36 +275,28 @@
 *
          SRNAMT = 'CHSEIN'
          INFOT = 1
-         CALL CHSEIN( '/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1,
-     $                0, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( '/', 'N', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHSEIN( 'R', '/', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1,
-     $                0, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', '/', 'N', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHSEIN( 'R', 'N', '/', SEL, 0, A, 1, X, VL, 1, VR, 1,
-     $                0, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', 'N', '/', SEL, 0, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHSEIN( 'R', 'N', 'N', SEL, -1, A, 1, X, VL, 1, VR,
-     $                1, 0, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', 'N', 'N', SEL, -1, A, 1, X, VL, 1, VR, 1, 0, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 1, X, VL, 1, VR, 2,
-     $                4, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 1, X, VL, 1, VR, 2, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHSEIN( 'L', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1,
-     $                4, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'L', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1,
-     $                4, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 1, 4, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2,
-     $                1, M, W, RW, IFAILL, IFAILR, INFO )
+         CALL CHSEIN( 'R', 'N', 'N', SEL, 2, A, 2, X, VL, 1, VR, 2, 1, M, W, RW, IFAILL, IFAILR, INFO )
          CALL CHKXER( 'CHSEIN', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
@@ -340,32 +304,25 @@
 *
          SRNAMT = 'CTREVC'
          INFOT = 1
-         CALL CTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                RW, INFO )
+         CALL CTREVC( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CTREVC( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CTREVC( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CTREVC( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CTREVC( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CTREVC( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W,
-     $                RW, INFO )
+         CALL CTREVC( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, RW, INFO )
          CALL CHKXER( 'CTREVC', INFOT, NOUT, LERR, OK )
          NT = NT + 7
 *
@@ -373,40 +330,31 @@
 *
          SRNAMT = 'CTREVC3'
          INFOT = 1
-         CALL CTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL CTREVC3( '/', 'A', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CTREVC3( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL CTREVC3( 'L', '/', SEL, 0, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CTREVC3( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, -1, A, 1, VL, 1, VR, 1, 0, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CTREVC3( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, 2, A, 1, VL, 2, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CTREVC3( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL CTREVC3( 'R', 'A', SEL, 2, A, 2, VL, 1, VR, 1, 4, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W,
-     $                 LW, RW, 2, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 1, M, W, LW, RW, 2, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W,
-     $                 2, RW, 2, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, 2, RW, 2, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W,
-     $                 LW, RW, 1, INFO )
+         CALL CTREVC3( 'L', 'A', SEL, 2, A, 2, VL, 2, VR, 1, 2, M, W, LW, RW, 1, INFO )
          CALL CHKXER( 'CTREVC3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
       END IF

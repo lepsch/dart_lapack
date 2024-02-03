@@ -1,5 +1,4 @@
-      SUBROUTINE STPT02( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDX, B, LDB,
-     $                   WORK, RESID )
+      SUBROUTINE STPT02( UPLO, TRANS, DIAG, N, NRHS, AP, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,7 +1,4 @@
-      SUBROUTINE CLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL,
-     $                     KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK,
-     $                     RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK,
-     $                     INFO )
+      SUBROUTINE CLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -10,8 +7,7 @@
 *
 *     .. Scalar Arguments ..
       INTEGER            INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
-      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK,
-     $                   RELTOL
+      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
       INTEGER            JPIV( * )
@@ -25,12 +21,10 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT,
-     $                   MINMNUPDT
+      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
       REAL               HUGEVAL, TAUNAN, TEMP, TEMP2, TOL3Z
       COMPLEX            AIKK
 *     ..
@@ -241,8 +235,7 @@
 *        and TAU(KK) = CZERO.
 *
          IF( I.LT.M ) THEN
-            CALL CLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1,
-     $                   TAU( KK ) )
+            CALL CLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) )
          ELSE
             TAU( KK ) = CZERO
          END IF
@@ -295,9 +288,7 @@
          IF( KK.LT.MINMNUPDT ) THEN
             AIKK = A( I, KK )
             A( I, KK ) = CONE
-            CALL CLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1,
-     $                  CONJG( TAU( KK ) ), A( I, KK+1 ), LDA,
-     $                  WORK( 1 ) )
+            CALL CLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, CONJG( TAU( KK ) ), A( I, KK+1 ), LDA, WORK( 1 ) )
             A( I, KK ) = AIKK
          END IF
 *

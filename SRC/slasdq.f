@@ -1,5 +1,4 @@
-      SUBROUTINE SLASDQ( UPLO, SQRE, N, NCVT, NRU, NCC, D, E, VT, LDVT,
-     $                   U, LDU, C, LDC, WORK, INFO )
+      SUBROUTINE SLASDQ( UPLO, SQRE, N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, LDC, LDU, LDVT, N, NCC, NCVT, NRU, SQRE
 *     ..
 *     .. Array Arguments ..
-      REAL               C( LDC, * ), D( * ), E( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      REAL               C( LDC, * ), D( * ), E( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -41,10 +39,7 @@
 *
       INFO = 0
       IUPLO = 0
-      IF( LSAME( UPLO, 'U' ) )
-     $   IUPLO = 1
-      IF( LSAME( UPLO, 'L' ) )
-     $   IUPLO = 2
+      IF( LSAME( UPLO, 'U' ) ) IUPLO = 1       IF( LSAME( UPLO, 'L' ) ) IUPLO = 2
       IF( IUPLO.EQ.0 ) THEN
          INFO = -1
       ELSE IF( ( SQRE.LT.0 ) .OR. ( SQRE.GT.1 ) ) THEN
@@ -57,21 +52,18 @@
          INFO = -5
       ELSE IF( NCC.LT.0 ) THEN
          INFO = -6
-      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR.
-     $         ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( NCVT.EQ.0 .AND. LDVT.LT.1 ) .OR. ( NCVT.GT.0 .AND. LDVT.LT.MAX( 1, N ) ) ) THEN
          INFO = -10
       ELSE IF( LDU.LT.MAX( 1, NRU ) ) THEN
          INFO = -12
-      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR.
-     $         ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
+      ELSE IF( ( NCC.EQ.0 .AND. LDC.LT.1 ) .OR. ( NCC.GT.0 .AND. LDC.LT.MAX( 1, N ) ) ) THEN
          INFO = -14
       END IF
       IF( INFO.NE.0 ) THEN
          CALL XERBLA( 'SLASDQ', -INFO )
          RETURN
       END IF
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     ROTATE is true if any singular vectors desired, false otherwise
 *
@@ -105,9 +97,7 @@
 *
 *        Update singular vectors if desired.
 *
-         IF( NCVT.GT.0 )
-     $      CALL SLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ),
-     $                  WORK( NP1 ), VT, LDVT )
+         IF( NCVT.GT.0 ) CALL SLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT )
       END IF
 *
 *     If matrix lower bidiagonal, rotate to be upper bidiagonal
@@ -141,20 +131,16 @@
 *
          IF( NRU.GT.0 ) THEN
             IF( SQRE1.EQ.0 ) THEN
-               CALL SLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ),
-     $                     WORK( NP1 ), U, LDU )
+               CALL SLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( NP1 ), U, LDU )
             ELSE
-               CALL SLASR( 'R', 'V', 'F', NRU, NP1, WORK( 1 ),
-     $                     WORK( NP1 ), U, LDU )
+               CALL SLASR( 'R', 'V', 'F', NRU, NP1, WORK( 1 ), WORK( NP1 ), U, LDU )
             END IF
          END IF
          IF( NCC.GT.0 ) THEN
             IF( SQRE1.EQ.0 ) THEN
-               CALL SLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ),
-     $                     WORK( NP1 ), C, LDC )
+               CALL SLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
             ELSE
-               CALL SLASR( 'L', 'V', 'F', NP1, NCC, WORK( 1 ),
-     $                     WORK( NP1 ), C, LDC )
+               CALL SLASR( 'L', 'V', 'F', NP1, NCC, WORK( 1 ), WORK( NP1 ), C, LDC )
             END IF
          END IF
       END IF
@@ -162,8 +148,7 @@
 *     Call SBDSQR to compute the SVD of the reduced real
 *     N-by-N upper bidiagonal matrix.
 *
-      CALL SBDSQR( 'U', N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C,
-     $             LDC, WORK, INFO )
+      CALL SBDSQR( 'U', N, NCVT, NRU, NCC, D, E, VT, LDVT, U, LDU, C, LDC, WORK, INFO )
 *
 *     Sort the singular values into ascending order (insertion sort on
 *     singular values, but only one transposition per singular vector)
@@ -186,12 +171,7 @@
 *
             D( ISUB ) = D( I )
             D( I ) = SMIN
-            IF( NCVT.GT.0 )
-     $         CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )
-            IF( NRU.GT.0 )
-     $         CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )
-            IF( NCC.GT.0 )
-     $         CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC )
+            IF( NCVT.GT.0 ) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC )
          END IF
    40 CONTINUE
 *

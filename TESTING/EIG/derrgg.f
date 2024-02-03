@@ -19,29 +19,20 @@
 *     ..
 *     .. Local Scalars ..
       CHARACTER*2        C2
-      INTEGER            DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO,
-     $                   J, M, NCYCLE, NT, SDIM, LWORK
+      INTEGER            DUMMYK, DUMMYL, I, IFST, ILO, IHI, ILST, INFO, J, M, NCYCLE, NT, SDIM, LWORK
       DOUBLE PRECISION   ANRM, BNRM, DIF, SCALE, TOLA, TOLB
 *     ..
 *     .. Local Arrays ..
       LOGICAL            BW( NMAX ), SEL( NMAX )
       INTEGER            IW( NMAX ), IDUM(NMAX)
-      DOUBLE PRECISION   A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ),
-     $                   Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ),
-     $                   TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ),
-     $                   W( LW ), Z( NMAX, NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), B( NMAX, NMAX ), LS( NMAX ), Q( NMAX, NMAX ), R1( NMAX ), R2( NMAX ), R3( NMAX ), RCE( 2 ), RCV( 2 ), RS( NMAX ), TAU( NMAX ), U( NMAX, NMAX ), V( NMAX, NMAX ), W( LW ), Z( NMAX, NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            DLCTES, DLCTSX, LSAMEN
       EXTERNAL           DLCTES, DLCTSX, LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, DGGES, DGGESX, DGGEV, DGGEVX, DGGGLM,
-     $                   DGGHRD, DGGLSE, DGGQRF, DGGRQF,
-     $                   DHGEQZ, DORCSD, DTGEVC, DTGEXC, DTGSEN, DTGSJA,
-     $                   DTGSNA, DTGSYL, DGGHD3, DGGES3, DGGEV3,
-     $                   DGGSVD3, DGGSVP3, XLAENV
+      EXTERNAL           CHKXER, DGGES, DGGESX, DGGEV, DGGEVX, DGGGLM, DGGHRD, DGGLSE, DGGQRF, DGGRQF, DHGEQZ, DORCSD, DTGEVC, DTGEXC, DTGSEN, DTGSJA, DTGSNA, DTGSYL, DGGHD3, DGGES3, DGGEV3, DGGSVD3, DGGSVP3, XLAENV
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -127,40 +118,31 @@
 *
          SRNAMT = 'DGGHD3'
          INFOT = 1
-         CALL DGGHD3( '/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( '/', 'N', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGHD3( 'N', '/', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', '/', 0, 1, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGHD3( 'N', 'N', -1, 0, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'N', -1, 0, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGGHD3( 'N', 'N', 0, 0, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'N', 0, 0, 0, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGHD3( 'N', 'N', 0, 1, 1, A, 1, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'N', 0, 1, 1, A, 1, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGHD3( 'N', 'N', 2, 1, 1, A, 1, B, 2, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'N', 2, 1, 1, A, 1, B, 2, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DGGHD3( 'N', 'N', 2, 1, 1, A, 2, B, 1, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'N', 2, 1, 1, A, 2, B, 1, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL DGGHD3( 'V', 'N', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'V', 'N', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL DGGHD3( 'N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW,
-     $                INFO )
+         CALL DGGHD3( 'N', 'V', 2, 1, 1, A, 2, B, 2, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DGGHD3', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
@@ -168,44 +150,34 @@
 *
          SRNAMT = 'DHGEQZ'
          INFOT = 1
-         CALL DHGEQZ( '/', 'N', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( '/', 'N', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DHGEQZ( 'E', '/', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', '/', 'N', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DHGEQZ( 'E', 'N', '/', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', '/', 0, 1, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DHGEQZ( 'E', 'N', 'N', -1, 0, 0, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'N', -1, 0, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DHGEQZ( 'E', 'N', 'N', 0, 0, 0, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'N', 0, 0, 0, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DHGEQZ( 'E', 'N', 'N', 0, 1, 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'N', 0, 1, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DHGEQZ( 'E', 'N', 'N', 2, 1, 1, A, 1, B, 2, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'N', 2, 1, 1, A, 1, B, 2, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DHGEQZ( 'E', 'N', 'N', 2, 1, 1, A, 2, B, 1, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'N', 2, 1, 1, A, 2, B, 1, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DHGEQZ( 'E', 'V', 'N', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'V', 'N', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          INFOT = 17
-         CALL DHGEQZ( 'E', 'N', 'V', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q,
-     $                1, Z, 1, W, LW, INFO )
+         CALL DHGEQZ( 'E', 'N', 'V', 2, 1, 1, A, 2, B, 2, R1, R2, R3, Q, 1, Z, 1, W, LW, INFO )
          CALL CHKXER( 'DHGEQZ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
@@ -213,36 +185,28 @@
 *
          SRNAMT = 'DTGEVC'
          INFOT = 1
-         CALL DTGEVC( '/', 'A', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( '/', 'A', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DTGEVC( 'R', '/', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( 'R', '/', SEL, 0, A, 1, B, 1, Q, 1, Z, 1, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DTGEVC( 'R', 'A', SEL, -1, A, 1, B, 1, Q, 1, Z, 1, 0, M,
-     $                W, INFO )
+         CALL DTGEVC( 'R', 'A', SEL, -1, A, 1, B, 1, Q, 1, Z, 1, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DTGEVC( 'R', 'A', SEL, 2, A, 1, B, 2, Q, 1, Z, 2, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( 'R', 'A', SEL, 2, A, 1, B, 2, Q, 1, Z, 2, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 1, Q, 1, Z, 2, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 1, Q, 1, Z, 2, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DTGEVC( 'L', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 1, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( 'L', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 1, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 1, 0, M, W,
-     $                INFO )
+         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 1, 0, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 2, 1, M, W,
-     $                INFO )
+         CALL DTGEVC( 'R', 'A', SEL, 2, A, 2, B, 2, Q, 1, Z, 2, 1, M, W, INFO )
          CALL CHKXER( 'DTGEVC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
@@ -254,48 +218,37 @@
 *
          SRNAMT = 'DGGSVD3'
          INFOT = 1
-         CALL DGGSVD3( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGSVD3( 'N', '/', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', '/', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGSVD3( 'N', 'N', '/', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', '/', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGGSVD3( 'N', 'N', 'N', -1, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'N', -1, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGSVD3( 'N', 'N', 'N', 0, -1, 0, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'N', 0, -1, 0, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGGSVD3( 'N', 'N', 'N', 0, 0, -1, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'N', 0, 0, -1, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DGGSVD3( 'N', 'N', 'N', 2, 1, 1, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'N', 2, 1, 1, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGGSVD3( 'N', 'N', 'N', 1, 1, 2, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'N', 1, 1, 2, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGSVD3( 'U', 'N', 'N', 2, 2, 2, DUMMYK, DUMMYL, A, 2, B,
-     $               2, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'U', 'N', 'N', 2, 2, 2, DUMMYK, DUMMYL, A, 2, B, 2, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DGGSVD3( 'N', 'V', 'N', 1, 1, 2, DUMMYK, DUMMYL, A, 1, B,
-     $               2, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'V', 'N', 1, 1, 2, DUMMYK, DUMMYL, A, 1, B, 2, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DGGSVD3( 'N', 'N', 'Q', 1, 2, 1, DUMMYK, DUMMYL, A, 1, B,
-     $               1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
+         CALL DGGSVD3( 'N', 'N', 'Q', 1, 2, 1, DUMMYK, DUMMYL, A, 1, B, 1, R1, R2, U, 1, V, 1, Q, 1, W, LWORK, IDUM, INFO )
          CALL CHKXER( 'DGGSVD3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
@@ -303,59 +256,37 @@
 *
          SRNAMT = 'DGGSVP3'
          INFOT = 1
-         CALL DGGSVP3( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( '/', 'N', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGSVP3( 'N', '/', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', '/', 'N', 0, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGSVP3( 'N', 'N', '/', 0, 0, 0, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', '/', 0, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGGSVP3( 'N', 'N', 'N', -1, 0, 0, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'N', -1, 0, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGSVP3( 'N', 'N', 'N', 0, -1, 0, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'N', 0, -1, 0, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGGSVP3( 'N', 'N', 'N', 0, 0, -1, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'N', 0, 0, -1, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DGGSVP3( 'N', 'N', 'N', 2, 1, 1, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'N', 2, 1, 1, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DGGSVP3( 'N', 'N', 'N', 1, 2, 1, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'N', 1, 2, 1, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGSVP3( 'U', 'N', 'N', 2, 2, 2, A, 2, B, 2, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'U', 'N', 'N', 2, 2, 2, A, 2, B, 2, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DGGSVP3( 'N', 'V', 'N', 1, 2, 1, A, 1, B, 2, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'V', 'N', 1, 2, 1, A, 1, B, 2, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DGGSVP3( 'N', 'N', 'Q', 1, 1, 2, A, 1, B, 1, TOLA, TOLB,
-     $                 DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W,
-     $                 LWORK, INFO )
+         CALL DGGSVP3( 'N', 'N', 'Q', 1, 1, 2, A, 1, B, 1, TOLA, TOLB, DUMMYK, DUMMYL, U, 1, V, 1, Q, 1, IW, TAU, W, LWORK, INFO )
          CALL CHKXER( 'DGGSVP3', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
@@ -363,59 +294,37 @@
 *
          SRNAMT = 'DTGSJA'
          INFOT = 1
-         CALL DTGSJA( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( '/', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DTGSJA( 'N', '/', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', '/', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DTGSJA( 'N', 'N', '/', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', '/', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DTGSJA( 'N', 'N', 'N', -1, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'N', -1, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DTGSJA( 'N', 'N', 'N', 0, -1, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'N', 0, -1, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DTGSJA( 'N', 'N', 'N', 0, 0, -1, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'N', 0, 0, -1, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DTGSJA( 'N', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 0, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 0, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DTGSJA( 'N', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                0, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 0, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DTGSJA( 'U', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 0, V, 1, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'U', 'N', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 0, V, 1, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DTGSJA( 'N', 'V', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 0, Q, 1, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'V', 'N', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 0, Q, 1, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DTGSJA( 'N', 'N', 'Q', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B,
-     $                1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 0, W,
-     $                NCYCLE, INFO )
+         CALL DTGSJA( 'N', 'N', 'Q', 0, 0, 0, DUMMYK, DUMMYL, A, 1, B, 1, TOLA, TOLB, R1, R2, U, 1, V, 1, Q, 0, W, NCYCLE, INFO )
          CALL CHKXER( 'DTGSJA', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
@@ -493,60 +402,28 @@
 *
          SRNAMT = 'DORCSD'
          INFOT = 7
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 -1, 0, 0, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', -1, 0, 0, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, -1, 0, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, -1, 0, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, -1, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, -1, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, 1, A, -1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, -1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, 1, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, -1, A, 1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A, -1, A, 1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, 1, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, -1, A, 1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, -1, A, 1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 24
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, 1, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, -1, A,
-     $                 1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, -1, A, 1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          INFOT = 26
-         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N',
-     $                 1, 1, 1, A, 1, A,
-     $                 1, A, 1, A, 1, A,
-     $                 A, 1, A, 1, A, 1, A,
-     $                 -1, W, LW, IW, INFO )
+         CALL DORCSD( 'Y', 'Y', 'Y', 'Y', 'N', 'N', 1, 1, 1, A, 1, A, 1, A, 1, A, 1, A, A, 1, A, 1, A, 1, A, -1, W, LW, IW, INFO )
          CALL CHKXER( 'DORCSD', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
@@ -602,57 +479,43 @@
 *
 *     Test error exits for the DGS, DGV, DGX, and DXV paths.
 *
-      ELSE IF( LSAMEN( 3, PATH, 'DGS' ) .OR.
-     $         LSAMEN( 3, PATH, 'DGV' ) .OR.
-     $         LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) )
-     $          THEN
+      ELSE IF( LSAMEN( 3, PATH, 'DGS' ) .OR. LSAMEN( 3, PATH, 'DGV' ) .OR. LSAMEN( 3, PATH, 'DGX' ) .OR. LSAMEN( 3, PATH, 'DXV' ) ) THEN
 *
 *        DGGES
 *
          SRNAMT = 'DGGES '
          INFOT = 1
-         CALL DGGES( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2,
-     $               R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGES( 'N', '/', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2,
-     $               R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', '/', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGES( 'N', 'V', '/', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2,
-     $               R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', '/', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGES( 'N', 'V', 'S', DLCTES, -1, A, 1, B, 1, SDIM, R1,
-     $               R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', 'S', DLCTES, -1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 0, B, 1, SDIM, R1, R2,
-     $               R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 0, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 0, SDIM, R1, R2,
-     $               R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 0, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2,
-     $               R3, Q, 0, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 0, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2,
-     $               R3, Q, 1, U, 2, W, 1, BW, INFO )
+         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 1, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 17
-         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2,
-     $               R3, Q, 1, U, 0, W, 1, BW, INFO )
+         CALL DGGES( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 0, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 17
-         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2,
-     $               R3, Q, 2, U, 1, W, 1, BW, INFO )
+         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          INFOT = 19
-         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2,
-     $               R3, Q, 2, U, 2, W, 1, BW, INFO )
+         CALL DGGES( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
@@ -660,48 +523,37 @@
 *
          SRNAMT = 'DGGES3 '
          INFOT = 1
-         CALL DGGES3( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( '/', 'N', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGES3( 'N', '/', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', '/', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGES3( 'N', 'V', '/', DLCTES, 1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', '/', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGES3( 'N', 'V', 'S', DLCTES, -1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', 'S', DLCTES, -1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 0, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 0, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 0, SDIM, R1,
-     $                R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 0, SDIM, R1, R2, R3, Q, 1, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 0, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 0, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1,
-     $                R2, R3, Q, 1, U, 2, W, 1, BW, INFO )
+         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 1, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 17
-         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1,
-     $                R2, R3, Q, 1, U, 0, W, 1, BW, INFO )
+         CALL DGGES3( 'N', 'V', 'S', DLCTES, 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 0, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 17
-         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1,
-     $                R2, R3, Q, 2, U, 1, W, 1, BW, INFO )
+         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 1, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          INFOT = 19
-         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1,
-     $                R2, R3, Q, 2, U, 2, W, 1, BW, INFO )
+         CALL DGGES3( 'V', 'V', 'S', DLCTES, 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, W, 1, BW, INFO )
          CALL CHKXER( 'DGGES3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 11
 *
@@ -709,69 +561,43 @@
 *
          SRNAMT = 'DGGESX'
          INFOT = 1
-         CALL DGGESX( '/', 'N', 'S', DLCTSX, 'N', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( '/', 'N', 'S', DLCTSX, 'N', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGESX( 'N', '/', 'S', DLCTSX, 'N', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'N', '/', 'S', DLCTSX, 'N', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGESX( 'V', 'V', '/', DLCTSX, 'N', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', '/', DLCTSX, 'N', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, '/', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, '/', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', -1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', -1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 0, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 0, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 0, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 0, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 0, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 0, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 0, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 0, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM,
-     $                R1, R2, R3, Q, 2, U, 1, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 1, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM,
-     $                R1, R2, R3, Q, 2, U, 2, RCE, RCV, W, 1, IW, 1, BW,
-     $                INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'B', 2, A, 2, B, 2, SDIM, R1, R2, R3, Q, 2, U, 2, RCE, RCV, W, 1, IW, 1, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          INFOT = 24
-         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'V', 1, A, 1, B, 1, SDIM,
-     $                R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 32, IW, 0,
-     $                BW, INFO )
+         CALL DGGESX( 'V', 'V', 'S', DLCTSX, 'V', 1, A, 1, B, 1, SDIM, R1, R2, R3, Q, 1, U, 1, RCE, RCV, W, 32, IW, 0, BW, INFO )
          CALL CHKXER( 'DGGESX', INFOT, NOUT, LERR, OK )
          NT = NT + 13
 *
@@ -779,44 +605,34 @@
 *
          SRNAMT = 'DGGEV '
          INFOT = 1
-         CALL DGGEV( '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGEV( 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGEV( 'V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $               W, 1, INFO )
+         CALL DGGEV( 'V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGEV( 'V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGEV( 'V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGGEV( 'N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGGEV( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEV( 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEV( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGEV( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W,
-     $               1, INFO )
+         CALL DGGEV( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
@@ -829,44 +645,34 @@
          CALL XLAENV( 17, 10 )
          SRNAMT = 'DGGEV3 '
          INFOT = 1
-         CALL DGGEV3( '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGEV3( 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGEV3( 'V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGEV3( 'V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGEV3( 'V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGGEV3( 'N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'N', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DGGEV3( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEV3( 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 0, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEV3( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGEV3( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1,
-     $                W, 1, INFO )
+         CALL DGGEV3( 'V', 'V', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, W, 1, INFO )
          CALL CHKXER( 'DGGEV3 ', INFOT, NOUT, LERR, OK )
          NT = NT + 10
 *
@@ -874,64 +680,40 @@
 *
          SRNAMT = 'DGGEVX'
          INFOT = 1
-         CALL DGGEVX( '/', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( '/', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DGGEVX( 'N', '/', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', '/', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DGGEVX( 'N', 'N', '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', '/', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DGGEVX( 'N', 'N', 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', '/', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DGGEVX( 'N', 'N', 'N', 'N', -1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', 'N', -1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 0, B, 1, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 0, B, 1, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 0, R1, R2, R3, Q,
-     $                1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 0, R1, R2, R3, Q, 1, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                0, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 0, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DGGEVX( 'N', 'V', 'N', 'N', 2, A, 2, B, 2, R1, R2, R3, Q,
-     $                1, U, 2, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'V', 'N', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 1, U, 2, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q,
-     $                1, U, 0, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'N', 'N', 1, A, 1, B, 1, R1, R2, R3, Q, 1, U, 0, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DGGEVX( 'N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q,
-     $                2, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 1, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          INFOT = 26
-         CALL DGGEVX( 'N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q,
-     $                2, U, 2, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV,
-     $                W, 1, IW, BW, INFO )
+         CALL DGGEVX( 'N', 'N', 'V', 'N', 2, A, 2, B, 2, R1, R2, R3, Q, 2, U, 2, ILO, IHI, LS, RS, ANRM, BNRM, RCE, RCV, W, 1, IW, BW, INFO )
          CALL CHKXER( 'DGGEVX', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
@@ -939,36 +721,28 @@
 *
          SRNAMT = 'DTGEXC'
          INFOT = 3
-         CALL DTGEXC( .TRUE., .TRUE., -1, A, 1, B, 1, Q, 1, Z, 1, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., -1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DTGEXC( .TRUE., .TRUE., 1, A, 0, B, 1, Q, 1, Z, 1, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., 1, A, 0, B, 1, Q, 1, Z, 1, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 0, Q, 1, Z, 1, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 0, Q, 1, Z, 1, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DTGEXC( .FALSE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .FALSE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 0, Z, 1, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL DTGEXC( .TRUE., .FALSE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .FALSE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST,
-     $                ILST, W, 1, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 0, IFST, ILST, W, 1, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 1, IFST,
-     $                ILST, W, 0, INFO )
+         CALL DTGEXC( .TRUE., .TRUE., 1, A, 1, B, 1, Q, 1, Z, 1, IFST, ILST, W, 0, INFO )
          CALL CHKXER( 'DTGEXC', INFOT, NOUT, LERR, OK )
          NT = NT + 8
 *
@@ -976,64 +750,40 @@
 *
          SRNAMT = 'DTGSEN'
          INFOT = 1
-         CALL DTGSEN( -1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2,
-     $                R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( -1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, -1, A, 1, B, 1, R1, R2,
-     $                R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, -1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 0, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 0, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 0, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 0, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 0, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 0, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 0, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 0, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DTGSEN( 0, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 0, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 22
-         CALL DTGSEN( 2, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 2, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 1, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 24
-         CALL DTGSEN( 0, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0,
-     $                INFO )
+         CALL DTGSEN( 0, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 24
-         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0,
-     $                INFO )
+         CALL DTGSEN( 1, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 0, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          INFOT = 24
-         CALL DTGSEN( 2, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3,
-     $                Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 1,
-     $                INFO )
+         CALL DTGSEN( 2, .TRUE., .TRUE., SEL, 1, A, 1, B, 1, R1, R2, R3, Q, 1, Z, 1, M, TOLA, TOLB, RCV, W, 20, IW, 1, INFO )
          CALL CHKXER( 'DTGSEN', INFOT, NOUT, LERR, OK )
          NT = NT + 12
 *
@@ -1041,40 +791,31 @@
 *
          SRNAMT = 'DTGSNA'
          INFOT = 1
-         CALL DTGSNA( '/', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( '/', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DTGSNA( 'B', '/', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'B', '/', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DTGSNA( 'B', 'A', SEL, -1, A, 1, B, 1, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'B', 'A', SEL, -1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DTGSNA( 'B', 'A', SEL, 1, A, 0, B, 1, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'B', 'A', SEL, 1, A, 0, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DTGSNA( 'B', 'A', SEL, 1, A, 1, B, 0, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'B', 'A', SEL, 1, A, 1, B, 0, Q, 1, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 0, U, 1, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 0, U, 1, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 0, R1, R2,
-     $                1, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 0, R1, R2, 1, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2,
-     $                0, M, W, 1, IW, INFO )
+         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 0, M, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2,
-     $                1, M, W, 0, IW, INFO )
+         CALL DTGSNA( 'E', 'A', SEL, 1, A, 1, B, 1, Q, 1, U, 1, R1, R2, 1, M, W, 0, IW, INFO )
          CALL CHKXER( 'DTGSNA', INFOT, NOUT, LERR, OK )
          NT = NT + 9
 *
@@ -1082,52 +823,40 @@
 *
          SRNAMT = 'DTGSYL'
          INFOT = 1
-         CALL DTGSYL( '/', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( '/', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DTGSYL( 'N', -1, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', -1, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DTGSYL( 'N', 0, 0, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 0, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DTGSYL( 'N', 0, 1, 0, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 0, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DTGSYL( 'N', 0, 1, 1, A, 0, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 0, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 0, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 0, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 0, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 0, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 0, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 0, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 0, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 0, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 0,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 0, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 0, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DTGSYL( 'N', 1, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 1, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          INFOT = 20
-         CALL DTGSYL( 'N', 2, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1,
-     $                SCALE, DIF, W, 1, IW, INFO )
+         CALL DTGSYL( 'N', 2, 1, 1, A, 1, B, 1, Q, 1, U, 1, V, 1, Z, 1, SCALE, DIF, W, 1, IW, INFO )
          CALL CHKXER( 'DTGSYL', INFOT, NOUT, LERR, OK )
          NT = NT + 12
       END IF

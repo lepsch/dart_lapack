@@ -16,16 +16,13 @@
 *
 *     .. Parameters ..
       COMPLEX*16         CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ),
-     $                     CZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CONE = ( 1.0D+0, 0.0D+0 ), CZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB,
-     $                   NPLUSONE
+      INTEGER            I, IINFO, J, JB, JBTEMP1, JBTEMP2, JNB, NPLUSONE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZCOPY, ZLAUNHR_COL_GETRFNP, ZSCAL, ZTRSM,
-     $                   XERBLA
+      EXTERNAL           ZCOPY, ZLAUNHR_COL_GETRFNP, ZSCAL, ZTRSM, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -78,8 +75,7 @@
 *     (1-2) Solve for V2.
 *
       IF( M.GT.N ) THEN
-         CALL ZTRSM( 'R', 'U', 'N', 'N', M-N, N, CONE, A, LDA,
-     $               A( N+1, 1 ), LDA )
+         CALL ZTRSM( 'R', 'U', 'N', 'N', M-N, N, CONE, A, LDA, A( N+1, 1 ), LDA )
       END IF
 *
 *     (2) Reconstruct the block reflector T stored in T(1:NB, 1:N)
@@ -170,8 +166,7 @@
 *
 *        (2-3b) Perform the triangular solve.
 *
-         CALL ZTRSM( 'R', 'L', 'C', 'U', JNB, JNB, CONE,
-     $               A( JB, JB ), LDA, T( 1, JB ), LDT )
+         CALL ZTRSM( 'R', 'L', 'C', 'U', JNB, JNB, CONE, A( JB, JB ), LDA, T( 1, JB ), LDT )
 *
       END DO
 *

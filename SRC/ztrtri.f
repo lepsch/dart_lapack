@@ -16,8 +16,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            NOUNIT, UPPER
@@ -57,15 +56,13 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Check for singularity if non-unit.
 *
       IF( NOUNIT ) THEN
          DO 10 INFO = 1, N
-            IF( A( INFO, INFO ).EQ.ZERO )
-     $         RETURN
+            IF( A( INFO, INFO ).EQ.ZERO ) RETURN
    10    CONTINUE
          INFO = 0
       END IF
@@ -91,10 +88,7 @@
 *
 *              Compute rows 1:j-1 of current block column
 *
-               CALL ZTRMM( 'Left', 'Upper', 'No transpose', DIAG, J-1,
-     $                     JB, ONE, A, LDA, A( 1, J ), LDA )
-               CALL ZTRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1,
-     $                     JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA )
+               CALL ZTRMM( 'Left', 'Upper', 'No transpose', DIAG, J-1, JB, ONE, A, LDA, A( 1, J ), LDA )                CALL ZTRSM( 'Right', 'Upper', 'No transpose', DIAG, J-1, JB, -ONE, A( J, J ), LDA, A( 1, J ), LDA )
 *
 *              Compute inverse of current diagonal block
 *
@@ -111,12 +105,7 @@
 *
 *                 Compute rows j+jb:n of current block column
 *
-                  CALL ZTRMM( 'Left', 'Lower', 'No transpose', DIAG,
-     $                        N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA,
-     $                        A( J+JB, J ), LDA )
-                  CALL ZTRSM( 'Right', 'Lower', 'No transpose', DIAG,
-     $                        N-J-JB+1, JB, -ONE, A( J, J ), LDA,
-     $                        A( J+JB, J ), LDA )
+                  CALL ZTRMM( 'Left', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, ONE, A( J+JB, J+JB ), LDA, A( J+JB, J ), LDA )                   CALL ZTRSM( 'Right', 'Lower', 'No transpose', DIAG, N-J-JB+1, JB, -ONE, A( J, J ), LDA, A( J+JB, J ), LDA )
                END IF
 *
 *              Compute inverse of current diagonal block

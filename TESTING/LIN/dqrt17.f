@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DQRT17( TRANS, IRESID, M, N, NRHS, A,
-     $                 LDA, X, LDX, B, LDB, C, WORK, LWORK )
+      DOUBLE PRECISION FUNCTION DQRT17( TRANS, IRESID, M, N, NRHS, A, LDA, X, LDX, B, LDB, C, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            IRESID, LDA, LDB, LDX, LWORK, M, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDB, * ),
-     $                   WORK( LWORK ), X( LDX, * )
+      DOUBLE PRECISION   A( LDA, * ), B( LDB, * ), C( LDB, * ), WORK( LWORK ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -69,36 +67,29 @@
 *     compute residual and scale it
 *
       CALL DLACPY( 'All', NROWS, NRHS, B, LDB, C, LDB )
-      CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A,
-     $            LDA, X, LDX, ONE, C, LDB )
+      CALL DGEMM( TRANS, 'No transpose', NROWS, NRHS, NCOLS, -ONE, A, LDA, X, LDX, ONE, C, LDB )
       NORMRS = DLANGE( 'Max', NROWS, NRHS, C, LDB, RWORK )
       IF( NORMRS.GT.SMLNUM ) THEN
          ISCL = 1
-         CALL DLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB,
-     $                INFO )
+         CALL DLASCL( 'General', 0, 0, NORMRS, ONE, NROWS, NRHS, C, LDB, INFO )
       END IF
 *
 *     compute R**T * op(A)
 *
-      CALL DGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB,
-     $            A, LDA, ZERO, WORK, NRHS )
+      CALL DGEMM( 'Transpose', TRANS, NRHS, NCOLS, NROWS, ONE, C, LDB, A, LDA, ZERO, WORK, NRHS )
 *
 *     compute and properly scale error
 *
       ERR = DLANGE( 'One-norm', NRHS, NCOLS, WORK, NRHS, RWORK )
-      IF( NORMA.NE.ZERO )
-     $   ERR = ERR / NORMA
+      IF( NORMA.NE.ZERO ) ERR = ERR / NORMA
 *
-      IF( ISCL.EQ.1 )
-     $   ERR = ERR*NORMRS
+      IF( ISCL.EQ.1 ) ERR = ERR*NORMRS
 *
       IF( IRESID.EQ.1 ) THEN
          NORMB = DLANGE( 'One-norm', NROWS, NRHS, B, LDB, RWORK )
-         IF( NORMB.NE.ZERO )
-     $      ERR = ERR / NORMB
+         IF( NORMB.NE.ZERO ) ERR = ERR / NORMB
       ELSE
-         IF( NORMRS.NE.ZERO )
-     $      ERR = ERR / NORMRS
+         IF( NORMRS.NE.ZERO ) ERR = ERR / NORMRS
       END IF
 *
       DQRT17 = ERR / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N, NRHS ) ) )

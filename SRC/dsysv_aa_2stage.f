@@ -1,6 +1,4 @@
-      SUBROUTINE DSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB,
-     $                            IPIV, IPIV2, B, LDB, WORK, LWORK,
-     $                            INFO )
+      SUBROUTINE DSYSV_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -28,8 +26,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DSYTRF_AA_2STAGE, DSYTRS_AA_2STAGE,
-     $                   XERBLA
+      EXTERNAL           DSYTRF_AA_2STAGE, DSYTRS_AA_2STAGE, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX
@@ -60,8 +57,7 @@
       END IF
 *
       IF( INFO.EQ.0 ) THEN
-         CALL DSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV,
-     $                          IPIV2, WORK, -1, INFO )
+         CALL DSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, -1, IPIV, IPIV2, WORK, -1, INFO )
          LWKOPT = MAX( LWKMIN, INT( WORK( 1 ) ) )
          WORK( 1 ) = LWKOPT
       END IF
@@ -75,14 +71,12 @@
 *
 *     Compute the factorization A = U**T*T*U or A = L*T*L**T.
 *
-      CALL DSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2,
-     $                       WORK, LWORK, INFO )
+      CALL DSYTRF_AA_2STAGE( UPLO, N, A, LDA, TB, LTB, IPIV, IPIV2, WORK, LWORK, INFO )
       IF( INFO.EQ.0 ) THEN
 *
 *        Solve the system A*X = B, overwriting B with X.
 *
-         CALL DSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV,
-     $                          IPIV2, B, LDB, INFO )
+         CALL DSYTRS_AA_2STAGE( UPLO, N, NRHS, A, LDA, TB, LTB, IPIV, IPIV2, B, LDB, INFO )
 *
       END IF
 *

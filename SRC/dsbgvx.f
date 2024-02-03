@@ -1,6 +1,4 @@
-      SUBROUTINE DSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB,
-     $                   LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z,
-     $                   LDZ, WORK, IWORK, IFAIL, INFO )
+      SUBROUTINE DSBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M,
-     $                   N
+      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
-      DOUBLE PRECISION   AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ),
-     $                   W( * ), WORK( * ), Z( LDZ, * )
+      DOUBLE PRECISION   AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), W( * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -27,8 +23,7 @@
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ
       CHARACTER          ORDER, VECT
-      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP,
-     $                   INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT
+      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP, INDIWO, INDWRK, ITMP1, J, JJ, NSPLIT
       DOUBLE PRECISION   TMP1
 *     ..
 *     .. External Functions ..
@@ -36,8 +31,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DGEMV, DLACPY, DPBSTF, DSBGST, DSBTRD,
-     $                   DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
+      EXTERNAL           DCOPY, DGEMV, DLACPY, DPBSTF, DSBGST, DSBTRD, DSTEBZ, DSTEIN, DSTEQR, DSTERF, DSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN
@@ -73,8 +67,7 @@
          INFO = -12
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -14
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -15
@@ -97,8 +90,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -110,8 +102,7 @@
 *
 *     Transform problem to standard eigenvalue problem.
 *
-      CALL DSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ,
-     $             WORK, IINFO )
+      CALL DSBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, IINFO )
 *
 *     Reduce symmetric band matrix to tridiagonal form.
 *
@@ -123,8 +114,7 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ),
-     $             WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      CALL DSBTRD( VECT, UPLO, N, KA, AB, LDAB, WORK( INDD ), WORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call DSTERF or SSTEQR.  If this fails for some
@@ -144,8 +134,7 @@
             CALL DSTERF( N, W, WORK( INDEE ), INFO )
          ELSE
             CALL DLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ,
-     $                   WORK( INDWRK ), INFO )
+            CALL DSTEQR( JOBZ, N, W, WORK( INDEE ), Z, LDZ, WORK( INDWRK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -169,23 +158,17 @@
       END IF
       INDISP = 1 + N
       INDIWO = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL,
-     $             WORK( INDD ), WORK( INDE ), M, NSPLIT, W,
-     $             IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ),
-     $             IWORK( INDIWO ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, WORK( INDD ), WORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), WORK( INDWRK ), IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W,
-     $                IWORK( 1 ), IWORK( INDISP ), Z, LDZ,
-     $                WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
+         CALL DSTEIN( N, WORK( INDD ), WORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, WORK( INDWRK ), IWORK( INDIWO ), IFAIL, INFO )
 *
 *        Apply transformation matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by DSTEIN.
 *
          DO 20 J = 1, M
             CALL DCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL DGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO,
-     $                  Z( 1, J ), 1 )
+            CALL DGEMV( 'N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

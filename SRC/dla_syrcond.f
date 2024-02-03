@@ -1,6 +1,4 @@
-      DOUBLE PRECISION FUNCTION DLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF,
-     $                                       IPIV, CMODE, C, INFO, WORK,
-     $                                       IWORK )
+      DOUBLE PRECISION FUNCTION DLA_SYRCOND( UPLO, N, A, LDA, AF, LDAF, IPIV, CMODE, C, INFO, WORK, IWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -186,8 +184,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0D+0 )
-     $   DLA_SYRCOND = ( 1.0D+0 / AINVNM )
+      IF( AINVNM .NE. 0.0D+0 ) DLA_SYRCOND = ( 1.0D+0 / AINVNM )
 *
       RETURN
 *

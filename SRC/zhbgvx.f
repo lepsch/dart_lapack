@@ -1,6 +1,4 @@
-      SUBROUTINE ZHBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB,
-     $                   LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z,
-     $                   LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
+      SUBROUTINE ZHBGVX( JOBZ, RANGE, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, WORK, RWORK, IWORK, IFAIL, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,15 +6,13 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBZ, RANGE, UPLO
-      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M,
-     $                   N
+      INTEGER            IL, INFO, IU, KA, KB, LDAB, LDBB, LDQ, LDZ, M, N
       DOUBLE PRECISION   ABSTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
       INTEGER            IFAIL( * ), IWORK( * )
       DOUBLE PRECISION   RWORK( * ), W( * )
-      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ),
-     $                   WORK( * ), Z( LDZ, * )
+      COMPLEX*16         AB( LDAB, * ), BB( LDBB, * ), Q( LDQ, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
@@ -25,14 +21,12 @@
       DOUBLE PRECISION   ZERO
       PARAMETER          ( ZERO = 0.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ALLEIG, INDEIG, TEST, UPPER, VALEIG, WANTZ
       CHARACTER          ORDER, VECT
-      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP,
-     $                   INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
+      INTEGER            I, IINFO, INDD, INDE, INDEE, INDISP, INDIWK, INDRWK, INDWRK, ITMP1, J, JJ, NSPLIT
       DOUBLE PRECISION   TMP1
 *     ..
 *     .. External Functions ..
@@ -40,9 +34,7 @@
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV,
-     $                   ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR,
-     $                   ZSWAP
+      EXTERNAL           DCOPY, DSTEBZ, DSTERF, XERBLA, ZCOPY, ZGEMV, ZHBGST, ZHBTRD, ZLACPY, ZPBSTF, ZSTEIN, ZSTEQR, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN
@@ -78,8 +70,7 @@
          INFO = -12
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -14
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -14
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -15
@@ -102,8 +93,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a split Cholesky factorization of B.
 *
@@ -115,8 +105,7 @@
 *
 *     Transform problem to standard eigenvalue problem.
 *
-      CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ,
-     $             WORK, RWORK, IINFO )
+      CALL ZHBGST( JOBZ, UPLO, N, KA, KB, AB, LDAB, BB, LDBB, Q, LDQ, WORK, RWORK, IINFO )
 *
 *     Solve the standard eigenvalue problem.
 *     Reduce Hermitian band matrix to tridiagonal form.
@@ -130,8 +119,7 @@
       ELSE
          VECT = 'N'
       END IF
-      CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ),
-     $             RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
+      CALL ZHBTRD( VECT, UPLO, N, KA, AB, LDAB, RWORK( INDD ), RWORK( INDE ), Q, LDQ, WORK( INDWRK ), IINFO )
 *
 *     If all eigenvalues are desired and ABSTOL is less than or equal
 *     to zero, then call DSTERF or ZSTEQR.  If this fails for some
@@ -151,8 +139,7 @@
             CALL DSTERF( N, W, RWORK( INDEE ), INFO )
          ELSE
             CALL ZLACPY( 'A', N, N, Q, LDQ, Z, LDZ )
-            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ,
-     $                   RWORK( INDRWK ), INFO )
+            CALL ZSTEQR( JOBZ, N, W, RWORK( INDEE ), Z, LDZ, RWORK( INDRWK ), INFO )
             IF( INFO.EQ.0 ) THEN
                DO 10 I = 1, N
                   IFAIL( I ) = 0
@@ -176,23 +163,17 @@
       END IF
       INDISP = 1 + N
       INDIWK = INDISP + N
-      CALL DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL,
-     $             RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W,
-     $             IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ),
-     $             IWORK( INDIWK ), INFO )
+      CALL DSTEBZ( RANGE, ORDER, N, VL, VU, IL, IU, ABSTOL, RWORK( INDD ), RWORK( INDE ), M, NSPLIT, W, IWORK( 1 ), IWORK( INDISP ), RWORK( INDRWK ), IWORK( INDIWK ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W,
-     $                IWORK( 1 ), IWORK( INDISP ), Z, LDZ,
-     $                RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
+         CALL ZSTEIN( N, RWORK( INDD ), RWORK( INDE ), M, W, IWORK( 1 ), IWORK( INDISP ), Z, LDZ, RWORK( INDRWK ), IWORK( INDIWK ), IFAIL, INFO )
 *
 *        Apply unitary matrix used in reduction to tridiagonal
 *        form to eigenvectors returned by ZSTEIN.
 *
          DO 20 J = 1, M
             CALL ZCOPY( N, Z( 1, J ), 1, WORK( 1 ), 1 )
-            CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO,
-     $                  Z( 1, J ), 1 )
+            CALL ZGEMV( 'N', N, N, CONE, Q, LDQ, WORK, 1, CZERO, Z( 1, J ), 1 )
    20    CONTINUE
       END IF
 *

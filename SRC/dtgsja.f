@@ -1,6 +1,4 @@
-      SUBROUTINE DTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B,
-     $                   LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV,
-     $                   Q, LDQ, WORK, NCYCLE, INFO )
+      SUBROUTINE DTGSJA( JOBU, JOBV, JOBQ, M, P, N, K, L, A, LDA, B, LDB, TOLA, TOLB, ALPHA, BETA, U, LDU, V, LDV, Q, LDQ, WORK, NCYCLE, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -8,14 +6,11 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          JOBQ, JOBU, JOBV
-      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N,
-     $                   NCYCLE, P
+      INTEGER            INFO, K, L, LDA, LDB, LDQ, LDU, LDV, M, N, NCYCLE, P
       DOUBLE PRECISION   TOLA, TOLB
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), ALPHA( * ), B( LDB, * ),
-     $                   BETA( * ), Q( LDQ, * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      DOUBLE PRECISION   A( LDA, * ), ALPHA( * ), B( LDB, * ), BETA( * ), Q( LDQ, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -30,16 +25,14 @@
 *
       LOGICAL            INITQ, INITU, INITV, UPPER, WANTQ, WANTU, WANTV
       INTEGER            I, J, KCYCLE
-      DOUBLE PRECISION   A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR,
-     $                   GAMMA, RWK, SNQ, SNU, SNV, SSMIN
+      DOUBLE PRECISION   A1, A2, A3, B1, B2, B3, CSQ, CSU, CSV, ERROR, GAMMA, RWK, SNQ, SNU, SNV, SSMIN
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       EXTERNAL           LSAME
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DCOPY, DLAGS2, DLAPLL, DLARTG, DLASET, DROT,
-     $                   DSCAL, XERBLA
+      EXTERNAL           DCOPY, DLAGS2, DLAPLL, DLARTG, DLASET, DROT, DSCAL, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN, HUGE
@@ -89,12 +82,7 @@
 *
 *     Initialize U, V and Q, if necessary
 *
-      IF( INITU )
-     $   CALL DLASET( 'Full', M, M, ZERO, ONE, U, LDU )
-      IF( INITV )
-     $   CALL DLASET( 'Full', P, P, ZERO, ONE, V, LDV )
-      IF( INITQ )
-     $   CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
+      IF( INITU ) CALL DLASET( 'Full', M, M, ZERO, ONE, U, LDU )       IF( INITV ) CALL DLASET( 'Full', P, P, ZERO, ONE, V, LDV )       IF( INITQ ) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ )
 *
 *     Loop until convergence
 *
@@ -109,69 +97,51 @@
                A1 = ZERO
                A2 = ZERO
                A3 = ZERO
-               IF( K+I.LE.M )
-     $            A1 = A( K+I, N-L+I )
-               IF( K+J.LE.M )
-     $            A3 = A( K+J, N-L+J )
+               IF( K+I.LE.M ) A1 = A( K+I, N-L+I )                IF( K+J.LE.M ) A3 = A( K+J, N-L+J )
 *
                B1 = B( I, N-L+I )
                B3 = B( J, N-L+J )
 *
                IF( UPPER ) THEN
-                  IF( K+I.LE.M )
-     $               A2 = A( K+I, N-L+J )
+                  IF( K+I.LE.M ) A2 = A( K+I, N-L+J )
                   B2 = B( I, N-L+J )
                ELSE
-                  IF( K+J.LE.M )
-     $               A2 = A( K+J, N-L+I )
+                  IF( K+J.LE.M ) A2 = A( K+J, N-L+I )
                   B2 = B( J, N-L+I )
                END IF
 *
-               CALL DLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU,
-     $                      CSV, SNV, CSQ, SNQ )
+               CALL DLAGS2( UPPER, A1, A2, A3, B1, B2, B3, CSU, SNU, CSV, SNV, CSQ, SNQ )
 *
 *              Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 *
-               IF( K+J.LE.M )
-     $            CALL DROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ),
-     $                       LDA, CSU, SNU )
+               IF( K+J.LE.M ) CALL DROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU )
 *
 *              Update I-th and J-th rows of matrix B: V**T *B
 *
-               CALL DROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB,
-     $                    CSV, SNV )
+               CALL DROT( L, B( J, N-L+1 ), LDB, B( I, N-L+1 ), LDB, CSV, SNV )
 *
 *              Update (N-L+I)-th and (N-L+J)-th columns of matrices
 *              A and B: A*Q and B*Q
 *
-               CALL DROT( MIN( K+L, M ), A( 1, N-L+J ), 1,
-     $                    A( 1, N-L+I ), 1, CSQ, SNQ )
+               CALL DROT( MIN( K+L, M ), A( 1, N-L+J ), 1, A( 1, N-L+I ), 1, CSQ, SNQ )
 *
-               CALL DROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ,
-     $                    SNQ )
+               CALL DROT( L, B( 1, N-L+J ), 1, B( 1, N-L+I ), 1, CSQ, SNQ )
 *
                IF( UPPER ) THEN
-                  IF( K+I.LE.M )
-     $               A( K+I, N-L+J ) = ZERO
+                  IF( K+I.LE.M ) A( K+I, N-L+J ) = ZERO
                   B( I, N-L+J ) = ZERO
                ELSE
-                  IF( K+J.LE.M )
-     $               A( K+J, N-L+I ) = ZERO
+                  IF( K+J.LE.M ) A( K+J, N-L+I ) = ZERO
                   B( J, N-L+I ) = ZERO
                END IF
 *
 *              Update orthogonal matrices U, V, Q, if desired.
 *
-               IF( WANTU .AND. K+J.LE.M )
-     $            CALL DROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU,
-     $                       SNU )
+               IF( WANTU .AND. K+J.LE.M ) CALL DROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU )
 *
-               IF( WANTV )
-     $            CALL DROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV )
+               IF( WANTV ) CALL DROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV )
 *
-               IF( WANTQ )
-     $            CALL DROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ,
-     $                       SNQ )
+               IF( WANTQ ) CALL DROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ )
 *
    10       CONTINUE
    20    CONTINUE
@@ -192,8 +162,7 @@
                ERROR = MAX( ERROR, SSMIN )
    30       CONTINUE
 *
-            IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) )
-     $         GO TO 50
+            IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
          END IF
 *
 *        End of cycle loop
@@ -228,29 +197,22 @@
 *
             IF( GAMMA.LT.ZERO ) THEN
                CALL DSCAL( L-I+1, -ONE, B( I, N-L+I ), LDB )
-               IF( WANTV )
-     $            CALL DSCAL( P, -ONE, V( 1, I ), 1 )
+               IF( WANTV ) CALL DSCAL( P, -ONE, V( 1, I ), 1 )
             END IF
 *
-            CALL DLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ),
-     $                   RWK )
+            CALL DLARTG( ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK )
 *
             IF( ALPHA( K+I ).GE.BETA( K+I ) ) THEN
-               CALL DSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ),
-     $                     LDA )
+               CALL DSCAL( L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA )
             ELSE
-               CALL DSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ),
-     $                     LDB )
-               CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ),
-     $                     LDA )
+               CALL DSCAL( L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
             END IF
 *
          ELSE
 *
             ALPHA( K+I ) = ZERO
             BETA( K+I ) = ONE
-            CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ),
-     $                  LDA )
+            CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA )
 *
          END IF
 *

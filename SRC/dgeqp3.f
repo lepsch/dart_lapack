@@ -20,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB,
-     $                   NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
+      INTEGER            FJB, IWS, J, JB, LWKOPT, MINMN, MINWS, NA, NB, NBMIN, NFXD, NX, SM, SMINMN, SN, TOPBMN
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DGEQRF, DLAQP2, DLAQPS, DORMQR, DSWAP, XERBLA
@@ -106,8 +105,7 @@
          IF( NA.LT.N ) THEN
 *CC         CALL DORM2R( 'Left', 'Transpose', M, N-NA, NA, A, LDA,
 *CC  $                   TAU, A( 1, NA+1 ), LDA, WORK, INFO )
-            CALL DORMQR( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU,
-     $                   A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
+            CALL DORMQR( 'Left', 'Transpose', M, N-NA, NA, A, LDA, TAU, A( 1, NA+1 ), LDA, WORK, LWORK, INFO )
             IWS = MAX( IWS, INT( WORK( 1 ) ) )
          END IF
       END IF
@@ -131,8 +129,7 @@
 *
 *           Determine when to cross over from blocked to unblocked code.
 *
-            NX = MAX( 0, ILAENV( IXOVER, 'DGEQRF', ' ', SM, SN, -1,
-     $           -1 ) )
+            NX = MAX( 0, ILAENV( IXOVER, 'DGEQRF', ' ', SM, SN, -1, -1 ) )
 *
 *
             IF( NX.LT.SMINMN ) THEN
@@ -147,8 +144,7 @@
 *                 determine the minimum value of NB.
 *
                   NB = ( LWORK-2*SN ) / ( SN+1 )
-                  NBMIN = MAX( 2, ILAENV( INBMIN, 'DGEQRF', ' ', SM, SN,
-     $                    -1, -1 ) )
+                  NBMIN = MAX( 2, ILAENV( INBMIN, 'DGEQRF', ' ', SM, SN, -1, -1 ) )
 *
 *
                END IF
@@ -163,8 +159,7 @@
             WORK( N+J ) = WORK( J )
    20    CONTINUE
 *
-         IF( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND.
-     $       ( NX.LT.SMINMN ) ) THEN
+         IF( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND. ( NX.LT.SMINMN ) ) THEN
 *
 *           Use blocked code initially.
 *
@@ -180,9 +175,7 @@
 *
 *              Factorize JB columns among columns J:N.
 *
-               CALL DLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA,
-     $                      JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ),
-     $                      WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 )
+               CALL DLAQPS( M, N-J+1, J-1, JB, FJB, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ), WORK( 2*N+JB+1 ), N-J+1 )
 *
                J = J + FJB
                GO TO 30
@@ -194,10 +187,7 @@
 *        Use unblocked code to factor the last or only block.
 *
 *
-         IF( J.LE.MINMN )
-     $      CALL DLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ),
-     $                   TAU( J ), WORK( J ), WORK( N+J ),
-     $                   WORK( 2*N+1 ) )
+         IF( J.LE.MINMN ) CALL DLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), WORK( J ), WORK( N+J ), WORK( 2*N+1 ) )
 *
       END IF
 *

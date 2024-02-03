@@ -1,5 +1,4 @@
-      SUBROUTINE CGELQ( M, N, A, LDA, T, TSIZE, WORK, LWORK,
-     $                  INFO )
+      SUBROUTINE CGELQ( M, N, A, LDA, T, TSIZE, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,8 +39,7 @@
 *
       INFO = 0
 *
-      LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR.
-     $           LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
+      LQUERY = ( TSIZE.EQ.-1 .OR. TSIZE.EQ.-2 .OR. LWORK.EQ.-1 .OR. LWORK.EQ.-2 )
 *
       MINT = .FALSE.
       MINW = .FALSE.
@@ -82,9 +80,7 @@
          LWOPT = MAX( 1, MB*M )
       END IF
       LMINWS = .FALSE.
-      IF( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT )
-     $    .AND. ( LWORK.GE.LWMIN ) .AND. ( TSIZE.GE.MINTSZ )
-     $    .AND. ( .NOT.LQUERY ) ) THEN
+      IF( ( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .OR. LWORK.LT.LWOPT ) .AND. ( LWORK.GE.LWMIN ) .AND. ( TSIZE.GE.MINTSZ ) .AND. ( .NOT.LQUERY ) ) THEN
         IF( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) ) THEN
           LMINWS = .TRUE.
           MB = 1
@@ -107,11 +103,9 @@
         INFO = -2
       ELSE IF( LDA.LT.MAX( 1, M ) ) THEN
         INFO = -4
-      ELSE IF( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 )
-     $   .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
+      ELSE IF( TSIZE.LT.MAX( 1, MB*M*NBLCKS + 5 ) .AND. ( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
         INFO = -6
-      ELSE IF( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY )
-     $   .AND. ( .NOT.LMINWS ) ) THEN
+      ELSE IF( ( LWORK.LT.LWREQ ) .AND .( .NOT.LQUERY ) .AND. ( .NOT.LMINWS ) ) THEN
         INFO = -8
       END IF
 *
@@ -147,8 +141,7 @@
       IF( ( N.LE.M ) .OR. ( NB.LE.M ) .OR. ( NB.GE.N ) ) THEN
         CALL CGELQT( M, N, MB, A, LDA, T( 6 ), MB, WORK, INFO )
       ELSE
-        CALL CLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK,
-     $                LWORK, INFO )
+        CALL CLASWLQ( M, N, MB, NB, A, LDA, T( 6 ), MB, WORK, LWORK, INFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK( LWREQ )

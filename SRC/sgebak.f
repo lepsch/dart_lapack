@@ -1,5 +1,4 @@
-      SUBROUTINE SGEBAK( JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV,
-     $                   INFO )
+      SUBROUTINE SGEBAK( JOB, SIDE, N, ILO, IHI, SCALE, M, V, LDV, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -42,8 +41,7 @@
       LEFTV = LSAME( SIDE, 'L' )
 *
       INFO = 0
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND.
-     $    .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.LSAME( JOB, 'P' ) .AND. .NOT.LSAME( JOB, 'S' ) .AND. .NOT.LSAME( JOB, 'B' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.RIGHTV .AND. .NOT.LEFTV ) THEN
          INFO = -2
@@ -65,15 +63,9 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
-      IF( M.EQ.0 )
-     $   RETURN
-      IF( LSAME( JOB, 'N' ) )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN       IF( M.EQ.0 ) RETURN       IF( LSAME( JOB, 'N' ) ) RETURN
 *
-      IF( ILO.EQ.IHI )
-     $   GO TO 30
+      IF( ILO.EQ.IHI ) GO TO 30
 *
 *     Backward balance
 *
@@ -105,13 +97,9 @@
          IF( RIGHTV ) THEN
             DO 40 II = 1, N
                I = II
-               IF( I.GE.ILO .AND. I.LE.IHI )
-     $            GO TO 40
-               IF( I.LT.ILO )
-     $            I = ILO - II
+               IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 40                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 40
+               IF( K.EQ.I ) GO TO 40
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    40       CONTINUE
          END IF
@@ -119,13 +107,9 @@
          IF( LEFTV ) THEN
             DO 50 II = 1, N
                I = II
-               IF( I.GE.ILO .AND. I.LE.IHI )
-     $            GO TO 50
-               IF( I.LT.ILO )
-     $            I = ILO - II
+               IF( I.GE.ILO .AND. I.LE.IHI ) GO TO 50                IF( I.LT.ILO ) I = ILO - II
                K = INT( SCALE( I ) )
-               IF( K.EQ.I )
-     $            GO TO 50
+               IF( K.EQ.I ) GO TO 50
                CALL SSWAP( M, V( I, 1 ), LDV, V( K, 1 ), LDV )
    50       CONTINUE
          END IF

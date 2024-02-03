@@ -20,8 +20,7 @@
       DOUBLE PRECISION   ONE, TWO
       PARAMETER          ( ONE = 1.0D0, TWO = 2.0D0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ),
-     $                   CONE = ( 1.0D0, 0.0D0 ) )
+      PARAMETER          ( CZERO = ( 0.0D0, 0.0D0 ), CONE = ( 1.0D0, 0.0D0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, ITER, J, JLAST, JUMP
@@ -70,8 +69,7 @@
       DO 30 I = 1, N
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
-            X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI,
-     $               DIMAG( X( I ) ) / ABSXI )
+            X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
          ELSE
             X( I ) = CONE
          END IF
@@ -107,14 +105,12 @@
       EST = DZSUM1( N, V, 1 )
 *
 *     TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD )
-     $   GO TO 100
+      IF( EST.LE.ESTOLD ) GO TO 100
 *
       DO 80 I = 1, N
          ABSXI = ABS( X( I ) )
          IF( ABSXI.GT.SAFMIN ) THEN
-            X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI,
-     $               DIMAG( X( I ) ) / ABSXI )
+            X( I ) = DCMPLX( DBLE( X( I ) ) / ABSXI, DIMAG( X( I ) ) / ABSXI )
          ELSE
             X( I ) = CONE
          END IF
@@ -129,8 +125,7 @@
    90 CONTINUE
       JLAST = J
       J = IZMAX1( N, X, 1 )
-      IF( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND.
-     $    ( ITER.LT.ITMAX ) ) THEN
+      IF( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) THEN
          ITER = ITER + 1
          GO TO 50
       END IF

@@ -15,13 +15,11 @@
 *     .. Local Scalars ..
       LOGICAL            OK
       CHARACTER*3        PATH
-      INTEGER            KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3,
-     $                   LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL
+      INTEGER            KTREXC, KTRSEN, KTRSNA, KTRSYL, KTRSYL3, LTREXC, LTRSYL, NTESTS, NTREXC, NTRSYL
       DOUBLE PRECISION   EPS, RTREXC, SFMIN
 *     ..
 *     .. Local Arrays ..
-      INTEGER            FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ),
-     $                   LTRSNA( 3 ), NTRSEN( 3 ), NTRSNA( 3 )
+      INTEGER            FTRSYL( 3 ), ITRSYL( 2 ), LTRSEN( 3 ), LTRSNA( 3 ), NTRSEN( 3 ), NTRSNA( 3 )
       DOUBLE PRECISION   RTRSEN( 3 ), RTRSNA( 3 ), RTRSYL( 2 )
 *     ..
 *     .. External Subroutines ..
@@ -43,8 +41,7 @@
 *
 *     Test error exits if TSTERR is .TRUE.
 *
-      IF( TSTERR )
-     $   CALL ZERREC( PATH, NOUT )
+      IF( TSTERR ) CALL ZERREC( PATH, NOUT )
 *
       OK = .TRUE.
       CALL ZGET35( RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN )
@@ -74,24 +71,19 @@
       END IF
 *
       CALL ZGET37( RTRSNA, LTRSNA, NTRSNA, KTRSNA, NIN )
-      IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR.
-     $    NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 )
-     $     THEN
+      IF( RTRSNA( 1 ).GT.THRESH .OR. RTRSNA( 2 ).GT.THRESH .OR. NTRSNA( 1 ).NE.0 .OR. NTRSNA( 2 ).NE.0 .OR. NTRSNA( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9997 )RTRSNA, LTRSNA, NTRSNA, KTRSNA
       END IF
 *
       CALL ZGET38( RTRSEN, LTRSEN, NTRSEN, KTRSEN, NIN )
-      IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR.
-     $    NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 )
-     $     THEN
+      IF( RTRSEN( 1 ).GT.THRESH .OR. RTRSEN( 2 ).GT.THRESH .OR. NTRSEN( 1 ).NE.0 .OR. NTRSEN( 2 ).NE.0 .OR. NTRSEN( 3 ).NE.0 ) THEN
          OK = .FALSE.
          WRITE( NOUT, FMT = 9996 )RTRSEN, LTRSEN, NTRSEN, KTRSEN
       END IF
 *
       NTESTS = KTRSYL + KTRSYL3 + KTREXC + KTRSNA + KTRSEN
-      IF( OK )
-     $   WRITE( NOUT, FMT = 9995 )PATH, NTESTS
+      IF( OK ) WRITE( NOUT, FMT = 9995 )PATH, NTESTS
 *
  9999 FORMAT( ' Error in ZTRSYL: RMAX =', D12.3, / ' LMAX = ', I8,
      $      ' NINFO=', I8, ' KNT=', I8 )

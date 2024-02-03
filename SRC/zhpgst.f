@@ -27,8 +27,7 @@
       COMPLEX*16         CT
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, ZAXPY, ZDSCAL, ZHPMV, ZHPR2, ZTPMV,
-     $                   ZTPSV
+      EXTERNAL           XERBLA, ZAXPY, ZDSCAL, ZHPMV, ZHPR2, ZTPMV, ZTPSV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE
@@ -72,13 +71,9 @@
 *
                AP( JJ ) = DBLE( AP( JJ ) )
                BJJ = DBLE( BP( JJ ) )
-               CALL ZTPSV( UPLO, 'Conjugate transpose', 'Non-unit', J,
-     $                     BP, AP( J1 ), 1 )
-               CALL ZHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE,
-     $                     AP( J1 ), 1 )
+               CALL ZTPSV( UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 )                CALL ZHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 )
                CALL ZDSCAL( J-1, ONE / BJJ, AP( J1 ), 1 )
-               AP( JJ ) = ( AP( JJ )-ZDOTC( J-1, AP( J1 ), 1, BP( J1 ),
-     $                    1 ) ) / BJJ
+               AP( JJ ) = ( AP( JJ )-ZDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
    10       CONTINUE
          ELSE
 *
@@ -100,11 +95,9 @@
                   CALL ZDSCAL( N-K, ONE / BKK, AP( KK+1 ), 1 )
                   CT = -HALF*AKK
                   CALL ZAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL ZHPR2( UPLO, N-K, -CONE, AP( KK+1 ), 1,
-     $                        BP( KK+1 ), 1, AP( K1K1 ) )
+                  CALL ZHPR2( UPLO, N-K, -CONE, AP( KK+1 ), 1, BP( KK+1 ), 1, AP( K1K1 ) )
                   CALL ZAXPY( N-K, CT, BP( KK+1 ), 1, AP( KK+1 ), 1 )
-                  CALL ZTPSV( UPLO, 'No transpose', 'Non-unit', N-K,
-     $                        BP( K1K1 ), AP( KK+1 ), 1 )
+                  CALL ZTPSV( UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 )
                END IF
                KK = K1K1
    20       CONTINUE
@@ -125,12 +118,10 @@
 *
                AKK = DBLE( AP( KK ) )
                BKK = DBLE( BP( KK ) )
-               CALL ZTPMV( UPLO, 'No transpose', 'Non-unit', K-1, BP,
-     $                     AP( K1 ), 1 )
+               CALL ZTPMV( UPLO, 'No transpose', 'Non-unit', K-1, BP, AP( K1 ), 1 )
                CT = HALF*AKK
                CALL ZAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
-               CALL ZHPR2( UPLO, K-1, CONE, AP( K1 ), 1, BP( K1 ), 1,
-     $                     AP )
+               CALL ZHPR2( UPLO, K-1, CONE, AP( K1 ), 1, BP( K1 ), 1, AP )
                CALL ZAXPY( K-1, CT, BP( K1 ), 1, AP( K1 ), 1 )
                CALL ZDSCAL( K-1, BKK, AP( K1 ), 1 )
                AP( KK ) = AKK*BKK**2
@@ -149,13 +140,9 @@
 *
                AJJ = DBLE( AP( JJ ) )
                BJJ = DBLE( BP( JJ ) )
-               AP( JJ ) = AJJ*BJJ + ZDOTC( N-J, AP( JJ+1 ), 1,
-     $                    BP( JJ+1 ), 1 )
+               AP( JJ ) = AJJ*BJJ + ZDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
                CALL ZDSCAL( N-J, BJJ, AP( JJ+1 ), 1 )
-               CALL ZHPMV( UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1,
-     $                     CONE, AP( JJ+1 ), 1 )
-               CALL ZTPMV( UPLO, 'Conjugate transpose', 'Non-unit',
-     $                     N-J+1, BP( JJ ), AP( JJ ), 1 )
+               CALL ZHPMV( UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL ZTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 )
                JJ = J1J1
    40       CONTINUE
          END IF

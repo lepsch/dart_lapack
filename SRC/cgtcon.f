@@ -1,5 +1,4 @@
-      SUBROUTINE CGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND,
-     $                   WORK, INFO )
+      SUBROUTINE CGTCON( NORM, N, DL, D, DU, DU2, IPIV, ANORM, RCOND, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -70,8 +69,7 @@
 *     Check that D(1:N) is non-zero.
 *
       DO 10 I = 1, N
-         IF( D( I ).EQ.CMPLX( ZERO ) )
-     $      RETURN
+         IF( D( I ).EQ.CMPLX( ZERO ) ) RETURN
    10 CONTINUE
 *
       AINVNM = ZERO
@@ -88,22 +86,19 @@
 *
 *           Multiply by inv(U)*inv(L).
 *
-            CALL CGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV,
-     $                   WORK, N, INFO )
+            CALL CGTTRS( 'No transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          ELSE
 *
 *           Multiply by inv(L**H)*inv(U**H).
 *
-            CALL CGTTRS( 'Conjugate transpose', N, 1, DL, D, DU, DU2,
-     $                   IPIV, WORK, N, INFO )
+            CALL CGTTRS( 'Conjugate transpose', N, 1, DL, D, DU, DU2, IPIV, WORK, N, INFO )
          END IF
          GO TO 20
       END IF
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *

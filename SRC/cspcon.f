@@ -71,8 +71,7 @@
 *
          IP = N*( N+1 ) / 2
          DO 10 I = N, 1, -1
-            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP - I
    10    CONTINUE
       ELSE
@@ -81,8 +80,7 @@
 *
          IP = 1
          DO 20 I = 1, N
-            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO )
-     $         RETURN
+            IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP + N - I + 1
    20    CONTINUE
       END IF
@@ -102,8 +100,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
       RETURN
 *

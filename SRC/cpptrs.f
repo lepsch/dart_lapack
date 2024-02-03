@@ -50,8 +50,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -61,13 +60,11 @@
 *
 *           Solve U**H *X = B, overwriting B with X.
 *
-            CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', N,
-     $                  AP, B( 1, I ), 1 )
+            CALL CTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
 *
 *           Solve U*X = B, overwriting B with X.
 *
-            CALL CTPSV( 'Upper', 'No transpose', 'Non-unit', N, AP,
-     $                  B( 1, I ), 1 )
+            CALL CTPSV( 'Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
    10    CONTINUE
       ELSE
 *
@@ -77,13 +74,11 @@
 *
 *           Solve L*Y = B, overwriting B with X.
 *
-            CALL CTPSV( 'Lower', 'No transpose', 'Non-unit', N, AP,
-     $                  B( 1, I ), 1 )
+            CALL CTPSV( 'Lower', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
 *
 *           Solve L**H *X = Y, overwriting B with X.
 *
-            CALL CTPSV( 'Lower', 'Conjugate transpose', 'Non-unit', N,
-     $                  AP, B( 1, I ), 1 )
+            CALL CTPSV( 'Lower', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 )
    20    CONTINUE
       END IF
 *

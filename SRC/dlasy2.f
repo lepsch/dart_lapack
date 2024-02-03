@@ -1,5 +1,4 @@
-      SUBROUTINE DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, LDTL, TR,
-     $                   LDTR, B, LDB, SCALE, X, LDX, XNORM, INFO )
+      SUBROUTINE DLASY2( LTRANL, LTRANR, ISGN, N1, N2, TL, LDTL, TR, LDTR, B, LDB, SCALE, X, LDX, XNORM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       DOUBLE PRECISION   SCALE, XNORM
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ),
-     $                   X( LDX, * )
+      DOUBLE PRECISION   B( LDB, * ), TL( LDTL, * ), TR( LDTR, * ), X( LDX, * )
 *     ..
 *
 * =====================================================================
@@ -26,13 +24,11 @@
 *     .. Local Scalars ..
       LOGICAL            BSWAP, XSWAP
       INTEGER            I, IP, IPIV, IPSV, J, JP, JPSV, K
-      DOUBLE PRECISION   BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1,
-     $                   TEMP, U11, U12, U22, XMAX
+      DOUBLE PRECISION   BET, EPS, GAM, L21, SGN, SMIN, SMLNUM, TAU1, TEMP, U11, U12, U22, XMAX
 *     ..
 *     .. Local Arrays ..
       LOGICAL            BSWPIV( 4 ), XSWPIV( 4 )
-      INTEGER            JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ),
-     $                   LOCU22( 4 )
+      INTEGER            JPIV( 4 ), LOCL21( 4 ), LOCU12( 4 ), LOCU22( 4 )
       DOUBLE PRECISION   BTMP( 4 ), T16( 4, 4 ), TMP( 4 ), X2( 2 )
 *     ..
 *     .. External Functions ..
@@ -47,8 +43,7 @@
       INTRINSIC          ABS, MAX
 *     ..
 *     .. Data statements ..
-      DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 / ,
-     $                   LOCU22 / 4, 3, 2, 1 /
+      DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 / , LOCU22 / 4, 3, 2, 1 /
       DATA               XSWPIV / .FALSE., .FALSE., .TRUE., .TRUE. /
       DATA               BSWPIV / .FALSE., .TRUE., .FALSE., .TRUE. /
 *     ..
@@ -60,8 +55,7 @@
 *
 *     Quick return if possible
 *
-      IF( N1.EQ.0 .OR. N2.EQ.0 )
-     $   RETURN
+      IF( N1.EQ.0 .OR. N2.EQ.0 ) RETURN
 *
 *     Set constants to control overflow
 *
@@ -85,8 +79,7 @@
 *
       SCALE = ONE
       GAM = ABS( B( 1, 1 ) )
-      IF( SMLNUM*GAM.GT.BET )
-     $   SCALE = ONE / GAM
+      IF( SMLNUM*GAM.GT.BET ) SCALE = ONE / GAM
 *
       X( 1, 1 ) = ( B( 1, 1 )*SCALE ) / TAU1
       XNORM = ABS( X( 1, 1 ) )
@@ -98,9 +91,7 @@
 *
    20 CONTINUE
 *
-      SMIN = MAX( EPS*MAX( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ),
-     $       ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ),
-     $       SMLNUM )
+      SMIN = MAX( EPS*MAX( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
       TMP( 4 ) = TL( 1, 1 ) + SGN*TR( 2, 2 )
       IF( LTRANR ) THEN
@@ -119,9 +110,7 @@
 *            [TL21 TL22] [X21]         [X21]         [B21]
 *
    30 CONTINUE
-      SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ),
-     $       ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ),
-     $       SMLNUM )
+      SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
       TMP( 4 ) = TL( 2, 2 ) + SGN*TR( 1, 1 )
       IF( LTRANL ) THEN
@@ -161,8 +150,7 @@
          BTMP( 2 ) = BTMP( 2 ) - L21*BTMP( 1 )
       END IF
       SCALE = ONE
-      IF( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( U22 ) .OR.
-     $    ( TWO*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( U11 ) ) THEN
+      IF( ( TWO*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( U22 ) .OR. ( TWO*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( U11 ) ) THEN
          SCALE = HALF / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE
@@ -192,10 +180,7 @@
 *     Set pivots less than SMIN to SMIN.
 *
    50 CONTINUE
-      SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ),
-     $       ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )
-      SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ),
-     $       ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
+      SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
       SMIN = MAX( EPS*SMIN, SMLNUM )
       BTMP( 1 ) = ZERO
       CALL DCOPY( 16, BTMP, 0, T16, 1 )
@@ -249,8 +234,7 @@
             BTMP( I ) = BTMP( IPSV )
             BTMP( IPSV ) = TEMP
          END IF
-         IF( JPSV.NE.I )
-     $      CALL DSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 )
+         IF( JPSV.NE.I ) CALL DSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 )
          JPIV( I ) = JPSV
          IF( ABS( T16( I, I ) ).LT.SMIN ) THEN
             INFO = 1
@@ -269,12 +253,8 @@
          T16( 4, 4 ) = SMIN
       END IF
       SCALE = ONE
-      IF( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( T16( 1, 1 ) ) .OR.
-     $    ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( T16( 2, 2 ) ) .OR.
-     $    ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ).GT.ABS( T16( 3, 3 ) ) .OR.
-     $    ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ).GT.ABS( T16( 4, 4 ) ) ) THEN
-         SCALE = ( ONE / EIGHT ) / MAX( ABS( BTMP( 1 ) ),
-     $           ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) )
+      IF( ( EIGHT*SMLNUM )*ABS( BTMP( 1 ) ).GT.ABS( T16( 1, 1 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 2 ) ).GT.ABS( T16( 2, 2 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 3 ) ).GT.ABS( T16( 3, 3 ) ) .OR. ( EIGHT*SMLNUM )*ABS( BTMP( 4 ) ).GT.ABS( T16( 4, 4 ) ) ) THEN
+         SCALE = ( ONE / EIGHT ) / MAX( ABS( BTMP( 1 ) ), ABS( BTMP( 2 ) ), ABS( BTMP( 3 ) ), ABS( BTMP( 4 ) ) )
          BTMP( 1 ) = BTMP( 1 )*SCALE
          BTMP( 2 ) = BTMP( 2 )*SCALE
          BTMP( 3 ) = BTMP( 3 )*SCALE
@@ -299,8 +279,7 @@
       X( 2, 1 ) = TMP( 2 )
       X( 1, 2 ) = TMP( 3 )
       X( 2, 2 ) = TMP( 4 )
-      XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ),
-     $        ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) )
+      XNORM = MAX( ABS( TMP( 1 ) )+ABS( TMP( 3 ) ), ABS( TMP( 2 ) )+ABS( TMP( 4 ) ) )
       RETURN
 *
 *     End of DLASY2

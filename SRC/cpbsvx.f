@@ -1,6 +1,4 @@
-      SUBROUTINE CPBSVX( FACT, UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB,
-     $                   EQUED, S, B, LDB, X, LDX, RCOND, FERR, BERR,
-     $                   WORK, RWORK, INFO )
+      SUBROUTINE CPBSVX( FACT, UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, EQUED, S, B, LDB, X, LDX, RCOND, FERR, BERR, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               BERR( * ), FERR( * ), RWORK( * ), S( * )
-      COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   WORK( * ), X( LDX, * )
+      COMPLEX            AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -34,8 +31,7 @@
       EXTERNAL           LSAME, CLANHB, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CLACPY, CLAQHB, CPBCON, CPBEQU, CPBRFS,
-     $                   CPBTRF, CPBTRS, XERBLA
+      EXTERNAL           CCOPY, CLACPY, CLAQHB, CPBCON, CPBEQU, CPBRFS, CPBTRF, CPBTRS, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -57,8 +53,7 @@
 *
 *     Test the input parameters.
 *
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) )
-     $     THEN
+      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.LSAME( FACT, 'F' ) ) THEN
          INFO = -1
       ELSE IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -2
@@ -72,8 +67,7 @@
          INFO = -7
       ELSE IF( LDAFB.LT.KD+1 ) THEN
          INFO = -9
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT.
-     $         ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( RCEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -10
       ELSE
          IF( RCEQU ) THEN
@@ -136,8 +130,7 @@
          IF( UPPER ) THEN
             DO 40 J = 1, N
                J1 = MAX( J-KD, 1 )
-               CALL CCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1,
-     $                     AFB( KD+1-J+J1, J ), 1 )
+               CALL CCOPY( J-J1+1, AB( KD+1-J+J1, J ), 1, AFB( KD+1-J+J1, J ), 1 )
    40       CONTINUE
          ELSE
             DO 50 J = 1, N
@@ -162,8 +155,7 @@
 *
 *     Compute the reciprocal of the condition number of A.
 *
-      CALL CPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK,
-     $             INFO )
+      CALL CPBCON( UPLO, N, KD, AFB, LDAFB, ANORM, RCOND, WORK, RWORK, INFO )
 *
 *     Compute the solution matrix X.
 *
@@ -173,8 +165,7 @@
 *     Use iterative refinement to improve the computed solution and
 *     compute error bounds and backward error estimates for it.
 *
-      CALL CPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X,
-     $             LDX, FERR, BERR, WORK, RWORK, INFO )
+      CALL CPBRFS( UPLO, N, KD, NRHS, AB, LDAB, AFB, LDAFB, B, LDB, X, LDX, FERR, BERR, WORK, RWORK, INFO )
 *
 *     Transform the solution matrix X to a solution of the original
 *     system.
@@ -192,8 +183,7 @@
 *
 *     Set INFO = N+1 if the matrix is singular to working precision.
 *
-      IF( RCOND.LT.SLAMCH( 'Epsilon' ) )
-     $   INFO = N + 1
+      IF( RCOND.LT.SLAMCH( 'Epsilon' ) ) INFO = N + 1
 *
       RETURN
 *

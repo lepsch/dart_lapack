@@ -1,6 +1,4 @@
-      SUBROUTINE SSTEVR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL,
-     $                   M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK,
-     $                   LIWORK, INFO )
+      SUBROUTINE SSTEVR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, ABSTOL, M, W, Z, LDZ, ISUPPZ, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -23,13 +21,9 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TWO = 2.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, TEST, LQUERY, VALEIG, WANTZ,
-     $                   TRYRAC
+      LOGICAL            ALLEIG, INDEIG, TEST, LQUERY, VALEIG, WANTZ, TRYRAC
       CHARACTER          ORDER
-      INTEGER            I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP,
-     $                   INDIWO, ISCALE, J, JJ, LIWMIN, LWMIN, NSPLIT
-      REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM,
-     $                   TMP1, TNRM, VLL, VUU
+      INTEGER            I, IEEEOK, IMAX, INDIBL, INDIFL, INDISP, INDIWO, ISCALE, J, JJ, LIWMIN, LWMIN, NSPLIT       REAL               BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM, TMP1, TNRM, VLL, VUU
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -38,8 +32,7 @@
       EXTERNAL           LSAME, ILAENV, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SSCAL, SSTEBZ, SSTEMR, SSTEIN, SSTERF,
-     $                   SSWAP, XERBLA
+      EXTERNAL           SCOPY, SSCAL, SSTEBZ, SSTEMR, SSTEIN, SSTERF, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -70,8 +63,7 @@
          INFO = -3
       ELSE
          IF( VALEIG ) THEN
-            IF( N.GT.0 .AND. VU.LE.VL )
-     $         INFO = -7
+            IF( N.GT.0 .AND. VU.LE.VL ) INFO = -7
          ELSE IF( INDEIG ) THEN
             IF( IL.LT.1 .OR. IL.GT.MAX( 1, N ) ) THEN
                INFO = -8
@@ -107,8 +99,7 @@
 *     Quick return if possible
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -120,8 +111,7 @@
                W( 1 ) = D( 1 )
             END IF
          END IF
-         IF( WANTZ )
-     $      Z( 1, 1 ) = ONE
+         IF( WANTZ ) Z( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -200,9 +190,7 @@
             ELSE
                TRYRAC = .FALSE.
             END IF
-            CALL SSTEMR( JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL,
-     $                   IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC,
-     $                   WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO )
+            CALL SSTEMR( JOBZ, 'A', N, WORK( N+1 ), WORK, VL, VU, IL, IU, M, W, Z, LDZ, N, ISUPPZ, TRYRAC, WORK( 2*N+1 ), LWORK-2*N, IWORK, LIWORK, INFO )
 *
          END IF
          IF( INFO.EQ.0 ) THEN
@@ -219,15 +207,10 @@
       ELSE
          ORDER = 'E'
       END IF
-
-      CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M,
-     $             NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK,
-     $             IWORK( INDIWO ), INFO )
+       CALL SSTEBZ( RANGE, ORDER, N, VLL, VUU, IL, IU, ABSTOL, D, E, M, NSPLIT, W, IWORK( INDIBL ), IWORK( INDISP ), WORK, IWORK( INDIWO ), INFO )
 *
       IF( WANTZ ) THEN
-         CALL SSTEIN( N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ),
-     $                Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ),
-     $                INFO )
+         CALL SSTEIN( N, D, E, M, W, IWORK( INDIBL ), IWORK( INDISP ), Z, LDZ, WORK, IWORK( INDIWO ), IWORK( INDIFL ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

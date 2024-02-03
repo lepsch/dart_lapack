@@ -1,5 +1,4 @@
-      SUBROUTINE SSYTRD_SY2SB( UPLO, N, KD, A, LDA, AB, LDAB, TAU, 
-     $                         WORK, LWORK, INFO )
+      SUBROUTINE SSYTRD_SY2SB( UPLO, N, KD, A, LDA, AB, LDAB, TAU,  WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -12,8 +11,7 @@
       INTEGER            INFO, LDA, LDAB, LWORK, N, KD
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AB( LDAB, * ), 
-     $                   TAU( * ), WORK( * )
+      REAL               A( LDA, * ), AB( LDAB, * ),  TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,34 +19,27 @@
 *     .. Parameters ..
       REAL               RONE
       REAL               ZERO, ONE, HALF
-      PARAMETER          ( RONE = 1.0E+0,
-     $                   ZERO = 0.0E+0,
-     $                   ONE = 1.0E+0,
-     $                   HALF = 0.5E+0 )
+      PARAMETER          ( RONE = 1.0E+0, ZERO = 0.0E+0, ONE = 1.0E+0, HALF = 0.5E+0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, J, IINFO, LWMIN, PN, PK, LK,
-     $                   LDT, LDW, LDS2, LDS1, 
-     $                   LS2, LS1, LW, LT,
-     $                   TPOS, WPOS, S2POS, S1POS
+      INTEGER            I, J, IINFO, LWMIN, PN, PK, LK, LDT, LDW, LDS2, LDS1, LS2, LS1, LW, LT, TPOS, WPOS, S2POS, S1POS
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY,
-     $                   SLARFT, SGELQF, SGEQRF, SLASET
+      EXTERNAL           XERBLA, SSYR2K, SSYMM, SGEMM, SCOPY, SLARFT, SGELQF, SGEQRF, SLASET
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MIN, MAX
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
-      INTEGER            ILAENV2STAGE 
+      INTEGER            ILAENV2STAGE
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. Executable Statements ..
 *
-*     Determine the minimal workspace size required 
+*     Determine the minimal workspace size required
 *     and test the input parameters
 *
       INFO   = 0
@@ -82,15 +73,14 @@
          RETURN
       END IF
 *
-*     Quick return if possible        
-*     Copy the upper/lower portion of A into AB 
+*     Quick return if possible
+*     Copy the upper/lower portion of A into AB
 *
       IF( N.LE.KD+1 ) THEN
           IF( UPPER ) THEN
               DO 100 I = 1, N
                   LK = MIN( KD+1, I )
-                  CALL SCOPY( LK, A( I-LK+1, I ), 1, 
-     $                            AB( KD+1-LK+1, I ), 1 )
+                  CALL SCOPY( LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 )
   100         CONTINUE
           ELSE
               DO 110 I = 1, N
@@ -103,18 +93,18 @@
       END IF
 *
 *     Determine the pointer position for the workspace
-*      
+*
       LDT    = KD
       LDS1   = KD
       LT     = LDT*KD
       LW     = N*KD
       LS1    = LDS1*KD
       LS2    = LWMIN - LT - LW - LS1
-*      LS2 = N*MAX(KD,FACTOPTNB) 
+*      LS2 = N*MAX(KD,FACTOPTNB)
       TPOS   = 1
       WPOS   = TPOS  + LT
       S1POS  = WPOS  + LW
-      S2POS  = S1POS + LS1 
+      S2POS  = S1POS + LS1
       IF( UPPER ) THEN
           LDW    = KD
           LDS2   = KD
@@ -126,65 +116,46 @@
 *
 *     Set the workspace of the triangular matrix T to zero once such a
 *     way every time T is generated the upper/lower portion will be always zero
-*   
+*
       CALL SLASET( "A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT )
 *
       IF( UPPER ) THEN
           DO 10 I = 1, N - KD, KD
              PN = N-I-KD+1
              PK = MIN( N-I-KD+1, KD )
-*        
+*
 *            Compute the LQ factorization of the current block
-*        
-             CALL SGELQF( KD, PN, A( I, I+KD ), LDA,
-     $                    TAU( I ), WORK( S2POS ), LS2, IINFO )
-*        
+*
+             CALL SGELQF( KD, PN, A( I, I+KD ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
+*
 *            Copy the upper portion of A into AB
-*        
+*
              DO 20 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
                 CALL SCOPY( LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 )
    20        CONTINUE
-*                
-             CALL SLASET( 'Lower', PK, PK, ZERO, ONE, 
-     $                    A( I, I+KD ), LDA )
-*        
+*
+             CALL SLASET( 'Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA )
+*
 *            Form the matrix T
-*        
-             CALL SLARFT( 'Forward', 'Rowwise', PN, PK,
-     $                    A( I, I+KD ), LDA, TAU( I ), 
-     $                    WORK( TPOS ), LDT )
-*        
+*
+             CALL SLARFT( 'Forward', 'Rowwise', PN, PK, A( I, I+KD ), LDA, TAU( I ), WORK( TPOS ), LDT )
+*
 *            Compute W:
-*             
-             CALL SGEMM( 'Conjugate', 'No transpose', PK, PN, PK,
-     $                   ONE,  WORK( TPOS ), LDT,
-     $                         A( I, I+KD ), LDA,
-     $                   ZERO, WORK( S2POS ), LDS2 )
-*        
-             CALL SSYMM( 'Right', UPLO, PK, PN,
-     $                   ONE,  A( I+KD, I+KD ), LDA,
-     $                         WORK( S2POS ), LDS2,
-     $                   ZERO, WORK( WPOS ), LDW )
-*        
-             CALL SGEMM( 'No transpose', 'Conjugate', PK, PK, PN,
-     $                   ONE,  WORK( WPOS ), LDW,
-     $                         WORK( S2POS ), LDS2,
-     $                   ZERO, WORK( S1POS ), LDS1 )
-*        
-             CALL SGEMM( 'No transpose', 'No transpose', PK, PN, PK,
-     $                   -HALF, WORK( S1POS ), LDS1, 
-     $                          A( I, I+KD ), LDA,
-     $                   ONE,   WORK( WPOS ), LDW )
-*             
-*        
+*
+             CALL SGEMM( 'Conjugate', 'No transpose', PK, PN, PK, ONE,  WORK( TPOS ), LDT, A( I, I+KD ), LDA, ZERO, WORK( S2POS ), LDS2 )
+*
+             CALL SSYMM( 'Right', UPLO, PK, PN, ONE,  A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW )
+*
+             CALL SGEMM( 'No transpose', 'Conjugate', PK, PK, PN, ONE,  WORK( WPOS ), LDW, WORK( S2POS ), LDS2, ZERO, WORK( S1POS ), LDS1 )
+*
+             CALL SGEMM( 'No transpose', 'No transpose', PK, PN, PK, -HALF, WORK( S1POS ), LDS1, A( I, I+KD ), LDA, ONE,   WORK( WPOS ), LDW )
+*
+*
 *            Update the unreduced submatrix A(i+kd:n,i+kd:n), using
 *            an update of the form:  A := A - V'*W - W'*V
-*        
-             CALL SSYR2K( UPLO, 'Conjugate', PN, PK,
-     $                    -ONE, A( I, I+KD ), LDA,
-     $                          WORK( WPOS ), LDW,
-     $                    RONE, A( I+KD, I+KD ), LDA )
+*
+             CALL SSYR2K( UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
    10     CONTINUE
 *
 *        Copy the upper band to AB which is the band storage matrix
@@ -197,62 +168,43 @@
       ELSE
 *
 *         Reduce the lower triangle of A to lower band matrix
-*        
+*
           DO 40 I = 1, N - KD, KD
              PN = N-I-KD+1
              PK = MIN( N-I-KD+1, KD )
-*        
+*
 *            Compute the QR factorization of the current block
-*        
-             CALL SGEQRF( PN, KD, A( I+KD, I ), LDA,
-     $                    TAU( I ), WORK( S2POS ), LS2, IINFO )
-*        
-*            Copy the upper portion of A into AB 
-*        
+*
+             CALL SGEQRF( PN, KD, A( I+KD, I ), LDA, TAU( I ), WORK( S2POS ), LS2, IINFO )
+*
+*            Copy the upper portion of A into AB
+*
              DO 50 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
                 CALL SCOPY( LK, A( J, J ), 1, AB( 1, J ), 1 )
    50        CONTINUE
-*                
-             CALL SLASET( 'Upper', PK, PK, ZERO, ONE, 
-     $                    A( I+KD, I ), LDA )
-*        
+*
+             CALL SLASET( 'Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA )
+*
 *            Form the matrix T
-*        
-             CALL SLARFT( 'Forward', 'Columnwise', PN, PK,
-     $                    A( I+KD, I ), LDA, TAU( I ), 
-     $                    WORK( TPOS ), LDT )
-*        
+*
+             CALL SLARFT( 'Forward', 'Columnwise', PN, PK, A( I+KD, I ), LDA, TAU( I ), WORK( TPOS ), LDT )
+*
 *            Compute W:
-*             
-             CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK,
-     $                   ONE, A( I+KD, I ), LDA,
-     $                         WORK( TPOS ), LDT,
-     $                   ZERO, WORK( S2POS ), LDS2 )
-*        
-             CALL SSYMM( 'Left', UPLO, PN, PK,
-     $                   ONE, A( I+KD, I+KD ), LDA,
-     $                         WORK( S2POS ), LDS2,
-     $                   ZERO, WORK( WPOS ), LDW )
-*        
-             CALL SGEMM( 'Conjugate', 'No transpose', PK, PK, PN,
-     $                   ONE, WORK( S2POS ), LDS2,
-     $                         WORK( WPOS ), LDW,
-     $                   ZERO, WORK( S1POS ), LDS1 )
-*        
-             CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK,
-     $                   -HALF, A( I+KD, I ), LDA,
-     $                         WORK( S1POS ), LDS1,
-     $                   ONE, WORK( WPOS ), LDW )
-*             
-*        
+*
+             CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK, ONE, A( I+KD, I ), LDA, WORK( TPOS ), LDT, ZERO, WORK( S2POS ), LDS2 )
+*
+             CALL SSYMM( 'Left', UPLO, PN, PK, ONE, A( I+KD, I+KD ), LDA, WORK( S2POS ), LDS2, ZERO, WORK( WPOS ), LDW )
+*
+             CALL SGEMM( 'Conjugate', 'No transpose', PK, PK, PN, ONE, WORK( S2POS ), LDS2, WORK( WPOS ), LDW, ZERO, WORK( S1POS ), LDS1 )
+*
+             CALL SGEMM( 'No transpose', 'No transpose', PN, PK, PK, -HALF, A( I+KD, I ), LDA, WORK( S1POS ), LDS1, ONE, WORK( WPOS ), LDW )
+*
+*
 *            Update the unreduced submatrix A(i+kd:n,i+kd:n), using
 *            an update of the form:  A := A - V*W' - W*V'
-*        
-             CALL SSYR2K( UPLO, 'No transpose', PN, PK,
-     $                    -ONE, A( I+KD, I ), LDA,
-     $                           WORK( WPOS ), LDW,
-     $                    RONE, A( I+KD, I+KD ), LDA )
+*
+             CALL SSYR2K( UPLO, 'No transpose', PN, PK, -ONE, A( I+KD, I ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA )
 *            ==================================================================
 *            RESTORE A FOR COMPARISON AND CHECKING TO BE REMOVED
 *             DO 45 J = I, I+PK-1

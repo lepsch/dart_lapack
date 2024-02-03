@@ -1,5 +1,4 @@
-      SUBROUTINE SPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM,
-     $                   PIV, RWORK, RESID, RANK )
+      SUBROUTINE SPST01( UPLO, N, A, LDA, AFAC, LDAFAC, PERM, LDPERM, PIV, RWORK, RESID, RANK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       CHARACTER          UPLO
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), AFAC( LDAFAC, * ),
-     $                   PERM( LDPERM, * ), RWORK( * )
+      REAL               A( LDA, * ), AFAC( LDAFAC, * ), PERM( LDPERM, * ), RWORK( * )
       INTEGER            PIV( * )
 *     ..
 *
@@ -76,8 +74,7 @@
 *
 *           Compute the rest of column K.
 *
-            CALL STRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC,
-     $                  LDAFAC, AFAC( 1, K ), 1 )
+            CALL STRMV( 'Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
 *
   120    CONTINUE
 *
@@ -97,9 +94,7 @@
 *           Add a multiple of column K of the factor L to each of
 *           columns K+1 through N.
 *
-            IF( K+1.LE.N )
-     $         CALL SSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1,
-     $                    AFAC( K+1, K+1 ), LDAFAC )
+            IF( K+1.LE.N ) CALL SSYR( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC )
 *
 *           Scale column K by the diagonal element.
 *

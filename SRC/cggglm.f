@@ -1,5 +1,4 @@
-      SUBROUTINE CGGGLM( N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK,
-     $                   INFO )
+      SUBROUTINE CGGGLM( N, M, P, A, LDA, B, LDB, D, X, Y, WORK, LWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,25 +8,21 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), D( * ), WORK( * ),
-     $                   X( * ), Y( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), D( * ), WORK( * ), X( * ), Y( * )
 *     ..
 *
 *  ===================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3,
-     $                   NB4, NP
+      INTEGER            I, LOPT, LWKMIN, LWKOPT, NB, NB1, NB2, NB3, NB4, NP
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CCOPY, CGEMV, CGGQRF, CTRTRS, CUNMQR, CUNMRQ,
-     $                   XERBLA
+      EXTERNAL           CCOPY, CGEMV, CGGQRF, CTRTRS, CUNMQR, CUNMRQ, XERBLA
 *     ..
 *     .. External Functions ..
       INTEGER            ILAENV
@@ -106,22 +101,19 @@
 *     where R11 and T22 are upper triangular, and Q and Z are
 *     unitary.
 *
-      CALL CGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ),
-     $             WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL CGGQRF( N, M, P, A, LDA, WORK, B, LDB, WORK( M+1 ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       LOPT = INT( WORK( M+NP+1 ) )
 *
 *     Update left-hand-side vector d = Q**H*d = ( d1 ) M
 *                                               ( d2 ) N-M
 *
-      CALL CUNMQR( 'Left', 'Conjugate transpose', N, 1, M, A, LDA, WORK,
-     $             D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL CUNMQR( 'Left', 'Conjugate transpose', N, 1, M, A, LDA, WORK, D, MAX( 1, N ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       LOPT = MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 *
 *     Solve T22*y2 = d2 for y2
 *
       IF( N.GT.M ) THEN
-         CALL CTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1,
-     $                B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
+         CALL CTRTRS( 'Upper', 'No transpose', 'Non unit', N-M, 1, B( M+1, M+P-N+1 ), LDB, D( M+1 ), N-M, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 1
@@ -139,14 +131,12 @@
 *
 *     Update d1 = d1 - T12*y2
 *
-      CALL CGEMV( 'No transpose', M, N-M, -CONE, B( 1, M+P-N+1 ), LDB,
-     $            Y( M+P-N+1 ), 1, CONE, D, 1 )
+      CALL CGEMV( 'No transpose', M, N-M, -CONE, B( 1, M+P-N+1 ), LDB, Y( M+P-N+1 ), 1, CONE, D, 1 )
 *
 *     Solve triangular system: R11*x = d1
 *
       IF( M.GT.0 ) THEN
-         CALL CTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA,
-     $                D, M, INFO )
+         CALL CTRTRS( 'Upper', 'No Transpose', 'Non unit', M, 1, A, LDA, D, M, INFO )
 *
          IF( INFO.GT.0 ) THEN
             INFO = 2
@@ -160,9 +150,7 @@
 *
 *     Backward transformation y = Z**H *y
 *
-      CALL CUNMRQ( 'Left', 'Conjugate transpose', P, 1, NP,
-     $             B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y,
-     $             MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
+      CALL CUNMRQ( 'Left', 'Conjugate transpose', P, 1, NP, B( MAX( 1, N-P+1 ), 1 ), LDB, WORK( M+1 ), Y, MAX( 1, P ), WORK( M+NP+1 ), LWORK-M-NP, INFO )
       WORK( 1 ) = M + NP + MAX( LOPT, INT( WORK( M+NP+1 ) ) )
 *
       RETURN

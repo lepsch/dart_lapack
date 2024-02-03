@@ -1,5 +1,4 @@
-      SUBROUTINE CGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE CGET51( ITYPE, N, A, LDA, B, LDB, U, LDU, V, LDV, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            A( LDA, * ), B( LDB, * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       REAL               ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0, TEN = 10.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            JCOL, JDIAG, JROW
@@ -41,8 +38,7 @@
 *     .. Executable Statements ..
 *
       RESULT = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Constants
 *
@@ -67,11 +63,9 @@
 *           ITYPE=1: Compute W = A - U B V**H
 *
             CALL CLACPY( ' ', N, N, A, LDA, WORK, N )
-            CALL CGEMM( 'N', 'N', N, N, N, CONE, U, LDU, B, LDB, CZERO,
-     $                  WORK( N**2+1 ), N )
+            CALL CGEMM( 'N', 'N', N, N, N, CONE, U, LDU, B, LDB, CZERO, WORK( N**2+1 ), N )
 *
-            CALL CGEMM( 'N', 'C', N, N, N, -CONE, WORK( N**2+1 ), N, V,
-     $                  LDV, CONE, WORK, N )
+            CALL CGEMM( 'N', 'C', N, N, N, -CONE, WORK( N**2+1 ), N, V, LDV, CONE, WORK, N )
 *
          ELSE
 *
@@ -81,8 +75,7 @@
 *
             DO 20 JCOL = 1, N
                DO 10 JROW = 1, N
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) )
-     $                - A( JROW, JCOL )
+                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    10          CONTINUE
    20       CONTINUE
          END IF
@@ -107,16 +100,13 @@
 *
 *        ITYPE=3: Compute  U U**H - I
 *
-         CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO,
-     $               WORK, N )
+         CALL CGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
          DO 30 JDIAG = 1, N
-            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+
-     $         1 ) - CONE
+            WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE
    30    CONTINUE
 *
-         RESULT = MIN( CLANGE( '1', N, N, WORK, N, RWORK ),
-     $            REAL( N ) ) / ( N*ULP )
+         RESULT = MIN( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP )
       END IF
 *
       RETURN

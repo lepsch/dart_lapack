@@ -1,5 +1,4 @@
-      SUBROUTINE STBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B,
-     $                   LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
+      SUBROUTINE STBRFS( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, FERR, BERR, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * )
-      REAL               AB( LDAB, * ), B( LDB, * ), BERR( * ),
-     $                   FERR( * ), WORK( * ), X( LDX, * )
+      REAL               AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -54,8 +52,7 @@
 *
       IF( .NOT.UPPER .AND. .NOT.LSAME( UPLO, 'L' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $         LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( .NOT.NOUNIT .AND. .NOT.LSAME( DIAG, 'U' ) ) THEN
          INFO = -3
@@ -109,8 +106,7 @@
 *        where op(A) = A or A**T, depending on TRANS.
 *
          CALL SCOPY( N, X( 1, J ), 1, WORK( N+1 ), 1 )
-         CALL STBMV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK( N+1 ),
-     $               1 )
+         CALL STBMV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 )
          CALL SAXPY( N, -ONE, B( 1, J ), 1, WORK( N+1 ), 1 )
 *
 *        Compute componentwise relative backward error from formula
@@ -135,16 +131,14 @@
                   DO 40 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 30 I = MAX( 1, K-KD ), K
-                        WORK( I ) = WORK( I ) +
-     $                              ABS( AB( KD+1+I-K, K ) )*XK
+                        WORK( I ) = WORK( I ) + ABS( AB( KD+1+I-K, K ) )*XK
    30                CONTINUE
    40             CONTINUE
                ELSE
                   DO 60 K = 1, N
                      XK = ABS( X( K, J ) )
                      DO 50 I = MAX( 1, K-KD ), K - 1
-                        WORK( I ) = WORK( I ) +
-     $                              ABS( AB( KD+1+I-K, K ) )*XK
+                        WORK( I ) = WORK( I ) + ABS( AB( KD+1+I-K, K ) )*XK
    50                CONTINUE
                      WORK( K ) = WORK( K ) + XK
    60             CONTINUE
@@ -176,8 +170,7 @@
                   DO 120 K = 1, N
                      S = ZERO
                      DO 110 I = MAX( 1, K-KD ), K
-                        S = S + ABS( AB( KD+1+I-K, K ) )*
-     $                      ABS( X( I, J ) )
+                        S = S + ABS( AB( KD+1+I-K, K ) )* ABS( X( I, J ) )
   110                CONTINUE
                      WORK( K ) = WORK( K ) + S
   120             CONTINUE
@@ -185,8 +178,7 @@
                   DO 140 K = 1, N
                      S = ABS( X( K, J ) )
                      DO 130 I = MAX( 1, K-KD ), K - 1
-                        S = S + ABS( AB( KD+1+I-K, K ) )*
-     $                      ABS( X( I, J ) )
+                        S = S + ABS( AB( KD+1+I-K, K ) )* ABS( X( I, J ) )
   130                CONTINUE
                      WORK( K ) = WORK( K ) + S
   140             CONTINUE
@@ -216,8 +208,7 @@
             IF( WORK( I ).GT.SAFE2 ) THEN
                S = MAX( S, ABS( WORK( N+I ) ) / WORK( I ) )
             ELSE
-               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) /
-     $             ( WORK( I )+SAFE1 ) )
+               S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             END IF
   190    CONTINUE
          BERR( J ) = S
@@ -254,15 +245,13 @@
 *
          KASE = 0
   210    CONTINUE
-         CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ),
-     $                KASE, ISAVE )
+         CALL SLACN2( N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE )
          IF( KASE.NE.0 ) THEN
             IF( KASE.EQ.1 ) THEN
 *
 *              Multiply by diag(W)*inv(op(A)**T).
 *
-               CALL STBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB,
-     $                     WORK( N+1 ), 1 )
+               CALL STBSV( UPLO, TRANST, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 )
                DO 220 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   220          CONTINUE
@@ -273,8 +262,7 @@
                DO 230 I = 1, N
                   WORK( N+I ) = WORK( I )*WORK( N+I )
   230          CONTINUE
-               CALL STBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB,
-     $                     WORK( N+1 ), 1 )
+               CALL STBSV( UPLO, TRANS, DIAG, N, KD, AB, LDAB, WORK( N+1 ), 1 )
             END IF
             GO TO 210
          END IF
@@ -285,8 +273,7 @@
          DO 240 I = 1, N
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
   240    CONTINUE
-         IF( LSTRES.NE.ZERO )
-     $      FERR( J ) = FERR( J ) / LSTRES
+         IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 *
   250 CONTINUE
 *

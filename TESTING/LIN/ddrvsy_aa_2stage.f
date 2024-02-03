@@ -1,7 +1,4 @@
-      SUBROUTINE DDRVSY_AA_2STAGE(
-     $                         DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR,
-     $                         NMAX, A, AFAC, AINV, B, X, XACT, WORK,
-     $                         RWORK, IWORK, NOUT )
+      SUBROUTINE DDRVSY_AA_2STAGE( DOTYPE, NN, NVAL, NRHS, THRESH, TSTERR, NMAX, A, AFAC, AINV, B, X, XACT, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -16,8 +13,7 @@
       LOGICAL            DOTYPE( * )
       INTEGER            IWORK( * ), NVAL( * )
       DOUBLE PRECISION   RWORK( * )
-      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ),
-     $                   WORK( * ), X( * ), XACT( * )
+      DOUBLE PRECISION   A( * ), AFAC( * ), AINV( * ), B( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -34,9 +30,7 @@
       LOGICAL            ZEROT
       CHARACTER          DIST, FACT, TYPE, UPLO, XTYPE
       CHARACTER*3        MATPATH, PATH
-      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO,
-     $                   IZERO, J, K, KL, KU, LDA, LWORK, MODE, N,
-     $                   NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT
+      INTEGER            I, I1, I2, IFACT, IMAT, IN, INFO, IOFF, IUPLO, IZERO, J, K, KL, KU, LDA, LWORK, MODE, N, NB, NBMIN, NERRS, NFAIL, NIMAT, NRUN, NT
       DOUBLE PRECISION   ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -49,10 +43,7 @@
       EXTERNAL           DLANSY, SGET06
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, DERRVX,
-     $                   DGET04, DLACPY, DLARHS, DLATB4, DLATMS,
-     $                   DSYSV_AA_2STAGE, DPOT02,
-     $                   DSYTRF_AA_2STAGE
+      EXTERNAL           ALADHD, ALAERH, ALASVM, XLAENV, DERRVX, DGET04, DLACPY, DLARHS, DLATB4, DLATMS, DSYSV_AA_2STAGE, DPOT02, DSYTRF_AA_2STAGE
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -93,8 +84,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL DERRVX( PATH, NOUT )
+      IF( TSTERR ) CALL DERRVX( PATH, NOUT )
       INFOT = 0
 *
 *     Set the block size and minimum block size for testing.
@@ -111,21 +101,18 @@
          LDA = MAX( N, 1 )
          XTYPE = 'N'
          NIMAT = NTYPES
-         IF( N.LE.0 )
-     $      NIMAT = 1
+         IF( N.LE.0 ) NIMAT = 1
 *
          DO 170 IMAT = 1, NIMAT
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 170
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 170
 *
 *           Skip types 3, 4, 5, or 6 if the matrix size is too small.
 *
             ZEROT = IMAT.GE.3 .AND. IMAT.LE.6
-            IF( ZEROT .AND. N.LT.IMAT-2 )
-     $         GO TO 170
+            IF( ZEROT .AND. N.LT.IMAT-2 ) GO TO 170
 *
 *           Do first for UPLO = 'U', then for UPLO = 'L'
 *
@@ -137,21 +124,17 @@
 *              Set up parameters with DLATB4 for the matrix generator
 *              based on the type of matrix to be generated.
 *
-              CALL DLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM,
-     $                         MODE, CNDNUM, DIST )
+              CALL DLATB4( MATPATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *              Generate a matrix with DLATMS.
 *
                   SRNAMT = 'DLATMS'
-                  CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                         CNDNUM, ANORM, KL, KU, UPLO, A, LDA,
-     $                         WORK, INFO )
+                  CALL DLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, UPLO, A, LDA, WORK, INFO )
 *
 *                 Check error code from DLATMS and handle error.
 *
                   IF( INFO.NE.0 ) THEN
-                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N,
-     $                            -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                     CALL ALAERH( PATH, 'DLATMS', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                      GO TO 160
                   END IF
 *
@@ -236,9 +219,7 @@
 *                 Form an exact solution and set the right hand side.
 *
                   SRNAMT = 'DLARHS'
-                  CALL DLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU,
-     $                         NRHS, A, LDA, XACT, LDA, B, LDA, ISEED,
-     $                         INFO )
+                  CALL DLARHS( MATPATH, XTYPE, UPLO, ' ', N, N, KL, KU, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
                   XTYPE = 'C'
 *
 *                 --- Test DSYSV_AA_2STAGE  ---
@@ -251,10 +232,7 @@
 *
                      SRNAMT = 'DSYSV_AA_2STAGE '
                      LWORK = MIN( MAX( 1, N*NB ), 3*NMAX*NMAX )
-                     CALL DSYSV_AA_2STAGE( UPLO, N, NRHS, AFAC, LDA,
-     $                                 AINV, MAX( 1, (3*NB+1)*N ),
-     $                                 IWORK, IWORK( 1+N ),
-     $                                 X, LDA, WORK, LWORK, INFO )
+                     CALL DSYSV_AA_2STAGE( UPLO, N, NRHS, AFAC, LDA, AINV, MAX( 1, (3*NB+1)*N ), IWORK, IWORK( 1+N ), X, LDA, WORK, LWORK, INFO )
 *
 *                    Adjust the expected value of INFO to account for
 *                    pivoting.
@@ -279,9 +257,7 @@
 *                    Check error code from DSYSV_AA .
 *
                      IF( INFO.NE.K ) THEN
-                        CALL ALAERH( PATH, 'DSYSV_AA', INFO, K,
-     $                               UPLO, N, N, -1, -1, NRHS,
-     $                               IMAT, NFAIL, NERRS, NOUT )
+                        CALL ALAERH( PATH, 'DSYSV_AA', INFO, K, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT )
                         GO TO 120
                      ELSE IF( INFO.NE.0 ) THEN
                         GO TO 120
@@ -290,8 +266,7 @@
 *                    Compute residual of the computed solution.
 *
                      CALL DLACPY( 'Full', N, NRHS, B, LDA, WORK, LDA )
-                     CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK,
-     $                            LDA, RWORK, RESULT( 1 ) )
+                     CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 1 ) )
 *
 *                    Reconstruct matrix from factors and compute
 *                    residual.
@@ -307,10 +282,7 @@ c                     NT = 2
 *
                      DO 110 K = 1, NT
                         IF( RESULT( K ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALADHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )'DSYSV_AA ',
-     $                         UPLO, N, IMAT, K, RESULT( K )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV_AA ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         END IF
   110                CONTINUE

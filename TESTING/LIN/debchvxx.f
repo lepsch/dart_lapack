@@ -5,41 +5,25 @@
       CHARACTER*3       PATH
 
       INTEGER            NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
-      PARAMETER          (NMAX = 10, NPARAMS = 2, NERRBND = 3,
-     $                    NTESTS = 6)
+      PARAMETER          (NMAX = 10, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
 
 *     .. Local Scalars ..
-      INTEGER            N, NRHS, INFO, I ,J, k, NFAIL, LDA,
-     $                   N_AUX_TESTS, LDAB, LDAFB
+      INTEGER            N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB
       CHARACTER          FACT, TRANS, UPLO, EQUED
       CHARACTER*2        C2
       CHARACTER(3)       NGUAR, CGUAR
       LOGICAL            printed_guide
-      DOUBLE PRECISION   NCOND, CCOND, M, NORMDIF, NORMT, RCOND,
-     $                   RNORM, RINORM, SUMR, SUMRI, EPS,
-     $                   BERR(NMAX), RPVGRW, ORCOND,
-     $                   CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND,
-     $                   CWISE_RCOND, NWISE_RCOND,
-     $                   CONDTHRESH, ERRTHRESH
+      DOUBLE PRECISION   NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH
 
 *     .. Local Arrays ..
-      DOUBLE PRECISION   TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS),
-     $                   S(NMAX),R(NMAX),C(NMAX), DIFF(NMAX, NMAX),
-     $                   ERRBND_N(NMAX*3), ERRBND_C(NMAX*3),
-     $                   A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX),
-     $                   AB( (NMAX-1)+(NMAX-1)+1, NMAX ),
-     $                   ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ),
-     $                   AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ),
-     $                   WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX),
-     $                   ACOPY(NMAX, NMAX)
+      DOUBLE PRECISION   TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX),R(NMAX),C(NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3), A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX ), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX)
       INTEGER            IPIV(NMAX), IWORK(3*NMAX)
 
 *     .. External Functions ..
       DOUBLE PRECISION   DLAMCH
 
 *     .. External Subroutines ..
-      EXTERNAL           DLAHILB, DGESVXX, DPOSVXX, DSYSVXX,
-     $                   DGBSVXX, DLACPY, LSAMEN
+      EXTERNAL           DLAHILB, DGESVXX, DPOSVXX, DSYSVXX, DGBSVXX, DLACPY, LSAMEN
       LOGICAL            LSAMEN
 
 *     .. Intrinsic Functions ..
@@ -107,26 +91,13 @@
 
 *        Call D**SVXX with default PARAMS and N_ERR_BND = 3.
          IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
-            CALL DSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           IPIV, EQUED, S, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, IWORK, INFO)
+            CALL DSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'PO' ) ) THEN
-            CALL DPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           EQUED, S, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, IWORK, INFO)
+            CALL DPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'GB' ) ) THEN
-            CALL DGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY,
-     $           LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B,
-     $           LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND,
-     $           ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK,
-     $           INFO)
+            CALL DGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          ELSE
-            CALL DGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, IWORK, INFO)
+            CALL DGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, IWORK, INFO)
          END IF
 
          N_AUX_TESTS = N_AUX_TESTS + 1
@@ -168,8 +139,7 @@
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
             END DO
-         ELSE IF ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) )
-     $           THEN
+         ELSE IF ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) THEN
             DO I = 1, N
                SUMR = 0.0D+0
                SUMRI = 0.0D+0
@@ -220,8 +190,7 @@
                NORMT = MAX(ABS(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(ABS(X(I,K) - INVHILB(I,K)), NORMDIF)
                IF (INVHILB(I,K) .NE. 0.0D+0) THEN
-                  CWISE_ERR = MAX(ABS(X(I,K) - INVHILB(I,K))
-     $                            /ABS(INVHILB(I,K)), CWISE_ERR)
+                  CWISE_ERR = MAX(ABS(X(I,K) - INVHILB(I,K)) /ABS(INVHILB(I,K)), CWISE_ERR)
                ELSE IF (X(I, K) .NE. 0.0D+0) THEN
                   CWISE_ERR = DLAMCH('OVERFLOW')
                END IF
@@ -246,8 +215,7 @@
             DO I = 1, N
                SUMRI = 0.0D+0
                DO J = 1, N
-                  SUMRI = SUMRI
-     $                 + ABS(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
+                  SUMRI = SUMRI + ABS(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
                END DO
                RINORM = MAX(RINORM, SUMRI)
             END DO
@@ -318,16 +286,13 @@
 
 !     Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0D+0)
-     $         TSTRAT(4) = 1.0D+0 / TSTRAT(4)
+            IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0D+0) TSTRAT(4) = 1.0D+0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND .GE. CONDTHRESH .AND. TSTRAT(5) .LT. 1.0D+0)
-     $         TSTRAT(5) = 1.0D+0 / TSTRAT(5)
+            IF (NCOND .GE. CONDTHRESH .AND. TSTRAT(5) .LT. 1.0D+0) TSTRAT(5) = 1.0D+0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0D+0)
-     $         TSTRAT(6) = 1.0D+0 / TSTRAT(6)
+            IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0D+0) TSTRAT(6) = 1.0D+0 / TSTRAT(6)
 
             DO I = 1, NTESTS
                IF (TSTRAT(I) .GT. THRESH) THEN

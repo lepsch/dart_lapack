@@ -82,26 +82,22 @@
 *
 *           Multiply by inv(U**T).
 *
-            CALL SLATPS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL SLATPS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL SLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL SLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL SLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL SLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**T).
 *
-            CALL SLATPS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL SLATPS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -109,8 +105,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = ISAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL SRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -118,8 +113,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
       RETURN

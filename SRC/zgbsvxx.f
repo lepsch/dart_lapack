@@ -1,8 +1,4 @@
-      SUBROUTINE ZGBSVXX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB,
-     $                    LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX,
-     $                    RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                    ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS,
-     $                    WORK, RWORK, INFO )
+      SUBROUTINE ZGBSVXX( FACT, TRANS, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDB, X, LDX, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,17 +6,12 @@
 *
 *     .. Scalar Arguments ..
       CHARACTER          EQUED, FACT, TRANS
-      INTEGER            INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS,
-     $                   N_ERR_BNDS
+      INTEGER            INFO, LDAB, LDAFB, LDB, LDX, N, NRHS, NPARAMS, N_ERR_BNDS
       DOUBLE PRECISION   RCOND, RPVGRW
 *     ..
 *     .. Array Arguments ..
       INTEGER            IPIV( * )
-      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ),
-     $                   X( LDX , * ),WORK( * )
-      DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ),
-     $                   ERR_BNDS_NORM( NRHS, * ),
-     $                   ERR_BNDS_COMP( NRHS, * ), RWORK( * )
+      COMPLEX*16         AB( LDAB, * ), AFB( LDAFB, * ), B( LDB, * ), X( LDX , * ),WORK( * )       DOUBLE PRECISION   R( * ), C( * ), PARAMS( * ), BERR( * ), ERR_BNDS_NORM( NRHS, * ), ERR_BNDS_COMP( NRHS, * ), RWORK( * )
 *     ..
 *
 *  ==================================================================
@@ -31,17 +22,14 @@
       INTEGER            FINAL_NRM_ERR_I, FINAL_CMP_ERR_I, BERR_I
       INTEGER            RCOND_I, NRM_RCOND_I, NRM_ERR_I, CMP_RCOND_I
       INTEGER            CMP_ERR_I, PIV_GROWTH_I
-      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2,
-     $                   BERR_I = 3 )
+      PARAMETER          ( FINAL_NRM_ERR_I = 1, FINAL_CMP_ERR_I = 2, BERR_I = 3 )
       PARAMETER          ( RCOND_I = 4, NRM_RCOND_I = 5, NRM_ERR_I = 6 )
-      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8,
-     $                   PIV_GROWTH_I = 9 )
+      PARAMETER          ( CMP_RCOND_I = 7, CMP_ERR_I = 8, PIV_GROWTH_I = 9 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            COLEQU, EQUIL, NOFACT, NOTRAN, ROWEQU
       INTEGER            INFEQU, I, J, KL, KU
-      DOUBLE PRECISION   AMAX, BIGNUM, COLCND, RCMAX, RCMIN,
-     $                   ROWCND, SMLNUM
+      DOUBLE PRECISION   AMAX, BIGNUM, COLCND, RCMAX, RCMIN, ROWCND, SMLNUM
 *     ..
 *     .. External Functions ..
       EXTERNAL           LSAME, DLAMCH, ZLA_GBRPVGRW
@@ -49,8 +37,7 @@
       DOUBLE PRECISION   DLAMCH, ZLA_GBRPVGRW
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGBEQUB, ZGBTRF, ZGBTRS, ZLACPY, ZLAQGB,
-     $                   XERBLA, ZLASCL2, ZGBRFSX
+      EXTERNAL           ZGBEQUB, ZGBTRF, ZGBTRS, ZLACPY, ZLAQGB, XERBLA, ZLASCL2, ZGBRFSX
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -80,11 +67,9 @@
 *
 *     Test the input parameters.  PARAMS is not tested until ZGERFSX.
 *
-      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT.
-     $     LSAME( FACT, 'F' ) ) THEN
+      IF( .NOT.NOFACT .AND. .NOT.EQUIL .AND. .NOT. LSAME( FACT, 'F' ) ) THEN
          INFO = -1
-      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT.
-     $        LSAME( TRANS, 'C' ) ) THEN
+      ELSE IF( .NOT.NOTRAN .AND. .NOT.LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -2
       ELSE IF( N.LT.0 ) THEN
          INFO = -3
@@ -98,8 +83,7 @@
          INFO = -8
       ELSE IF( LDAFB.LT.2*KL+KU+1 ) THEN
          INFO = -10
-      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT.
-     $        ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
+      ELSE IF( LSAME( FACT, 'F' ) .AND. .NOT. ( ROWEQU .OR. COLEQU .OR. LSAME( EQUED, 'N' ) ) ) THEN
          INFO = -12
       ELSE
          IF( ROWEQU ) THEN
@@ -150,14 +134,12 @@
 *
 *     Compute row and column scalings to equilibrate the matrix A.
 *
-         CALL ZGBEQUB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $        AMAX, INFEQU )
+         CALL ZGBEQUB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, INFEQU )
          IF( INFEQU.EQ.0 ) THEN
 *
 *     Equilibrate the matrix.
 *
-            CALL ZLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND,
-     $           AMAX, EQUED )
+            CALL ZLAQGB( N, N, KL, KU, AB, LDAB, R, C, ROWCND, COLCND, AMAX, EQUED )
             ROWEQU = LSAME( EQUED, 'R' ) .OR. LSAME( EQUED, 'B' )
             COLEQU = LSAME( EQUED, 'C' ) .OR. LSAME( EQUED, 'B' )
          END IF
@@ -203,8 +185,7 @@
 *           Compute the reciprocal pivot growth factor of the
 *           leading rank-deficient INFO columns of A.
 *
-            RPVGRW = ZLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB,
-     $           LDAFB )
+            RPVGRW = ZLA_GBRPVGRW( N, KL, KU, INFO, AB, LDAB, AFB, LDAFB )
             RETURN
          END IF
       END IF
@@ -216,16 +197,12 @@
 *     Compute the solution matrix X.
 *
       CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDX )
-      CALL ZGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX,
-     $     INFO )
+      CALL ZGBTRS( TRANS, N, KL, KU, NRHS, AFB, LDAFB, IPIV, X, LDX, INFO )
 *
 *     Use iterative refinement to improve the computed solution and
 *     compute error bounds and backward error estimates for it.
 *
-      CALL ZGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB,
-     $     IPIV, R, C, B, LDB, X, LDX, RCOND, BERR,
-     $     N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS,
-     $     WORK, RWORK, INFO )
+      CALL ZGBRFSX( TRANS, EQUED, N, KL, KU, NRHS, AB, LDAB, AFB, LDAFB, IPIV, R, C, B, LDB, X, LDX, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_NORM, ERR_BNDS_COMP, NPARAMS, PARAMS, WORK, RWORK, INFO )
 
 *
 *     Scale solutions.

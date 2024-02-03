@@ -24,8 +24,7 @@
 *     .. Local Scalars ..
       LOGICAL            UPPER
       INTEGER            I, IMAX, J, JMAX, K, KK, KP, KSTEP
-      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, R1,
-     $                   ROWMAX, T, WK, WKM1, WKP1
+      DOUBLE PRECISION   ABSAKK, ALPHA, COLMAX, D11, D12, D21, D22, R1, ROWMAX, T, WK, WKM1, WKP1
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME, DISNAN
@@ -72,8 +71,7 @@
 *
 *        If K < 1, exit from loop
 *
-         IF( K.LT.1 )
-     $      GO TO 70
+         IF( K.LT.1 ) GO TO 70
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -97,8 +95,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -146,8 +143,7 @@
 *              submatrix A(1:k,1:k)
 *
                CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 )
-               CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ),
-     $                     LDA )
+               CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -204,8 +200,7 @@
                      WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) )
                      WK = D12*( D22*A( J, K )-A( J, K-1 ) )
                      DO 20 I = J, 1, -1
-                        A( I, J ) = A( I, J ) - A( I, K )*WK -
-     $                              A( I, K-1 )*WKM1
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1
    20                CONTINUE
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
@@ -242,8 +237,7 @@
 *
 *        If K > N, exit from loop
 *
-         IF( K.GT.N )
-     $      GO TO 70
+         IF( K.GT.N ) GO TO 70
          KSTEP = 1
 *
 *        Determine rows and columns to be interchanged and whether
@@ -267,8 +261,7 @@
 *           Column K is zero or underflow, or contains a NaN:
 *           set INFO and continue
 *
-            IF( INFO.EQ.0 )
-     $         INFO = K
+            IF( INFO.EQ.0 ) INFO = K
             KP = K
          ELSE
             IF( ABSAKK.GE.ALPHA*COLMAX ) THEN
@@ -315,10 +308,7 @@
 *              Interchange rows and columns KK and KP in the trailing
 *              submatrix A(k:n,k:n)
 *
-               IF( KP.LT.N )
-     $            CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )
-               CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ),
-     $                     LDA )
+               IF( KP.LT.N ) CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA )
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T
@@ -346,8 +336,7 @@
 *                 A := A - L(k)*D(k)*L(k)**T = A - W(k)*(1/D(k))*W(k)**T
 *
                   D11 = ONE / A( K, K )
-                  CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1,
-     $                       A( K+1, K+1 ), LDA )
+                  CALL DSYR( UPLO, N-K, -D11, A( K+1, K ), 1, A( K+1, K+1 ), LDA )
 *
 *                 Store L(k) in column K
 *
@@ -378,8 +367,7 @@
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
 *
                      DO 50 I = J, N
-                        A( I, J ) = A( I, J ) - A( I, K )*WK -
-     $                              A( I, K+1 )*WKP1
+                        A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1
    50                CONTINUE
 *
                      A( J, K ) = WK

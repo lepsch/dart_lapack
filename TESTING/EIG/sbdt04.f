@@ -1,5 +1,4 @@
-      SUBROUTINE SBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK,
-     $                   RESID )
+      SUBROUTINE SBDT04( UPLO, N, D, E, S, NS, U, LDU, VT, LDVT, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               D( * ), E( * ), S( * ), U( LDU, * ),
-     $                   VT( LDVT, * ), WORK( * )
+      REAL               D( * ), E( * ), S( * ), U( LDU, * ), VT( LDVT, * ), WORK( * )
 *     ..
 *
 * ======================================================================
@@ -42,8 +40,7 @@
 *     Quick return if possible.
 *
       RESID = ZERO
-      IF( N.LE.0 .OR. NS.LE.0 )
-     $   RETURN
+      IF( N.LE.0 .OR. NS.LE.0 ) RETURN
 *
       EPS = SLAMCH( 'Precision' )
 *
@@ -87,8 +84,7 @@
    60    CONTINUE
       END IF
 *
-      CALL SGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ),
-     $            N, ZERO, WORK( 1+N*NS ), NS )
+      CALL SGEMM( 'T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS )
 *
 *     norm(S - U' * B * V)
 *
@@ -100,18 +96,15 @@
    70 CONTINUE
 *
       IF( BNORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          IF( BNORM.GE.RESID ) THEN
             RESID = ( RESID / BNORM ) / ( REAL( N )*EPS )
          ELSE
             IF( BNORM.LT.ONE ) THEN
-               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) /
-     $                 ( REAL( N )*EPS )
+               RESID = ( MIN( RESID, REAL( N )*BNORM ) / BNORM ) / ( REAL( N )*EPS )
             ELSE
-               RESID = MIN( RESID / BNORM, REAL( N ) ) /
-     $                 ( REAL( N )*EPS )
+               RESID = MIN( RESID / BNORM, REAL( N ) ) / ( REAL( N )*EPS )
             END IF
          END IF
       END IF

@@ -15,8 +15,7 @@
 *
 *     .. Parameters ..
       COMPLEX            ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ),
-     $                   ZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = ( 1.0E+0, 0.0E+0 ), ZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, II, J, L
@@ -48,8 +47,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 )
-     $   RETURN
+      IF( M.LE.0 ) RETURN
 *
       IF( K.LT.M ) THEN
 *
@@ -59,8 +57,7 @@
             DO 10 L = 1, M - K
                A( L, J ) = ZERO
    10       CONTINUE
-            IF( J.GT.N-M .AND. J.LE.N-K )
-     $         A( M-N+J, J ) = ONE
+            IF( J.GT.N-M .AND. J.LE.N-K ) A( M-N+J, J ) = ONE
    20    CONTINUE
       END IF
 *
@@ -71,8 +68,7 @@
 *
          CALL CLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE
-         CALL CLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA,
-     $               CONJG( TAU( I ) ), A, LDA, WORK )
+         CALL CLARF( 'Right', II-1, N-M+II, A( II, 1 ), LDA, CONJG( TAU( I ) ), A, LDA, WORK )
          CALL CSCAL( N-M+II-1, -TAU( I ), A( II, 1 ), LDA )
          CALL CLACGV( N-M+II-1, A( II, 1 ), LDA )
          A( II, N-M+II ) = ONE - CONJG( TAU( I ) )

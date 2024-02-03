@@ -1,5 +1,4 @@
-      SUBROUTINE CGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q,
-     $                   LDQ, Z, LDZ, INFO )
+      SUBROUTINE CGGHRD( COMPQ, COMPZ, N, ILO, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,16 +9,14 @@
       INTEGER            IHI, ILO, INFO, LDA, LDB, LDQ, LDZ, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ),
-     $                   Z( LDZ, * )
+      COMPLEX            A( LDA, * ), B( LDB, * ), Q( LDQ, * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ),
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILQ, ILZ
@@ -98,15 +95,11 @@
 *
 *     Initialize Q and Z if desired.
 *
-      IF( ICOMPQ.EQ.3 )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
-      IF( ICOMPZ.EQ.3 )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      IF( ICOMPQ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
 *
 *     Quick return if possible
 *
-      IF( N.LE.1 )
-     $   RETURN
+      IF( N.LE.1 ) RETURN
 *
 *     Zero out lower triangle of B
 *
@@ -125,28 +118,17 @@
 *           Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 *
             CTEMP = A( JROW-1, JCOL )
-            CALL CLARTG( CTEMP, A( JROW, JCOL ), C, S,
-     $                   A( JROW-1, JCOL ) )
+            CALL CLARTG( CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) )
             A( JROW, JCOL ) = CZERO
-            CALL CROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA,
-     $                 A( JROW, JCOL+1 ), LDA, C, S )
-            CALL CROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB,
-     $                 B( JROW, JROW-1 ), LDB, C, S )
-            IF( ILQ )
-     $         CALL CROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C,
-     $                    CONJG( S ) )
+            CALL CROT( N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL CROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL CROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, CONJG( S ) )
 *
 *           Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 *
             CTEMP = B( JROW, JROW )
-            CALL CLARTG( CTEMP, B( JROW, JROW-1 ), C, S,
-     $                   B( JROW, JROW ) )
+            CALL CLARTG( CTEMP, B( JROW, JROW-1 ), C, S, B( JROW, JROW ) )
             B( JROW, JROW-1 ) = CZERO
             CALL CROT( IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S )
-            CALL CROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C,
-     $                 S )
-            IF( ILZ )
-     $         CALL CROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
+            CALL CROT( JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL CROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S )
    30    CONTINUE
    40 CONTINUE
 *

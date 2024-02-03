@@ -98,16 +98,14 @@
       ESTOLD = EST
       EST = SASUM( N, V, 1 )
       DO 80 I = 1, N
-         IF( NINT( SIGN( ONE, X( I ) ) ).NE.ISGN( I ) )
-     $      GO TO 90
+         IF( NINT( SIGN( ONE, X( I ) ) ).NE.ISGN( I ) ) GO TO 90
    80 CONTINUE
 *     REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
 *
    90 CONTINUE
 *     TEST FOR CYCLING.
-      IF( EST.LE.ESTOLD )
-     $   GO TO 120
+      IF( EST.LE.ESTOLD ) GO TO 120
 *
       DO 100 I = 1, N
          X( I ) = SIGN( ONE, X( I ) )

@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATB5( PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE,
-     $                   CNDNUM, DIST )
+      SUBROUTINE ZLATB5( PATH, IMAT, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -102,8 +101,7 @@
          ANORM = ONE
       END IF
 *
-      IF( N.LE.1 )
-     $   CNDNUM = ONE
+      IF( N.LE.1 ) CNDNUM = ONE
 *
       RETURN
 *

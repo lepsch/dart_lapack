@@ -57,8 +57,7 @@
 *        Apply H(i)**H to A(1:m-k+i,1:n-k+i-1) from the left
 *
          A( M-K+I, N-K+I ) = ONE
-         CALL ZLARF( 'Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1,
-     $               DCONJG( TAU( I ) ), A, LDA, WORK )
+         CALL ZLARF( 'Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, DCONJG( TAU( I ) ), A, LDA, WORK )
          A( M-K+I, N-K+I ) = ALPHA
    10 CONTINUE
       RETURN

@@ -1,5 +1,4 @@
-      SUBROUTINE SLAEIN( RIGHTV, NOINIT, N, H, LDH, WR, WI, VR, VI, B,
-     $                   LDB, WORK, EPS3, SMLNUM, BIGNUM, INFO )
+      SUBROUTINE SLAEIN( RIGHTV, NOINIT, N, H, LDH, WR, WI, VR, VI, B, LDB, WORK, EPS3, SMLNUM, BIGNUM, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               BIGNUM, EPS3, SMLNUM, WI, WR
 *     ..
 *     .. Array Arguments ..
-      REAL               B( LDB, * ), H( LDH, * ), VI( * ), VR( * ),
-     $                   WORK( * )
+      REAL               B( LDB, * ), H( LDH, * ), VI( * ), VR( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -24,9 +22,7 @@
 *     .. Local Scalars ..
       CHARACTER          NORMIN, TRANS
       INTEGER            I, I1, I2, I3, IERR, ITS, J
-      REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML,
-     $                   REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W,
-     $                   W1, X, XI, XR, Y
+      REAL               ABSBII, ABSBJJ, EI, EJ, GROWTO, NORM, NRMSML, REC, ROOTN, SCALE, TEMP, VCRIT, VMAX, VNORM, W, W1, X, XI, XR, Y
 *     ..
 *     .. External Functions ..
       INTEGER            ISAMAX
@@ -76,8 +72,7 @@
 *           Scale supplied initial vector.
 *
             VNORM = SNRM2( N, VR, 1 )
-            CALL SSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR,
-     $                  1 )
+            CALL SSCAL( N, ( EPS3*ROOTN ) / MAX( VNORM, NRMSML ), VR, 1 )
          END IF
 *
          IF( RIGHTV ) THEN
@@ -102,8 +97,7 @@
 *
 *                 Eliminate without interchange.
 *
-                  IF( B( I, I ).EQ.ZERO )
-     $               B( I, I ) = EPS3
+                  IF( B( I, I ).EQ.ZERO ) B( I, I ) = EPS3
                   X = EI / B( I, I )
                   IF( X.NE.ZERO ) THEN
                      DO 50 J = I + 1, N
@@ -112,8 +106,7 @@
                   END IF
                END IF
    60       CONTINUE
-            IF( B( N, N ).EQ.ZERO )
-     $         B( N, N ) = EPS3
+            IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
 *
             TRANS = 'N'
 *
@@ -139,8 +132,7 @@
 *
 *                 Eliminate without interchange.
 *
-                  IF( B( J, J ).EQ.ZERO )
-     $               B( J, J ) = EPS3
+                  IF( B( J, J ).EQ.ZERO ) B( J, J ) = EPS3
                   X = EJ / B( J, J )
                   IF( X.NE.ZERO ) THEN
                      DO 80 I = 1, J - 1
@@ -149,8 +141,7 @@
                   END IF
                END IF
    90       CONTINUE
-            IF( B( 1, 1 ).EQ.ZERO )
-     $         B( 1, 1 ) = EPS3
+            IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
 *
             TRANS = 'T'
 *
@@ -163,15 +154,13 @@
 *             or U**T*x = scale*v for a left eigenvector,
 *           overwriting x on v.
 *
-            CALL SLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB,
-     $                   VR, SCALE, WORK, IERR )
+            CALL SLATRS( 'Upper', TRANS, 'Nonunit', NORMIN, N, B, LDB, VR, SCALE, WORK, IERR )
             NORMIN = 'Y'
 *
 *           Test for sufficient growth in the norm of v.
 *
             VNORM = SASUM( N, VR, 1 )
-            IF( VNORM.GE.GROWTO*SCALE )
-     $         GO TO 120
+            IF( VNORM.GE.GROWTO*SCALE ) GO TO 120
 *
 *           Choose new orthogonal starting vector and try again.
 *
@@ -262,8 +251,7 @@
                   XR = B( I, I )*EI
                   XI = -B( I+1, I )*EI
                   DO 160 J = I + 1, N
-                     B( I+1, J ) = B( I+1, J ) - XR*B( I, J ) +
-     $                             XI*B( J+1, I )
+                     B( I+1, J ) = B( I+1, J ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J+1, I+1 ) = -XR*B( J+1, I ) - XI*B( I, J )
   160             CONTINUE
                   B( I+2, I+1 ) = B( I+2, I+1 ) - WI
@@ -271,11 +259,9 @@
 *
 *              Compute 1-norm of offdiagonal elements of i-th row.
 *
-               WORK( I ) = SASUM( N-I, B( I, I+1 ), LDB ) +
-     $                     SASUM( N-I, B( I+2, I ), 1 )
+               WORK( I ) = SASUM( N-I, B( I, I+1 ), LDB ) + SASUM( N-I, B( I+2, I ), 1 )
   170       CONTINUE
-            IF( B( N, N ).EQ.ZERO .AND. B( N+1, N ).EQ.ZERO )
-     $         B( N, N ) = EPS3
+            IF( B( N, N ).EQ.ZERO .AND. B( N+1, N ).EQ.ZERO ) B( N, N ) = EPS3
             WORK( N ) = ZERO
 *
             I1 = N
@@ -328,8 +314,7 @@
                   XR = B( J, J )*EJ
                   XI = -B( J+1, J )*EJ
                   DO 200 I = 1, J - 1
-                     B( I, J-1 ) = B( I, J-1 ) - XR*B( I, J ) +
-     $                             XI*B( J+1, I )
+                     B( I, J-1 ) = B( I, J-1 ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J, I ) = -XR*B( J+1, I ) - XI*B( I, J )
   200             CONTINUE
                   B( J, J-1 ) = B( J, J-1 ) + WI
@@ -337,11 +322,9 @@
 *
 *              Compute 1-norm of offdiagonal elements of j-th column.
 *
-               WORK( J ) = SASUM( J-1, B( 1, J ), 1 ) +
-     $                     SASUM( J-1, B( J+1, 1 ), LDB )
+               WORK( J ) = SASUM( J-1, B( 1, J ), 1 ) + SASUM( J-1, B( J+1, 1 ), LDB )
   210       CONTINUE
-            IF( B( 1, 1 ).EQ.ZERO .AND. B( 2, 1 ).EQ.ZERO )
-     $         B( 1, 1 ) = EPS3
+            IF( B( 1, 1 ).EQ.ZERO .AND. B( 2, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
             WORK( 1 ) = ZERO
 *
             I1 = 1
@@ -400,8 +383,7 @@
 *
 *                 Divide by diagonal element of B.
 *
-                  CALL SLADIV( XR, XI, B( I, I ), B( I+1, I ), VR( I ),
-     $                         VI( I ) )
+                  CALL SLADIV( XR, XI, B( I, I ), B( I+1, I ), VR( I ), VI( I ) )
                   VMAX = MAX( ABS( VR( I ) )+ABS( VI( I ) ), VMAX )
                   VCRIT = BIGNUM / VMAX
                ELSE
@@ -420,8 +402,7 @@
 *           Test for sufficient growth in the norm of (VR,VI).
 *
             VNORM = SASUM( N, VR, 1 ) + SASUM( N, VI, 1 )
-            IF( VNORM.GE.GROWTO*SCALE )
-     $         GO TO 280
+            IF( VNORM.GE.GROWTO*SCALE ) GO TO 280
 *
 *           Choose a new orthogonal starting vector and try again.
 *

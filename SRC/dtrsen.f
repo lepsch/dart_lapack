@@ -1,5 +1,4 @@
-      SUBROUTINE DTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, WR, WI,
-     $                   M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE DTRSEN( JOB, COMPQ, SELECT, N, T, LDT, Q, LDQ, WR, WI, M, S, SEP, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       INTEGER            IWORK( * )
-      DOUBLE PRECISION   Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ),
-     $                   WR( * )
+      DOUBLE PRECISION   Q( LDQ, * ), T( LDT, * ), WI( * ), WORK( * ), WR( * )
 *     ..
 *
 *  =====================================================================
@@ -24,10 +22,7 @@
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS,
-     $                   WANTSP
-      INTEGER            IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2,
-     $                   NN
+      LOGICAL            LQUERY, PAIR, SWAP, WANTBH, WANTQ, WANTS, WANTSP       INTEGER            IERR, K, KASE, KK, KS, LIWMIN, LWMIN, N1, N2, NN
       DOUBLE PRECISION   EST, RNORM, SCALE
 *     ..
 *     .. Local Arrays ..
@@ -55,8 +50,7 @@
 *
       INFO = 0
       LQUERY = ( LWORK.EQ.-1 )
-      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP )
-     $     THEN
+      IF( .NOT.LSAME( JOB, 'N' ) .AND. .NOT.WANTS .AND. .NOT.WANTSP ) THEN
          INFO = -1
       ELSE IF( .NOT.LSAME( COMPQ, 'N' ) .AND. .NOT.WANTQ ) THEN
          INFO = -2
@@ -79,16 +73,13 @@
             ELSE
                IF( K.LT.N ) THEN
                   IF( T( K+1, K ).EQ.ZERO ) THEN
-                     IF( SELECT( K ) )
-     $                  M = M + 1
+                     IF( SELECT( K ) ) M = M + 1
                   ELSE
                      PAIR = .TRUE.
-                     IF( SELECT( K ) .OR. SELECT( K+1 ) )
-     $                  M = M + 2
+                     IF( SELECT( K ) .OR. SELECT( K+1 ) ) M = M + 2
                   END IF
                ELSE
-                  IF( SELECT( N ) )
-     $               M = M + 1
+                  IF( SELECT( N ) ) M = M + 1
                END IF
             END IF
    10    CONTINUE
@@ -130,10 +121,7 @@
 *     Quick return if possible.
 *
       IF( M.EQ.N .OR. M.EQ.0 ) THEN
-         IF( WANTS )
-     $      S = ONE
-         IF( WANTSP )
-     $      SEP = DLANGE( '1', N, N, T, LDT, WORK )
+         IF( WANTS ) S = ONE          IF( WANTSP ) SEP = DLANGE( '1', N, N, T, LDT, WORK )
          GO TO 40
       END IF
 *
@@ -159,22 +147,16 @@
 *
                IERR = 0
                KK = K
-               IF( K.NE.KS )
-     $            CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK,
-     $                         IERR )
+               IF( K.NE.KS ) CALL DTREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR )
                IF( IERR.EQ.1 .OR. IERR.EQ.2 ) THEN
 *
 *                 Blocks too close to swap: exit.
 *
                   INFO = 1
-                  IF( WANTS )
-     $               S = ZERO
-                  IF( WANTSP )
-     $               SEP = ZERO
+                  IF( WANTS ) S = ZERO                   IF( WANTSP ) SEP = ZERO
                   GO TO 40
                END IF
-               IF( PAIR )
-     $            KS = KS + 1
+               IF( PAIR ) KS = KS + 1
             END IF
          END IF
    20 CONTINUE
@@ -186,8 +168,7 @@
 *           T11*R - R*T22 = scale*T12
 *
          CALL DLACPY( 'F', N1, N2, T( 1, N1+1 ), LDT, WORK, N1 )
-         CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ),
-     $                LDT, WORK, N1, SCALE, IERR )
+         CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
 *
 *        Estimate the reciprocal of the condition number of the cluster
 *        of eigenvalues.
@@ -196,8 +177,7 @@
          IF( RNORM.EQ.ZERO ) THEN
             S = ONE
          ELSE
-            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )*
-     $          SQRT( RNORM ) )
+            S = SCALE / ( SQRT( SCALE*SCALE / RNORM+RNORM )* SQRT( RNORM ) )
          END IF
       END IF
 *
@@ -214,16 +194,12 @@
 *
 *              Solve  T11*R - R*T22 = scale*X.
 *
-               CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT,
-     $                      T( N1+1, N1+1 ), LDT, WORK, N1, SCALE,
-     $                      IERR )
+               CALL DTRSYL( 'N', 'N', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             ELSE
 *
 *              Solve T11**T*R - R*T22**T = scale*X.
 *
-               CALL DTRSYL( 'T', 'T', -1, N1, N2, T, LDT,
-     $                      T( N1+1, N1+1 ), LDT, WORK, N1, SCALE,
-     $                      IERR )
+               CALL DTRSYL( 'T', 'T', -1, N1, N2, T, LDT, T( N1+1, N1+1 ), LDT, WORK, N1, SCALE, IERR )
             END IF
             GO TO 30
          END IF
@@ -241,8 +217,7 @@
    50 CONTINUE
       DO 60 K = 1, N - 1
          IF( T( K+1, K ).NE.ZERO ) THEN
-            WI( K ) = SQRT( ABS( T( K, K+1 ) ) )*
-     $                SQRT( ABS( T( K+1, K ) ) )
+            WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) )
             WI( K+1 ) = -WI( K )
          END IF
    60 CONTINUE

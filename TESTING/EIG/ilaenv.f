@@ -1,5 +1,4 @@
-      INTEGER          FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3,
-     $                 N4 )
+      INTEGER          FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -78,12 +77,12 @@ C        ILAENV = 0
 *
       ELSE IF(( ISPEC.GE.17 ) .AND. (ISPEC.LE.21)) THEN
 *
-*     17 <= ISPEC <= 21: 2stage eigenvalues SVD routines. 
+*     17 <= ISPEC <= 21: 2stage eigenvalues SVD routines.
 *
          IF( ISPEC.EQ.17 ) THEN
              ILAENV = IPARMS( 1 )
          ELSE
-             ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 ) 
+             ILAENV = IPARAM2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 *
       ELSE
@@ -98,8 +97,7 @@ C        ILAENV = 0
 *     End of ILAENV
 *
       END
-      INTEGER FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2,
-     $                               N3, N4 )
+      INTEGER FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 )
 *     .. Scalar Arguments ..
       CHARACTER*( * )    NAME, OPTS
       INTEGER            ISPEC, N1, N2, N3, N4
@@ -126,14 +124,13 @@ C        ILAENV = 0
 *
       IF(( ISPEC.GE.1 ) .AND. (ISPEC.LE.5)) THEN
 *
-*     1 <= ISPEC <= 5: 2stage eigenvalues SVD routines. 
+*     1 <= ISPEC <= 5: 2stage eigenvalues SVD routines.
 *
          IF( ISPEC.EQ.1 ) THEN
              ILAENV2STAGE = IPARMS( 1 )
          ELSE
              IISPEC = 16 + ISPEC
-             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS,
-     $                                    N1, N2, N3, N4 ) 
+             ILAENV2STAGE = IPARAM2STAGE( IISPEC, NAME, OPTS, N1, N2, N3, N4 )
          ENDIF
 *
       ELSE
@@ -151,11 +148,9 @@ C        ILAENV = 0
       INTEGER FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK )
 *
       INTEGER            INMIN, INWIN, INIBL, ISHFTS, IACC22
-      PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14,
-     $                   ISHFTS = 15, IACC22 = 16 )
+      PARAMETER          ( INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 )
       INTEGER            NMIN, K22MIN, KACMIN, NIBBLE, KNWSWP
-      PARAMETER          ( NMIN = 11, K22MIN = 14, KACMIN = 14,
-     $                   NIBBLE = 14, KNWSWP = 500 )
+      PARAMETER          ( NMIN = 11, K22MIN = 14, KACMIN = 14, NIBBLE = 14, KNWSWP = 500 )
       REAL               TWO
       PARAMETER          ( TWO = 2.0 )
 *     ..
@@ -170,25 +165,13 @@ C        ILAENV = 0
       INTRINSIC          LOG, MAX, MOD, NINT, REAL
 *     ..
 *     .. Executable Statements ..
-      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR.
-     $    ( ISPEC.EQ.IACC22 ) ) THEN
+      IF( ( ISPEC.EQ.ISHFTS ) .OR. ( ISPEC.EQ.INWIN ) .OR. ( ISPEC.EQ.IACC22 ) ) THEN
 *
 *        ==== Set the number simultaneous shifts ====
 *
          NH = IHI - ILO + 1
          NS = 2
-         IF( NH.GE.30 )
-     $      NS = 4
-         IF( NH.GE.60 )
-     $      NS = 10
-         IF( NH.GE.150 )
-     $      NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )
-         IF( NH.GE.590 )
-     $      NS = 64
-         IF( NH.GE.3000 )
-     $      NS = 128
-         IF( NH.GE.6000 )
-     $      NS = 256
+         IF( NH.GE.30 ) NS = 4          IF( NH.GE.60 ) NS = 10          IF( NH.GE.150 ) NS = MAX( 10, NH / NINT( LOG( REAL( NH ) ) / LOG( TWO ) ) )          IF( NH.GE.590 ) NS = 64          IF( NH.GE.3000 ) NS = 128          IF( NH.GE.6000 ) NS = 256
          NS = MAX( 2, NS-MOD( NS, 2 ) )
       END IF
 *
@@ -235,10 +218,7 @@ C        ILAENV = 0
 *        .     NH=IHI-ILO+1.
 *
          IPARMQ = 0
-         IF( NS.GE.KACMIN )
-     $      IPARMQ = 1
-         IF( NS.GE.K22MIN )
-     $      IPARMQ = 2
+         IF( NS.GE.KACMIN ) IPARMQ = 1          IF( NS.GE.K22MIN ) IPARMQ = 2
 *
       ELSE
 *        ===== invalid value of ispec =====

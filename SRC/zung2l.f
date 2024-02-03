@@ -15,8 +15,7 @@
 *
 *     .. Parameters ..
       COMPLEX*16         ONE, ZERO
-      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ),
-     $                   ZERO = ( 0.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ONE = ( 1.0D+0, 0.0D+0 ), ZERO = ( 0.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, II, J, L
@@ -48,8 +47,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Initialise columns 1:n-k to columns of the unit matrix
 *
@@ -66,8 +64,7 @@
 *        Apply H(i) to A(1:m-k+i,1:n-k+i) from the left
 *
          A( M-N+II, II ) = ONE
-         CALL ZLARF( 'Left', M-N+II, II-1, A( 1, II ), 1, TAU( I ), A,
-     $               LDA, WORK )
+         CALL ZLARF( 'Left', M-N+II, II-1, A( 1, II ), 1, TAU( I ), A, LDA, WORK )
          CALL ZSCAL( M-N+II-1, -TAU( I ), A( 1, II ), 1 )
          A( M-N+II, II ) = ONE - TAU( I )
 *

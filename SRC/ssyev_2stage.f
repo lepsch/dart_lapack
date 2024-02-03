@@ -1,5 +1,4 @@
-      SUBROUTINE SSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK,
-     $                         INFO )
+      SUBROUTINE SSYEV_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, INFO )
 *
       IMPLICIT NONE
 *
@@ -23,21 +22,16 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER, LQUERY, WANTZ
-      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE,
-     $                   LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS
-      REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA,
-     $                   SMLNUM
+      INTEGER            IINFO, IMAX, INDE, INDTAU, INDWRK, ISCALE, LLWORK, LWMIN, LHTRD, LWTRD, KD, IB, INDHOUS       REAL               ANRM, BIGNUM, EPS, RMAX, RMIN, SAFMIN, SIGMA, SMLNUM
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
       INTEGER            ILAENV2STAGE
       REAL               SLAMCH, SLANSY, SROUNDUP_LWORK
-      EXTERNAL           LSAME, SLAMCH, SLANSY, ILAENV2STAGE,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, SLAMCH, SLANSY, ILAENV2STAGE, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLASCL, SORGTR, SSCAL, SSTEQR, SSTERF,
-     $                   XERBLA, SSYTRD_2STAGE
+      EXTERNAL           SLASCL, SORGTR, SSCAL, SSTEQR, SSTERF, XERBLA, SSYTRD_2STAGE
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, SQRT
@@ -69,8 +63,7 @@
          LWMIN = 2*N + LHTRD + LWTRD
          WORK( 1 )  = LWMIN
 *
-         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY )
-     $      INFO = -8
+         IF( LWORK.LT.LWMIN .AND. .NOT.LQUERY ) INFO = -8
       END IF
 *
       IF( INFO.NE.0 ) THEN
@@ -89,8 +82,7 @@
       IF( N.EQ.1 ) THEN
          W( 1 ) = A( 1, 1 )
          WORK( 1 ) = 2
-         IF( WANTZ )
-     $      A( 1, 1 ) = ONE
+         IF( WANTZ ) A( 1, 1 ) = ONE
          RETURN
       END IF
 *
@@ -114,8 +106,7 @@
          ISCALE = 1
          SIGMA = RMAX / ANRM
       END IF
-      IF( ISCALE.EQ.1 )
-     $   CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
+      IF( ISCALE.EQ.1 ) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO )
 *
 *     Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 *
@@ -125,9 +116,7 @@
       INDWRK  = INDHOUS + LHTRD
       LLWORK  = LWORK - INDWRK + 1
 *
-      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ),
-     $                    WORK( INDTAU ), WORK( INDHOUS ), LHTRD,
-     $                    WORK( INDWRK ), LLWORK, IINFO )
+      CALL SSYTRD_2STAGE( JOBZ, UPLO, N, A, LDA, W, WORK( INDE ), WORK( INDTAU ), WORK( INDHOUS ), LHTRD, WORK( INDWRK ), LLWORK, IINFO )
 *
 *     For eigenvalues only, call SSTERF.  For eigenvectors, first call
 *     SORGTR to generate the orthogonal matrix, then call SSTEQR.
@@ -138,10 +127,7 @@
 *        Not available in this release, and argument checking should not
 *        let it getting here
          RETURN
-         CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ),
-     $                LLWORK, IINFO )
-         CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ),
-     $                INFO )
+         CALL SORGTR( UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO )
       END IF
 *
 *     If matrix was scaled, then rescale eigenvalues appropriately.

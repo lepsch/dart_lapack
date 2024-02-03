@@ -1,6 +1,4 @@
-      SUBROUTINE CHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT,
-     $                   ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK,
-     $                   RWORK, INFO )
+      SUBROUTINE CHGEQZ( JOB, COMPQ, COMPZ, N, ILO, IHI, H, LDH, T, LDT, ALPHA, BETA, Q, LDQ, Z, LDZ, WORK, LWORK, RWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,17 +10,14 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            ALPHA( * ), BETA( * ), H( LDH, * ),
-     $                   Q( LDQ, * ), T( LDT, * ), WORK( * ),
-     $                   Z( LDZ, * )
+      COMPLEX            ALPHA( * ), BETA( * ), H( LDH, * ), Q( LDQ, * ), T( LDT, * ), WORK( * ), Z( LDZ, * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                   CONE = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE = ( 1.0E+0, 0.0E+0 ) )
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       REAL               HALF
@@ -30,14 +25,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            ILAZR2, ILAZRO, ILQ, ILSCHR, ILZ, LQUERY
-      INTEGER            ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST,
-     $                   ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER,
-     $                   JR, MAXIT
-      REAL               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL,
-     $                   C, SAFMIN, TEMP, TEMP2, TEMPR, ULP
-      COMPLEX            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2,
-     $                   CTEMP3, ESHIFT, S, SHIFT, SIGNBC,
-     $                   U12, X, ABI12, Y
+      INTEGER            ICOMPQ, ICOMPZ, IFIRST, IFRSTM, IITER, ILAST, ILASTM, IN, ISCHUR, ISTART, J, JC, JCH, JITER, JR, MAXIT       REAL               ABSB, ANORM, ASCALE, ATOL, BNORM, BSCALE, BTOL, C, SAFMIN, TEMP, TEMP2, TEMPR, ULP       COMPLEX            ABI22, AD11, AD12, AD21, AD22, CTEMP, CTEMP2, CTEMP3, ESHIFT, S, SHIFT, SIGNBC, U12, X, ABI12, Y
 *     ..
 *     .. External Functions ..
       COMPLEX            CLADIV
@@ -145,10 +133,7 @@
 *
 *     Initialize Q and Z
 *
-      IF( ICOMPQ.EQ.3 )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )
-      IF( ICOMPZ.EQ.3 )
-     $   CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
+      IF( ICOMPQ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ )       IF( ICOMPZ.EQ.3 ) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ )
 *
 *     Machine Constants
 *
@@ -176,8 +161,7 @@
             ELSE
                CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
             END IF
-            IF( ILZ )
-     $         CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
+            IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
          ELSE
             T( J, J ) = CZERO
          END IF
@@ -187,8 +171,7 @@
 *
 *     If IHI < ILO, skip QZ steps
 *
-      IF( IHI.LT.ILO )
-     $   GO TO 190
+      IF( IHI.LT.ILO ) GO TO 190
 *
 *     MAIN QZ ITERATION LOOP
 *
@@ -221,8 +204,7 @@
 *
 *        Check for too many iterations.
 *
-         IF( JITER.GT.MAXIT )
-     $      GO TO 180
+         IF( JITER.GT.MAXIT ) GO TO 180
 *
 *        Split the matrix if possible.
 *
@@ -235,9 +217,7 @@
          IF( ILAST.EQ.ILO ) THEN
             GO TO 60
          ELSE
-            IF( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*( 
-     $         ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) 
-     $         ) ) ) ) THEN
+            IF( ABS1( H( ILAST, ILAST-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( ILAST, ILAST ) ) + ABS1( H( ILAST-1, ILAST-1 ) ) ) ) ) THEN
                H( ILAST, ILAST-1 ) = CZERO
                GO TO 60
             END IF
@@ -257,9 +237,7 @@
             IF( J.EQ.ILO ) THEN
                ILAZRO = .TRUE.
             ELSE
-               IF( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*( 
-     $            ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) 
-     $            ) ) ) THEN
+               IF( ABS1( H( J, J-1 ) ).LE.MAX( SAFMIN, ULP*(  ABS1( H( J, J ) ) + ABS1( H( J-1, J-1 ) ) ) ) ) THEN
                   H( J, J-1 ) = CZERO
                   ILAZRO = .TRUE.
                ELSE
@@ -276,9 +254,7 @@
 *
                ILAZR2 = .FALSE.
                IF( .NOT.ILAZRO ) THEN
-                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1,
-     $                J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) )
-     $                ILAZR2 = .TRUE.
+                  IF( ABS1( H( J, J-1 ) )*( ASCALE*ABS1( H( J+1, J ) ) ).LE.ABS1( H( J, J ) )*( ASCALE*ATOL ) ) ILAZR2 = .TRUE.
                END IF
 *
 *              If both tests pass (1 & 2), i.e., the leading diagonal
@@ -290,18 +266,10 @@
                IF( ILAZRO .OR. ILAZR2 ) THEN
                   DO 20 JCH = J, ILAST - 1
                      CTEMP = H( JCH, JCH )
-                     CALL CLARTG( CTEMP, H( JCH+1, JCH ), C, S,
-     $                            H( JCH, JCH ) )
+                     CALL CLARTG( CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) )
                      H( JCH+1, JCH ) = CZERO
-                     CALL CROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH,
-     $                          H( JCH+1, JCH+1 ), LDH, C, S )
-                     CALL CROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT,
-     $                          T( JCH+1, JCH+1 ), LDT, C, S )
-                     IF( ILQ )
-     $                  CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1,
-     $                             C, CONJG( S ) )
-                     IF( ILAZR2 )
-     $                  H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
+                     CALL CROT( ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL CROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) )
+                     IF( ILAZR2 ) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C
                      ILAZR2 = .FALSE.
                      IF( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) THEN
                         IF( JCH+1.GE.ILAST ) THEN
@@ -321,28 +289,13 @@
 *
                   DO 30 JCH = J, ILAST - 1
                      CTEMP = T( JCH, JCH+1 )
-                     CALL CLARTG( CTEMP, T( JCH+1, JCH+1 ), C, S,
-     $                            T( JCH, JCH+1 ) )
+                     CALL CLARTG( CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) )
                      T( JCH+1, JCH+1 ) = CZERO
-                     IF( JCH.LT.ILASTM-1 )
-     $                  CALL CROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT,
-     $                             T( JCH+1, JCH+2 ), LDT, C, S )
-                     CALL CROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH,
-     $                          H( JCH+1, JCH-1 ), LDH, C, S )
-                     IF( ILQ )
-     $                  CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1,
-     $                             C, CONJG( S ) )
+                     IF( JCH.LT.ILASTM-1 ) CALL CROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL CROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL CROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, CONJG( S ) )
                      CTEMP = H( JCH+1, JCH )
-                     CALL CLARTG( CTEMP, H( JCH+1, JCH-1 ), C, S,
-     $                            H( JCH+1, JCH ) )
+                     CALL CLARTG( CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) )
                      H( JCH+1, JCH-1 ) = CZERO
-                     CALL CROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1,
-     $                          H( IFRSTM, JCH-1 ), 1, C, S )
-                     CALL CROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1,
-     $                          T( IFRSTM, JCH-1 ), 1, C, S )
-                     IF( ILZ )
-     $                  CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1,
-     $                             C, S )
+                     CALL CROT( JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL CROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S )
    30             CONTINUE
                   GO TO 50
                END IF
@@ -368,15 +321,9 @@
 *
    50    CONTINUE
          CTEMP = H( ILAST, ILAST )
-         CALL CLARTG( CTEMP, H( ILAST, ILAST-1 ), C, S,
-     $                H( ILAST, ILAST ) )
+         CALL CLARTG( CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) )
          H( ILAST, ILAST-1 ) = CZERO
-         CALL CROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1,
-     $              H( IFRSTM, ILAST-1 ), 1, C, S )
-         CALL CROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1,
-     $              T( IFRSTM, ILAST-1 ), 1, C, S )
-         IF( ILZ )
-     $      CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
+         CALL CROT( ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL CROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL CROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S )
 *
 *        H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 *
@@ -387,13 +334,11 @@
             T( ILAST, ILAST ) = ABSB
             IF( ILSCHR ) THEN
                CALL CSCAL( ILAST-IFRSTM, SIGNBC, T( IFRSTM, ILAST ), 1 )
-               CALL CSCAL( ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ),
-     $                     1 )
+               CALL CSCAL( ILAST+1-IFRSTM, SIGNBC, H( IFRSTM, ILAST ), 1 )
             ELSE
                CALL CSCAL( 1, SIGNBC, H( ILAST, ILAST ), 1 )
             END IF
-            IF( ILZ )
-     $         CALL CSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
+            IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, ILAST ), 1 )
          ELSE
             T( ILAST, ILAST ) = CZERO
          END IF
@@ -403,8 +348,7 @@
 *        Go to next block -- exit if finished.
 *
          ILAST = ILAST - 1
-         IF( ILAST.LT.ILO )
-     $      GO TO 190
+         IF( ILAST.LT.ILO ) GO TO 190
 *
 *        Reset counters
 *
@@ -412,8 +356,7 @@
          ESHIFT = CZERO
          IF( .NOT.ILSCHR ) THEN
             ILASTM = ILAST
-            IF( IFRSTM.GT.ILAST )
-     $         IFRSTM = ILO
+            IF( IFRSTM.GT.ILAST ) IFRSTM = ILO
          END IF
          GO TO 160
 *
@@ -443,16 +386,7 @@
 *           We factor B as U*D, where U has unit diagonals, and
 *           compute (A*inv(D))*inv(U).
 *
-            U12 = ( BSCALE*T( ILAST-1, ILAST ) ) /
-     $            ( BSCALE*T( ILAST, ILAST ) )
-            AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) /
-     $             ( BSCALE*T( ILAST-1, ILAST-1 ) )
-            AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) /
-     $             ( BSCALE*T( ILAST-1, ILAST-1 ) )
-            AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) /
-     $             ( BSCALE*T( ILAST, ILAST ) )
-            AD22 = ( ASCALE*H( ILAST, ILAST ) ) /
-     $             ( BSCALE*T( ILAST, ILAST ) )
+            U12 = ( BSCALE*T( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD11 = ( ASCALE*H( ILAST-1, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD21 = ( ASCALE*H( ILAST, ILAST-1 ) ) / ( BSCALE*T( ILAST-1, ILAST-1 ) )             AD12 = ( ASCALE*H( ILAST-1, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )             AD22 = ( ASCALE*H( ILAST, ILAST ) ) / ( BSCALE*T( ILAST, ILAST ) )
             ABI22 = AD22 - U12*AD21
             ABI12 = AD12 - U12*AD11
 *
@@ -465,8 +399,7 @@
                TEMP = MAX( TEMP, ABS1( X ) )
                Y = TEMP*SQRT( ( X / TEMP )**2+( CTEMP / TEMP )**2 )
                IF( TEMP2.GT.ZERO ) THEN
-                  IF( REAL( X / TEMP2 )*REAL( Y )+
-     $                AIMAG( X / TEMP2 )*AIMAG( Y ).LT.ZERO )Y = -Y
+                  IF( REAL( X / TEMP2 )*REAL( Y )+ AIMAG( X / TEMP2 )*AIMAG( Y ).LT.ZERO )Y = -Y
                END IF
                SHIFT = SHIFT - CTEMP*CLADIV( CTEMP, ( X+Y ) )
             END IF
@@ -474,13 +407,9 @@
 *
 *           Exceptional shift.  Chosen for no particularly good reason.
 *
-            IF( ( IITER / 20 )*20.EQ.IITER .AND. 
-     $         BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN
-               ESHIFT = ESHIFT + ( ASCALE*H( ILAST,
-     $            ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
+            IF( ( IITER / 20 )*20.EQ.IITER .AND.  BSCALE*ABS1(T( ILAST, ILAST )).GT.SAFMIN ) THEN                ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST ) )/( BSCALE*T( ILAST, ILAST ) )
             ELSE
-               ESHIFT = ESHIFT + ( ASCALE*H( ILAST,
-     $            ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
+               ESHIFT = ESHIFT + ( ASCALE*H( ILAST, ILAST-1 ) )/( BSCALE*T( ILAST-1, ILAST-1 ) )
             END IF
             SHIFT = ESHIFT
          END IF
@@ -497,13 +426,11 @@
                TEMP = TEMP / TEMPR
                TEMP2 = TEMP2 / TEMPR
             END IF
-            IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL )
-     $         GO TO 90
+            IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL ) GO TO 90
    80    CONTINUE
 *
          ISTART = IFIRST
-         CTEMP = ASCALE*H( IFIRST, IFIRST ) -
-     $           SHIFT*( BSCALE*T( IFIRST, IFIRST ) )
+         CTEMP = ASCALE*H( IFIRST, IFIRST ) - SHIFT*( BSCALE*T( IFIRST, IFIRST ) )
    90    CONTINUE
 *
 *        Do an implicit-shift QZ sweep.
@@ -588,8 +515,7 @@
             ELSE
                CALL CSCAL( 1, SIGNBC, H( J, J ), 1 )
             END IF
-            IF( ILZ )
-     $         CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
+            IF( ILZ ) CALL CSCAL( N, SIGNBC, Z( 1, J ), 1 )
          ELSE
             T( J, J ) = CZERO
          END IF

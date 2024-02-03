@@ -24,22 +24,14 @@
 *     .. Local Arrays ..
       INTEGER            IP( NMAX )
       REAL               R( NMAX ), R1( NMAX ), R2( NMAX )
-      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), W( 2*NMAX ), X( NMAX )
+      COMPLEX            A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), W( 2*NMAX ), X( NMAX )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHECON, CSYCON_3, CHECON_ROOK, CHERFS,
-     $                   CHETF2, CHETF2_RK, CHETF2_ROOK, CHETRF_AA, 
-     $                   CHETRF, CHETRF_RK, CHETRF_ROOK, CHETRI,
-     $                   CHETRI_3, CHETRI_3X, CHETRI_ROOK, CHETRI2,
-     $                   CHETRI2X, CHETRS, CHETRS_3, CHETRS_ROOK,
-     $                   CHETRS_AA, CHKXER, CHPCON, CHPRFS, CHPTRF,
-     $                   CHETRF_AA_2STAGE, CHETRS_AA_2STAGE,
-     $                   CHPTRI, CHPTRS
+      EXTERNAL           ALAESM, CHECON, CSYCON_3, CHECON_ROOK, CHERFS, CHETF2, CHETF2_RK, CHETF2_ROOK, CHETRF_AA, CHETRF, CHETRF_RK, CHETRF_ROOK, CHETRI, CHETRI_3, CHETRI_3X, CHETRI_ROOK, CHETRI2, CHETRI2X, CHETRS, CHETRS_3, CHETRS_ROOK, CHETRS_AA, CHKXER, CHPCON, CHPRFS, CHPTRF, CHETRF_AA_2STAGE, CHETRS_AA_2STAGE, CHPTRI, CHPTRS
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -177,32 +169,25 @@
 *
          SRNAMT = 'CHERFS'
          INFOT = 1
-         CALL CHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CHERFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, R, INFO )
+         CALL CHERFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                R, INFO )
+         CALL CHERFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHERFS', INFOT, NOUT, LERR, OK )
 *
 *        CHECON
@@ -474,52 +459,41 @@
 *
          SRNAMT = 'CHETRF_AA_2STAGE'
          INFOT = 1
-         CALL CHETRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1,
-     $                          INFO )
+         CALL CHETRF_AA_2STAGE( '/', 0, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHETRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL CHETRF_AA_2STAGE( 'U', -1, A, 1, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1,
-     $                           INFO )
+         CALL CHETRF_AA_2STAGE( 'U', 2, A, 1, A, 2, IP, IP, W, 1, INFO )
          CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1,
-     $                           INFO )
+         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 1, IP, IP, W, 1, INFO )
          CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0,
-     $                           INFO )
+         CALL CHETRF_AA_2STAGE( 'U', 2, A, 2, A, 8, IP, IP, W, 0, INFO )
          CALL CHKXER( 'CHETRF_AA_2STAGE', INFOT, NOUT, LERR, OK )
 *
 *        CHETRS_AA_2STAGE
 *
          SRNAMT = 'CHETRS_AA_2STAGE'
          INFOT = 1
-         CALL CHETRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( '/', 0, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHETRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( 'U', -1, 0, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHETRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( 'U', 0, -1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 1, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 1, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_2STAGE', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP,
-     $                          B, 1, INFO )
+         CALL CHETRS_AA_2STAGE( 'U', 2, 1, A, 2, A, 8, IP, IP, B, 1, INFO )
          CALL CHKXER( 'CHETRS_AA_STAGE', INFOT, NOUT, LERR, OK )
 *
 *        Test error exits of the routines that use factorization
@@ -568,24 +542,19 @@
 *
          SRNAMT = 'CHPRFS'
          INFOT = 1
-         CALL CHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL CHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL CHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R,
-     $                INFO )
+         CALL CHPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, R, INFO )
          CALL CHKXER( 'CHPRFS', INFOT, NOUT, LERR, OK )
 *
 *        CHPCON

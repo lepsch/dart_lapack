@@ -1,5 +1,4 @@
-      SUBROUTINE DLA_GEAMV ( TRANS, M, N, ALPHA, A, LDA, X, INCX, BETA,
-     $                       Y, INCY )
+      SUBROUTINE DLA_GEAMV ( TRANS, M, N, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -40,9 +39,7 @@
 *     Test the input parameters.
 *
       INFO = 0
-      IF     ( .NOT.( ( TRANS.EQ.ILATRANS( 'N' ) )
-     $           .OR. ( TRANS.EQ.ILATRANS( 'T' ) )
-     $           .OR. ( TRANS.EQ.ILATRANS( 'C' )) ) ) THEN
+      IF     ( .NOT.( ( TRANS.EQ.ILATRANS( 'N' ) ) .OR. ( TRANS.EQ.ILATRANS( 'T' ) ) .OR. ( TRANS.EQ.ILATRANS( 'C' )) ) ) THEN
          INFO = 1
       ELSE IF( M.LT.0 )THEN
          INFO = 2
@@ -62,9 +59,7 @@
 *
 *     Quick return if possible.
 *
-      IF( ( M.EQ.0 ).OR.( N.EQ.0 ).OR.
-     $    ( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) )
-     $   RETURN
+      IF( ( M.EQ.0 ).OR.( N.EQ.0 ).OR. ( ( ALPHA.EQ.ZERO ).AND.( BETA.EQ.ONE ) ) ) RETURN
 *
 *     Set  LENX  and  LENY, the lengths of the vectors x and y, and set
 *     up the start points in  X  and  Y.
@@ -115,15 +110,12 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, LENX
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   END DO
                END IF
-
-               IF ( .NOT.SYMB_ZERO )
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -141,15 +133,12 @@
                IF ( ALPHA .NE. ZERO ) THEN
                   DO J = 1, LENX
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( J ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( J ) )*TEMP
                   END DO
                END IF
-
-               IF ( .NOT.SYMB_ZERO )
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF ( .NOT.SYMB_ZERO ) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -170,16 +159,13 @@
                   JX = KX
                   DO J = 1, LENX
                      TEMP = ABS( A( I, J ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                END IF
-
-               IF (.NOT.SYMB_ZERO)
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO
@@ -198,16 +184,13 @@
                   JX = KX
                   DO J = 1, LENX
                      TEMP = ABS( A( J, I ) )
-                     SYMB_ZERO = SYMB_ZERO .AND.
-     $                    ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
+                     SYMB_ZERO = SYMB_ZERO .AND. ( X( JX ) .EQ. ZERO .OR. TEMP .EQ. ZERO )
 
                      Y( IY ) = Y( IY ) + ALPHA*ABS( X( JX ) )*TEMP
                      JX = JX + INCX
                   END DO
                END IF
-
-               IF (.NOT.SYMB_ZERO)
-     $              Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
+                IF (.NOT.SYMB_ZERO) Y( IY ) = Y( IY ) + SIGN( SAFE1, Y( IY ) )
 
                IY = IY + INCY
             END DO

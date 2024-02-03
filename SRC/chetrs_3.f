@@ -1,5 +1,4 @@
-      SUBROUTINE CHETRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB,
-     $                     INFO )
+      SUBROUTINE CHETRS_3( UPLO, N, NRHS, A, LDA, E, IPIV, B, LDB, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -58,8 +57,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. NRHS.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 .OR. NRHS.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *

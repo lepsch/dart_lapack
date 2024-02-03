@@ -9,8 +9,7 @@
       INTEGER            INFO, LDA, LWORK, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), TAU( * ),
-     $                   WORK( * )
+      REAL               A( LDA, * ), D( * ), E( * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY, UPPER
-      INTEGER            I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB,
-     $                   NBMIN, NX
+      INTEGER            I, IINFO, IWS, J, KK, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           SLATRD, SSYR2K, SSYTD2, XERBLA
@@ -98,8 +96,7 @@
 *
                NB = MAX( LWORK / LDWORK, 1 )
                NBMIN = ILAENV( 2, 'SSYTRD', UPLO, N, -1, -1, -1 )
-               IF( NB.LT.NBMIN )
-     $            NX = N
+               IF( NB.LT.NBMIN ) NX = N
             END IF
          ELSE
             NX = N
@@ -120,14 +117,12 @@
 *           matrix W which is needed to update the unreduced part of
 *           the matrix
 *
-            CALL SLATRD( UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK,
-     $                   LDWORK )
+            CALL SLATRD( UPLO, I+NB-1, NB, A, LDA, E, TAU, WORK, LDWORK )
 *
 *           Update the unreduced submatrix A(1:i-1,1:i-1), using an
 *           update of the form:  A := A - V*W**T - W*V**T
 *
-            CALL SSYR2K( UPLO, 'No transpose', I-1, NB, -ONE, A( 1, I ),
-     $                   LDA, WORK, LDWORK, ONE, A, LDA )
+            CALL SSYR2K( UPLO, 'No transpose', I-1, NB, -ONE, A( 1, I ), LDA, WORK, LDWORK, ONE, A, LDA )
 *
 *           Copy superdiagonal elements back into A, and diagonal
 *           elements into D
@@ -151,15 +146,12 @@
 *           matrix W which is needed to update the unreduced part of
 *           the matrix
 *
-            CALL SLATRD( UPLO, N-I+1, NB, A( I, I ), LDA, E( I ),
-     $                   TAU( I ), WORK, LDWORK )
+            CALL SLATRD( UPLO, N-I+1, NB, A( I, I ), LDA, E( I ), TAU( I ), WORK, LDWORK )
 *
 *           Update the unreduced submatrix A(i+ib:n,i+ib:n), using
 *           an update of the form:  A := A - V*W**T - W*V**T
 *
-            CALL SSYR2K( UPLO, 'No transpose', N-I-NB+1, NB, -ONE,
-     $                   A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE,
-     $                   A( I+NB, I+NB ), LDA )
+            CALL SSYR2K( UPLO, 'No transpose', N-I-NB+1, NB, -ONE, A( I+NB, I ), LDA, WORK( NB+1 ), LDWORK, ONE, A( I+NB, I+NB ), LDA )
 *
 *           Copy subdiagonal elements back into A, and diagonal
 *           elements into D
@@ -172,8 +164,7 @@
 *
 *        Use unblocked code to reduce the last or only block
 *
-         CALL SSYTD2( UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ),
-     $                TAU( I ), IINFO )
+         CALL SSYTD2( UPLO, N-I+1, A( I, I ), LDA, D( I ), E( I ), TAU( I ), IINFO )
       END IF
 *
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)

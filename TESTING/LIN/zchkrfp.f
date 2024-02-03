@@ -52,8 +52,7 @@
       EXTERNAL           DLAMCH, DSECND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3,
-     +                   ZDRVRF4
+      EXTERNAL           ILAVER, ZDRVRFP, ZDRVRF1, ZDRVRF2, ZDRVRF3, ZDRVRF4
 *     ..
 *     .. Executable Statements ..
 *
@@ -91,8 +90,7 @@
             FATAL = .TRUE.
          END IF
    10 CONTINUE
-      IF( NN.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
+      IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 *
 *     Read the values of NRHS
 *
@@ -116,8 +114,7 @@
             FATAL = .TRUE.
          END IF
    30 CONTINUE
-      IF( NNS.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
+      IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 *
 *     Read the matrix types
 *
@@ -141,8 +138,7 @@
             FATAL = .TRUE.
          END IF
   320 CONTINUE
-      IF( NNT.GT.0 )
-     $   WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
+      IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 *
 *     Read the threshold value for the test ratios.
 *
@@ -170,41 +166,30 @@
 *
 *     Test the error exit of:
 *
-      IF( TSTERR )
-     $   CALL ZERRRFP( NOUT )
+      IF( TSTERR ) CALL ZERRRFP( NOUT )
 *
 *    Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
 *    This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.
 *
-      CALL ZDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH,
-     $              WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB,
-     $              WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV,
-     $              Z_WORK_ZLATMS, Z_WORK_ZPOT02,
-     $              Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE,
-     $              D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 )
+      CALL ZDRVRFP( NOUT, NN, NVAL, NNS, NSVAL, NNT, NTVAL, THRESH, WORKA, WORKASAV, WORKAFAC, WORKAINV, WORKB, WORKBSAV, WORKXACT, WORKX, WORKARF, WORKARFINV, Z_WORK_ZLATMS, Z_WORK_ZPOT02, Z_WORK_ZPOT03, D_WORK_ZLATMS, D_WORK_ZLANHE, D_WORK_ZPOT01, D_WORK_ZPOT02, D_WORK_ZPOT03 )
 *
 *    Test the routine: zlanhf
 *
-      CALL ZDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              D_WORK_ZLANHE )
+      CALL ZDRVRF1( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, D_WORK_ZLANHE )
 *
 *    Test the conversion routines:
 *       zhfttp, ztpthf, ztfttr, ztrttf, ztrttp and ztpttr.
 *
-      CALL ZDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF,
-     +              WORKAP, WORKASAV )
+      CALL ZDRVRF2( NOUT, NN, NVAL, WORKA, NMAX, WORKARF, WORKAP, WORKASAV )
 *
 *    Test the routine: ztfsm
 *
-      CALL ZDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF,
-     +              WORKAINV, WORKAFAC, D_WORK_ZLANHE,
-     +              Z_WORK_ZPOT03, Z_WORK_ZPOT02 )
+      CALL ZDRVRF3( NOUT, NN, NVAL, THRESH, WORKA, NMAX, WORKARF, WORKAINV, WORKAFAC, D_WORK_ZLANHE, Z_WORK_ZPOT03, Z_WORK_ZPOT02 )
 
 *
 *    Test the routine: zhfrk
 *
-      CALL ZDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX,
-     +              WORKARF, WORKAINV, NMAX,D_WORK_ZLANHE)
+      CALL ZDRVRF4( NOUT, NN, NVAL, THRESH, WORKA, WORKAFAC, NMAX, WORKARF, WORKAINV, NMAX,D_WORK_ZLANHE)
 *
       CLOSE ( NIN )
       S2 = DSECND( )

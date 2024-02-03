@@ -16,8 +16,7 @@
 *
 *     .. Local Scalars ..
       INTEGER            I, IC, IX
-      REAL               CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII,
-     $                   ZIR
+      REAL               CI, SII, SIR, T1I, T1R, T5, T6, XI, YI, ZII, ZIR
       COMPLEX            SI, T2, T3, T4, ZI
 *     ..
 *     .. Intrinsic Functions ..

@@ -17,8 +17,7 @@
 *>      Algorithms, 50(1):33-65, 2009.
 *>
 *  =====================================================================
-      SUBROUTINE CUNBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI,
-     $                    TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO )
+      SUBROUTINE CUNBDB3( M, P, Q, X11, LDX11, X21, LDX21, THETA, PHI, TAUP1, TAUP2, TAUQ1, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -29,8 +28,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               PHI(*), THETA(*)
-      COMPLEX            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*),
-     $                   X11(LDX11,*), X21(LDX21,*)
+      COMPLEX            TAUP1(*), TAUP2(*), TAUQ1(*), WORK(*), X11(LDX11,*), X21(LDX21,*)
 *     ..
 *
 *  ====================================================================
@@ -41,8 +39,7 @@
 *     ..
 *     .. Local Scalars ..
       REAL               C, S
-      INTEGER            CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5,
-     $                   LWORKMIN, LWORKOPT
+      INTEGER            CHILDINFO, I, ILARF, IORBDB5, LLARF, LORBDB5, LWORKMIN, LWORKOPT
       LOGICAL            LQUERY
 *     ..
 *     .. External Subroutines ..
@@ -100,26 +97,19 @@
       DO I = 1, M-P
 *
          IF( I .GT. 1 ) THEN
-            CALL CSROT( Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C,
-     $                  S )
+            CALL CSROT( Q-I+1, X11(I-1,I), LDX11, X21(I,I), LDX11, C, S )
          END IF
 *
          CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
          CALL CLARFGP( Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) )
          S = REAL( X21(I,I) )
          X21(I,I) = ONE
-         CALL CLARF( 'R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I),
-     $               X11(I,I), LDX11, WORK(ILARF) )
-         CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I),
-     $               X21(I+1,I), LDX21, WORK(ILARF) )
+         CALL CLARF( 'R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )
          CALL CLACGV( Q-I+1, X21(I,I), LDX21 )
-         C = SQRT( SCNRM2( P-I+1, X11(I,I), 1 )**2
-     $           + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
+         C = SQRT( SCNRM2( P-I+1, X11(I,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
          THETA(I) = ATAN2( S, C )
 *
-         CALL CUNBDB5( P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1,
-     $                 X11(I,I+1), LDX11, X21(I+1,I+1), LDX21,
-     $                 WORK(IORBDB5), LORBDB5, CHILDINFO )
+         CALL CUNBDB5( P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO )
          CALL CLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
          IF( I .LT. M-P ) THEN
             CALL CLARFGP( M-P-I, X21(I+1,I), X21(I+2,I), 1, TAUP2(I) )
@@ -127,12 +117,10 @@
             C = COS( PHI(I) )
             S = SIN( PHI(I) )
             X21(I+1,I) = ONE
-            CALL CLARF( 'L', M-P-I, Q-I, X21(I+1,I), 1, CONJG(TAUP2(I)),
-     $                  X21(I+1,I+1), LDX21, WORK(ILARF) )
+            CALL CLARF( 'L', M-P-I, Q-I, X21(I+1,I), 1, CONJG(TAUP2(I)), X21(I+1,I+1), LDX21, WORK(ILARF) )
          END IF
          X11(I,I) = ONE
-         CALL CLARF( 'L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)),
-     $               X11(I,I+1), LDX11, WORK(ILARF) )
+         CALL CLARF( 'L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )
 *
       END DO
 *
@@ -141,8 +129,7 @@
       DO I = M-P + 1, Q
          CALL CLARFGP( P-I+1, X11(I,I), X11(I+1,I), 1, TAUP1(I) )
          X11(I,I) = ONE
-         CALL CLARF( 'L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)),
-     $               X11(I,I+1), LDX11, WORK(ILARF) )
+         CALL CLARF( 'L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )
       END DO
 *
       RETURN

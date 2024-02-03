@@ -1,5 +1,4 @@
-      SUBROUTINE CTBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X,
-     $                   LDX, B, LDB, WORK, RWORK, RESID )
+      SUBROUTINE CTBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDX, B, LDB, WORK, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RWORK( * )
-      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      COMPLEX            AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================

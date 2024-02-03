@@ -19,8 +19,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IWS, KI, KK, LDWORK, LWKMIN, LWKOPT,
-     $                   M1, MU, NB, NBMIN, NX
+      INTEGER            I, IB, IWS, KI, KK, LDWORK, LWKMIN, LWKOPT, M1, MU, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, DLARZB, DLARZT, DLATRZ
@@ -103,8 +102,7 @@
 *              determine the minimum value of NB.
 *
                NB = LWORK / LDWORK
-               NBMIN = MAX( 2, ILAENV( 2, 'DGERQF', ' ', M, N, -1,
-     $                 -1 ) )
+               NBMIN = MAX( 2, ILAENV( 2, 'DGERQF', ' ', M, N, -1, -1 ) )
             END IF
          END IF
       END IF
@@ -124,22 +122,17 @@
 *           Compute the TZ factorization of the current block
 *           A(i:i+ib-1,i:n)
 *
-            CALL DLATRZ( IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ),
-     $                   WORK )
+            CALL DLATRZ( IB, N-I+1, N-M, A( I, I ), LDA, TAU( I ), WORK )
             IF( I.GT.1 ) THEN
 *
 *              Form the triangular factor of the block reflector
 *              H = H(i+ib-1) . . . H(i+1) H(i)
 *
-               CALL DLARZT( 'Backward', 'Rowwise', N-M, IB, A( I, M1 ),
-     $                      LDA, TAU( I ), WORK, LDWORK )
+               CALL DLARZT( 'Backward', 'Rowwise', N-M, IB, A( I, M1 ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H to A(1:i-1,i:n) from the right
 *
-               CALL DLARZB( 'Right', 'No transpose', 'Backward',
-     $                      'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ),
-     $                      LDA, WORK, LDWORK, A( 1, I ), LDA,
-     $                      WORK( IB+1 ), LDWORK )
+               CALL DLARZB( 'Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK )
             END IF
    20    CONTINUE
          MU = I + NB - 1
@@ -149,8 +142,7 @@
 *
 *     Use unblocked code to factor the last or only block
 *
-      IF( MU.GT.0 )
-     $   CALL DLATRZ( MU, N, N-M, A, LDA, TAU, WORK )
+      IF( MU.GT.0 ) CALL DLATRZ( MU, N, N-M, A, LDA, TAU, WORK )
 *
       WORK( 1 ) = LWKOPT
 *

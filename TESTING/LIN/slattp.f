@@ -1,5 +1,4 @@
-      SUBROUTINE SLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, B, WORK,
-     $                   INFO )
+      SUBROUTINE SLATTP( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, B, WORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -24,12 +23,7 @@
       LOGICAL            UPPER
       CHARACTER          DIST, PACKIT, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX,
-     $                   KL, KU, MODE
-      REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1,
-     $                   PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1,
-     $                   STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y,
-     $                   Z
+      INTEGER            I, IY, J, JC, JCNEXT, JCOUNT, JJ, JL, JR, JX, KL, KU, MODE       REAL               ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, PLUS1, PLUS2, RA, RB, REXP, S, SFAC, SMLNUM, STAR1, STEMP, T, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -60,27 +54,23 @@
 *
 *     Quick return if N.LE.0.
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Call SLATB4 to set parameters for SLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
-         CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL SLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'C'
       ELSE
-         CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL SLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
          PACKIT = 'R'
       END IF
 *
 *     IMAT <= 6:  Non-unit triangular matrix
 *
       IF( IMAT.LE.6 ) THEN
-         CALL SLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM,
-     $                KL, KU, PACKIT, A, N, WORK, INFO )
+         CALL SLATMS( N, N, DIST, ISEED, TYPE, B, MODE, CNDNUM, ANORM, KL, KU, PACKIT, A, N, WORK, INFO )
 *
 *     IMAT > 6:  Unit triangular matrix
 *     The diagonal is deliberately set to something other than 1.
@@ -230,10 +220,7 @@
             JC = 1
             DO 100 J = 2, N
                A( JC+1 ) = Y
-               IF( J.GT.2 )
-     $            A( JC+J-1 ) = WORK( J-2 )
-               IF( J.GT.3 )
-     $            A( JC+J-2 ) = WORK( N+J-3 )
+               IF( J.GT.2 ) A( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) A( JC+J-2 ) = WORK( N+J-3 )
                JC = JC + J
   100       CONTINUE
             JC = JC - N
@@ -253,8 +240,7 @@
             JC = N + 1
             DO 130 J = 2, N - 1
                A( JC+1 ) = WORK( J-1 )
-               IF( J.LT.N-1 )
-     $            A( JC+2 ) = WORK( N+J-1 )
+               IF( J.LT.N-1 ) A( JC+2 ) = WORK( N+J-1 )
                A( JC+N-J ) = Y
                JC = JC + N - J + 1
   130       CONTINUE
@@ -284,8 +270,7 @@
 *
 *              Multiply by [-c -s;  s -c] on the right.
 *
-               IF( J.GT.1 )
-     $            CALL SROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S )
+               IF( J.GT.1 ) CALL SROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S )
 *
 *              Negate A(J,J+1).
 *
@@ -302,9 +287,7 @@
 *
 *              Multiply by [ c -s;  s  c] on the right.
 *
-               IF( N.GT.J+1 )
-     $            CALL SROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C,
-     $                       -S )
+               IF( N.GT.J+1 ) CALL SROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S )
 *
 *              Multiply by [-c  s; -s -c] on the left.
 *
@@ -431,8 +414,7 @@
                   A( JC+J-1 ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
   250       CONTINUE
          ELSE
@@ -448,8 +430,7 @@
                   A( JC ) = ONE
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC + N - J + 1
   270       CONTINUE
          END IF
@@ -485,8 +466,7 @@
                DO 300 I = 1, J - 2
                   A( JC+I-1 ) = ZERO
   300          CONTINUE
-               IF( J.GT.1 )
-     $            A( JC+J-2 ) = -ONE
+               IF( J.GT.1 ) A( JC+J-2 ) = -ONE
                A( JC+J-1 ) = TSCAL
                JC = JC + J
   310       CONTINUE
@@ -497,8 +477,7 @@
                DO 320 I = J + 2, N
                   A( JC+I-J ) = ZERO
   320          CONTINUE
-               IF( J.LT.N )
-     $            A( JC+1 ) = -ONE
+               IF( J.LT.N ) A( JC+1 ) = -ONE
                A( JC ) = TSCAL
                JC = JC + N - J + 1
   330       CONTINUE
@@ -595,8 +574,7 @@
          ELSE
             JC = 1
             DO 400 J = 1, N
-               IF( J.LT.N )
-     $            CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) )
+               IF( J.LT.N ) CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) )
                A( JC ) = ZERO
                JC = JC + N - J + 1
   400       CONTINUE
@@ -623,8 +601,7 @@
             DO 420 J = 1, N
                CALL SLARNV( 2, ISEED, J, A( JC ) )
                DO 410 I = 1, J
-                  A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) +
-     $                          TSCAL*A( JC+I-1 )
+                  A( JC+I-1 ) = SIGN( TLEFT, A( JC+I-1 ) ) + TSCAL*A( JC+I-1 )
   410          CONTINUE
                JC = JC + J
   420       CONTINUE
@@ -633,8 +610,7 @@
             DO 440 J = 1, N
                CALL SLARNV( 2, ISEED, N-J+1, A( JC ) )
                DO 430 I = J, N
-                  A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) +
-     $                          TSCAL*A( JC+I-J )
+                  A( JC+I-J ) = SIGN( TLEFT, A( JC+I-J ) ) + TSCAL*A( JC+I-J )
   430          CONTINUE
                JC = JC + N - J + 1
   440       CONTINUE

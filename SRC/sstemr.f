@@ -1,6 +1,4 @@
-      SUBROUTINE SSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU,
-     $                   M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK,
-     $                   IWORK, LIWORK, INFO )
+      SUBROUTINE SSTEMR( JOBZ, RANGE, N, D, E, VL, VU, IL, IU, M, W, Z, LDZ, NZC, ISUPPZ, TRYRAC, WORK, LWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -22,21 +20,11 @@
 *
 *     .. Parameters ..
       REAL               ZERO, ONE, FOUR, MINRGP
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0,
-     $                     FOUR = 4.0E0,
-     $                     MINRGP = 3.0E-3 )
+      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, FOUR = 4.0E0, MINRGP = 3.0E-3 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY,
-     $                   LAESWAP
-      INTEGER            I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW,
-     $                   IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD,
-     $                   INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP,
-     $                   ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT,
-     $                   NZCMIN, OFFSET, WBEGIN, WEND
-      REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN,
-     $                   RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN,
-     $                   THRESH, TMP, TNRM, WL, WU
+      LOGICAL            ALLEIG, INDEIG, LQUERY, VALEIG, WANTZ, ZQUERY, LAESWAP       INTEGER            I, IBEGIN, IEND, IFIRST, IIL, IINDBL, IINDW, IINDWK, IINFO, IINSPL, IIU, ILAST, IN, INDD, INDE2, INDERR, INDGP, INDGRS, INDWRK, ITMP, ITMP2, J, JBLK, JJ, LIWMIN, LWMIN, NSPLIT, NZCMIN, OFFSET, WBEGIN, WEND
+      REAL               BIGNUM, CS, EPS, PIVMIN, R1, R2, RMAX, RMIN, RTOL1, RTOL2, SAFMIN, SCALE, SMLNUM, SN, THRESH, TMP, TNRM, WL, WU
 *     ..
 *     ..
 *     .. External Functions ..
@@ -45,8 +33,7 @@
       EXTERNAL           LSAME, SLAMCH, SLANST, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLAE2, SLAEV2, SLARRC, SLARRE, SLARRJ,
-     $                   SLARRR, SLARRV, SLASRT, SSCAL, SSWAP, XERBLA
+      EXTERNAL           SCOPY, SLAE2, SLAEV2, SLARRC, SLARRE, SLARRJ, SLARRR, SLARRV, SLASRT, SSCAL, SSWAP, XERBLA
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN, SQRT
@@ -131,8 +118,7 @@
          IF( WANTZ .AND. ALLEIG ) THEN
             NZCMIN = N
          ELSE IF( WANTZ .AND. VALEIG ) THEN
-            CALL SLARRC( 'T', N, VL, VU, D, E, SAFMIN,
-     $                            NZCMIN, ITMP, ITMP2, INFO )
+            CALL SLARRC( 'T', N, VL, VU, D, E, SAFMIN, NZCMIN, ITMP, ITMP2, INFO )
          ELSE IF( WANTZ .AND. INDEIG ) THEN
             NZCMIN = IIU-IIL+1
          ELSE
@@ -158,8 +144,7 @@
 *     Handle N = 0, 1, and 2 cases immediately
 *
       M = 0
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( N.EQ.1 ) THEN
          IF( ALLEIG .OR. INDEIG ) THEN
@@ -194,10 +179,7 @@
             R2 = E(2)
             LAESWAP = .TRUE.
          ENDIF
-         IF( ALLEIG.OR.
-     $      (VALEIG.AND.(R2.GT.WL).AND.
-     $                  (R2.LE.WU)).OR.
-     $      (INDEIG.AND.(IIL.EQ.1)) ) THEN
+         IF( ALLEIG.OR. (VALEIG.AND.(R2.GT.WL).AND. (R2.LE.WU)).OR. (INDEIG.AND.(IIL.EQ.1)) ) THEN
             M = M+1
             W( M ) = R2
             IF( WANTZ.AND.(.NOT.ZQUERY) ) THEN
@@ -223,10 +205,7 @@
                END IF
             ENDIF
          ENDIF
-         IF( ALLEIG.OR.
-     $      (VALEIG.AND.(R1.GT.WL).AND.
-     $                  (R1.LE.WU)).OR.
-     $      (INDEIG.AND.(IIU.EQ.2)) ) THEN
+         IF( ALLEIG.OR. (VALEIG.AND.(R1.GT.WL).AND. (R1.LE.WU)).OR. (INDEIG.AND.(IIU.EQ.2)) ) THEN
             M = M+1
             W( M ) = R1
             IF( WANTZ.AND.(.NOT.ZQUERY) ) THEN
@@ -339,12 +318,7 @@
             RTOL1 = MAX( SQRT(EPS)*5.0E-2, FOUR * EPS )
             RTOL2 = MAX( SQRT(EPS)*5.0E-3, FOUR * EPS )
          ENDIF
-         CALL SLARRE( RANGE, N, WL, WU, IIL, IIU, D, E,
-     $             WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT,
-     $             IWORK( IINSPL ), M, W, WORK( INDERR ),
-     $             WORK( INDGP ), IWORK( IINDBL ),
-     $             IWORK( IINDW ), WORK( INDGRS ), PIVMIN,
-     $             WORK( INDWRK ), IWORK( IINDWK ), IINFO )
+         CALL SLARRE( RANGE, N, WL, WU, IIL, IIU, D, E, WORK(INDE2), RTOL1, RTOL2, THRESH, NSPLIT, IWORK( IINSPL ), M, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), PIVMIN, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
          IF( IINFO.NE.0 ) THEN
             INFO = 10 + ABS( IINFO )
             RETURN
@@ -359,12 +333,7 @@
 *           Compute the desired eigenvectors corresponding to the computed
 *           eigenvalues
 *
-            CALL SLARRV( N, WL, WU, D, E,
-     $                PIVMIN, IWORK( IINSPL ), M,
-     $                1, M, MINRGP, RTOL1, RTOL2,
-     $                W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ),
-     $                IWORK( IINDW ), WORK( INDGRS ), Z, LDZ,
-     $                ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
+            CALL SLARRV( N, WL, WU, D, E, PIVMIN, IWORK( IINSPL ), M, 1, M, MINRGP, RTOL1, RTOL2, W, WORK( INDERR ), WORK( INDGP ), IWORK( IINDBL ), IWORK( IINDW ), WORK( INDGRS ), Z, LDZ, ISUPPZ, WORK( INDWRK ), IWORK( IINDWK ), IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = 20 + ABS( IINFO )
                RETURN
@@ -408,12 +377,7 @@
                IFIRST = IWORK(IINDW+WBEGIN-1)
                ILAST = IWORK(IINDW+WEND-1)
                RTOL2 = FOUR * EPS
-               CALL SLARRJ( IN,
-     $                   WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1),
-     $                   IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN),
-     $                   WORK( INDERR+WBEGIN-1 ),
-     $                   WORK( INDWRK ), IWORK( IINDWK ), PIVMIN,
-     $                   TNRM, IINFO )
+               CALL SLARRJ( IN, WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1), IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN), WORK( INDERR+WBEGIN-1 ), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, TNRM, IINFO )
                IBEGIN = IEND + 1
                WBEGIN = WEND + 1
  39      CONTINUE

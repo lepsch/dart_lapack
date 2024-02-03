@@ -1,7 +1,4 @@
-      SUBROUTINE SLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL,
-     $                     KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK,
-     $                     RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK,
-     $                     INFO )
+      SUBROUTINE SLAQP2RK( M, N, NRHS, IOFFSET, KMAX, ABSTOL, RELTOL, KP1, MAXC2NRM, A, LDA, K, MAXC2NRMK, RELMAXC2NRMK, JPIV, TAU, VN1, VN2, WORK, INFO )
       IMPLICIT NONE
 *
 *  -- LAPACK auxiliary routine --
@@ -10,13 +7,11 @@
 *
 *     .. Scalar Arguments ..
       INTEGER            INFO, IOFFSET, KP1, K, KMAX, LDA, M, N, NRHS
-      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK,
-     $                   RELTOL
+      REAL               ABSTOL, MAXC2NRM, MAXC2NRMK, RELMAXC2NRMK, RELTOL
 *     ..
 *     .. Array Arguments ..
       INTEGER            JPIV( * )
-      REAL               A( LDA, * ), TAU( * ), VN1( * ), VN2( * ),
-     $                   WORK( * )
+      REAL               A( LDA, * ), TAU( * ), VN1( * ), VN2( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -26,8 +21,7 @@
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT,
-     $                   MINMNUPDT
+      INTEGER            I, ITEMP, J, JMAXC2NRM, KK, KP, MINMNFACT, MINMNUPDT
       REAL               AIKK, HUGEVAL, TEMP, TEMP2, TOL3Z
 *     ..
 *     .. External Subroutines ..
@@ -238,8 +232,7 @@
 *        and TAU(KK) = ZERO.
 *
          IF( I.LT.M ) THEN
-            CALL SLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1,
-     $                   TAU( KK ) )
+            CALL SLARFG( M-I+1, A( I, KK ), A( I+1, KK ), 1, TAU( KK ) )
          ELSE
             TAU( KK ) = ZERO
          END IF
@@ -284,8 +277,7 @@
          IF( KK.LT.MINMNUPDT ) THEN
             AIKK = A( I, KK )
             A( I, KK ) = ONE
-            CALL SLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1,
-     $                  TAU( KK ), A( I, KK+1 ), LDA, WORK( 1 ) )
+            CALL SLARF( 'Left', M-I+1, N+NRHS-KK, A( I, KK ), 1, TAU( KK ), A( I, KK+1 ), LDA, WORK( 1 ) )
             A( I, KK ) = AIKK
          END IF
 *

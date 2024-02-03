@@ -1,5 +1,4 @@
-      SUBROUTINE CHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK,
-     $                     INFO )
+      SUBROUTINE CHETRI_3( UPLO, N, A, LDA, E, IPIV, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -69,8 +68,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       CALL CHETRI_3X( UPLO, N, A, LDA, E, IPIV, WORK, NB, INFO )
 *

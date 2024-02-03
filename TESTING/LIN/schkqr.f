@@ -1,6 +1,4 @@
-      SUBROUTINE SCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL,
-     $                   NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC,
-     $                   B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
+      SUBROUTINE SCHKQR( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, NRHS, THRESH, TSTERR, NMAX, A, AF, AQ, AR, AC, B, X, XACT, TAU, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,11 +11,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ),
-     $                   NXVAL( * )
-      REAL               A( * ), AC( * ), AF( * ), AQ( * ), AR( * ),
-     $                   B( * ), RWORK( * ), TAU( * ), WORK( * ),
-     $                   X( * ), XACT( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )       REAL               A( * ), AC( * ), AF( * ), AQ( * ), AR( * ), B( * ), RWORK( * ), TAU( * ), WORK( * ), X( * ), XACT( * )
 *     ..
 *
 *  =====================================================================
@@ -33,9 +27,7 @@
 *     .. Local Scalars ..
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
-      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA,
-     $                   LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK,
-     $                   NRUN, NT, NX
+      INTEGER            I, IK, IM, IMAT, IN, INB, INFO, K, KL, KU, LDA, LWORK, M, MINMN, MODE, N, NB, NERRS, NFAIL, NK, NRUN, NT, NX
       REAL               ANORM, CNDNUM
 *     ..
 *     .. Local Arrays ..
@@ -47,9 +39,7 @@
       EXTERNAL           SGENND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRQR, SGELS, SGET02,
-     $                   SLACPY, SLARHS, SLATB4, SLATMS, SQRT01,
-     $                   SQRT01P, SQRT02, SQRT03, XLAENV
+      EXTERNAL           ALAERH, ALAHD, ALASUM, SERRQR, SGELS, SGET02, SLACPY, SLARHS, SLATB4, SLATMS, SQRT01, SQRT01P, SQRT02, SQRT03, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -81,8 +71,7 @@
 *
 *     Test the error exits
 *
-      IF( TSTERR )
-     $   CALL SERRQR( PATH, NOUT )
+      IF( TSTERR ) CALL SERRQR( PATH, NOUT )
       INFOT = 0
       CALL XLAENV( 2, 2 )
 *
@@ -103,25 +92,20 @@
 *
 *              Do the tests only if DOTYPE( IMAT ) is true.
 *
-               IF( .NOT.DOTYPE( IMAT ) )
-     $            GO TO 50
+               IF( .NOT.DOTYPE( IMAT ) ) GO TO 50
 *
 *              Set up parameters with SLATB4 and generate a test matrix
 *              with SLATMS.
 *
-               CALL SLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE,
-     $                      CNDNUM, DIST )
+               CALL SLATB4( PATH, IMAT, M, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
 *
                SRNAMT = 'SLATMS'
-               CALL SLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE,
-     $                      CNDNUM, ANORM, KL, KU, 'No packing', A, LDA,
-     $                      WORK, INFO )
+               CALL SLATMS( M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *              Check error code from SLATMS.
 *
                IF( INFO.NE.0 ) THEN
-                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, N, -1,
-     $                         -1, -1, IMAT, NFAIL, NERRS, NOUT )
+                  CALL ALAERH( PATH, 'SLATMS', INFO, 0, ' ', M, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT )
                   GO TO 50
                END IF
 *
@@ -163,32 +147,26 @@
 *
 *                       Test SGEQRF
 *
-                        CALL SQRT01( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL SQRT01( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
 *
 *                       Test SGEQRFP
 *
-                        CALL SQRT01P( M, N, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 8 ) )
-
-                         IF( .NOT. SGENND( M, N, AF, LDA ) )
-     $                       RESULT( 9 ) = 2*THRESH
+                        CALL SQRT01P( M, N, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 8 ) )
+                          IF( .NOT. SGENND( M, N, AF, LDA ) ) RESULT( 9 ) = 2*THRESH
                          NT = NT + 1
                      ELSE IF( M.GE.N ) THEN
 *
 *                       Test SORGQR, using factorization
 *                       returned by SQRT01
 *
-                        CALL SQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 1 ) )
+                        CALL SQRT02( M, N, K, A, AF, AQ, AR, LDA, TAU, WORK, LWORK, RWORK, RESULT( 1 ) )
                      END IF
                      IF( M.GE.K ) THEN
 *
 *                       Test SORMQR, using factorization returned
 *                       by SQRT01
 *
-                        CALL SQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU,
-     $                               WORK, LWORK, RWORK, RESULT( 3 ) )
+                        CALL SQRT03( M, N, K, AF, AC, AR, AQ, LDA, TAU, WORK, LWORK, RWORK, RESULT( 3 ) )
                         NT = NT + 4
 *
 *                       If M>=N and K=N, call SGELS to solve a system
@@ -201,13 +179,9 @@
 *                          hand side.
 *
                            SRNAMT = 'SLARHS'
-                           CALL SLARHS( PATH, 'New', 'Full',
-     $                                  'No transpose', M, N, 0, 0,
-     $                                  NRHS, A, LDA, XACT, LDA, B, LDA,
-     $                                  ISEED, INFO )
+                           CALL SLARHS( PATH, 'New', 'Full', 'No transpose', M, N, 0, 0, NRHS, A, LDA, XACT, LDA, B, LDA, ISEED, INFO )
 *
-                           CALL SLACPY( 'Full', M, NRHS, B, LDA, X,
-     $                                  LDA )
+                           CALL SLACPY( 'Full', M, NRHS, B, LDA, X, LDA )
 *
 *                          Reset AF to the original matrix. SGELS
 *                          factors the matrix before solving the system.
@@ -215,19 +189,13 @@
                            CALL SLACPY( 'Full', M, N, A, LDA, AF, LDA )
 *
                            SRNAMT = 'SGELS'
-                           CALL SGELS( 'No transpose', M, N, NRHS, AF,
-     $                                 LDA, X, LDA, WORK, LWORK, INFO )
+                           CALL SGELS( 'No transpose', M, N, NRHS, AF, LDA, X, LDA, WORK, LWORK, INFO )
 *
 *                          Check error code from SGELS.
 *
-                           IF( INFO.NE.0 )
-     $                        CALL ALAERH( PATH, 'SGELS', INFO, 0, 'N',
-     $                                     M, N, NRHS, -1, NB, IMAT,
-     $                                     NFAIL, NERRS, NOUT )
+                           IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELS', INFO, 0, 'N', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT )
 *
-                           CALL SGET02( 'No transpose', M, N, NRHS, A,
-     $                                  LDA, X, LDA, B, LDA, RWORK,
-     $                                  RESULT( 7 ) )
+                           CALL SGET02( 'No transpose', M, N, NRHS, A, LDA, X, LDA, B, LDA, RWORK, RESULT( 7 ) )
                            NT = NT + 1
                         END IF
                      END IF
@@ -237,10 +205,7 @@
 *
                      DO 20 I = 1, NTESTS
                         IF( RESULT( I ).GE.THRESH ) THEN
-                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                        CALL ALAHD( NOUT, PATH )
-                           WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX,
-     $                        IMAT, I, RESULT( I )
+                           IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
                         END IF
    20                CONTINUE

@@ -1,5 +1,4 @@
-      SUBROUTINE ZHEGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK,
-     $                   LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
+      SUBROUTINE ZHEGVD( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
 *
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -98,8 +97,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Form a Cholesky factorization of B.
 *
@@ -112,8 +110,7 @@
 *     Transform problem to standard eigenvalue problem and solve.
 *
       CALL ZHEGST( ITYPE, UPLO, N, A, LDA, B, LDB, INFO )
-      CALL ZHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK,
-     $             IWORK, LIWORK, INFO )
+      CALL ZHEEVD( JOBZ, UPLO, N, A, LDA, W, WORK, LWORK, RWORK, LRWORK, IWORK, LIWORK, INFO )
       LOPT = INT( MAX( DBLE( LOPT ), DBLE( WORK( 1 ) ) ) )
       LROPT = INT( MAX( DBLE( LROPT ), DBLE( RWORK( 1 ) ) ) )
       LIOPT = INT( MAX( DBLE( LIOPT ), DBLE( IWORK( 1 ) ) ) )
@@ -133,8 +130,7 @@
                TRANS = 'C'
             END IF
 *
-            CALL ZTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, N, CONE,
-     $                  B, LDB, A, LDA )
+            CALL ZTRSM( 'Left', UPLO, TRANS, 'Non-unit', N, N, CONE, B, LDB, A, LDA )
 *
          ELSE IF( ITYPE.EQ.3 ) THEN
 *
@@ -147,8 +143,7 @@
                TRANS = 'N'
             END IF
 *
-            CALL ZTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, N, CONE,
-     $                  B, LDB, A, LDA )
+            CALL ZTRMM( 'Left', UPLO, TRANS, 'Non-unit', N, N, CONE, B, LDB, A, LDA )
          END IF
       END IF
 *

@@ -49,8 +49,7 @@
       INFO = 0
       IF ((.NOT.UPPER) .AND. (.NOT.LSAME(UPLO,'L'))) THEN
           INFO = 1
-      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND.
-     +         (.NOT.LSAME(TRANS,'T'))) THEN
+      ELSE IF ((.NOT.LSAME(TRANS,'N')) .AND. (.NOT.LSAME(TRANS,'T'))) THEN
           INFO = 2
       ELSE IF (N.LT.0) THEN
           INFO = 3
@@ -70,8 +69,7 @@
 *
 *     Quick return if possible.
 *
-      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR.
-     +    (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
+      IF ((N.EQ.0) .OR. (((ALPHA.EQ.ZERO).OR. (K.EQ.0)).AND. (BETA.EQ.ONE))) RETURN
 *
 *     And when  alpha.eq.zero.
 *
@@ -130,8 +128,7 @@
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           DO 110 I = 1,J
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 +
-     +                                 B(I,L)*TEMP2
+                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   110                     CONTINUE
                       END IF
   120             CONTINUE
@@ -152,8 +149,7 @@
                           TEMP1 = ALPHA*B(J,L)
                           TEMP2 = ALPHA*A(J,L)
                           DO 160 I = J,N
-                              C(I,J) = C(I,J) + A(I,L)*TEMP1 +
-     +                                 B(I,L)*TEMP2
+                              C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
   160                     CONTINUE
                       END IF
   170             CONTINUE
@@ -175,8 +171,7 @@
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       ELSE
-                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 +
-     +                             ALPHA*TEMP2
+                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2
                       END IF
   200             CONTINUE
   210         CONTINUE
@@ -192,8 +187,7 @@
                       IF (BETA.EQ.ZERO) THEN
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       ELSE
-                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 +
-     +                             ALPHA*TEMP2
+                          C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2
                       END IF
   230             CONTINUE
   240         CONTINUE

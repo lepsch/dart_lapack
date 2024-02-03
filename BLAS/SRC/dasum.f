@@ -41,9 +41,7 @@
          END IF
          MP1 = M + 1
          DO I = MP1,N,6
-            DTEMP = DTEMP + DABS(DX(I)) + DABS(DX(I+1)) +
-     $              DABS(DX(I+2)) + DABS(DX(I+3)) +
-     $              DABS(DX(I+4)) + DABS(DX(I+5))
+            DTEMP = DTEMP + DABS(DX(I)) + DABS(DX(I+1)) + DABS(DX(I+2)) + DABS(DX(I+3)) + DABS(DX(I+4)) + DABS(DX(I+5))
          END DO
       ELSE
 *

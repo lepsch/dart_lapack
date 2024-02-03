@@ -23,15 +23,13 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( IOUNIT.LE.0 )
-     $   RETURN
+      IF( IOUNIT.LE.0 ) RETURN
       C1 = PATH( 1: 1 )
       C3 = PATH( 3: 3 )
       P2 = PATH( 2: 3 )
       SORD = LSAME( C1, 'S' ) .OR. LSAME( C1, 'D' )
       CORZ = LSAME( C1, 'C' ) .OR. LSAME( C1, 'Z' )
-      IF( .NOT.( SORD .OR. CORZ ) )
-     $   RETURN
+      IF( .NOT.( SORD .OR. CORZ ) ) RETURN
 *
       IF( LSAMEN( 2, P2, 'GE' ) ) THEN
 *
@@ -82,8 +80,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 *
-      ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' )
-     $         .OR. LSAMEN( 2, P2, 'PS' ) ) THEN
+      ELSE IF( LSAMEN( 2, P2, 'PO' ) .OR. LSAMEN( 2, P2, 'PP' ) .OR. LSAMEN( 2, P2, 'PS' ) ) THEN
 *
 *        PO: Positive definite full
 *        PS: Positive definite full
@@ -220,9 +217,7 @@
          WRITE( IOUNIT, FMT = 9976 )6
          WRITE( IOUNIT, FMT = '( '' Messages:'' )' )
 
-
-      ELSE IF( LSAMEN( 2, P2, 'HE' ) .OR.
-     $         LSAMEN( 2, P2, 'HP' ) ) THEN
+       ELSE IF( LSAMEN( 2, P2, 'HE' ) .OR. LSAMEN( 2, P2, 'HP' ) ) THEN
 *
 *        HE: Hermitian indefinite full
 *            with partial (Bunch-Kaufman) pivoting algorithm

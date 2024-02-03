@@ -8,8 +8,7 @@
       INTEGER            INFO, LDA, M, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), D( * ), E( * ), TAUP( * ),
-     $                   TAUQ( * ), WORK( * )
+      REAL               A( LDA, * ), D( * ), E( * ), TAUP( * ), TAUQ( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -52,16 +51,13 @@
 *
 *           Generate elementary reflector H(i) to annihilate A(i+1:m,i)
 *
-            CALL SLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1,
-     $                   TAUQ( I ) )
+            CALL SLARFG( M-I+1, A( I, I ), A( MIN( I+1, M ), I ), 1, TAUQ( I ) )
             D( I ) = A( I, I )
             A( I, I ) = ONE
 *
 *           Apply H(i) to A(i:m,i+1:n) from the left
 *
-            IF( I.LT.N )
-     $         CALL SLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ),
-     $                     A( I, I+1 ), LDA, WORK )
+            IF( I.LT.N ) CALL SLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAUQ( I ), A( I, I+1 ), LDA, WORK )
             A( I, I ) = D( I )
 *
             IF( I.LT.N ) THEN
@@ -69,15 +65,13 @@
 *              Generate elementary reflector G(i) to annihilate
 *              A(i,i+2:n)
 *
-               CALL SLARFG( N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ),
-     $                      LDA, TAUP( I ) )
+               CALL SLARFG( N-I, A( I, I+1 ), A( I, MIN( I+2, N ) ), LDA, TAUP( I ) )
                E( I ) = A( I, I+1 )
                A( I, I+1 ) = ONE
 *
 *              Apply G(i) to A(i+1:m,i+1:n) from the right
 *
-               CALL SLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA,
-     $                     TAUP( I ), A( I+1, I+1 ), LDA, WORK )
+               CALL SLARF( 'Right', M-I, N-I, A( I, I+1 ), LDA, TAUP( I ), A( I+1, I+1 ), LDA, WORK )
                A( I, I+1 ) = E( I )
             ELSE
                TAUP( I ) = ZERO
@@ -91,16 +85,13 @@
 *
 *           Generate elementary reflector G(i) to annihilate A(i,i+1:n)
 *
-            CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA,
-     $                   TAUP( I ) )
+            CALL SLARFG( N-I+1, A( I, I ), A( I, MIN( I+1, N ) ), LDA, TAUP( I ) )
             D( I ) = A( I, I )
             A( I, I ) = ONE
 *
 *           Apply G(i) to A(i+1:m,i:n) from the right
 *
-            IF( I.LT.M )
-     $         CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA,
-     $                     TAUP( I ), A( I+1, I ), LDA, WORK )
+            IF( I.LT.M ) CALL SLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK )
             A( I, I ) = D( I )
 *
             IF( I.LT.M ) THEN
@@ -108,15 +99,13 @@
 *              Generate elementary reflector H(i) to annihilate
 *              A(i+2:m,i)
 *
-               CALL SLARFG( M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1,
-     $                      TAUQ( I ) )
+               CALL SLARFG( M-I, A( I+1, I ), A( MIN( I+2, M ), I ), 1, TAUQ( I ) )
                E( I ) = A( I+1, I )
                A( I+1, I ) = ONE
 *
 *              Apply H(i) to A(i+1:m,i+1:n) from the left
 *
-               CALL SLARF( 'Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ),
-     $                     A( I+1, I+1 ), LDA, WORK )
+               CALL SLARF( 'Left', M-I, N-I, A( I+1, I ), 1, TAUQ( I ), A( I+1, I+1 ), LDA, WORK )
                A( I+1, I ) = E( I )
             ELSE
                TAUQ( I ) = ZERO

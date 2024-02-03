@@ -1,7 +1,4 @@
-      SUBROUTINE SLARRE( RANGE, N, VL, VU, IL, IU, D, E, E2,
-     $                    RTOL1, RTOL2, SPLTOL, NSPLIT, ISPLIT, M,
-     $                    W, WERR, WGAP, IBLOCK, INDEXW, GERS, PIVMIN,
-     $                    WORK, IWORK, INFO )
+      SUBROUTINE SLARRE( RANGE, N, VL, VU, IL, IU, D, E, E2, RTOL1, RTOL2, SPLTOL, NSPLIT, ISPLIT, M, W, WERR, WGAP, IBLOCK, INDEXW, GERS, PIVMIN, WORK, IWORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -13,36 +10,19 @@
       REAL               PIVMIN, RTOL1, RTOL2, SPLTOL, VL, VU
 *     ..
 *     .. Array Arguments ..
-      INTEGER            IBLOCK( * ), ISPLIT( * ), IWORK( * ),
-     $                   INDEXW( * )
-      REAL               D( * ), E( * ), E2( * ), GERS( * ),
-     $                   W( * ),WERR( * ), WGAP( * ), WORK( * )
+      INTEGER            IBLOCK( * ), ISPLIT( * ), IWORK( * ), INDEXW( * )       REAL               D( * ), E( * ), E2( * ), GERS( * ), W( * ),WERR( * ), WGAP( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
-      REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD,
-     $                   MAXGROWTH, ONE, PERT, TWO, ZERO
-      PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0,
-     $                     TWO = 2.0E0, FOUR=4.0E0,
-     $                     HNDRD = 100.0E0,
-     $                     PERT = 4.0E0,
-     $                     HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF,
-     $                     MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
+      REAL               FAC, FOUR, FOURTH, FUDGE, HALF, HNDRD, MAXGROWTH, ONE, PERT, TWO, ZERO       PARAMETER          ( ZERO = 0.0E0, ONE = 1.0E0, TWO = 2.0E0, FOUR=4.0E0, HNDRD = 100.0E0, PERT = 4.0E0, HALF = ONE/TWO, FOURTH = ONE/FOUR, FAC= HALF, MAXGROWTH = 64.0E0, FUDGE = 2.0E0 )
       INTEGER            MAXTRY, ALLRNG, INDRNG, VALRNG
-      PARAMETER          ( MAXTRY = 6, ALLRNG = 1, INDRNG = 2,
-     $                     VALRNG = 3 )
+      PARAMETER          ( MAXTRY = 6, ALLRNG = 1, INDRNG = 2, VALRNG = 3 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FORCEB, NOREP, USEDQD
-      INTEGER            CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO,
-     $                   IN, INDL, INDU, IRANGE, J, JBLK, MB, MM,
-     $                   WBEGIN, WEND
-      REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS,
-     $                   EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL,
-     $                   RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM,
-     $                   TAU, TMP, TMP1
+      INTEGER            CNT, CNT1, CNT2, I, IBEGIN, IDUM, IEND, IINFO, IN, INDL, INDU, IRANGE, J, JBLK, MB, MM, WBEGIN, WEND       REAL               AVGAP, BSRTOL, CLWDTH, DMAX, DPIVOT, EABS, EMAX, EOLD, EPS, GL, GU, ISLEFT, ISRGHT, RTL, RTOL, S1, S2, SAFMIN, SGNDEF, SIGMA, SPDIAM, TAU, TMP, TMP1
 
 
 *     ..
@@ -56,8 +36,7 @@
 
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SCOPY, SLARNV, SLARRA, SLARRB, SLARRC, SLARRD,
-     $                   SLASQ2, SLARRK
+      EXTERNAL           SCOPY, SLARNV, SLARRA, SLARRB, SLARRC, SLARRD, SLASQ2, SLARRK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX, MIN
@@ -100,9 +79,7 @@
 
 *     Treat case of 1x1 matrix for quick return
       IF( N.EQ.1 ) THEN
-         IF( (IRANGE.EQ.ALLRNG).OR.
-     $       ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR.
-     $       ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
+         IF( (IRANGE.EQ.ALLRNG).OR. ((IRANGE.EQ.VALRNG).AND.(D(1).GT.VL).AND.(D(1).LE.VU)).OR. ((IRANGE.EQ.INDRNG).AND.(IL.EQ.1).AND.(IU.EQ.1)) ) THEN
             M = 1
             W(1) = D(1)
 *           The computation error of the eigenvalue is zero
@@ -148,8 +125,7 @@
       SPDIAM = GU - GL
 
 *     Compute splitting points
-      CALL SLARRA( N, D, E, E2, SPLTOL, SPDIAM,
-     $                    NSPLIT, ISPLIT, IINFO )
+      CALL SLARRA( N, D, E, E2, SPLTOL, SPDIAM, NSPLIT, ISPLIT, IINFO )
 
 *     Can force use of bisection instead of faster DQDS.
 *     Option left in the code for future multisection work.
@@ -170,10 +146,7 @@
 *        An interval [LEFT,RIGHT] has converged if
 *        RIGHT-LEFT.LT.RTOL*MAX(ABS(LEFT),ABS(RIGHT))
 *        SLARRD needs a WORK of size 4*N, IWORK of size 3*N
-         CALL SLARRD( RANGE, 'B', N, VL, VU, IL, IU, GERS,
-     $                    BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT,
-     $                    MM, W, WERR, VL, VU, IBLOCK, INDEXW,
-     $                    WORK, IWORK, IINFO )
+         CALL SLARRD( RANGE, 'B', N, VL, VU, IL, IU, GERS, BSRTOL, D, E, E2, PIVMIN, NSPLIT, ISPLIT, MM, W, WERR, VL, VU, IBLOCK, INDEXW, WORK, IWORK, IINFO )
          IF( IINFO.NE.0 ) THEN
             INFO = -1
             RETURN
@@ -198,10 +171,7 @@
 
 *        1 X 1 block
          IF( IN.EQ.1 ) THEN
-            IF( (IRANGE.EQ.ALLRNG).OR.( (IRANGE.EQ.VALRNG).AND.
-     $         ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) )
-     $        .OR. ( (IRANGE.EQ.INDRNG).AND.(IBLOCK(WBEGIN).EQ.JBLK))
-     $        ) THEN
+            IF( (IRANGE.EQ.ALLRNG).OR.( (IRANGE.EQ.VALRNG).AND. ( D( IBEGIN ).GT.VL ).AND.( D( IBEGIN ).LE.VU ) ) .OR. ( (IRANGE.EQ.INDRNG).AND.(IBLOCK(WBEGIN).EQ.JBLK)) ) THEN
                M = M + 1
                W( M ) = D( IBEGIN )
                WERR(M) = ZERO
@@ -260,11 +230,9 @@
 *              eigenvalues are different, we use SIGMA = E( IEND ).
                SIGMA = ZERO
                DO 30 I = WBEGIN, WEND - 1
-                  WGAP( I ) = MAX( ZERO,
-     $                        W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
+                  WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
  30            CONTINUE
-               WGAP( WEND ) = MAX( ZERO,
-     $                     VU - SIGMA - (W( WEND )+WERR( WEND )))
+               WGAP( WEND ) = MAX( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )))
 *              Find local index of the first and last desired evalue.
                INDL = INDEXW(WBEGIN)
                INDU = INDEXW( WEND )
@@ -273,32 +241,24 @@
          IF(( (IRANGE.EQ.ALLRNG) .AND. (.NOT. FORCEB) ).OR.USEDQD) THEN
 *           Case of DQDS
 *           Find approximations to the extremal eigenvalues of the block
-            CALL SLARRK( IN, 1, GL, GU, D(IBEGIN),
-     $               E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
+            CALL SLARRK( IN, 1, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = -1
                RETURN
             ENDIF
-            ISLEFT = MAX(GL, TMP - TMP1
-     $               - HNDRD * EPS* ABS(TMP - TMP1))
-
-            CALL SLARRK( IN, IN, GL, GU, D(IBEGIN),
-     $               E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
+            ISLEFT = MAX(GL, TMP - TMP1 - HNDRD * EPS* ABS(TMP - TMP1))
+             CALL SLARRK( IN, IN, GL, GU, D(IBEGIN), E2(IBEGIN), PIVMIN, RTL, TMP, TMP1, IINFO )
             IF( IINFO.NE.0 ) THEN
                INFO = -1
                RETURN
             ENDIF
-            ISRGHT = MIN(GU, TMP + TMP1
-     $                 + HNDRD * EPS * ABS(TMP + TMP1))
+            ISRGHT = MIN(GU, TMP + TMP1 + HNDRD * EPS * ABS(TMP + TMP1))
 *           Improve the estimate of the spectral diameter
             SPDIAM = ISRGHT - ISLEFT
          ELSE
 *           Case of bisection
 *           Find approximations to the wanted extremal eigenvalues
-            ISLEFT = MAX(GL, W(WBEGIN) - WERR(WBEGIN)
-     $                  - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))
-            ISRGHT = MIN(GU,W(WEND) + WERR(WEND)
-     $                  + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)))
+            ISLEFT = MAX(GL, W(WBEGIN) - WERR(WBEGIN) - HNDRD * EPS*ABS(W(WBEGIN)- WERR(WBEGIN) ))             ISRGHT = MIN(GU,W(WEND) + WERR(WEND) + HNDRD * EPS * ABS(W(WEND)+ WERR(WEND)))
          ENDIF
 
 
@@ -338,8 +298,7 @@
 
 *        Compute the negcount at the 1/4 and 3/4 points
          IF(MB.GT.1) THEN
-            CALL SLARRC( 'T', IN, S1, S2, D(IBEGIN),
-     $                    E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO)
+            CALL SLARRC( 'T', IN, S1, S2, D(IBEGIN), E(IBEGIN), PIVMIN, CNT, CNT1, CNT2, IINFO)
          ENDIF
 
          IF(MB.EQ.1) THEN
@@ -438,11 +397,9 @@
                IF( IDUM.EQ.MAXTRY-1 ) THEN
                   IF( SGNDEF.EQ.ONE ) THEN
 *                    The fudged Gerschgorin shift should succeed
-                     SIGMA =
-     $                    GL - FUDGE*SPDIAM*EPS*N - FUDGE*TWO*PIVMIN
+                     SIGMA = GL - FUDGE*SPDIAM*EPS*N - FUDGE*TWO*PIVMIN
                   ELSE
-                     SIGMA =
-     $                    GU + FUDGE*SPDIAM*EPS*N + FUDGE*TWO*PIVMIN
+                     SIGMA = GU + FUDGE*SPDIAM*EPS*N + FUDGE*TWO*PIVMIN
                   END IF
                ELSE
                   SIGMA = SIGMA - SGNDEF * TAU
@@ -509,19 +466,14 @@
                WORK( I ) = D( I ) * E( I )**2
  135        CONTINUE
 *           use bisection to find EV from INDL to INDU
-            CALL SLARRB(IN, D(IBEGIN), WORK(IBEGIN),
-     $                  INDL, INDU, RTOL1, RTOL2, INDL-1,
-     $                  W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN),
-     $                  WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM,
-     $                  IN, IINFO )
+            CALL SLARRB(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO )
             IF( IINFO .NE. 0 ) THEN
                INFO = -4
                RETURN
             END IF
 *           SLARRB computes all gaps correctly except for the last one
 *           Record distance to VU/GU
-            WGAP( WEND ) = MAX( ZERO,
-     $           ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) )
+            WGAP( WEND ) = MAX( ZERO, ( VU-SIGMA ) - ( W( WEND ) + WERR( WEND ) ) )
             DO 138 I = INDL, INDU
                M = M + 1
                IBLOCK(M) = JBLK
@@ -586,11 +538,9 @@
  165        CONTINUE
             DO 166 I = M - MB + 1, M - 1
 *              compute the right gap between the intervals
-               WGAP( I ) = MAX( ZERO,
-     $                          W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
+               WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
  166        CONTINUE
-            WGAP( M ) = MAX( ZERO,
-     $           ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) )
+            WGAP( M ) = MAX( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) )
          END IF
 *        proceed with next block
          IBEGIN = IEND + 1

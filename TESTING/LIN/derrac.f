@@ -18,9 +18,7 @@
       INTEGER            I, INFO, ITER, J
 *     ..
 *     .. Local Arrays ..
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ),
-     $                   W( 2*NMAX ), X( NMAX )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX )
       DOUBLE PRECISION   WORK(NMAX*NMAX)
       REAL               SWORK(NMAX*NMAX)
 *     ..

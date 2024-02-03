@@ -19,8 +19,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LQUERY
-      INTEGER            I, IB, IINFO, IWS, J, KI, KK, L, LDWORK,
-     $                   LWKOPT, NB, NBMIN, NX
+      INTEGER            I, IB, IINFO, IWS, J, KI, KK, L, LDWORK, LWKOPT, NB, NBMIN, NX
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           XERBLA, ZLARFB, ZLARFT, ZUNGL2
@@ -112,9 +111,7 @@
 *
 *     Use unblocked code for the last or only block.
 *
-      IF( KK.LT.M )
-     $   CALL ZUNGL2( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA,
-     $                TAU( KK+1 ), WORK, IINFO )
+      IF( KK.LT.M ) CALL ZUNGL2( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO )
 *
       IF( KK.GT.0 ) THEN
 *
@@ -127,21 +124,16 @@
 *              Form the triangular factor of the block reflector
 *              H = H(i) H(i+1) . . . H(i+ib-1)
 *
-               CALL ZLARFT( 'Forward', 'Rowwise', N-I+1, IB, A( I, I ),
-     $                      LDA, TAU( I ), WORK, LDWORK )
+               CALL ZLARFT( 'Forward', 'Rowwise', N-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, LDWORK )
 *
 *              Apply H**H to A(i+ib:m,i:n) from the right
 *
-               CALL ZLARFB( 'Right', 'Conjugate transpose', 'Forward',
-     $                      'Rowwise', M-I-IB+1, N-I+1, IB, A( I, I ),
-     $                      LDA, WORK, LDWORK, A( I+IB, I ), LDA,
-     $                      WORK( IB+1 ), LDWORK )
+               CALL ZLARFB( 'Right', 'Conjugate transpose', 'Forward', 'Rowwise', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I+IB, I ), LDA, WORK( IB+1 ), LDWORK )
             END IF
 *
 *           Apply H**H to columns i:n of current block
 *
-            CALL ZUNGL2( IB, N-I+1, IB, A( I, I ), LDA, TAU( I ), WORK,
-     $                   IINFO )
+            CALL ZUNGL2( IB, N-I+1, IB, A( I, I ), LDA, TAU( I ), WORK, IINFO )
 *
 *           Set columns 1:i-1 of current block to zero
 *

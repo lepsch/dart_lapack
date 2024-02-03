@@ -1,5 +1,4 @@
-      SUBROUTINE ZLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, B,
-     $                   WORK, RWORK, INFO )
+      SUBROUTINE ZLATTR( IMAT, UPLO, TRANS, DIAG, ISEED, N, A, LDA, B, WORK, RWORK, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -26,9 +25,7 @@
       CHARACTER          DIST, TYPE
       CHARACTER*3        PATH
       INTEGER            I, IY, J, JCOUNT, KL, KU, MODE
-      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP,
-     $                   SFAC, SMLNUM, TEXP, TLEFT, TSCAL, ULP, UNFL, X,
-     $                   Y, Z
+      DOUBLE PRECISION   ANORM, BIGNUM, BNORM, BSCAL, C, CNDNUM, REXP, SFAC, SMLNUM, TEXP, TLEFT, TSCAL, ULP, UNFL, X, Y, Z
       COMPLEX*16         PLUS1, PLUS2, RA, RB, S, STAR1
 *     ..
 *     .. External Functions ..
@@ -39,8 +36,7 @@
       EXTERNAL           LSAME, IZAMAX, DLAMCH, DLARND, ZLARND
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4,
-     $                   ZLATMS, ZROT, ZROTG, ZSWAP
+      EXTERNAL           DLARNV, ZCOPY, ZDSCAL, ZLARNV, ZLATB4, ZLATMS, ZROT, ZROTG, ZSWAP
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, DBLE, DCMPLX, DCONJG, MAX, SQRT
@@ -62,25 +58,21 @@
 *
 *     Quick return if N.LE.0.
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Call ZLATB4 to set parameters for ZLATMS.
 *
       UPPER = LSAME( UPLO, 'U' )
       IF( UPPER ) THEN
-         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL ZLATB4( PATH, IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       ELSE
-         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE,
-     $                CNDNUM, DIST )
+         CALL ZLATB4( PATH, -IMAT, N, N, TYPE, KL, KU, ANORM, MODE, CNDNUM, DIST )
       END IF
 *
 *     IMAT <= 6:  Non-unit triangular matrix
 *
       IF( IMAT.LE.6 ) THEN
-         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM,
-     $                ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
+         CALL ZLATMS( N, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'No packing', A, LDA, WORK, INFO )
 *
 *     IMAT > 6:  Unit triangular matrix
 *     The diagonal is deliberately set to something other than 1.
@@ -216,8 +208,7 @@
          IF( UPPER ) THEN
             IF( N.GT.3 ) THEN
                CALL ZCOPY( N-3, WORK, 1, A( 2, 3 ), LDA+1 )
-               IF( N.GT.4 )
-     $            CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
+               IF( N.GT.4 ) CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 )
             END IF
             DO 100 J = 2, N - 1
                A( 1, J ) = Y
@@ -227,8 +218,7 @@
          ELSE
             IF( N.GT.3 ) THEN
                CALL ZCOPY( N-3, WORK, 1, A( 3, 2 ), LDA+1 )
-               IF( N.GT.4 )
-     $            CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
+               IF( N.GT.4 ) CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 )
             END IF
             DO 110 J = 2, N - 1
                A( J, 1 ) = Y
@@ -247,14 +237,11 @@
 *
 *              Multiply by [ c  s; -conjg(s)  c] on the left.
 *
-               IF( N.GT.J+1 )
-     $            CALL ZROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ),
-     $                       LDA, C, S )
+               IF( N.GT.J+1 ) CALL ZROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S )
 *
 *              Multiply by [-c -s;  conjg(s) -c] on the right.
 *
-               IF( J.GT.1 )
-     $            CALL ZROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
+               IF( J.GT.1 ) CALL ZROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S )
 *
 *              Negate A(J,J+1).
 *
@@ -269,15 +256,11 @@
 *
 *              Multiply by [ c -s;  conjg(s) c] on the right.
 *
-               IF( N.GT.J+1 )
-     $            CALL ZROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C,
-     $                       -S )
+               IF( N.GT.J+1 ) CALL ZROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S )
 *
 *              Multiply by [-c  s; -conjg(s) -c] on the left.
 *
-               IF( J.GT.1 )
-     $            CALL ZROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C,
-     $                       S )
+               IF( J.GT.1 ) CALL ZROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S )
 *
 *              Negate A(J+1,J).
 *
@@ -302,8 +285,7 @@
   140       CONTINUE
          ELSE
             DO 150 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZLARND( 5, ISEED )*TWO
   150       CONTINUE
          END IF
@@ -357,8 +339,7 @@
             A( N, N ) = SMLNUM*A( N, N )
          ELSE
             DO 190 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZLARND( 5, ISEED )
   190       CONTINUE
             A( 1, 1 ) = SMLNUM*A( 1, 1 )
@@ -382,8 +363,7 @@
                   A( J, J ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   210       CONTINUE
          ELSE
             JCOUNT = 1
@@ -397,8 +377,7 @@
                   A( J, J ) = ZLARND( 5, ISEED )
                END IF
                JCOUNT = JCOUNT + 1
-               IF( JCOUNT.GT.4 )
-     $            JCOUNT = 1
+               IF( JCOUNT.GT.4 ) JCOUNT = 1
   230       CONTINUE
          END IF
 *
@@ -432,8 +411,7 @@
                DO 260 I = 1, J - 2
                   A( I, J ) = 0.D0
   260          CONTINUE
-               IF( J.GT.1 )
-     $            A( J-1, J ) = DCMPLX( -ONE, -ONE )
+               IF( J.GT.1 ) A( J-1, J ) = DCMPLX( -ONE, -ONE )
                A( J, J ) = TSCAL*ZLARND( 5, ISEED )
   270       CONTINUE
             B( N ) = DCMPLX( ONE, ONE )
@@ -442,8 +420,7 @@
                DO 280 I = J + 2, N
                   A( I, J ) = 0.D0
   280          CONTINUE
-               IF( J.LT.N )
-     $            A( J+1, J ) = DCMPLX( -ONE, -ONE )
+               IF( J.LT.N ) A( J+1, J ) = DCMPLX( -ONE, -ONE )
                A( J, J ) = TSCAL*ZLARND( 5, ISEED )
   290       CONTINUE
             B( 1 ) = DCMPLX( ONE, ONE )
@@ -465,8 +442,7 @@
   300       CONTINUE
          ELSE
             DO 310 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
                IF( J.NE.IY ) THEN
                   A( J, J ) = ZLARND( 5, ISEED )*TWO
                ELSE
@@ -529,8 +505,7 @@
   360       CONTINUE
          ELSE
             DO 370 J = 1, N
-               IF( J.LT.N )
-     $            CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
+               IF( J.LT.N ) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) )
                A( J, J ) = ZERO
   370       CONTINUE
          END IF
@@ -578,13 +553,11 @@
       IF( .NOT.LSAME( TRANS, 'N' ) ) THEN
          IF( UPPER ) THEN
             DO 420 J = 1, N / 2
-               CALL ZSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ),
-     $                     -1 )
+               CALL ZSWAP( N-2*J+1, A( J, J ), LDA, A( J+1, N-J+1 ), -1 )
   420       CONTINUE
          ELSE
             DO 430 J = 1, N / 2
-               CALL ZSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ),
-     $                     -LDA )
+               CALL ZSWAP( N-2*J+1, A( J, J ), 1, A( N-J+1, J+1 ), -LDA )
   430       CONTINUE
          END IF
       END IF

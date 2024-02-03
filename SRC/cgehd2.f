@@ -56,13 +56,11 @@
 *
 *        Apply H(i) to A(1:ihi,i+1:ihi) from the right
 *
-         CALL CLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ),
-     $               A( 1, I+1 ), LDA, WORK )
+         CALL CLARF( 'Right', IHI, IHI-I, A( I+1, I ), 1, TAU( I ), A( 1, I+1 ), LDA, WORK )
 *
 *        Apply H(i)**H to A(i+1:ihi,i+1:n) from the left
 *
-         CALL CLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1,
-     $               CONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK )
+         CALL CLARF( 'Left', IHI-I, N-I, A( I+1, I ), 1, CONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK )
 *
          A( I+1, I ) = ALPHA
    10 CONTINUE

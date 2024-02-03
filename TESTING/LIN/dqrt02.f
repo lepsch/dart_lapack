@@ -1,5 +1,4 @@
-      SUBROUTINE DQRT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK,
-     $                   RWORK, RESULT )
+      SUBROUTINE DQRT02( M, N, K, A, AF, Q, R, LDA, TAU, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,9 +8,7 @@
       INTEGER            K, LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), Q( LDA, * ),
-     $                   R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), Q( LDA, * ), R( LDA, * ), RESULT( * ), RWORK( * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -63,8 +60,7 @@
 *
 *     Compute R(1:n,1:k) - Q(1:m,1:n)' * A(1:m,1:k)
 *
-      CALL DGEMM( 'Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A,
-     $            LDA, ONE, R, LDA )
+      CALL DGEMM( 'Transpose', 'No transpose', N, K, M, -ONE, Q, LDA, A, LDA, ONE, R, LDA )
 *
 *     Compute norm( R - Q'*A ) / ( M * norm(A) * EPS ) .
 *
@@ -79,8 +75,7 @@
 *     Compute I - Q'*Q
 *
       CALL DLASET( 'Full', N, N, ZERO, ONE, R, LDA )
-      CALL DSYRK( 'Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL DSYRK( 'Upper', 'Transpose', N, M, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( M * EPS ) .
 *

@@ -5,43 +5,27 @@
       CHARACTER*3        PATH
 
       INTEGER            NMAX, NPARAMS, NERRBND, NTESTS, KL, KU
-      PARAMETER          (NMAX = 6, NPARAMS = 2, NERRBND = 3,
-     $                    NTESTS = 6)
+      PARAMETER          (NMAX = 6, NPARAMS = 2, NERRBND = 3, NTESTS = 6)
 
 *     .. Local Scalars ..
-      INTEGER            N, NRHS, INFO, I ,J, k, NFAIL, LDA,
-     $                   N_AUX_TESTS, LDAB, LDAFB
+      INTEGER            N, NRHS, INFO, I ,J, k, NFAIL, LDA, N_AUX_TESTS, LDAB, LDAFB
       CHARACTER          FACT, TRANS, UPLO, EQUED
       CHARACTER*2        C2
       CHARACTER(3)       NGUAR, CGUAR
       LOGICAL            printed_guide
-      REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND,
-     $                   RNORM, RINORM, SUMR, SUMRI, EPS,
-     $                   BERR(NMAX), RPVGRW, ORCOND,
-     $                   CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND,
-     $                   CWISE_RCOND, NWISE_RCOND,
-     $                   CONDTHRESH, ERRTHRESH
+      REAL               NCOND, CCOND, M, NORMDIF, NORMT, RCOND, RNORM, RINORM, SUMR, SUMRI, EPS, BERR(NMAX), RPVGRW, ORCOND, CWISE_ERR, NWISE_ERR, CWISE_BND, NWISE_BND, CWISE_RCOND, NWISE_RCOND, CONDTHRESH, ERRTHRESH
       COMPLEX            ZDUM
 
 *     .. Local Arrays ..
-      REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS),
-     $                   S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX),
-     $                   DIFF(NMAX, NMAX),
-     $                   ERRBND_N(NMAX*3), ERRBND_C(NMAX*3)
+      REAL               TSTRAT(NTESTS), RINV(NMAX), PARAMS(NPARAMS), S(NMAX), R(NMAX),C(NMAX),RWORK(3*NMAX), DIFF(NMAX, NMAX), ERRBND_N(NMAX*3), ERRBND_C(NMAX*3)
       INTEGER            IPIV(NMAX)
-      COMPLEX            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX),
-     $                   WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX),
-     $                   ACOPY(NMAX, NMAX),
-     $                   AB( (NMAX-1)+(NMAX-1)+1, NMAX ),
-     $                   ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ),
-     $                   AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX )
+      COMPLEX            A(NMAX,NMAX),INVHILB(NMAX,NMAX),X(NMAX,NMAX), WORK(NMAX*3*5), AF(NMAX, NMAX),B(NMAX, NMAX), ACOPY(NMAX, NMAX), AB( (NMAX-1)+(NMAX-1)+1, NMAX ), ABCOPY( (NMAX-1)+(NMAX-1)+1, NMAX ), AFB( 2*(NMAX-1)+(NMAX-1)+1, NMAX )
 
 *     .. External Functions ..
       REAL               SLAMCH
 
 *     .. External Subroutines ..
-      EXTERNAL           CLAHILB, CGESVXX, CSYSVXX, CPOSVXX,
-     $                   CGBSVXX, CLACPY, LSAMEN
+      EXTERNAL           CLAHILB, CGESVXX, CSYSVXX, CPOSVXX, CGBSVXX, CLACPY, LSAMEN
       LOGICAL            LSAMEN
 
 *     .. Intrinsic Functions ..
@@ -88,8 +72,7 @@
 
 *        Generate the Hilbert matrix, its inverse, and the
 *        right hand side, all scaled by the LCM(1,..,2N-1).
-         CALL CLAHILB(N, N, A, LDA, INVHILB, LDA, B,
-     $        LDA, WORK, INFO, PATH)
+         CALL CLAHILB(N, N, A, LDA, INVHILB, LDA, B, LDA, WORK, INFO, PATH)
 
 *        Copy A into ACOPY.
          CALL CLACPY('ALL', N, N, A, NMAX, ACOPY, NMAX)
@@ -116,31 +99,15 @@
 
 *        Call C**SVXX with default PARAMS and N_ERR_BND = 3.
          IF ( LSAMEN( 2, C2, 'SY' ) ) THEN
-            CALL CSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           IPIV, EQUED, S, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, RWORK, INFO)
+            CALL CSYSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'PO' ) ) THEN
-            CALL CPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           EQUED, S, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, RWORK, INFO)
+            CALL CPOSVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'HE' ) ) THEN
-            CALL CHESVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           IPIV, EQUED, S, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, RWORK, INFO)
+            CALL CHESVXX(FACT, UPLO, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, S, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
          ELSE IF ( LSAMEN( 2, C2, 'GB' ) ) THEN
-            CALL CGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY,
-     $           LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B,
-     $           LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND,
-     $           ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK,
-     $           INFO)
+            CALL CGBSVXX(FACT, TRANS, N, KL, KU, NRHS, ABCOPY, LDAB, AFB, LDAFB, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
          ELSE
-            CALL CGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA,
-     $           IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND,
-     $           RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS,
-     $           PARAMS, WORK, RWORK, INFO)
+            CALL CGESVXX(FACT, TRANS, N, NRHS, ACOPY, LDA, AF, LDA, IPIV, EQUED, R, C, B, LDA, X, LDA, ORCOND, RPVGRW, BERR, NERRBND, ERRBND_N, ERRBND_C, NPARAMS, PARAMS, WORK, RWORK, INFO)
          END IF
 
          N_AUX_TESTS = N_AUX_TESTS + 1
@@ -170,8 +137,7 @@
 *        Calculating the RCOND
          RNORM = 0
          RINORM = 0
-         IF ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) .OR.
-     $        LSAMEN( 2, C2, 'HE' ) ) THEN
+         IF ( LSAMEN( 2, C2, 'PO' ) .OR. LSAMEN( 2, C2, 'SY' ) .OR. LSAMEN( 2, C2, 'HE' ) ) THEN
             DO I = 1, N
                SUMR = 0
                SUMRI = 0
@@ -182,8 +148,7 @@
                RNORM = MAX(RNORM,SUMR)
                RINORM = MAX(RINORM,SUMRI)
             END DO
-         ELSE IF ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) )
-     $           THEN
+         ELSE IF ( LSAMEN( 2, C2, 'GE' ) .OR. LSAMEN( 2, C2, 'GB' ) ) THEN
             DO I = 1, N
                SUMR = 0
                SUMRI = 0
@@ -234,8 +199,7 @@
                NORMT = MAX(CABS1(INVHILB(I, K)), NORMT)
                NORMDIF = MAX(CABS1(X(I,K) - INVHILB(I,K)), NORMDIF)
                IF (INVHILB(I,K) .NE. 0.0) THEN
-                  CWISE_ERR = MAX(CABS1(X(I,K) - INVHILB(I,K))
-     $                            /CABS1(INVHILB(I,K)), CWISE_ERR)
+                  CWISE_ERR = MAX(CABS1(X(I,K) - INVHILB(I,K)) /CABS1(INVHILB(I,K)), CWISE_ERR)
                ELSE IF (X(I, K) .NE. 0.0) THEN
                   CWISE_ERR = SLAMCH('OVERFLOW')
                END IF
@@ -260,8 +224,7 @@
             DO I = 1, N
                SUMRI = 0.0
                DO J = 1, N
-                  SUMRI = SUMRI
-     $                 + CABS1(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
+                  SUMRI = SUMRI + CABS1(INVHILB(I, J) * RINV(J) / INVHILB(I, K))
                END DO
                RINORM = MAX(RINORM, SUMRI)
             END DO
@@ -332,16 +295,13 @@
 
 !     Condition number tests
             TSTRAT(4) = RCOND / ORCOND
-            IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0)
-     $         TSTRAT(4) = 1.0 / TSTRAT(4)
+            IF (RCOND .GE. CONDTHRESH .AND. TSTRAT(4) .LT. 1.0) TSTRAT(4) = 1.0 / TSTRAT(4)
 
             TSTRAT(5) = NCOND / NWISE_RCOND
-            IF (NCOND .GE. CONDTHRESH .AND. TSTRAT(5) .LT. 1.0)
-     $         TSTRAT(5) = 1.0 / TSTRAT(5)
+            IF (NCOND .GE. CONDTHRESH .AND. TSTRAT(5) .LT. 1.0) TSTRAT(5) = 1.0 / TSTRAT(5)
 
             TSTRAT(6) = CCOND / NWISE_RCOND
-            IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0)
-     $         TSTRAT(6) = 1.0 / TSTRAT(6)
+            IF (CCOND .GE. CONDTHRESH .AND. TSTRAT(6) .LT. 1.0) TSTRAT(6) = 1.0 / TSTRAT(6)
 
             DO I = 1, NTESTS
                IF (TSTRAT(I) .GT. THRESH) THEN

@@ -21,13 +21,11 @@
       PARAMETER          ( LDT = 10, LWORK = 2*LDT*LDT )
 *     ..
 *     .. Local Scalars ..
-      INTEGER            I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1,
-     $                   ILST2, ILSTSV, INFO1, INFO2, J, LOC, N
+      INTEGER            I, IFST, IFST1, IFST2, IFSTSV, ILST, ILST1, ILST2, ILSTSV, INFO1, INFO2, J, LOC, N
       REAL               EPS, RES
 *     ..
 *     .. Local Arrays ..
-      REAL               Q( LDT, LDT ), RESULT( 2 ), T1( LDT, LDT ),
-     $                   T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
+      REAL               Q( LDT, LDT ), RESULT( 2 ), T1( LDT, LDT ), T2( LDT, LDT ), TMP( LDT, LDT ), WORK( LWORK )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH
@@ -53,8 +51,7 @@
 *
    10 CONTINUE
       READ( NIN, FMT = * )N, IFST, ILST
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
       KNT = KNT + 1
       DO 20 I = 1, N
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
@@ -75,10 +72,7 @@
       CALL STREXC( 'N', N, T1, LDT, Q, LDT, IFST1, ILST1, WORK, INFO1 )
       DO 40 I = 1, N
          DO 30 J = 1, N
-            IF( I.EQ.J .AND. Q( I, J ).NE.ONE )
-     $         RES = RES + ONE / EPS
-            IF( I.NE.J .AND. Q( I, J ).NE.ZERO )
-     $         RES = RES + ONE / EPS
+            IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS
    30    CONTINUE
    40 CONTINUE
 *
@@ -91,32 +85,22 @@
 *
       DO 60 I = 1, N
          DO 50 J = 1, N
-            IF( T1( I, J ).NE.T2( I, J ) )
-     $         RES = RES + ONE / EPS
+            IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
    50    CONTINUE
    60 CONTINUE
-      IF( IFST1.NE.IFST2 )
-     $   RES = RES + ONE / EPS
-      IF( ILST1.NE.ILST2 )
-     $   RES = RES + ONE / EPS
-      IF( INFO1.NE.INFO2 )
-     $   RES = RES + ONE / EPS
+      IF( IFST1.NE.IFST2 ) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS
 *
 *     Test for successful reordering of T2
 *
       IF( INFO2.NE.0 ) THEN
          NINFO( INFO2 ) = NINFO( INFO2 ) + 1
       ELSE
-         IF( ABS( IFST2-IFSTSV ).GT.1 )
-     $      RES = RES + ONE / EPS
-         IF( ABS( ILST2-ILSTSV ).GT.1 )
-     $      RES = RES + ONE / EPS
+         IF( ABS( IFST2-IFSTSV ).GT.1 ) RES = RES + ONE / EPS          IF( ABS( ILST2-ILSTSV ).GT.1 ) RES = RES + ONE / EPS
       END IF
 *
 *     Test for small residual, and orthogonality of Q
 *
-      CALL SHST01( N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK,
-     $             RESULT )
+      CALL SHST01( N, 1, N, TMP, LDT, T2, LDT, Q, LDT, WORK, LWORK, RESULT )
       RES = RES + RESULT( 1 ) + RESULT( 2 )
 *
 *     Test for T2 being in Schur form
@@ -127,14 +111,9 @@
 *
 *        2 by 2 block
 *
-         IF( T2( LOC, LOC+1 ).EQ.ZERO .OR. T2( LOC, LOC ).NE.
-     $       T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ).EQ.
-     $       SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
+         IF( T2( LOC, LOC+1 ).EQ.ZERO .OR. T2( LOC, LOC ).NE. T2( LOC+1, LOC+1 ) .OR. SIGN( ONE, T2( LOC, LOC+1 ) ).EQ. SIGN( ONE, T2( LOC+1, LOC ) ) )RES = RES + ONE / EPS
          DO 80 I = LOC + 2, N
-            IF( T2( I, LOC ).NE.ZERO )
-     $         RES = RES + ONE / RES
-            IF( T2( I, LOC+1 ).NE.ZERO )
-     $         RES = RES + ONE / RES
+            IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES             IF( T2( I, LOC+1 ).NE.ZERO ) RES = RES + ONE / RES
    80    CONTINUE
          LOC = LOC + 2
       ELSE
@@ -142,13 +121,11 @@
 *        1 by 1 block
 *
          DO 90 I = LOC + 1, N
-            IF( T2( I, LOC ).NE.ZERO )
-     $         RES = RES + ONE / RES
+            IF( T2( I, LOC ).NE.ZERO ) RES = RES + ONE / RES
    90    CONTINUE
          LOC = LOC + 1
       END IF
-      IF( LOC.LT.N )
-     $   GO TO 70
+      IF( LOC.LT.N ) GO TO 70
       IF( RES.GT.RMAX ) THEN
          RMAX = RES
          LMAX = KNT

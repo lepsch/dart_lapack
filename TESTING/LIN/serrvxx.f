@@ -25,22 +25,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX ), IW( NMAX )
-      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ),
-     $                   R2( NMAX ), W( 2*NMAX ), X( NMAX ),
-     $                   ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ),
-     $                   PARAMS( 1 )
+      REAL               A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), C( NMAX ), E( NMAX ), R( NMAX ), R1( NMAX ), R2( NMAX ), W( 2*NMAX ), X( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CHKXER, SGBSV, SGBSVX, SGESV, SGESVX, SGTSV,
-     $                   SGTSVX, SPBSV, SPBSVX, SPOSV, SPOSVX, SPPSV,
-     $                   SPPSVX, SPTSV, SPTSVX, SSPSV, SSPSVX, SSYSV,
-     $                   SSYSV_RK, SSYSV_ROOK, SSYSVX, SGESVXX, SSYSVXX,
-     $                   SPOSVXX, SGBSVXX
+      EXTERNAL           CHKXER, SGBSV, SGBSVX, SGESV, SGESVX, SGTSV, SGTSVX, SPBSV, SPBSVX, SPOSV, SPOSVX, SPPSV, SPPSVX, SPTSV, SPTSVX, SSPSV, SSPSVX, SSYSV, SSYSV_RK, SSYSV_ROOK, SSYSVX, SGESVXX, SSYSVXX, SPOSVXX, SGBSVXX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -102,51 +94,40 @@
 *
          SRNAMT = 'SGESVX'
          INFOT = 1
-         CALL SGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = '/'
-         CALL SGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ = 'R'
-         CALL SGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = 'C'
-         CALL SGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1,
-     $                X, 2, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGESVX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGESVX', INFOT, NOUT, LERR, OK )
 *
 *        SGESVXX
@@ -155,62 +136,40 @@
          NPARAMS = 1
          SRNAMT = 'SGESVXX'
          INFOT = 1
-         CALL SGESVXX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( '/', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGESVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SGESVXX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SGESVXX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SGESVXX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', 2, 1, A, 1, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2,
-     $                X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 1, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = '/'
-         CALL SGESVXX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'F', 'N', 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ = 'R'
-         CALL SGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = 'C'
-         CALL SGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'F', 'N', 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1,
-     $                X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2,
-     $                X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SGESVXX( 'N', 'N', 2, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGESVXX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'GB' ) ) THEN
@@ -241,59 +200,46 @@
 *
          SRNAMT = 'SGBSVX'
          INFOT = 1
-         CALL SGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', '/', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', -1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 1, -1, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 1, 0, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 0, 0, 0, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 1, 1, 1, 0, A, 2, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 1, 1, 1, 0, A, 3, AF, 3, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = '/'
-         CALL SGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'F', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'R'
-         CALL SGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
          EQ = 'C'
-         CALL SGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'F', 'N', 1, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL SGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL SGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGBSVX( 'N', 'N', 2, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGBSVX', INFOT, NOUT, LERR, OK )
 *
 *        SGBSVXX
@@ -302,85 +248,46 @@
          NPARAMS = 1
          SRNAMT = 'SGBSVXX'
          INFOT = 1
-         CALL SGBSVXX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( '/', 'N', 0, 0, 0, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGBSVXX( 'N', '/', 0, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', '/', 0, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SGBSVXX( 'N', 'N', -1, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', -1, 1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SGBSVXX( 'N', 'N', 2, -1, 1, 0, A, 1, AF, 1, IP, EQ,
-     $                R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, -1, 1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SGBSVXX( 'N', 'N', 2, 1, -1, 0, A, 1, AF, 1, IP, EQ,
-     $                R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, 1, -1, 0, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SGBSVXX( 'N', 'N', 0, 1, 1, -1, A, 1, AF, 1, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 0, 1, 1, -1, A, 1, AF, 1, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 2, AF, 2, IP, EQ, R, C,
-     $                B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 2, AF, 2, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, EQ, R, C,
-     $                B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 3, IP, EQ, R, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 12
          EQ = '/'
-         CALL SGBSVXX( 'F', 'N', 0, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'F', 'N', 0, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'R'
-         CALL SGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 14
          EQ = 'C'
-         CALL SGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'F', 'N', 1, 1, 1, 0, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C,
-     $                B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C,
-     $                B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS,
-     $                ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW,
-     $                INFO )
+         CALL SGBSVXX( 'N', 'N', 2, 1, 1, 1, A, 3, AF, 4, IP, EQ, R, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SGBSVXX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'GT' ) ) THEN
@@ -389,12 +296,10 @@
 *
          SRNAMT = 'SGTSV '
          INFOT = 1
-         CALL SGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1,
-     $               INFO )
+         CALL SGTSV( -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'SGTSV ', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1,
-     $               INFO )
+         CALL SGTSV( 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
          CALL CHKXER( 'SGTSV ', INFOT, NOUT, LERR, OK )
          INFOT = 7
          CALL SGTSV( 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), B, 1, INFO )
@@ -404,34 +309,22 @@
 *
          SRNAMT = 'SGTSVX'
          INFOT = 1
-         CALL SGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( '/', 'N', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( 'N', '/', 0, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( 'N', 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( 'N', 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 16
-         CALL SGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ),
-     $                AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ),
-     $                IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
+         CALL SGTSVX( 'N', 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), AF( 1, 1 ), AF( 1, 2 ), AF( 1, 3 ), AF( 1, 4 ), IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SGTSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PO' ) ) THEN
@@ -459,46 +352,36 @@
 *
          SRNAMT = 'SPOSVX'
          INFOT = 1
-         CALL SPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
          EQ = '/'
-         CALL SPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = 'Y'
-         CALL SPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPOSVX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPOSVX', INFOT, NOUT, LERR, OK )
 *
 *        SPOSVXX
@@ -507,56 +390,36 @@
          NPARAMS = 1
          SRNAMT = 'SPOSVXX'
          INFOT = 1
-         CALL SPOSVXX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( '/', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPOSVXX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', '/', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPOSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SPOSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SPOSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 9
          EQ = '/'
-         CALL SPOSVXX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'F', 'U', 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = 'Y'
-         CALL SPOSVXX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'F', 'U', 1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1,
-     $                RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $                ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SPOSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, EQ, C, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SPOSVXX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PP' ) ) THEN
@@ -581,38 +444,30 @@
 *
          SRNAMT = 'SPPSVX'
          INFOT = 1
-         CALL SPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( '/', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'N', '/', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'N', 'U', -1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'N', 'U', 0, -1, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 7
          EQ = '/'
-         CALL SPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'F', 'U', 0, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
          EQ = 'Y'
-         CALL SPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'F', 'U', 1, 0, A, AF, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL SPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND,
-     $                R1, R2, W, IW, INFO )
+         CALL SPPSVX( 'N', 'U', 2, 0, A, AF, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPPSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PB' ) ) THEN
@@ -643,50 +498,39 @@
 *
          SRNAMT = 'SPBSVX'
          INFOT = 1
-         CALL SPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( '/', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', '/', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', -1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 1, -1, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL SPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X,
-     $                1, RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 0, 0, -1, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL SPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 1, 1, 0, A, 1, AF, 2, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL SPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 1, 1, 0, A, 2, AF, 1, EQ, C, B, 2, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 10
          EQ = '/'
-         CALL SPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'F', 'U', 0, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ = 'Y'
-         CALL SPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'F', 'U', 1, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL SPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL SPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1,
-     $                RCOND, R1, R2, W, IW, INFO )
+         CALL SPBSVX( 'N', 'U', 2, 0, 0, A, 1, AF, 1, EQ, C, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SPBSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'PT' ) ) THEN
@@ -708,24 +552,19 @@
 *
          SRNAMT = 'SPTSVX'
          INFOT = 1
-         CALL SPTSVX( '/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ),
-     $                AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
+         CALL SPTSVX( '/', 0, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SPTSVX( 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ),
-     $                AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
+         CALL SPTSVX( 'N', -1, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SPTSVX( 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ),
-     $                AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
+         CALL SPTSVX( 'N', 0, -1, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL SPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ),
-     $                AF( 1, 2 ), B, 1, X, 2, RCOND, R1, R2, W, INFO )
+         CALL SPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 1, X, 2, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL SPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ),
-     $                AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
+         CALL SPTSVX( 'N', 2, 0, A( 1, 1 ), A( 1, 2 ), AF( 1, 1 ), AF( 1, 2 ), B, 2, X, 1, RCOND, R1, R2, W, INFO )
          CALL CHKXER( 'SPTSVX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SY' ) ) THEN
@@ -756,40 +595,31 @@
 *
          SRNAMT = 'SSYSVX'
          INFOT = 1
-         CALL SSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, IW, INFO )
+         CALL SSYSVX( '/', 'U', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, IW, INFO )
+         CALL SSYSVX( 'N', '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, IW, INFO )
+         CALL SSYSVX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1,
-     $                RCOND, R1, R2, W, 1, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, RCOND, R1, R2, W, 1, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL SSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 4, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, B, 2, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2,
-     $                RCOND, R1, R2, W, 4, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 1, X, 2, RCOND, R1, R2, W, 4, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 13
-         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1,
-     $                RCOND, R1, R2, W, 4, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 1, RCOND, R1, R2, W, 4, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
          INFOT = 18
-         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2,
-     $                RCOND, R1, R2, W, 3, IW, INFO )
+         CALL SSYSVX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, B, 2, X, 2, RCOND, R1, R2, W, 3, IW, INFO )
          CALL CHKXER( 'SSYSVX', INFOT, NOUT, LERR, OK )
 *
 *        SSYSVXX
@@ -799,65 +629,43 @@
          SRNAMT = 'SSYSVXX'
          INFOT = 1
          EQ = 'N'
-         CALL SSYSVXX( '/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X,
-     $        1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( '/', 'U', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SSYSVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X,
-     $        1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', '/', 0, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SSYSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X,
-     $        1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', -1, 0, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 4
          EQ = '/'
-         CALL SSYSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, R, B, 1, X,
-     $        1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', 0, -1, A, 1, AF, 1, IP, EQ, R, B, 1, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          EQ = 'Y'
          INFOT = 6
-         CALL SSYSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, R, B, 2, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', 2, 0, A, 1, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, R, B, 2, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 1, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, 'A', R, B, 2, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, 'A', R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ='Y'
-         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 11
          EQ='Y'
          R(1) = -ONE
-         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'F', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 13
          EQ = 'N'
-         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 1, X,
-     $        2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 1, X, 2, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
          INFOT = 15
-         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X,
-     $        1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N,
-     $        ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
+         CALL SSYSVXX( 'N', 'U', 2, 0, A, 2, AF, 2, IP, EQ, R, B, 2, X, 1, RCOND, RPVGRW, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'SSYSVXX', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SR' ) ) THEN
@@ -941,28 +749,22 @@
 *
          SRNAMT = 'SSPSVX'
          INFOT = 1
-         CALL SSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( '/', 'U', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL SSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( 'N', '/', 0, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL SSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( 'N', 'U', -1, 0, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL SSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( 'N', 'U', 0, -1, A, AF, IP, B, 1, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 9
-         CALL SSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 1, X, 2, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
          INFOT = 11
-         CALL SSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1,
-     $                R2, W, IW, INFO )
+         CALL SSPSVX( 'N', 'U', 2, 0, A, AF, IP, B, 2, X, 1, RCOND, R1, R2, W, IW, INFO )
          CALL CHKXER( 'SSPSVX', INFOT, NOUT, LERR, OK )
       END IF
 *

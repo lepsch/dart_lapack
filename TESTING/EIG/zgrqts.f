@@ -1,5 +1,4 @@
-      SUBROUTINE ZGRQTS( M, P, N, A, AF, Q, R, LDA, TAUA, B, BF, Z, T,
-     $                   BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZGRQTS( M, P, N, A, AF, Q, R, LDA, TAUA, B, BF, Z, T, BWK, LDB, TAUB, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,10 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( 4 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ),
-     $                   R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ),
-     $                   WORK( LWORK ), Z( LDB, * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), BWK( LDB, * ), Q( LDA, * ), R( LDA, * ), T( LDB, * ), TAUA( * ), TAUB( * ), WORK( LWORK ), Z( LDB, * )
 *     ..
 *
 *  =====================================================================
@@ -22,8 +18,7 @@
       DOUBLE PRECISION   ZERO, ONE
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
       COMPLEX*16         CROGUE
       PARAMETER          ( CROGUE = ( -1.0D+10, 0.0D+0 ) )
 *     ..
@@ -36,8 +31,7 @@
       EXTERNAL           DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZGGRQF, ZHERK, ZLACPY, ZLASET, ZUNGQR,
-     $                   ZUNGRQ
+      EXTERNAL           ZGEMM, ZGGRQF, ZHERK, ZLACPY, ZLASET, ZUNGQR, ZUNGRQ
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, MAX, MIN
@@ -57,42 +51,32 @@
 *
 *     Factorize the matrices A and B in the arrays AF and BF.
 *
-      CALL ZGGRQF( M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK,
-     $             INFO )
+      CALL ZGGRQF( M, P, N, AF, LDA, TAUA, BF, LDB, TAUB, WORK, LWORK, INFO )
 *
 *     Generate the N-by-N matrix Q
 *
       CALL ZLASET( 'Full', N, N, CROGUE, CROGUE, Q, LDA )
       IF( M.LE.N ) THEN
-         IF( M.GT.0 .AND. M.LT.N )
-     $      CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )
-         IF( M.GT.1 )
-     $      CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA,
-     $                   Q( N-M+2, N-M+1 ), LDA )
+         IF( M.GT.0 .AND. M.LT.N ) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA )          IF( M.GT.1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA )
       ELSE
-         IF( N.GT.1 )
-     $      CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA,
-     $                   Q( 2, 1 ), LDA )
+         IF( N.GT.1 ) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA )
       END IF
       CALL ZUNGRQ( N, N, MIN( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO )
 *
 *     Generate the P-by-P matrix Z
 *
       CALL ZLASET( 'Full', P, P, CROGUE, CROGUE, Z, LDB )
-      IF( P.GT.1 )
-     $   CALL ZLACPY( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB )
+      IF( P.GT.1 ) CALL ZLACPY( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB )
       CALL ZUNGQR( P, P, MIN( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO )
 *
 *     Copy R
 *
       CALL ZLASET( 'Full', M, N, CZERO, CZERO, R, LDA )
       IF( M.LE.N ) THEN
-         CALL ZLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ),
-     $                LDA )
+         CALL ZLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA )
       ELSE
          CALL ZLACPY( 'Full', M-N, N, AF, LDA, R, LDA )
-         CALL ZLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ),
-     $                LDA )
+         CALL ZLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA )
       END IF
 *
 *     Copy T
@@ -102,32 +86,26 @@
 *
 *     Compute R - A*Q'
 *
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', M, N, N, -CONE,
-     $            A, LDA, Q, LDA, CONE, R, LDA )
+      CALL ZGEMM( 'No transpose', 'Conjugate transpose', M, N, N, -CONE, A, LDA, Q, LDA, CONE, R, LDA )
 *
 *     Compute norm( R - A*Q' ) / ( MAX(M,N)*norm(A)*ULP ) .
 *
       RESID = ZLANGE( '1', M, N, R, LDA, RWORK )
       IF( ANORM.GT.ZERO ) THEN
-         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) /
-     $                 ULP
+         RESULT( 1 ) = ( ( RESID / DBLE( MAX( 1, M, N ) ) ) / ANORM ) / ULP
       ELSE
          RESULT( 1 ) = ZERO
       END IF
 *
 *     Compute T*Q - Z'*B
 *
-      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE,
-     $            Z, LDB, B, LDB, CZERO, BWK, LDB )
-      CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, T, LDB,
-     $            Q, LDA, -CONE, BWK, LDB )
+      CALL ZGEMM( 'Conjugate transpose', 'No transpose', P, N, P, CONE, Z, LDB, B, LDB, CZERO, BWK, LDB )       CALL ZGEMM( 'No transpose', 'No transpose', P, N, N, CONE, T, LDB, Q, LDA, -CONE, BWK, LDB )
 *
 *     Compute norm( T*Q - Z'*B ) / ( MAX(P,N)*norm(A)*ULP ) .
 *
       RESID = ZLANGE( '1', P, N, BWK, LDB, RWORK )
       IF( BNORM.GT.ZERO ) THEN
-         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, M ) ) ) / BNORM ) /
-     $                 ULP
+         RESULT( 2 ) = ( ( RESID / DBLE( MAX( 1, P, M ) ) ) / BNORM ) / ULP
       ELSE
          RESULT( 2 ) = ZERO
       END IF
@@ -135,8 +113,7 @@
 *     Compute I - Q*Q'
 *
       CALL ZLASET( 'Full', N, N, CZERO, CONE, R, LDA )
-      CALL ZHERK( 'Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R,
-     $            LDA )
+      CALL ZHERK( 'Upper', 'No Transpose', N, N, -ONE, Q, LDA, ONE, R, LDA )
 *
 *     Compute norm( I - Q'*Q ) / ( N * ULP ) .
 *
@@ -146,8 +123,7 @@
 *     Compute I - Z'*Z
 *
       CALL ZLASET( 'Full', P, P, CZERO, CONE, T, LDB )
-      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB,
-     $            ONE, T, LDB )
+      CALL ZHERK( 'Upper', 'Conjugate transpose', P, P, -ONE, Z, LDB, ONE, T, LDB )
 *
 *     Compute norm( I - Z'*Z ) / ( P*ULP ) .
 *

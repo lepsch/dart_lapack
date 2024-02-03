@@ -1,5 +1,4 @@
-      SUBROUTINE SPBT05( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX,
-     $                   XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE SPBT05( UPLO, N, KD, NRHS, AB, LDAB, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,9 +9,7 @@
       INTEGER            KD, LDAB, LDB, LDX, LDXACT, N, NRHS
 *     ..
 *     .. Array Arguments ..
-      REAL               AB( LDAB, * ), B( LDB, * ), BERR( * ),
-     $                   FERR( * ), RESLTS( * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      REAL               AB( LDAB, * ), B( LDB, * ), BERR( * ), FERR( * ), RESLTS( * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================

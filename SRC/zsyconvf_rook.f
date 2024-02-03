@@ -51,8 +51,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
       IF( UPPER ) THEN
 *
@@ -98,8 +97,7 @@
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( N-I, A( I, I+1 ), LDA,
-     $                              A( IP, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -114,12 +112,10 @@
                   IP2 = -IPIV( I-1 )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( N-I, A( I, I+1 ), LDA,
-     $                              A( IP, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( I, I+1 ), LDA, A( IP, I+1 ), LDA )
                      END IF
                      IF( IP2.NE.(I-1) ) THEN
-                        CALL ZSWAP( N-I, A( I-1, I+1 ), LDA,
-     $                              A( IP2, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( I-1, I+1 ), LDA, A( IP2, I+1 ), LDA )
                      END IF
                   END IF
                   I = I - 1
@@ -149,8 +145,7 @@
                   IP = IPIV( I )
                   IF( I.LT.N ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( N-I, A( IP, I+1 ), LDA,
-     $                              A( I, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -166,12 +161,10 @@
                   IP2 = -IPIV( I-1 )
                   IF( I.LT.N ) THEN
                      IF( IP2.NE.(I-1) ) THEN
-                        CALL ZSWAP( N-I, A( IP2, I+1 ), LDA,
-     $                              A( I-1, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( IP2, I+1 ), LDA, A( I-1, I+1 ), LDA )
                      END IF
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( N-I, A( IP, I+1 ), LDA,
-     $                              A( I, I+1 ), LDA )
+                        CALL ZSWAP( N-I, A( IP, I+1 ), LDA, A( I, I+1 ), LDA )
                      END IF
                   END IF
 *
@@ -239,8 +232,7 @@
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( I-1, A( I, 1 ), LDA,
-     $                              A( IP, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
                      END IF
                   END IF
 *
@@ -255,12 +247,10 @@
                   IP2 = -IPIV( I+1 )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( I-1, A( I, 1 ), LDA,
-     $                              A( IP, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( I, 1 ), LDA, A( IP, 1 ), LDA )
                      END IF
                      IF( IP2.NE.(I+1) ) THEN
-                        CALL ZSWAP( I-1, A( I+1, 1 ), LDA,
-     $                              A( IP2, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( I+1, 1 ), LDA, A( IP2, 1 ), LDA )
                      END IF
                   END IF
                   I = I + 1
@@ -290,8 +280,7 @@
                   IP = IPIV( I )
                   IF ( I.GT.1 ) THEN
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( I-1, A( IP, 1 ), LDA,
-     $                              A( I, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA )
                      END IF
                   END IF
 *
@@ -307,12 +296,10 @@
                   IP2 = -IPIV( I+1 )
                   IF ( I.GT.1 ) THEN
                      IF( IP2.NE.(I+1) ) THEN
-                        CALL ZSWAP( I-1, A( IP2, 1 ), LDA,
-     $                              A( I+1, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( IP2, 1 ), LDA, A( I+1, 1 ), LDA )
                      END IF
                      IF( IP.NE.I ) THEN
-                        CALL ZSWAP( I-1, A( IP, 1 ), LDA,
-     $                              A( I, 1 ), LDA )
+                        CALL ZSWAP( I-1, A( IP, 1 ), LDA, A( I, 1 ), LDA )
                      END IF
                   END IF
 *

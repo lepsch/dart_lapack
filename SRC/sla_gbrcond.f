@@ -1,5 +1,4 @@
-      REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB,
-     $                           IPIV, CMODE, C, INFO, WORK, IWORK )
+      REAL FUNCTION SLA_GBRCOND( TRANS, N, KL, KU, AB, LDAB, AFB, LDAFB, IPIV, CMODE, C, INFO, WORK, IWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       INTEGER            IWORK( * ), IPIV( * )
-      REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ),
-     $                   C( * )
+      REAL               AB( LDAB, * ), AFB( LDAFB, * ), WORK( * ), C( * )
 *    ..
 *
 *  =====================================================================
@@ -41,8 +39,7 @@
 *
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T')
-     $     .AND. .NOT. LSAME(TRANS, 'C') ) THEN
+      IF ( .NOT. NOTRANS .AND. .NOT. LSAME(TRANS, 'T') .AND. .NOT. LSAME(TRANS, 'C') ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -124,11 +121,9 @@
             END DO
 
             IF ( NOTRANS ) THEN
-               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB,
-     $              IPIV, WORK, N, INFO )
+               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ELSE
-               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,
-     $              WORK, N, INFO )
+               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by inv(C).
@@ -157,11 +152,9 @@
             END IF
 
             IF ( NOTRANS ) THEN
-               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV,
-     $              WORK, N, INFO )
+               CALL SGBTRS( 'Transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             ELSE
-               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB,
-     $              IPIV, WORK, N, INFO )
+               CALL SGBTRS( 'No transpose', N, KL, KU, 1, AFB, LDAFB, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -175,8 +168,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0 )
-     $   SLA_GBRCOND = ( 1.0 / AINVNM )
+      IF( AINVNM .NE. 0.0 ) SLA_GBRCOND = ( 1.0 / AINVNM )
 *
       RETURN
 *

@@ -1,5 +1,4 @@
-      SUBROUTINE ZLASWLQ( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK,
-     $                    INFO )
+      SUBROUTINE ZLASWLQ( M, N, MB, NB, A, LDA, T, LDT, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -96,18 +95,14 @@
 *
 *       Compute the QR factorization of the current block A(1:M,I:I+NB-M)
 *
-        CALL ZTPLQT( M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ),
-     $                LDA, T(1, CTR * M + 1),
-     $                LDT, WORK, INFO )
+        CALL ZTPLQT( M, NB-M, 0, MB, A(1,1), LDA, A( 1, I ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO )
         CTR = CTR + 1
       END DO
 *
 *     Compute the QR factorization of the last block A(1:M,II:N)
 *
       IF( II.LE.N ) THEN
-        CALL ZTPLQT( M, KK, 0, MB, A(1,1), LDA, A( 1, II ),
-     $                LDA, T(1, CTR * M + 1), LDT,
-     $                WORK, INFO )
+        CALL ZTPLQT( M, KK, 0, MB, A(1,1), LDA, A( 1, II ), LDA, T(1, CTR * M + 1), LDT, WORK, INFO )
       END IF
 *
       WORK( 1 ) = LWMIN

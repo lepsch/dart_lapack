@@ -1,5 +1,4 @@
-      SUBROUTINE SGBBRD( VECT, M, N, NCC, KL, KU, AB, LDAB, D, E, Q,
-     $                   LDQ, PT, LDPT, C, LDC, WORK, INFO )
+      SUBROUTINE SGBBRD( VECT, M, N, NCC, KL, KU, AB, LDAB, D, E, Q, LDQ, PT, LDPT, C, LDC, WORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            INFO, KL, KU, LDAB, LDC, LDPT, LDQ, M, N, NCC
 *     ..
 *     .. Array Arguments ..
-      REAL               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ),
-     $                   PT( LDPT, * ), Q( LDQ, * ), WORK( * )
+      REAL               AB( LDAB, * ), C( LDC, * ), D( * ), E( * ), PT( LDPT, * ), Q( LDQ, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -22,8 +20,7 @@
 *     ..
 *     .. Local Scalars ..
       LOGICAL            WANTB, WANTC, WANTPT, WANTQ
-      INTEGER            I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1,
-     $                   KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT
+      INTEGER            I, INCA, J, J1, J2, KB, KB1, KK, KLM, KLU1, KUN, L, MINMN, ML, ML0, MN, MU, MU0, NR, NRT
       REAL               RA, RB, RC, RS
 *     ..
 *     .. External Subroutines ..
@@ -46,8 +43,7 @@
       WANTC = NCC.GT.0
       KLU1 = KL + KU + 1
       INFO = 0
-      IF( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) )
-     $     THEN
+      IF( .NOT.WANTQ .AND. .NOT.WANTPT .AND. .NOT.LSAME( VECT, 'N' ) ) THEN
          INFO = -1
       ELSE IF( M.LT.0 ) THEN
          INFO = -2
@@ -75,15 +71,11 @@
 *
 *     Initialize Q and P**T to the unit matrix, if needed
 *
-      IF( WANTQ )
-     $   CALL SLASET( 'Full', M, M, ZERO, ONE, Q, LDQ )
-      IF( WANTPT )
-     $   CALL SLASET( 'Full', N, N, ZERO, ONE, PT, LDPT )
+      IF( WANTQ ) CALL SLASET( 'Full', M, M, ZERO, ONE, Q, LDQ )       IF( WANTPT ) CALL SLASET( 'Full', N, N, ZERO, ONE, PT, LDPT )
 *
 *     Quick return if possible.
 *
-      IF( M.EQ.0 .OR. N.EQ.0 )
-     $   RETURN
+      IF( M.EQ.0 .OR. N.EQ.0 ) RETURN
 *
       MINMN = MIN( M, N )
 *
@@ -130,9 +122,7 @@
 *              generate plane rotations to annihilate nonzero elements
 *              which have been created below the band
 *
-               IF( NR.GT.0 )
-     $            CALL SLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA,
-     $                         WORK( J1 ), KB1, WORK( MN+J1 ), KB1 )
+               IF( NR.GT.0 ) CALL SLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, WORK( MN+J1 ), KB1 )
 *
 *              apply plane rotations from the left
 *
@@ -142,10 +132,7 @@
                   ELSE
                      NRT = NR
                   END IF
-                  IF( NRT.GT.0 )
-     $               CALL SLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA,
-     $                            AB( KLU1-L+1, J1-KLM+L-1 ), INCA,
-     $                            WORK( MN+J1 ), WORK( J1 ), KB1 )
+                  IF( NRT.GT.0 ) CALL SLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 )
    10          CONTINUE
 *
                IF( ML.GT.ML0 ) THEN
@@ -154,15 +141,9 @@
 *                    generate plane rotation to annihilate a(i+ml-1,i)
 *                    within the band, and apply rotation from the left
 *
-                     CALL SLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ),
-     $                            WORK( MN+I+ML-1 ), WORK( I+ML-1 ),
-     $                            RA )
+                     CALL SLARTG( AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA )
                      AB( KU+ML-1, I ) = RA
-                     IF( I.LT.N )
-     $                  CALL SROT( MIN( KU+ML-2, N-I ),
-     $                             AB( KU+ML-2, I+1 ), LDAB-1,
-     $                             AB( KU+ML-1, I+1 ), LDAB-1,
-     $                             WORK( MN+I+ML-1 ), WORK( I+ML-1 ) )
+                     IF( I.LT.N ) CALL SROT( MIN( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) )
                   END IF
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -173,8 +154,7 @@
 *                 accumulate product of plane rotations in Q
 *
                   DO 20 J = J1, J2, KB1
-                     CALL SROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1,
-     $                          WORK( MN+J ), WORK( J ) )
+                     CALL SROT( M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) )
    20             CONTINUE
                END IF
 *
@@ -183,8 +163,7 @@
 *                 apply plane rotations to C
 *
                   DO 30 J = J1, J2, KB1
-                     CALL SROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC,
-     $                          WORK( MN+J ), WORK( J ) )
+                     CALL SROT( NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) )
    30             CONTINUE
                END IF
 *
@@ -208,10 +187,7 @@
 *              generate plane rotations to annihilate nonzero elements
 *              which have been generated above the band
 *
-               IF( NR.GT.0 )
-     $            CALL SLARGV( NR, AB( 1, J1+KUN-1 ), INCA,
-     $                         WORK( J1+KUN ), KB1, WORK( MN+J1+KUN ),
-     $                         KB1 )
+               IF( NR.GT.0 ) CALL SLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, WORK( MN+J1+KUN ), KB1 )
 *
 *              apply plane rotations from the right
 *
@@ -221,11 +197,7 @@
                   ELSE
                      NRT = NR
                   END IF
-                  IF( NRT.GT.0 )
-     $               CALL SLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA,
-     $                            AB( L, J1+KUN ), INCA,
-     $                            WORK( MN+J1+KUN ), WORK( J1+KUN ),
-     $                            KB1 )
+                  IF( NRT.GT.0 ) CALL SLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 )
    50          CONTINUE
 *
                IF( ML.EQ.ML0 .AND. MU.GT.MU0 ) THEN
@@ -234,15 +206,9 @@
 *                    generate plane rotation to annihilate a(i,i+mu-1)
 *                    within the band, and apply rotation from the right
 *
-                     CALL SLARTG( AB( KU-MU+3, I+MU-2 ),
-     $                            AB( KU-MU+2, I+MU-1 ),
-     $                            WORK( MN+I+MU-1 ), WORK( I+MU-1 ),
-     $                            RA )
+                     CALL SLARTG( AB( KU-MU+3, I+MU-2 ), AB( KU-MU+2, I+MU-1 ), WORK( MN+I+MU-1 ), WORK( I+MU-1 ), RA )
                      AB( KU-MU+3, I+MU-2 ) = RA
-                     CALL SROT( MIN( KL+MU-2, M-I ),
-     $                          AB( KU-MU+4, I+MU-2 ), 1,
-     $                          AB( KU-MU+3, I+MU-1 ), 1,
-     $                          WORK( MN+I+MU-1 ), WORK( I+MU-1 ) )
+                     CALL SROT( MIN( KL+MU-2, M-I ), AB( KU-MU+4, I+MU-2 ), 1, AB( KU-MU+3, I+MU-1 ), 1, WORK( MN+I+MU-1 ), WORK( I+MU-1 ) )
                   END IF
                   NR = NR + 1
                   J1 = J1 - KB1
@@ -253,9 +219,7 @@
 *                 accumulate product of plane rotations in P**T
 *
                   DO 60 J = J1, J2, KB1
-                     CALL SROT( N, PT( J+KUN-1, 1 ), LDPT,
-     $                          PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ),
-     $                          WORK( J+KUN ) )
+                     CALL SROT( N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) )
    60             CONTINUE
                END IF
 *
@@ -300,14 +264,9 @@
                E( I ) = RS*AB( 1, I+1 )
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
             END IF
-            IF( WANTQ )
-     $         CALL SROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )
-            IF( WANTC )
-     $         CALL SROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC,
-     $                    RS )
+            IF( WANTQ ) CALL SROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )             IF( WANTC ) CALL SROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS )
   100    CONTINUE
-         IF( M.LE.N )
-     $      D( M ) = AB( 1, M )
+         IF( M.LE.N ) D( M ) = AB( 1, M )
       ELSE IF( KU.GT.0 ) THEN
 *
 *        A has been reduced to upper bidiagonal form
@@ -326,9 +285,7 @@
                   RB = -RS*AB( KU, I )
                   E( I-1 ) = RC*AB( KU, I )
                END IF
-               IF( WANTPT )
-     $            CALL SROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT,
-     $                       RC, RS )
+               IF( WANTPT ) CALL SROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS )
   110       CONTINUE
          ELSE
 *

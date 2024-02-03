@@ -1,5 +1,4 @@
-      SUBROUTINE SGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK,
-     $                   RESID )
+      SUBROUTINE SGET01( M, N, A, LDA, AFAC, LDAFAC, IPIV, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -55,8 +54,7 @@
 *
       DO 10 K = N, 1, -1
          IF( K.GT.M ) THEN
-            CALL STRMV( 'Lower', 'No transpose', 'Unit', M, AFAC,
-     $                  LDAFAC, AFAC( 1, K ), 1 )
+            CALL STRMV( 'Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          ELSE
 *
 *           Compute elements (K+1:M,K)
@@ -64,20 +62,16 @@
             T = AFAC( K, K )
             IF( K+1.LE.M ) THEN
                CALL SSCAL( M-K, T, AFAC( K+1, K ), 1 )
-               CALL SGEMV( 'No transpose', M-K, K-1, ONE,
-     $                     AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE,
-     $                     AFAC( K+1, K ), 1 )
+               CALL SGEMV( 'No transpose', M-K, K-1, ONE, AFAC( K+1, 1 ), LDAFAC, AFAC( 1, K ), 1, ONE, AFAC( K+1, K ), 1 )
             END IF
 *
 *           Compute the (K,K) element
 *
-            AFAC( K, K ) = T + SDOT( K-1, AFAC( K, 1 ), LDAFAC,
-     $                     AFAC( 1, K ), 1 )
+            AFAC( K, K ) = T + SDOT( K-1, AFAC( K, 1 ), LDAFAC, AFAC( 1, K ), 1 )
 *
 *           Compute elements (1:K-1,K)
 *
-            CALL STRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC,
-     $                  LDAFAC, AFAC( 1, K ), 1 )
+            CALL STRMV( 'Lower', 'No transpose', 'Unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 )
          END IF
    10 CONTINUE
       CALL SLASWP( N, AFAC, LDAFAC, 1, MIN( M, N ), IPIV, -1 )
@@ -95,8 +89,7 @@
       RESID = SLANGE( '1', M, N, AFAC, LDAFAC, RWORK )
 *
       IF( ANORM.LE.ZERO ) THEN
-         IF( RESID.NE.ZERO )
-     $      RESID = ONE / EPS
+         IF( RESID.NE.ZERO ) RESID = ONE / EPS
       ELSE
          RESID = ( ( RESID / REAL( N ) ) / ANORM ) / EPS
       END IF

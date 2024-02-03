@@ -41,8 +41,7 @@
 *     IF( FIRST ) THEN
          SAFMIN = DLAMCH( 'S' )
          EPS = DLAMCH( 'E' )
-         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) /
-     $            LOG( DLAMCH( 'B' ) ) / TWO )
+         SAFMN2 = DLAMCH( 'B' )**INT( LOG( SAFMIN / EPS ) / LOG( DLAMCH( 'B' ) ) / TWO )
          SAFMX2 = ONE / SAFMN2
 *        FIRST = .FALSE.
 *     END IF
@@ -65,8 +64,7 @@
             F1 = F1*SAFMN2
             G1 = G1*SAFMN2
             SCALE = MAX( ABS( F1 ), ABS( G1 ) )
-            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 )
-     $         GO TO 10
+            IF( SCALE.GE.SAFMX2 .AND. COUNT .LT. 20 ) GO TO 10
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R
@@ -80,8 +78,7 @@
             F1 = F1*SAFMX2
             G1 = G1*SAFMX2
             SCALE = MAX( ABS( F1 ), ABS( G1 ) )
-            IF( SCALE.LE.SAFMN2 )
-     $         GO TO 30
+            IF( SCALE.LE.SAFMN2 ) GO TO 30
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R
             SN = G1 / R

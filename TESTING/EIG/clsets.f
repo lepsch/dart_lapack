@@ -1,5 +1,4 @@
-      SUBROUTINE CLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF,
-     $                   D, DF, X, WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE CLSETS( M, P, N, A, AF, LDA, B, BF, LDB, C, CF, D, DF, X, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,9 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       REAL               RESULT( 2 ), RWORK( * )
-      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), C( * ), D( * ), CF( * ),
-     $                   DF( * ), WORK( LWORK ), X( * )
+      COMPLEX            A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), C( * ), D( * ), CF( * ), DF( * ), WORK( LWORK ), X( * )
 *
 *  ====================================================================
 *
@@ -35,8 +32,7 @@
 *
 *     Solve LSE problem
 *
-      CALL CGGLSE( M, N, P, AF, LDA, BF, LDB, CF, DF, X,
-     $             WORK, LWORK, INFO )
+      CALL CGGLSE( M, N, P, AF, LDA, BF, LDB, CF, DF, X, WORK, LWORK, INFO )
 *
 *     Test the residual for the solution of LSE
 *
@@ -44,13 +40,11 @@
 *
       CALL CCOPY( M, C, 1, CF, 1 )
       CALL CCOPY( P, D, 1, DF, 1 )
-      CALL CGET02( 'No transpose', M, N, 1, A, LDA, X, N, CF, M,
-     $             RWORK, RESULT( 1 ) )
+      CALL CGET02( 'No transpose', M, N, 1, A, LDA, X, N, CF, M, RWORK, RESULT( 1 ) )
 *
 *     Compute result(2) = norm( B*x - d ) / norm(B)*norm(X)*EPS
 *
-      CALL CGET02( 'No transpose', P, N, 1, B, LDB, X, N, DF, P,
-     $             RWORK, RESULT( 2 ) )
+      CALL CGET02( 'No transpose', P, N, 1, B, LDB, X, N, DF, P, RWORK, RESULT( 2 ) )
 *
       RETURN
 *

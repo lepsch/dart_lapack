@@ -1,5 +1,4 @@
-      SUBROUTINE SGGRQF( M, P, N, A, LDA, TAUA, B, LDB, TAUB, WORK,
-     $                   LWORK, INFO )
+      SUBROUTINE SGGRQF( M, P, N, A, LDA, TAUA, B, LDB, TAUB, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            INFO, LDA, LDB, LWORK, M, N, P
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ),
-     $                   WORK( * )
+      REAL               A( LDA, * ), B( LDB, * ), TAUA( * ), TAUB( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -69,9 +67,7 @@
 *
 *     Update B := B*Q**T
 *
-      CALL SORMRQ( 'Right', 'Transpose', P, N, MIN( M, N ),
-     $             A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK,
-     $             LWORK, INFO )
+      CALL SORMRQ( 'Right', 'Transpose', P, N, MIN( M, N ), A( MAX( 1, M-N+1 ), 1 ), LDA, TAUA, B, LDB, WORK, LWORK, INFO )
       LOPT = MAX( LOPT, INT( WORK( 1 ) ) )
 *
 *     QR factorization of P-by-N matrix B: B = Z*T

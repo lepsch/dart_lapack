@@ -1,6 +1,4 @@
-      SUBROUTINE SCKCSD( NM, MVAL, PVAL, QVAL, NMATS, ISEED, THRESH,
-     $                   MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK,
-     $                   WORK, RWORK, NIN, NOUT, INFO )
+      SUBROUTINE SCKCSD( NM, MVAL, PVAL, QVAL, NMATS, ISEED, THRESH, MMAX, X, XF, U1, U2, V1T, V2T, THETA, IWORK, WORK, RWORK, NIN, NOUT, INFO )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,11 +9,9 @@
       REAL               THRESH
 *     ..
 *     .. Array Arguments ..
-      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ),
-     $                   QVAL( * )
+      INTEGER            ISEED( 4 ), IWORK( * ), MVAL( * ), PVAL( * ), QVAL( * )
       REAL               RWORK( * ), THETA( * )
-      REAL               U1( * ), U2( * ), V1T( * ), V2T( * ),
-     $                   WORK( * ), X( * ), XF( * )
+      REAL               U1( * ), U2( * ), V1T( * ), V2T( * ), WORK( * ), X( * ), XF( * )
 *     ..
 *
 *  =====================================================================
@@ -26,24 +22,21 @@
       INTEGER            NTYPES
       PARAMETER          ( NTYPES = 4 )
       REAL               GAPDIGIT, ONE, ORTH, TEN, ZERO
-      PARAMETER          ( GAPDIGIT = 10.0E0, ONE = 1.0E0,
-     $                     ORTH = 1.0E-4, TEN = 10.0E0, ZERO = 0.0E0 )
+      PARAMETER          ( GAPDIGIT = 10.0E0, ONE = 1.0E0, ORTH = 1.0E-4, TEN = 10.0E0, ZERO = 0.0E0 )
       REAL               PIOVER2
       PARAMETER ( PIOVER2 = 1.57079632679489661923132169163975144210E0 )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            FIRSTT
       CHARACTER*3        PATH
-      INTEGER            I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T,
-     $                   LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
+      INTEGER            I, IINFO, IM, IMAT, J, LDU1, LDU2, LDV1T, LDV2T, LDX, LWORK, M, NFAIL, NRUN, NT, P, Q, R
 *     ..
 *     .. Local Arrays ..
       LOGICAL            DOTYPE( NTYPES )
       REAL               RESULT( NTESTS )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHDG, ALAREQ, ALASUM, SCSDTS, SLACSG, SLAROR,
-     $                   SLASET, SROT
+      EXTERNAL           ALAHDG, ALAREQ, ALASUM, SCSDTS, SLACSG, SLAROR, SLASET, SROT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MIN
@@ -80,8 +73,7 @@
 *
 *           Do the tests only if DOTYPE( IMAT ) is true.
 *
-            IF( .NOT.DOTYPE( IMAT ) )
-     $         GO TO 20
+            IF( .NOT.DOTYPE( IMAT ) ) GO TO 20
 *
 *           Generate X
 *
@@ -100,8 +92,7 @@
                CALL SLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK )
                DO I = 1, M
                   DO J = 1, M
-                     X(I+(J-1)*LDX) = X(I+(J-1)*LDX) +
-     $                                ORTH*SLARND(2,ISEED)
+                     X(I+(J-1)*LDX) = X(I+(J-1)*LDX) + ORTH*SLARND(2,ISEED)
                   END DO
                END DO
             ELSE IF( IMAT.EQ.3 ) THEN
@@ -121,17 +112,14 @@
                DO I = 1, M
                   J = INT( SLARAN( ISEED ) * M ) + 1
                   IF( J .NE. I ) THEN
-                     CALL SROT( M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1,
-     $                 ZERO, ONE )
+                     CALL SROT( M, X(1+(I-1)*LDX), 1, X(1+(J-1)*LDX), 1, ZERO, ONE )
                   END IF
                END DO
             END IF
 *
             NT = 15
 *
-            CALL SCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T,
-     $                   LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK,
-     $                   RWORK, RESULT )
+            CALL SCSDTS( M, P, Q, X, XF, LDX, U1, LDU1, U2, LDU2, V1T, LDV1T, V2T, LDV2T, THETA, IWORK, WORK, LWORK, RWORK, RESULT )
 *
 *           Print information about the tests that did not
 *           pass the threshold.
@@ -142,8 +130,7 @@
                      FIRSTT = .FALSE.
                      CALL ALAHDG( NOUT, PATH )
                   END IF
-                  WRITE( NOUT, FMT = 9998 )M, P, Q, IMAT, I,
-     $               RESULT( I )
+                  WRITE( NOUT, FMT = 9998 )M, P, Q, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
                END IF
    10       CONTINUE
@@ -193,29 +180,21 @@
          X(P-I+1,M-I+1) = -ONE
       END DO
       DO I = 1, R
-         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) =
-     $      -SIN(THETA(R-I+1))
+         X(P-(MIN(P,M-Q)-R)+1-I,M-(MIN(P,M-Q)-R)+1-I) = -SIN(THETA(R-I+1))
       END DO
       DO I = 1, MIN(M-P,Q)-R
          X(M-I+1,Q-I+1) = ONE
       END DO
       DO I = 1, R
-         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) =
-     $      SIN(THETA(R-I+1))
+         X(M-(MIN(M-P,Q)-R)+1-I,Q-(MIN(M-P,Q)-R)+1-I) = SIN(THETA(R-I+1))
       END DO
       DO I = 1, MIN(M-P,M-Q)-R
          X(P+I,Q+I) = ONE
       END DO
       DO I = 1, R
-         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) =
-     $      COS(THETA(I))
+         X(P+(MIN(M-P,M-Q)-R)+I,Q+(MIN(M-P,M-Q)-R)+I) = COS(THETA(I))
       END DO
       CALL SLAROR( 'Left', 'No init', P, M, X, LDX, ISEED, WORK, INFO )
-      CALL SLAROR( 'Left', 'No init', M-P, M, X(P+1,1), LDX,
-     $             ISEED, WORK, INFO )
-      CALL SLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED,
-     $             WORK, INFO )
-      CALL SLAROR( 'Right', 'No init', M, M-Q,
-     $             X(1,Q+1), LDX, ISEED, WORK, INFO )
+      CALL SLAROR( 'Left', 'No init', M-P, M, X(P+1,1), LDX, ISEED, WORK, INFO )       CALL SLAROR( 'Right', 'No init', M, Q, X, LDX, ISEED, WORK, INFO )       CALL SLAROR( 'Right', 'No init', M, M-Q, X(1,Q+1), LDX, ISEED, WORK, INFO )
 *
       END

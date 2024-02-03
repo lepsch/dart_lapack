@@ -1,6 +1,4 @@
-      SUBROUTINE ZGEEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, W, VL,
-     $                   LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE,
-     $                   RCONDV, WORK, LWORK, RWORK, INFO )
+      SUBROUTINE ZGEEVX( BALANC, JOBVL, JOBVR, SENSE, N, A, LDA, W, VL, LDVL, VR, LDVR, ILO, IHI, SCALE, ABNRM, RCONDE, RCONDV, WORK, LWORK, RWORK, INFO )
       implicit none
 *
 *  -- LAPACK driver routine --
@@ -13,10 +11,7 @@
       DOUBLE PRECISION   ABNRM
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   RCONDE( * ), RCONDV( * ), RWORK( * ),
-     $                   SCALE( * )
-      COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   W( * ), WORK( * )
+      DOUBLE PRECISION   RCONDE( * ), RCONDV( * ), RWORK( * ), SCALE( * )       COMPLEX*16         A( LDA, * ), VL( LDVL, * ), VR( LDVR, * ), W( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -26,11 +21,9 @@
       PARAMETER          ( ZERO = 0.0D0, ONE = 1.0D0 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE,
-     $                   WNTSNN, WNTSNV
+      LOGICAL            LQUERY, SCALEA, WANTVL, WANTVR, WNTSNB, WNTSNE, WNTSNN, WNTSNV
       CHARACTER          JOB, SIDE
-      INTEGER            HSWORK, I, ICOND, IERR, ITAU, IWRK, K,
-     $                   LWORK_TREVC, MAXWRK, MINWRK, NOUT
+      INTEGER            HSWORK, I, ICOND, IERR, ITAU, IWRK, K, LWORK_TREVC, MAXWRK, MINWRK, NOUT
       DOUBLE PRECISION   ANRM, BIGNUM, CSCALE, EPS, SCL, SMLNUM
       COMPLEX*16         TMP
 *     ..
@@ -39,9 +32,7 @@
       DOUBLE PRECISION   DUM( 1 )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           DLASCL, XERBLA, ZDSCAL, ZGEBAK, ZGEBAL, ZGEHRD,
-     $                   ZHSEQR, ZLACPY, ZLASCL, ZSCAL, ZTREVC3, ZTRSNA,
-     $                   ZUNGHR
+      EXTERNAL           DLASCL, XERBLA, ZDSCAL, ZGEBAK, ZGEBAL, ZGEHRD, ZHSEQR, ZLACPY, ZLASCL, ZSCAL, ZTREVC3, ZTRSNA, ZUNGHR
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -64,16 +55,13 @@
       WNTSNE = LSAME( SENSE, 'E' )
       WNTSNV = LSAME( SENSE, 'V' )
       WNTSNB = LSAME( SENSE, 'B' )
-      IF( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR.
-     $    LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
+      IF( .NOT.( LSAME( BALANC, 'N' ) .OR. LSAME( BALANC, 'S' ) .OR. LSAME( BALANC, 'P' ) .OR. LSAME( BALANC, 'B' ) ) ) THEN
          INFO = -1
       ELSE IF( ( .NOT.WANTVL ) .AND. ( .NOT.LSAME( JOBVL, 'N' ) ) ) THEN
          INFO = -2
       ELSE IF( ( .NOT.WANTVR ) .AND. ( .NOT.LSAME( JOBVR, 'N' ) ) ) THEN
          INFO = -3
-      ELSE IF( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR.
-     $         ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND.
-     $         WANTVR ) ) ) THEN
+      ELSE IF( .NOT.( WNTSNN .OR. WNTSNE .OR. WNTSNB .OR. WNTSNV ) .OR. ( ( WNTSNE .OR. WNTSNB ) .AND. .NOT.( WANTVL .AND. WANTVR ) ) ) THEN
          INFO = -4
       ELSE IF( N.LT.0 ) THEN
          INFO = -5
@@ -104,48 +92,34 @@
             MAXWRK = N + N*ILAENV( 1, 'ZGEHRD', ' ', N, 1, N, 0 )
 *
             IF( WANTVL ) THEN
-               CALL ZTREVC3( 'L', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR,
-     $                       N, NOUT, WORK, -1, RWORK, -1, IERR )
+               CALL ZTREVC3( 'L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, LWORK_TREVC )
-               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VL, LDVL,
-     $                WORK, -1, INFO )
+               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VL, LDVL, WORK, -1, INFO )
             ELSE IF( WANTVR ) THEN
-               CALL ZTREVC3( 'R', 'B', SELECT, N, A, LDA,
-     $                       VL, LDVL, VR, LDVR,
-     $                       N, NOUT, WORK, -1, RWORK, -1, IERR )
+               CALL ZTREVC3( 'R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, RWORK, -1, IERR )
                LWORK_TREVC = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, LWORK_TREVC )
-               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR,
-     $                WORK, -1, INFO )
+               CALL ZHSEQR( 'S', 'V', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
             ELSE
                IF( WNTSNN ) THEN
-                  CALL ZHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR,
-     $                WORK, -1, INFO )
+                  CALL ZHSEQR( 'E', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
                ELSE
-                  CALL ZHSEQR( 'S', 'N', N, 1, N, A, LDA, W, VR, LDVR,
-     $                WORK, -1, INFO )
+                  CALL ZHSEQR( 'S', 'N', N, 1, N, A, LDA, W, VR, LDVR, WORK, -1, INFO )
                END IF
             END IF
             HSWORK = INT( WORK(1) )
 *
             IF( ( .NOT.WANTVL ) .AND. ( .NOT.WANTVR ) ) THEN
                MINWRK = 2*N
-               IF( .NOT.( WNTSNN .OR. WNTSNE ) )
-     $            MINWRK = MAX( MINWRK, N*N + 2*N )
+               IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               IF( .NOT.( WNTSNN .OR. WNTSNE ) )
-     $            MAXWRK = MAX( MAXWRK, N*N + 2*N )
+               IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
             ELSE
                MINWRK = 2*N
-               IF( .NOT.( WNTSNN .OR. WNTSNE ) )
-     $            MINWRK = MAX( MINWRK, N*N + 2*N )
+               IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MINWRK = MAX( MINWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, HSWORK )
-               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR',
-     $                       ' ', N, 1, N, -1 ) )
-               IF( .NOT.( WNTSNN .OR. WNTSNE ) )
-     $            MAXWRK = MAX( MAXWRK, N*N + 2*N )
+               MAXWRK = MAX( MAXWRK, N + ( N - 1 )*ILAENV( 1, 'ZUNGHR', ' ', N, 1, N, -1 ) )                IF( .NOT.( WNTSNN .OR. WNTSNE ) ) MAXWRK = MAX( MAXWRK, N*N + 2*N )
                MAXWRK = MAX( MAXWRK, 2*N )
             END IF
             MAXWRK = MAX( MAXWRK, MINWRK )
@@ -166,8 +140,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Get machine constants
 *
@@ -189,8 +162,7 @@
          SCALEA = .TRUE.
          CSCALE = BIGNUM
       END IF
-      IF( SCALEA )
-     $   CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
+      IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR )
 *
 *     Balance the matrix and compute ABNRM
 *
@@ -208,8 +180,7 @@
 *
       ITAU = 1
       IWRK = ITAU + N
-      CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ),
-     $             LWORK-IWRK+1, IERR )
+      CALL ZGEHRD( N, ILO, IHI, A, LDA, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
       IF( WANTVL ) THEN
 *
@@ -223,16 +194,14 @@
 *        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
 *        (RWorkspace: none)
 *
-         CALL ZUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL ZUNGHR( N, ILO, IHI, VL, LDVL, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VL
 *        (CWorkspace: need 1, prefer HSWORK (see comments) )
 *        (RWorkspace: none)
 *
          IWRK = ITAU
-         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VL, LDVL, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
          IF( WANTVR ) THEN
 *
@@ -255,16 +224,14 @@
 *        (CWorkspace: need 2*N-1, prefer N+(N-1)*NB)
 *        (RWorkspace: none)
 *
-         CALL ZUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ),
-     $                LWORK-IWRK+1, IERR )
+         CALL ZUNGHR( N, ILO, IHI, VR, LDVR, WORK( ITAU ), WORK( IWRK ), LWORK-IWRK+1, IERR )
 *
 *        Perform QR iteration, accumulating Schur vectors in VR
 *        (CWorkspace: need 1, prefer HSWORK (see comments) )
 *        (RWorkspace: none)
 *
          IWRK = ITAU
-         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL ZHSEQR( 'S', 'V', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
 *
       ELSE
 *
@@ -281,14 +248,12 @@
 *        (RWorkspace: none)
 *
          IWRK = ITAU
-         CALL ZHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, W, VR, LDVR,
-     $                WORK( IWRK ), LWORK-IWRK+1, INFO )
+         CALL ZHSEQR( JOB, 'N', N, ILO, IHI, A, LDA, W, VR, LDVR, WORK( IWRK ), LWORK-IWRK+1, INFO )
       END IF
 *
 *     If INFO .NE. 0 from ZHSEQR, then quit
 *
-      IF( INFO.NE.0 )
-     $   GO TO 50
+      IF( INFO.NE.0 ) GO TO 50
 *
       IF( WANTVL .OR. WANTVR ) THEN
 *
@@ -296,9 +261,7 @@
 *        (CWorkspace: need 2*N, prefer N + 2*N*NB)
 *        (RWorkspace: need N)
 *
-         CALL ZTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR,
-     $                 N, NOUT, WORK( IWRK ), LWORK-IWRK+1,
-     $                 RWORK, N, IERR )
+         CALL ZTREVC3( SIDE, 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK( IWRK ), LWORK-IWRK+1, RWORK, N, IERR )
       END IF
 *
 *     Compute condition numbers if desired
@@ -306,17 +269,14 @@
 *     (RWorkspace: need 2*N unless SENSE = 'E')
 *
       IF( .NOT.WNTSNN ) THEN
-         CALL ZTRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR,
-     $                RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK,
-     $                ICOND )
+         CALL ZTRSNA( SENSE, 'A', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, RCONDE, RCONDV, N, NOUT, WORK( IWRK ), N, RWORK, ICOND )
       END IF
 *
       IF( WANTVL ) THEN
 *
 *        Undo balancing of left eigenvectors
 *
-         CALL ZGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL,
-     $                IERR )
+         CALL ZGEBAK( BALANC, 'L', N, ILO, IHI, SCALE, N, VL, LDVL, IERR )
 *
 *        Normalize left eigenvectors and make largest component real
 *
@@ -324,8 +284,7 @@
             SCL = ONE / DZNRM2( N, VL( 1, I ), 1 )
             CALL ZDSCAL( N, SCL, VL( 1, I ), 1 )
             DO 10 K = 1, N
-               RWORK( K ) = DBLE( VL( K, I ) )**2 +
-     $                      AIMAG( VL( K, I ) )**2
+               RWORK( K ) = DBLE( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2
    10       CONTINUE
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( K ) )
@@ -338,8 +297,7 @@
 *
 *        Undo balancing of right eigenvectors
 *
-         CALL ZGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR,
-     $                IERR )
+         CALL ZGEBAK( BALANC, 'R', N, ILO, IHI, SCALE, N, VR, LDVR, IERR )
 *
 *        Normalize right eigenvectors and make largest component real
 *
@@ -347,8 +305,7 @@
             SCL = ONE / DZNRM2( N, VR( 1, I ), 1 )
             CALL ZDSCAL( N, SCL, VR( 1, I ), 1 )
             DO 30 K = 1, N
-               RWORK( K ) = DBLE( VR( K, I ) )**2 +
-     $                      AIMAG( VR( K, I ) )**2
+               RWORK( K ) = DBLE( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2
    30       CONTINUE
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( K ) )
@@ -361,12 +318,9 @@
 *
    50 CONTINUE
       IF( SCALEA ) THEN
-         CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ),
-     $                MAX( N-INFO, 1 ), IERR )
+         CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR )
          IF( INFO.EQ.0 ) THEN
-            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 )
-     $         CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N,
-     $                      IERR )
+            IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          ELSE
             CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR )
          END IF

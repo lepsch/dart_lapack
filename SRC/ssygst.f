@@ -57,8 +57,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Determine the block size for this environment.
 *
@@ -83,25 +82,9 @@
 *
 *                 Update the upper triangle of A(k:n,k:n)
 *
-                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA,
-     $                         B( K, K ), LDB, INFO )
+                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
                   IF( K+KB.LE.N ) THEN
-                     CALL STRSM( 'Left', UPLO, 'Transpose', 'Non-unit',
-     $                           KB, N-K-KB+1, ONE, B( K, K ), LDB,
-     $                           A( K, K+KB ), LDA )
-                     CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF,
-     $                           A( K, K ), LDA, B( K, K+KB ), LDB, ONE,
-     $                           A( K, K+KB ), LDA )
-                     CALL SSYR2K( UPLO, 'Transpose', N-K-KB+1, KB, -ONE,
-     $                            A( K, K+KB ), LDA, B( K, K+KB ), LDB,
-     $                            ONE, A( K+KB, K+KB ), LDA )
-                     CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF,
-     $                           A( K, K ), LDA, B( K, K+KB ), LDB, ONE,
-     $                           A( K, K+KB ), LDA )
-                     CALL STRSM( 'Right', UPLO, 'No transpose',
-     $                           'Non-unit', KB, N-K-KB+1, ONE,
-     $                           B( K+KB, K+KB ), LDB, A( K, K+KB ),
-     $                           LDA )
+                     CALL STRSM( 'Left', UPLO, 'Transpose', 'Non-unit', KB, N-K-KB+1, ONE, B( K, K ), LDB, A( K, K+KB ), LDA )                      CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, ONE, A( K, K+KB ), LDA )                      CALL SSYR2K( UPLO, 'Transpose', N-K-KB+1, KB, -ONE, A( K, K+KB ), LDA, B( K, K+KB ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL SSYMM( 'Left', UPLO, KB, N-K-KB+1, -HALF, A( K, K ), LDA, B( K, K+KB ), LDB, ONE, A( K, K+KB ), LDA )                      CALL STRSM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, N-K-KB+1, ONE, B( K+KB, K+KB ), LDB, A( K, K+KB ), LDA )
                   END IF
    10          CONTINUE
             ELSE
@@ -113,25 +96,9 @@
 *
 *                 Update the lower triangle of A(k:n,k:n)
 *
-                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA,
-     $                         B( K, K ), LDB, INFO )
+                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
                   IF( K+KB.LE.N ) THEN
-                     CALL STRSM( 'Right', UPLO, 'Transpose', 'Non-unit',
-     $                           N-K-KB+1, KB, ONE, B( K, K ), LDB,
-     $                           A( K+KB, K ), LDA )
-                     CALL SSYMM( 'Right', UPLO, N-K-KB+1, KB, -HALF,
-     $                           A( K, K ), LDA, B( K+KB, K ), LDB, ONE,
-     $                           A( K+KB, K ), LDA )
-                     CALL SSYR2K( UPLO, 'No transpose', N-K-KB+1, KB,
-     $                            -ONE, A( K+KB, K ), LDA, B( K+KB, K ),
-     $                            LDB, ONE, A( K+KB, K+KB ), LDA )
-                     CALL SSYMM( 'Right', UPLO, N-K-KB+1, KB, -HALF,
-     $                           A( K, K ), LDA, B( K+KB, K ), LDB, ONE,
-     $                           A( K+KB, K ), LDA )
-                     CALL STRSM( 'Left', UPLO, 'No transpose',
-     $                           'Non-unit', N-K-KB+1, KB, ONE,
-     $                           B( K+KB, K+KB ), LDB, A( K+KB, K ),
-     $                           LDA )
+                     CALL STRSM( 'Right', UPLO, 'Transpose', 'Non-unit', N-K-KB+1, KB, ONE, B( K, K ), LDB, A( K+KB, K ), LDA )                      CALL SSYMM( 'Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K ), LDA )                      CALL SSYR2K( UPLO, 'No transpose', N-K-KB+1, KB, -ONE, A( K+KB, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K+KB ), LDA )                      CALL SSYMM( 'Right', UPLO, N-K-KB+1, KB, -HALF, A( K, K ), LDA, B( K+KB, K ), LDB, ONE, A( K+KB, K ), LDA )                      CALL STRSM( 'Left', UPLO, 'No transpose', 'Non-unit', N-K-KB+1, KB, ONE, B( K+KB, K+KB ), LDB, A( K+KB, K ), LDA )
                   END IF
    20          CONTINUE
             END IF
@@ -145,20 +112,8 @@
 *
 *                 Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
 *
-                  CALL STRMM( 'Left', UPLO, 'No transpose', 'Non-unit',
-     $                        K-1, KB, ONE, B, LDB, A( 1, K ), LDA )
-                  CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ),
-     $                        LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )
-                  CALL SSYR2K( UPLO, 'No transpose', K-1, KB, ONE,
-     $                         A( 1, K ), LDA, B( 1, K ), LDB, ONE, A,
-     $                         LDA )
-                  CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ),
-     $                        LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )
-                  CALL STRMM( 'Right', UPLO, 'Transpose', 'Non-unit',
-     $                        K-1, KB, ONE, B( K, K ), LDB, A( 1, K ),
-     $                        LDA )
-                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA,
-     $                         B( K, K ), LDB, INFO )
+                  CALL STRMM( 'Left', UPLO, 'No transpose', 'Non-unit', K-1, KB, ONE, B, LDB, A( 1, K ), LDA )                   CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL SSYR2K( UPLO, 'No transpose', K-1, KB, ONE, A( 1, K ), LDA, B( 1, K ), LDB, ONE, A, LDA )                   CALL SSYMM( 'Right', UPLO, K-1, KB, HALF, A( K, K ), LDA, B( 1, K ), LDB, ONE, A( 1, K ), LDA )                   CALL STRMM( 'Right', UPLO, 'Transpose', 'Non-unit', K-1, KB, ONE, B( K, K ), LDB, A( 1, K ), LDA )
+                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    30          CONTINUE
             ELSE
 *
@@ -169,19 +124,8 @@
 *
 *                 Update the lower triangle of A(1:k+kb-1,1:k+kb-1)
 *
-                  CALL STRMM( 'Right', UPLO, 'No transpose', 'Non-unit',
-     $                        KB, K-1, ONE, B, LDB, A( K, 1 ), LDA )
-                  CALL SSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ),
-     $                        LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )
-                  CALL SSYR2K( UPLO, 'Transpose', K-1, KB, ONE,
-     $                         A( K, 1 ), LDA, B( K, 1 ), LDB, ONE, A,
-     $                         LDA )
-                  CALL SSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ),
-     $                        LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )
-                  CALL STRMM( 'Left', UPLO, 'Transpose', 'Non-unit', KB,
-     $                        K-1, ONE, B( K, K ), LDB, A( K, 1 ), LDA )
-                  CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA,
-     $                         B( K, K ), LDB, INFO )
+                  CALL STRMM( 'Right', UPLO, 'No transpose', 'Non-unit', KB, K-1, ONE, B, LDB, A( K, 1 ), LDA )                   CALL SSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )                   CALL SSYR2K( UPLO, 'Transpose', K-1, KB, ONE, A( K, 1 ), LDA, B( K, 1 ), LDB, ONE, A, LDA )
+                  CALL SSYMM( 'Left', UPLO, KB, K-1, HALF, A( K, K ), LDA, B( K, 1 ), LDB, ONE, A( K, 1 ), LDA )                   CALL STRMM( 'Left', UPLO, 'Transpose', 'Non-unit', KB, K-1, ONE, B( K, K ), LDB, A( K, 1 ), LDA )                   CALL SSYGS2( ITYPE, UPLO, KB, A( K, K ), LDA, B( K, K ), LDB, INFO )
    40          CONTINUE
             END IF
          END IF

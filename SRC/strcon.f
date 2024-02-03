@@ -1,5 +1,4 @@
-      SUBROUTINE STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK,
-     $                   IWORK, INFO )
+      SUBROUTINE STRCON( NORM, UPLO, DIAG, N, A, LDA, RCOND, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -102,14 +101,12 @@
 *
 *              Multiply by inv(A).
 *
-               CALL SLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A,
-     $                      LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
+               CALL SLATRS( UPLO, 'No transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
             ELSE
 *
 *              Multiply by inv(A**T).
 *
-               CALL SLATRS( UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA,
-     $                      WORK, SCALE, WORK( 2*N+1 ), INFO )
+               CALL SLATRS( UPLO, 'Transpose', DIAG, NORMIN, N, A, LDA, WORK, SCALE, WORK( 2*N+1 ), INFO )
             END IF
             NORMIN = 'Y'
 *
@@ -118,8 +115,7 @@
             IF( SCALE.NE.ONE ) THEN
                IX = ISAMAX( N, WORK, 1 )
                XNORM = ABS( WORK( IX ) )
-               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO )
-     $            GO TO 20
+               IF( SCALE.LT.XNORM*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
                CALL SRSCL( N, SCALE, WORK, 1 )
             END IF
             GO TO 10
@@ -127,8 +123,7 @@
 *
 *        Compute the estimate of the reciprocal condition number.
 *
-         IF( AINVNM.NE.ZERO )
-     $      RCOND = ( ONE / ANORM ) / AINVNM
+         IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       END IF
 *
    20 CONTINUE

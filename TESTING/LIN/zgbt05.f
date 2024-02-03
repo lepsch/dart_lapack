@@ -1,5 +1,4 @@
-      SUBROUTINE ZGBT05( TRANS, N, KL, KU, NRHS, AB, LDAB, B, LDB, X,
-     $                   LDX, XACT, LDXACT, FERR, BERR, RESLTS )
+      SUBROUTINE ZGBT05( TRANS, N, KL, KU, NRHS, AB, LDAB, B, LDB, X, LDX, XACT, LDXACT, FERR, BERR, RESLTS )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   BERR( * ), FERR( * ), RESLTS( * )
-      COMPLEX*16         AB( LDAB, * ), B( LDB, * ), X( LDX, * ),
-     $                   XACT( LDXACT, * )
+      COMPLEX*16         AB( LDAB, * ), B( LDB, * ), X( LDX, * ), XACT( LDXACT, * )
 *     ..
 *
 *  =====================================================================
@@ -97,13 +95,11 @@
             TMP = CABS1( B( I, K ) )
             IF( NOTRAN ) THEN
                DO 40 J = MAX( I-KL, 1 ), MIN( I+KU, N )
-                  TMP = TMP + CABS1( AB( KU+1+I-J, J ) )*
-     $                  CABS1( X( J, K ) )
+                  TMP = TMP + CABS1( AB( KU+1+I-J, J ) )* CABS1( X( J, K ) )
    40          CONTINUE
             ELSE
                DO 50 J = MAX( I-KU, 1 ), MIN( I+KL, N )
-                  TMP = TMP + CABS1( AB( KU+1+J-I, I ) )*
-     $                  CABS1( X( J, K ) )
+                  TMP = TMP + CABS1( AB( KU+1+J-I, I ) )* CABS1( X( J, K ) )
    50          CONTINUE
             END IF
             IF( I.EQ.1 ) THEN

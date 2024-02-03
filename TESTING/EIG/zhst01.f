@@ -1,5 +1,4 @@
-      SUBROUTINE ZHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK,
-     $                   LWORK, RWORK, RESULT )
+      SUBROUTINE ZHST01( N, ILO, IHI, A, LDA, H, LDH, Q, LDQ, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   RESULT( 2 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), H( LDH, * ), Q( LDQ, * ),
-     $                   WORK( LWORK )
+      COMPLEX*16         A( LDA, * ), H( LDH, * ), Q( LDQ, * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -58,15 +56,11 @@
 *
 *     Compute Q*H
 *
-      CALL ZGEMM( 'No transpose', 'No transpose', N, N, N,
-     $            DCMPLX( ONE ), Q, LDQ, H, LDH, DCMPLX( ZERO ),
-     $            WORK( LDWORK*N+1 ), LDWORK )
+      CALL ZGEMM( 'No transpose', 'No transpose', N, N, N, DCMPLX( ONE ), Q, LDQ, H, LDH, DCMPLX( ZERO ), WORK( LDWORK*N+1 ), LDWORK )
 *
 *     Compute A - Q*H*Q'
 *
-      CALL ZGEMM( 'No transpose', 'Conjugate transpose', N, N, N,
-     $            DCMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ,
-     $            DCMPLX( ONE ), WORK, LDWORK )
+      CALL ZGEMM( 'No transpose', 'Conjugate transpose', N, N, N, DCMPLX( -ONE ), WORK( LDWORK*N+1 ), LDWORK, Q, LDQ, DCMPLX( ONE ), WORK, LDWORK )
 *
       ANORM = MAX( ZLANGE( '1', N, N, A, LDA, RWORK ), UNFL )
       WNORM = ZLANGE( '1', N, N, WORK, LDWORK, RWORK )
@@ -77,8 +71,7 @@
 *
 *     Test 2:  Compute norm( I - Q'*Q ) / ( N * EPS )
 *
-      CALL ZUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK,
-     $             RESULT( 2 ) )
+      CALL ZUNT01( 'Columns', N, N, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )
 *
       RETURN
 *

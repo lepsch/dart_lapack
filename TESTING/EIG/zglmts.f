@@ -1,5 +1,4 @@
-      SUBROUTINE ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U,
-     $                   WORK, LWORK, RWORK, RESULT )
+      SUBROUTINE ZGLMTS( N, M, P, A, AF, LDA, B, BF, LDB, D, DF, X, U, WORK, LWORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -14,9 +13,7 @@
 *  ====================================================================
 *
       DOUBLE PRECISION   RWORK( * )
-      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ),
-     $                   BF( LDB, * ), D( * ), DF( * ), U( * ),
-     $                   WORK( LWORK ), X( * )
+      COMPLEX*16         A( LDA, * ), AF( LDA, * ), B( LDB, * ), BF( LDB, * ), D( * ), DF( * ), U( * ), WORK( LWORK ), X( * )
 *     ..
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO
@@ -55,8 +52,7 @@
 *
 *     Solve GLM problem
 *
-      CALL ZGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK,
-     $             INFO )
+      CALL ZGGGLM( N, M, P, AF, LDA, BF, LDB, DF, X, U, WORK, LWORK, INFO )
 *
 *     Test the residual for the solution of LSE
 *
@@ -65,11 +61,9 @@
 *                (norm(A)+norm(B))*(norm(x)+norm(u))*EPS
 *
       CALL ZCOPY( N, D, 1, DF, 1 )
-      CALL ZGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF,
-     $            1 )
+      CALL ZGEMV( 'No transpose', N, M, -CONE, A, LDA, X, 1, CONE, DF, 1 )
 *
-      CALL ZGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF,
-     $            1 )
+      CALL ZGEMV( 'No transpose', N, P, -CONE, B, LDB, U, 1, CONE, DF, 1 )
 *
       DNORM = DZASUM( N, DF, 1 )
       XNORM = DZASUM( M, X, 1 ) + DZASUM( P, U, 1 )

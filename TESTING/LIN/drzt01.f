@@ -1,5 +1,4 @@
-      DOUBLE PRECISION FUNCTION DRZT01( M, N, A, AF, LDA, TAU, WORK,
-     $                 LWORK )
+      DOUBLE PRECISION FUNCTION DRZT01( M, N, A, AF, LDA, TAU, WORK, LWORK )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -9,8 +8,7 @@
       INTEGER            LDA, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), TAU( * ),
-     $                   WORK( LWORK )
+      DOUBLE PRECISION   A( LDA, * ), AF( LDA, * ), TAU( * ), WORK( LWORK )
 *     ..
 *
 *  =====================================================================
@@ -47,8 +45,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
       NORMA = DLANGE( 'One-norm', M, N, A, LDA, RWORK )
 *
@@ -63,8 +60,7 @@
 *
 *     R = R * P(1) * ... *P(m)
 *
-      CALL DORMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU,
-     $             WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
+      CALL DORMRZ( 'Right', 'No transpose', M, N, M, N-M, AF, LDA, TAU, WORK, M, WORK( M*N+1 ), LWORK-M*N, INFO )
 *
 *     R = R - A
 *
@@ -75,8 +71,7 @@
       DRZT01 = DLANGE( 'One-norm', M, N, WORK, M, RWORK )
 *
       DRZT01 = DRZT01 / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
-      IF( NORMA.NE.ZERO )
-     $   DRZT01 = DRZT01 / NORMA
+      IF( NORMA.NE.ZERO ) DRZT01 = DRZT01 / NORMA
 *
       RETURN
 *

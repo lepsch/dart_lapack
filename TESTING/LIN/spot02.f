@@ -1,5 +1,4 @@
-      SUBROUTINE SPOT02( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK,
-     $                   RESID )
+      SUBROUTINE SPOT02( UPLO, N, NRHS, A, LDA, X, LDX, B, LDB, RWORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), B( LDB, * ), RWORK( * ),
-     $                   X( LDX, * )
+      REAL               A( LDA, * ), B( LDB, * ), RWORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================
@@ -55,8 +53,7 @@
 *
 *     Compute  B - A*X
 *
-      CALL SSYMM( 'Left', UPLO, N, NRHS, -ONE, A, LDA, X, LDX, ONE, B,
-     $            LDB )
+      CALL SSYMM( 'Left', UPLO, N, NRHS, -ONE, A, LDA, X, LDX, ONE, B, LDB )
 *
 *     Compute the maximum over the number of right hand sides of
 *        norm( B - A*X ) / ( norm(A) * norm(X) * EPS ) .

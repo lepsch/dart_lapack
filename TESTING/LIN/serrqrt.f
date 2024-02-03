@@ -20,12 +20,10 @@
       INTEGER            I, INFO, J
 *     ..
 *     .. Local Arrays ..
-      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ),
-     $                   C( NMAX, NMAX )
+      REAL               A( NMAX, NMAX ), T( NMAX, NMAX ), W( NMAX ), C( NMAX, NMAX )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, SGEQRT2, SGEQRT3, SGEQRT,
-     $                   SGEMQRT
+      EXTERNAL           ALAESM, CHKXER, SGEQRT2, SGEQRT3, SGEQRT, SGEMQRT
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK

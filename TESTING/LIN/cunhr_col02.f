@@ -14,17 +14,14 @@
 *
 *     ..
 *     .. Local allocatable arrays
-      COMPLEX         , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:),
-     $                   WORK( : ), T1(:,:), T2(:,:), DIAG(:),
-     $                   C(:,:), CF(:,:), D(:,:), DF(:,:)
+      COMPLEX         , ALLOCATABLE ::  A(:,:), AF(:,:), Q(:,:), R(:,:), WORK( : ), T1(:,:), T2(:,:), DIAG(:), C(:,:), CF(:,:), D(:,:), DF(:,:)
       REAL            , ALLOCATABLE :: RWORK(:)
 *
 *     .. Parameters ..
       REAL               ZERO
       PARAMETER          ( ZERO = 0.0E+0 )
       COMPLEX            CONE, CZERO
-      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ),
-     $                     CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CONE = ( 1.0E+0, 0.0E+0 ), CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            TESTZEROS
@@ -40,8 +37,7 @@
       EXTERNAL           SLAMCH, CLANGE, CLANSY
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CLACPY, CLARNV, CLASET, CGETSQRHRT,
-     $                   CSCAL, CGEMM, CGEMQRT, CHERK
+      EXTERNAL           CLACPY, CLARNV, CLASET, CGETSQRHRT, CSCAL, CGEMM, CGEMQRT, CHERK
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          CEILING, REAL, MAX, MIN
@@ -65,9 +61,7 @@
 *
 *     Dynamically allocate local arrays
 *
-      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L),
-     $           C(M,N), CF(M,N),
-     $           D(N,M), DF(N,M) )
+      ALLOCATE ( A(M,N), AF(M,N), Q(L,L), R(M,L), RWORK(L), C(M,N), CF(M,N), D(N,M), DF(N,M) )
 *
 *     Put random numbers into A and copy to AF
 *
@@ -98,8 +92,7 @@
       NB2_UB = MIN( NB2, N)
 *
 *
-      CALL CGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2,
-     $                 WORKQUERY, -1, INFO )
+      CALL CGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORKQUERY, -1, INFO )
 *
       LWORK = INT( WORKQUERY( 1 ) )
 *
@@ -118,8 +111,7 @@
 *     Factor the matrix A in the array AF.
 *
       SRNAMT = 'CGETSQRHRT'
-      CALL CGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2,
-     $                 WORK, LWORK, INFO )
+      CALL CGETSQRHRT( M, N, MB1, NB1, NB2, AF, M, T2, NB2, WORK, LWORK, INFO )
 *
 *     End Householder reconstruction routines.
 *
@@ -129,8 +121,7 @@
       CALL CLASET( 'Full', M, M, CZERO, CONE, Q, M )
 *
       SRNAMT = 'CGEMQRT'
-      CALL CGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M,
-     $              WORK, INFO )
+      CALL CGEMQRT( 'L', 'N', M, M, K, NB2_UB, AF, M, T2, NB2, Q, M, WORK, INFO )
 *
 *     Copy R
 *
@@ -170,8 +161,7 @@
 *     Apply Q to C as Q*C = CF
 *
       SRNAMT = 'CGEMQRT'
-      CALL CGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M,
-     $               WORK, INFO )
+      CALL CGEMQRT( 'L', 'N', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
 *
 *     TEST 3
 *     Compute |CF - Q*C| / ( eps *  m * |C| )
@@ -191,8 +181,7 @@
 *     Apply Q to C as (Q**T)*C = CF
 *
       SRNAMT = 'CGEMQRT'
-      CALL CGEMQRT( 'L', 'C', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M,
-     $               WORK, INFO )
+      CALL CGEMQRT( 'L', 'C', M, N, K, NB2_UB, AF, M, T2, NB2, CF, M, WORK, INFO )
 *
 *     TEST 4
 *     Compute |CF - (Q**T)*C| / ( eps * m * |C|)
@@ -216,8 +205,7 @@
 *     Apply Q to D as D*Q = DF
 *
       SRNAMT = 'CGEMQRT'
-      CALL CGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N,
-     $               WORK, INFO )
+      CALL CGEMQRT( 'R', 'N', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
 *
 *     TEST 5
 *     Compute |DF - D*Q| / ( eps * m * |D| )
@@ -237,8 +225,7 @@
 *     Apply Q to D as D*QT = DF
 *
       SRNAMT = 'CGEMQRT'
-      CALL CGEMQRT( 'R', 'C', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N,
-     $               WORK, INFO )
+      CALL CGEMQRT( 'R', 'C', N, M, K, NB2_UB, AF, M, T2, NB2, DF, N, WORK, INFO )
 *
 *     TEST 6
 *     Compute |DF - D*(Q**T)| / ( eps * m * |D| )
@@ -253,8 +240,7 @@
 *
 *     Deallocate all arrays
 *
-      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T1, T2, DIAG,
-     $             C, D, CF, DF )
+      DEALLOCATE ( A, AF, Q, R, RWORK, WORK, T1, T2, DIAG, C, D, CF, DF )
 *
       RETURN
 *

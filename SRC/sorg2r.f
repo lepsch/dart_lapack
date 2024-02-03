@@ -47,8 +47,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.LE.0 )
-     $   RETURN
+      IF( N.LE.0 ) RETURN
 *
 *     Initialise columns k+1:n to columns of the unit matrix
 *
@@ -65,11 +64,9 @@
 *
          IF( I.LT.N ) THEN
             A( I, I ) = ONE
-            CALL SLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAU( I ),
-     $                  A( I, I+1 ), LDA, WORK )
+            CALL SLARF( 'Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK )
          END IF
-         IF( I.LT.M )
-     $      CALL SSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
+         IF( I.LT.M ) CALL SSCAL( M-I, -TAU( I ), A( I+1, I ), 1 )
          A( I, I ) = ONE - TAU( I )
 *
 *        Set A(1:i-1,i) to zero

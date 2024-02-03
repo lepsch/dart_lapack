@@ -31,8 +31,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      IF( TAU.EQ.ZERO )
-     $   RETURN
+      IF( TAU.EQ.ZERO ) RETURN
 *
 *     Form  w:= C * v
 *

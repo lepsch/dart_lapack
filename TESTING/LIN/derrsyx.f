@@ -23,22 +23,14 @@
 *     ..
 *     .. Local Arrays ..
       INTEGER            IP( NMAX ), IW( NMAX )
-      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ),
-     $                   E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ),
-     $                   X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ),
-     $                   ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
+      DOUBLE PRECISION   A( NMAX, NMAX ), AF( NMAX, NMAX ), B( NMAX ), E( NMAX ), R1( NMAX ), R2( NMAX ), W( 3*NMAX ), X( NMAX ), S( NMAX ), ERR_BNDS_N( NMAX, 3 ), ERR_BNDS_C( NMAX, 3 ), PARAMS( 1 )
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAMEN
       EXTERNAL           LSAMEN
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI,
-     $                   DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS,
-     $                   DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF,
-     $                   DSYTRF_RK, DSYTRF_ROOK, DSYTRI, DSYTRI_3,
-     $                   DSYTRI_3X, DSYTRI_ROOK, DSYTRI2, DSYTRI2X,
-     $                   DSYTRS, DSYTRS_3, DSYTRS_ROOK, DSYRFSX
+      EXTERNAL           ALAESM, CHKXER, DSPCON, DSPRFS, DSPTRF, DSPTRI, DSPTRS, DSYCON, DSYCON_3, DSYCON_ROOK, DSYRFS, DSYTF2, DSYTF2_RK, DSYTF2_ROOK, DSYTRF, DSYTRF_RK, DSYTRF_ROOK, DSYTRI, DSYTRI_3, DSYTRI_3X, DSYTRI_ROOK, DSYTRI2, DSYTRI2X, DSYTRS, DSYTRS_3, DSYTRS_ROOK, DSYRFSX
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
@@ -179,32 +171,25 @@
 *
          SRNAMT = 'DSYRFS'
          INFOT = 1
-         CALL DSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( '/', 0, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DSYRFS( 'U', -1, 0, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2,
-     $                W, IW, INFO )
+         CALL DSYRFS( 'U', 0, -1, A, 1, AF, 1, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 5
-         CALL DSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 1, AF, 2, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 1, IP, B, 2, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W,
-     $                IW, INFO )
+         CALL DSYRFS( 'U', 2, 1, A, 2, AF, 2, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSYRFS', INFOT, NOUT, LERR, OK )
 *
 *        DSYRFSX
@@ -213,45 +198,29 @@
          NPARAMS = 0
          SRNAMT = 'DSYRFSX'
          INFOT = 1
-         CALL DSYRFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( '/', EQ, 0, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          EQ = 'N'
          INFOT = 3
-         CALL DSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, -1, 0, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DSYRFSX( 'U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, 0, -1, A, 1, AF, 1, IP, S, B, 1, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 6
-         CALL DSYRFSX( 'U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, 2, 1, A, 1, AF, 2, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 1, IP, S, B, 2, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 12
-         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 1, X, 2, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
          INFOT = 14
-         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1,
-     $        RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS,
-     $        PARAMS, W, IW, INFO )
+         CALL DSYRFSX( 'U', EQ, 2, 1, A, 2, AF, 2, IP, S, B, 2, X, 1, RCOND, BERR, N_ERR_BNDS, ERR_BNDS_N, ERR_BNDS_C, NPARAMS, PARAMS, W, IW, INFO )
          CALL CHKXER( 'DSYRFSX', INFOT, NOUT, LERR, OK )
 *
 *        DSYCON
@@ -453,20 +422,16 @@
 *
          SRNAMT = 'DSYCON_3'
          INFOT = 1
-         CALL DSYCON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( '/', 0, A, 1,  E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSYCON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( 'U', -1, A, 1, E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 4
-         CALL DSYCON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, IW,
-     $                   INFO )
+         CALL DSYCON_3( 'U', 2, A, 1, E, IP, ANRM, RCOND, W, IW, INFO )
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
          INFOT = 7
-         CALL DSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW,
-     $                   INFO)
+         CALL DSYCON_3( 'U', 1, A, 1, E, IP, -1.0D0, RCOND, W, IW, INFO)
          CALL CHKXER( 'DSYCON_3', INFOT, NOUT, LERR, OK )
 *
       ELSE IF( LSAMEN( 2, C2, 'SP' ) ) THEN
@@ -515,24 +480,19 @@
 *
          SRNAMT = 'DSPRFS'
          INFOT = 1
-         CALL DSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( '/', 0, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 2
-         CALL DSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', -1, 0, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 3
-         CALL DSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 0, -1, A, AF, IP, B, 1, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 8
-         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 1, X, 2, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
          INFOT = 10
-         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW,
-     $                INFO )
+         CALL DSPRFS( 'U', 2, 1, A, AF, IP, B, 2, X, 1, R1, R2, W, IW, INFO )
          CALL CHKXER( 'DSPRFS', INFOT, NOUT, LERR, OK )
 *
 *        DSPCON

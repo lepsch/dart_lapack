@@ -1,5 +1,4 @@
-      SUBROUTINE DLAED1( N, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK, IWORK,
-     $                   INFO )
+      SUBROUTINE DLAED1( N, D, Q, LDQ, INDXQ, RHO, CUTPNT, WORK, IWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -17,8 +16,7 @@
 *  =====================================================================
 *
 *     .. Local Scalars ..
-      INTEGER            COLTYP, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS,
-     $                   IW, IZ, K, N1, N2, ZPP1
+      INTEGER            COLTYP, I, IDLMDA, INDX, INDXC, INDXP, IQ2, IS, IW, IZ, K, N1, N2, ZPP1
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           DCOPY, DLAED2, DLAED3, DLAMRG, XERBLA
@@ -46,8 +44,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     The following values are integer pointers which indicate
 *     the portion of the workspace
@@ -73,24 +70,15 @@
 *
 *     Deflate eigenvalues.
 *
-      CALL DLAED2( K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ),
-     $             WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ),
-     $             IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ),
-     $             IWORK( COLTYP ), INFO )
+      CALL DLAED2( K, N, CUTPNT, D, Q, LDQ, INDXQ, RHO, WORK( IZ ), WORK( IDLMDA ), WORK( IW ), WORK( IQ2 ), IWORK( INDX ), IWORK( INDXC ), IWORK( INDXP ), IWORK( COLTYP ), INFO )
 *
-      IF( INFO.NE.0 )
-     $   GO TO 20
+      IF( INFO.NE.0 ) GO TO 20
 *
 *     Solve Secular Equation.
 *
       IF( K.NE.0 ) THEN
-         IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT +
-     $        ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2
-         CALL DLAED3( K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ),
-     $                WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ),
-     $                WORK( IW ), WORK( IS ), INFO )
-         IF( INFO.NE.0 )
-     $      GO TO 20
+         IS = ( IWORK( COLTYP )+IWORK( COLTYP+1 ) )*CUTPNT + ( IWORK( COLTYP+1 )+IWORK( COLTYP+2 ) )*( N-CUTPNT ) + IQ2          CALL DLAED3( K, N, CUTPNT, D, Q, LDQ, RHO, WORK( IDLMDA ), WORK( IQ2 ), IWORK( INDXC ), IWORK( COLTYP ), WORK( IW ), WORK( IS ), INFO )
+         IF( INFO.NE.0 ) GO TO 20
 *
 *     Prepare the INDXQ sorting permutation.
 *

@@ -21,8 +21,7 @@
 *     ..
 *     .. Executable Statements ..
 *
-      CALL SLADIV( REAL( X ), AIMAG( X ), REAL( Y ), AIMAG( Y ), ZR,
-     $             ZI )
+      CALL SLADIV( REAL( X ), AIMAG( X ), REAL( Y ), AIMAG( Y ), ZR, ZI )
       CLADIV = CMPLX( ZR, ZI )
 *
       RETURN

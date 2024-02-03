@@ -1,5 +1,4 @@
-      SUBROUTINE ZHET21( ITYPE, UPLO, N, KBAND, A, LDA, D, E, U, LDU, V,
-     $                   LDV, TAU, WORK, RWORK, RESULT )
+      SUBROUTINE ZHET21( ITYPE, UPLO, N, KBAND, A, LDA, D, E, U, LDU, V, LDV, TAU, WORK, RWORK, RESULT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       DOUBLE PRECISION   D( * ), E( * ), RESULT( 2 ), RWORK( * )
-      COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ),
-     $                   V( LDV, * ), WORK( * )
+      COMPLEX*16         A( LDA, * ), TAU( * ), U( LDU, * ), V( LDV, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -21,8 +19,7 @@
       DOUBLE PRECISION   ZERO, ONE, TEN
       PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, TEN = 10.0D+0 )
       COMPLEX*16         CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ),
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( CZERO = ( 0.0D+0, 0.0D+0 ), CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LOWER
@@ -37,8 +34,7 @@
       EXTERNAL           LSAME, DLAMCH, ZLANGE, ZLANHE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ZGEMM, ZHER, ZHER2, ZLACPY, ZLARFY, ZLASET,
-     $                   ZUNM2L, ZUNM2R
+      EXTERNAL           ZGEMM, ZHER, ZHER2, ZLACPY, ZLARFY, ZLASET, ZUNM2L, ZUNM2R
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          DBLE, DCMPLX, MAX, MIN
@@ -46,10 +42,7 @@
 *     .. Executable Statements ..
 *
       RESULT( 1 ) = ZERO
-      IF( ITYPE.EQ.1 )
-     $   RESULT( 2 ) = ZERO
-      IF( N.LE.0 )
-     $   RETURN
+      IF( ITYPE.EQ.1 ) RESULT( 2 ) = ZERO       IF( N.LE.0 ) RETURN
 *
       IF( LSAME( UPLO, 'U' ) ) THEN
          LOWER = .FALSE.
@@ -94,8 +87,7 @@
 *
          IF( N.GT.1 .AND. KBAND.EQ.1 ) THEN
             DO 20 J = 1, N - 1
-               CALL ZHER2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1,
-     $                     U( 1, J+1 ), 1, WORK, N )
+               CALL ZHER2( CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N )
    20       CONTINUE
          END IF
          WNORM = ZLANHE( '1', CUPLO, N, WORK, N, RWORK )
@@ -118,8 +110,7 @@
 *
                VSAVE = V( J+1, J )
                V( J+1, J ) = ONE
-               CALL ZLARFY( 'L', N-J, V( J+1, J ), 1, TAU( J ),
-     $                      WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) )
+               CALL ZLARFY( 'L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) )
                V( J+1, J ) = VSAVE
                WORK( ( N+1 )*( J-1 )+1 ) = D( J )
    40       CONTINUE
@@ -135,8 +126,7 @@
 *
                VSAVE = V( J, J+1 )
                V( J, J+1 ) = ONE
-               CALL ZLARFY( 'U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N,
-     $                      WORK( N**2+1 ) )
+               CALL ZLARFY( 'U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) )
                V( J, J+1 ) = VSAVE
                WORK( ( N+1 )*J+1 ) = D( J+1 )
    60       CONTINUE
@@ -145,13 +135,11 @@
          DO 90 JCOL = 1, N
             IF( LOWER ) THEN
                DO 70 JROW = JCOL, N
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) )
-     $                - A( JROW, JCOL )
+                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    70          CONTINUE
             ELSE
                DO 80 JROW = 1, JCOL
-                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) )
-     $                - A( JROW, JCOL )
+                  WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
    80          CONTINUE
             END IF
    90    CONTINUE
@@ -161,15 +149,12 @@
 *
 *        ITYPE=3: error = U V**H - I
 *
-         IF( N.LT.2 )
-     $      RETURN
+         IF( N.LT.2 ) RETURN
          CALL ZLACPY( ' ', N, N, U, LDU, WORK, N )
          IF( LOWER ) THEN
-            CALL ZUNM2R( 'R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU,
-     $                   WORK( N+1 ), N, WORK( N**2+1 ), IINFO )
+            CALL ZUNM2R( 'R', 'C', N, N-1, N-1, V( 2, 1 ), LDV, TAU, WORK( N+1 ), N, WORK( N**2+1 ), IINFO )
          ELSE
-            CALL ZUNM2L( 'R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU,
-     $                   WORK, N, WORK( N**2+1 ), IINFO )
+            CALL ZUNM2L( 'R', 'C', N, N-1, N-1, V( 1, 2 ), LDV, TAU, WORK, N, WORK( N**2+1 ), IINFO )
          END IF
          IF( IINFO.NE.0 ) THEN
             RESULT( 1 ) = TEN / ULP
@@ -198,15 +183,13 @@
 *     Compute  U U**H - I
 *
       IF( ITYPE.EQ.1 ) THEN
-         CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO,
-     $               WORK, N )
+         CALL ZGEMM( 'N', 'C', N, N, N, CONE, U, LDU, U, LDU, CZERO, WORK, N )
 *
          DO 110 J = 1, N
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
   110    CONTINUE
 *
-         RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ),
-     $                 DBLE( N ) ) / ( N*ULP )
+         RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
       END IF
 *
       RETURN

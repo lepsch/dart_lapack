@@ -1,5 +1,4 @@
-      SUBROUTINE CTREVC3( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR,
-     $                    LDVR, MM, M, WORK, LWORK, RWORK, LRWORK, INFO)
+      SUBROUTINE CTREVC3( SIDE, HOWMNY, SELECT, N, T, LDT, VL, LDVL, VR, LDVR, MM, M, WORK, LWORK, RWORK, LRWORK, INFO)
       IMPLICIT NONE
 *
 *  -- LAPACK computational routine --
@@ -13,8 +12,7 @@
 *     .. Array Arguments ..
       LOGICAL            SELECT( * )
       REAL               RWORK( * )
-      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ),
-     $                   WORK( * )
+      COMPLEX            T( LDT, * ), VL( LDVL, * ), VR( LDVR, * ), WORK( * )
 *     ..
 *
 *  =====================================================================
@@ -23,8 +21,7 @@
       REAL               ZERO, ONE
       PARAMETER          ( ZERO = 0.0E+0, ONE = 1.0E+0 )
       COMPLEX            CZERO, CONE
-      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ),
-     $                     CONE  = ( 1.0E+0, 0.0E+0 ) )
+      PARAMETER          ( CZERO = ( 0.0E+0, 0.0E+0 ), CONE  = ( 1.0E+0, 0.0E+0 ) )
       INTEGER            NBMIN, NBMAX
       PARAMETER          ( NBMIN = 8, NBMAX = 128 )
 *     ..
@@ -38,12 +35,10 @@
       LOGICAL            LSAME
       INTEGER            ILAENV, ICAMAX
       REAL               SLAMCH, SCASUM, SROUNDUP_LWORK
-      EXTERNAL           LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM,
-     $                   SROUNDUP_LWORK
+      EXTERNAL           LSAME, ILAENV, ICAMAX, SLAMCH, SCASUM, SROUNDUP_LWORK
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV,
-     $                   CLATRS, CLACPY
+      EXTERNAL           XERBLA, CCOPY, CLASET, CSSCAL, CGEMM, CGEMV, CLATRS, CLACPY
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, REAL, CMPLX, CONJG, AIMAG, MAX
@@ -72,8 +67,7 @@
       IF( SOMEV ) THEN
          M = 0
          DO 10 J = 1, N
-            IF( SELECT( J ) )
-     $         M = M + 1
+            IF( SELECT( J ) ) M = M + 1
    10    CONTINUE
       ELSE
          M = N
@@ -113,8 +107,7 @@
 *
 *     Quick return if possible.
 *
-      IF( N.EQ.0 )
-     $   RETURN
+      IF( N.EQ.0 ) RETURN
 *
 *     Use blocked version of back-transformation if sufficient workspace.
 *     Zero-out the workspace to avoid potential NaN propagation.
@@ -161,8 +154,7 @@
          IS = M
          DO 80 KI = N, 1, -1
             IF( SOMEV ) THEN
-               IF( .NOT.SELECT( KI ) )
-     $            GO TO 80
+               IF( .NOT.SELECT( KI ) ) GO TO 80
             END IF
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 *
@@ -182,14 +174,11 @@
 *
             DO 50 K = 1, KI - 1
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN )
-     $            T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
    50       CONTINUE
 *
             IF( KI.GT.1 ) THEN
-               CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y',
-     $                      KI-1, T, LDT, WORK( 1 + IV*N ), SCALE,
-     $                      RWORK, INFO )
+               CALL CLATRS( 'Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO )
                WORK( KI + IV*N ) = SCALE
             END IF
 *
@@ -211,10 +200,7 @@
             ELSE IF( NB.EQ.1 ) THEN
 *              ------------------------------
 *              version 1: back-transform each vector with GEMV, Q*x.
-               IF( KI.GT.1 )
-     $            CALL CGEMV( 'N', N, KI-1, CONE, VR, LDVR,
-     $                        WORK( 1 + IV*N ), 1, CMPLX( SCALE ),
-     $                        VR( 1, KI ), 1 )
+               IF( KI.GT.1 ) CALL CGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 )
 *
                II = ICAMAX( N, VR( 1, KI ), 1 )
                REMAX = ONE / CABS1( VR( II, KI ) )
@@ -232,20 +218,14 @@
 *              When the number of vectors stored reaches NB,
 *              or if this was last vector, do the GEMM
                IF( (IV.EQ.1) .OR. (KI.EQ.1) ) THEN
-                  CALL CGEMM( 'N', 'N', N, NB-IV+1, KI+NB-IV, CONE,
-     $                        VR, LDVR,
-     $                        WORK( 1 + (IV)*N    ), N,
-     $                        CZERO,
-     $                        WORK( 1 + (NB+IV)*N ), N )
+                  CALL CGEMM( 'N', 'N', N, NB-IV+1, KI+NB-IV, CONE, VR, LDVR, WORK( 1 + (IV)*N    ), N, CZERO, WORK( 1 + (NB+IV)*N ), N )
 *                 normalize vectors
                   DO K = IV, NB
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      CALL CSSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
                   END DO
-                  CALL CLACPY( 'F', N, NB-IV+1,
-     $                         WORK( 1 + (NB+IV)*N ), N,
-     $                         VR( 1, KI ), LDVR )
+                  CALL CLACPY( 'F', N, NB-IV+1, WORK( 1 + (NB+IV)*N ), N, VR( 1, KI ), LDVR )
                   IV = NB
                ELSE
                   IV = IV - 1
@@ -276,8 +256,7 @@
          DO 130 KI = 1, N
 *
             IF( SOMEV ) THEN
-               IF( .NOT.SELECT( KI ) )
-     $            GO TO 130
+               IF( .NOT.SELECT( KI ) ) GO TO 130
             END IF
             SMIN = MAX( ULP*( CABS1( T( KI, KI ) ) ), SMLNUM )
 *
@@ -297,14 +276,11 @@
 *
             DO 100 K = KI + 1, N
                T( K, K ) = T( K, K ) - T( KI, KI )
-               IF( CABS1( T( K, K ) ).LT.SMIN )
-     $            T( K, K ) = SMIN
+               IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
   100       CONTINUE
 *
             IF( KI.LT.N ) THEN
-               CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit',
-     $                      'Y', N-KI, T( KI+1, KI+1 ), LDT,
-     $                      WORK( KI+1 + IV*N ), SCALE, RWORK, INFO )
+               CALL CLATRS( 'Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO )
                WORK( KI + IV*N ) = SCALE
             END IF
 *
@@ -326,10 +302,7 @@
             ELSE IF( NB.EQ.1 ) THEN
 *              ------------------------------
 *              version 1: back-transform each vector with GEMV, Q*x.
-               IF( KI.LT.N )
-     $            CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL,
-     $                        WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ),
-     $                        VL( 1, KI ), 1 )
+               IF( KI.LT.N ) CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 )
 *
                II = ICAMAX( N, VL( 1, KI ), 1 )
                REMAX = ONE / CABS1( VL( II, KI ) )
@@ -348,20 +321,14 @@
 *              When the number of vectors stored reaches NB,
 *              or if this was last vector, do the GEMM
                IF( (IV.EQ.NB) .OR. (KI.EQ.N) ) THEN
-                  CALL CGEMM( 'N', 'N', N, IV, N-KI+IV, CONE,
-     $                        VL( 1, KI-IV+1 ), LDVL,
-     $                        WORK( KI-IV+1 + (1)*N ), N,
-     $                        CZERO,
-     $                        WORK( 1 + (NB+1)*N ), N )
+                  CALL CGEMM( 'N', 'N', N, IV, N-KI+IV, CONE, VL( 1, KI-IV+1 ), LDVL, WORK( KI-IV+1 + (1)*N ), N, CZERO, WORK( 1 + (NB+1)*N ), N )
 *                 normalize vectors
                   DO K = 1, IV
                      II = ICAMAX( N, WORK( 1 + (NB+K)*N ), 1 )
                      REMAX = ONE / CABS1( WORK( II + (NB+K)*N ) )
                      CALL CSSCAL( N, REMAX, WORK( 1 + (NB+K)*N ), 1 )
                   END DO
-                  CALL CLACPY( 'F', N, IV,
-     $                         WORK( 1 + (NB+1)*N ), N,
-     $                         VL( 1, KI-IV+1 ), LDVL )
+                  CALL CLACPY( 'F', N, IV, WORK( 1 + (NB+1)*N ), N, VL( 1, KI-IV+1 ), LDVL )
                   IV = 1
                ELSE
                   IV = IV + 1

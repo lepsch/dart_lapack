@@ -1,5 +1,4 @@
-      SUBROUTINE CLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV,
-     $                   JPIV )
+      SUBROUTINE CLATDF( IJOB, N, Z, LDZ, RHS, RDSUM, RDSCAL, IPIV, JPIV )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -34,8 +33,7 @@
       COMPLEX            WORK( 4*MAXDIM ), XM( MAXDIM ), XP( MAXDIM )
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP,
-     $                   CSCAL
+      EXTERNAL           CAXPY, CCOPY, CGECON, CGESC2, CLASSQ, CLASWP, CSCAL
 *     ..
 *     .. External Functions ..
       REAL               SCASUM
@@ -64,8 +62,7 @@
 *           Look-ahead for L- part RHS(1:N-1) = +-1
 *           SPLUS and SMIN computed more efficiently than in BSOLVE[1].
 *
-            SPLUS = SPLUS + REAL( CDOTC( N-J, Z( J+1, J ), 1, Z( J+1,
-     $              J ), 1 ) )
+            SPLUS = SPLUS + REAL( CDOTC( N-J, Z( J+1, J ), 1, Z( J+1, J ), 1 ) )
             SMINU = REAL( CDOTC( N-J, Z( J+1, J ), 1, RHS( J+1 ), 1 ) )
             SPLUS = SPLUS*REAL( RHS( J ) )
             IF( SPLUS.GT.SMINU ) THEN
@@ -111,8 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
    30    CONTINUE
-         IF( SPLUS.GT.SMINU )
-     $      CALL CCOPY( N, WORK, 1, RHS, 1 )
+         IF( SPLUS.GT.SMINU ) CALL CCOPY( N, WORK, 1, RHS, 1 )
 *
 *        Apply the permutations JPIV to the computed solution (RHS)
 *
@@ -141,8 +137,7 @@
       CALL CAXPY( N, -CONE, XM, 1, RHS, 1 )
       CALL CGESC2( N, Z, LDZ, RHS, IPIV, JPIV, SCALE )
       CALL CGESC2( N, Z, LDZ, XP, IPIV, JPIV, SCALE )
-      IF( SCASUM( N, XP, 1 ).GT.SCASUM( N, RHS, 1 ) )
-     $   CALL CCOPY( N, XP, 1, RHS, 1 )
+      IF( SCASUM( N, XP, 1 ).GT.SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 )
 *
 *     Compute the sum of squares
 *

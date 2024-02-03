@@ -35,8 +35,7 @@
       IF( UPPER ) THEN
          DO 20 J = 1, N
             DO 10 I = 1, J
-               IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) )
-     $             THEN
+               IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) THEN
                   INFO = 1
                   GO TO 50
                END IF
@@ -46,8 +45,7 @@
       ELSE
          DO 40 J = 1, N
             DO 30 I = J, N
-               IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) )
-     $             THEN
+               IF( ( A( I, J ).LT.-RMAX ) .OR. ( A( I, J ).GT.RMAX ) ) THEN
                   INFO = 1
                   GO TO 50
                END IF

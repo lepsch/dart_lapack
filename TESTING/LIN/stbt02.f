@@ -1,5 +1,4 @@
-      SUBROUTINE STBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X,
-     $                   LDX, B, LDB, WORK, RESID )
+      SUBROUTINE STBT02( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDX, B, LDB, WORK, RESID )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -11,8 +10,7 @@
       REAL               RESID
 *     ..
 *     .. Array Arguments ..
-      REAL               AB( LDAB, * ), B( LDB, * ), WORK( * ),
-     $                   X( LDX, * )
+      REAL               AB( LDAB, * ), B( LDB, * ), WORK( * ), X( LDX, * )
 *     ..
 *
 *  =====================================================================

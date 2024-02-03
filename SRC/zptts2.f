@@ -28,8 +28,7 @@
 *     Quick return if possible
 *
       IF( N.LE.1 ) THEN
-         IF( N.EQ.1 )
-     $      CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
+         IF( N.EQ.1 ) CALL ZDSCAL( NRHS, 1.D0 / D( 1 ), B, LDB )
          RETURN
       END IF
 *
@@ -117,8 +116,7 @@
 *
                B( N, J ) = B( N, J ) / D( N )
                DO 130 I = N - 1, 1, -1
-                  B( I, J ) = B( I, J ) / D( I ) -
-     $                        B( I+1, J )*DCONJG( E( I ) )
+                  B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*DCONJG( E( I ) )
   130          CONTINUE
   140       CONTINUE
          END IF

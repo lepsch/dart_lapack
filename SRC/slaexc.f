@@ -1,5 +1,4 @@
-      SUBROUTINE SLAEXC( WANTQ, N, T, LDT, Q, LDQ, J1, N1, N2, WORK,
-     $                   INFO )
+      SUBROUTINE SLAEXC( WANTQ, N, T, LDT, Q, LDQ, J1, N1, N2, WORK, INFO )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -25,21 +24,17 @@
 *     ..
 *     .. Local Scalars ..
       INTEGER            IERR, J2, J3, J4, K, ND
-      REAL               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22,
-     $                   T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2,
-     $                   WR1, WR2, XNORM
+      REAL               CS, DNORM, EPS, SCALE, SMLNUM, SN, T11, T22, T33, TAU, TAU1, TAU2, TEMP, THRESH, WI1, WI2, WR1, WR2, XNORM
 *     ..
 *     .. Local Arrays ..
-      REAL               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ),
-     $                   X( LDX, 2 )
+      REAL               D( LDD, 4 ), U( 3 ), U1( 3 ), U2( 3 ), X( LDX, 2 )
 *     ..
 *     .. External Functions ..
       REAL               SLAMCH, SLANGE
       EXTERNAL           SLAMCH, SLANGE
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           SLACPY, SLANV2, SLARFG, SLARFX, SLARTG, SLASY2,
-     $                   SROT
+      EXTERNAL           SLACPY, SLANV2, SLARFG, SLARFX, SLARTG, SLASY2, SROT
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          ABS, MAX
@@ -50,10 +45,7 @@
 *
 *     Quick return if possible
 *
-      IF( N.EQ.0 .OR. N1.EQ.0 .OR. N2.EQ.0 )
-     $   RETURN
-      IF( J1+N1.GT.N )
-     $   RETURN
+      IF( N.EQ.0 .OR. N1.EQ.0 .OR. N2.EQ.0 ) RETURN       IF( J1+N1.GT.N ) RETURN
 *
       J2 = J1 + 1
       J3 = J1 + 2
@@ -72,9 +64,7 @@
 *
 *        Apply transformation to the matrix T.
 *
-         IF( J3.LE.N )
-     $      CALL SROT( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS,
-     $                 SN )
+         IF( J3.LE.N ) CALL SROT( N-J1-1, T( J1, J3 ), LDT, T( J2, J3 ), LDT, CS, SN )
          CALL SROT( J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN )
 *
          T( J1, J1 ) = T22
@@ -107,9 +97,7 @@
 *
 *        Solve T11*X - X*T22 = scale*T12 for X.
 *
-         CALL SLASY2( .FALSE., .FALSE., -1, N1, N2, D, LDD,
-     $                D( N1+1, N1+1 ), LDD, D( 1, N1+1 ), LDD, SCALE, X,
-     $                LDX, XNORM, IERR )
+         CALL SLASY2( .FALSE., .FALSE., -1, N1, N2, D, LDD, D( N1+1, N1+1 ), LDD, D( 1, N1+1 ), LDD, SCALE, X, LDX, XNORM, IERR )
 *
 *        Swap the adjacent diagonal blocks.
 *
@@ -136,8 +124,7 @@
 *
 *        Test whether to reject swap.
 *
-         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3,
-     $       3 )-T11 ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 3, 3 )-T11 ) ).GT.THRESH )GO TO 50
 *
 *        Accept swap: apply transformation to the entire matrix T.
 *
@@ -178,8 +165,7 @@
 *
 *        Test whether to reject swap.
 *
-         IF( MAX( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1,
-     $       1 )-T33 ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 2, 1 ) ), ABS( D( 3, 1 ) ), ABS( D( 1, 1 )-T33 ) ).GT.THRESH )GO TO 50
 *
 *        Accept swap: apply transformation to the entire matrix T.
 *
@@ -230,8 +216,7 @@
 *
 *        Test whether to reject swap.
 *
-         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ),
-     $       ABS( D( 4, 2 ) ) ).GT.THRESH )GO TO 50
+         IF( MAX( ABS( D( 3, 1 ) ), ABS( D( 3, 2 ) ), ABS( D( 4, 1 ) ), ABS( D( 4, 2 ) ) ).GT.THRESH )GO TO 50
 *
 *        Accept swap: apply transformation to the entire matrix T.
 *
@@ -259,13 +244,9 @@
 *
 *           Standardize new 2-by-2 block T11
 *
-            CALL SLANV2( T( J1, J1 ), T( J1, J2 ), T( J2, J1 ),
-     $                   T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN )
-            CALL SROT( N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT,
-     $                 CS, SN )
+            CALL SLANV2( T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN )             CALL SROT( N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN )
             CALL SROT( J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN )
-            IF( WANTQ )
-     $         CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN )
+            IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN )
          END IF
 *
          IF( N1.EQ.2 ) THEN
@@ -274,14 +255,9 @@
 *
             J3 = J1 + N2
             J4 = J3 + 1
-            CALL SLANV2( T( J3, J3 ), T( J3, J4 ), T( J4, J3 ),
-     $                   T( J4, J4 ), WR1, WI1, WR2, WI2, CS, SN )
-            IF( J3+2.LE.N )
-     $         CALL SROT( N-J3-1, T( J3, J3+2 ), LDT, T( J4, J3+2 ),
-     $                    LDT, CS, SN )
+            CALL SLANV2( T( J3, J3 ), T( J3, J4 ), T( J4, J3 ), T( J4, J4 ), WR1, WI1, WR2, WI2, CS, SN )             IF( J3+2.LE.N ) CALL SROT( N-J3-1, T( J3, J3+2 ), LDT, T( J4, J3+2 ), LDT, CS, SN )
             CALL SROT( J3-1, T( 1, J3 ), 1, T( 1, J4 ), 1, CS, SN )
-            IF( WANTQ )
-     $         CALL SROT( N, Q( 1, J3 ), 1, Q( 1, J4 ), 1, CS, SN )
+            IF( WANTQ ) CALL SROT( N, Q( 1, J3 ), 1, Q( 1, J4 ), 1, CS, SN )
          END IF
 *
       END IF

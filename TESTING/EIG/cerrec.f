@@ -24,8 +24,7 @@
 *     .. Local Arrays ..
       LOGICAL            SEL( NMAX )
       REAL               RW( LW ), S( NMAX ), SEP( NMAX ), SWORK( NMAX )
-      COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ),
-     $                   C( NMAX, NMAX ), WORK( LW ), X( NMAX )
+      COMPLEX            A( NMAX, NMAX ), B( NMAX, NMAX ), C( NMAX, NMAX ), WORK( LW ), X( NMAX )
 *     ..
 *     .. External Subroutines ..
       EXTERNAL           CHKXER, CTREXC, CTRSEN, CTRSNA, CTRSYL, CTRSYL3
@@ -91,36 +90,28 @@
 *
       SRNAMT = 'CTRSYL3'
       INFOT = 1
-      CALL CTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'X', 'N', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL CTRSYL3( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'X', 1, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 3
-      CALL CTRSYL3( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 0, 0, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL CTRSYL3( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 1, -1, 0, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 5
-      CALL CTRSYL3( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 1, 0, -1, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 7
-      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 1, B, 1, C, 2, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 9
-      CALL CTRSYL3( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 1, 0, 2, A, 1, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       INFOT = 11
-      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE,
-     $              SWORK, NMAX, INFO )
+      CALL CTRSYL3( 'N', 'N', 1, 2, 0, A, 2, B, 1, C, 1, SCALE, SWORK, NMAX, INFO )
       CALL CHKXER( 'CTRSYL3', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *
@@ -166,40 +157,31 @@
 *
       SRNAMT = 'CTRSNA'
       INFOT = 1
-      CALL CTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'X', 'A', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL CTRSNA( 'B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'B', 'X', SEL, 0, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL CTRSNA( 'B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'B', 'A', SEL, -1, A, 1, B, 1, C, 1, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 6
-      CALL CTRSNA( 'V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL CTRSNA( 'V', 'A', SEL, 2, A, 1, B, 1, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 8
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 1, C, 2, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 10
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M,
-     $             WORK, 2, RW, INFO )
+      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 1, S, SEP, 2, M, WORK, 2, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL CTRSNA( 'B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'B', 'A', SEL, 1, A, 1, B, 1, C, 1, S, SEP, 0, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 13
-      CALL CTRSNA( 'B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'B', 'S', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 1, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       INFOT = 16
-      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M,
-     $             WORK, 1, RW, INFO )
+      CALL CTRSNA( 'B', 'A', SEL, 2, A, 2, B, 2, C, 2, S, SEP, 2, M, WORK, 1, RW, INFO )
       CALL CHKXER( 'CTRSNA', INFOT, NOUT, LERR, OK )
       NT = NT + 9
 *
@@ -208,36 +190,28 @@
       SEL( 1 ) = .FALSE.
       SRNAMT = 'CTRSEN'
       INFOT = 1
-      CALL CTRSEN( 'X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL CTRSEN( 'X', 'N', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 2
-      CALL CTRSEN( 'N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL CTRSEN( 'N', 'X', SEL, 0, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 4
-      CALL CTRSEN( 'N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ),
-     $             SEP( 1 ), WORK, 1, INFO )
+      CALL CTRSEN( 'N', 'N', SEL, -1, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 6
-      CALL CTRSEN( 'N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 2, INFO )
+      CALL CTRSEN( 'N', 'N', SEL, 2, A, 1, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 2, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 8
-      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 1, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 0, INFO )
+      CALL CTRSEN( 'N', 'V', SEL, 2, A, 2, B, 2, X, M, S( 1 ), SEP( 1 ), WORK, 0, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL CTRSEN( 'E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 1, INFO )
+      CALL CTRSEN( 'E', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 1, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       INFOT = 14
-      CALL CTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ),
-     $             WORK, 3, INFO )
+      CALL CTRSEN( 'V', 'V', SEL, 3, A, 3, B, 3, X, M, S( 1 ), SEP( 1 ), WORK, 3, INFO )
       CALL CHKXER( 'CTRSEN', INFOT, NOUT, LERR, OK )
       NT = NT + 8
 *

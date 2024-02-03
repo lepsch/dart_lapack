@@ -1,6 +1,4 @@
-      SUBROUTINE CCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL,
-     $                   THRESH, A, COPYA, S, TAU, WORK, RWORK,
-     $                   IWORK, NOUT )
+      SUBROUTINE CCHKQ3( DOTYPE, NM, MVAL, NN, NVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, S, TAU, WORK, RWORK, IWORK, NOUT )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -12,8 +10,7 @@
 *     ..
 *     .. Array Arguments ..
       LOGICAL            DOTYPE( * )
-      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ),
-     $                   NXVAL( * )
+      INTEGER            IWORK( * ), MVAL( * ), NBVAL( * ), NVAL( * ), NXVAL( * )
       REAL               S( * ), RWORK( * )
       COMPLEX            A( * ), COPYA( * ), TAU( * ), WORK( * )
 *     ..
@@ -27,14 +24,11 @@
       PARAMETER          ( NTESTS = 3 )
       REAL               ONE, ZERO
       COMPLEX            CZERO
-      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0,
-     $                   CZERO = ( 0.0E+0, 0.0E+0 ) )
+      PARAMETER          ( ONE = 1.0E+0, ZERO = 0.0E+0, CZERO = ( 0.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
       CHARACTER*3        PATH
-      INTEGER            I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO,
-     $                   ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N,
-     $                   NB, NERRS, NFAIL, NRUN, NX
+      INTEGER            I, IHIGH, ILOW, IM, IMODE, IN, INB, INFO, ISTEP, K, LDA, LW, LWORK, M, MNMIN, MODE, N, NB, NERRS, NFAIL, NRUN, NX
       REAL               EPS
 *     ..
 *     .. Local Arrays ..
@@ -46,8 +40,7 @@
       EXTERNAL           CQPT01, CQRT11, CQRT12, SLAMCH
 *     ..
 *     .. External Subroutines ..
-      EXTERNAL           ALAHD, ALASUM, CGEQP3, CLACPY, CLASET, CLATMS,
-     $                   ICOPY, SLAORD, XLAENV
+      EXTERNAL           ALAHD, ALASUM, CGEQP3, CLACPY, CLASET, CLATMS, ICOPY, SLAORD, XLAENV
 *     ..
 *     .. Intrinsic Functions ..
       INTRINSIC          MAX, MIN
@@ -95,8 +88,7 @@
             LWORK = MAX( 1, M*MAX( M, N )+4*MNMIN+MAX( M, N ) )
 *
             DO 70 IMODE = 1, NTYPES
-               IF( .NOT.DOTYPE( IMODE ) )
-     $            GO TO 70
+               IF( .NOT.DOTYPE( IMODE ) ) GO TO 70
 *
 *              Do for each type of matrix
 *                 1:  zero matrix
@@ -107,8 +99,7 @@
 *                 6:  every second column fixed
 *
                MODE = IMODE
-               IF( IMODE.GT.3 )
-     $            MODE = 1
+               IF( IMODE.GT.3 ) MODE = 1
 *
 *              Generate test matrix of size m by n using
 *              singular value distribution indicated by `mode'.
@@ -122,9 +113,7 @@
                      S( I ) = ZERO
    30             CONTINUE
                ELSE
-                  CALL CLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S,
-     $                         MODE, ONE / EPS, ONE, M, N, 'No packing',
-     $                         COPYA, LDA, WORK, INFO )
+                  CALL CLATMS( M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO )
                   IF( IMODE.GE.4 ) THEN
                      IF( IMODE.EQ.4 ) THEN
                         ILOW = 1
@@ -166,33 +155,26 @@
                   LW = NB*( N+1 )
 *
                   SRNAMT = 'CGEQP3'
-                  CALL CGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK,
-     $                         LW, RWORK, INFO )
+                  CALL CGEQP3( M, N, A, LDA, IWORK( N+1 ), TAU, WORK, LW, RWORK, INFO )
 *
 *                 Compute norm(svd(a) - svd(r))
 *
-                  RESULT( 1 ) = CQRT12( M, N, A, LDA, S, WORK,
-     $                          LWORK, RWORK )
+                  RESULT( 1 ) = CQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK )
 *
 *                 Compute norm( A*P - Q*R )
 *
-                  RESULT( 2 ) = CQPT01( M, N, MNMIN, COPYA, A, LDA, TAU,
-     $                          IWORK( N+1 ), WORK, LWORK )
+                  RESULT( 2 ) = CQPT01( M, N, MNMIN, COPYA, A, LDA, TAU, IWORK( N+1 ), WORK, LWORK )
 *
 *                 Compute Q'*Q
 *
-                  RESULT( 3 ) = CQRT11( M, MNMIN, A, LDA, TAU, WORK,
-     $                          LWORK )
+                  RESULT( 3 ) = CQRT11( M, MNMIN, A, LDA, TAU, WORK, LWORK )
 *
 *                 Print information about the tests that did not pass
 *                 the threshold.
 *
                   DO 50 K = 1, NTESTS
                      IF( RESULT( K ).GE.THRESH ) THEN
-                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 )
-     $                     CALL ALAHD( NOUT, PATH )
-                        WRITE( NOUT, FMT = 9999 )'CGEQP3', M, N, NB,
-     $                     IMODE, K, RESULT( K )
+                        IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CGEQP3', M, N, NB, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      END IF
    50             CONTINUE

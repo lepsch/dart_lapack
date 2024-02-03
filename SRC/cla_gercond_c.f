@@ -1,5 +1,4 @@
-      REAL FUNCTION CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C,
-     $                             CAPPLY, INFO, WORK, RWORK )
+      REAL FUNCTION CLA_GERCOND_C( TRANS, N, A, LDA, AF, LDAF, IPIV, C, CAPPLY, INFO, WORK, RWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -48,8 +47,7 @@
 *
       INFO = 0
       NOTRANS = LSAME( TRANS, 'N' )
-      IF ( .NOT. NOTRANS .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT.
-     $     LSAME( TRANS, 'C' ) ) THEN
+      IF ( .NOT. NOTRANS .AND. .NOT. LSAME( TRANS, 'T' ) .AND. .NOT. LSAME( TRANS, 'C' ) ) THEN
          INFO = -1
       ELSE IF( N.LT.0 ) THEN
          INFO = -2
@@ -124,11 +122,9 @@
             END DO
 *
             IF (NOTRANS) THEN
-               CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ENDIF
 *
 *           Multiply by inv(C).
@@ -149,11 +145,9 @@
             END IF
 *
             IF ( NOTRANS ) THEN
-               CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CGETRS( 'Conjugate transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             ELSE
-               CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV,
-     $            WORK, N, INFO )
+               CALL CGETRS( 'No transpose', N, 1, AF, LDAF, IPIV, WORK, N, INFO )
             END IF
 *
 *           Multiply by R.
@@ -167,8 +161,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM .NE. 0.0E+0 )
-     $   CLA_GERCOND_C = 1.0E+0 / AINVNM
+      IF( AINVNM .NE. 0.0E+0 ) CLA_GERCOND_C = 1.0E+0 / AINVNM
 *
       RETURN
 *

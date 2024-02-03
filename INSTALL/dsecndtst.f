@@ -65,14 +65,12 @@
 *
       WRITE( 6, 9997 )T2 - T1
       AVG = ( ( T2-T1 ) - TNOSEC ) * 1000.0D+00/DBLE( ITS )
-      IF( AVG.GT.0.0)
-     $   WRITE( 6, 9996 )AVG
+      IF( AVG.GT.0.0) WRITE( 6, 9996 )AVG
 *
 *     Compute the equivalent number of floating point operations used
 *     by an average call to DSECND.
 *
-      IF(( AVG.GT.0.0 ).AND.( TNOSEC.GT.0.0 ))
-     $   WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
+      IF(( AVG.GT.0.0 ).AND.( TNOSEC.GT.0.0 )) WRITE( 6, 9995 )(AVG/1000) * TOTAL / TNOSEC
 *
  9999 FORMAT( ' Time for ', G10.3,' DAXPY ops = ', G10.3, ' seconds' )
  9998 FORMAT( ' DAXPY performance rate        = ', G10.3, ' mflops ' )

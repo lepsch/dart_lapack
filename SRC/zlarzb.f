@@ -1,5 +1,4 @@
-      SUBROUTINE ZLARZB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V,
-     $                   LDV, T, LDT, C, LDC, WORK, LDWORK )
+      SUBROUTINE ZLARZB( SIDE, TRANS, DIRECT, STOREV, M, N, K, L, V, LDV, T, LDT, C, LDC, WORK, LDWORK )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,8 +9,7 @@
       INTEGER            K, L, LDC, LDT, LDV, LDWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      COMPLEX*16         C( LDC, * ), T( LDT, * ), V( LDV, * ),
-     $                   WORK( LDWORK, * )
+      COMPLEX*16         C( LDC, * ), T( LDT, * ), V( LDV, * ), WORK( LDWORK, * )
 *     ..
 *
 *  =====================================================================
@@ -35,8 +33,7 @@
 *
 *     Quick return if possible
 *
-      IF( M.LE.0 .OR. N.LE.0 )
-     $   RETURN
+      IF( M.LE.0 .OR. N.LE.0 ) RETURN
 *
 *     Check for currently supported options
 *
@@ -70,15 +67,11 @@
 *        W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
 *                        C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
 *
-         IF( L.GT.0 )
-     $      CALL ZGEMM( 'Transpose', 'Conjugate transpose', N, K, L,
-     $                  ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK,
-     $                  LDWORK )
+         IF( L.GT.0 ) CALL ZGEMM( 'Transpose', 'Conjugate transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK )
 *
 *        W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 *
-         CALL ZTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T,
-     $               LDT, WORK, LDWORK )
+         CALL ZTRMM( 'Right', 'Lower', TRANST, 'Non-unit', N, K, ONE, T, LDT, WORK, LDWORK )
 *
 *        C( 1:k, 1:n ) = C( 1:k, 1:n ) - W( 1:n, 1:k )**H
 *
@@ -91,9 +84,7 @@
 *        C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
 *                            V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
 *
-         IF( L.GT.0 )
-     $      CALL ZGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV,
-     $                  WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC )
+         IF( L.GT.0 ) CALL ZGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC )
 *
       ELSE IF( LSAME( SIDE, 'R' ) ) THEN
 *
@@ -108,9 +99,7 @@
 *        W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
 *                        C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
 *
-         IF( L.GT.0 )
-     $      CALL ZGEMM( 'No transpose', 'Transpose', M, K, L, ONE,
-     $                  C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK )
+         IF( L.GT.0 ) CALL ZGEMM( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK )
 *
 *        W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
 *                        W( 1:m, 1:k ) * T**H
@@ -118,8 +107,7 @@
          DO 50 J = 1, K
             CALL ZLACGV( K-J+1, T( J, J ), 1 )
    50    CONTINUE
-         CALL ZTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T,
-     $               LDT, WORK, LDWORK )
+         CALL ZTRMM( 'Right', 'Lower', TRANS, 'Non-unit', M, K, ONE, T, LDT, WORK, LDWORK )
          DO 60 J = 1, K
             CALL ZLACGV( K-J+1, T( J, J ), 1 )
    60    CONTINUE
@@ -138,9 +126,7 @@
          DO 90 J = 1, L
             CALL ZLACGV( K, V( 1, J ), 1 )
    90    CONTINUE
-         IF( L.GT.0 )
-     $      CALL ZGEMM( 'No transpose', 'No transpose', M, L, K, -ONE,
-     $                  WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
+         IF( L.GT.0 ) CALL ZGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC )
          DO 100 J = 1, L
             CALL ZLACGV( K, V( 1, J ), 1 )
   100    CONTINUE

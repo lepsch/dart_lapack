@@ -1,5 +1,4 @@
-      SUBROUTINE ZSBMV( UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y,
-     $                  INCY )
+      SUBROUTINE ZSBMV( UPLO, N, K, ALPHA, A, LDA, X, INCX, BETA, Y, INCY )
 *
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -61,8 +60,7 @@
 *
 *     Quick return if possible.
 *
-      IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) )
-     $   RETURN
+      IF( ( N.EQ.0 ) .OR. ( ( ALPHA.EQ.ZERO ) .AND. ( BETA.EQ.ONE ) ) ) RETURN
 *
 *     Set up the start points in  X  and  Y.
 *
@@ -108,8 +106,7 @@
             END IF
          END IF
       END IF
-      IF( ALPHA.EQ.ZERO )
-     $   RETURN
+      IF( ALPHA.EQ.ZERO ) RETURN
       IF( LSAME( UPLO, 'U' ) ) THEN
 *
 *        Form  y  when upper triangle of A is stored.

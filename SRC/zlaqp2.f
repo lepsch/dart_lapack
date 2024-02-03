@@ -1,5 +1,4 @@
-      SUBROUTINE ZLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2,
-     $                   WORK )
+      SUBROUTINE ZLAQP2( M, N, OFFSET, A, LDA, JPVT, TAU, VN1, VN2, WORK )
 *
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -19,8 +18,7 @@
 *     .. Parameters ..
       DOUBLE PRECISION   ZERO, ONE
       COMPLEX*16         CONE
-      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0,
-     $                   CONE = ( 1.0D+0, 0.0D+0 ) )
+      PARAMETER          ( ZERO = 0.0D+0, ONE = 1.0D+0, CONE = ( 1.0D+0, 0.0D+0 ) )
 *     ..
 *     .. Local Scalars ..
       INTEGER            I, ITEMP, J, MN, OFFPI, PVT
@@ -65,8 +63,7 @@
 *        Generate elementary reflector H(i).
 *
          IF( OFFPI.LT.M ) THEN
-            CALL ZLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1,
-     $                   TAU( I ) )
+            CALL ZLARFG( M-OFFPI+1, A( OFFPI, I ), A( OFFPI+1, I ), 1, TAU( I ) )
          ELSE
             CALL ZLARFG( 1, A( M, I ), A( M, I ), 1, TAU( I ) )
          END IF
@@ -77,9 +74,7 @@
 *
             AII = A( OFFPI, I )
             A( OFFPI, I ) = CONE
-            CALL ZLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1,
-     $                  DCONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA,
-     $                  WORK( 1 ) )
+            CALL ZLARF( 'Left', M-OFFPI+1, N-I, A( OFFPI, I ), 1, DCONJG( TAU( I ) ), A( OFFPI, I+1 ), LDA, WORK( 1 ) )
             A( OFFPI, I ) = AII
          END IF
 *

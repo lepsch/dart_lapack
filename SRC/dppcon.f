@@ -82,26 +82,22 @@
 *
 *           Multiply by inv(U**T).
 *
-            CALL DLATPS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL DLATPS( 'Upper', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(U).
 *
-            CALL DLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL DLATPS( 'Upper', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          ELSE
 *
 *           Multiply by inv(L).
 *
-            CALL DLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
+            CALL DLATPS( 'Lower', 'No transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEL, WORK( 2*N+1 ), INFO )
             NORMIN = 'Y'
 *
 *           Multiply by inv(L**T).
 *
-            CALL DLATPS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N,
-     $                   AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
+            CALL DLATPS( 'Lower', 'Transpose', 'Non-unit', NORMIN, N, AP, WORK, SCALEU, WORK( 2*N+1 ), INFO )
          END IF
 *
 *        Multiply by 1/SCALE if doing so will not cause overflow.
@@ -109,8 +105,7 @@
          SCALE = SCALEL*SCALEU
          IF( SCALE.NE.ONE ) THEN
             IX = IDAMAX( N, WORK, 1 )
-            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO )
-     $         GO TO 20
+            IF( SCALE.LT.ABS( WORK( IX ) )*SMLNUM .OR. SCALE.EQ.ZERO ) GO TO 20
             CALL DRSCL( N, SCALE, WORK, 1 )
          END IF
          GO TO 10
@@ -118,8 +113,7 @@
 *
 *     Compute the estimate of the reciprocal condition number.
 *
-      IF( AINVNM.NE.ZERO )
-     $   RCOND = ( ONE / AINVNM ) / ANORM
+      IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 *
    20 CONTINUE
       RETURN

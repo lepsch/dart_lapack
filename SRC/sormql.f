@@ -1,5 +1,4 @@
-      SUBROUTINE SORMQL( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC,
-     $                   WORK, LWORK, INFO )
+      SUBROUTINE SORMQL( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, LWORK, INFO )
 *
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -10,21 +9,18 @@
       INTEGER            INFO, K, LDA, LDC, LWORK, M, N
 *     ..
 *     .. Array Arguments ..
-      REAL               A( LDA, * ), C( LDC, * ), TAU( * ),
-     $                   WORK( * )
+      REAL               A( LDA, * ), C( LDC, * ), TAU( * ), WORK( * )
 *     ..
 *
 *  =====================================================================
 *
 *     .. Parameters ..
       INTEGER            NBMAX, LDT, TSIZE
-      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1,
-     $                     TSIZE = LDT*NBMAX )
+      PARAMETER          ( NBMAX = 64, LDT = NBMAX+1, TSIZE = LDT*NBMAX )
 *     ..
 *     .. Local Scalars ..
       LOGICAL            LEFT, LQUERY, NOTRAN
-      INTEGER            I, I1, I2, I3, IB, IINFO, IWT, LDWORK, LWKOPT,
-     $                   MI, NB, NBMIN, NI, NQ, NW
+      INTEGER            I, I1, I2, I3, IB, IINFO, IWT, LDWORK, LWKOPT, MI, NB, NBMIN, NI, NQ, NW
 *     ..
 *     .. External Functions ..
       LOGICAL            LSAME
@@ -81,8 +77,7 @@
          IF( M.EQ.0 .OR. N.EQ.0 ) THEN
             LWKOPT = 1
          ELSE
-            NB = MIN( NBMAX, ILAENV( 1, 'SORMQL', SIDE // TRANS, M, N,
-     $                               K, -1 ) )
+            NB = MIN( NBMAX, ILAENV( 1, 'SORMQL', SIDE // TRANS, M, N, K, -1 ) )
             LWKOPT = NW*NB + TSIZE
          END IF
          WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
@@ -106,8 +101,7 @@
       IF( NB.GT.1 .AND. NB.LT.K ) THEN
          IF( LWORK.LT.LWKOPT ) THEN
             NB = (LWORK-TSIZE) / LDWORK
-            NBMIN = MAX( 2, ILAENV( 2, 'SORMQL', SIDE // TRANS, M, N, K,
-     $              -1 ) )
+            NBMIN = MAX( 2, ILAENV( 2, 'SORMQL', SIDE // TRANS, M, N, K, -1 ) )
          END IF
       END IF
 *
@@ -115,15 +109,13 @@
 *
 *        Use unblocked code
 *
-         CALL SORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK,
-     $                IINFO )
+         CALL SORM2L( SIDE, TRANS, M, N, K, A, LDA, TAU, C, LDC, WORK, IINFO )
       ELSE
 *
 *        Use blocked code
 *
          IWT = 1 + NW*NB
-         IF( ( LEFT .AND. NOTRAN ) .OR.
-     $       ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
+         IF( ( LEFT .AND. NOTRAN ) .OR. ( .NOT.LEFT .AND. .NOT.NOTRAN ) ) THEN
             I1 = 1
             I2 = K
             I3 = NB
@@ -145,8 +137,7 @@
 *           Form the triangular factor of the block reflector
 *           H = H(i+ib-1) . . . H(i+1) H(i)
 *
-            CALL SLARFT( 'Backward', 'Columnwise', NQ-K+I+IB-1, IB,
-     $                   A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT )
+            CALL SLARFT( 'Backward', 'Columnwise', NQ-K+I+IB-1, IB, A( 1, I ), LDA, TAU( I ), WORK( IWT ), LDT )
             IF( LEFT ) THEN
 *
 *              H or H**T is applied to C(1:m-k+i+ib-1,1:n)
@@ -161,9 +152,7 @@
 *
 *           Apply H or H**T
 *
-            CALL SLARFB( SIDE, TRANS, 'Backward', 'Columnwise', MI, NI,
-     $                   IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC,
-     $                   WORK, LDWORK )
+            CALL SLARFB( SIDE, TRANS, 'Backward', 'Columnwise', MI, NI, IB, A( 1, I ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK )
    10    CONTINUE
       END IF
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
