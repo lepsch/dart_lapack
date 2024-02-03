@@ -31,10 +31,10 @@
 *     .. Local Scalars ..
       LOGICAL            ZBK, ZBL, ZES, ZEV, ZGK, ZGL, ZGS, ZGV, ZGX, ZSX, ZVX, ZXV, CSD, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR, ZBB, ZGG, ZHB
       CHARACTER          C1
-      CHARACTER*3        C3, PATH
-      CHARACTER*32       VNAME
-      CHARACTER*10       INTSTR
-      CHARACTER*80       LINE
+      String             C3, PATH;
+      String             VNAME;
+      String             INTSTR;
+      String             LINE;
       INTEGER            I, I1, IC, INFO, ITMP, K, LENP, MAXTYP, NEWSD, NK, NN, NPARMS, NRHS, NTYPES, VERS_MAJOR, VERS_MINOR, VERS_PATCH
       INTEGER*4          N_THREADS, ONE_THREAD
       DOUBLE PRECISION   EPS, S1, S2, THRESH, THRSHN
@@ -63,7 +63,7 @@
 *     ..
 *     .. Scalars in Common ..
       LOGICAL            LERR, OK
-      CHARACTER*32       SRNAMT
+      String             SRNAMT;
       INTEGER            INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
