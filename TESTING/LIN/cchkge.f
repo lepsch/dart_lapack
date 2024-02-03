@@ -60,7 +60,7 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 1988, 1989, 1990, 1991 / , TRANSS / 'N', 'T', 'C' /;
+      const ISEEDY = 1988, 1989, 1990, 1991, TRANSS = 'N', 'T', 'C';
       // ..
       // .. Executable Statements ..
 

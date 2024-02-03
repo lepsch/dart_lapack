@@ -690,7 +690,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
-      DATA               ICHS/'LR'/, ICHU/'UL'/;
+      const ICHS = 'LR', ICHU = 'UL';
       // .. Executable Statements ..
       CONJ = SNAME( 8: 9 ) == 'he';
 
@@ -965,7 +965,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
-      DATA              ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/;
+      const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN', ICHS = 'LR';
       // .. Executable Statements ..
 
       NARGS = 11;
@@ -1266,7 +1266,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
-      DATA               ICHT/'NC'/, ICHU/'UL'/;
+      const ICHT = 'NC', ICHU = 'UL';
       // .. Executable Statements ..
       CONJ = SNAME( 8: 9 ) == 'he';
 
@@ -1616,7 +1616,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
-      DATA               ICHT/'NC'/, ICHU/'UL'/;
+      const ICHT = 'NC', ICHU = 'UL';
       // .. Executable Statements ..
       CONJ = SNAME( 8: 9 ) == 'he';
 

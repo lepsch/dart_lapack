@@ -60,7 +60,7 @@
       // COMMON / SRNAMC / SRNAMT
       // ..
       // .. Data statements ..
-      DATA               ISEEDY / 0, 0, 0, 1 / , UPLOS / 'U', 'L' /;
+      const ISEEDY = 0, 0, 0, 1, UPLOS = 'U', 'L';
       // ..
       // .. Executable Statements ..
 

@@ -921,7 +921,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK, LERR
       // .. Data statements ..
-      DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/;
+      const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN';
       // .. Executable Statements ..
       FULL = SNAME( 3: 3 ) == 'R';
       BANDED = SNAME( 3: 3 ) == 'B';

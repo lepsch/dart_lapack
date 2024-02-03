@@ -61,7 +61,7 @@
       // COMMON / CLAENV / IPARMS
       // ..
       // .. Data statements ..
-      DATA               THREQ / 2.0 / , INTSTR / '0123456789' /;
+      const THREQ = 2.0, INTSTR = '0123456789';
       // ..
       // ..
       // .. Allocate memory dynamically ..

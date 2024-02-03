@@ -43,7 +43,7 @@
       // INTRINSIC ABS, MAX
       // ..
       // .. Data statements ..
-      DATA               LOCU12 / 3, 4, 1, 2 / , LOCL21 / 2, 1, 4, 3 / , LOCU22 / 4, 3, 2, 1 /;
+      const LOCU12 = 3, 4, 1, 2, LOCL21 = 2, 1, 4, 3, LOCU22 = 4, 3, 2, 1;
       const XSWPIV = [ false , false , true , true ];
       const BSWPIV = [ false , true , false , true ];
       // ..

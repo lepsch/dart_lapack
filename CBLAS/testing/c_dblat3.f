@@ -676,7 +676,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHS/'LR'/, ICHU/'UL'/;
+      const ICHS = 'LR', ICHU = 'UL';
       // .. Executable Statements ..
 
       NARGS = 12;
@@ -943,7 +943,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHU/'UL'/, ICHT/'NTC'/, ICHD/'UN'/, ICHS/'LR'/;
+      const ICHU = 'UL', ICHT = 'NTC', ICHD = 'UN', ICHS = 'LR';
       // .. Executable Statements ..
 
       NARGS = 11;
@@ -1241,7 +1241,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHT/'NTC'/, ICHU/'UL'/;
+      const ICHT = 'NTC', ICHU = 'UL';
       // .. Executable Statements ..
 
       NARGS = 10;
@@ -1513,7 +1513,7 @@
       // .. Common blocks ..
       // COMMON /INFOC/INFOT, NOUTC, OK
       // .. Data statements ..
-      DATA               ICHT/'NTC'/, ICHU/'UL'/;
+      const ICHT = 'NTC', ICHU = 'UL';
       // .. Executable Statements ..
 
       NARGS = 12;

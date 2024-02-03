@@ -378,7 +378,7 @@
       SAVE               FIRST, IWARN, LBETA, LEMAX, LEMIN, LEPS, LRMAX, LRMIN, LT;
       // ..
       // .. Data statements ..
-      DATA               FIRST / true / , IWARN / false /;
+      const FIRST = true, IWARN = false;
       // ..
       // .. Executable Statements ..
 

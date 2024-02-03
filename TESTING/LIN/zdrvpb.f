@@ -60,7 +60,7 @@
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      DATA               FACTS / 'F', 'N', 'E' / , EQUEDS / 'N', 'Y' /;
+      const FACTS = 'F', 'N', 'E', EQUEDS = 'N', 'Y';
       // ..
       // .. Executable Statements ..
 

@@ -301,21 +301,21 @@ Tuples
 $1final ($2) = ($6);
 ```
 
-Multiple declarations (last item)
+Multiple declarations (1st step)
 ```
-^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/;
+^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/;?$
 $1 $2 = $3;
 ```
 
-Multiple declarations (inner)
+Multiple declarations (inner items - n stemp)
 ```
-^(\s+DATA.+\/,)\s+(\w+)\s*\/\s*(.*?)\s*\/,
+^(\s+DATA.+\/\s*,)\s+(\w+)\s*\/\s*(.*?)\s*\/\s*,
 $1 $2 = $3,
 ```
 
-Multiple declarations (first item)
+Multiple declarations (last step)
 ```
-^(\s+DATA.+)\s+(\w+)\s*\/\s*(.*?)\s*\/,
+^(\s+)DATA.+\s+(\w+)\s*\/\s*(.*?)\s*\/\s*,
 $1const $2 = $3,
 ```
 

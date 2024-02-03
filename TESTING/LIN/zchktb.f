@@ -61,7 +61,7 @@
       // ..
       // .. Data statements ..
       const ISEEDY = [ 1988, 1989, 1990, 1991 ];
-      DATA               UPLOS / 'U', 'L' / , TRANSS / 'N', 'T', 'C' /;
+      const UPLOS = 'U', 'L', TRANSS = 'N', 'T', 'C';
       // ..
       // .. Executable Statements ..
 
