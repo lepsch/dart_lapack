@@ -1,5 +1,5 @@
       SUBROUTINE ZGETSQRHRT( M, N, MB1, NB1, NB2, A, LDA, T, LDT, WORK, LWORK, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

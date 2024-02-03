@@ -4,7 +4,7 @@
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
 *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
 
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       // .. Scalar Arguments ..
       bool         TSTERR;

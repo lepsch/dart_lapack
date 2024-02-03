@@ -1,6 +1,6 @@
       SUBROUTINE  CHB2ST_KERNELS( UPLO, WANTZ, TTYPE, ST, ED, SWEEP, N, NB, IB, A, LDA, V, TAU, LDVT, WORK);
 
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

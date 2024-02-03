@@ -2,7 +2,7 @@
 #if defined(_OPENMP)
       use omp_lib;
 #endif
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK auxiliary routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,5 +1,5 @@
       SUBROUTINE SORHR_COL02( M, N, MB1, NB1, NB2, RESULT );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

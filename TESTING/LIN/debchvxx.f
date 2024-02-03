@@ -1,5 +1,5 @@
       SUBROUTINE DEBCHVXX( THRESH, PATH );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
       // .. Scalar Arguments ..
       double            THRESH;
       String            PATH;

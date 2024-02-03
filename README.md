@@ -246,6 +246,12 @@ $1e$2
 $1e$2
 ```
 
+### Remove IMPLICIT NONE
+```
+^(\s+)(IMPLICIT NONE);?$
+$1// $2
+```
+
 # LAPACK
 
 [![Build Status](https://travis-ci.org/Reference-LAPACK/lapack.svg?branch=master)](https://travis-ci.org/Reference-LAPACK/lapack)

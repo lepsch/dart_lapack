@@ -1,5 +1,5 @@
       double           FUNCTION DLARMM( ANORM, BNORM, CNORM );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
       // .. Scalar Arguments ..
       double             ANORM, BNORM, CNORM;
       // .. Parameters ..

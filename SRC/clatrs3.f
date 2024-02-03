@@ -1,5 +1,5 @@
       SUBROUTINE CLATRS3( UPLO, TRANS, DIAG, NORMIN, N, NRHS, A, LDA, X, LDX, SCALE, CNORM, WORK, LWORK, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       // .. Scalar Arguments ..
       String             DIAG, TRANS, NORMIN, UPLO;

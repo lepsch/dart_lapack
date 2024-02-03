@@ -153,7 +153,7 @@
 
 
       SUBROUTINE SLACSG( M, P, Q, THETA, ISEED, X, LDX, WORK );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       int                LDX, M, P, Q;
       int                ISEED( 4 );

@@ -1,6 +1,6 @@
       SUBROUTINE SSYGV_2STAGE( ITYPE, JOBZ, UPLO, N, A, LDA, B, LDB, W, WORK, LWORK, INFO );
 
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK driver routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

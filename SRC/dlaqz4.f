@@ -1,5 +1,5 @@
       SUBROUTINE DLAQZ4( ILSCHUR, ILQ, ILZ, N, ILO, IHI, NSHIFTS, NBLOCK_DESIRED, SR, SI, SS, A, LDA, B, LDB, Q, LDQ, Z, LDZ, QC, LDQC, ZC, LDZC, WORK, LWORK, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       // Function arguments
       bool   , INTENT( IN ) :: ILSCHUR, ILQ, ILZ;

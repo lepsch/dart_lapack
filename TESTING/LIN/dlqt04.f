@@ -1,5 +1,5 @@
       SUBROUTINE DLQT04(M,N,NB,RESULT);
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

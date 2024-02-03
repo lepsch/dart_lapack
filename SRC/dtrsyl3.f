@@ -1,5 +1,5 @@
       SUBROUTINE DTRSYL3( TRANA, TRANB, ISGN, M, N, A, LDA, B, LDB, C, LDC, SCALE, IWORK, LIWORK, SWORK, LDSWORK, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       // .. Scalar Arguments ..
       String             TRANA, TRANB;

@@ -1,5 +1,5 @@
       REAL FUNCTION SLARMM( ANORM, BNORM, CNORM );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
       // .. Scalar Arguments ..
       REAL               ANORM, BNORM, CNORM;
       // .. Parameters ..

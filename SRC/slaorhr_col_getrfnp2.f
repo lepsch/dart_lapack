@@ -1,5 +1,5 @@
       RECURSIVE SUBROUTINE SLAORHR_COL_GETRFNP2( M, N, A, LDA, D, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

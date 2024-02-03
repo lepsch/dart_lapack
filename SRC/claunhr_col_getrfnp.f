@@ -1,5 +1,5 @@
       SUBROUTINE CLAUNHR_COL_GETRFNP( M, N, A, LDA, D, INFO );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK computational routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

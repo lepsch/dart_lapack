@@ -1,5 +1,5 @@
       SUBROUTINE SEBCHVXX( THRESH, PATH );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
       // .. Scalar Arguments ..
       REAL               THRESH;
       String             PATH;

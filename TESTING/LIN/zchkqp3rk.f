@@ -1,5 +1,5 @@
       SUBROUTINE ZCHKQP3RK( DOTYPE, NM, MVAL, NN, NVAL, NNS, NSVAL, NNB, NBVAL, NXVAL, THRESH, A, COPYA, B, COPYB, S, TAU, WORK, RWORK, IWORK, NOUT );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

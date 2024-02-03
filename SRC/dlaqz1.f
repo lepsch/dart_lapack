@@ -1,5 +1,5 @@
       SUBROUTINE DLAQZ1( A, LDA, B, LDB, SR1, SR2, SI, BETA1, BETA2, V );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
       // Arguments
       int    , INTENT( IN ) :: LDA, LDB;

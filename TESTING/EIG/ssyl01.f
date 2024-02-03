@@ -1,7 +1,7 @@
 
 *  -- LAPACK test routine --
       SUBROUTINE SSYL01( THRESH, NFAIL, RMAX, NINFO, KNT );
-      IMPLICIT NONE;
+      // IMPLICIT NONE
 
 *  -- LAPACK test routine --
 *  -- LAPACK is a software package provided by Univ. of Tennessee,    --

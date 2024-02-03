@@ -752,7 +752,7 @@ void main() {
       // ACM Trans Math Softw 44:1--28
       // https://doi.org/10.1145/3061665
 
-      IMPLICIT NONE;
+      // IMPLICIT NONE
       // .. Scalar Arguments ..
       int               INCX, N;
       REAL              THRESH;
