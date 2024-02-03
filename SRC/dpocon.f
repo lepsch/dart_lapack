@@ -77,7 +77,7 @@
 
       KASE = 0
       NORMIN = 'N'
-   10 CONTINUE
+      } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( UPPER ) {
@@ -117,7 +117,7 @@
 
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of DPOCON

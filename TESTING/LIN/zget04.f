@@ -65,13 +65,13 @@
          DIFFNM = ZERO
          for (I = 1; I <= N; I++) { // 10
             DIFFNM = MAX( DIFFNM, CABS1( X( I, J )-XACT( I, J ) ) )
-   10    CONTINUE
+         } // 10
          if ( XNORM.LE.ZERO ) {
             IF( DIFFNM.GT.ZERO ) RESID = 1.0D0 / EPS
          } else {
             RESID = MAX( RESID, ( DIFFNM / XNORM )*RCOND )
          }
-   20 CONTINUE
+      } // 20
       IF( RESID*EPS.LT.1.0D0 ) RESID = RESID / EPS
 
       RETURN

@@ -48,7 +48,7 @@
          ANORM = ABS( AD( 1 ) ) + ABS( AE( 1 ) )
          DO 10 J = 2, N - 1
             ANORM = MAX( ANORM, ABS( AD( J ) )+ABS( AE( J ) )+ ABS( AE( J-1 ) ) )
-   10    CONTINUE
+         } // 10
          ANORM = MAX( ANORM, ABS( AD( N ) )+ABS( AE( N-1 ) ) )
       } else {
          ANORM = ABS( AD( 1 ) )
@@ -64,13 +64,13 @@
                AUKJ = AD( K )*U( K, J )
                IF( K.NE.N ) AUKJ = AUKJ + AE( K )*U( K+1, J )                IF( K.NE.1 ) AUKJ = AUKJ + AE( K-1 )*U( K-1, J )
                WORK( I, J ) = WORK( I, J ) + U( K, I )*AUKJ
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
          WORK( I, I ) = WORK( I, I ) - SD( I )
          if ( KBAND.EQ.1 ) {
             IF( I.NE.1 ) WORK( I, I-1 ) = WORK( I, I-1 ) - SE( I-1 )             IF( I.NE.N ) WORK( I, I+1 ) = WORK( I, I+1 ) - SE( I )
          }
-   40 CONTINUE
+      } // 40
 
       WNORM = SLANSY( '1', 'L', M, WORK, M, WORK( 1, M+1 ) )
 
@@ -92,7 +92,7 @@
 
       for (J = 1; J <= M; J++) { // 50
          WORK( J, J ) = WORK( J, J ) - ONE
-   50 CONTINUE
+      } // 50
 
       RESULT( 2 ) = MIN( REAL( M ), SLANGE( '1', M, M, WORK, M, WORK( 1, M+1 ) ) ) / ( M*ULP )
 

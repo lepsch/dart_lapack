@@ -168,7 +168,7 @@
                dlarft('Forward', 'Columnwise', M-I+1, IB, A( I, I ), LDA, TAU( I ), WORK(I), LBWORK );
 
             }
-   10    CONTINUE
+         } // 10
       } else {
          I = 1
       }

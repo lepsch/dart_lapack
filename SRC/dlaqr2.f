@@ -123,14 +123,14 @@
       DO 10 J = 1, JW - 3
          T( J+2, J ) = ZERO
          T( J+3, J ) = ZERO
-   10 CONTINUE
+      } // 10
       IF( JW.GT.2 ) T( JW, JW-2 ) = ZERO
 
       // ==== Deflation detection loop ====
 
       NS = JW
       ILST = INFQR + 1
-   20 CONTINUE
+      } // 20
       if ( ILST.LE.NS ) {
          if ( NS.EQ.1 ) {
             BULGE = .FALSE.
@@ -198,7 +198,7 @@
 
          SORTED = .false.
          I = NS + 1
-   30    CONTINUE
+         } // 30
          IF( SORTED ) GO TO 50
          SORTED = .true.
 
@@ -211,7 +211,7 @@
          } else {
             K = I + 2
          }
-   40    CONTINUE
+         } // 40
          if ( K.LE.KEND ) {
             if ( K.EQ.I+1 ) {
                EVI = ABS( T( I, I ) )
@@ -250,13 +250,13 @@
             GO TO 40
          }
          GO TO 30
-   50    CONTINUE
+         } // 50
       }
 
       // ==== Restore shift/eigenvalue array from T ====
 
       I = JW
-   60 CONTINUE
+      } // 60
       if ( I.GE.INFQR+1 ) {
          if ( I.EQ.INFQR+1 ) {
             SR( KWTOP+I-1 ) = T( I, I )
@@ -316,7 +316,7 @@
             KLN = MIN( NV, KWTOP-KROW )
             dgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             dlacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
-   70    CONTINUE
+         } // 70
 
          // ==== Update horizontal slab in H ====
 
@@ -324,7 +324,7 @@
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
                dgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL DLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
-   80       CONTINUE
+            } // 80
          }
 
          // ==== Update vertical slab in Z ====
@@ -333,7 +333,7 @@
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
                dgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL DLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
-   90       CONTINUE
+            } // 90
          }
       }
 

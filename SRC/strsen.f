@@ -83,7 +83,7 @@
                   IF( SELECT( N ) ) M = M + 1
                }
             }
-   10    CONTINUE
+         } // 10
 
          N1 = M
          N2 = N - M
@@ -160,7 +160,7 @@
                IF( PAIR ) KS = KS + 1
             }
          }
-   20 CONTINUE
+      } // 20
 
       if ( WANTS ) {
 
@@ -188,7 +188,7 @@
 
          EST = ZERO
          KASE = 0
-   30    CONTINUE
+         } // 30
          slacn2(NN, WORK( NN+1 ), WORK, IWORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -208,20 +208,20 @@
          SEP = SCALE / EST
       }
 
-   40 CONTINUE
+      } // 40
 
       // Store the output eigenvalues in WR and WI.
 
       for (K = 1; K <= N; K++) { // 50
          WR( K ) = T( K, K )
          WI( K ) = ZERO
-   50 CONTINUE
+      } // 50
       DO 60 K = 1, N - 1
          if ( T( K+1, K ).NE.ZERO ) {
             WI( K ) = SQRT( ABS( T( K, K+1 ) ) )* SQRT( ABS( T( K+1, K ) ) )
             WI( K+1 ) = -WI( K )
          }
-   60 CONTINUE
+      } // 60
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN

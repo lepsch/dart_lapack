@@ -73,19 +73,19 @@
             ccopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             DO 10 I = 1, J - 1
                WORK( J, I+1 ) = CONJG( AINV( JJ+I-1 ) )
-   10       CONTINUE
+            } // 10
             JJ = JJ + J
-   20    CONTINUE
+         } // 20
          JJ = ( ( N-1 )*N ) / 2 + 1
          DO 30 I = 1, N - 1
             WORK( N, I+1 ) = CONJG( AINV( JJ+I-1 ) )
-   30    CONTINUE
+         } // 30
 
          // Multiply by A
 
          DO 40 J = 1, N - 1
             chpmv('Upper', N, -CONE, A, WORK( 1, J+1 ), 1, CZERO, WORK( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
          chpmv('Upper', N, -CONE, A, AINV( JJ ), 1, CZERO, WORK( 1, N ), 1 );
 
       // UPLO = 'L':
@@ -98,21 +98,21 @@
 
          DO 50 I = 1, N - 1
             WORK( 1, I ) = CONJG( AINV( I+1 ) )
-   50    CONTINUE
+         } // 50
          JJ = N + 1
          for (J = 2; J <= N; J++) { // 70
             ccopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             DO 60 I = 1, N - J
                WORK( J, J+I-1 ) = CONJG( AINV( JJ+I ) )
-   60       CONTINUE
+            } // 60
             JJ = JJ + N - J + 1
-   70    CONTINUE
+         } // 70
 
          // Multiply by A
 
          DO 80 J = N, 2, -1
             chpmv('Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 );
-   80    CONTINUE
+         } // 80
          chpmv('Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 );
 
       }
@@ -121,7 +121,7 @@
 
       for (I = 1; I <= N; I++) { // 90
          WORK( I, I ) = WORK( I, I ) + CONE
-   90 CONTINUE
+      } // 90
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 

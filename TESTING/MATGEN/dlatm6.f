@@ -46,8 +46,8 @@
                B( I, J ) = ZERO
             }
 
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // Form X and Y
 

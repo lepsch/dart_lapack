@@ -48,7 +48,7 @@
       CDEN = SA
       CNUM = ONE
 
-   10 CONTINUE
+      } // 10
       CDEN1 = CDEN*SMLNUM
       CNUM1 = CNUM / BIGNUM
       if ( ABS( CDEN1 ).GT.ABS( CNUM ) .AND. CNUM.NE.ZERO ) {

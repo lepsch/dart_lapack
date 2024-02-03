@@ -98,7 +98,7 @@
       KTRY = 0
       GROWTHBOUND = MAXGROWTH1*SPDIAM
 
- 5    CONTINUE
+      } // 5
       SAWNAN1 = .FALSE.
       SAWNAN2 = .FALSE.
       // Ensure that we do not back off too much of the initial shifts
@@ -129,7 +129,7 @@
             SAWNAN1 = .TRUE.
          ENDIF
          MAX1 = MAX( MAX1,ABS(DPLUS(I+1)) )
- 6    CONTINUE
+      } // 6
       SAWNAN1 = SAWNAN1 .OR.  DISNAN( MAX1 )
        if ( FORCER .OR. (MAX1.LE.GROWTHBOUND .AND. .NOT.SAWNAN1 ) ) {
          SIGMA = LSIGMA
@@ -158,7 +158,7 @@
             SAWNAN2 = .TRUE.
          ENDIF
          MAX2 = MAX( MAX2,ABS(WORK(I+1)) )
- 7    CONTINUE
+      } // 7
       SAWNAN2 = SAWNAN2 .OR.  DISNAN( MAX2 )
        if ( FORCER .OR. (MAX2.LE.GROWTHBOUND .AND. .NOT.SAWNAN2 ) ) {
          SIGMA = RSIGMA
@@ -214,7 +214,7 @@
             OLDP = PROD
             ZNM2 = ZNM2 + PROD**2
             TMP = MAX( TMP, ABS( DPLUS( I ) * PROD ))
- 15      CONTINUE
+         } // 15
          RRR1 = TMP/( SPDIAM * SQRT( ZNM2 ) )
          if (RRR1.LE.MAXGROWTH2) {
             SIGMA = LSIGMA
@@ -235,7 +235,7 @@
             OLDP = PROD
             ZNM2 = ZNM2 + PROD**2
             TMP = MAX( TMP, ABS( WORK( I ) * PROD ))
- 16      CONTINUE
+         } // 16
          RRR2 = TMP/( SPDIAM * SQRT( ZNM2 ) )
          if (RRR2.LE.MAXGROWTH2) {
             SIGMA = RSIGMA
@@ -245,7 +245,7 @@
       }
       ENDIF
 
- 50   CONTINUE
+      } // 50
 
       if (KTRY.LT.KTRYMAX) {
          // If we are here, both shifts failed also the RRR test.
@@ -269,7 +269,7 @@
          ENDIF
       }
 
- 100  CONTINUE
+      } // 100
       if (SHIFT.EQ.SLEFT) {
       ELSEIF (SHIFT.EQ.SRIGHT) THEN
          // store new L and D back into DPLUS, LPLUS

@@ -40,8 +40,8 @@
                   GO TO 50
                }
                SA( I, J ) = CMPLX( A( I, J ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
@@ -50,10 +50,10 @@
                   GO TO 50
                }
                SA( I, J ) = CMPLX( A( I, J ) )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       }
-   50 CONTINUE
+      } // 50
 
       RETURN
 

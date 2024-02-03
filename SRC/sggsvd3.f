@@ -126,7 +126,7 @@
                ISUB = J
                SMAX = TEMP
             }
-   10    CONTINUE
+         } // 10
          if ( ISUB.NE.I ) {
             WORK( K+ISUB ) = WORK( K+I )
             WORK( K+I ) = SMAX
@@ -134,7 +134,7 @@
          } else {
             IWORK( K+I ) = K + I
          }
-   20 CONTINUE
+      } // 20
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT )
       RETURN

@@ -65,7 +65,7 @@
             }
             WRITE( NOUT, FMT = 9997 )M, P, N
          }
-   10 CONTINUE
+      } // 10
       FIRSTT = .TRUE.
 
       // Do for each value of M in MVAL.
@@ -123,11 +123,11 @@
                   WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
                }
-   20       CONTINUE
+            } // 20
             NRUN = NRUN + NT
 
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Print a summary of the results.
 

@@ -83,7 +83,7 @@
             TEMP = -RHS( J )
             daxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
 
-   10    CONTINUE
+         } // 10
 
          // Solve for U-part, look-ahead for RHS(N) = +-1. This is not done
          // in BSOLVE and will hopefully give us a better estimate because
@@ -102,10 +102,10 @@
             DO 20 K = I + 1, N
                XP( I ) = XP( I ) - XP( K )*( Z( I, K )*TEMP )
                RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP )
-   20       CONTINUE
+            } // 20
             SPLUS = SPLUS + ABS( XP( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
-   30    CONTINUE
+         } // 30
          IF( SPLUS.GT.SMINU ) CALL DCOPY( N, XP, 1, RHS, 1 )
 
          // Apply the permutations JPIV to the computed solution (RHS)

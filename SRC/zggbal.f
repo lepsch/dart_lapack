@@ -87,7 +87,7 @@
          for (I = 1; I <= N; I++) { // 10
             LSCALE( I ) = ONE
             RSCALE( I ) = ONE
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -101,7 +101,7 @@
 
       // Find row with one nonzero in columns 1 through L
 
-   20 CONTINUE
+      } // 20
       L = LM1
       IF( L.NE.1 ) GO TO 30
 
@@ -109,57 +109,57 @@
       LSCALE( 1 ) = 1
       GO TO 190
 
-   30 CONTINUE
+      } // 30
       LM1 = L - 1
       DO 80 I = L, 1, -1
          for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1
             IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 50
-   40    CONTINUE
+         } // 40
          J = L
          GO TO 70
 
-   50    CONTINUE
+         } // 50
          for (J = JP1; J <= L; J++) { // 60
             IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 80
-   60    CONTINUE
+         } // 60
          J = JP1 - 1
 
-   70    CONTINUE
+         } // 70
          M = L
          IFLOW = 1
          GO TO 160
-   80 CONTINUE
+      } // 80
       GO TO 100
 
       // Find column with one nonzero in rows K through N
 
-   90 CONTINUE
+      } // 90
       K = K + 1
 
-  100 CONTINUE
+      } // 100
       for (J = K; J <= L; J++) { // 150
          for (I = K; I <= LM1; I++) { // 110
             IP1 = I + 1
             IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 120
-  110    CONTINUE
+         } // 110
          I = L
          GO TO 140
-  120    CONTINUE
+         } // 120
          for (I = IP1; I <= L; I++) { // 130
             IF( A( I, J ).NE.CZERO .OR. B( I, J ).NE.CZERO ) GO TO 150
-  130    CONTINUE
+         } // 130
          I = IP1 - 1
-  140    CONTINUE
+         } // 140
          M = K
          IFLOW = 2
          GO TO 160
-  150 CONTINUE
+      } // 150
       GO TO 190
 
       // Permute rows M and I
 
-  160 CONTINUE
+      } // 160
       LSCALE( M ) = I
       IF( I.EQ.M ) GO TO 170
       zswap(N-K+1, A( I, K ), LDA, A( M, K ), LDA );
@@ -167,16 +167,16 @@
 
       // Permute columns M and J
 
-  170 CONTINUE
+      } // 170
       RSCALE( M ) = J
       IF( J.EQ.M ) GO TO 180
       zswap(L, A( 1, J ), 1, A( 1, M ), 1 );
       zswap(L, B( 1, J ), 1, B( 1, M ), 1 );
 
-  180 CONTINUE
+      } // 180
       GO TO ( 20, 90 )IFLOW
 
-  190 CONTINUE
+      } // 190
       ILO = K
       IHI = L
 
@@ -184,7 +184,7 @@
          for (I = ILO; I <= IHI; I++) { // 195
             LSCALE( I ) = ONE
             RSCALE( I ) = ONE
-  195    CONTINUE
+         } // 195
          RETURN
       }
 
@@ -203,7 +203,7 @@
          WORK( I+3*N ) = ZERO
          WORK( I+4*N ) = ZERO
          WORK( I+5*N ) = ZERO
-  200 CONTINUE
+      } // 200
 
       // Compute right side vector in resulting linear equations
 
@@ -216,18 +216,18 @@
             }
             TA = LOG10( CABS1( A( I, J ) ) ) / BASL
 
-  210       CONTINUE
+            } // 210
             if ( B( I, J ).EQ.CZERO ) {
                TB = ZERO
                GO TO 220
             }
             TB = LOG10( CABS1( B( I, J ) ) ) / BASL
 
-  220       CONTINUE
+            } // 220
             WORK( I+4*N ) = WORK( I+4*N ) - TA - TB
             WORK( J+5*N ) = WORK( J+5*N ) - TA - TB
-  230    CONTINUE
-  240 CONTINUE
+         } // 230
+      } // 240
 
       COEF = ONE / DBLE( 2*NR )
       COEF2 = COEF*COEF
@@ -238,7 +238,7 @@
 
       // Start generalized conjugate gradient iteration
 
-  250 CONTINUE
+      } // 250
 
       GAMMA = DDOT( NR, WORK( ILO+4*N ), 1, WORK( ILO+4*N ), 1 ) + DDOT( NR, WORK( ILO+5*N ), 1, WORK( ILO+5*N ), 1 )
 
@@ -247,7 +247,7 @@
       for (I = ILO; I <= IHI; I++) { // 260
          EW = EW + WORK( I+4*N )
          EWC = EWC + WORK( I+5*N )
-  260 CONTINUE
+      } // 260
 
       GAMMA = COEF*GAMMA - COEF2*( EW**2+EWC**2 ) - COEF5*( EW-EWC )**2
       IF( GAMMA.EQ.ZERO ) GO TO 350       IF( IT.NE.1 ) BETA = GAMMA / PGAMMA
@@ -263,7 +263,7 @@
       for (I = ILO; I <= IHI; I++) { // 270
          WORK( I ) = WORK( I ) + TC
          WORK( I+N ) = WORK( I+N ) + T
-  270 CONTINUE
+      } // 270
 
       // Apply matrix to vector
 
@@ -274,13 +274,13 @@
             IF( A( I, J ).EQ.CZERO ) GO TO 280
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
-  280       CONTINUE
+            } // 280
             IF( B( I, J ).EQ.CZERO ) GO TO 290
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( J )
-  290    CONTINUE
+         } // 290
          WORK( I+2*N ) = DBLE( KOUNT )*WORK( I+N ) + SUM
-  300 CONTINUE
+      } // 300
 
       for (J = ILO; J <= IHI; J++) { // 330
          KOUNT = 0
@@ -289,13 +289,13 @@
             IF( A( I, J ).EQ.CZERO ) GO TO 310
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
-  310       CONTINUE
+            } // 310
             IF( B( I, J ).EQ.CZERO ) GO TO 320
             KOUNT = KOUNT + 1
             SUM = SUM + WORK( I+N )
-  320    CONTINUE
+         } // 320
          WORK( J+3*N ) = DBLE( KOUNT )*WORK( J ) + SUM
-  330 CONTINUE
+      } // 330
 
       SUM = DDOT( NR, WORK( ILO+N ), 1, WORK( ILO+2*N ), 1 ) + DDOT( NR, WORK( ILO ), 1, WORK( ILO+3*N ), 1 )
       ALPHA = GAMMA / SUM
@@ -310,7 +310,7 @@
          COR = ALPHA*WORK( I )
          IF( ABS( COR ).GT.CMAX ) CMAX = ABS( COR )
          RSCALE( I ) = RSCALE( I ) + COR
-  340 CONTINUE
+      } // 340
       IF( CMAX.LT.HALF ) GO TO 350
 
       daxpy(NR, -ALPHA, WORK( ILO+2*N ), 1, WORK( ILO+4*N ), 1 );
@@ -322,7 +322,7 @@
 
       // End generalized conjugate gradient iteration
 
-  350 CONTINUE
+      } // 350
       SFMIN = DLAMCH( 'S' )
       SFMAX = ONE / SFMIN
       LSFMIN = INT( LOG10( SFMIN ) / BASL+ONE )
@@ -344,21 +344,21 @@
          JC = INT(RSCALE( I ) + SIGN( HALF, RSCALE( I ) ))
          JC = MIN( MAX( JC, LSFMIN ), LSFMAX, LSFMAX-LCAB )
          RSCALE( I ) = SCLFAC**JC
-  360 CONTINUE
+      } // 360
 
       // Row scaling of matrices A and B
 
       for (I = ILO; I <= IHI; I++) { // 370
          zdscal(N-ILO+1, LSCALE( I ), A( I, ILO ), LDA );
          zdscal(N-ILO+1, LSCALE( I ), B( I, ILO ), LDB );
-  370 CONTINUE
+      } // 370
 
       // Column scaling of matrices A and B
 
       for (J = ILO; J <= IHI; J++) { // 380
          zdscal(IHI, RSCALE( J ), A( 1, J ), 1 );
          zdscal(IHI, RSCALE( J ), B( 1, J ), 1 );
-  380 CONTINUE
+      } // 380
 
       RETURN
 

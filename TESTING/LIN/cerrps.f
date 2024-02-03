@@ -49,12 +49,12 @@
          for (I = 1; I <= NMAX; I++) { // 100
             A( I, J ) = 1.0 / REAL( I+J )
 
-  100    CONTINUE
+         } // 100
          PIV( J ) = J
          RWORK( J ) = 0.
          RWORK( NMAX+J ) = 0.
 
-  110 CONTINUE
+      } // 110
       OK = .TRUE.
 
 

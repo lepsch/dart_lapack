@@ -90,7 +90,7 @@
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 230
          }
-   10 CONTINUE
+      } // 10
       // Values of K
       READ( NIN, FMT = * )NKB
       if ( NKB.LT.1.OR.NKB.GT.NKBMAX ) {
@@ -103,7 +103,7 @@
             WRITE( NOUT, FMT = 9995 )
             GO TO 230
          }
-   20 CONTINUE
+      } // 20
       // Values of INCX and INCY
       READ( NIN, FMT = * )NINC
       if ( NINC.LT.1.OR.NINC.GT.NINMAX ) {
@@ -116,7 +116,7 @@
             WRITE( NOUT, FMT = 9994 )INCMAX
             GO TO 230
          }
-   30 CONTINUE
+      } // 30
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
       if ( NALF.LT.1.OR.NALF.GT.NALMAX ) {
@@ -153,17 +153,17 @@
 
       for (I = 1; I <= NSUBS; I++) { // 40
          LTEST( I ) = .FALSE.
-   40 CONTINUE
+      } // 40
    50 READ( NIN, FMT = 9984, END = 80 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 60
          IF( SNAMET.EQ.SNAMES( I ) ) GO TO 70
-   60 CONTINUE
+      } // 60
       WRITE( NOUT, FMT = 9986 )SNAMET
       STOP
    70 LTEST( I ) = LTESTT
       GO TO 50
 
-   80 CONTINUE
+      } // 80
       CLOSE ( NIN )
 
       // Compute EPS (the machine precision).
@@ -177,13 +177,13 @@
       for (J = 1; J <= N; J++) { // 120
          for (I = 1; I <= N; I++) { // 110
             A( I, J ) = MAX( I - J + 1, 0 )
-  110    CONTINUE
+         } // 110
          X( J ) = J
          Y( J ) = ZERO
-  120 CONTINUE
+      } // 120
       for (J = 1; J <= N; J++) { // 130
          YY( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
-  130 CONTINUE
+      } // 130
       // YY holds the exact result. On exit from ZMVCH YT holds
       // the result computed by ZMVCH.
       TRANS = 'N'
@@ -241,18 +241,18 @@
 
   200       IF( FATAL.AND.SFATAL ) GO TO 220
          }
-  210 CONTINUE
+      } // 210
       WRITE( NOUT, FMT = 9982 )
       GO TO 240
 
-  220 CONTINUE
+      } // 220
       WRITE( NOUT, FMT = 9981 )
       GO TO 240
 
-  230 CONTINUE
+      } // 230
       WRITE( NOUT, FMT = 9987 )
 
-  240 CONTINUE
+      } // 240
       IF( TRACE ) CLOSE ( NTRA )
       CLOSE ( NOUT )
       STOP
@@ -432,16 +432,16 @@
                               ALS = ALPHA
                               for (I = 1; I <= LAA; I++) { // 10
                                  AS( I ) = AA( I )
-   10                         CONTINUE
+                              } // 10
                               LDAS = LDA
                               for (I = 1; I <= LX; I++) { // 20
                                  XS( I ) = XX( I )
-   20                         CONTINUE
+                              } // 20
                               INCXS = INCX
                               BLS = BETA
                               for (I = 1; I <= LY; I++) { // 30
                                  YS( I ) = YY( I )
-   30                         CONTINUE
+                              } // 30
                               INCYS = INCY
 
                               // Call the subroutine.
@@ -504,7 +504,7 @@
                               for (I = 1; I <= NARGS; I++) { // 40
                                  SAME = SAME.AND.ISAME( I )
                                  IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                         CONTINUE
+                              } // 40
                               if ( .NOT.SAME ) {
                                  FATAL = .TRUE.
                                  GO TO 130
@@ -525,21 +525,21 @@
                                  GO TO 110
                               }
 
-   50                      CONTINUE
+                           } // 50
 
-   60                   CONTINUE
+                        } // 60
 
-   70                CONTINUE
+                     } // 70
 
-   80             CONTINUE
+                  } // 80
 
-   90          CONTINUE
+               } // 90
 
-  100       CONTINUE
+            } // 100
 
-  110    CONTINUE
+         } // 110
 
-  120 CONTINUE
+      } // 120
 
       // Regression test to verify preservation of y when m zero, n nonzero.
 
@@ -567,7 +567,7 @@
       }
       GO TO 140
 
-  130 CONTINUE
+      } // 130
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( FULL ) {
          WRITE( NOUT, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY
@@ -575,7 +575,7 @@
          WRITE( NOUT, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY
       }
 
-  140 CONTINUE
+      } // 140
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -730,16 +730,16 @@
                            ALS = ALPHA
                            for (I = 1; I <= LAA; I++) { // 10
                               AS( I ) = AA( I )
-   10                      CONTINUE
+                           } // 10
                            LDAS = LDA
                            for (I = 1; I <= LX; I++) { // 20
                               XS( I ) = XX( I )
-   20                      CONTINUE
+                           } // 20
                            INCXS = INCX
                            BLS = BETA
                            for (I = 1; I <= LY; I++) { // 30
                               YS( I ) = YY( I )
-   30                      CONTINUE
+                           } // 30
                            INCYS = INCY
 
                            // Call the subroutine.
@@ -815,7 +815,7 @@
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                      CONTINUE
+                           } // 40
                            if ( .NOT.SAME ) {
                               FATAL = .TRUE.
                               GO TO 120
@@ -835,19 +835,19 @@
                               GO TO 110
                            }
 
-   50                   CONTINUE
+                        } // 50
 
-   60                CONTINUE
+                     } // 60
 
-   70             CONTINUE
+                  } // 70
 
-   80          CONTINUE
+               } // 80
 
-   90       CONTINUE
+            } // 90
 
-  100    CONTINUE
+         } // 100
 
-  110 CONTINUE
+      } // 110
 
       // Report result.
 
@@ -858,7 +858,7 @@
       }
       GO TO 130
 
-  120 CONTINUE
+      } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( FULL ) {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY
@@ -868,7 +868,7 @@
          WRITE( NOUT, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY
       }
 
-  130 CONTINUE
+      } // 130
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -950,7 +950,7 @@
       // Set up zero vector for ZMVCH.
       for (I = 1; I <= NMAX; I++) { // 10
          Z( I ) = ZERO
-   10 CONTINUE
+      } // 10
 
       for (IN = 1; IN <= NIDIM; IN++) { // 110
          N = IDIM( IN )
@@ -1020,11 +1020,11 @@
                         KS = K
                         for (I = 1; I <= LAA; I++) { // 20
                            AS( I ) = AA( I )
-   20                   CONTINUE
+                        } // 20
                         LDAS = LDA
                         for (I = 1; I <= LX; I++) { // 30
                            XS( I ) = XX( I )
-   30                   CONTINUE
+                        } // 30
                         INCXS = INCX
 
                         // Call the subroutine.
@@ -1103,7 +1103,7 @@
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                   CONTINUE
+                        } // 40
                         if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 120
@@ -1121,7 +1121,7 @@
 
                               for (I = 1; I <= N; I++) { // 50
                                  Z( I ) = XX( 1 + ( I - 1 )* ABS( INCX ) )                                  XX( 1 + ( I - 1 )*ABS( INCX ) ) = X( I )
-   50                         CONTINUE
+                              } // 50
                               zmvch(TRANS, N, N, ONE, A, NMAX, Z, INCX, ZERO, X, INCX, XT, G, XX, EPS, ERR, FATAL, NOUT, .FALSE. );
                            }
                            ERRMAX = MAX( ERRMAX, ERR )
@@ -1132,17 +1132,17 @@
                            GO TO 110
                         }
 
-   60                CONTINUE
+                     } // 60
 
-   70             CONTINUE
+                  } // 70
 
-   80          CONTINUE
+               } // 80
 
-   90       CONTINUE
+            } // 90
 
-  100    CONTINUE
+         } // 100
 
-  110 CONTINUE
+      } // 110
 
       // Report result.
 
@@ -1153,7 +1153,7 @@
       }
       GO TO 130
 
-  120 CONTINUE
+      } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( FULL ) {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX
@@ -1163,7 +1163,7 @@
          WRITE( NOUT, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX
       }
 
-  130 CONTINUE
+      } // 130
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -1289,15 +1289,15 @@
                      ALS = ALPHA
                      for (I = 1; I <= LAA; I++) { // 10
                         AS( I ) = AA( I )
-   10                CONTINUE
+                     } // 10
                      LDAS = LDA
                      for (I = 1; I <= LX; I++) { // 20
                         XS( I ) = XX( I )
-   20                CONTINUE
+                     } // 20
                      INCXS = INCX
                      for (I = 1; I <= LY; I++) { // 30
                         YS( I ) = YY( I )
-   30                CONTINUE
+                     } // 30
                      INCYS = INCY
 
                      // Call the subroutine.
@@ -1339,7 +1339,7 @@
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                CONTINUE
+                     } // 40
                      if ( .NOT.SAME ) {
                         FATAL = .TRUE.
                         GO TO 140
@@ -1352,11 +1352,11 @@
                         if ( INCX.GT.0 ) {
                            for (I = 1; I <= M; I++) { // 50
                               Z( I ) = X( I )
-   50                      CONTINUE
+                           } // 50
                         } else {
                            for (I = 1; I <= M; I++) { // 60
                               Z( I ) = X( M - I + 1 )
-   60                      CONTINUE
+                           } // 60
                         }
                         for (J = 1; J <= N; J++) { // 70
                            if ( INCY.GT.0 ) {
@@ -1368,21 +1368,21 @@
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 130
-   70                   CONTINUE
+                        } // 70
                      } else {
                         // Avoid repeating tests with M.le.0 or N.le.0.
                         GO TO 110
                      }
 
-   80             CONTINUE
+                  } // 80
 
-   90          CONTINUE
+               } // 90
 
-  100       CONTINUE
+            } // 100
 
-  110    CONTINUE
+         } // 110
 
-  120 CONTINUE
+      } // 120
 
       // Report result.
 
@@ -1393,14 +1393,14 @@
       }
       GO TO 150
 
-  130 CONTINUE
+      } // 130
       WRITE( NOUT, FMT = 9995 )J
 
-  140 CONTINUE
+      } // 140
       WRITE( NOUT, FMT = 9996 )SNAME
       WRITE( NOUT, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA
 
-  150 CONTINUE
+      } // 150
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -1525,11 +1525,11 @@
                   RALS = RALPHA
                   for (I = 1; I <= LAA; I++) { // 10
                      AS( I ) = AA( I )
-   10             CONTINUE
+                  } // 10
                   LDAS = LDA
                   for (I = 1; I <= LX; I++) { // 20
                      XS( I ) = XX( I )
-   20             CONTINUE
+                  } // 20
                   INCXS = INCX
 
                   // Call the subroutine.
@@ -1574,7 +1574,7 @@
                   for (I = 1; I <= NARGS; I++) { // 30
                      SAME = SAME.AND.ISAME( I )
                      IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   30             CONTINUE
+                  } // 30
                   if ( .NOT.SAME ) {
                      FATAL = .TRUE.
                      GO TO 120
@@ -1587,11 +1587,11 @@
                      if ( INCX.GT.0 ) {
                         for (I = 1; I <= N; I++) { // 40
                            Z( I ) = X( I )
-   40                   CONTINUE
+                        } // 40
                      } else {
                         for (I = 1; I <= N; I++) { // 50
                            Z( I ) = X( N - I + 1 )
-   50                   CONTINUE
+                        } // 50
                      }
                      JA = 1
                      for (J = 1; J <= N; J++) { // 60
@@ -1616,19 +1616,19 @@
                         ERRMAX = MAX( ERRMAX, ERR )
                         // If got really bad answer, report and return.
                         IF( FATAL ) GO TO 110
-   60                CONTINUE
+                     } // 60
                   } else {
                      // Avoid repeating tests if N.le.0.
                      IF( N.LE.0 ) GO TO 100
                   }
 
-   70          CONTINUE
+               } // 70
 
-   80       CONTINUE
+            } // 80
 
-   90    CONTINUE
+         } // 90
 
-  100 CONTINUE
+      } // 100
 
       // Report result.
 
@@ -1639,10 +1639,10 @@
       }
       GO TO 130
 
-  110 CONTINUE
+      } // 110
       WRITE( NOUT, FMT = 9995 )J
 
-  120 CONTINUE
+      } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( FULL ) {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, N, RALPHA, INCX, LDA
@@ -1650,7 +1650,7 @@
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, N, RALPHA, INCX
       }
 
-  130 CONTINUE
+      } // 130
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -1788,15 +1788,15 @@
                      ALS = ALPHA
                      for (I = 1; I <= LAA; I++) { // 10
                         AS( I ) = AA( I )
-   10                CONTINUE
+                     } // 10
                      LDAS = LDA
                      for (I = 1; I <= LX; I++) { // 20
                         XS( I ) = XX( I )
-   20                CONTINUE
+                     } // 20
                      INCXS = INCX
                      for (I = 1; I <= LY; I++) { // 30
                         YS( I ) = YY( I )
-   30                CONTINUE
+                     } // 30
                      INCYS = INCY
 
                      // Call the subroutine.
@@ -1841,7 +1841,7 @@
                      for (I = 1; I <= NARGS; I++) { // 40
                         SAME = SAME.AND.ISAME( I )
                         IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                CONTINUE
+                     } // 40
                      if ( .NOT.SAME ) {
                         FATAL = .TRUE.
                         GO TO 160
@@ -1854,20 +1854,20 @@
                         if ( INCX.GT.0 ) {
                            for (I = 1; I <= N; I++) { // 50
                               Z( I, 1 ) = X( I )
-   50                      CONTINUE
+                           } // 50
                         } else {
                            for (I = 1; I <= N; I++) { // 60
                               Z( I, 1 ) = X( N - I + 1 )
-   60                      CONTINUE
+                           } // 60
                         }
                         if ( INCY.GT.0 ) {
                            for (I = 1; I <= N; I++) { // 70
                               Z( I, 2 ) = Y( I )
-   70                      CONTINUE
+                           } // 70
                         } else {
                            for (I = 1; I <= N; I++) { // 80
                               Z( I, 2 ) = Y( N - I + 1 )
-   80                      CONTINUE
+                           } // 80
                         }
                         JA = 1
                         for (J = 1; J <= N; J++) { // 90
@@ -1893,21 +1893,21 @@
                            ERRMAX = MAX( ERRMAX, ERR )
                            // If got really bad answer, report and return.
                            IF( FATAL ) GO TO 150
-   90                   CONTINUE
+                        } // 90
                      } else {
                         // Avoid repeating tests with N.le.0.
                         IF( N.LE.0 ) GO TO 140
                      }
 
-  100             CONTINUE
+                  } // 100
 
-  110          CONTINUE
+               } // 110
 
-  120       CONTINUE
+            } // 120
 
-  130    CONTINUE
+         } // 130
 
-  140 CONTINUE
+      } // 140
 
       // Report result.
 
@@ -1918,10 +1918,10 @@
       }
       GO TO 170
 
-  150 CONTINUE
+      } // 150
       WRITE( NOUT, FMT = 9995 )J
 
-  160 CONTINUE
+      } // 160
       WRITE( NOUT, FMT = 9996 )SNAME
       if ( FULL ) {
          WRITE( NOUT, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA
@@ -1929,7 +1929,7 @@
          WRITE( NOUT, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY
       }
 
-  170 CONTINUE
+      } // 170
       RETURN
 
  9999 FORMAT( ' ', A6, ' PASSED THE COMPUTATIONAL TESTS (', I6, ' CALL', 'S)' )
@@ -2347,9 +2347,9 @@
                   }
                }
             }
-   10    CONTINUE
+         } // 10
          IF( SYM ) A( J, J ) = DCMPLX( DBLE( A( J, J ) ), RZERO )          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
-   20 CONTINUE
+      } // 20
 
       // Store elements in array AS in data structure required by routine.
 
@@ -2357,23 +2357,23 @@
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
-   30       CONTINUE
+            } // 30
             DO 40 I = M + 1, LDA
                AA( I + ( J - 1 )*LDA ) = ROGUE
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       } else if ( TYPE.EQ.'GB' ) {
          for (J = 1; J <= N; J++) { // 90
             DO 60 I1 = 1, KU + 1 - J
                AA( I1 + ( J - 1 )*LDA ) = ROGUE
-   60       CONTINUE
+            } // 60
             DO 70 I2 = I1, MIN( KL + KU + 1, KU + 1 + M - J )
                AA( I2 + ( J - 1 )*LDA ) = A( I2 + J - KU - 1, J )
-   70       CONTINUE
+            } // 70
             for (I3 = I2; I3 <= LDA; I3++) { // 80
                AA( I3 + ( J - 1 )*LDA ) = ROGUE
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
       } else if ( TYPE.EQ.'HE'.OR.TYPE.EQ.'TR' ) {
          for (J = 1; J <= N; J++) { // 130
             if ( UPPER ) {
@@ -2393,18 +2393,18 @@
             }
             DO 100 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
-  100       CONTINUE
+            } // 100
             for (I = IBEG; I <= IEND; I++) { // 110
                AA( I + ( J - 1 )*LDA ) = A( I, J )
-  110       CONTINUE
+            } // 110
             DO 120 I = IEND + 1, LDA
                AA( I + ( J - 1 )*LDA ) = ROGUE
-  120       CONTINUE
+            } // 120
             if ( SYM ) {
                JJ = J + ( J - 1 )*LDA
                AA( JJ ) = DCMPLX( DBLE( AA( JJ ) ), RROGUE )
             }
-  130    CONTINUE
+         } // 130
       } else if ( TYPE.EQ.'HB'.OR.TYPE.EQ.'TB' ) {
          for (J = 1; J <= N; J++) { // 170
             if ( UPPER ) {
@@ -2426,18 +2426,18 @@
             }
             DO 140 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
-  140       CONTINUE
+            } // 140
             for (I = IBEG; I <= IEND; I++) { // 150
                AA( I + ( J - 1 )*LDA ) = A( I + J - KK, J )
-  150       CONTINUE
+            } // 150
             DO 160 I = IEND + 1, LDA
                AA( I + ( J - 1 )*LDA ) = ROGUE
-  160       CONTINUE
+            } // 160
             if ( SYM ) {
                JJ = KK + ( J - 1 )*LDA
                AA( JJ ) = DCMPLX( DBLE( AA( JJ ) ), RROGUE )
             }
-  170    CONTINUE
+         } // 170
       } else if ( TYPE.EQ.'HP'.OR.TYPE.EQ.'TP' ) {
          IOFF = 0
          for (J = 1; J <= N; J++) { // 190
@@ -2454,8 +2454,8 @@
                if ( I.EQ.J ) {
                   IF( UNIT ) AA( IOFF ) = ROGUE                   IF( SYM ) AA( IOFF ) = DCMPLX( DBLE( AA( IOFF ) ), RROGUE )
                }
-  180       CONTINUE
-  190    CONTINUE
+            } // 180
+         } // 190
       }
       RETURN
 
@@ -2535,24 +2535,24 @@
                YT( IY ) = YT( IY ) + A( J, I )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( J, I ) )*ABS1( X( JX ) )
                JX = JX + INCXL
-   10       CONTINUE
+            } // 10
          } else if ( CTRAN ) {
             for (J = 1; J <= NL; J++) { // 20
                YT( IY ) = YT( IY ) + DCONJG( A( J, I ) )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( J, I ) )*ABS1( X( JX ) )
                JX = JX + INCXL
-   20       CONTINUE
+            } // 20
          } else {
             for (J = 1; J <= NL; J++) { // 30
                YT( IY ) = YT( IY ) + A( I, J )*X( JX )
                G( IY ) = G( IY ) + ABS1( A( I, J ) )*ABS1( X( JX ) )
                JX = JX + INCXL
-   30       CONTINUE
+            } // 30
          }
          YT( IY ) = ALPHA*YT( IY ) + BETA*Y( IY )
          G( IY ) = ABS1( ALPHA )*G( IY ) + ABS1( BETA )*ABS1( Y( IY ) )
          IY = IY + INCYL
-   40 CONTINUE
+      } // 40
 
       // Compute the error ratio for this result.
 
@@ -2562,7 +2562,7 @@
          IF( G( I ).NE.RZERO ) ERRI = ERRI/G( I )
          ERR = MAX( ERR, ERRI )
          IF( ERR*SQRT( EPS ).GE.RONE ) GO TO 60
-   50 CONTINUE
+      } // 50
       // If the loop completes, all results are at least half accurate.
       GO TO 80
 
@@ -2576,9 +2576,9 @@
          } else {
             WRITE( NOUT, FMT = 9998 )I, YY( 1 + ( I - 1 )*ABS( INCY ) ), YT( I )
          }
-   70 CONTINUE
+      } // 70
 
-   80 CONTINUE
+      } // 80
       RETURN
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'                       EXPECTED RE', 'SULT                    COMPUTED RESULT' )
@@ -2606,10 +2606,10 @@
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
-   10 CONTINUE
+      } // 10
       LZE = .TRUE.
       GO TO 30
-   20 CONTINUE
+      } // 20
       LZE = .FALSE.
    30 RETURN
 
@@ -2643,8 +2643,8 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = M + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else if ( TYPE.EQ.'HE' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
@@ -2656,16 +2656,16 @@
             }
             DO 30 I = 1, IBEG - 1
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   30       CONTINUE
+            } // 30
             DO 40 I = IEND + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       }
 
       LZERES = .TRUE.
       GO TO 80
-   70 CONTINUE
+      } // 70
       LZERES = .FALSE.
    80 RETURN
 
@@ -2796,7 +2796,7 @@
       for (I = 1; I <= LY; I++) { // 10
          Y( I ) = DCMPLX( 42.0D0, DBLE( I ) )
          YS( I ) = Y( I )
-  10  CONTINUE
+      } // 10
       RETURN
       }
       SUBROUTINE XERBLA( SRNAME, INFO )

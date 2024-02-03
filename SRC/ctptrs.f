@@ -69,13 +69,13 @@
             for (INFO = 1; INFO <= N; INFO++) { // 10
                IF( AP( JC+INFO-1 ).EQ.ZERO ) RETURN
                JC = JC + INFO
-   10       CONTINUE
+            } // 10
          } else {
             JC = 1
             for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AP( JC ).EQ.ZERO ) RETURN
                JC = JC + N - INFO + 1
-   20       CONTINUE
+            } // 20
          }
       }
       INFO = 0
@@ -84,7 +84,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 30
          ctpsv(UPLO, TRANS, DIAG, N, AP, B( 1, J ), 1 );
-   30 CONTINUE
+      } // 30
 
       RETURN
 

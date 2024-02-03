@@ -172,7 +172,7 @@
 
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
-   10 CONTINUE
+      } // 10
 
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
@@ -202,7 +202,7 @@
          TEMP = ABS( D( 1 ) )
          for (I = 2; I <= MNMIN; I++) { // 20
             TEMP = MAX( TEMP, ABS( D( I ) ) )
-   20    CONTINUE
+         } // 20
 
          if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
@@ -311,9 +311,9 @@
                            IC = ICOL
                            IR = IROW
                         }
-   30                CONTINUE
-   40             CONTINUE
-   50          CONTINUE
+                     } // 30
+                  } // 40
+               } // 50
 
                JKU = UUB
                for (JKL = 1; JKL <= LLB; JKL++) { // 80
@@ -353,9 +353,9 @@
                            IC = ICOL
                            IR = IROW
                         }
-   60                CONTINUE
-   70             CONTINUE
-   80          CONTINUE
+                     } // 60
+                  } // 70
+               } // 80
 
             } else {
 
@@ -401,9 +401,9 @@
                            dlarot(.FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, TEMP, EXTRA );
                            IC = ICOL
                         }
-   90                CONTINUE
-  100             CONTINUE
-  110          CONTINUE
+                     } // 90
+                  } // 100
+               } // 110
 
                JKU = UUB
                for (JKL = 1; JKL <= LLB; JKL++) { // 140
@@ -445,9 +445,9 @@
                            dlarot(.TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, TEMP, EXTRA );
                            IR = IROW
                         }
-  120                CONTINUE
-  130             CONTINUE
-  140          CONTINUE
+                     } // 120
+                  } // 130
+               } // 140
             }
 
          } else {
@@ -492,9 +492,9 @@
                         EXTRA = ZERO
                         dlarot(.FALSE., JCH.GT.K, .TRUE., IL, C, -S, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, TEMP );
                         ICOL = JCH
-  150                CONTINUE
-  160             CONTINUE
-  170          CONTINUE
+                     } // 150
+                  } // 160
+               } // 170
 
                // If we need lower triangle, copy from upper. Note that
                // the order of copying is chosen to work for 'q' -> 'b'
@@ -504,14 +504,14 @@
                      IROW = IOFFST - ISKEW*JC
                      DO 180 JR = JC, MIN( N, JC+UUB )
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
-  180                CONTINUE
-  190             CONTINUE
+                     } // 180
+                  } // 190
                   if ( IPACK.EQ.5 ) {
                      DO 210 JC = N - UUB + 1, N
                         DO 200 JR = N + 2 - JC, UUB + 1
                            A( JR, JC ) = ZERO
-  200                   CONTINUE
-  210                CONTINUE
+                        } // 200
+                     } // 210
                   }
                   if ( IPACKG.EQ.6 ) {
                      IPACKG = IPACK
@@ -554,9 +554,9 @@
                         EXTRA = ZERO
                         dlarot(.FALSE., .TRUE., N-JCH.GT.K, IL, C, S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
                         ICOL = JCH
-  220                CONTINUE
-  230             CONTINUE
-  240          CONTINUE
+                     } // 220
+                  } // 230
+               } // 240
 
                // If we need upper triangle, copy from lower. Note that
                // the order of copying is chosen to work for 'b' -> 'q'
@@ -566,14 +566,14 @@
                      IROW = IOFFST - ISKEW*JC
                      DO 250 JR = JC, MAX( 1, JC-UUB ), -1
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
-  250                CONTINUE
-  260             CONTINUE
+                     } // 250
+                  } // 260
                   if ( IPACK.EQ.6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 280
                         DO 270 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = ZERO
-  270                   CONTINUE
-  280                CONTINUE
+                        } // 270
+                     } // 280
                   }
                   if ( IPACKG.EQ.5 ) {
                      IPACKG = IPACK
@@ -621,8 +621,8 @@
             for (J = 1; J <= M; J++) { // 300
                DO 290 I = J + 1, M
                   A( I, J ) = ZERO
-  290          CONTINUE
-  300       CONTINUE
+               } // 290
+            } // 300
 
          } else if ( IPACK.EQ.2 ) {
 
@@ -631,8 +631,8 @@
             for (J = 2; J <= M; J++) { // 320
                DO 310 I = 1, J - 1
                   A( I, J ) = ZERO
-  310          CONTINUE
-  320       CONTINUE
+               } // 310
+            } // 320
 
          } else if ( IPACK.EQ.3 ) {
 
@@ -648,8 +648,8 @@
                      ICOL = ICOL + 1
                   }
                   A( IROW, ICOL ) = A( I, J )
-  330          CONTINUE
-  340       CONTINUE
+               } // 330
+            } // 340
 
          } else if ( IPACK.EQ.4 ) {
 
@@ -665,8 +665,8 @@
                      ICOL = ICOL + 1
                   }
                   A( IROW, ICOL ) = A( I, J )
-  350          CONTINUE
-  360       CONTINUE
+               } // 350
+            } // 360
 
          } else if ( IPACK.GE.5 ) {
 
@@ -679,14 +679,14 @@
             for (J = 1; J <= UUB; J++) { // 380
                DO 370 I = MIN( J+LLB, M ), 1, -1
                   A( I-J+UUB+1, J ) = A( I, J )
-  370          CONTINUE
-  380       CONTINUE
+               } // 370
+            } // 380
 
             DO 400 J = UUB + 2, N
                DO 390 I = J - UUB, MIN( J+LLB, M )
                   A( I-J+UUB+1, J ) = A( I, J )
-  390          CONTINUE
-  400       CONTINUE
+               } // 390
+            } // 400
          }
 
          // If packed, zero out extraneous elements.
@@ -698,9 +698,9 @@
             for (JC = ICOL; JC <= M; JC++) { // 420
                DO 410 JR = IROW + 1, LDA
                   A( JR, JC ) = ZERO
-  410          CONTINUE
+               } // 410
                IROW = 0
-  420       CONTINUE
+            } // 420
 
          } else if ( IPACK.GE.5 ) {
 
@@ -715,11 +715,11 @@
             for (JC = 1; JC <= N; JC++) { // 450
                DO 430 JR = 1, UUB + 1 - JC
                   A( JR, JC ) = ZERO
-  430          CONTINUE
+               } // 430
                DO 440 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA
                   A( JR, JC ) = ZERO
-  440          CONTINUE
-  450       CONTINUE
+               } // 440
+            } // 450
          }
       }
 

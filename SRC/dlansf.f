@@ -156,7 +156,7 @@
                      END DO
                      WORK( J ) = WORK( J ) + S
                   END DO
-   10             CONTINUE
+                  } // 10
                   VALUE = WORK( 0 )
                   DO I = 1, N-1
                      TEMP = WORK( I )

@@ -194,7 +194,7 @@
          }
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
-   10    CONTINUE
+         } // 10
 
          // Reorder eigenvalues, transform Schur vectors, and compute
          // reciprocal condition numbers
@@ -280,7 +280,7 @@
                   }
                   INXT = I + 2
                }
-   20       CONTINUE
+            } // 20
          }
          dlascl('G', 0, 0, CSCALE, ANRM, N-IEVAL, 1, WI( IEVAL+1 ), MAX( N-IEVAL, 1 ), IERR );
       }
@@ -318,7 +318,7 @@
             }
             LST2SL = LASTSL
             LASTSL = CURSL
-   30    CONTINUE
+         } // 30
       }
 
       WORK( 1 ) = MAXWRK

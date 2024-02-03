@@ -155,7 +155,7 @@
          RANK = 1
       }
 
-   10 CONTINUE
+      } // 10
       if ( RANK.LT.MN ) {
          I = RANK + 1
          zlaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL ZLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
@@ -164,7 +164,7 @@
             for (I = 1; I <= RANK; I++) { // 20
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
-   20       CONTINUE
+            } // 20
             WORK( ISMIN+RANK ) = C1
             WORK( ISMAX+RANK ) = C2
             SMIN = SMINPR
@@ -201,8 +201,8 @@
       for (J = 1; J <= NRHS; J++) { // 40
          DO 30 I = RANK + 1, N
             B( I, J ) = CZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // B(1:N,1:NRHS) := Y**H * B(1:N,1:NRHS)
 
@@ -217,9 +217,9 @@
       for (J = 1; J <= NRHS; J++) { // 60
          for (I = 1; I <= N; I++) { // 50
             WORK( JPVT( I ) ) = B( I, J )
-   50    CONTINUE
+         } // 50
          zcopy(N, WORK( 1 ), 1, B( 1, J ), 1 );
-   60 CONTINUE
+      } // 60
 
       // complex workspace: N.
 
@@ -238,7 +238,7 @@
          zlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-   70 CONTINUE
+      } // 70
       WORK( 1 ) = DCMPLX( LWKOPT )
 
       RETURN

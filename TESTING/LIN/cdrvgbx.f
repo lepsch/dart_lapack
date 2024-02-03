@@ -76,7 +76,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -198,14 +198,14 @@
                         I2 = MIN( KL+KU+1, KU+1+( N-IZERO ) )
                         for (I = I1; I <= I2; I++) { // 20
                            A( IOFF+I ) = ZERO
-   20                   CONTINUE
+                        } // 20
                      } else {
                         for (J = IZERO; J <= N; J++) { // 40
                            DO 30 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( N-J ) )
                               A( IOFF+I ) = ZERO
-   30                      CONTINUE
+                           } // 30
                            IOFF = IOFF + LDA
-   40                   CONTINUE
+                        } // 40
                      }
                   }
 
@@ -372,7 +372,7 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9997 )'CGBSV ', N, KL, KU, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  }
-   50                         CONTINUE
+                              } // 50
                               NRUN = NRUN + NT
                            }
 
@@ -405,8 +405,8 @@
                               ANRMPV = ZERO
                               for (J = 1; J <= INFO; J++) { // 70
                                  DO 60 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )                                     ANRMPV = MAX( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )
-   60                            CONTINUE
-   70                         CONTINUE
+                                 } // 60
+                              } // 70
                               RPVGRW = CLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ) ), LDAFB, RDUM )
                               if ( RPVGRW.EQ.ZERO ) {
                                  RPVGRW = ONE
@@ -481,7 +481,7 @@
                                     }
                                     NFAIL = NFAIL + 1
                                  }
-   80                         CONTINUE
+                              } // 80
                               NRUN = NRUN + 7 - K1
                            } else {
                               IF( RESULT( 1 ).GE.THRESH .AND. .NOT. PREFAC ) THEN                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
@@ -610,7 +610,7 @@
                               }
                               NFAIL = NFAIL + 1
                            }
- 45                     CONTINUE
+                        } // 45
                         NRUN = NRUN + 7 - K1
                      } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
@@ -645,13 +645,13 @@
 
                      }
 
-   90                   CONTINUE
-  100                CONTINUE
-  110             CONTINUE
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+                        } // 90
+                     } // 100
+                  } // 110
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
       // Print a summary of the results.
 

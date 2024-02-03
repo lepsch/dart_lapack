@@ -160,7 +160,7 @@
                zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
-   30    CONTINUE
+         } // 30
 
          RETURN
 
@@ -170,14 +170,14 @@
 
       P = 0
       I = 1
-   40 CONTINUE
+      } // 40
       IF( I.GT.M ) GO TO 50
       P = P + 1
       IWORK( P ) = I
       I = I + MB
       IF( I.GE.M ) GO TO 50
       GO TO 40
-   50 CONTINUE
+      } // 50
       IWORK( P+1 ) = M + 1
       IF( IWORK( P ).EQ.IWORK( P+1 ) ) P = P - 1
 
@@ -185,7 +185,7 @@
 
       Q = P + 1
       J = 1
-   60 CONTINUE
+      } // 60
       IF( J.GT.N ) GO TO 70
 
       Q = Q + 1
@@ -194,7 +194,7 @@
       IF( J.GE.N ) GO TO 70
       GO TO 60
 
-   70 CONTINUE
+      } // 70
       IWORK( Q+1 ) = N + 1
       IF( IWORK( Q ).EQ.IWORK( Q+1 ) ) Q = Q - 1
 
@@ -224,16 +224,16 @@
                   if ( SCALOC.NE.ONE ) {
                      DO 80 K = 1, JS - 1
                         zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-   80                CONTINUE
+                     } // 80
                      for (K = JS; K <= JE; K++) { // 90
                         zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-   90                CONTINUE
+                     } // 90
                      for (K = JS; K <= JE; K++) { // 100
                         zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
-  100                CONTINUE
+                     } // 100
                      DO 110 K = JE + 1, N
                         zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-  110                CONTINUE
+                     } // 110
                      SCALE = SCALE*SCALOC
                   }
 
@@ -245,8 +245,8 @@
                   if ( J.LT.Q ) {
                      zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
-  120          CONTINUE
-  130       CONTINUE
+               } // 120
+            } // 130
             if ( DSCALE.NE.ZERO ) {
                if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -268,7 +268,7 @@
                zlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
-  150    CONTINUE
+         } // 150
       } else {
 
          // Solve transposed (I, J)-subsystem
@@ -290,16 +290,16 @@
                if ( SCALOC.NE.ONE ) {
                   DO 160 K = 1, JS - 1
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-  160             CONTINUE
+                  } // 160
                   for (K = JS; K <= JE; K++) { // 170
                      zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-  170             CONTINUE
+                  } // 170
                   for (K = JS; K <= JE; K++) { // 180
                      zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
-  180             CONTINUE
+                  } // 180
                   DO 190 K = JE + 1, N
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-  190             CONTINUE
+                  } // 190
                   SCALE = SCALE*SCALOC
                }
 
@@ -311,8 +311,8 @@
                if ( I.LT.P ) {
                   zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }
-  200       CONTINUE
-  210    CONTINUE
+            } // 200
+         } // 210
       }
 
       WORK( 1 ) = LWMIN

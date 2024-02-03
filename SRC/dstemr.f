@@ -307,7 +307,7 @@
          // Store the squares of the offdiagonal values of T
          DO 5 J = 1, N-1
             WORK( INDE2+J-1 ) = E(J)**2
- 5       CONTINUE
+         } // 5
 
          // Set the tolerance parameters for bisection
          if ( .NOT.WANTZ ) {
@@ -351,7 +351,7 @@
             for (J = 1; J <= M; J++) { // 20
                ITMP = IWORK( IINDBL+J-1 )
                W( J ) = W( J ) + E( IWORK( IINSPL+ITMP-1 ) )
- 20         CONTINUE
+            } // 20
          }
 
 
@@ -365,7 +365,7 @@
                IN = IEND - IBEGIN + 1
                WEND = WBEGIN - 1
                // check if any eigenvalues have to be refined in this block
- 36            CONTINUE
+               } // 36
                if ( WEND.LT.M ) {
                   if ( IWORK( IINDBL+WEND ).EQ.JBLK ) {
                      WEND = WEND + 1
@@ -384,7 +384,7 @@
                dlarrj(IN, WORK(INDD+IBEGIN-1), WORK(INDE2+IBEGIN-1), IFIRST, ILAST, RTOL2, OFFSET, W(WBEGIN), WORK( INDERR+WBEGIN-1 ), WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, TNRM, IINFO );
                IBEGIN = IEND + 1
                WBEGIN = WEND + 1
- 39         CONTINUE
+            } // 39
          ENDIF
 
          // If matrix was scaled, then rescale eigenvalues appropriately.
@@ -415,7 +415,7 @@
                      I = JJ
                      TMP = W( JJ )
                   }
- 50            CONTINUE
+               } // 50
                if ( I.NE.0 ) {
                   W( I ) = W( J )
                   W( J ) = TMP
@@ -429,7 +429,7 @@
                      ISUPPZ( 2*J ) = ITMP
                   }
                }
- 60         CONTINUE
+            } // 60
          }
       ENDIF
 

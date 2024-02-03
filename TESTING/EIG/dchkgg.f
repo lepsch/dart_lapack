@@ -63,7 +63,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Maximum blocksize and shift -- we assume that blocksize and number
       // of shifts are monotone increasing functions of N.
@@ -135,13 +135,13 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 15; J++) { // 30
                RESULT( J ) = ZERO
-   30       CONTINUE
+            } // 30
 
             // Compute A and B
 
@@ -205,14 +205,14 @@
                      for (JR = JC; JR <= N; JR++) { // 40
                         U( JR, JC ) = DLARND( 3, ISEED )
                         V( JR, JC ) = DLARND( 3, ISEED )
-   40                CONTINUE
+                     } // 40
                      dlarfg(N+1-JC, U( JC, JC ), U( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, U( JC, JC ) )
                      U( JC, JC ) = ONE
                      dlarfg(N+1-JC, V( JC, JC ), V( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, V( JC, JC ) )
                      V( JC, JC ) = ONE
-   50             CONTINUE
+                  } // 50
                   U( N, N ) = ONE
                   WORK( N ) = ZERO
                   WORK( 3*N ) = SIGN( ONE, DLARND( 2, ISEED ) )
@@ -225,8 +225,8 @@
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
-   60                CONTINUE
-   70             CONTINUE
+                     } // 60
+                  } // 70
                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                }
             } else {
@@ -236,14 +236,14 @@
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* DLARND( 2, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* DLARND( 2, ISEED )
-   80             CONTINUE
-   90          CONTINUE
+                  } // 80
+               } // 90
             }
 
             ANORM = DLANGE( '1', N, N, A, LDA, WORK )
             BNORM = DLANGE( '1', N, N, B, LDA, WORK )
 
-  100       CONTINUE
+            } // 100
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
@@ -251,7 +251,7 @@
                RETURN
             }
 
-  110       CONTINUE
+            } // 110
 
             // Call DGEQR2, DORM2R, and DGGHRD to compute H, T, U, and V
 
@@ -356,10 +356,10 @@
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 120
                LLWORK( J ) = .TRUE.
-  120       CONTINUE
+            } // 120
             DO 130 J = I1 + 1, N
                LLWORK( J ) = .FALSE.
-  130       CONTINUE
+            } // 130
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL, LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -371,10 +371,10 @@
             I1 = IN
             for (J = 1; J <= I1; J++) { // 140
                LLWORK( J ) = .FALSE.
-  140       CONTINUE
+            } // 140
             DO 150 J = I1 + 1, N
                LLWORK( J ) = .TRUE.
-  150       CONTINUE
+            } // 150
 
             dtgevc('L', 'S', LLWORK, N, S1, LDA, P1, LDA, EVECTL( 1, I1+1 ), LDU, DUMMA, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -420,10 +420,10 @@
             I1 = N / 2
             for (J = 1; J <= I1; J++) { // 160
                LLWORK( J ) = .TRUE.
-  160       CONTINUE
+            } // 160
             DO 170 J = I1 + 1, N
                LLWORK( J ) = .FALSE.
-  170       CONTINUE
+            } // 170
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR, LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -435,10 +435,10 @@
             I1 = IN
             for (J = 1; J <= I1; J++) { // 180
                LLWORK( J ) = .FALSE.
-  180       CONTINUE
+            } // 180
             DO 190 J = I1 + 1, N
                LLWORK( J ) = .TRUE.
-  190       CONTINUE
+            } // 190
 
             dtgevc('R', 'S', LLWORK, N, S1, LDA, P1, LDA, DUMMA, LDU, EVECTR( 1, I1+1 ), LDU, N, IN, WORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -487,7 +487,7 @@
                for (J = 1; J <= N; J++) { // 200
                   TEMP1 = MAX( TEMP1, ABS( ALPHR1( J )-ALPHR3( J ) )+ ABS( ALPHI1( J )-ALPHI3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( BETA1( J )-BETA3( J ) ) )
-  200          CONTINUE
+               } // 200
 
                TEMP1 = TEMP1 / MAX( SAFMIN, ULP*MAX( TEMP1, ANORM ) )
                TEMP2 = TEMP2 / MAX( SAFMIN, ULP*MAX( TEMP2, BNORM ) )
@@ -502,7 +502,7 @@
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  210       CONTINUE
+            } // 210
 
             NTESTT = NTESTT + NTEST
 
@@ -535,10 +535,10 @@
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   }
                }
-  220       CONTINUE
+            } // 220
 
-  230    CONTINUE
-  240 CONTINUE
+         } // 230
+      } // 240
 
       // Summary
 

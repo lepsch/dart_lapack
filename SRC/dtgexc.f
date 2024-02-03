@@ -105,7 +105,7 @@
 
          HERE = IFST
 
-   10    CONTINUE
+         } // 10
 
          // Swap with next one below.
 
@@ -194,7 +194,7 @@
       } else {
          HERE = IFST
 
-   20    CONTINUE
+         } // 20
 
          // Swap with next one below.
 

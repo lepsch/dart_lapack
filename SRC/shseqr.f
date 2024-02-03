@@ -111,11 +111,11 @@
          DO 10 I = 1, ILO - 1
             WR( I ) = H( I, I )
             WI( I ) = ZERO
-   10    CONTINUE
+         } // 10
          DO 20 I = IHI + 1, N
             WR( I ) = H( I, I )
             WI( I ) = ZERO
-   20    CONTINUE
+         } // 20
 
          // ==== Initialize Z, if requested ====
 

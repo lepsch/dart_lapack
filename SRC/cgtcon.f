@@ -70,7 +70,7 @@
 
       for (I = 1; I <= N; I++) { // 10
          IF( D( I ).EQ.CMPLX( ZERO ) ) RETURN
-   10 CONTINUE
+      } // 10
 
       AINVNM = ZERO
       if ( ONENRM ) {
@@ -79,7 +79,7 @@
          KASE1 = 2
       }
       KASE = 0
-   20 CONTINUE
+      } // 20
       clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {

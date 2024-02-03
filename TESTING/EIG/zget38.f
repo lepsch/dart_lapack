@@ -71,13 +71,13 @@
       // lexicographically (increasing by real part, then decreasing by
       // imaginary part)
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, NDIM, ISRT
       IF( N.EQ.0 ) RETURN
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       READ( NIN, FMT = * )SIN, SEPIN
 
       TNRM = ZLANGE( 'M', N, N, TMP, LDT, RWORK )
@@ -90,7 +90,7 @@
          VMUL = VAL( ISCL )
          for (I = 1; I <= N; I++) { // 30
             zdscal(N, VMUL, T( 1, I ), 1 );
-   30    CONTINUE
+         } // 30
          IF( TNRM.EQ.ZERO ) VMUL = ONE
          zlacpy('F', N, N, T, LDT, TSAV, LDT );
 
@@ -113,8 +113,8 @@
          DO 50 J = 1, N - 2
             DO 40 I = J + 2, N
                T( I, J ) = CZERO
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          zhseqr('S', 'V', N, 1, N, T, LDT, W, Q, LDT, WORK, LWORK, INFO );
          if ( INFO.NE.0 ) {
             LMAX( 2 ) = KNT
@@ -127,15 +127,15 @@
          for (I = 1; I <= N; I++) { // 60
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
-   60    CONTINUE
+         } // 60
          if ( ISRT.EQ.0 ) {
             for (I = 1; I <= N; I++) { // 70
                WSRT( I ) = DBLE( W( I ) )
-   70       CONTINUE
+            } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
                WSRT( I ) = DIMAG( W( I ) )
-   80       CONTINUE
+            } // 80
          }
          DO 100 I = 1, N - 1
             KMIN = I
@@ -145,16 +145,16 @@
                   KMIN = J
                   VMIN = WSRT( J )
                }
-   90       CONTINUE
+            } // 90
             WSRT( KMIN ) = WSRT( I )
             WSRT( I ) = VMIN
             ITMP = IPNT( I )
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
-  100    CONTINUE
+         } // 100
          for (I = 1; I <= NDIM; I++) { // 110
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
-  110    CONTINUE
+         } // 110
 
          // Compute condition numbers
 
@@ -302,8 +302,8 @@
          for (I = 1; I <= N; I++) { // 130
             for (J = 1; J <= N; J++) { // 120
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
-  120       CONTINUE
-  130    CONTINUE
+            } // 120
+         } // 130
 
          // Compute invariant subspace condition number only and compare
          // Update Q
@@ -322,8 +322,8 @@
          for (I = 1; I <= N; I++) { // 150
             for (J = 1; J <= N; J++) { // 140
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
-  140       CONTINUE
-  150    CONTINUE
+            } // 140
+         } // 150
 
          // Compute eigenvalue condition number only and compare
          // Do not update Q
@@ -342,8 +342,8 @@
          for (I = 1; I <= N; I++) { // 170
             for (J = 1; J <= N; J++) { // 160
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
-  160       CONTINUE
-  170    CONTINUE
+            } // 160
+         } // 170
 
          // Compute invariant subspace condition number only and compare
          // Do not update Q
@@ -362,13 +362,13 @@
          for (I = 1; I <= N; I++) { // 190
             for (J = 1; J <= N; J++) { // 180
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
-  180       CONTINUE
-  190    CONTINUE
+            } // 180
+         } // 190
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          }
-  200 CONTINUE
+      } // 200
       GO TO 10
 
       // End of ZGET38

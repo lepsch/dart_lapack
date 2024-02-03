@@ -62,14 +62,14 @@
 
       // Begin loop over all intervals
 
-   10 CONTINUE
+      } // 10
       UPPER = ( ONE+EPS )*SVD( TPNT ) + UNFLEP
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
       IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
 
       // Begin loop merging overlapping intervals
 
-   20 CONTINUE
+      } // 20
       IF( BPNT.EQ.N ) GO TO 30
       TUPPR = ( ONE+EPS )*SVD( BPNT+1 ) + UNFLEP
       IF( TUPPR.LT.LOWER ) GO TO 30
@@ -80,7 +80,7 @@
       LOWER = ( ONE-EPS )*SVD( BPNT ) - UNFLEP
       IF( LOWER.LE.UNFLEP ) LOWER = -UPPER
       GO TO 20
-   30 CONTINUE
+      } // 30
 
       // Count singular values in interval [ LOWER, UPPER ]
 
@@ -98,7 +98,7 @@
       TPNT = BPNT + 1
       BPNT = TPNT
       IF( TPNT.LE.N ) GO TO 10
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of SSVDCH

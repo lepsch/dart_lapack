@@ -66,7 +66,7 @@
 
             strmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
-   10    CONTINUE
+         } // 10
 
       // Compute the product L * L**T, overwriting L.
 
@@ -83,7 +83,7 @@
             T = AFAC( K, K )
             sscal(N-K+1, T, AFAC( K, K ), 1 );
 
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the difference L * L**T - A (or U**T * U - A).
@@ -92,14 +92,14 @@
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= J; I++) { // 30
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       } else {
          for (J = 1; J <= N; J++) { // 60
             for (I = J; I <= N; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )

@@ -43,7 +43,7 @@
 
       DO 10 J = 1, N*( N+1 ) / 2
          X( J ) = 0.0
-   10 CONTINUE
+      } // 10
 
       // UPLO = 'U':  Upper triangular storage
 
@@ -74,7 +74,7 @@
                X( JJ+( J-4 ) ) = 2.0*X( JJ )
             }
             JJ = JJ - ( J-4 )
-   20    CONTINUE
+         } // 20
 
          // Clean-up for N not a multiple of 5.
 
@@ -138,7 +138,7 @@
                X( JJ-( N-J-2 )+1 ) = 2.0*X( JJ )
             }
             JJ = JJ + ( N-J-3 )
-   30    CONTINUE
+         } // 30
 
          // Clean-up for N not a multiple of 5.
 

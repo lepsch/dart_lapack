@@ -72,9 +72,9 @@
                         TEMP = A( J+1, I )
                         A( J+1, I ) = CTEMP*TEMP - STEMP*A( J, I )
                         A( J, I ) = STEMP*TEMP + CTEMP*A( J, I )
-   10                CONTINUE
+                     } // 10
                   }
-   20          CONTINUE
+               } // 20
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 40 J = M - 1, 1, -1
                   CTEMP = C( J )
@@ -84,9 +84,9 @@
                         TEMP = A( J+1, I )
                         A( J+1, I ) = CTEMP*TEMP - STEMP*A( J, I )
                         A( J, I ) = STEMP*TEMP + CTEMP*A( J, I )
-   30                CONTINUE
+                     } // 30
                   }
-   40          CONTINUE
+               } // 40
             }
          } else if ( LSAME( PIVOT, 'T' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
@@ -98,9 +98,9 @@
                         TEMP = A( J, I )
                         A( J, I ) = CTEMP*TEMP - STEMP*A( 1, I )
                         A( 1, I ) = STEMP*TEMP + CTEMP*A( 1, I )
-   50                CONTINUE
+                     } // 50
                   }
-   60          CONTINUE
+               } // 60
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 80 J = M, 2, -1
                   CTEMP = C( J-1 )
@@ -110,9 +110,9 @@
                         TEMP = A( J, I )
                         A( J, I ) = CTEMP*TEMP - STEMP*A( 1, I )
                         A( 1, I ) = STEMP*TEMP + CTEMP*A( 1, I )
-   70                CONTINUE
+                     } // 70
                   }
-   80          CONTINUE
+               } // 80
             }
          } else if ( LSAME( PIVOT, 'B' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
@@ -124,9 +124,9 @@
                         TEMP = A( J, I )
                         A( J, I ) = STEMP*A( M, I ) + CTEMP*TEMP
                         A( M, I ) = CTEMP*A( M, I ) - STEMP*TEMP
-   90                CONTINUE
+                     } // 90
                   }
-  100          CONTINUE
+               } // 100
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 120 J = M - 1, 1, -1
                   CTEMP = C( J )
@@ -136,9 +136,9 @@
                         TEMP = A( J, I )
                         A( J, I ) = STEMP*A( M, I ) + CTEMP*TEMP
                         A( M, I ) = CTEMP*A( M, I ) - STEMP*TEMP
-  110                CONTINUE
+                     } // 110
                   }
-  120          CONTINUE
+               } // 120
             }
          }
       } else if ( LSAME( SIDE, 'R' ) ) {
@@ -155,9 +155,9 @@
                         TEMP = A( I, J+1 )
                         A( I, J+1 ) = CTEMP*TEMP - STEMP*A( I, J )
                         A( I, J ) = STEMP*TEMP + CTEMP*A( I, J )
-  130                CONTINUE
+                     } // 130
                   }
-  140          CONTINUE
+               } // 140
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 160 J = N - 1, 1, -1
                   CTEMP = C( J )
@@ -167,9 +167,9 @@
                         TEMP = A( I, J+1 )
                         A( I, J+1 ) = CTEMP*TEMP - STEMP*A( I, J )
                         A( I, J ) = STEMP*TEMP + CTEMP*A( I, J )
-  150                CONTINUE
+                     } // 150
                   }
-  160          CONTINUE
+               } // 160
             }
          } else if ( LSAME( PIVOT, 'T' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
@@ -181,9 +181,9 @@
                         TEMP = A( I, J )
                         A( I, J ) = CTEMP*TEMP - STEMP*A( I, 1 )
                         A( I, 1 ) = STEMP*TEMP + CTEMP*A( I, 1 )
-  170                CONTINUE
+                     } // 170
                   }
-  180          CONTINUE
+               } // 180
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 200 J = N, 2, -1
                   CTEMP = C( J-1 )
@@ -193,9 +193,9 @@
                         TEMP = A( I, J )
                         A( I, J ) = CTEMP*TEMP - STEMP*A( I, 1 )
                         A( I, 1 ) = STEMP*TEMP + CTEMP*A( I, 1 )
-  190                CONTINUE
+                     } // 190
                   }
-  200          CONTINUE
+               } // 200
             }
          } else if ( LSAME( PIVOT, 'B' ) ) {
             if ( LSAME( DIRECT, 'F' ) ) {
@@ -207,9 +207,9 @@
                         TEMP = A( I, J )
                         A( I, J ) = STEMP*A( I, N ) + CTEMP*TEMP
                         A( I, N ) = CTEMP*A( I, N ) - STEMP*TEMP
-  210                CONTINUE
+                     } // 210
                   }
-  220          CONTINUE
+               } // 220
             } else if ( LSAME( DIRECT, 'B' ) ) {
                DO 240 J = N - 1, 1, -1
                   CTEMP = C( J )
@@ -219,9 +219,9 @@
                         TEMP = A( I, J )
                         A( I, J ) = STEMP*A( I, N ) + CTEMP*TEMP
                         A( I, N ) = CTEMP*A( I, N ) - STEMP*TEMP
-  230                CONTINUE
+                     } // 230
                   }
-  240          CONTINUE
+               } // 240
             }
          }
       }

@@ -114,7 +114,7 @@
          clarf(SIDE, MI, NI, A( I, 1 ), LDA, TAUI, C, LDC, WORK );
          A( I, NQ-K+I ) = AII
          clacgv(NQ-K+I-1, A( I, 1 ), LDA );
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of CUNMR2

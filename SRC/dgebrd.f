@@ -123,14 +123,14 @@
             DO 10 J = I, I + NB - 1
                A( J, J ) = D( J )
                A( J, J+1 ) = E( J )
-   10       CONTINUE
+            } // 10
          } else {
             DO 20 J = I, I + NB - 1
                A( J, J ) = D( J )
                A( J+1, J ) = E( J )
-   20       CONTINUE
+            } // 20
          }
-   30 CONTINUE
+      } // 30
 
       // Use unblocked code to reduce the remainder of the matrix
 

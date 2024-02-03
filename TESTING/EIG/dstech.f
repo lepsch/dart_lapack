@@ -58,14 +58,14 @@
       MX = ABS( EIG( 1 ) )
       for (I = 2; I <= N; I++) { // 10
          MX = MAX( MX, ABS( EIG( I ) ) )
-   10 CONTINUE
+      } // 10
       EPS = MAX( EPS*MX, UNFLEP )
 
       // Sort eigenvalues from EIG into WORK
 
       for (I = 1; I <= N; I++) { // 20
          WORK( I ) = EIG( I )
-   20 CONTINUE
+      } // 20
       DO 40 I = 1, N - 1
          ISUB = 1
          EMIN = WORK( 1 )
@@ -74,12 +74,12 @@
                ISUB = J
                EMIN = WORK( J )
             }
-   30    CONTINUE
+         } // 30
          if ( ISUB.NE.N+1-I ) {
             WORK( ISUB ) = WORK( N+1-I )
             WORK( N+1-I ) = EMIN
          }
-   40 CONTINUE
+      } // 40
 
       // TPNT points to singular value at right endpoint of interval
       // BPNT points to singular value at left  endpoint of interval
@@ -89,13 +89,13 @@
 
       // Begin loop over all intervals
 
-   50 CONTINUE
+      } // 50
       UPPER = WORK( TPNT ) + EPS
       LOWER = WORK( BPNT ) - EPS
 
       // Begin loop merging overlapping intervals
 
-   60 CONTINUE
+      } // 60
       IF( BPNT.EQ.N ) GO TO 70
       TUPPR = WORK( BPNT+1 ) + EPS
       IF( TUPPR.LT.LOWER ) GO TO 70
@@ -105,7 +105,7 @@
       BPNT = BPNT + 1
       LOWER = WORK( BPNT ) - EPS
       GO TO 60
-   70 CONTINUE
+      } // 70
 
       // Count singular values in interval [ LOWER, UPPER ]
 
@@ -122,7 +122,7 @@
       TPNT = BPNT + 1
       BPNT = TPNT
       IF( TPNT.LE.N ) GO TO 50
-   80 CONTINUE
+      } // 80
       RETURN
 
       // End of DSTECH

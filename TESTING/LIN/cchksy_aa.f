@@ -79,7 +79,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -169,22 +169,22 @@
                         IOFF = ( IZERO-1 )*LDA
                         DO 20 I = 1, IZERO - 1
                            A( IOFF+I ) = CZERO
-   20                   CONTINUE
+                        } // 20
                         IOFF = IOFF + IZERO
                         for (I = IZERO; I <= N; I++) { // 30
                            A( IOFF ) = CZERO
                            IOFF = IOFF + LDA
-   30                   CONTINUE
+                        } // 30
                      } else {
                         IOFF = IZERO
                         DO 40 I = 1, IZERO - 1
                            A( IOFF ) = CZERO
                            IOFF = IOFF + LDA
-   40                   CONTINUE
+                        } // 40
                         IOFF = IOFF - IZERO
                         for (I = IZERO; I <= N; I++) { // 50
                            A( IOFF+I ) = CZERO
-   50                   CONTINUE
+                        } // 50
                      }
                   } else {
                      if ( IUPLO.EQ.1 ) {
@@ -196,9 +196,9 @@
                            I2 = MIN( J, IZERO )
                            for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = CZERO
-   60                      CONTINUE
+                           } // 60
                            IOFF = IOFF + LDA
-   70                   CONTINUE
+                        } // 70
                         IZERO = 1
                      } else {
 
@@ -209,9 +209,9 @@
                            I1 = MAX( J, IZERO )
                            for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = CZERO
-   80                      CONTINUE
+                           } // 80
                            IOFF = IOFF + LDA
-   90                   CONTINUE
+                        } // 90
                      }
                   }
                } else {
@@ -286,7 +286,7 @@ c  100                CONTINUE
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-  110             CONTINUE
+                  } // 110
                   NRUN = NRUN + NT
 
                   // Skip solver test if INFO is not 0.
@@ -336,18 +336,18 @@ c  100                CONTINUE
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-  120                   CONTINUE
+                        } // 120
                      }
                      NRUN = NRUN + 1
 
                   // End do for each value of NRHS in NSVAL.
 
-  130             CONTINUE
-  140             CONTINUE
-  150          CONTINUE
-  160       CONTINUE
-  170    CONTINUE
-  180 CONTINUE
+                  } // 130
+                  } // 140
+               } // 150
+            } // 160
+         } // 170
+      } // 180
 
       // Print a summary of the results.
 

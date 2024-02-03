@@ -112,7 +112,7 @@
                WORK( I ) = CS
                WORK( NM1+I ) = -SN
             }
-   10    CONTINUE
+         } // 10
       }
 
       // If ICOMPQ = 0, use SLASDQ to compute the singular values.
@@ -179,7 +179,7 @@
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
-   20 CONTINUE
+      } // 20
 
       START = 1
       SQRE = 0
@@ -226,12 +226,12 @@
             }
             START = I + 1
          }
-   30 CONTINUE
+      } // 30
 
       // Unscale
 
       slascl('G', 0, 0, ONE, ORGNRM, N, 1, D, N, IERR );
-   40 CONTINUE
+      } // 40
 
       // Use Selection Sort to minimize swaps of singular vectors
 
@@ -244,7 +244,7 @@
                KK = J
                P = D( J )
             }
-   50    CONTINUE
+         } // 50
          if ( KK.NE.I ) {
             D( KK ) = D( I )
             D( I ) = P
@@ -257,7 +257,7 @@
          } else if ( ICOMPQ.EQ.1 ) {
             IQ( I ) = I
          }
-   60 CONTINUE
+      } // 60
 
       // If ICOMPQ = 1, use IQ(N,1) as the indicator for UPLO
 

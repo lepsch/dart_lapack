@@ -69,7 +69,7 @@
             IF( J.GT.1 ) CALL ZHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = DBLE( AP( JJ ) )
             zdscal(J, AJJ, AP( JC ), 1 );
-   10    CONTINUE
+         } // 10
 
       } else {
 
@@ -81,7 +81,7 @@
             AP( JJ ) = DBLE( ZDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
             IF( J.LT.N ) CALL ZTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )
             JJ = JJN
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

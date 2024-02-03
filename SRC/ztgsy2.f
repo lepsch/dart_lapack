@@ -111,7 +111,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= N; K++) { // 10
                         zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-   10                CONTINUE
+                     } // 10
                      SCALE = SCALE*SCALOC
                   }
                } else {
@@ -134,8 +134,8 @@
                   zaxpy(N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL ZAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF );
                }
 
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
       } else {
 
          // Solve transposed (I, J) - system:
@@ -169,7 +169,7 @@
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= N; K++) { // 40
                      zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
-   40             CONTINUE
+                  } // 40
                   SCALE = SCALE*SCALOC
                }
 
@@ -182,13 +182,13 @@
 
                DO 50 K = 1, J - 1
                   F( I, K ) = F( I, K ) + RHS( 1 )*DCONJG( B( K, J ) ) + RHS( 2 )*DCONJG( E( K, J ) )
-   50          CONTINUE
+               } // 50
                DO 60 K = I + 1, M
                   C( K, J ) = C( K, J ) - DCONJG( A( I, K ) )*RHS( 1 ) - DCONJG( D( I, K ) )*RHS( 2 )
-   60          CONTINUE
+               } // 60
 
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
       }
       RETURN
 

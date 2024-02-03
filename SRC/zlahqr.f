@@ -66,7 +66,7 @@
       DO 10 J = ILO, IHI - 3
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
-   10 CONTINUE
+      } // 10
       IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
       // ==== ensure that subdiagonal entries are real ====
       if ( WANTT ) {
@@ -87,7 +87,7 @@
             zscal(JHI-I+1, SC, H( I, I ), LDH );
             zscal(MIN( JHI, I+1 )-JLO+1, DCONJG( SC ), H( JLO, I ), 1 )             IF( WANTZ ) CALL ZSCAL( IHIZ-ILOZ+1, DCONJG( SC ), Z( ILOZ, I ), 1 );
          }
-   20 CONTINUE
+      } // 20
 
       NH = IHI - ILO + 1
       NZ = IHIZ - ILOZ + 1
@@ -123,7 +123,7 @@
       // H(L,L-1) is negligible so that the matrix splits.
 
       I = IHI
-   30 CONTINUE
+      } // 30
       IF( I.LT.ILO ) GO TO 150
 
       // Perform QR iterations on rows and columns ILO to I until a
@@ -152,8 +152,8 @@
                S = AA + AB
                IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 50
             }
-   40    CONTINUE
-   50    CONTINUE
+         } // 40
+         } // 50
          L = K
          if ( L.GT.ILO ) {
 
@@ -226,7 +226,7 @@
             V( 2 ) = H21
             H10 = DBLE( H( M, M-1 ) )
             IF( ABS( H10 )*ABS( H21 ).LE.ULP* ( CABS1( H11S )*( CABS1( H11 )+CABS1( H22 ) ) ) ) GO TO 70
-   60    CONTINUE
+         } // 60
          H11 = H( L, L )
          H22 = H( L+1, L+1 )
          H11S = H11 - T
@@ -236,7 +236,7 @@
          H21 = H21 / S
          V( 1 ) = H11S
          V( 2 ) = H21
-   70    CONTINUE
+         } // 70
 
          // Single-shift QR step
 
@@ -270,7 +270,7 @@
                SUM = DCONJG( T1 )*H( K, J ) + T2*H( K+1, J )
                H( K, J ) = H( K, J ) - SUM
                H( K+1, J ) = H( K+1, J ) - SUM*V2
-   80       CONTINUE
+            } // 80
 
             // Apply G from the right to transform the columns of the
             // matrix in rows I1 to min(K+2,I).
@@ -279,7 +279,7 @@
                SUM = T1*H( J, K ) + T2*H( J, K+1 )
                H( J, K ) = H( J, K ) - SUM
                H( J, K+1 ) = H( J, K+1 ) - SUM*DCONJG( V2 )
-   90       CONTINUE
+            } // 90
 
             if ( WANTZ ) {
 
@@ -289,7 +289,7 @@
                   SUM = T1*Z( J, K ) + T2*Z( J, K+1 )
                   Z( J, K ) = Z( J, K ) - SUM
                   Z( J, K+1 ) = Z( J, K+1 ) - SUM*DCONJG( V2 )
-  100          CONTINUE
+               } // 100
             }
 
             if ( K.EQ.M .AND. M.GT.L ) {
@@ -311,9 +311,9 @@
                         zscal(NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 );
                      }
                   }
-  110          CONTINUE
+               } // 110
             }
-  120    CONTINUE
+         } // 120
 
          // Ensure that H(I,I-1) is real.
 
@@ -329,14 +329,14 @@
             }
          }
 
-  130 CONTINUE
+      } // 130
 
       // Failure to converge in remaining number of iterations
 
       INFO = I
       RETURN
 
-  140 CONTINUE
+      } // 140
 
       // H(I,I-1) is negligible: one eigenvalue has converged.
 
@@ -349,7 +349,7 @@
       I = L - 1
       GO TO 30
 
-  150 CONTINUE
+      } // 150
       RETURN
 
       // End of ZLAHQR

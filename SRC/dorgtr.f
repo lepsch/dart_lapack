@@ -85,12 +85,12 @@
          DO 20 J = 1, N - 1
             DO 10 I = 1, J - 1
                A( I, J ) = A( I, J+1 )
-   10       CONTINUE
+            } // 10
             A( N, J ) = ZERO
-   20    CONTINUE
+         } // 20
          DO 30 I = 1, N - 1
             A( I, N ) = ZERO
-   30    CONTINUE
+         } // 30
          A( N, N ) = ONE
 
          // Generate Q(1:n-1,1:n-1)
@@ -109,12 +109,12 @@
             A( 1, J ) = ZERO
             DO 40 I = J + 1, N
                A( I, J ) = A( I, J-1 )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          A( 1, 1 ) = ONE
          for (I = 2; I <= N; I++) { // 60
             A( I, 1 ) = ZERO
-   60    CONTINUE
+         } // 60
          if ( N.GT.1 ) {
 
             // Generate Q(2:n,2:n)

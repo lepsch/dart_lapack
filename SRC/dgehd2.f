@@ -63,7 +63,7 @@
          dlarf('Left', IHI-I, N-I, A( I+1, I ), 1, TAU( I ), A( I+1, I+1 ), LDA, WORK );
 
          A( I+1, I ) = AII
-   10 CONTINUE
+      } // 10
 
       RETURN
 

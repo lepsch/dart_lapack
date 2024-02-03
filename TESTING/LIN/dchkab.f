@@ -94,7 +94,7 @@
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = .TRUE.
          }
-   10 CONTINUE
+      } // 10
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 
       // Read the values of NRHS
@@ -118,7 +118,7 @@
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
          }
-   30 CONTINUE
+      } // 30
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
       // Read the threshold value for the test ratios.
@@ -157,7 +157,7 @@
       WRITE( NOUT, FMT = 9991 )'(double          ) precision', EPS;
       WRITE( NOUT, FMT = * )
 
-   80 CONTINUE
+      } // 80
 
       // Read a test path and the number of matrix types to use.
 
@@ -165,7 +165,7 @@
       PATH = ALINE( 1: 3 )
       NMATS = MATMAX
       I = 3
-   90 CONTINUE
+      } // 90
       I = I + 1
       if ( I.GT.72 ) {
          NMATS = MATMAX
@@ -173,21 +173,21 @@
       }
       IF( ALINE( I: I ).EQ.' ' ) GO TO 90
       NMATS = 0
-  100 CONTINUE
+      } // 100
       C1 = ALINE( I: I )
       for (K = 1; K <= 10; K++) { // 110
          if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
          }
-  110 CONTINUE
+      } // 110
       GO TO 130
-  120 CONTINUE
+      } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
       IF( I.GT.72 ) GO TO 130
       GO TO 100
-  130 CONTINUE
+      } // 130
       C1 = PATH( 1: 1 )
       C2 = PATH( 2: 3 )
       NRHS = NSVAL( 1 )
@@ -248,7 +248,7 @@
 
       // Branch to this line when the last record is read.
 
-  140 CONTINUE
+      } // 140
       CLOSE ( NIN )
       S2 = DSECND( )
       WRITE( NOUT, FMT = 9998 )

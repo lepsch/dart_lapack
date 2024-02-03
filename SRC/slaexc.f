@@ -104,7 +104,7 @@
          K = N1 + N1 + N2 - 3
          GO TO ( 10, 20, 30 )K
 
-   10    CONTINUE
+         } // 10
 
          // N1 = 1, N2 = 2: generate elementary reflector H so that:
 
@@ -143,7 +143,7 @@
          }
          GO TO 40
 
-   20    CONTINUE
+         } // 20
 
          // N1 = 2, N2 = 1: generate elementary reflector H so that:
 
@@ -184,7 +184,7 @@
          }
          GO TO 40
 
-   30    CONTINUE
+         } // 30
 
          // N1 = 2, N2 = 2: generate elementary reflectors H(1) and H(2) so
          // that:
@@ -238,7 +238,7 @@
             slarfx('R', N, 3, U2, TAU2, Q( 1, J2 ), LDQ, WORK );
          }
 
-   40    CONTINUE
+         } // 40
 
          if ( N2.EQ.2 ) {
 

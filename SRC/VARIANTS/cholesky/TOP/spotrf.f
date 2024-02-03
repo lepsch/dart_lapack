@@ -85,7 +85,7 @@
                spotrf2('Upper', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
-   10       CONTINUE
+            } // 10
 
          } else {
 
@@ -105,15 +105,15 @@
                spotrf2('Lower', JB, A( J, J ), LDA, INFO );
                IF( INFO.NE.0 ) GO TO 30
 
-   20       CONTINUE
+            } // 20
          }
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = INFO + J - 1
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of SPOTRF

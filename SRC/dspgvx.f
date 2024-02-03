@@ -112,7 +112,7 @@
 
             for (J = 1; J <= M; J++) { // 10
                dtpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-   10       CONTINUE
+            } // 10
 
          } else if ( ITYPE.EQ.3 ) {
 
@@ -127,7 +127,7 @@
 
             for (J = 1; J <= M; J++) { // 20
                dtpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-   20       CONTINUE
+            } // 20
          }
       }
 

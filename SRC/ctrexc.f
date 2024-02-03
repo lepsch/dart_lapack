@@ -100,7 +100,7 @@
             crot(N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, CONJG( SN ) );
          }
 
-   10 CONTINUE
+      } // 10
 
       RETURN
 

@@ -60,7 +60,7 @@
             slarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
             A( I, I ) = AII
          }
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of SGEQR2P

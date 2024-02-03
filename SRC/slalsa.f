@@ -88,7 +88,7 @@
          NLF = IC - NL
          NRF = IC + 1
          sgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )          CALL SGEMM( 'T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX );
-   10 CONTINUE
+      } // 10
 
       // Next copy the rows of B that correspond to unchanged rows
       // in the bidiagonal matrix to BX.
@@ -96,7 +96,7 @@
       for (I = 1; I <= ND; I++) { // 20
          IC = IWORK( INODE+I-1 )
          scopy(NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX );
-   20 CONTINUE
+      } // 20
 
       // Finally go through the left singular vector matrices of all
       // the other subproblems bottom-up on the tree.
@@ -126,13 +126,13 @@
             NRF = IC + 1
             J = J - 1
             slals0(ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX, B( NLF, 1 ), LDB, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK, INFO );
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       GO TO 90
 
       // ICOMPQ = 1: applying back the right singular vector factors.
 
-   50 CONTINUE
+      } // 50
 
       // First now go through the right singular vector matrices of all
       // the tree nodes top-down.
@@ -165,8 +165,8 @@
             }
             J = J + 1
             slals0(ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), WORK, INFO );
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
 
       // The nodes on the bottom level of the tree were solved
       // by SLASDQ. The corresponding right singular vector
@@ -187,9 +187,9 @@
          NLF = IC - NL
          NRF = IC + 1
          sgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, B( NLF, 1 ), LDB, ZERO, BX( NLF, 1 ), LDBX )          CALL SGEMM( 'T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, B( NRF, 1 ), LDB, ZERO, BX( NRF, 1 ), LDBX );
-   80 CONTINUE
+      } // 80
 
-   90 CONTINUE
+      } // 90
 
       RETURN
 

@@ -61,7 +61,7 @@
          clarf('Right', M-K+I-1, N-K+I, A( M-K+I, 1 ), LDA, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = ALPHA
          clacgv(N-K+I-1, A( M-K+I, 1 ), LDA );
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of CGERQ2

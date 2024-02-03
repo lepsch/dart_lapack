@@ -48,8 +48,8 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
                X( I, J ) = 0.0D0
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          N5 = N / 5
          N5 = N - 5*N5 + 1
 
@@ -70,7 +70,7 @@
             } else {
                X( I-4, I-3 ) = 2.0D0*X( I-4, I-4 )
             }
-   30    CONTINUE
+         } // 30
 
          // Clean-up for N not a multiple of 5.
 
@@ -110,8 +110,8 @@
          for (J = 1; J <= N; J++) { // 50
             for (I = J; I <= N; I++) { // 40
                X( I, J ) = 0.0D0
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          N5 = N / 5
          N5 = N5*5
 
@@ -132,7 +132,7 @@
             } else {
                X( I+4, I+3 ) = 2.0D0*X( I+4, I+4 )
             }
-   60    CONTINUE
+         } // 60
 
          // Clean-up for N not a multiple of 5.
 

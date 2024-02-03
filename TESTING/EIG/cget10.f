@@ -50,7 +50,7 @@
          ccopy(M, A( 1, J ), 1, WORK, 1 );
          caxpy(M, CMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, SCASUM( N, WORK, 1 ) )
-   10 CONTINUE
+      } // 10
 
       ANORM = MAX( CLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
 

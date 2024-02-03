@@ -121,7 +121,7 @@
 
                slarfb('Right', 'No transpose', 'Backward', 'Rowwise', M-K+I-1, N-K+I+IB-1, IB, A( M-K+I, 1 ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
-   10    CONTINUE
+         } // 10
          MU = M - K + I + NB - 1
          NU = N - K + I + NB - 1
       } else {

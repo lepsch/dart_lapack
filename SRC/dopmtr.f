@@ -120,7 +120,7 @@
             } else {
                II = II - I - 1
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Q was determined by a call to DSPTRD with UPLO = 'L'.
@@ -174,7 +174,7 @@
             } else {
                II = II - NQ + I - 2
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

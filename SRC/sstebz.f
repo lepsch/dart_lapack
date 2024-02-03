@@ -145,7 +145,7 @@
             WORK( J-1 ) = TMP1
             PIVMIN = MAX( PIVMIN, TMP1 )
          }
-   10 CONTINUE
+      } // 10
       ISPLIT( NSPLIT ) = N
       PIVMIN = PIVMIN*SAFEMN
 
@@ -168,7 +168,7 @@
             GU = MAX( GU, D( J )+TMP1+TMP2 )
             GL = MIN( GL, D( J )-TMP1-TMP2 )
             TMP1 = TMP2
-   20    CONTINUE
+         } // 20
 
          GU = MAX( GU, D( N )+TMP1 )
          GL = MIN( GL, D( N )-TMP1 )
@@ -228,7 +228,7 @@
 
          DO 30 J = 2, N - 1
             TNORM = MAX( TNORM, ABS( D( J ) )+ABS( E( J-1 ) )+ ABS( E( J ) ) )
-   30    CONTINUE
+         } // 30
 
          if ( ABSTOL.LE.ZERO ) {
             ATOLI = ULP*TNORM
@@ -286,7 +286,7 @@
                GU = MAX( GU, D( J )+TMP1+TMP2 )
                GL = MIN( GL, D( J )-TMP1-TMP2 )
                TMP1 = TMP2
-   40       CONTINUE
+            } // 40
 
             GU = MAX( GU, D( IEND )+TMP1 )
             GL = MIN( GL, D( IEND )-TMP1 )
@@ -344,12 +344,12 @@
                DO 50 JE = IWORK( J ) + 1 + IWOFF, IWORK( J+IN ) + IWOFF
                   W( JE ) = TMP1
                   IBLOCK( JE ) = IB
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
 
             M = M + IM
          }
-   70 CONTINUE
+      } // 70
 
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
@@ -370,7 +370,7 @@
                   W( IM ) = W( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
                }
-   80       CONTINUE
+            } // 80
             M = IM
          }
          if ( IDISCL.GT.0 .OR. IDISCU.GT.0 ) {
@@ -394,9 +394,9 @@
                         IW = JE
                         WKILL = W( JE )
                      }
-   90             CONTINUE
+                  } // 90
                   IBLOCK( IW ) = 0
-  100          CONTINUE
+               } // 100
             }
             if ( IDISCU.GT.0 ) {
 
@@ -408,9 +408,9 @@
                         IW = JE
                         WKILL = W( JE )
                      }
-  110             CONTINUE
+                  } // 110
                   IBLOCK( IW ) = 0
-  120          CONTINUE
+               } // 120
             }
             IM = 0
             for (JE = 1; JE <= M; JE++) { // 130
@@ -419,7 +419,7 @@
                   W( IM ) = W( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
                }
-  130       CONTINUE
+            } // 130
             M = IM
          }
          if ( IDISCL.LT.0 .OR. IDISCU.LT.0 ) {
@@ -440,7 +440,7 @@
                   IE = J
                   TMP1 = W( J )
                }
-  140       CONTINUE
+            } // 140
 
             if ( IE.NE.0 ) {
                ITMP1 = IBLOCK( IE )
@@ -449,7 +449,7 @@
                W( JE ) = TMP1
                IBLOCK( JE ) = ITMP1
             }
-  150    CONTINUE
+         } // 150
       }
 
       INFO = 0

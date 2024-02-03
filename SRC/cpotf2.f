@@ -82,7 +82,7 @@
                clacgv(J-1, A( 1, J ), 1 );
                csscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Compute the Cholesky factorization A = L*L**H.
@@ -107,14 +107,14 @@
                clacgv(J-1, A( J, 1 ), LDA );
                csscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
-   20    CONTINUE
+         } // 20
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = J
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of CPOTF2

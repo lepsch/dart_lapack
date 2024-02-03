@@ -103,7 +103,7 @@ $1} else {
 
 ### END IF -> }
 ```
-^(\s+)END IF$
+^(\s+)END\s?IF$
 $1}
 ```
 
@@ -115,7 +115,7 @@ $1if $3 {
 
 ### ELSE IF ... THEN -> } else if ... {
 ```
-^(\s+)(ELSE IF)\s*(.*?)\s*THEN$
+^(\s+)(ELSE\s?IF)\s*(.*?)\s*THEN$
 $1} else if $3 {
 ```
 
@@ -135,6 +135,12 @@ $1\L$2($3);
 ```
 ^(\s+)DO\s+(\d*)\s*(\w+)\s*=\s*(\w+)\s*,\s*(\w*)$
 $1for ($3 = $4; $3 <= $5; $3++) { // $2
+```
+
+### CONTINUE (Warning: GOTO statements affected)
+```
+^(\s+)(\d)(\s+)CONTINUE$
+$1 $3} // $2
 ```
 
 # LAPACK

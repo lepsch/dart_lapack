@@ -89,9 +89,9 @@
                            LMAX = KNT
                            RMAX = RES
                         }
-   10                CONTINUE
-   20             CONTINUE
-   30          CONTINUE
+                     } // 10
+                  } // 20
+               } // 30
 
                N1 = 2
                N2 = 1
@@ -120,11 +120,11 @@
                                  LMAX = KNT
                                  RMAX = RES
                               }
-   40                      CONTINUE
-   50                   CONTINUE
-   60                CONTINUE
-   70             CONTINUE
-   80          CONTINUE
+                           } // 40
+                        } // 50
+                     } // 60
+                  } // 70
+               } // 80
 
                N1 = 1
                N2 = 2
@@ -155,11 +155,11 @@
                                  LMAX = KNT
                                  RMAX = RES
                               }
-   90                      CONTINUE
-  100                   CONTINUE
-  110                CONTINUE
-  120             CONTINUE
-  130          CONTINUE
+                           } // 90
+                        } // 100
+                     } // 110
+                  } // 120
+               } // 130
 
                N1 = 2
                N2 = 2
@@ -197,16 +197,16 @@
                                        LMAX = KNT
                                        RMAX = RES
                                     }
-  140                            CONTINUE
-  150                         CONTINUE
-  160                      CONTINUE
-  170                   CONTINUE
-  180                CONTINUE
-  190             CONTINUE
-  200          CONTINUE
-  210       CONTINUE
-  220    CONTINUE
-  230 CONTINUE
+                                 } // 140
+                              } // 150
+                           } // 160
+                        } // 170
+                     } // 180
+                  } // 190
+               } // 200
+            } // 210
+         } // 220
+      } // 230
 
       RETURN
 

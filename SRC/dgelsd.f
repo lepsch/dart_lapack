@@ -357,7 +357,7 @@
          dlascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-   10 CONTINUE
+      } // 10
       WORK( 1 ) = MAXWRK
       IWORK( 1 ) = LIWORK
       RETURN

@@ -89,7 +89,7 @@
          } else {
             JPVT( J ) = J
          }
-   10 CONTINUE
+      } // 10
       NFXD = NFXD - 1
 
       // Factorize fixed columns
@@ -159,7 +159,7 @@
          DO 20 J = NFXD + 1, N
             RWORK( J ) = DZNRM2( SM, A( NFXD+1, J ), 1 )
             RWORK( N+J ) = RWORK( J )
-   20    CONTINUE
+         } // 20
 
          if ( ( NB.GE.NBMIN ) .AND. ( NB.LT.SMINMN ) .AND. ( NX.LT.SMINMN ) ) {
 
@@ -171,7 +171,7 @@
 
 
             TOPBMN = MINMN - NX
-   30       CONTINUE
+            } // 30
             if ( J.LE.TOPBMN ) {
                JB = MIN( NB, TOPBMN-J+1 )
 

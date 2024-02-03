@@ -57,7 +57,7 @@
          G = EII / D( I )
          E( I ) = DCMPLX( F, G )
          D( I+1 ) = D( I+1 ) - F*EIR - G*EII
-   10 CONTINUE
+      } // 10
 
       DO 20 I = I4 + 1, N - 4, 4
 
@@ -119,13 +119,13 @@
          G = EII / D( I+3 )
          E( I+3 ) = DCMPLX( F, G )
          D( I+4 ) = D( I+4 ) - F*EIR - G*EII
-   20 CONTINUE
+      } // 20
 
       // Check d(n) for positive definiteness.
 
       IF( D( N ).LE.ZERO ) INFO = N
 
-   30 CONTINUE
+      } // 30
       RETURN
 
       // End of ZPTTRF

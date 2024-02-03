@@ -160,7 +160,7 @@
             // Apply H or H**H
 
             zlarfb(SIDE, TRANST, 'Forward', 'Rowwise', MI, NI, IB, A( I, I ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK );
-   10    CONTINUE
+         } // 10
       }
       WORK( 1 ) = LWKOPT
       RETURN

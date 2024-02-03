@@ -57,12 +57,12 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = ZERO
             B( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       for (I = 1; I <= NMAX; I++) { // 30
          A( I, I ) = ONE
          B( I, I ) = ONE
-   30 CONTINUE
+      } // 30
       OK = .TRUE.
       TOLA = 1.0D0
       TOLB = 1.0D0

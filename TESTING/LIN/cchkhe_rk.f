@@ -89,7 +89,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -173,22 +173,22 @@
                            IOFF = ( IZERO-1 )*LDA
                            DO 20 I = 1, IZERO - 1
                               A( IOFF+I ) = CZERO
-   20                      CONTINUE
+                           } // 20
                            IOFF = IOFF + IZERO
                            for (I = IZERO; I <= N; I++) { // 30
                               A( IOFF ) = CZERO
                               IOFF = IOFF + LDA
-   30                      CONTINUE
+                           } // 30
                         } else {
                            IOFF = IZERO
                            DO 40 I = 1, IZERO - 1
                               A( IOFF ) = CZERO
                               IOFF = IOFF + LDA
-   40                      CONTINUE
+                           } // 40
                            IOFF = IOFF - IZERO
                            for (I = IZERO; I <= N; I++) { // 50
                               A( IOFF+I ) = CZERO
-   50                      CONTINUE
+                           } // 50
                         }
                      } else {
                         if ( IUPLO.EQ.1 ) {
@@ -200,9 +200,9 @@
                               I2 = MIN( J, IZERO )
                               for (I = 1; I <= I2; I++) { // 60
                                  A( IOFF+I ) = CZERO
-   60                         CONTINUE
+                              } // 60
                               IOFF = IOFF + LDA
-   70                      CONTINUE
+                           } // 70
                         } else {
 
                            // Set the last IZERO rows and columns to zero.
@@ -212,9 +212,9 @@
                               I1 = MAX( J, IZERO )
                               for (I = I1; I <= N; I++) { // 80
                                  A( IOFF+I ) = CZERO
-   80                         CONTINUE
+                              } // 80
                               IOFF = IOFF + LDA
-   90                      CONTINUE
+                           } // 90
                         }
                      }
                   } else {
@@ -254,7 +254,7 @@
 
                   K = IZERO
                   if ( K.GT.0 ) {
-  100                CONTINUE
+                     } // 100
                      if ( IWORK( K ).LT.0 ) {
                         if ( IWORK( K ).NE.-K ) {
                            K = -IWORK( K )
@@ -320,7 +320,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-  110             CONTINUE
+                  } // 110
                   NRUN = NRUN + NT
 
 *+    TEST 3
@@ -336,7 +336,7 @@
                   // Compute largest element in U
 
                      K = N
-  120                CONTINUE
+                     } // 120
                      IF( K.LE.1 ) GO TO 130
 
                      if ( IWORK( K ).GT.ZERO ) {
@@ -363,14 +363,14 @@
                      K = K - 1
 
                      GO TO 120
-  130                CONTINUE
+                     } // 130
 
                   } else {
 
                   // Compute largest element in L
 
                      K = 1
-  140                CONTINUE
+                     } // 140
                      IF( K.GE.N ) GO TO 150
 
                      if ( IWORK( K ).GT.ZERO ) {
@@ -397,7 +397,7 @@
                      K = K + 1
 
                      GO TO 140
-  150                CONTINUE
+                     } // 150
                   }
 
 
@@ -416,7 +416,7 @@
                      // Loop backward for UPLO = 'U'
 
                      K = N
-  160                CONTINUE
+                     } // 160
                      IF( K.LE.1 ) GO TO 170
 
                      if ( IWORK( K ).LT.ZERO ) {
@@ -449,14 +449,14 @@
                      K = K - 1
 
                      GO TO 160
-  170                CONTINUE
+                     } // 170
 
                   } else {
 
                      // Loop forward for UPLO = 'L'
 
                      K = 1
-  180                CONTINUE
+                     } // 180
                      IF( K.GE.N ) GO TO 190
 
                      if ( IWORK( K ).LT.ZERO ) {
@@ -488,7 +488,7 @@
                      K = K + 1
 
                      GO TO 180
-  190                CONTINUE
+                     } // 190
                   }
 
                   // Print information about the tests that did not pass
@@ -499,7 +499,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-  200             CONTINUE
+                  } // 200
                   NRUN = NRUN + 2
 
                   // Skip the other tests if this is not the first block
@@ -558,17 +558,17 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         }
-  210                CONTINUE
+                     } // 210
                      NRUN = NRUN + 2
 
                   // End do for each value of NRHS in NSVAL.
 
-  220             CONTINUE
+                  } // 220
 
 *+    TEST 7
                   // Get an estimate of RCOND = 1/CNDNUM.
 
-  230             CONTINUE
+                  } // 230
                   ANORM = CLANHE( '1', UPLO, N, A, LDA, RWORK )
                   SRNAMT = 'CHECON_3'
                   checon_3(UPLO, N, AFAC, LDA, E, IWORK, ANORM, RCOND, WORK, INFO );
@@ -589,11 +589,11 @@
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 1
-  240          CONTINUE
+               } // 240
 
-  250       CONTINUE
-  260    CONTINUE
-  270 CONTINUE
+            } // 250
+         } // 260
+      } // 270
 
       // Print a summary of the results.
 

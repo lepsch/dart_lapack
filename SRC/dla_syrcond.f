@@ -124,7 +124,7 @@
       NORMIN = 'N'
 
       KASE = 0
-   10 CONTINUE
+      } // 10
       dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.2 ) {

@@ -68,7 +68,7 @@
          M = 0
          for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) M = M + 1
-   10    CONTINUE
+         } // 10
       } else {
          M = N
       }
@@ -131,7 +131,7 @@
 
       for (I = 1; I <= N; I++) { // 20
          WORK( I ) = T( I, I )
-   20 CONTINUE
+      } // 20
 
       // Compute 1-norm of each column of strictly upper triangular
       // part of T to control overflow in triangular solver.
@@ -139,7 +139,7 @@
       RWORK( 1 ) = ZERO
       for (J = 2; J <= N; J++) { // 30
          RWORK( J ) = SCASUM( J-1, T( 1, J ), 1 )
-   30 CONTINUE
+      } // 30
 
       if ( RIGHTV ) {
 
@@ -167,7 +167,7 @@
 
             DO 40 K = 1, KI - 1
                WORK( K + IV*N ) = -T( K, KI )
-   40       CONTINUE
+            } // 40
 
             // Solve upper triangular system:
             // [ T(1:KI-1,1:KI-1) - T(KI,KI) ]*X = SCALE*WORK.
@@ -175,7 +175,7 @@
             DO 50 K = 1, KI - 1
                T( K, K ) = T( K, K ) - T( KI, KI )
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
-   50       CONTINUE
+            } // 50
 
             if ( KI.GT.1 ) {
                clatrs('Upper', 'No transpose', 'Non-unit', 'Y', KI-1, T, LDT, WORK( 1 + IV*N ), SCALE, RWORK, INFO );
@@ -195,7 +195,7 @@
 
                DO 60 K = KI + 1, N
                   VR( K, IS ) = CZERO
-   60          CONTINUE
+               } // 60
 
             } else if ( NB.EQ.1 ) {
                // ------------------------------
@@ -236,10 +236,10 @@
 
             DO 70 K = 1, KI - 1
                T( K, K ) = WORK( K )
-   70       CONTINUE
+            } // 70
 
             IS = IS - 1
-   80    CONTINUE
+         } // 80
       }
 
       if ( LEFTV ) {
@@ -269,7 +269,7 @@
 
             DO 90 K = KI + 1, N
                WORK( K + IV*N ) = -CONJG( T( KI, K ) )
-   90       CONTINUE
+            } // 90
 
             // Solve conjugate-transposed triangular system:
             // [ T(KI+1:N,KI+1:N) - T(KI,KI) ]**H * X = SCALE*WORK.
@@ -277,7 +277,7 @@
             DO 100 K = KI + 1, N
                T( K, K ) = T( K, K ) - T( KI, KI )
                IF( CABS1( T( K, K ) ).LT.SMIN ) T( K, K ) = SMIN
-  100       CONTINUE
+            } // 100
 
             if ( KI.LT.N ) {
                clatrs('Upper', 'Conjugate transpose', 'Non-unit', 'Y', N-KI, T( KI+1, KI+1 ), LDT, WORK( KI+1 + IV*N ), SCALE, RWORK, INFO );
@@ -297,7 +297,7 @@
 
                DO 110 K = 1, KI - 1
                   VL( K, IS ) = CZERO
-  110          CONTINUE
+               } // 110
 
             } else if ( NB.EQ.1 ) {
                // ------------------------------
@@ -339,10 +339,10 @@
 
             DO 120 K = KI + 1, N
                T( K, K ) = WORK( K )
-  120       CONTINUE
+            } // 120
 
             IS = IS + 1
-  130    CONTINUE
+         } // 130
       }
 
       RETURN

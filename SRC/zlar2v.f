@@ -48,7 +48,7 @@
          Z( IX ) = CI*T3 + DCONJG( SI )*DCMPLX( T6, T1I )
          IX = IX + INCX
          IC = IC + INCC
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZLAR2V

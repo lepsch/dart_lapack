@@ -62,14 +62,14 @@
          // If the zero finder fails, the computation is terminated.
 
          IF( INFO.NE.0 ) GO TO 120
-   20 CONTINUE
+      } // 20
 
       if ( K.EQ.1 .OR. K.EQ.2 ) {
          for (I = 1; I <= K; I++) { // 40
             for (J = 1; J <= K; J++) { // 30
                S( J, I ) = Q( J, I )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          GO TO 120
       }
 
@@ -83,28 +83,28 @@
       for (J = 1; J <= K; J++) { // 70
          DO 50 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
-   50    CONTINUE
+         } // 50
          DO 60 I = J + 1, K
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
       for (I = 1; I <= K; I++) { // 80
          W( I ) = SIGN( SQRT( -W( I ) ), S( I, 1 ) )
-   80 CONTINUE
+      } // 80
 
       // Compute eigenvectors of the modified rank-1 modification.
 
       for (J = 1; J <= K; J++) { // 110
          for (I = 1; I <= K; I++) { // 90
             Q( I, J ) = W( I ) / Q( I, J )
-   90    CONTINUE
+         } // 90
          TEMP = SNRM2( K, Q( 1, J ), 1 )
          for (I = 1; I <= K; I++) { // 100
             S( I, J ) = Q( I, J ) / TEMP
-  100    CONTINUE
-  110 CONTINUE
+         } // 100
+      } // 110
 
-  120 CONTINUE
+      } // 120
       RETURN
 
       // End of SLAED9

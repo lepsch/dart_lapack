@@ -73,8 +73,8 @@
                   IPV = IP
                   JPV = JP
                }
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          IF( I.EQ.1 ) SMIN = MAX( EPS*XMAX, SMLNUM )
 
          // Swap rows
@@ -95,9 +95,9 @@
          }
          DO 30 J = I + 1, N
             A( J, I ) = A( J, I ) / A( I, I )
-   30    CONTINUE
+         } // 30
          dger(N-I, N-I, -ONE, A( I+1, I ), 1, A( I, I+1 ), LDA, A( I+1, I+1 ), LDA );
-   40 CONTINUE
+      } // 40
 
       if ( ABS( A( N, N ) ).LT.SMIN ) {
          INFO = N

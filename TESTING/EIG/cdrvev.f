@@ -73,7 +73,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -136,7 +136,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Compute "A"
 
@@ -163,19 +163,19 @@
 
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
 
-   30       CONTINUE
+            } // 30
             ANORM = ONE
             GO TO 60
 
-   40       CONTINUE
+            } // 40
             ANORM = OVFL*ULP
             GO TO 60
 
-   50       CONTINUE
+            } // 50
             ANORM = UNFL*ULPINV
             GO TO 60
 
-   60       CONTINUE
+            } // 60
 
             claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
@@ -194,7 +194,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = CMPLX( ANORM )
-   70          CONTINUE
+               } // 70
 
             } else if ( ITYPE.EQ.3 ) {
 
@@ -203,7 +203,7 @@
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = CMPLX( ANORM )
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = CONE
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -270,7 +270,7 @@
                RETURN
             }
 
-   90       CONTINUE
+            } // 90
 
             // Test for minimal and generous workspace
 
@@ -286,7 +286,7 @@
 
                for (J = 1; J <= 7; J++) { // 100
                   RESULT( J ) = -ONE
-  100          CONTINUE
+               } // 100
 
                // Compute eigenvalues and eigenvectors, and test them
 
@@ -319,9 +319,9 @@
                   for (JJ = 1; JJ <= N; JJ++) { // 110
                      VTST = ABS( VR( JJ, J ) )
                      IF( VTST.GT.VMX ) VMX = VTST                      IF( AIMAG( VR( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VR( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VR( JJ, J ) ) )
-  110             CONTINUE
+                  } // 110
                   IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
-  120          CONTINUE
+               } // 120
 
                // Do Test (4)
 
@@ -333,9 +333,9 @@
                   for (JJ = 1; JJ <= N; JJ++) { // 130
                      VTST = ABS( VL( JJ, J ) )
                      IF( VTST.GT.VMX ) VMX = VTST                      IF( AIMAG( VL( JJ, J ) ).EQ.ZERO .AND. ABS( REAL( VL( JJ, J ) ) ).GT.VRMX ) VRMX = ABS( REAL( VL( JJ, J ) ) )
-  130             CONTINUE
+                  } // 130
                   IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
-  140          CONTINUE
+               } // 140
 
                // Compute eigenvalues only, and test them
 
@@ -352,7 +352,7 @@
 
                for (J = 1; J <= N; J++) { // 150
                   IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
-  150          CONTINUE
+               } // 150
 
                // Compute eigenvalues and right eigenvectors, and test them
 
@@ -369,15 +369,15 @@
 
                for (J = 1; J <= N; J++) { // 160
                   IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
-  160          CONTINUE
+               } // 160
 
                // Do Test (6)
 
                for (J = 1; J <= N; J++) { // 180
                   for (JJ = 1; JJ <= N; JJ++) { // 170
                      IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
-  170             CONTINUE
-  180          CONTINUE
+                  } // 170
+               } // 180
 
                // Compute eigenvalues and left eigenvectors, and test them
 
@@ -394,25 +394,25 @@
 
                for (J = 1; J <= N; J++) { // 190
                   IF( W( J ).NE.W1( J ) ) RESULT( 5 ) = ULPINV
-  190          CONTINUE
+               } // 190
 
                // Do Test (7)
 
                for (J = 1; J <= N; J++) { // 210
                   for (JJ = 1; JJ <= N; JJ++) { // 200
                      IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
-  200             CONTINUE
-  210          CONTINUE
+                  } // 200
+               } // 210
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-  220          CONTINUE
+               } // 220
 
                NTEST = 0
                NFAIL = 0
                for (J = 1; J <= 7; J++) { // 230
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
-  230          CONTINUE
+               } // 230
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                if ( NTESTF.EQ.1 ) {
@@ -428,14 +428,14 @@
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9994 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   }
-  240          CONTINUE
+               } // 240
 
                NERRS = NERRS + NFAIL
                NTESTT = NTESTT + NTEST
 
-  250       CONTINUE
-  260    CONTINUE
-  270 CONTINUE
+            } // 250
+         } // 260
+      } // 270
 
       // Summary
 

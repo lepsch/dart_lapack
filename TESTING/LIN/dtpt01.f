@@ -73,7 +73,7 @@
 
             AINVP( JC+J-1 ) = AINVP( JC+J-1 ) - ONE
             JC = JC + J
-   10    CONTINUE
+         } // 10
       } else {
          JC = 1
          for (J = 1; J <= N; J++) { // 20
@@ -87,7 +87,7 @@
 
             AINVP( JC ) = AINVP( JC ) - ONE
             JC = JC + N - J + 1
-   20    CONTINUE
+         } // 20
       }
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)

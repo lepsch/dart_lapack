@@ -46,7 +46,7 @@
       if ( KASE.EQ.0 ) {
          for (I = 1; I <= N; I++) { // 10
             X( I ) = DCMPLX( ONE / DBLE( N ) )
-   10    CONTINUE
+         } // 10
          KASE = 1
          JUMP = 1
          RETURN
@@ -57,7 +57,7 @@
       // ................ ENTRY   (JUMP = 1)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
-   20 CONTINUE
+      } // 20
       if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
@@ -73,7 +73,7 @@
          } else {
             X( I ) = CONE
          }
-   30 CONTINUE
+      } // 30
       KASE = 2
       JUMP = 2
       RETURN
@@ -81,16 +81,16 @@
       // ................ ENTRY   (JUMP = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
-   40 CONTINUE
+      } // 40
       J = IZMAX1( N, X, 1 )
       ITER = 2
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
-   50 CONTINUE
+      } // 50
       for (I = 1; I <= N; I++) { // 60
          X( I ) = CZERO
-   60 CONTINUE
+      } // 60
       X( J ) = CONE
       KASE = 1
       JUMP = 3
@@ -99,7 +99,7 @@
       // ................ ENTRY   (JUMP = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-   70 CONTINUE
+      } // 70
       zcopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = DZSUM1( N, V, 1 )
@@ -114,7 +114,7 @@
          } else {
             X( I ) = CONE
          }
-   80 CONTINUE
+      } // 80
       KASE = 2
       JUMP = 4
       RETURN
@@ -122,7 +122,7 @@
       // ................ ENTRY   (JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
-   90 CONTINUE
+      } // 90
       JLAST = J
       J = IZMAX1( N, X, 1 )
       if ( ( ABS( X( JLAST ) ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
@@ -132,12 +132,12 @@
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
-  100 CONTINUE
+      } // 100
       ALTSGN = ONE
       for (I = 1; I <= N; I++) { // 110
          X( I ) = DCMPLX( ALTSGN*( ONE+DBLE( I-1 ) / DBLE( N-1 ) ) )
          ALTSGN = -ALTSGN
-  110 CONTINUE
+      } // 110
       KASE = 1
       JUMP = 5
       RETURN
@@ -145,14 +145,14 @@
       // ................ ENTRY   (JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-  120 CONTINUE
+      } // 120
       TEMP = TWO*( DZSUM1( N, X, 1 ) / DBLE( 3*N ) )
       if ( TEMP.GT.EST ) {
          zcopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 
-  130 CONTINUE
+      } // 130
       KASE = 0
       RETURN
 

@@ -82,7 +82,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -100,7 +100,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -120,7 +120,7 @@
 
          for (I = 1; I <= N; I++) { // 30
             RWORK( I ) = CABS1( B( I, J ) )
-   30    CONTINUE
+         } // 30
 
          // Compute abs(A)*abs(X) + abs(B).
 
@@ -134,10 +134,10 @@
                   RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
                   S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
                   IK = IK + 1
-   40          CONTINUE
+               } // 40
                RWORK( K ) = RWORK( K ) + CABS1( AP( KK+K-1 ) )*XK + S
                KK = KK + K
-   50       CONTINUE
+            } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO
@@ -148,10 +148,10 @@
                   RWORK( I ) = RWORK( I ) + CABS1( AP( IK ) )*XK
                   S = S + CABS1( AP( IK ) )*CABS1( X( I, J ) )
                   IK = IK + 1
-   60          CONTINUE
+               } // 60
                RWORK( K ) = RWORK( K ) + S
                KK = KK + ( N-K+1 )
-   70       CONTINUE
+            } // 70
          }
          S = ZERO
          for (I = 1; I <= N; I++) { // 80
@@ -160,7 +160,7 @@
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             }
-   80    CONTINUE
+         } // 80
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -208,10 +208,10 @@
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             }
-   90    CONTINUE
+         } // 90
 
          KASE = 0
-  100    CONTINUE
+         } // 100
          zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -221,14 +221,14 @@
                zsptrs(UPLO, N, 1, AFP, IPIV, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 110
                   WORK( I ) = RWORK( I )*WORK( I )
-  110          CONTINUE
+               } // 110
             } else if ( KASE.EQ.2 ) {
 
                // Multiply by inv(A)*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
                   WORK( I ) = RWORK( I )*WORK( I )
-  120          CONTINUE
+               } // 120
                zsptrs(UPLO, N, 1, AFP, IPIV, WORK, N, INFO );
             }
             GO TO 100
@@ -239,10 +239,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 130
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
-  130    CONTINUE
+         } // 130
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  140 CONTINUE
+      } // 140
 
       RETURN
 

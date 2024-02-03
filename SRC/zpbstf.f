@@ -85,7 +85,7 @@
 
             zdscal(KM, ONE / AJJ, AB( KD+1-KM, J ), 1 );
             zher('Upper', KM, -ONE, AB( KD+1-KM, J ), 1, AB( KD+1, J-KM ), KLD );
-   10    CONTINUE
+         } // 10
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
 
@@ -111,7 +111,7 @@
                zher('Upper', KM, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
                zlacgv(KM, AB( KD, J+1 ), KLD );
             }
-   20    CONTINUE
+         } // 20
       } else {
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
@@ -136,7 +136,7 @@
             zlacgv(KM, AB( KM+1, J-KM ), KLD );
             zher('Lower', KM, -ONE, AB( KM+1, J-KM ), KLD, AB( 1, J-KM ), KLD );
             zlacgv(KM, AB( KM+1, J-KM ), KLD );
-   30    CONTINUE
+         } // 30
 
          // Factorize the updated submatrix A(1:m,1:m) as U**H*U.
 
@@ -160,11 +160,11 @@
                zdscal(KM, ONE / AJJ, AB( 2, J ), 1 );
                zher('Lower', KM, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
-   40    CONTINUE
+         } // 40
       }
       RETURN
 
-   50 CONTINUE
+      } // 50
       INFO = J
       RETURN
 

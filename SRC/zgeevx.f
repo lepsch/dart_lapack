@@ -286,12 +286,12 @@
             zdscal(N, SCL, VL( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 10
                RWORK( K ) = DBLE( VL( K, I ) )**2 + AIMAG( VL( K, I ) )**2
-   10       CONTINUE
+            } // 10
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VL( K, I ) ) / SQRT( RWORK( K ) )
             zscal(N, TMP, VL( 1, I ), 1 );
             VL( K, I ) = DCMPLX( DBLE( VL( K, I ) ), ZERO )
-   20    CONTINUE
+         } // 20
       }
 
       if ( WANTVR ) {
@@ -307,17 +307,17 @@
             zdscal(N, SCL, VR( 1, I ), 1 );
             for (K = 1; K <= N; K++) { // 30
                RWORK( K ) = DBLE( VR( K, I ) )**2 + AIMAG( VR( K, I ) )**2
-   30       CONTINUE
+            } // 30
             K = IDAMAX( N, RWORK, 1 )
             TMP = CONJG( VR( K, I ) ) / SQRT( RWORK( K ) )
             zscal(N, TMP, VR( 1, I ), 1 );
             VR( K, I ) = DCMPLX( DBLE( VR( K, I ) ), ZERO )
-   40    CONTINUE
+         } // 40
       }
 
       // Undo scaling if necessary
 
-   50 CONTINUE
+      } // 50
       if ( SCALEA ) {
          zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.EQ.0 ) {

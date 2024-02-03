@@ -55,14 +55,14 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = 1.D0 / DBLE( I+J )
             AF( I, J ) = 1.D0 / DBLE( I+J )
-   10    CONTINUE
+         } // 10
          B( J ) = 0.D0
          R1( J ) = 0.D0
          R2( J ) = 0.D0
          W( J ) = 0.D0
          X( J ) = 0.D0
          IW( J ) = J
-   20 CONTINUE
+      } // 20
       OK = .TRUE.
 
       if ( LSAMEN( 2, C2, 'PO' ) ) {

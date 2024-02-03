@@ -78,7 +78,7 @@
       } else if ( M.EQ.N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -134,7 +134,7 @@
 
                dlarzb('Right', 'No transpose', 'Backward', 'Rowwise', I-1, N-I+1, IB, N-M, A( I, M1 ), LDA, WORK, LDWORK, A( 1, I ), LDA, WORK( IB+1 ), LDWORK );
             }
-   20    CONTINUE
+         } // 20
          MU = I + NB - 1
       } else {
          MU = M

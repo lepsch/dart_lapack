@@ -72,7 +72,7 @@
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
             BIGNUM = ONE / SMLNUM
-   10       CONTINUE
+            } // 10
             KNT = KNT + 1
             dscal(N-1, BIGNUM, X, INCX );
             BETA = BETA*BIGNUM
@@ -126,7 +126,7 @@
 
          for (J = 1; J <= KNT; J++) { // 20
             BETA = BETA*SMLNUM
- 20      CONTINUE
+         } // 20
          ALPHA = BETA
       }
 

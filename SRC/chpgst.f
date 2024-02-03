@@ -74,7 +74,7 @@
                ctpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 )                CALL CHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
                csscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-CDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute inv(L)*A*inv(L**H)
@@ -100,7 +100,7 @@
                   ctpsv(UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 );
                }
                KK = K1K1
-   20       CONTINUE
+            } // 20
          }
       } else {
          if ( UPPER ) {
@@ -125,7 +125,7 @@
                caxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
                csscal(K-1, BKK, AP( K1 ), 1 );
                AP( KK ) = AKK*BKK**2
-   30       CONTINUE
+            } // 30
          } else {
 
             // Compute L**H *A*L
@@ -144,7 +144,7 @@
                csscal(N-J, BJJ, AP( JJ+1 ), 1 );
                chpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL CTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
-   40       CONTINUE
+            } // 40
          }
       }
       RETURN

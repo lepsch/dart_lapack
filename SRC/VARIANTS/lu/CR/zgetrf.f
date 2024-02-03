@@ -82,7 +82,7 @@
             IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
-   10       CONTINUE
+            } // 10
 
             // Apply interchanges to column 1:J-1
 
@@ -101,7 +101,7 @@
                ztrsm('Left', 'Lower', 'No transpose', 'Unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
             }
 
-   20    CONTINUE
+         } // 20
 
       }
       RETURN

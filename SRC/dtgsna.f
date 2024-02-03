@@ -91,7 +91,7 @@
                      IF( SELECT( N ) ) M = M + 1
                   }
                }
-   10       CONTINUE
+            } // 10
          } else {
             M = N
          }
@@ -275,7 +275,7 @@
          }
          IF( PAIR ) KS = KS + 1
 
-   20 CONTINUE
+      } // 20
       WORK( 1 ) = LWMIN
       RETURN
 

@@ -54,10 +54,10 @@
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = 1.D0 / DBLE( I+J )
-   10    CONTINUE
+         } // 10
          WI( J ) = DBLE( J )
          SEL( J ) = .TRUE.
-   20 CONTINUE
+      } // 20
       OK = .TRUE.
       NT = 0
 

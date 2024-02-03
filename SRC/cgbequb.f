@@ -81,7 +81,7 @@
 
       for (I = 1; I <= M; I++) { // 10
          R( I ) = ZERO
-   10 CONTINUE
+      } // 10
 
       // Find the maximum element in each row.
 
@@ -89,8 +89,8 @@
       for (J = 1; J <= N; J++) { // 30
          DO 20 I = MAX( J-KU, 1 ), MIN( J+KL, M )
             R( I ) = MAX( R( I ), CABS1( AB( KD+I-J, J ) ) )
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
       for (I = 1; I <= M; I++) {
          if ( R( I ).GT.ZERO ) {
             R( I ) = RADIX**INT( LOG( R( I ) ) / LOGRDX )
@@ -104,7 +104,7 @@
       for (I = 1; I <= M; I++) { // 40
          RCMAX = MAX( RCMAX, R( I ) )
          RCMIN = MIN( RCMIN, R( I ) )
-   40 CONTINUE
+      } // 40
       AMAX = RCMAX
 
       if ( RCMIN.EQ.ZERO ) {
@@ -116,14 +116,14 @@
                INFO = I
                RETURN
             }
-   50    CONTINUE
+         } // 50
       } else {
 
          // Invert the scale factors.
 
          for (I = 1; I <= M; I++) { // 60
             R( I ) = ONE / MIN( MAX( R( I ), SMLNUM ), BIGNUM )
-   60    CONTINUE
+         } // 60
 
          // Compute ROWCND = min(R(I)) / max(R(I)).
 
@@ -134,7 +134,7 @@
 
       for (J = 1; J <= N; J++) { // 70
          C( J ) = ZERO
-   70 CONTINUE
+      } // 70
 
       // Find the maximum element in each column,
       // assuming the row scaling computed above.
@@ -142,11 +142,11 @@
       for (J = 1; J <= N; J++) { // 90
          DO 80 I = MAX( J-KU, 1 ), MIN( J+KL, M )
             C( J ) = MAX( C( J ), CABS1( AB( KD+I-J, J ) )*R( I ) )
-   80    CONTINUE
+         } // 80
          if ( C( J ).GT.ZERO ) {
             C( J ) = RADIX**INT( LOG( C( J ) ) / LOGRDX )
          }
-   90 CONTINUE
+      } // 90
 
       // Find the maximum and minimum scale factors.
 
@@ -155,7 +155,7 @@
       for (J = 1; J <= N; J++) { // 100
          RCMIN = MIN( RCMIN, C( J ) )
          RCMAX = MAX( RCMAX, C( J ) )
-  100 CONTINUE
+      } // 100
 
       if ( RCMIN.EQ.ZERO ) {
 
@@ -166,14 +166,14 @@
                INFO = M + J
                RETURN
             }
-  110    CONTINUE
+         } // 110
       } else {
 
          // Invert the scale factors.
 
          for (J = 1; J <= N; J++) { // 120
             C( J ) = ONE / MIN( MAX( C( J ), SMLNUM ), BIGNUM )
-  120    CONTINUE
+         } // 120
 
          // Compute COLCND = min(C(J)) / max(C(J)).
 

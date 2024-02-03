@@ -51,7 +51,7 @@
                   DMIN = MIN( DMIN, D )
                   Z( J4 ) = Z( J4-1 )*TEMP
                   EMIN = MIN( Z( J4 ), EMIN )
- 10            CONTINUE
+               } // 10
             } else {
                DO 20 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
@@ -60,7 +60,7 @@
                   DMIN = MIN( DMIN, D )
                   Z( J4-1 ) = Z( J4 )*TEMP
                   EMIN = MIN( Z( J4-1 ), EMIN )
- 20            CONTINUE
+               } // 20
             }
 
       // Unroll last two steps.
@@ -97,7 +97,7 @@
                   }
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4 ) )
- 30            CONTINUE
+               } // 30
             } else {
                DO 40 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
@@ -109,7 +109,7 @@
                   }
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4-1 ) )
- 40            CONTINUE
+               } // 40
             }
 
       // Unroll last two steps.
@@ -161,7 +161,7 @@
                   DMIN = MIN( DMIN, D )
                   Z( J4 ) = Z( J4-1 )*TEMP
                   EMIN = MIN( Z( J4 ), EMIN )
- 50            CONTINUE
+               } // 50
             } else {
                DO 60 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
@@ -171,7 +171,7 @@
                   DMIN = MIN( DMIN, D )
                   Z( J4-1 ) = Z( J4 )*TEMP
                   EMIN = MIN( Z( J4-1 ), EMIN )
- 60            CONTINUE
+               } // 60
             }
 
       // Unroll last two steps.
@@ -209,7 +209,7 @@
                   IF( D.LT.DTHRESH ) D = ZERO
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4 ) )
- 70            CONTINUE
+               } // 70
             } else {
                DO 80 J4 = 4*I0, 4*( N0-3 ), 4
                   Z( J4-3 ) = D + Z( J4 )
@@ -222,7 +222,7 @@
                   IF( D.LT.DTHRESH ) D = ZERO
                   DMIN = MIN( DMIN, D )
                   EMIN = MIN( EMIN, Z( J4-1 ) )
- 80            CONTINUE
+               } // 80
             }
 
       // Unroll last two steps.

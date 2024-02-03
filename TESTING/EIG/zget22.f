@@ -79,25 +79,25 @@
             TEMP1 = ZERO
             for (J = 1; J <= N; J++) { // 10
                TEMP1 = MAX( TEMP1, ABS( DBLE( E( J, JVEC ) ) )+ ABS( DIMAG( E( J, JVEC ) ) ) )
-   10       CONTINUE
+            } // 10
             ENRMIN = MIN( ENRMIN, TEMP1 )
             ENRMAX = MAX( ENRMAX, TEMP1 )
-   20    CONTINUE
+         } // 20
       } else {
          for (JVEC = 1; JVEC <= N; JVEC++) { // 30
             RWORK( JVEC ) = ZERO
-   30    CONTINUE
+         } // 30
 
          for (J = 1; J <= N; J++) { // 50
             for (JVEC = 1; JVEC <= N; JVEC++) { // 40
                RWORK( JVEC ) = MAX( RWORK( JVEC ), ABS( DBLE( E( JVEC, J ) ) )+ ABS( DIMAG( E( JVEC, J ) ) ) )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 60
             ENRMIN = MIN( ENRMIN, RWORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, RWORK( JVEC ) )
-   60    CONTINUE
+         } // 60
       }
 
       // Norm of A:
@@ -125,18 +125,18 @@
          if ( ITRNSE.EQ.0 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 70
                WORK( JOFF+JROW ) = E( JROW, JCOL )*WTEMP
-   70       CONTINUE
+            } // 70
          } else if ( ITRNSE.EQ.1 ) {
             for (JROW = 1; JROW <= N; JROW++) { // 80
                WORK( JOFF+JROW ) = E( JCOL, JROW )*WTEMP
-   80       CONTINUE
+            } // 80
          } else {
             for (JROW = 1; JROW <= N; JROW++) { // 90
                WORK( JOFF+JROW ) = DCONJG( E( JCOL, JROW ) )*WTEMP
-   90       CONTINUE
+            } // 90
          }
          JOFF = JOFF + N
-  100 CONTINUE
+      } // 100
 
       zgemm(TRANSA, TRANSE, N, N, N, CONE, A, LDA, E, LDE, -CONE, WORK, N );
 

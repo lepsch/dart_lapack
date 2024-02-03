@@ -25,7 +25,7 @@
 
       for (I = 1; I <= M; I++) { // 10
          K( I ) = -K( I )
-   10 CONTINUE
+      } // 10
 
       if ( FORWRD ) {
 
@@ -39,23 +39,23 @@
             K( J ) = -K( J )
             IN = K( J )
 
-   20       CONTINUE
+            } // 20
             IF( K( IN ).GT.0 ) GO TO 40
 
             for (JJ = 1; JJ <= N; JJ++) { // 30
                TEMP = X( J, JJ )
                X( J, JJ ) = X( IN, JJ )
                X( IN, JJ ) = TEMP
-   30       CONTINUE
+            } // 30
 
             K( IN ) = -K( IN )
             J = IN
             IN = K( IN )
             GO TO 20
 
-   40       CONTINUE
+            } // 40
 
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -67,22 +67,22 @@
 
             K( I ) = -K( I )
             J = K( I )
-   60       CONTINUE
+            } // 60
             IF( J.EQ.I ) GO TO 80
 
             for (JJ = 1; JJ <= N; JJ++) { // 70
                TEMP = X( I, JJ )
                X( I, JJ ) = X( J, JJ )
                X( J, JJ ) = TEMP
-   70       CONTINUE
+            } // 70
 
             K( J ) = -K( J )
             J = K( J )
             GO TO 60
 
-   80       CONTINUE
+            } // 80
 
-   90    CONTINUE
+         } // 90
 
       }
 

@@ -67,13 +67,13 @@
             DO 10 I = 1, J - 1
                Q( I, J ) = AP( IJ )
                IJ = IJ + 1
-   10       CONTINUE
+            } // 10
             IJ = IJ + 2
             Q( N, J ) = ZERO
-   20    CONTINUE
+         } // 20
          DO 30 I = 1, N - 1
             Q( I, N ) = ZERO
-   30    CONTINUE
+         } // 30
          Q( N, N ) = ONE
 
          // Generate Q(1:n-1,1:n-1)
@@ -91,16 +91,16 @@
          Q( 1, 1 ) = ONE
          for (I = 2; I <= N; I++) { // 40
             Q( I, 1 ) = ZERO
-   40    CONTINUE
+         } // 40
          IJ = 3
          for (J = 2; J <= N; J++) { // 60
             Q( 1, J ) = ZERO
             DO 50 I = J + 1, N
                Q( I, J ) = AP( IJ )
                IJ = IJ + 1
-   50       CONTINUE
+            } // 50
             IJ = IJ + 2
-   60    CONTINUE
+         } // 60
          if ( N.GT.1 ) {
 
             // Generate Q(2:n,2:n)

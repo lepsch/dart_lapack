@@ -64,7 +64,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -199,13 +199,13 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I )
                            NFAIL = NFAIL + 1
                         }
-   20                CONTINUE
+                     } // 20
                      NRUN = NRUN + NT
-   30             CONTINUE
-   40          CONTINUE
-   50       CONTINUE
-   60    CONTINUE
-   70 CONTINUE
+                  } // 30
+               } // 40
+            } // 50
+         } // 60
+      } // 70
 
       // Print a summary of the results.
 

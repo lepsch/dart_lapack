@@ -157,7 +157,7 @@
       ITER = 0
       RETURN
 
-   10 CONTINUE
+      } // 10
 
       for (IITER = 1; IITER <= ITERMAX; IITER++) { // 30
 
@@ -206,9 +206,9 @@
 
          RETURN
 
-   20    CONTINUE
+         } // 20
 
-   30 CONTINUE
+      } // 30
 
       // If we are at this place of the code, this is because we have
       // performed ITER=ITERMAX iterations and never satisfied the
@@ -217,7 +217,7 @@
 
       ITER = -ITERMAX - 1
 
-   40 CONTINUE
+      } // 40
 
       // Single-precision iterative refinement failed to converge to a
       // satisfactory solution, so we resort to double precision.

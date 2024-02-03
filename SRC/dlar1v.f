@@ -74,7 +74,7 @@
          IF(DPLUS.LT.ZERO) NEG1 = NEG1 + 1
          WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
          S = WORK( INDS+I ) - LAMBDA
- 50   CONTINUE
+      } // 50
       SAWNAN1 = DISNAN( S )
       IF( SAWNAN1 ) GOTO 60
       DO 51 I = R1, R2 - 1
@@ -82,10 +82,10 @@
          WORK( INDLPL+I ) = LD( I ) / DPLUS
          WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
          S = WORK( INDS+I ) - LAMBDA
- 51   CONTINUE
+      } // 51
       SAWNAN1 = DISNAN( S )
 
- 60   CONTINUE
+      } // 60
       if ( SAWNAN1 ) {
          // Runs a slower version of the above loop if a NaN is detected
          NEG1 = 0
@@ -98,7 +98,7 @@
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
             IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
- 70      CONTINUE
+         } // 70
          DO 71 I = R1, R2 - 1
             DPLUS = D( I ) + S
             IF(ABS(DPLUS).LT.PIVMIN) DPLUS = -PIVMIN
@@ -106,7 +106,7 @@
             WORK( INDS+I ) = S*WORK( INDLPL+I )*L( I )
             IF( WORK( INDLPL+I ).EQ.ZERO ) WORK( INDS+I ) = LLD( I )
             S = WORK( INDS+I ) - LAMBDA
- 71      CONTINUE
+         } // 71
       }
 
       // Compute the progressive transform (using the differential form)
@@ -121,7 +121,7 @@
          IF(DMINUS.LT.ZERO) NEG2 = NEG2 + 1
          WORK( INDUMN+I ) = L( I )*TMP
          WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
- 80   CONTINUE
+      } // 80
       TMP = WORK( INDP+R1-1 )
       SAWNAN2 = DISNAN( TMP )
 
@@ -136,7 +136,7 @@
             WORK( INDUMN+I ) = L( I )*TMP
             WORK( INDP+I-1 ) = WORK( INDP+I )*TMP - LAMBDA
             IF( TMP.EQ.ZERO ) WORK( INDP+I-1 ) = D( I ) - LAMBDA
- 100     CONTINUE
+         } // 100
       }
 
       // Find the index (from R1 to R2) of the largest (in magnitude)
@@ -158,7 +158,7 @@
             MINGMA = TMP
             R = I + 1
          }
- 110  CONTINUE
+      } // 110
 
       // Compute the FP vector: solve N^T v = e_r
 
@@ -178,8 +178,8 @@
                GOTO 220
             ENDIF
             ZTZ = ZTZ + Z( I )*Z( I )
- 210     CONTINUE
- 220     CONTINUE
+         } // 210
+         } // 220
       } else {
          // Run slower loop if NaN occurred.
          DO 230 I = R - 1, B1, -1
@@ -194,8 +194,8 @@
                GO TO 240
             }
             ZTZ = ZTZ + Z( I )*Z( I )
- 230     CONTINUE
- 240     CONTINUE
+         } // 230
+         } // 240
       ENDIF
 
       // Compute the FP vector downwards from R in blocks of size BLKSIZ
@@ -208,8 +208,8 @@
                GO TO 260
             }
             ZTZ = ZTZ + Z( I+1 )*Z( I+1 )
- 250     CONTINUE
- 260     CONTINUE
+         } // 250
+         } // 260
       } else {
          // Run slower loop if NaN occurred.
          DO 270 I = R, BN - 1
@@ -224,8 +224,8 @@
                GO TO 280
             }
             ZTZ = ZTZ + Z( I+1 )*Z( I+1 )
- 270     CONTINUE
- 280     CONTINUE
+         } // 270
+         } // 280
       }
 
       // Compute quantities for convergence test

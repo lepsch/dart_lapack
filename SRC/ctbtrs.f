@@ -71,11 +71,11 @@
          if ( UPPER ) {
             for (INFO = 1; INFO <= N; INFO++) { // 10
                IF( AB( KD+1, INFO ).EQ.ZERO ) RETURN
-   10       CONTINUE
+            } // 10
          } else {
             for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AB( 1, INFO ).EQ.ZERO ) RETURN
-   20       CONTINUE
+            } // 20
          }
       }
       INFO = 0
@@ -84,7 +84,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 30
          ctbsv(UPLO, TRANS, DIAG, N, KD, AB, LDAB, B( 1, J ), 1 );
-   30 CONTINUE
+      } // 30
 
       RETURN
 

@@ -86,7 +86,7 @@
          // KB is either NB or NB-1, or K for the last block
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop
 
@@ -139,7 +139,7 @@
          // This label is the exit from main loop over K decreasing
          // from N to 1 in steps of KB
 
-   15    CONTINUE
+         } // 15
 
       } else {
 
@@ -150,7 +150,7 @@
          // KB is either NB or NB-1, or N-K+1 for the last block
 
          K = 1
-   20    CONTINUE
+         } // 20
 
          // If K > N, exit from loop
 
@@ -213,7 +213,7 @@
          // This label is the exit from main loop over K increasing
          // from 1 to N in steps of KB
 
-   35    CONTINUE
+         } // 35
 
       // End Lower
 

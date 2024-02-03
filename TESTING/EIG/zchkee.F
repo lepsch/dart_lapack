@@ -111,7 +111,7 @@
 
       // Return to here to read multiple sets of data
 
-   10 CONTINUE
+      } // 10
 
       // Read the first line and set the 3-character test path
 
@@ -255,7 +255,7 @@
                WRITE( NOUT, FMT = 9988 )VNAME, MVAL( I ), NMAX
                FATAL = .TRUE.
             }
-   20    CONTINUE
+         } // 20
          WRITE( NOUT, FMT = 9983 )'M:    ', ( MVAL( I ), I = 1, NN )
       }
 
@@ -271,7 +271,7 @@
                WRITE( NOUT, FMT = 9988 )' P  ', PVAL( I ), NMAX
                FATAL = .TRUE.
             }
-   30    CONTINUE
+         } // 30
          WRITE( NOUT, FMT = 9983 )'P:    ', ( PVAL( I ), I = 1, NN )
       }
 
@@ -287,11 +287,11 @@
                WRITE( NOUT, FMT = 9988 )'    N ', NVAL( I ), NMAX
                FATAL = .TRUE.
             }
-   40    CONTINUE
+         } // 40
       } else {
          for (I = 1; I <= NN; I++) { // 50
             NVAL( I ) = MVAL( I )
-   50    CONTINUE
+         } // 50
       }
       if ( .NOT.( ZGX .OR. ZXV ) ) {
          WRITE( NOUT, FMT = 9983 )'N:    ', ( NVAL( I ), I = 1, NN )
@@ -312,7 +312,7 @@
                WRITE( NOUT, FMT = 9988 )'    K ', KVAL( I ), NMAX
                FATAL = .TRUE.
             }
-   60    CONTINUE
+         } // 60
          WRITE( NOUT, FMT = 9983 )'K:    ', ( KVAL( I ), I = 1, NK )
       }
 
@@ -424,7 +424,7 @@
                   WRITE( NOUT, FMT = 9988 )'   NB ', NBVAL( I ), NMAX
                   FATAL = .TRUE.
                }
-   70       CONTINUE
+            } // 70
             WRITE( NOUT, FMT = 9983 )'NB:   ', ( NBVAL( I ), I = 1, NPARMS )
          }
 
@@ -440,12 +440,12 @@
                   WRITE( NOUT, FMT = 9988 )'NBMIN ', NBMIN( I ), NMAX
                   FATAL = .TRUE.
                }
-   80       CONTINUE
+            } // 80
             WRITE( NOUT, FMT = 9983 )'NBMIN:', ( NBMIN( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 90
                NBMIN( I ) = 1
-   90       CONTINUE
+            } // 90
          }
 
          // Read the values of NX
@@ -460,12 +460,12 @@
                   WRITE( NOUT, FMT = 9988 )'   NX ', NXVAL( I ), NMAX
                   FATAL = .TRUE.
                }
-  100       CONTINUE
+            } // 100
             WRITE( NOUT, FMT = 9983 )'NX:   ', ( NXVAL( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 110
                NXVAL( I ) = 1
-  110       CONTINUE
+            } // 110
          }
 
          // Read the values of NSHIFT (if ZGG) or NRHS (if SVD
@@ -481,12 +481,12 @@
                   WRITE( NOUT, FMT = 9988 )'   NS ', NSVAL( I ), NMAX
                   FATAL = .TRUE.
                }
-  120       CONTINUE
+            } // 120
             WRITE( NOUT, FMT = 9983 )'NS:   ', ( NSVAL( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 130
                NSVAL( I ) = 1
-  130       CONTINUE
+            } // 130
          }
 
          // Read the values for MAXB.
@@ -501,12 +501,12 @@
                   WRITE( NOUT, FMT = 9988 )' MAXB ', MXBVAL( I ), NMAX
                   FATAL = .TRUE.
                }
-  140       CONTINUE
+            } // 140
             WRITE( NOUT, FMT = 9983 )'MAXB: ', ( MXBVAL( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 150
                MXBVAL( I ) = 1
-  150       CONTINUE
+            } // 150
          }
 
          // Read the values for INMIN.
@@ -518,12 +518,12 @@
                   WRITE( NOUT, FMT = 9989 )' INMIN ', INMIN( I ), 0
                   FATAL = .TRUE.
                }
-  540       CONTINUE
+            } // 540
             WRITE( NOUT, FMT = 9983 )'INMIN: ', ( INMIN( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 550
                INMIN( I ) = 1
-  550       CONTINUE
+            } // 550
          }
 
          // Read the values for INWIN.
@@ -535,12 +535,12 @@
                   WRITE( NOUT, FMT = 9989 )' INWIN ', INWIN( I ), 0
                   FATAL = .TRUE.
                }
-  560       CONTINUE
+            } // 560
             WRITE( NOUT, FMT = 9983 )'INWIN: ', ( INWIN( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 570
                INWIN( I ) = 1
-  570       CONTINUE
+            } // 570
          }
 
          // Read the values for INIBL.
@@ -552,12 +552,12 @@
                   WRITE( NOUT, FMT = 9989 )' INIBL ', INIBL( I ), 0
                   FATAL = .TRUE.
                }
-  580       CONTINUE
+            } // 580
             WRITE( NOUT, FMT = 9983 )'INIBL: ', ( INIBL( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 590
                INIBL( I ) = 1
-  590       CONTINUE
+            } // 590
          }
 
          // Read the values for ISHFTS.
@@ -569,12 +569,12 @@
                   WRITE( NOUT, FMT = 9989 )' ISHFTS ', ISHFTS( I ), 0
                   FATAL = .TRUE.
                }
-  600       CONTINUE
+            } // 600
             WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ( ISHFTS( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 610
                ISHFTS( I ) = 1
-  610       CONTINUE
+            } // 610
          }
 
          // Read the values for IACC22.
@@ -586,12 +586,12 @@
                   WRITE( NOUT, FMT = 9989 )' IACC22 ', IACC22( I ), 0
                   FATAL = .TRUE.
                }
-  620       CONTINUE
+            } // 620
             WRITE( NOUT, FMT = 9983 )'IACC22: ', ( IACC22( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 630
                IACC22( I ) = 1
-  630       CONTINUE
+            } // 630
          }
 
          // Read the values for NBCOL.
@@ -606,12 +606,12 @@
                   WRITE( NOUT, FMT = 9988 )'NBCOL ', NBCOL( I ), NMAX
                   FATAL = .TRUE.
                }
-  160       CONTINUE
+            } // 160
             WRITE( NOUT, FMT = 9983 )'NBCOL:', ( NBCOL( I ), I = 1, NPARMS )
          } else {
             for (I = 1; I <= NPARMS; I++) { // 170
                NBCOL( I ) = 1
-  170       CONTINUE
+            } // 170
          }
       }
 
@@ -654,7 +654,7 @@
 
       for (I = 1; I <= 4; I++) { // 180
          ISEED( I ) = IOLDSD( I )
-  180 CONTINUE
+      } // 180
 
       if ( FATAL ) {
          WRITE( NOUT, FMT = 9999 )
@@ -666,18 +666,18 @@
       // of test matrix types must be the first nonblank item in columns
       // 4-80.
 
-  190 CONTINUE
+      } // 190
 
       if ( .NOT.( ZGX .OR. ZXV ) ) {
 
-  200    CONTINUE
+         } // 200
          READ( NIN, FMT = '(A80)', END = 380 )LINE
          C3 = LINE( 1: 3 )
          LENP = LEN( LINE )
          I = 3
          ITMP = 0
          I1 = 0
-  210    CONTINUE
+         } // 210
          I = I + 1
          if ( I.GT.LENP ) {
             if ( I1.GT.0 ) {
@@ -698,10 +698,10 @@
                   IC = K - 1
                   GO TO 230
                }
-  220       CONTINUE
+            } // 220
             WRITE( NOUT, FMT = 9991 )I, LINE
             GO TO 200
-  230       CONTINUE
+            } // 230
             ITMP = 10*ITMP + IC
             GO TO 210
          } else if ( I1.GT.0 ) {
@@ -709,7 +709,7 @@
          } else {
             GO TO 210
          }
-  240    CONTINUE
+         } // 240
          NTYPES = ITMP
 
       // Skip the tests if NTYPES is <= 0.
@@ -728,7 +728,7 @@
       if ( NEWSD.EQ.0 ) {
          for (K = 1; K <= 4; K++) { // 250
             ISEED( K ) = IOLDSD( K )
-  250    CONTINUE
+         } // 250
       }
 
       if ( LSAMEN( 3, C3, 'ZHS' ) .OR. LSAMEN( 3, C3, 'NEP' ) ) {
@@ -761,11 +761,11 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 260
                   ISEED( K ) = IOLDSD( K )
-  260          CONTINUE
+               } // 260
             }
             WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL ZCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO )
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZCHKHS', INFO
-  270    CONTINUE
+         } // 270
 
       } else if ( LSAMEN( 3, C3, 'ZST' ) .OR. LSAMEN( 3, C3, 'SEP' )  .OR. LSAMEN( 3, C3, 'SE2' ) ) {
 
@@ -801,7 +801,7 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 280
                   ISEED( K ) = IOLDSD( K )
-  280          CONTINUE
+               } // 280
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
             if ( TSTCHK ) {
@@ -820,7 +820,7 @@
                ENDIF
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZDRVST', INFO
             }
-  290    CONTINUE
+         } // 290
 
       } else if ( LSAMEN( 3, C3, 'ZSG' ) ) {
 
@@ -844,7 +844,7 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 300
                   ISEED( K ) = IOLDSD( K )
-  300          CONTINUE
+               } // 300
             }
             WRITE( NOUT, FMT = 9997 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I )
             if ( TSTCHK ) {
@@ -857,7 +857,7 @@
                zdrvsg2stg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, DR( 1, 3 ), DR( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), WORK, LWORK, RWORK, LWORK, IWORK, LIWORK, RESULT, INFO );
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZDRVSG', INFO
             }
-  310    CONTINUE
+         } // 310
 
       } else if ( LSAMEN( 3, C3, 'ZBD' ) .OR. LSAMEN( 3, C3, 'SVD' ) ) {
 
@@ -888,7 +888,7 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 320
                   ISEED( K ) = IOLDSD( K )
-  320          CONTINUE
+               } // 320
             }
             WRITE( NOUT, FMT = 9995 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), NRHS
             if ( TSTCHK ) {
@@ -896,7 +896,7 @@
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZCHKBD', INFO
             }
             IF( TSTDRV ) CALL ZDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO )
-  330    CONTINUE
+         } // 330
 
       } else if ( LSAMEN( 3, C3, 'ZEV' ) ) {
 
@@ -1007,7 +1007,7 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 340
                   ISEED( K ) = IOLDSD( K )
-  340          CONTINUE
+               } // 340
             }
             WRITE( NOUT, FMT = 9996 )C3, NBVAL( I ), NBMIN( I ), NSVAL( I ), MXBVAL( I ), IACC22( I ), NBCOL( I )
             TSTDIF = .FALSE.
@@ -1016,7 +1016,7 @@
                zchkgg(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, TSTDIF, THRSHN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), A( 1, 8 ), A( 1, 9 ), NMAX, A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), A( 1, 13 ), A( 1, 14 ), WORK, LWORK, RWORK, LOGWRK, RESULT, INFO );
                IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZCHKGG', INFO
             }
-  350    CONTINUE
+         } // 350
 
       } else if ( LSAMEN( 3, C3, 'ZGS' ) ) {
 
@@ -1155,12 +1155,12 @@
             if ( NEWSD.EQ.0 ) {
                for (K = 1; K <= 4; K++) { // 360
                   ISEED( K ) = IOLDSD( K )
-  360          CONTINUE
+               } // 360
             }
             WRITE( NOUT, FMT = 9966 )C3, NRHS
             zchkbb(NN, MVAL, NVAL, NK, KVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), 2*NMAX, DR( 1, 1 ), DR( 1, 2 ), A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), WORK, LWORK, RWORK, RESULT, INFO );
             IF( INFO.NE.0 ) WRITE( NOUT, FMT = 9980 )'ZCHKBB', INFO
-  370    CONTINUE
+         } // 370
 
       } else if ( LSAMEN( 3, C3, 'GLM' ) ) {
 
@@ -1217,7 +1217,7 @@
          WRITE( NOUT, FMT = 9992 )C3
       }
       IF( .NOT.( ZGX .OR. ZXV ) ) GO TO 190
-  380 CONTINUE
+      } // 380
       WRITE( NOUT, FMT = 9994 )
       S2 = DSECND( )
       WRITE( NOUT, FMT = 9993 )S2 - S1

@@ -84,7 +84,7 @@
                WORK( I ) = CS
                WORK( N+I ) = SN
             }
-   10    CONTINUE
+         } // 10
          slartg(D( N ), E( N ), CS, SN, R );
          D( N ) = R
          E( N ) = ZERO
@@ -113,7 +113,7 @@
                WORK( I ) = CS
                WORK( N+I ) = SN
             }
-   20    CONTINUE
+         } // 20
 
          // If matrix (N+1)-by-N lower bidiagonal, one additional
          // rotation is needed.
@@ -164,7 +164,7 @@
                ISUB = J
                SMIN = D( J )
             }
-   30    CONTINUE
+         } // 30
          if ( ISUB.NE.I ) {
 
             // Swap singular values and vectors.
@@ -173,7 +173,7 @@
             D( I ) = SMIN
             IF( NCVT.GT.0 ) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT )             IF( NRU.GT.0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 )             IF( NCC.GT.0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC )
          }
-   40 CONTINUE
+      } // 40
 
       RETURN
 

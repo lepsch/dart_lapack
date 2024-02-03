@@ -158,7 +158,7 @@
                   CMAX = ABS( CRV( J ) )
                   ICMAX = J
                }
-   10       CONTINUE
+            } // 10
 
             // If norm(C) < SMINI, use SMINI*identity.
 
@@ -244,7 +244,7 @@
                   CMAX = ABS( CRV( J ) ) + ABS( CIV( J ) )
                   ICMAX = J
                }
-   20       CONTINUE
+            } // 20
 
             // If norm(C) < SMINI, use SMINI*identity.
 

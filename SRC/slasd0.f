@@ -92,7 +92,7 @@
          ITEMP = IDXQ + NLF - 2
          for (J = 1; J <= NL; J++) { // 10
             IWORK( ITEMP+J ) = J
-   10    CONTINUE
+         } // 10
          if ( I.EQ.ND ) {
             SQREI = SQRE
          } else {
@@ -106,8 +106,8 @@
          ITEMP = IDXQ + IC
          for (J = 1; J <= NR; J++) { // 20
             IWORK( ITEMP+J-1 ) = J
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       // Now conquer each subproblem bottom-up.
 
@@ -144,8 +144,8 @@
             if ( INFO.NE.0 ) {
                RETURN
             }
-   40    CONTINUE
-   50 CONTINUE
+         } // 40
+      } // 50
 
       RETURN
 

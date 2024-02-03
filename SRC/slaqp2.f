@@ -98,9 +98,9 @@
                   VN1( J ) = VN1( J )*SQRT( TEMP )
                }
             }
-   10    CONTINUE
+         } // 10
 
-   20 CONTINUE
+      } // 20
 
       RETURN
 

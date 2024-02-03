@@ -99,8 +99,8 @@
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
                   IF( HUNDRD*MAX( B2, B1 ).LT.A2 .OR. CNST1.LT.A2 ) GO TO 20
-   10          CONTINUE
-   20          CONTINUE
+               } // 10
+               } // 20
                A2 = CNST3*A2
 
                // Rayleigh quotient residual bound.
@@ -135,8 +135,8 @@
                   B2 = B2*( Z( I4 ) / Z( I4-2 ) )
                   A2 = A2 + B2
                   IF( HUNDRD*MAX( B2, B1 ).LT.A2 .OR. CNST1.LT.A2 ) GO TO 40
-   30          CONTINUE
-   40          CONTINUE
+               } // 30
+               } // 40
                A2 = CNST3*A2
             }
 
@@ -176,8 +176,8 @@
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )
                B2 = B2 + B1
                IF( HUNDRD*MAX( B1, A2 ).LT.B2 ) GO TO 60
-   50       CONTINUE
-   60       CONTINUE
+            } // 50
+            } // 60
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN1 / ( ONE+B2**2 )
             GAP2 = HALF*DMIN2 - A2
@@ -214,8 +214,8 @@
                B1 = B1*( Z( I4 ) / Z( I4-2 ) )
                B2 = B2 + B1
                IF( HUNDRD*B1.LT.B2 ) GO TO 80
-   70       CONTINUE
-   80       CONTINUE
+            } // 70
+            } // 80
             B2 = SQRT( CNST3*B2 )
             A2 = DMIN2 / ( ONE+B2**2 )
             GAP2 = Z( NN-7 ) + Z( NN-9 ) - SQRT( Z( NN-11 ) )*SQRT( Z( NN-9 ) ) - A2

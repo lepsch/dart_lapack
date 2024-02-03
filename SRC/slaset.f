@@ -35,8 +35,8 @@
          for (J = 2; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J-1, M )
                A( I, J ) = ALPHA
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
       } else if ( LSAME( UPLO, 'L' ) ) {
 
@@ -46,8 +46,8 @@
          DO 40 J = 1, MIN( M, N )
             DO 30 I = J + 1, M
                A( I, J ) = ALPHA
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
       } else {
 
@@ -56,15 +56,15 @@
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
                A( I, J ) = ALPHA
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       // Set the first min(M,N) diagonal elements to BETA.
 
       DO 70 I = 1, MIN( M, N )
          A( I, I ) = BETA
-   70 CONTINUE
+      } // 70
 
       RETURN
 

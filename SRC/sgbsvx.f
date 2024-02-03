@@ -84,7 +84,7 @@
             for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
-   10       CONTINUE
+            } // 10
             if ( RCMIN.LE.ZERO ) {
                INFO = -13
             } else if ( N.GT.0 ) {
@@ -99,7 +99,7 @@
             for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
-   20       CONTINUE
+            } // 20
             if ( RCMIN.LE.ZERO ) {
                INFO = -14
             } else if ( N.GT.0 ) {
@@ -144,15 +144,15 @@
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
                   B( I, J ) = R( I )*B( I, J )
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
       } else if ( COLEQU ) {
          for (J = 1; J <= NRHS; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
                B( I, J ) = C( I )*B( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       if ( NOFACT .OR. EQUIL ) {
@@ -163,7 +163,7 @@
             J1 = MAX( J-KU, 1 )
             J2 = MIN( J+KL, N )
             scopy(J2-J1+1, AB( KU+1-J+J1, J ), 1, AFB( KL+KU+1-J+J1, J ), 1 );
-   70    CONTINUE
+         } // 70
 
          sgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO );
 
@@ -178,8 +178,8 @@
             for (J = 1; J <= INFO; J++) { // 90
                DO 80 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
                   ANORM = MAX( ANORM, ABS( AB( I, J ) ) )
-   80          CONTINUE
-   90       CONTINUE
+               } // 80
+            } // 90
             RPVGRW = SLANTB( 'M', 'U', 'N', INFO, MIN( INFO-1, KL+KU ), AFB( MAX( 1, KL+KU+2-INFO ), 1 ), LDAFB, WORK )
             if ( RPVGRW.EQ.ZERO ) {
                RPVGRW = ONE
@@ -230,21 +230,21 @@
             for (J = 1; J <= NRHS; J++) { // 110
                for (I = 1; I <= N; I++) { // 100
                   X( I, J ) = C( I )*X( I, J )
-  100          CONTINUE
-  110       CONTINUE
+               } // 100
+            } // 110
             for (J = 1; J <= NRHS; J++) { // 120
                FERR( J ) = FERR( J ) / COLCND
-  120       CONTINUE
+            } // 120
          }
       } else if ( ROWEQU ) {
          for (J = 1; J <= NRHS; J++) { // 140
             for (I = 1; I <= N; I++) { // 130
                X( I, J ) = R( I )*X( I, J )
-  130       CONTINUE
-  140    CONTINUE
+            } // 130
+         } // 140
          for (J = 1; J <= NRHS; J++) { // 150
             FERR( J ) = FERR( J ) / ROWCND
-  150    CONTINUE
+         } // 150
       }
 
       // Set INFO = N+1 if the matrix is singular to working precision.

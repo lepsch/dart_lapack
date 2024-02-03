@@ -84,7 +84,7 @@
                zscal(M-I, TAUP( I ), X( I+1, I ), 1 );
                zlacgv(N-I, A( I, I+1 ), LDA );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Reduce to lower bidiagonal form
@@ -137,7 +137,7 @@
             } else {
                zlacgv(N-I+1, A( I, I ), LDA );
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

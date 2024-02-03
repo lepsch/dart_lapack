@@ -110,7 +110,7 @@
 
       for (I = 1; I <= N; I++) { // 10
          IWORK( I ) = 0
-   10 CONTINUE
+      } // 10
       sgeqp3(P, N, B, LDB, IWORK, TAU, WORK, LWORK, INFO );
 
       // Update A := A*P
@@ -122,7 +122,7 @@
       L = 0
       DO 20 I = 1, MIN( P, N )
          IF( ABS( B( I, I ) ).GT.TOLB ) L = L + 1
-   20 CONTINUE
+      } // 20
 
       if ( WANTV ) {
 
@@ -138,8 +138,8 @@
       DO 40 J = 1, L - 1
          DO 30 I = J + 1, L
             B( I, J ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       IF( P.GT.L ) CALL SLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB )
 
       if ( WANTQ ) {
@@ -173,8 +173,8 @@
          DO 60 J = N - L + 1, N
             DO 50 I = J - N + L + 1, L
                B( I, J ) = ZERO
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
       }
 
@@ -188,7 +188,7 @@
 
       DO 70 I = 1, N - L
          IWORK( I ) = 0
-   70 CONTINUE
+      } // 70
       sgeqp3(M, N-L, A, LDA, IWORK, TAU, WORK, LWORK, INFO );
 
       // Determine the effective rank of A11
@@ -196,7 +196,7 @@
       K = 0
       DO 80 I = 1, MIN( M, N-L )
          IF( ABS( A( I, I ) ).GT.TOLA ) K = K + 1
-   80 CONTINUE
+      } // 80
 
       // Update A12 := U**T*A12, where A12 = A( 1:M, N-L+1:N )
 
@@ -224,8 +224,8 @@
       DO 100 J = 1, K - 1
          DO 90 I = J + 1, K
             A( I, J ) = ZERO
-   90    CONTINUE
-  100 CONTINUE
+         } // 90
+      } // 100
       IF( M.GT.K ) CALL SLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA )
 
       if ( N-L.GT.K ) {
@@ -247,8 +247,8 @@
          DO 120 J = N - L - K + 1, N - L
             DO 110 I = J - N + L + K + 1, K
                A( I, J ) = ZERO
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
 
       }
 
@@ -270,8 +270,8 @@
          DO 140 J = N - L + 1, N
             DO 130 I = J - N + K + L + 1, M
                A( I, J ) = ZERO
-  130       CONTINUE
-  140    CONTINUE
+            } // 130
+         } // 140
 
       }
 

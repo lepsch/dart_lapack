@@ -314,7 +314,7 @@
 
                for (J = 1; J <= N; J++) { // 10
                   BWORK( J ) = .FALSE.
-   10          CONTINUE
+               } // 10
                BWORK( I ) = .TRUE.
 
                IWRK = N + 1
@@ -330,7 +330,7 @@
 
                ztgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), 1, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
 
-   20       CONTINUE
+            } // 20
          }
       }
 
@@ -344,13 +344,13 @@
             TEMP = ZERO
             for (JR = 1; JR <= N; JR++) { // 30
                TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
-   30       CONTINUE
+            } // 30
             IF( TEMP.LT.SMLNUM ) GO TO 50
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 40
                VL( JR, JC ) = VL( JR, JC )*TEMP
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       }
 
       if ( ILVR ) {
@@ -359,18 +359,18 @@
             TEMP = ZERO
             for (JR = 1; JR <= N; JR++) { // 60
                TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
-   60       CONTINUE
+            } // 60
             IF( TEMP.LT.SMLNUM ) GO TO 80
             TEMP = ONE / TEMP
             for (JR = 1; JR <= N; JR++) { // 70
                VR( JR, JC ) = VR( JR, JC )*TEMP
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
       }
 
       // Undo scaling if necessary
 
-   90 CONTINUE
+      } // 90
 
       IF( ILASCL ) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
 

@@ -49,7 +49,7 @@
          DE = DF( I )*EF( I )
          WORK( N+I ) = DE - E( I )
          WORK( 1+I ) = DE*DCONJG( EF( I ) ) + DF( I+1 ) - D( I+1 )
-   10 CONTINUE
+      } // 10
 
       // Compute the 1-norms of the tridiagonal matrices A and WORK.
 
@@ -62,7 +62,7 @@
          DO 20 I = 2, N - 1
             ANORM = MAX( ANORM, D( I )+ABS( E( I ) )+ABS( E( I-1 ) ) )
             RESID = MAX( RESID, ABS( WORK( I ) )+ABS( WORK( N+I-1 ) )+ ABS( WORK( N+I ) ) )
-   20    CONTINUE
+         } // 20
       }
 
       // Compute norm(L*D*L' - A) / (n * norm(A) * EPS)

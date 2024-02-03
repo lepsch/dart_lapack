@@ -111,7 +111,7 @@
             } else {
                IF( SELECT( J ) ) IM = IM + 1
             }
-   10    CONTINUE
+         } // 10
       } else {
          IM = N
       }
@@ -127,7 +127,7 @@
                IF( S( J+2, J+1 ).NE.ZERO ) ILABAD = .TRUE.
             }
          }
-   20 CONTINUE
+      } // 20
 
       if ( ILABAD ) {
          INFO = -5
@@ -181,16 +181,16 @@
          for (I = 1; I <= IEND; I++) { // 30
             TEMP = TEMP + ABS( S( I, J ) )
             TEMP2 = TEMP2 + ABS( P( I, J ) )
-   30    CONTINUE
+         } // 30
          WORK( J ) = TEMP
          WORK( N+J ) = TEMP2
          DO 40 I = IEND + 1, MIN( J+1, N )
             TEMP = TEMP + ABS( S( I, J ) )
             TEMP2 = TEMP2 + ABS( P( I, J ) )
-   40    CONTINUE
+         } // 40
          ANORM = MAX( ANORM, TEMP )
          BNORM = MAX( BNORM, TEMP2 )
-   50 CONTINUE
+      } // 50
 
       ASCALE = ONE / MAX( ANORM, SAFMIN )
       BSCALE = ONE / MAX( BNORM, SAFMIN )
@@ -241,7 +241,7 @@
                   IEIG = IEIG + 1
                   for (JR = 1; JR <= N; JR++) { // 60
                      VL( JR, IEIG ) = ZERO
-   60             CONTINUE
+                  } // 60
                   VL( IEIG, IEIG ) = ONE
                   GO TO 220
                }
@@ -251,7 +251,7 @@
 
             DO 70 JR = 1, NW*N
                WORK( 2*N+JR ) = ZERO
-   70       CONTINUE
+            } // 70
                                                   // T
             // Compute coefficients in  ( a A - b B )  y = 0
                // a  is  ACOEF
@@ -372,8 +372,8 @@
                   DO 90 JW = 0, NW - 1
                      DO 80 JR = JE, J - 1
                         WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
-   80                CONTINUE
-   90             CONTINUE
+                     } // 80
+                  } // 90
                   XMAX = XMAX*XSCALE
                }
 
@@ -400,9 +400,9 @@
 
                      DO 100 JR = JE, J - 1
                         SUMS( JA, JW ) = SUMS( JA, JW ) + S( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )                         SUMP( JA, JW ) = SUMP( JA, JW ) + P( JR, J+JA-1 )* WORK( ( JW+1 )*N+JR )
-  100                CONTINUE
-  110             CONTINUE
-  120          CONTINUE
+                     } // 100
+                  } // 110
+               } // 120
 
                for (JA = 1; JA <= NA; JA++) { // 130
                   if ( ILCPLX ) {
@@ -410,7 +410,7 @@
                   } else {
                      SUM( JA, 1 ) = -ACOEF*SUMS( JA, 1 ) + BCOEFR*SUMP( JA, 1 )
                   }
-  130          CONTINUE
+               } // 130
 
                                    // T
                // Solve  ( a A - b B )  y = SUM(,)
@@ -421,12 +421,12 @@
                   DO 150 JW = 0, NW - 1
                      DO 140 JR = JE, J - 1
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
-  140                CONTINUE
-  150             CONTINUE
+                     } // 140
+                  } // 150
                   XMAX = SCALE*XMAX
                }
                XMAX = MAX( XMAX, TEMP )
-  160       CONTINUE
+            } // 160
 
             // Copy eigenvector to VL, back transforming if
             // HOWMNY='B'.
@@ -435,7 +435,7 @@
             if ( ILBACK ) {
                DO 170 JW = 0, NW - 1
                   sgemv('N', N, N+1-JE, ONE, VL( 1, JE ), LDVL, WORK( ( JW+2 )*N+JE ), 1, ZERO, WORK( ( JW+4 )*N+1 ), 1 );
-  170          CONTINUE
+               } // 170
                slacpy(' ', N, NW, WORK( 4*N+1 ), N, VL( 1, JE ), LDVL );
                IBEG = 1
             } else {
@@ -449,11 +449,11 @@
             if ( ILCPLX ) {
                for (J = IBEG; J <= N; J++) { // 180
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) )+ ABS( VL( J, IEIG+1 ) ) )
-  180          CONTINUE
+               } // 180
             } else {
                for (J = IBEG; J <= N; J++) { // 190
                   XMAX = MAX( XMAX, ABS( VL( J, IEIG ) ) )
-  190          CONTINUE
+               } // 190
             }
 
             if ( XMAX.GT.SAFMIN ) {
@@ -462,12 +462,12 @@
                DO 210 JW = 0, NW - 1
                   for (JR = IBEG; JR <= N; JR++) { // 200
                      VL( JR, IEIG+JW ) = XSCALE*VL( JR, IEIG+JW )
-  200             CONTINUE
-  210          CONTINUE
+                  } // 200
+               } // 210
             }
             IEIG = IEIG + NW - 1
 
-  220    CONTINUE
+         } // 220
       }
 
       // Right eigenvectors
@@ -519,7 +519,7 @@
                   IEIG = IEIG - 1
                   for (JR = 1; JR <= N; JR++) { // 230
                      VR( JR, IEIG ) = ZERO
-  230             CONTINUE
+                  } // 230
                   VR( IEIG, IEIG ) = ONE
                   GO TO 500
                }
@@ -530,8 +530,8 @@
             DO 250 JW = 0, NW - 1
                for (JR = 1; JR <= N; JR++) { // 240
                   WORK( ( JW+2 )*N+JR ) = ZERO
-  240          CONTINUE
-  250       CONTINUE
+               } // 240
+            } // 250
 
             // Compute coefficients in  ( a A - b B ) x = 0
                // a  is  ACOEF
@@ -579,7 +579,7 @@
 
                DO 260 JR = 1, JE - 1
                   WORK( 2*N+JR ) = BCOEFR*P( JR, JE ) - ACOEF*S( JR, JE )
-  260          CONTINUE
+               } // 260
             } else {
 
                // Complex eigenvalue
@@ -637,7 +637,7 @@
                CIM2B = BCOEFI*WORK( 2*N+JE ) + BCOEFR*WORK( 3*N+JE )
                DO 270 JR = 1, JE - 2
                   WORK( 2*N+JR ) = -CREALA*S( JR, JE-1 ) + CREALB*P( JR, JE-1 ) - CRE2A*S( JR, JE ) + CRE2B*P( JR, JE )                   WORK( 3*N+JR ) = -CIMAGA*S( JR, JE-1 ) + CIMAGB*P( JR, JE-1 ) - CIM2A*S( JR, JE ) + CIM2B*P( JR, JE )
-  270          CONTINUE
+               } // 270
             }
 
             DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
@@ -672,16 +672,16 @@
                   DO 290 JW = 0, NW - 1
                      for (JR = 1; JR <= JE; JR++) { // 280
                         WORK( ( JW+2 )*N+JR ) = SCALE* WORK( ( JW+2 )*N+JR )
-  280                CONTINUE
-  290             CONTINUE
+                     } // 280
+                  } // 290
                }
                XMAX = MAX( SCALE*XMAX, TEMP )
 
                for (JW = 1; JW <= NW; JW++) { // 310
                   for (JA = 1; JA <= NA; JA++) { // 300
                      WORK( ( JW+1 )*N+J+JA-1 ) = SUM( JA, JW )
-  300             CONTINUE
-  310          CONTINUE
+                  } // 300
+               } // 310
 
                // w = w + x(j)*(a S(*,j) - b P(*,j) ) with scaling
 
@@ -698,8 +698,8 @@
                      DO 330 JW = 0, NW - 1
                         for (JR = 1; JR <= JE; JR++) { // 320
                            WORK( ( JW+2 )*N+JR ) = XSCALE* WORK( ( JW+2 )*N+JR )
-  320                   CONTINUE
-  330                CONTINUE
+                        } // 320
+                     } // 330
                      XMAX = XMAX*XSCALE
                   }
 
@@ -715,19 +715,19 @@
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 ) - BCOEFI*WORK( 3*N+J+JA-1 )                         CIMAGB = BCOEFI*WORK( 2*N+J+JA-1 ) + BCOEFR*WORK( 3*N+J+JA-1 )
                         DO 340 JR = 1, J - 1
                            WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )                            WORK( 3*N+JR ) = WORK( 3*N+JR ) - CIMAGA*S( JR, J+JA-1 ) + CIMAGB*P( JR, J+JA-1 )
-  340                   CONTINUE
+                        } // 340
                      } else {
                         CREALA = ACOEF*WORK( 2*N+J+JA-1 )
                         CREALB = BCOEFR*WORK( 2*N+J+JA-1 )
                         DO 350 JR = 1, J - 1
                            WORK( 2*N+JR ) = WORK( 2*N+JR ) - CREALA*S( JR, J+JA-1 ) + CREALB*P( JR, J+JA-1 )
-  350                   CONTINUE
+                        } // 350
                      }
-  360             CONTINUE
+                  } // 360
                }
 
                IL2BY2 = .FALSE.
-  370       CONTINUE
+            } // 370
 
             // Copy eigenvector to VR, back transforming if
             // HOWMNY='B'.
@@ -738,7 +738,7 @@
                DO 410 JW = 0, NW - 1
                   for (JR = 1; JR <= N; JR++) { // 380
                      WORK( ( JW+4 )*N+JR ) = WORK( ( JW+2 )*N+1 )* VR( JR, 1 )
-  380             CONTINUE
+                  } // 380
 
                   // A series of compiler directives to defeat
                   // vectorization for the next loop
@@ -747,23 +747,23 @@
                   for (JC = 2; JC <= JE; JC++) { // 400
                      for (JR = 1; JR <= N; JR++) { // 390
                         WORK( ( JW+4 )*N+JR ) = WORK( ( JW+4 )*N+JR ) + WORK( ( JW+2 )*N+JC )*VR( JR, JC )
-  390                CONTINUE
-  400             CONTINUE
-  410          CONTINUE
+                     } // 390
+                  } // 400
+               } // 410
 
                DO 430 JW = 0, NW - 1
                   for (JR = 1; JR <= N; JR++) { // 420
                      VR( JR, IEIG+JW ) = WORK( ( JW+4 )*N+JR )
-  420             CONTINUE
-  430          CONTINUE
+                  } // 420
+               } // 430
 
                IEND = N
             } else {
                DO 450 JW = 0, NW - 1
                   for (JR = 1; JR <= N; JR++) { // 440
                      VR( JR, IEIG+JW ) = WORK( ( JW+2 )*N+JR )
-  440             CONTINUE
-  450          CONTINUE
+                  } // 440
+               } // 450
 
                IEND = JE
             }
@@ -774,11 +774,11 @@
             if ( ILCPLX ) {
                for (J = 1; J <= IEND; J++) { // 460
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) )+ ABS( VR( J, IEIG+1 ) ) )
-  460          CONTINUE
+               } // 460
             } else {
                for (J = 1; J <= IEND; J++) { // 470
                   XMAX = MAX( XMAX, ABS( VR( J, IEIG ) ) )
-  470          CONTINUE
+               } // 470
             }
 
             if ( XMAX.GT.SAFMIN ) {
@@ -786,10 +786,10 @@
                DO 490 JW = 0, NW - 1
                   for (JR = 1; JR <= IEND; JR++) { // 480
                      VR( JR, IEIG+JW ) = XSCALE*VR( JR, IEIG+JW )
-  480             CONTINUE
-  490          CONTINUE
+                  } // 480
+               } // 490
             }
-  500    CONTINUE
+         } // 500
       }
 
       RETURN

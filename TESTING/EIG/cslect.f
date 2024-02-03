@@ -44,7 +44,7 @@
                RMIN = X
                CSLECT = SELVAL( I )
             }
-   10    CONTINUE
+         } // 10
       }
       RETURN
 

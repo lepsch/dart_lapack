@@ -44,7 +44,7 @@
       if ( KASE.EQ.0 ) {
          for (I = 1; I <= N; I++) { // 10
             X( I ) = ONE / REAL( N )
-   10    CONTINUE
+         } // 10
          KASE = 1
          JUMP = 1
          RETURN
@@ -55,7 +55,7 @@
       // ................ ENTRY   (JUMP = 1)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
-   20 CONTINUE
+      } // 20
       if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
@@ -67,7 +67,7 @@
       for (I = 1; I <= N; I++) { // 30
          X( I ) = SIGN( ONE, X( I ) )
          ISGN( I ) = NINT( X( I ) )
-   30 CONTINUE
+      } // 30
       KASE = 2
       JUMP = 2
       RETURN
@@ -75,16 +75,16 @@
       // ................ ENTRY   (JUMP = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
-   40 CONTINUE
+      } // 40
       J = ISAMAX( N, X, 1 )
       ITER = 2
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
-   50 CONTINUE
+      } // 50
       for (I = 1; I <= N; I++) { // 60
          X( I ) = ZERO
-   60 CONTINUE
+      } // 60
       X( J ) = ONE
       KASE = 1
       JUMP = 3
@@ -93,24 +93,24 @@
       // ................ ENTRY   (JUMP = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-   70 CONTINUE
+      } // 70
       scopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = SASUM( N, V, 1 )
       for (I = 1; I <= N; I++) { // 80
          IF( NINT( SIGN( ONE, X( I ) ) ).NE.ISGN( I ) ) GO TO 90
-   80 CONTINUE
+      } // 80
       // REPEATED SIGN VECTOR DETECTED, HENCE ALGORITHM HAS CONVERGED.
       GO TO 120
 
-   90 CONTINUE
+      } // 90
       // TEST FOR CYCLING.
       IF( EST.LE.ESTOLD ) GO TO 120
 
       for (I = 1; I <= N; I++) { // 100
          X( I ) = SIGN( ONE, X( I ) )
          ISGN( I ) = NINT( X( I ) )
-  100 CONTINUE
+      } // 100
       KASE = 2
       JUMP = 4
       RETURN
@@ -118,7 +118,7 @@
       // ................ ENTRY   (JUMP = 4)
       // X HAS BEEN OVERWRITTEN BY TRANSPOSE(A)*X.
 
-  110 CONTINUE
+      } // 110
       JLAST = J
       J = ISAMAX( N, X, 1 )
       if ( ( X( JLAST ).NE.ABS( X( J ) ) ) .AND. ( ITER.LT.ITMAX ) ) {
@@ -128,12 +128,12 @@
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
-  120 CONTINUE
+      } // 120
       ALTSGN = ONE
       for (I = 1; I <= N; I++) { // 130
          X( I ) = ALTSGN*( ONE+REAL( I-1 ) / REAL( N-1 ) )
          ALTSGN = -ALTSGN
-  130 CONTINUE
+      } // 130
       KASE = 1
       JUMP = 5
       RETURN
@@ -141,14 +141,14 @@
       // ................ ENTRY   (JUMP = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-  140 CONTINUE
+      } // 140
       TEMP = TWO*( SASUM( N, X, 1 ) / REAL( 3*N ) )
       if ( TEMP.GT.EST ) {
          scopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 
-  150 CONTINUE
+      } // 150
       KASE = 0
       RETURN
 

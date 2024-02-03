@@ -33,7 +33,7 @@
       }
       I = 1
       // while ( (N1SV > 0) & (N2SV > 0) )
-   10 CONTINUE
+      } // 10
       if ( N1SV.GT.0 .AND. N2SV.GT.0 ) {
          if ( A( IND1 ).LE.A( IND2 ) ) {
             INDEX( I ) = IND1
@@ -54,14 +54,14 @@
             INDEX( I ) = IND2
             I = I + 1
             IND2 = IND2 + STRD2
-   20    CONTINUE
+         } // 20
       } else {
       // N2SV .EQ. 0
          for (N2SV = 1; N2SV <= N1SV; N2SV++) { // 30
             INDEX( I ) = IND1
             I = I + 1
             IND1 = IND1 + STRD1
-   30    CONTINUE
+         } // 30
       }
 
       RETURN

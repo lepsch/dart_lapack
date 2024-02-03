@@ -66,10 +66,10 @@
                   TEMP = ALPHA*CONJG(Y(JY))
                   for (I = 1; I <= M; I++) { // 10
                       A(I,J) = A(I,J) + X(I)*TEMP
-   10             CONTINUE
+                  } // 10
               }
               JY = JY + INCY
-   20     CONTINUE
+          } // 20
       } else {
           if (INCX.GT.0) {
               KX = 1
@@ -83,10 +83,10 @@
                   for (I = 1; I <= M; I++) { // 30
                       A(I,J) = A(I,J) + X(IX)*TEMP
                       IX = IX + INCX
-   30             CONTINUE
+                  } // 30
               }
               JY = JY + INCY
-   40     CONTINUE
+          } // 40
       }
 
       RETURN

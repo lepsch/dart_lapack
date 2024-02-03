@@ -73,7 +73,7 @@
          DO 10 I = N, 1, -1
             IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP - I
-   10    CONTINUE
+         } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
@@ -82,13 +82,13 @@
          for (I = 1; I <= N; I++) { // 20
             IF( IPIV( I ).GT.0 .AND. AP( IP ).EQ.ZERO ) RETURN
             IP = IP + N - I + 1
-   20    CONTINUE
+         } // 20
       }
 
       // Estimate the 1-norm of the inverse.
 
       KASE = 0
-   30 CONTINUE
+      } // 30
       zlacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 

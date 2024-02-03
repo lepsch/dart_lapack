@@ -84,7 +84,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) )
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) ), 5*MIN( MM( J ), NN( J )-4 ) )+2*MIN( MM( J ), NN( J ) )**2 )
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -142,7 +142,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Compute "A"
 
@@ -172,7 +172,7 @@
                }
             }
 
-   30       CONTINUE
+            } // 30
             dlacpy('F', M, N, A, LDA, ASAV, LDA );
 
             // Do for minimal and adequate (for blocking) workspace
@@ -181,7 +181,7 @@
 
                for (J = 1; J <= 32; J++) { // 40
                   RESULT( J ) = -ONE
-   40          CONTINUE
+               } // 40
 
                // Test DGESVD: Factorize A
 
@@ -209,7 +209,7 @@
                RESULT( 4 ) = ZERO
                DO 50 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 4 ) = ULPINV
-   50          CONTINUE
+               } // 50
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
                }
@@ -263,10 +263,10 @@
                      DO 60 I = 1, MNMIN - 1
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-   60                CONTINUE
+                     } // 60
                      RESULT( 7 ) = MAX( RESULT( 7 ), DIF )
-   70             CONTINUE
-   80          CONTINUE
+                  } // 70
+               } // 80
 
                // Test DGESDD: Factorize A
 
@@ -294,7 +294,7 @@
                RESULT( 11 ) = ZERO
                DO 90 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 11 ) = ULPINV
-   90          CONTINUE
+               } // 90
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
                }
@@ -349,9 +349,9 @@
                   DO 100 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                      IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                      DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-  100             CONTINUE
+                  } // 100
                   RESULT( 14 ) = MAX( RESULT( 14 ), DIF )
-  110          CONTINUE
+               } // 110
 
                // Test DGESVDQ
                // Note: DGESVDQ only works for M >= N
@@ -390,7 +390,7 @@
                   RESULT( 39 ) = ZERO
                   DO 199 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 39 ) = ULPINV
-  199             CONTINUE
+                  } // 199
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   }
@@ -438,7 +438,7 @@
                   RESULT( 18 ) = ZERO
                   DO 120 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
-  120             CONTINUE
+                  } // 120
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   }
@@ -485,7 +485,7 @@
                   RESULT( 22 ) = ZERO
                   DO 150 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 22 ) = ULPINV
-  150             CONTINUE
+                  } // 150
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   }
@@ -513,7 +513,7 @@
                RESULT( 26 ) = ZERO
                DO 160 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 26 ) = ULPINV
-  160          CONTINUE
+               } // 160
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
                }
@@ -559,16 +559,16 @@
                      DO 190 I = 1, MNMIN - 1
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-  190                CONTINUE
+                     } // 190
                      RESULT( 29 ) = MAX( RESULT( 29 ), DIF )
-  170             CONTINUE
-  180          CONTINUE
+                  } // 170
+               } // 180
 
                // Do tests 30--32: DGESVDX( 'V', 'V', 'I' )
 
                for (I = 1; I <= 4; I++) { // 200
                   ISEED2( I ) = ISEED( I )
-  200          CONTINUE
+               } // 200
                if ( MNMIN.LE.1 ) {
                   IL = 1
                   IU = MAX( 1, MNMIN )
@@ -638,11 +638,11 @@
                      WRITE( NOUT, FMT = 9997 )M, N, JTYPE, IWS, IOLDSD, J, RESULT( J )
                      NFAIL = NFAIL + 1
                   }
-  210          CONTINUE
+               } // 210
                NTEST = NTEST + 39
-  220       CONTINUE
-  230    CONTINUE
-  240 CONTINUE
+            } // 220
+         } // 230
+      } // 240
 
       // Summary
 

@@ -138,7 +138,7 @@
             if ( INFO.EQ.0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
-   10          CONTINUE
+               } // 10
             }
          }
          if ( INFO.EQ.0 ) {
@@ -169,10 +169,10 @@
          for (J = 1; J <= M; J++) { // 20
             scopy(N, Z( 1, J ), 1, WORK( 1 ), 1 );
             sgemv('N', N, N, ONE, Q, LDQ, WORK, 1, ZERO, Z( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
       }
 
-   30 CONTINUE
+      } // 30
 
       // If eigenvalues are not in order, then sort them, along with
       // eigenvectors.
@@ -186,7 +186,7 @@
                   I = JJ
                   TMP1 = W( JJ )
                }
-   40       CONTINUE
+            } // 40
 
             if ( I.NE.0 ) {
                ITMP1 = IWORK( 1 + I-1 )
@@ -201,7 +201,7 @@
                   IFAIL( J ) = ITMP1
                }
             }
-   50    CONTINUE
+         } // 50
       }
 
       RETURN

@@ -60,9 +60,9 @@
                CJ = S( J )
                for (I = 1; I <= J; I++) { // 10
                   AP( JC+I-1 ) = CJ*S( I )*AP( JC+I-1 )
-   10          CONTINUE
+               } // 10
                JC = JC + J
-   20       CONTINUE
+            } // 20
          } else {
 
             // Lower triangle of A is stored.
@@ -72,9 +72,9 @@
                CJ = S( J )
                for (I = J; I <= N; I++) { // 30
                   AP( JC+I-J ) = CJ*S( I )*AP( JC+I-J )
-   30          CONTINUE
+               } // 30
                JC = JC + N - J + 1
-   40       CONTINUE
+            } // 40
          }
          EQUED = 'Y'
       }

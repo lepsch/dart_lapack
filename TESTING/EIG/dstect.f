@@ -41,7 +41,7 @@
       MX = ABS( A( 1 ) )
       DO 10 I = 1, N - 1
          MX = MAX( MX, ABS( A( I+1 ) ), ABS( B( I ) ) )
-   10 CONTINUE
+      } // 10
 
       // Handle easy cases, including zero matrix
 
@@ -93,7 +93,7 @@
                U = SUN
             }
          }
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of DSTECT

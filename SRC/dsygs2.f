@@ -73,7 +73,7 @@
                   CT = -HALF*AKK
                   daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                }
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute inv(L)*A*inv(L**T)
@@ -94,7 +94,7 @@
                   daxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
                   dtrsv(UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 );
                }
-   20       CONTINUE
+            } // 20
          }
       } else {
          if ( UPPER ) {
@@ -114,7 +114,7 @@
                daxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                dscal(K-1, BKK, A( 1, K ), 1 );
                A( K, K ) = AKK*BKK**2
-   30       CONTINUE
+            } // 30
          } else {
 
             // Compute L**T *A*L
@@ -132,7 +132,7 @@
                daxpy(K-1, CT, B( K, 1 ), LDB, A( K, 1 ), LDA );
                dscal(K-1, BKK, A( K, 1 ), LDA );
                A( K, K ) = AKK*BKK**2
-   40       CONTINUE
+            } // 40
          }
       }
       RETURN

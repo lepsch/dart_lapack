@@ -77,7 +77,7 @@
             IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
-   10       CONTINUE
+            } // 10
 
             // Apply interchanges to columns 1:J-1.
 
@@ -99,7 +99,7 @@
                   zgemm('No transpose', 'No transpose', M-J-JB+1, N-J-JB+1, JB, -ONE, A( J+JB, J ), LDA, A( J, J+JB ), LDA, ONE, A( J+JB, J+JB ), LDA );
                }
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

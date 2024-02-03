@@ -50,8 +50,8 @@
                B( I, J ) = ZERO
             }
 
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       if ( TYPE.EQ.2 ) {
          A( 1, 1 ) = CMPLX( RONE, RONE )
          A( 2, 2 ) = CONJG( A( 1, 1 ) )

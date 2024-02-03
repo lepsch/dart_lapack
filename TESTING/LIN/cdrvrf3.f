@@ -69,7 +69,7 @@
       INFO = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
       EPS = SLAMCH( 'Precision' )
 
       for (IIM = 1; IIM <= NN; IIM++) { // 170
@@ -246,14 +246,14 @@
                                  NFAIL = NFAIL + 1
                               }
 
-  100                      CONTINUE
-  110                   CONTINUE
-  120                CONTINUE
-  130             CONTINUE
-  140          CONTINUE
-  150       CONTINUE
-  160    CONTINUE
-  170 CONTINUE
+                           } // 100
+                        } // 110
+                     } // 120
+                  } // 130
+               } // 140
+            } // 150
+         } // 160
+      } // 170
 
       // Print a summary of the results.
 

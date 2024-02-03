@@ -72,7 +72,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
       EPS = DLAMCH( 'Epsilon' )
 
       // Threshold for rank estimation
@@ -493,7 +493,7 @@
 
                         for (J = 1; J <= N; J++) { // 70
                            IWORK( J ) = 0
-   70                   CONTINUE
+                        } // 70
 
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         dlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
@@ -571,7 +571,7 @@
 
                         for (J = 1; J <= N; J++) { // 80
                            IWORK( J ) = 0
-   80                   CONTINUE
+                        } // 80
 
                         dlacpy('Full', M, N, COPYA, LDA, A, LDA );
                         dlacpy('Full', M, NRHS, COPYB, LDB, B, LDB );
@@ -610,21 +610,21 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   90                   CONTINUE
+                        } // 90
                         NRUN = NRUN + 12
 
-  100                CONTINUE
+                     } // 100
 
 
 
 
 
 
-  110             CONTINUE
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+                  } // 110
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
       // Print a summary of the results.
 

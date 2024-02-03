@@ -143,7 +143,7 @@
                dscal(p-1, SCALEM, SVA, 1 );
             }
          }
- 1874 CONTINUE
+      } // 1874
 
       IF ( NOSCAL ) SCALEM = ONE
 
@@ -152,7 +152,7 @@
       for (p = 1; p <= N; p++) { // 4781
          AAPP = MAX( AAPP, SVA(p) )
          IF ( SVA(p) .NE. ZERO ) AAQQ = MIN( AAQQ, SVA(p) )
- 4781 CONTINUE
+      } // 4781
 
       // Quick return for zero M x N matrix
 * #:)
@@ -258,13 +258,13 @@
                WORK(N+p)    = XSC * (SCALEM*DSQRT(TEMP1))
                AATMAX = MAX( AATMAX, WORK(N+p) )
                IF (WORK(N+p) .NE. ZERO) AATMIN = MIN(AATMIN,WORK(N+p))
- 1950       CONTINUE
+            } // 1950
          } else {
             for (p = 1; p <= M; p++) { // 1904
                WORK(M+N+p) = SCALEM*DABS( A(p,IDAMAX(N,A(p,1),LDA)) )
                AATMAX = MAX( AATMAX, WORK(M+N+p) )
                AATMIN = MIN( AATMIN, WORK(M+N+p) )
- 1904       CONTINUE
+            } // 1904
          }
 
       }
@@ -289,7 +289,7 @@
          for (p = 1; p <= N; p++) { // 1113
             BIG1  = ( ( SVA(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRA = ENTRA + BIG1 * DLOG(BIG1)
- 1113    CONTINUE
+         } // 1113
          ENTRA = - ENTRA / DLOG(DBLE(N))
 
          // Now, SVA().^2/Trace(A^t * A) is a point in the probability simplex.
@@ -302,7 +302,7 @@
          DO 1114 p = N+1, N+M
             BIG1 = ( ( WORK(p) / XSC )**2 ) * TEMP1
             IF ( BIG1 .NE. ZERO ) ENTRAT = ENTRAT + BIG1 * DLOG(BIG1)
- 1114    CONTINUE
+         } // 1114
          ENTRAT = - ENTRAT / DLOG(DBLE(M))
 
          // Analyze the entropies and decide A or A^t. Smaller entropy
@@ -320,12 +320,12 @@
                    TEMP1 = A(q,p)
                   A(q,p) = A(p,q)
                   A(p,q) = TEMP1
- 1116          CONTINUE
- 1115       CONTINUE
+               } // 1116
+            } // 1115
             for (p = 1; p <= N; p++) { // 1117
                WORK(M+N+p) = SVA(p)
                SVA(p)      = WORK(N+p)
- 1117       CONTINUE
+            } // 1117
             TEMP1  = AAPP
             AAPP   = AATMAX
             AATMAX = TEMP1
@@ -398,7 +398,7 @@
                dlaset('A', M, 1, ZERO, ZERO, A(1,p), LDA );
                SVA(p) = ZERO
             }
- 700     CONTINUE
+         } // 700
       }
 
       // Preconditioning using QR factorization with pivoting
@@ -417,7 +417,7 @@
                WORK(M+N+p) = WORK(M+N+q)
                WORK(M+N+q) = TEMP1
             }
- 1952    CONTINUE
+         } // 1952
          dlaswp(N, A, LDA, 1, M-1, IWORK(2*N+1), 1 );
       }
 
@@ -439,7 +439,7 @@
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
          IWORK(p) = 0
- 1963 CONTINUE
+      } // 1963
       dgeqp3(M,N,A,LDA, IWORK,WORK, WORK(N+1),LWORK-N, IERR );
 
       // The upper triangular matrix R1 from the first QRF is inspected for
@@ -463,8 +463,8 @@
             } else {
                GO TO 3002
             }
- 3001    CONTINUE
- 3002    CONTINUE
+         } // 3001
+         } // 3002
       } else if ( L2RANK ) {
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R1 is used as the criterion for
@@ -473,8 +473,8 @@
          for (p = 2; p <= N; p++) { // 3401
             IF ( ( DABS(A(p,p)) .LT. (EPSLN*DABS(A(p-1,p-1))) ) .OR. ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3402
             NR = NR + 1
- 3401    CONTINUE
- 3402    CONTINUE
+         } // 3401
+         } // 3402
 
       } else {
          // The goal is high relative accuracy. However, if the matrix
@@ -488,8 +488,8 @@
          for (p = 2; p <= N; p++) { // 3301
             IF ( ( DABS(A(p,p)) .LT. SMALL ) .OR. ( L2KILL .AND. (DABS(A(p,p)) .LT. TEMP1) ) ) GO TO 3302
             NR = NR + 1
- 3301    CONTINUE
- 3302    CONTINUE
+         } // 3301
+         } // 3302
 
       }
 
@@ -499,7 +499,7 @@
          for (p = 2; p <= N; p++) { // 3051
             TEMP1  = DABS(A(p,p)) / SVA(IWORK(p))
             MAXPRJ = MIN( MAXPRJ, TEMP1 )
- 3051    CONTINUE
+         } // 3051
          IF ( MAXPRJ**2 .GE. ONE - DBLE(N)*EPSLN ) ALMORT = .TRUE.
       }
 
@@ -516,7 +516,7 @@
                for (p = 1; p <= N; p++) { // 3053
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, V(1,p), 1 );
- 3053          CONTINUE
+               } // 3053
                dpocon('U', N, V, LDV, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR );
             } else if ( LSVEC ) {
                // .. U is available as workspace
@@ -524,14 +524,14 @@
                for (p = 1; p <= N; p++) { // 3054
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, U(1,p), 1 );
- 3054          CONTINUE
+               } // 3054
                dpocon('U', N, U, LDU, ONE, TEMP1, WORK(N+1), IWORK(2*N+M+1), IERR );
             } else {
                dlacpy('U', N, N, A, LDA, WORK(N+1), N );
                for (p = 1; p <= N; p++) { // 3052
                   TEMP1 = SVA(IWORK(p))
                   dscal(p, ONE/TEMP1, WORK(N+(p-1)*N+1), 1 );
- 3052          CONTINUE
+               } // 3052
             // .. the columns of R are scaled to have unit Euclidean lengths.
                dpocon('U', N, WORK(N+1), N, ONE, TEMP1, WORK(N+N*N+1), IWORK(2*N+M+1), IERR );
             }
@@ -555,7 +555,7 @@
           // .. transpose A(1:NR,1:N)
          DO 1946 p = 1, MIN( N-1, NR )
             dcopy(N-p, A(p,p+1), LDA, A(p+1,p), 1 );
- 1946    CONTINUE
+         } // 1946
 
          // The following two DO-loops introduce small relative perturbation
          // into the strict upper triangle of the lower triangular matrix.
@@ -578,8 +578,8 @@
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= N; p++) { // 4949
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
- 4949             CONTINUE
- 4947          CONTINUE
+                  } // 4949
+               } // 4947
             } else {
                dlaset('U', NR-1,NR-1, ZERO,ZERO, A(1,2),LDA );
             }
@@ -591,7 +591,7 @@
             // .. and transpose upper to lower triangular
             DO 1948 p = 1, NR - 1
                dcopy(NR-p, A(p,p+1), LDA, A(p+1,p), 1 );
- 1948       CONTINUE
+            } // 1948
 
          }
 
@@ -606,8 +606,8 @@
                   TEMP1 = XSC*DABS(A(q,q))
                   for (p = 1; p <= NR; p++) { // 1949
                      IF ( ( (p.GT.q) .AND. (DABS(A(p,q)).LE.TEMP1) ) .OR. ( p .LT. q ) ) A(p,q) = DSIGN( TEMP1, A(p,q) )
- 1949             CONTINUE
- 1947          CONTINUE
+                  } // 1949
+               } // 1947
             } else {
                dlaset('U', NR-1, NR-1, ZERO, ZERO, A(1,2), LDA );
             }
@@ -631,7 +631,7 @@
             // .. in this case NR equals N
             for (p = 1; p <= NR; p++) { // 1998
                dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
- 1998       CONTINUE
+            } // 1998
             dlaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
 
             dgesvj('L','U','N', N, NR, V,LDV, SVA, NR, A,LDA, WORK, LWORK, INFO );
@@ -650,7 +650,7 @@
             dgeqrf(NR, NR, V, LDV, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
             for (p = 1; p <= NR; p++) { // 8998
                dcopy(NR-p+1, V(p,p), LDV, V(p,p), 1 );
- 8998       CONTINUE
+            } // 8998
             dlaset('Upper', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
 
             dgesvj('Lower', 'U','N', NR, NR, V,LDV, SVA, NR, U, LDU, WORK(N+1), LWORK, INFO );
@@ -668,7 +668,7 @@
 
          for (p = 1; p <= N; p++) { // 8991
             dcopy(N, V(p,1), LDV, A(IWORK(p),1), LDA );
- 8991    CONTINUE
+         } // 8991
          dlacpy('All', N, N, A, LDA, V, LDV );
 
          if ( TRANSP ) {
@@ -683,14 +683,14 @@
          // Jacobi rotations in the Jacobi iterations.
          for (p = 1; p <= NR; p++) { // 1965
             dcopy(N-p+1, A(p,p), LDA, U(p,p), 1 );
- 1965    CONTINUE
+         } // 1965
          dlaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
 
          dgeqrf(N, NR, U, LDU, WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 
          DO 1967 p = 1, NR - 1
             dcopy(NR-p, U(p,p+1), LDU, U(p+1,p), 1 );
- 1967    CONTINUE
+         } // 1967
          dlaset('Upper', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
 
          dgesvj('Lower', 'U', 'N', NR,NR, U, LDU, SVA, NR, A, LDA, WORK(N+1), LWORK-N, INFO );
@@ -712,7 +712,7 @@
          for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / DNRM2( M, U(1,p), 1 )
             dscal(M, XSC, U(1,p), 1 );
- 1974    CONTINUE
+         } // 1974
 
          if ( TRANSP ) {
             dlacpy('All', N, N, U, LDU, V, LDV );
@@ -735,7 +735,7 @@
 
             for (p = 1; p <= NR; p++) { // 1968
                dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
- 1968       CONTINUE
+            } // 1968
 
             // .. the following two loops perturb small entries to avoid
             // denormals in the second QR factorization, where they are
@@ -756,8 +756,8 @@
                   for (p = 1; p <= N; p++) { // 2968
                      IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                      IF ( p .LT. q ) V(p,q) = - V(p,q)
- 2968             CONTINUE
- 2969          CONTINUE
+                  } // 2968
+               } // 2969
             } else {
                dlaset('U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
             }
@@ -770,7 +770,7 @@
             for (p = 1; p <= NR; p++) { // 3950
                TEMP1 = DNRM2(NR-p+1,WORK(2*N+(p-1)*NR+p),1)
                dscal(NR-p+1,ONE/TEMP1,WORK(2*N+(p-1)*NR+p),1);
- 3950       CONTINUE
+            } // 3950
             dpocon('Lower',NR,WORK(2*N+1),NR,ONE,TEMP1, WORK(2*N+NR*NR+1),IWORK(M+2*N+1),IERR);
             CONDR1 = ONE / DSQRT(TEMP1)
             // .. here need a second opinion on the condition number
@@ -794,8 +794,8 @@
                      DO 3958 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
- 3958                CONTINUE
- 3959             CONTINUE
+                     } // 3958
+                  } // 3959
                }
 
                IF ( NR .NE. N ) CALL DLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N )
@@ -804,7 +804,7 @@
             // .. this transposed copy should be better than naive
                DO 1969 p = 1, NR - 1
                   dcopy(NR-p, V(p,p+1), LDV, V(p+1,p), 1 );
- 1969          CONTINUE
+               } // 1969
 
                CONDR2 = CONDR1
 
@@ -820,7 +820,7 @@
                // R1^t * P2 = Q2 * R2
                for (p = 1; p <= NR; p++) { // 3003
                   IWORK(N+p) = 0
- 3003          CONTINUE
+               } // 3003
                dgeqp3(N, NR, V, LDV, IWORK(N+1), WORK(N+1), WORK(2*N+1), LWORK-2*N, IERR );
 **               CALL DGEQRF( N, NR, V, LDV, WORK(N+1), WORK(2*N+1),
 **     $              LWORK-2*N, IERR )
@@ -830,8 +830,8 @@
                      DO 3968 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         IF ( DABS(V(q,p)) .LE. TEMP1 ) V(q,p) = DSIGN( TEMP1, V(q,p) )
- 3968                CONTINUE
- 3969             CONTINUE
+                     } // 3968
+                  } // 3969
                }
 
                dlacpy('A', N, NR, V, LDV, WORK(2*N+1), N );
@@ -842,8 +842,8 @@
                      DO 8971 q = 1, p - 1
                         TEMP1 = XSC * MIN(DABS(V(p,p)),DABS(V(q,q)))
                         V(p,q) = - DSIGN( TEMP1, V(q,p) )
- 8971                CONTINUE
- 8970             CONTINUE
+                     } // 8971
+                  } // 8970
                } else {
                   dlaset('L',NR-1,NR-1,ZERO,ZERO,V(2,1),LDV );
                }
@@ -854,7 +854,7 @@
                for (p = 1; p <= NR; p++) { // 4950
                   TEMP1 = DNRM2( p, WORK(2*N+N*NR+NR+p), NR )
                   dscal(p, ONE/TEMP1, WORK(2*N+N*NR+NR+p), NR );
- 4950          CONTINUE
+               } // 4950
                dpocon('L',NR,WORK(2*N+N*NR+NR+1),NR,ONE,TEMP1, WORK(2*N+N*NR+NR+NR*NR+1),IWORK(M+2*N+1),IERR );
                CONDR2 = ONE / DSQRT(TEMP1)
 
@@ -877,8 +877,8 @@
                   DO 4969 p = 1, q - 1
                      // V(p,q) = - DSIGN( TEMP1, V(q,p) )
                      V(p,q) = - DSIGN( TEMP1, V(p,q) )
- 4969             CONTINUE
- 4968          CONTINUE
+                  } // 4969
+               } // 4968
             } else {
                dlaset('U', NR-1,NR-1, ZERO,ZERO, V(1,2), LDV );
             }
@@ -897,7 +897,7 @@
                for (p = 1; p <= NR; p++) { // 3970
                   dcopy(NR, V(1,p), 1, U(1,p), 1 );
                   dscal(NR, SVA(p),    V(1,p), 1 );
- 3970          CONTINUE
+               } // 3970
 
          // .. pick the right matrix equation and solve it
 
@@ -935,17 +935,17 @@
                for (p = 1; p <= NR; p++) { // 3870
                   dcopy(NR, V(1,p), 1, U(1,p), 1 );
                   dscal(NR, SVA(p),    U(1,p), 1 );
- 3870          CONTINUE
+               } // 3870
                dtrsm('L','U','N','N',NR,NR,ONE,WORK(2*N+1),N,U,LDU);
                // .. apply the permutation from the second QR factorization
                for (q = 1; q <= NR; q++) { // 873
                   for (p = 1; p <= NR; p++) { // 872
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
- 872              CONTINUE
+                  } // 872
                   for (p = 1; p <= NR; p++) { // 874
                      U(p,q) = WORK(2*N+N*NR+NR+p)
- 874              CONTINUE
- 873           CONTINUE
+                  } // 874
+               } // 873
                if ( NR .LT. N ) {
                   dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV );
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV );
@@ -978,11 +978,11 @@
                for (q = 1; q <= NR; q++) { // 773
                   for (p = 1; p <= NR; p++) { // 772
                      WORK(2*N+N*NR+NR+IWORK(N+p)) = U(p,q)
- 772              CONTINUE
+                  } // 772
                   for (p = 1; p <= NR; p++) { // 774
                      U(p,q) = WORK(2*N+N*NR+NR+p)
- 774              CONTINUE
- 773           CONTINUE
+                  } // 774
+               } // 773
 
             }
 
@@ -994,13 +994,13 @@
             for (q = 1; q <= N; q++) { // 1972
                for (p = 1; p <= N; p++) { // 972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
-  972          CONTINUE
+               } // 972
                for (p = 1; p <= N; p++) { // 973
                   V(p,q) = WORK(2*N+N*NR+NR+p)
-  973          CONTINUE
+               } // 973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
- 1972       CONTINUE
+            } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
             if ( NR .LT. M ) {
@@ -1021,7 +1021,7 @@
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
- 1973       CONTINUE
+            } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
@@ -1040,8 +1040,8 @@
                   TEMP1 = XSC * WORK( N + (p-1)*N + p )
                   DO 5971 q = 1, p - 1
                      WORK(N+(q-1)*N+p)=-DSIGN(TEMP1,WORK(N+(p-1)*N+q))
- 5971             CONTINUE
- 5970          CONTINUE
+                  } // 5971
+               } // 5970
             } else {
                dlaset('Lower',N-1,N-1,ZERO,ZERO,WORK(N+2),N );
             }
@@ -1053,17 +1053,17 @@
             for (p = 1; p <= N; p++) { // 6970
                dcopy(N, WORK(N+(p-1)*N+1), 1, U(1,p), 1 );
                dscal(N, SVA(p), WORK(N+(p-1)*N+1), 1 );
- 6970       CONTINUE
+            } // 6970
 
             dtrsm('Left', 'Upper', 'NoTrans', 'No UD', N, N, ONE, A, LDA, WORK(N+1), N );
             for (p = 1; p <= N; p++) { // 6972
                dcopy(N, WORK(N+p), N, V(IWORK(p),1), LDV );
- 6972       CONTINUE
+            } // 6972
             TEMP1 = DSQRT(DBLE(N))*EPSLN
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 )
- 6971       CONTINUE
+            } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
 
@@ -1079,7 +1079,7 @@
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 )
- 6973       CONTINUE
+            } // 6973
 
             IF ( ROWPIV ) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 )
 
@@ -1101,7 +1101,7 @@
 
          for (p = 1; p <= NR; p++) { // 7968
             dcopy(N-p+1, A(p,p), LDA, V(p,p), 1 );
- 7968    CONTINUE
+         } // 7968
 
          if ( L2PERT ) {
             XSC = DSQRT(SMALL/EPSLN)
@@ -1110,8 +1110,8 @@
                for (p = 1; p <= N; p++) { // 5968
                   IF ( ( p .GT. q ) .AND. ( DABS(V(p,q)) .LE. TEMP1 ) .OR. ( p .LT. q ) ) V(p,q) = DSIGN( TEMP1, V(p,q) )
                   IF ( p .LT. q ) V(p,q) = - V(p,q)
- 5968          CONTINUE
- 5969       CONTINUE
+               } // 5968
+            } // 5969
          } else {
             dlaset('U', NR-1, NR-1, ZERO, ZERO, V(1,2), LDV );
          }
@@ -1120,7 +1120,7 @@
 
          for (p = 1; p <= NR; p++) { // 7969
             dcopy(NR-p+1, V(p,p), LDV, U(p,p), 1 );
- 7969    CONTINUE
+         } // 7969
 
          if ( L2PERT ) {
             XSC = DSQRT(SMALL/EPSLN)
@@ -1128,8 +1128,8 @@
                DO 9971 p = 1, q - 1
                   TEMP1 = XSC * MIN(DABS(U(p,p)),DABS(U(q,q)))
                   U(p,q) = - DSIGN( TEMP1, U(q,p) )
- 9971          CONTINUE
- 9970       CONTINUE
+               } // 9971
+            } // 9970
          } else {
             dlaset('U', NR-1, NR-1, ZERO, ZERO, U(1,2), LDU );
          }
@@ -1152,13 +1152,13 @@
             for (q = 1; q <= N; q++) { // 7972
                for (p = 1; p <= N; p++) { // 8972
                   WORK(2*N+N*NR+NR+IWORK(p)) = V(p,q)
- 8972          CONTINUE
+               } // 8972
                for (p = 1; p <= N; p++) { // 8973
                   V(p,q) = WORK(2*N+N*NR+NR+p)
- 8973          CONTINUE
+               } // 8973
                XSC = ONE / DNRM2( N, V(1,q), 1 )
                IF ( (XSC .LT. (ONE-TEMP1)) .OR. (XSC .GT. (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 )
- 7972       CONTINUE
+            } // 7972
 
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1181,7 +1181,7 @@
             // .. swap U and V because the procedure worked on A^t
             for (p = 1; p <= N; p++) { // 6974
                dswap(N, U(1,p), 1, V(1,p), 1 );
- 6974       CONTINUE
+            } // 6974
          }
 
       }
@@ -1198,7 +1198,7 @@
       if ( NR .LT. N ) {
          DO 3004 p = NR+1, N
             SVA(p) = ZERO
- 3004    CONTINUE
+         } // 3004
       }
 
       WORK(1) = USCAL2 * SCALEM

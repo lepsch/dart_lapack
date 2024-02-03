@@ -128,7 +128,7 @@
             WORK( I+2 ) = WORK( I+2 ) - A( J1+I-1, J1+1 )
             WORK( I+4 ) = WORK( I+4 ) - B( J1+I-1, J1 )
             WORK( I+6 ) = WORK( I+6 ) - B( J1+I-1, J1+1 )
-   10    CONTINUE
+         } // 10
          SCALE = DBLE( CZERO )
          SUM = DBLE( CONE )
          zlassq(M*M, WORK, 1, SCALE, SUM );
@@ -163,7 +163,7 @@
 
       // Exit with INFO = 1 if swap was rejected.
 
-   20 CONTINUE
+      } // 20
       INFO = 1
       RETURN
 

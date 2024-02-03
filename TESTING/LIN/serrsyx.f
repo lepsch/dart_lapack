@@ -56,7 +56,7 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = 1. / REAL( I+J )
             AF( I, J ) = 1. / REAL( I+J )
-   10    CONTINUE
+         } // 10
          B( J ) = 0.E+0
          E( J ) = 0.E+0
          R1( J ) = 0.E+0
@@ -65,7 +65,7 @@
          X( J ) = 0.E+0
          IP( J ) = J
          IW( J ) = J
-   20 CONTINUE
+      } // 20
       ANRM = 1.0
       RCOND = 1.0
       OK = .TRUE.

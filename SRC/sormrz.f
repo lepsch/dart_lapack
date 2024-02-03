@@ -169,7 +169,7 @@
             // Apply H or H**T
 
             slarzb(SIDE, TRANST, 'Backward', 'Rowwise', MI, NI, IB, L, A( I, JA ), LDA, WORK( IWT ), LDT, C( IC, JC ), LDC, WORK, LDWORK );
-   10    CONTINUE
+         } // 10
 
       }
 

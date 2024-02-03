@@ -59,7 +59,7 @@
          A( M-K+I, N-K+I ) = ONE
          slarf('Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, TAU( I ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = AII
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of SGEQL2

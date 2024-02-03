@@ -59,7 +59,7 @@
          DECR = .TRUE.
          DO 10 I = 1, K - 1
             IF( INCR ) INCR = INCR .AND. D( I ).LE.D( I+1 )             IF( DECR ) DECR = DECR .AND. D( I ).GE.D( I+1 )
-   10    CONTINUE
+         } // 10
          if ( SING .AND. K.GT.0 ) {
             IF( INCR ) INCR = INCR .AND. ZERO.LE.D( 1 )             IF( DECR ) DECR = DECR .AND. D( K ).GE.ZERO
          }
@@ -85,7 +85,7 @@
             NEWGAP = ABS( D( I+1 )-D( I ) )
             SEP( I ) = MIN( OLDGAP, NEWGAP )
             OLDGAP = NEWGAP
-   20    CONTINUE
+         } // 20
          SEP( K ) = OLDGAP
       }
       if ( SING ) {
@@ -107,7 +107,7 @@
       }
       for (I = 1; I <= K; I++) { // 30
          SEP( I ) = MAX( SEP( I ), THRESH )
-   30 CONTINUE
+      } // 30
 
       RETURN
 

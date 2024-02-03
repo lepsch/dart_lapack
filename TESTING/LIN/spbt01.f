@@ -69,7 +69,7 @@
 
             IF( KLEN.GT.0 ) CALL STRMV( 'Upper', 'Transpose', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 )
 
-   10    CONTINUE
+         } // 10
 
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
@@ -87,7 +87,7 @@
             T = AFAC( 1, K )
             sscal(KLEN+1, T, AFAC( 1, K ), 1 );
 
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the difference  L*L' - A  or  U'*U - A.
@@ -97,15 +97,15 @@
             MU = MAX( 1, KD+2-J )
             DO 30 I = MU, KD + 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       } else {
          for (J = 1; J <= N; J++) { // 60
             ML = MIN( KD+1, N-J+1 )
             for (I = 1; I <= ML; I++) { // 50
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       // Compute norm( L*L' - A ) / ( N * norm(A) * EPS )

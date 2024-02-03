@@ -63,7 +63,7 @@
          zlarf('Left', IHI-I, N-I, A( I+1, I ), 1, DCONJG( TAU( I ) ), A( I+1, I+1 ), LDA, WORK );
 
          A( I+1, I ) = ALPHA
-   10 CONTINUE
+      } // 10
 
       RETURN
 

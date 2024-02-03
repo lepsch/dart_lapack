@@ -69,7 +69,7 @@
                dgemv('No transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( I+1, I ), 1 )                CALL DGEMV( 'Transpose', N-I, I, ONE, Y( I+1, 1 ), LDY, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )                CALL DGEMV( 'No transpose', M-I, I, -ONE, A( I+1, 1 ), LDA, X( 1, I ), 1, ONE, X( I+1, I ), 1 )                CALL DGEMV( 'No transpose', I-1, N-I, ONE, A( 1, I+1 ), LDA, A( I, I+1 ), LDA, ZERO, X( 1, I ), 1 )                CALL DGEMV( 'No transpose', M-I, I-1, -ONE, X( I+1, 1 ), LDX, X( 1, I ), 1, ONE, X( I+1, I ), 1 );
                dscal(M-I, TAUP( I ), X( I+1, I ), 1 );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Reduce to lower bidiagonal form
@@ -107,7 +107,7 @@
                dgemv('Transpose', M-I, N-I, ONE, A( I+1, I+1 ), LDA, A( I+1, I ), 1, ZERO, Y( I+1, I ), 1 )                CALL DGEMV( 'Transpose', M-I, I-1, ONE, A( I+1, 1 ), LDA, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL DGEMV( 'No transpose', N-I, I-1, -ONE, Y( I+1, 1 ), LDY, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 )                CALL DGEMV( 'Transpose', M-I, I, ONE, X( I+1, 1 ), LDX, A( I+1, I ), 1, ZERO, Y( 1, I ), 1 )                CALL DGEMV( 'Transpose', I, N-I, -ONE, A( 1, I+1 ), LDA, Y( 1, I ), 1, ONE, Y( I+1, I ), 1 );
                dscal(N-I, TAUQ( I ), Y( I+1, I ), 1 );
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

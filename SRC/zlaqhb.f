@@ -63,9 +63,9 @@
                CJ = S( J )
                DO 10 I = MAX( 1, J-KD ), J - 1
                   AB( KD+1+I-J, J ) = CJ*S( I )*AB( KD+1+I-J, J )
-   10          CONTINUE
+               } // 10
                AB( KD+1, J ) = CJ*CJ*DBLE( AB( KD+1, J ) )
-   20       CONTINUE
+            } // 20
          } else {
 
             // Lower triangle of A is stored.
@@ -75,8 +75,8 @@
                AB( 1, J ) = CJ*CJ*DBLE( AB( 1, J ) )
                DO 30 I = J + 1, MIN( N, J+KD )
                   AB( 1+I-J, J ) = CJ*S( I )*AB( 1+I-J, J )
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
          EQUED = 'Y'
       }

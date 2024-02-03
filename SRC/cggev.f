@@ -266,13 +266,13 @@
                TEMP = ZERO
                for (JR = 1; JR <= N; JR++) { // 10
                   TEMP = MAX( TEMP, ABS1( VL( JR, JC ) ) )
-   10          CONTINUE
+               } // 10
                IF( TEMP.LT.SMLNUM ) GO TO 30
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 20
                   VL( JR, JC ) = VL( JR, JC )*TEMP
-   20          CONTINUE
-   30       CONTINUE
+               } // 20
+            } // 30
          }
          if ( ILVR ) {
             cggbak('P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VR, LDVR, IERR );
@@ -280,19 +280,19 @@
                TEMP = ZERO
                for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS1( VR( JR, JC ) ) )
-   40          CONTINUE
+               } // 40
                IF( TEMP.LT.SMLNUM ) GO TO 60
                TEMP = ONE / TEMP
                for (JR = 1; JR <= N; JR++) { // 50
                   VR( JR, JC ) = VR( JR, JC )*TEMP
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
          }
       }
 
       // Undo scaling if necessary
 
-   70 CONTINUE
+      } // 70
 
       IF( ILASCL ) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR )
 

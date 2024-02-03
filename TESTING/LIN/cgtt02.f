@@ -70,7 +70,7 @@
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          }
-   10 CONTINUE
+      } // 10
 
       RETURN
 

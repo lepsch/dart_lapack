@@ -54,10 +54,10 @@
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = 1. / REAL( I+J )
-   10    CONTINUE
+         } // 10
          WI( J ) = REAL( J )
          SEL( J ) = .TRUE.
-   20 CONTINUE
+      } // 20
       OK = .TRUE.
       NT = 0
 

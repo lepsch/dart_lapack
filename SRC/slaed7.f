@@ -81,7 +81,7 @@
       PTR = 1 + 2**TLVLS
       DO 10 I = 1, CURLVL - 1
          PTR = PTR + 2**( TLVLS-I )
-   10 CONTINUE
+      } // 10
       CURR = PTR + CURPBM
       slaeda(N, TLVLS, CURLVL, CURPBM, PRMPTR, PERM, GIVPTR, GIVCOL, GIVNUM, QSTORE, QPTR, WORK( IZ ), WORK( IZ+N ), INFO );
 
@@ -119,10 +119,10 @@
          QPTR( CURR+1 ) = QPTR( CURR )
          for (I = 1; I <= N; I++) { // 20
             INDXQ( I ) = I
-   20    CONTINUE
+         } // 20
       }
 
-   30 CONTINUE
+      } // 30
       RETURN
 
       // End of SLAED7

@@ -92,7 +92,7 @@
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          for (J = 1; J <= NRHS; J++) { // 10
             slarnv(2, ISEED, N, X( 1, J ) );
-   10    CONTINUE
+         } // 10
       }
 
       // Multiply X by op(A) using an appropriate
@@ -116,7 +116,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 20
             sgbmv(TRANS, MB, NX, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
 
       } else if ( LSAMEN( 2, C2, 'PB' ) ) {
 
@@ -124,7 +124,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 30
             ssbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   30    CONTINUE
+         } // 30
 
       } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'SP' ) ) {
 
@@ -132,7 +132,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 40
             sspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
 
@@ -160,7 +160,7 @@
          }
          for (J = 1; J <= NRHS; J++) { // 50
             stpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
-   50    CONTINUE
+         } // 50
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
@@ -174,7 +174,7 @@
          }
          for (J = 1; J <= NRHS; J++) { // 60
             stbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
-   60    CONTINUE
+         } // 60
 
       } else {
 

@@ -106,8 +106,8 @@
       DO 20 JCOL = 1, N - 1
          DO 10 JROW = JCOL + 1, N
             B( JROW, JCOL ) = CZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // Reduce A and B
 
@@ -129,8 +129,8 @@
             B( JROW, JROW-1 ) = CZERO
             zrot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             zrot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL ZROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       RETURN
 

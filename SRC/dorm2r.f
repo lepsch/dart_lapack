@@ -111,7 +111,7 @@
          A( I, I ) = ONE
          dlarf(SIDE, MI, NI, A( I, I ), 1, TAU( I ), C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of DORM2R

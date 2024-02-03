@@ -49,17 +49,17 @@
                   DO 10 I = K, K + J - 2
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   10             CONTINUE
+                  } // 10
                   K = K + J
-   20          CONTINUE
+               } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   DO 30 I = K + 1, K + N - J
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   30             CONTINUE
+                  } // 30
                   K = K + N - J + 1
-   40          CONTINUE
+               } // 40
             }
          } else {
             VALUE = ZERO
@@ -68,17 +68,17 @@
                   DO 50 I = K, K + J - 1
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   50             CONTINUE
+                  } // 50
                   K = K + J
-   60          CONTINUE
+               } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   DO 70 I = K, K + N - J
                      SUM = ABS( AP( I ) )
                      IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   70             CONTINUE
+                  } // 70
                   K = K + N - J + 1
-   80          CONTINUE
+               } // 80
             }
          }
       } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
@@ -94,32 +94,32 @@
                   SUM = ONE
                   DO 90 I = K, K + J - 2
                      SUM = SUM + ABS( AP( I ) )
-   90             CONTINUE
+                  } // 90
                } else {
                   SUM = ZERO
                   DO 100 I = K, K + J - 1
                      SUM = SUM + ABS( AP( I ) )
-  100             CONTINUE
+                  } // 100
                }
                K = K + J
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-  110       CONTINUE
+            } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
                   DO 120 I = K + 1, K + N - J
                      SUM = SUM + ABS( AP( I ) )
-  120             CONTINUE
+                  } // 120
                } else {
                   SUM = ZERO
                   DO 130 I = K, K + N - J
                      SUM = SUM + ABS( AP( I ) )
-  130             CONTINUE
+                  } // 130
                }
                K = K + N - J + 1
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-  140       CONTINUE
+            } // 140
          }
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -130,54 +130,54 @@
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 150
                   WORK( I ) = ONE
-  150          CONTINUE
+               } // 150
                for (J = 1; J <= N; J++) { // 170
                   DO 160 I = 1, J - 1
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
-  160             CONTINUE
+                  } // 160
                   K = K + 1
-  170          CONTINUE
+               } // 170
             } else {
                for (I = 1; I <= N; I++) { // 180
                   WORK( I ) = ZERO
-  180          CONTINUE
+               } // 180
                for (J = 1; J <= N; J++) { // 200
                   for (I = 1; I <= J; I++) { // 190
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
-  190             CONTINUE
-  200          CONTINUE
+                  } // 190
+               } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 210
                   WORK( I ) = ONE
-  210          CONTINUE
+               } // 210
                for (J = 1; J <= N; J++) { // 230
                   K = K + 1
                   DO 220 I = J + 1, N
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
-  220             CONTINUE
-  230          CONTINUE
+                  } // 220
+               } // 230
             } else {
                for (I = 1; I <= N; I++) { // 240
                   WORK( I ) = ZERO
-  240          CONTINUE
+               } // 240
                for (J = 1; J <= N; J++) { // 260
                   for (I = J; I <= N; I++) { // 250
                      WORK( I ) = WORK( I ) + ABS( AP( K ) )
                      K = K + 1
-  250             CONTINUE
-  260          CONTINUE
+                  } // 250
+               } // 260
             }
          }
          VALUE = ZERO
          for (I = 1; I <= N; I++) { // 270
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-  270    CONTINUE
+         } // 270
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
@@ -190,7 +190,7 @@
                for (J = 2; J <= N; J++) { // 280
                   dlassq(J-1, AP( K ), 1, SCALE, SUM );
                   K = K + J
-  280          CONTINUE
+               } // 280
             } else {
                SCALE = ZERO
                SUM = ONE
@@ -198,7 +198,7 @@
                for (J = 1; J <= N; J++) { // 290
                   dlassq(J, AP( K ), 1, SCALE, SUM );
                   K = K + J
-  290          CONTINUE
+               } // 290
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
@@ -208,7 +208,7 @@
                DO 300 J = 1, N - 1
                   dlassq(N-J, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
-  300          CONTINUE
+               } // 300
             } else {
                SCALE = ZERO
                SUM = ONE
@@ -216,7 +216,7 @@
                for (J = 1; J <= N; J++) { // 310
                   dlassq(N-J+1, AP( K ), 1, SCALE, SUM );
                   K = K + N - J + 1
-  310          CONTINUE
+               } // 310
             }
          }
          VALUE = SCALE*SQRT( SUM )

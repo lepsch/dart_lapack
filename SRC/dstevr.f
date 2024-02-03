@@ -216,7 +216,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-   10 CONTINUE
+      } // 10
       if ( ISCALE.EQ.1 ) {
          if ( INFO.EQ.0 ) {
             IMAX = M
@@ -238,7 +238,7 @@
                   I = JJ
                   TMP1 = W( JJ )
                }
-   20       CONTINUE
+            } // 20
 
             if ( I.NE.0 ) {
                ITMP1 = IWORK( I )
@@ -248,7 +248,7 @@
                IWORK( J ) = ITMP1
                dswap(N, Z( 1, I ), 1, Z( 1, J ), 1 );
             }
-   30    CONTINUE
+         } // 30
       }
 
        // Causes problems with tests 19 & 20:

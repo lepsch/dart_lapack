@@ -86,8 +86,8 @@
                                           A( I, J ) = A( I, J )* VM1( IMLOFF )
                                        }
                                        TNRM = MAX( TNRM, ABS( A( I, J ) ) )
-   10                               CONTINUE
-   20                            CONTINUE
+                                    } // 10
+                                 } // 20
                                  for (I = 1; I <= N; I++) { // 40
                                     for (J = 1; J <= N; J++) { // 30
                                        B( I, J ) = IVAL( I, J, IMB )
@@ -97,16 +97,16 @@
                                           B( I, J ) = B( I, J )* VM1( IMLOFF )
                                        }
                                        TNRM = MAX( TNRM, ABS( B( I, J ) ) )
-   30                               CONTINUE
-   40                            CONTINUE
+                                    } // 30
+                                 } // 40
                                  CNRM = ZERO
                                  for (I = 1; I <= M; I++) { // 60
                                     for (J = 1; J <= N; J++) { // 50
                                        C( I, J ) = SIN( DBLE( I*J ) )
                                        CNRM = MAX( CNRM, C( I, J ) )
                                        CC( I, J ) = C( I, J )
-   50                               CONTINUE
-   60                            CONTINUE
+                                    } // 50
+                                 } // 60
                                  KNT = KNT + 1
                                  dtrsyl(TRANA, TRANB, ISGN, M, N, A, 6, B, 6, C, 6, SCALE, INFO );
                                  IF( INFO.NE.0 ) NINFO = NINFO + 1
@@ -124,15 +124,15 @@
                                     LMAX = KNT
                                     RMAX = RES
                                  }
-   70                         CONTINUE
-   80                      CONTINUE
-   90                   CONTINUE
-  100                CONTINUE
-  110             CONTINUE
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+                              } // 70
+                           } // 80
+                        } // 90
+                     } // 100
+                  } // 110
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
       RETURN
 

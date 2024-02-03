@@ -127,7 +127,7 @@
 
       DO 10 I = 1, M + P - N
          Y( I ) = ZERO
-   10 CONTINUE
+      } // 10
 
       // Update d1 = d1 - T12*y2
 

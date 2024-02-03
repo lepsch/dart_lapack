@@ -45,13 +45,13 @@
 
       // Read input data until N=0
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, IFST, ILST
       IF( N.EQ.0 ) RETURN
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       clacpy('F', N, N, TMP, LDT, T1, LDT );
       clacpy('F', N, N, TMP, LDT, T2, LDT );
       RES = ZERO
@@ -63,8 +63,8 @@
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
             IF( I.EQ.J .AND. Q( I, J ).NE.CONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.CZERO ) RES = RES + ONE / EPS
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Test with accumulating Q
 
@@ -76,8 +76,8 @@
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS
-   50    CONTINUE
-   60 CONTINUE
+         } // 50
+      } // 60
       IF( INFO1.NE.0 .OR. INFO2.NE.0 ) NINFO = NINFO + 1       IF( INFO1.NE.INFO2 ) RES = RES + ONE / EPS
 
       // Test for successful reordering of T2
@@ -88,17 +88,17 @@
             CTEMP = DIAG( I )
             DIAG( I ) = DIAG( I-1 )
             DIAG( I-1 ) = CTEMP
-   70    CONTINUE
+         } // 70
       } else if ( IFST.GT.ILST ) {
          DO 80 I = IFST - 1, ILST, -1
             CTEMP = DIAG( I+1 )
             DIAG( I+1 ) = DIAG( I )
             DIAG( I ) = CTEMP
-   80    CONTINUE
+         } // 80
       }
       for (I = 1; I <= N; I++) { // 90
          IF( T2( I, I ).NE.DIAG( I ) ) RES = RES + ONE / EPS
-   90 CONTINUE
+      } // 90
 
       // Test for small residual, and orthogonality of Q
 
@@ -110,8 +110,8 @@
       DO 110 J = 1, N - 1
          DO 100 I = J + 1, N
             IF( T2( I, J ).NE.CZERO ) RES = RES + ONE / EPS
-  100    CONTINUE
-  110 CONTINUE
+         } // 100
+      } // 110
       if ( RES.GT.RMAX ) {
          RMAX = RES
          LMAX = KNT

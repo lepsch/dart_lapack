@@ -80,7 +80,7 @@
 
       for (I = 1; I <= 17; I++) { // 10
          RESULT( I ) = -ONE
-   10 CONTINUE
+      } // 10
 
       IF( N.EQ.0 ) RETURN
 
@@ -128,16 +128,16 @@
          DO 30 J = 1, N - 2
             DO 20 I = J + 2, N
                IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
          DO 40 I = 1, N - 2
             IF( H( I+1, I ).NE.ZERO .AND. H( I+2, I+1 ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
-   40    CONTINUE
+         } // 40
          DO 50 I = 1, N - 1
             if ( H( I+1, I ).NE.ZERO ) {
                IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ. ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
             }
-   50    CONTINUE
+         } // 50
 
          // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 
@@ -175,7 +175,7 @@
          RESULT( 4+RSUB ) = ZERO
          for (I = 1; I <= N; I++) { // 60
             IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
-   60    CONTINUE
+         } // 60
          if ( N.GT.1 ) {
             IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV             IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
          }
@@ -185,7 +185,7 @@
             } else if ( I.GT.1 ) {
                IF( H( I+1, I ).EQ.ZERO .AND. H( I, I-1 ).EQ.ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
             }
-   70    CONTINUE
+         } // 70
 
          // Do Test (5) or Test (11)
 
@@ -206,15 +206,15 @@
          for (J = 1; J <= N; J++) { // 90
             for (I = 1; I <= N; I++) { // 80
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
 
          // Do Test (6) or Test (12)
 
          RESULT( 6+RSUB ) = ZERO
          for (I = 1; I <= N; I++) { // 100
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
-  100    CONTINUE
+         } // 100
 
          // Do Test (13)
 
@@ -226,11 +226,11 @@
                if ( I.LT.N ) {
                   IF( ( DSLECT( WR( I+1 ), WI( I+1 ) ) .OR. DSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( DSLECT( WR( I ), WI( I ) ) .OR. DSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO.NE.N+2 )RESULT( 13 ) = ULPINV
                }
-  110       CONTINUE
+            } // 110
             IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
          }
 
-  120 CONTINUE
+      } // 120
 
       // If there is enough workspace, perform tests (14) and (15)
       // as well as (10) through (13)
@@ -262,8 +262,8 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 130
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  130       CONTINUE
-  140    CONTINUE
+            } // 130
+         } // 140
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute both RCONDE and RCONDV without VS, and compare
@@ -292,8 +292,8 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 150
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  150       CONTINUE
-  160    CONTINUE
+            } // 150
+         } // 160
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDE with VS, and compare
@@ -321,8 +321,8 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 170
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  170       CONTINUE
-  180    CONTINUE
+            } // 170
+         } // 180
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDE without VS, and compare
@@ -350,8 +350,8 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 190
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  190       CONTINUE
-  200    CONTINUE
+            } // 190
+         } // 200
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDV with VS, and compare
@@ -379,8 +379,8 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 210
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  210       CONTINUE
-  220    CONTINUE
+            } // 210
+         } // 220
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDV without VS, and compare
@@ -408,13 +408,13 @@
             IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 230
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  230       CONTINUE
-  240    CONTINUE
+            } // 230
+         } // 240
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
       }
 
-  250 CONTINUE
+      } // 250
 
       // If there are precomputed reciprocal condition numbers, compare
       // computed values with them.
@@ -433,7 +433,7 @@
             SELVAL( I ) = .FALSE.
             SELWR( I ) = WRTMP( I )
             SELWI( I ) = WITMP( I )
-  260    CONTINUE
+         } // 260
          DO 280 I = 1, N - 1
             KMIN = I
             VRMIN = WRTMP( I )
@@ -444,7 +444,7 @@
                   VRMIN = WRTMP( J )
                   VIMIN = WITMP( J )
                }
-  270       CONTINUE
+            } // 270
             WRTMP( KMIN ) = WRTMP( I )
             WITMP( KMIN ) = WITMP( I )
             WRTMP( I ) = VRMIN
@@ -452,10 +452,10 @@
             ITMP = IPNT( I )
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
-  280    CONTINUE
+         } // 280
          for (I = 1; I <= NSLCT; I++) { // 290
             SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
-  290    CONTINUE
+         } // 290
 
          // Compute condition numbers
 
@@ -526,7 +526,7 @@
             RESULT( 17 ) = ONE
          }
 
-  300    CONTINUE
+         } // 300
 
       }
 

@@ -50,7 +50,7 @@
          E( I ) = 2.
          DL( I ) = 3.
          DU( I ) = 4.
-   10 CONTINUE
+      } // 10
       ANORM = 1.0
       OK = .TRUE.
 

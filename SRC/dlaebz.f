@@ -53,10 +53,10 @@
                for (J = 2; J <= N; J++) { // 10
                   TMP1 = D( J ) - E2( J-1 ) / TMP1 - AB( JI, JP )
                   IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN                   IF( TMP1.LE.ZERO ) NAB( JI, JP ) = NAB( JI, JP ) + 1
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
             MOUT = MOUT + NAB( JI, 2 ) - NAB( JI, 1 )
-   30    CONTINUE
+         } // 30
          RETURN
       }
 
@@ -75,7 +75,7 @@
       if ( IJOB.EQ.2 ) {
          for (JI = 1; JI <= MINP; JI++) { // 40
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
-   40    CONTINUE
+         } // 40
       }
 
       // Iteration loop
@@ -105,8 +105,8 @@
                      IWORK( JI ) = IWORK( JI ) + 1
                      WORK( JI ) = MIN( WORK( JI ), -PIVMIN )
                   }
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
 
             if ( IJOB.LE.2 ) {
 
@@ -152,7 +152,7 @@
                         INFO = MMAX + 1
                      }
                   }
-   70          CONTINUE
+               } // 70
                IF( INFO.NE.0 ) RETURN
                KL = KLNEW
             } else {
@@ -169,7 +169,7 @@
                      AB( JI, 2 ) = C( JI )
                      NAB( JI, 2 ) = IWORK( JI )
                   }
-   80          CONTINUE
+               } // 80
             }
 
          } else {
@@ -197,7 +197,7 @@
                      ITMP1 = ITMP1 + 1
                      TMP2 = MIN( TMP2, -PIVMIN )
                   }
-   90          CONTINUE
+               } // 90
 
                if ( IJOB.LE.2 ) {
 
@@ -252,7 +252,7 @@
                      NAB( JI, 2 ) = ITMP1
                   }
                }
-  100       CONTINUE
+            } // 100
             KL = KLNEW
 
          }
@@ -289,23 +289,23 @@
                }
                KFNEW = KFNEW + 1
             }
-  110    CONTINUE
+         } // 110
          KF = KFNEW
 
          // Choose Midpoints
 
          for (JI = KF; JI <= KL; JI++) { // 120
             C( JI ) = HALF*( AB( JI, 1 )+AB( JI, 2 ) )
-  120    CONTINUE
+         } // 120
 
          // If no more intervals to refine, quit.
 
          IF( KF.GT.KL ) GO TO 140
-  130 CONTINUE
+      } // 130
 
       // Converged
 
-  140 CONTINUE
+      } // 140
       INFO = MAX( KL+1-KF, 0 )
       MOUT = KL
 

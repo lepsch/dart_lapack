@@ -79,7 +79,7 @@
          IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -144,11 +144,11 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             for (J = 1; J <= 14; J++) { // 30
                RESULT( J ) = -ONE
-   30       CONTINUE
+            } // 30
 
             UPLO = ' '
 
@@ -177,19 +177,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*AMNINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*MAX( M, N )*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             claset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
@@ -208,7 +208,7 @@
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -254,7 +254,7 @@
                for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*SLARND( 2, ISEED ) )
                   IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*SLARND( 2, ISEED ) )
-   90          CONTINUE
+               } // 90
 
                IINFO = 0
                BIDIAG = .TRUE.
@@ -286,7 +286,7 @@
                RETURN
             }
 
-  100       CONTINUE
+            } // 100
 
             // Call CGEBRD and CUNGBR to compute B, Q, and P, do tests.
 
@@ -407,7 +407,7 @@
             RESULT( 8 ) = ZERO
             DO 110 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
-  110       CONTINUE
+            } // 110
             if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 8 ) = ULPINV
             }
@@ -419,7 +419,7 @@
             for (J = 1; J <= MNMIN; J++) { // 120
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  120       CONTINUE
+            } // 120
 
             RESULT( 9 ) = TEMP2
 
@@ -432,9 +432,9 @@
                ssvdch(MNMIN, BD, BE, S1, TEMP1, IINFO );
                IF( IINFO.EQ.0 ) GO TO 140
                TEMP1 = TEMP1*TWO
-  130       CONTINUE
+            } // 130
 
-  140       CONTINUE
+            } // 140
             RESULT( 10 ) = TEMP1
 
             // Use CBDSQR to form the decomposition A := (QU) S (VT PT)
@@ -456,21 +456,21 @@
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  150       CONTINUE
+            } // 150
             for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 ) CALL SLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
                   NFAIL = NFAIL + 1
                }
-  160       CONTINUE
+            } // 160
             if ( .NOT.BIDIAG ) {
                NTEST = NTEST + 14
             } else {
                NTEST = NTEST + 5
             }
 
-  170    CONTINUE
-  180 CONTINUE
+         } // 170
+      } // 180
 
       // Summary
 

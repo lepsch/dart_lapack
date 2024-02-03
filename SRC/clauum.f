@@ -82,7 +82,7 @@
                   cgemm('No transpose', 'Conjugate transpose', I-1, IB, N-I-IB+1, CONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, CONE, A( 1, I ), LDA );
                   cherk('Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute the product L**H * L.
@@ -94,7 +94,7 @@
                if ( I+IB.LE.N ) {
                   cgemm('Conjugate transpose', 'No transpose', IB, I-1, N-I-IB+1, CONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, CONE, A( I, 1 ), LDA )                   CALL CHERK( 'Lower', 'Conjugate transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }
-   20       CONTINUE
+            } // 20
          }
       }
 

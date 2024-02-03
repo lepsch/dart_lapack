@@ -67,14 +67,14 @@
 
          DO 10 INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
-   10    CONTINUE
+         } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.CZERO ) RETURN
-   20    CONTINUE
+         } // 20
       }
       INFO = 0
 
@@ -86,7 +86,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = 1
-   30    CONTINUE
+         } // 30
 
          // If K > N, exit from loop.
 
@@ -147,7 +147,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-   40          CONTINUE
+               } // 40
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -171,7 +171,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-   50          CONTINUE
+               } // 50
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -196,7 +196,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-   60          CONTINUE
+               } // 60
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -208,7 +208,7 @@
 
          K = K + 1
          GO TO 30
-   70    CONTINUE
+         } // 70
 
       } else {
 
@@ -218,7 +218,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = N
-   80    CONTINUE
+         } // 80
 
          // If K < 1, exit from loop.
 
@@ -279,7 +279,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-   90          CONTINUE
+               } // 90
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -303,7 +303,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-  100         CONTINUE
+              } // 100
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -328,7 +328,7 @@
                   TEMP = CONJG( A( J, K ) )
                   A( J, K ) = CONJG( A( KP, J ) )
                   A( KP, J ) = TEMP
-  110         CONTINUE
+              } // 110
 
                A( KP, K ) = CONJG( A( KP, K ) )
 
@@ -340,7 +340,7 @@
 
          K = K - 1
          GO TO 80
-  120    CONTINUE
+         } // 120
       }
 
       RETURN

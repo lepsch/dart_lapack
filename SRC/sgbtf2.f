@@ -68,8 +68,8 @@
       DO 20 J = KU + 2, MIN( KV, N )
          DO 10 I = KV - J + 2, KL
             AB( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // JU is the index of the last column affected by the current stage
       // of the factorization.
@@ -83,7 +83,7 @@
          if ( J+KV.LE.N ) {
             for (I = 1; I <= KL; I++) { // 30
                AB( I, J+KV ) = ZERO
-   30       CONTINUE
+            } // 30
          }
 
          // Find pivot and test for singularity. KM is the number of
@@ -116,7 +116,7 @@
 
             IF( INFO.EQ.0 ) INFO = J
          }
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of SGBTF2

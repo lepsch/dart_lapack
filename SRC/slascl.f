@@ -98,7 +98,7 @@
       CFROMC = CFROM
       CTOC = CTO
 
-   10 CONTINUE
+      } // 10
       CFROM1 = CFROMC*SMLNUM
       if ( CFROM1.EQ.CFROMC ) {
          // CFROMC is an inf.  Multiply by a correctly signed zero for
@@ -136,8 +136,8 @@
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= M; I++) { // 20
                A( I, J ) = A( I, J )*MUL
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
 
       } else if ( ITYPE.EQ.1 ) {
 
@@ -146,8 +146,8 @@
          for (J = 1; J <= N; J++) { // 50
             for (I = J; I <= M; I++) { // 40
                A( I, J ) = A( I, J )*MUL
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
 
       } else if ( ITYPE.EQ.2 ) {
 
@@ -156,8 +156,8 @@
          for (J = 1; J <= N; J++) { // 70
             DO 60 I = 1, MIN( J, M )
                A( I, J ) = A( I, J )*MUL
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
 
       } else if ( ITYPE.EQ.3 ) {
 
@@ -166,8 +166,8 @@
          for (J = 1; J <= N; J++) { // 90
             DO 80 I = 1, MIN( J+1, M )
                A( I, J ) = A( I, J )*MUL
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
 
       } else if ( ITYPE.EQ.4 ) {
 
@@ -178,8 +178,8 @@
          for (J = 1; J <= N; J++) { // 110
             DO 100 I = 1, MIN( K3, K4-J )
                A( I, J ) = A( I, J )*MUL
-  100       CONTINUE
-  110    CONTINUE
+            } // 100
+         } // 110
 
       } else if ( ITYPE.EQ.5 ) {
 
@@ -190,8 +190,8 @@
          for (J = 1; J <= N; J++) { // 130
             DO 120 I = MAX( K1-J, 1 ), K3
                A( I, J ) = A( I, J )*MUL
-  120       CONTINUE
-  130    CONTINUE
+            } // 120
+         } // 130
 
       } else if ( ITYPE.EQ.6 ) {
 
@@ -204,8 +204,8 @@
          for (J = 1; J <= N; J++) { // 150
             DO 140 I = MAX( K1-J, K2 ), MIN( K3, K4-J )
                A( I, J ) = A( I, J )*MUL
-  140       CONTINUE
-  150    CONTINUE
+            } // 140
+         } // 150
 
       }
 

@@ -76,20 +76,20 @@
 
          DO 10 I = N, 1, -1
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO ) RETURN
-   10    CONTINUE
+         } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (I = 1; I <= N; I++) { // 20
             IF( IPIV( I ).GT.0 .AND. A( I, I ).EQ.ZERO ) RETURN
-   20    CONTINUE
+         } // 20
       }
 
       // Estimate the 1-norm of the inverse.
 
       KASE = 0
-   30 CONTINUE
+      } // 30
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 

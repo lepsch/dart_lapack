@@ -92,7 +92,7 @@
                      IF( SELECT( N ) ) M = M + 1
                   }
                }
-   10       CONTINUE
+            } // 10
          } else {
             M = N
          }
@@ -126,8 +126,8 @@
          WORK( J ) = ZERO
          DO 20 I = 1, J - 1
             WORK( J ) = WORK( J ) + ABS( T( I, J ) )
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       // Index IP is used to specify the real or complex eigenvalue:
         // IP = 0, real eigenvalue,
@@ -147,7 +147,7 @@
             IF( IP.EQ.1 ) GO TO 130             IF( KI.EQ.1 ) GO TO 40             IF( T( KI, KI-1 ).EQ.ZERO ) GO TO 40
             IP = -1
 
-   40       CONTINUE
+            } // 40
             if ( SOMEV ) {
                if ( IP.EQ.0 ) {
                   IF( .NOT.SELECT( KI ) ) GO TO 130
@@ -173,7 +173,7 @@
 
                DO 50 K = 1, KI - 1
                   WORK( K+N ) = -T( K, KI )
-   50          CONTINUE
+               } // 50
 
                // Solve the upper quasi-triangular system:
                   // (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
@@ -244,7 +244,7 @@
 
                      daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
                   }
-   60          CONTINUE
+               } // 60
 
                // Copy the vector x or Q*x to VR and normalize.
 
@@ -257,7 +257,7 @@
 
                   DO 70 K = KI + 1, N
                      VR( K, IS ) = ZERO
-   70             CONTINUE
+                  } // 70
                } else {
                   IF( KI.GT.1 ) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 )
 
@@ -289,7 +289,7 @@
                DO 80 K = 1, KI - 2
                   WORK( K+N ) = -WORK( KI-1+N )*T( K, KI-1 )
                   WORK( K+N2 ) = -WORK( KI+N2 )*T( K, KI )
-   80          CONTINUE
+               } // 80
 
                // Solve upper quasi-triangular system:
                // (T(1:KI-2,1:KI-2) - (WR+i*WI))*X = SCALE*(WORK+i*WORK2)
@@ -373,7 +373,7 @@
 
                      daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 )                      CALL DAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
                   }
-   90          CONTINUE
+               } // 90
 
                // Copy the vector x or Q*x to VR and normalize.
 
@@ -384,7 +384,7 @@
                   EMAX = ZERO
                   for (K = 1; K <= KI; K++) { // 100
                      EMAX = MAX( EMAX, ABS( VR( K, IS-1 ) )+ ABS( VR( K, IS ) ) )
-  100             CONTINUE
+                  } // 100
 
                   REMAX = ONE / EMAX
                   dscal(KI, REMAX, VR( 1, IS-1 ), 1 );
@@ -393,7 +393,7 @@
                   DO 110 K = KI + 1, N
                      VR( K, IS-1 ) = ZERO
                      VR( K, IS ) = ZERO
-  110             CONTINUE
+                  } // 110
 
                } else {
 
@@ -407,7 +407,7 @@
                   EMAX = ZERO
                   for (K = 1; K <= N; K++) { // 120
                      EMAX = MAX( EMAX, ABS( VR( K, KI-1 ) )+ ABS( VR( K, KI ) ) )
-  120             CONTINUE
+                  } // 120
                   REMAX = ONE / EMAX
                   dscal(N, REMAX, VR( 1, KI-1 ), 1 );
                   dscal(N, REMAX, VR( 1, KI ), 1 );
@@ -416,9 +416,9 @@
 
             IS = IS - 1
             IF( IP.NE.0 ) IS = IS - 1
-  130       CONTINUE
+            } // 130
             IF( IP.EQ.1 ) IP = 0             IF( IP.EQ.-1 ) IP = 1
-  140    CONTINUE
+         } // 140
       }
 
       if ( LEFTV ) {
@@ -432,7 +432,7 @@
             IF( IP.EQ.-1 ) GO TO 250             IF( KI.EQ.N ) GO TO 150             IF( T( KI+1, KI ).EQ.ZERO ) GO TO 150
             IP = 1
 
-  150       CONTINUE
+            } // 150
             if ( SOMEV ) {
                IF( .NOT.SELECT( KI ) ) GO TO 250
             }
@@ -454,7 +454,7 @@
 
                DO 160 K = KI + 1, N
                   WORK( K+N ) = -T( KI, K )
-  160          CONTINUE
+               } // 160
 
                // Solve the quasi-triangular system:
                   // (T(KI+1:N,KI+1:N) - WR)**T*X = SCALE*WORK
@@ -537,7 +537,7 @@
                      VCRIT = BIGNUM / VMAX
 
                   }
-  170          CONTINUE
+               } // 170
 
                // Copy the vector x or Q*x to VL and normalize.
 
@@ -550,7 +550,7 @@
 
                   DO 180 K = 1, KI - 1
                      VL( K, IS ) = ZERO
-  180             CONTINUE
+                  } // 180
 
                } else {
 
@@ -585,7 +585,7 @@
                DO 190 K = KI + 2, N
                   WORK( K+N ) = -WORK( KI+N )*T( KI, K )
                   WORK( K+N2 ) = -WORK( KI+1+N2 )*T( KI+1, K )
-  190          CONTINUE
+               } // 190
 
                // Solve complex quasi-triangular system:
                // ( T(KI+2,N:KI+2,N) - (WR-i*WI) )*X = WORK1+i*WORK2
@@ -682,7 +682,7 @@
                      VCRIT = BIGNUM / VMAX
 
                   }
-  200          CONTINUE
+               } // 200
 
                // Copy the vector x or Q*x to VL and normalize.
 
@@ -693,7 +693,7 @@
                   EMAX = ZERO
                   for (K = KI; K <= N; K++) { // 220
                      EMAX = MAX( EMAX, ABS( VL( K, IS ) )+ ABS( VL( K, IS+1 ) ) )
-  220             CONTINUE
+                  } // 220
                   REMAX = ONE / EMAX
                   dscal(N-KI+1, REMAX, VL( KI, IS ), 1 );
                   dscal(N-KI+1, REMAX, VL( KI, IS+1 ), 1 );
@@ -701,7 +701,7 @@
                   DO 230 K = 1, KI - 1
                      VL( K, IS ) = ZERO
                      VL( K, IS+1 ) = ZERO
-  230             CONTINUE
+                  } // 230
                } else {
                   if ( KI.LT.N-1 ) {
                      dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );
@@ -713,7 +713,7 @@
                   EMAX = ZERO
                   for (K = 1; K <= N; K++) { // 240
                      EMAX = MAX( EMAX, ABS( VL( K, KI ) )+ ABS( VL( K, KI+1 ) ) )
-  240             CONTINUE
+                  } // 240
                   REMAX = ONE / EMAX
                   dscal(N, REMAX, VL( 1, KI ), 1 );
                   dscal(N, REMAX, VL( 1, KI+1 ), 1 );
@@ -724,10 +724,10 @@
 
             IS = IS + 1
             IF( IP.NE.0 ) IS = IS + 1
-  250       CONTINUE
+            } // 250
             IF( IP.EQ.-1 ) IP = 0             IF( IP.EQ.1 ) IP = -1
 
-  260    CONTINUE
+         } // 260
 
       }
 

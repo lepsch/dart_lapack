@@ -79,7 +79,7 @@
          } else {
             for (I = 1; I <= N; I++) { // 10
                U( I, 1 ) = -U2( I, 1 )
-   10       CONTINUE
+            } // 10
          }
          RETURN
       }
@@ -104,7 +104,7 @@
          if ( INFO.NE.0 ) {
             RETURN
          }
-   30 CONTINUE
+      } // 30
 
       // Compute updated Z.
 
@@ -112,12 +112,12 @@
          Z( I ) = U( I, K )*VT( I, K )
          DO 40 J = 1, I - 1
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J ) ) / ( DSIGMA( I )+DSIGMA( J ) ) )
-   40    CONTINUE
+         } // 40
          DO 50 J = I, K - 1
             Z( I ) = Z( I )*( U( I, J )*VT( I, J ) / ( DSIGMA( I )-DSIGMA( J+1 ) ) / ( DSIGMA( I )+DSIGMA( J+1 ) ) )
-   50    CONTINUE
+         } // 50
          Z( I ) = SIGN( SQRT( ABS( Z( I ) ) ), Q( I, 1 ) )
-   60 CONTINUE
+      } // 60
 
       // Compute left singular vectors of the modified diagonal matrix,
       // and store related information for the right singular vectors.
@@ -128,14 +128,14 @@
          for (J = 2; J <= K; J++) { // 70
             VT( J, I ) = Z( J ) / U( J, I ) / VT( J, I )
             U( J, I ) = DSIGMA( J )*VT( J, I )
-   70    CONTINUE
+         } // 70
          TEMP = SNRM2( K, U( 1, I ), 1 )
          Q( 1, I ) = U( 1, I ) / TEMP
          for (J = 2; J <= K; J++) { // 80
             JC = IDXC( J )
             Q( J, I ) = U( JC, I ) / TEMP
-   80    CONTINUE
-   90 CONTINUE
+         } // 80
+      } // 90
 
       // Update the left singular vector matrix.
 
@@ -162,15 +162,15 @@
 
       // Generate the right singular vectors.
 
-  100 CONTINUE
+      } // 100
       for (I = 1; I <= K; I++) { // 120
          TEMP = SNRM2( K, VT( 1, I ), 1 )
          Q( I, 1 ) = VT( 1, I ) / TEMP
          for (J = 2; J <= K; J++) { // 110
             JC = IDXC( J )
             Q( I, J ) = VT( JC, I ) / TEMP
-  110    CONTINUE
-  120 CONTINUE
+         } // 110
+      } // 120
 
       // Update the right singular vector matrix.
 
@@ -188,10 +188,10 @@
       if ( KTEMP.GT.1 ) {
          for (I = 1; I <= K; I++) { // 130
             Q( I, KTEMP ) = Q( I, 1 )
-  130    CONTINUE
+         } // 130
          for (I = NLP2; I <= M; I++) { // 140
             VT2( KTEMP, I ) = VT2( 1, I )
-  140    CONTINUE
+         } // 140
       }
       CTEMP = 1 + CTOT( 2 ) + CTOT( 3 )
       sgemm('N', 'N', K, NRP1, CTEMP, ONE, Q( 1, KTEMP ), LDQ, VT2( KTEMP, NLP2 ), LDVT2, ZERO, VT( 1, NLP2 ), LDVT );

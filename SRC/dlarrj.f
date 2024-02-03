@@ -81,7 +81,7 @@
             // Do while( CNT(LEFT).GT.I-1 )
 
             FAC = ONE
- 20         CONTINUE
+            } // 20
             CNT = 0
             S = LEFT
             DPLUS = D( 1 ) - S
@@ -89,7 +89,7 @@
             for (J = 2; J <= N; J++) { // 30
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
- 30         CONTINUE
+            } // 30
             if ( CNT.GT.I-1 ) {
                LEFT = LEFT - WERR( II )*FAC
                FAC = TWO*FAC
@@ -99,7 +99,7 @@
             // Do while( CNT(RIGHT).LT.I )
 
             FAC = ONE
- 50         CONTINUE
+            } // 50
             CNT = 0
             S = RIGHT
             DPLUS = D( 1 ) - S
@@ -107,7 +107,7 @@
             for (J = 2; J <= N; J++) { // 60
                DPLUS = D( J ) - S - E2( J-1 )/DPLUS
                IF( DPLUS.LT.ZERO ) CNT = CNT + 1
- 60         CONTINUE
+            } // 60
             if ( CNT.LT.I ) {
                RIGHT = RIGHT + WERR( II )*FAC
                FAC = TWO*FAC
@@ -119,7 +119,7 @@
          }
          WORK( K-1 ) = LEFT
          WORK( K ) = RIGHT
- 75   CONTINUE
+      } // 75
 
 
       SAVI1 = I1
@@ -128,7 +128,7 @@
       // and while (ITER.LT.MAXITR)
 
       ITER = 0
- 80   CONTINUE
+      } // 80
       PREV = I1 - 1
       I = I1
       OLNINT = NINT
@@ -169,7 +169,7 @@
          for (J = 2; J <= N; J++) { // 90
             DPLUS = D( J ) - S - E2( J-1 )/DPLUS
             IF( DPLUS.LT.ZERO ) CNT = CNT + 1
- 90      CONTINUE
+         } // 90
          if ( CNT.LE.I-1 ) {
             WORK( K-1 ) = MID
          } else {
@@ -177,7 +177,7 @@
          }
          I = NEXT
 
- 100  CONTINUE
+      } // 100
       ITER = ITER + 1
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
@@ -194,7 +194,7 @@
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
          }
- 110  CONTINUE
+      } // 110
 
 
       RETURN

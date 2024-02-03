@@ -71,62 +71,62 @@
 
          // One large D value:
 
-   10    CONTINUE
+         } // 10
          for (I = 1; I <= N; I++) { // 20
             D( I ) = ONE / COND
-   20    CONTINUE
+         } // 20
          D( 1 ) = ONE
          GO TO 120
 
          // One small D value:
 
-   30    CONTINUE
+         } // 30
          for (I = 1; I <= N; I++) { // 40
             D( I ) = ONE
-   40    CONTINUE
+         } // 40
          D( N ) = ONE / COND
          GO TO 120
 
          // Exponentially distributed D values:
 
-   50    CONTINUE
+         } // 50
          D( 1 ) = ONE
          if ( N.GT.1 ) {
             ALPHA = COND**( -ONE / REAL( N-1 ) )
             for (I = 2; I <= N; I++) { // 60
                D( I ) = ALPHA**( I-1 )
-   60       CONTINUE
+            } // 60
          }
          GO TO 120
 
          // Arithmetically distributed D values:
 
-   70    CONTINUE
+         } // 70
          D( 1 ) = ONE
          if ( N.GT.1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / REAL( N-1 )
             for (I = 2; I <= N; I++) { // 80
                D( I ) = REAL( N-I )*ALPHA + TEMP
-   80       CONTINUE
+            } // 80
          }
          GO TO 120
 
          // Randomly distributed D values on ( 1/COND , 1):
 
-   90    CONTINUE
+         } // 90
          ALPHA = LOG( ONE / COND )
          for (I = 1; I <= N; I++) { // 100
             D( I ) = EXP( ALPHA*SLARAN( ISEED ) )
-  100    CONTINUE
+         } // 100
          GO TO 120
 
          // Randomly distributed D values from IDIST
 
-  110    CONTINUE
+         } // 110
          slarnv(IDIST, ISEED, N, D );
 
-  120    CONTINUE
+         } // 120
 
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
@@ -135,7 +135,7 @@
             for (I = 1; I <= N; I++) { // 130
                TEMP = SLARAN( ISEED )
                IF( TEMP.GT.HALF ) D( I ) = -D( I )
-  130       CONTINUE
+            } // 130
          }
 
          // Reverse if MODE < 0
@@ -145,7 +145,7 @@
                TEMP = D( I )
                D( I ) = D( N+1-I )
                D( N+1-I ) = TEMP
-  140       CONTINUE
+            } // 140
          }
 
       }

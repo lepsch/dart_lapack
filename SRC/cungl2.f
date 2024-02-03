@@ -56,9 +56,9 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 L = K + 1, M
                A( L, J ) = ZERO
-   10       CONTINUE
+            } // 10
             IF( J.GT.K .AND. J.LE.M ) A( J, J ) = ONE
-   20    CONTINUE
+         } // 20
       }
 
       DO 40 I = K, 1, -1
@@ -80,8 +80,8 @@
 
          DO 30 L = 1, I - 1
             A( I, L ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       RETURN
 
       // End of CUNGL2

@@ -70,7 +70,7 @@
          GS = G
          COUNT = 0
          if ( SCALE.GE.SAFMX2 ) {
-   10       CONTINUE
+            } // 10
             COUNT = COUNT + 1
             FS = FS*SAFMN2
             GS = GS*SAFMN2
@@ -83,7 +83,7 @@
                R = F
                GO TO 50
             }
-   20       CONTINUE
+            } // 20
             COUNT = COUNT - 1
             FS = FS*SAFMX2
             GS = GS*SAFMX2
@@ -149,22 +149,22 @@
                if ( COUNT.GT.0 ) {
                   for (J = 1; J <= COUNT; J++) { // 30
                      R = R*SAFMX2
-   30             CONTINUE
+                  } // 30
                } else {
                   DO 40 J = 1, -COUNT
                      R = R*SAFMN2
-   40             CONTINUE
+                  } // 40
                }
             }
          }
-   50    CONTINUE
+         } // 50
          C( IC ) = CS
          Y( IY ) = SN
          X( IX ) = R
          IC = IC + INCC
          IY = IY + INCY
          IX = IX + INCX
-   60 CONTINUE
+      } // 60
       RETURN
 
       // End of ZLARGV

@@ -197,9 +197,9 @@
 
             DO 10 K = KBOT, ILO + 1, -1
                IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
-   10       CONTINUE
+            } // 10
             K = ILO
-   20       CONTINUE
+            } // 20
             KTOP = K
 
             // ==== Select deflation window size:
@@ -297,7 +297,7 @@
                   DO 30 I = KBOT, KS + 1, -2
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) )
                      W( I-1 ) = W( I )
-   30             CONTINUE
+                  } // 30
                } else {
 
                   // ==== Got NS/2 or fewer shifts? Use CLAHQR
@@ -350,9 +350,9 @@
                               W( I ) = W( I+1 )
                               W( I+1 ) = SWAP
                            }
-   40                   CONTINUE
-   50                CONTINUE
-   60                CONTINUE
+                        } // 40
+                     } // 50
+                     } // 60
                   }
                }
 
@@ -408,13 +408,13 @@
             }
 
             // ==== End of main loop ====
-   70    CONTINUE
+         } // 70
 
          // ==== Iteration limit exceeded.  Set INFO to show where
          // .    the problem occurred and exit. ====
 
          INFO = KBOT
-   80    CONTINUE
+         } // 80
       }
 
       // ==== Return the optimal value of LWORK. ====

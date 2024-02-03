@@ -97,7 +97,7 @@
             A( I, I+1 ) = E( I )
             D( I+1 ) = REAL( A( I+1, I+1 ) )
             TAU( I ) = TAUI
-   10    CONTINUE
+         } // 10
          D( 1 ) = REAL( A( 1, 1 ) )
       } else {
 
@@ -139,7 +139,7 @@
             A( I+1, I ) = E( I )
             D( I ) = REAL( A( I, I ) )
             TAU( I ) = TAUI
-   20    CONTINUE
+         } // 20
          D( N ) = REAL( A( N, N ) )
       }
 

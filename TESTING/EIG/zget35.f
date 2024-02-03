@@ -65,18 +65,18 @@
 
       // Begin test loop
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )M, N
       IF( N.EQ.0 ) RETURN
       for (I = 1; I <= M; I++) { // 20
          READ( NIN, FMT = * )( ATMP( I, J ), J = 1, M )
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( BTMP( I, J ), J = 1, N )
-   30 CONTINUE
+      } // 30
       for (I = 1; I <= M; I++) { // 40
          READ( NIN, FMT = * )( CTMP( I, J ), J = 1, N )
-   40 CONTINUE
+      } // 40
       for (IMLA = 1; IMLA <= 3; IMLA++) { // 170
          for (IMLAD = 1; IMLAD <= 3; IMLAD++) { // 160
             for (IMLB = 1; IMLB <= 3; IMLB++) { // 150
@@ -90,23 +90,23 @@
                               for (J = 1; J <= M; J++) { // 50
                                  A( I, J ) = ATMP( I, J )*VM1( IMLA )
                                  TNRM = MAX( TNRM, ABS( A( I, J ) ) )
-   50                         CONTINUE
+                              } // 50
                               A( I, I ) = A( I, I )*VM2( IMLAD )
                               TNRM = MAX( TNRM, ABS( A( I, I ) ) )
-   60                      CONTINUE
+                           } // 60
                            for (I = 1; I <= N; I++) { // 80
                               for (J = 1; J <= N; J++) { // 70
                                  B( I, J ) = BTMP( I, J )*VM1( IMLB )
                                  TNRM = MAX( TNRM, ABS( B( I, J ) ) )
-   70                         CONTINUE
-   80                      CONTINUE
+                              } // 70
+                           } // 80
                            IF( TNRM.EQ.ZERO ) TNRM = ONE
                            for (I = 1; I <= M; I++) { // 100
                               for (J = 1; J <= N; J++) { // 90
                                  C( I, J ) = CTMP( I, J )*VM1( IMLC )
                                  CSAV( I, J ) = C( I, J )
-   90                         CONTINUE
-  100                      CONTINUE
+                              } // 90
+                           } // 100
                            KNT = KNT + 1
                            ztrsyl(TRANA, TRANB, ISGN, M, N, A, LDT, B, LDT, C, LDT, SCALE, INFO );
                            IF( INFO.NE.0 ) NINFO = NINFO + 1
@@ -125,13 +125,13 @@
                               LMAX = KNT
                               RMAX = RES
                            }
-  110                   CONTINUE
-  120                CONTINUE
-  130             CONTINUE
-  140          CONTINUE
-  150       CONTINUE
-  160    CONTINUE
-  170 CONTINUE
+                        } // 110
+                     } // 120
+                  } // 130
+               } // 140
+            } // 150
+         } // 160
+      } // 170
       GO TO 10
 
       // End of ZGET35

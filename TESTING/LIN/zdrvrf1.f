@@ -62,7 +62,7 @@
       INFO = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       EPS = DLAMCH( 'Precision' )
       SMALL = DLAMCH( 'Safe minimum' )
@@ -150,11 +150,11 @@
                         WRITE( NOUT, FMT = 9997 ) 'ZLANHF', N, IIT, UPLO, CFORM, NORM, RESULT(1)
                         NFAIL = NFAIL + 1
                      }
-   90             CONTINUE
-  100          CONTINUE
-  110       CONTINUE
-  120    CONTINUE
-  130 CONTINUE
+                  } // 90
+               } // 100
+            } // 110
+         } // 120
+      } // 130
 
       // Print a summary of the results.
 

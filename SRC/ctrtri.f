@@ -63,7 +63,7 @@
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
             IF( A( INFO, INFO ).EQ.ZERO ) RETURN
-   10    CONTINUE
+         } // 10
          INFO = 0
       }
 
@@ -93,7 +93,7 @@
                // Compute inverse of current diagonal block
 
                ctrti2('Upper', DIAG, JB, A( J, J ), LDA, INFO );
-   20       CONTINUE
+            } // 20
          } else {
 
             // Compute inverse of lower triangular matrix
@@ -111,7 +111,7 @@
                // Compute inverse of current diagonal block
 
                ctrti2('Lower', DIAG, JB, A( J, J ), LDA, INFO );
-   30       CONTINUE
+            } // 30
          }
       }
 

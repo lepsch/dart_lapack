@@ -63,7 +63,7 @@
             RESID = ONE / EPS
             RETURN
          }
-   10 CONTINUE
+      } // 10
 
       // Compute the product U**H * U, overwriting U.
 
@@ -79,7 +79,7 @@
 
             ctrmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
-   20    CONTINUE
+         } // 20
 
       // Compute the product L * L**H, overwriting L.
 
@@ -96,7 +96,7 @@
             TC = AFAC( K, K )
             cscal(N-K+1, TC, AFAC( K, K ), 1 );
 
-   30    CONTINUE
+         } // 30
       }
 
       // Compute the difference L * L**H - A (or U**H * U - A).
@@ -105,16 +105,16 @@
          for (J = 1; J <= N; J++) { // 50
             DO 40 I = 1, J - 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   40       CONTINUE
+            } // 40
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
-   50    CONTINUE
+         } // 50
       } else {
          for (J = 1; J <= N; J++) { // 70
             AFAC( J, J ) = AFAC( J, J ) - REAL( A( J, J ) )
             DO 60 I = J + 1, N
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
       }
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )

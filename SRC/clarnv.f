@@ -50,21 +50,21 @@
 
             for (I = 1; I <= IL; I++) { // 10
                X( IV+I-1 ) = CMPLX( U( 2*I-1 ), U( 2*I ) )
-   10       CONTINUE
+            } // 10
          } else if ( IDIST.EQ.2 ) {
 
             // Convert generated numbers to uniform (-1,1) distribution
 
             for (I = 1; I <= IL; I++) { // 20
                X( IV+I-1 ) = CMPLX( TWO*U( 2*I-1 )-ONE, TWO*U( 2*I )-ONE )
-   20       CONTINUE
+            } // 20
          } else if ( IDIST.EQ.3 ) {
 
             // Convert generated numbers to normal (0,1) distribution
 
             for (I = 1; I <= IL; I++) { // 30
                X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
-   30       CONTINUE
+            } // 30
          } else if ( IDIST.EQ.4 ) {
 
             // Convert generated numbers to complex numbers uniformly
@@ -72,7 +72,7 @@
 
             for (I = 1; I <= IL; I++) { // 40
                X( IV+I-1 ) = SQRT( U( 2*I-1 ) )* EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
-   40       CONTINUE
+            } // 40
          } else if ( IDIST.EQ.5 ) {
 
             // Convert generated numbers to complex numbers uniformly
@@ -80,9 +80,9 @@
 
             for (I = 1; I <= IL; I++) { // 50
                X( IV+I-1 ) = EXP( CMPLX( ZERO, TWOPI*U( 2*I ) ) )
-   50       CONTINUE
+            } // 50
          }
-   60 CONTINUE
+      } // 60
       RETURN
 
       // End of CLARNV

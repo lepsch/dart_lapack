@@ -87,10 +87,10 @@
                       for (I = 1; I <= J; I++) { // 10
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
-   10                 CONTINUE
+                      } // 10
                   }
                   KK = KK + J
-   20         CONTINUE
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -102,12 +102,12 @@
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   30                 CONTINUE
+                      } // 30
                   }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + J
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -122,10 +122,10 @@
                       for (I = J; I <= N; I++) { // 50
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
-   50                 CONTINUE
+                      } // 50
                   }
                   KK = KK + N - J + 1
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -137,12 +137,12 @@
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   70                 CONTINUE
+                      } // 70
                   }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + N - J + 1
-   80         CONTINUE
+              } // 80
           }
       }
 

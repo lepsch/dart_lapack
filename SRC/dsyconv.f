@@ -88,7 +88,7 @@
                     TEMP=A(IP,J)
                     A(IP,J)=A(I,J)
                     A(I,J)=TEMP
- 12            CONTINUE
+               } // 12
                ENDIF
             } else {
               IP=-IPIV(I)
@@ -97,7 +97,7 @@
                  TEMP=A(IP,J)
                  A(IP,J)=A(I-1,J)
                  A(I-1,J)=TEMP
- 13            CONTINUE
+               } // 13
                 ENDIF
                 I=I-1
            ENDIF
@@ -183,7 +183,7 @@
                  TEMP=A(IP,J)
                  A(IP,J)=A(I,J)
                  A(I,J)=TEMP
- 22            CONTINUE
+               } // 22
                ENDIF
             } else {
               IP=-IPIV(I)
@@ -192,7 +192,7 @@
                  TEMP=A(IP,J)
                  A(IP,J)=A(I+1,J)
                  A(I+1,J)=TEMP
- 23           CONTINUE
+              } // 23
               ENDIF
               I=I+1
            ENDIF

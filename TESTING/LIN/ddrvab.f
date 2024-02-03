@@ -69,7 +69,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       INFOT = 0
 
@@ -124,7 +124,7 @@
                if ( IMAT.LT.7 ) {
                   for (I = 1; I <= M; I++) { // 20
                      A( IOFF+I ) = ZERO
-   20             CONTINUE
+                  } // 20
                } else {
                   dlaset('Full', M, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
                }
@@ -204,9 +204,9 @@
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
-   60       CONTINUE
-  100    CONTINUE
-  120 CONTINUE
+            } // 60
+         } // 100
+      } // 120
 
       // Print a summary of the results.
 

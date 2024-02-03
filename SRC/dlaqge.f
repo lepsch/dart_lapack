@@ -58,8 +58,8 @@
                CJ = C( J )
                for (I = 1; I <= M; I++) { // 10
                   A( I, J ) = CJ*A( I, J )
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
             EQUED = 'C'
          }
       } else if ( COLCND.GE.THRESH ) {
@@ -69,8 +69,8 @@
          for (J = 1; J <= N; J++) { // 40
             for (I = 1; I <= M; I++) { // 30
                A( I, J ) = R( I )*A( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          EQUED = 'R'
       } else {
 
@@ -80,8 +80,8 @@
             CJ = C( J )
             for (I = 1; I <= M; I++) { // 50
                A( I, J ) = CJ*R( I )*A( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
          EQUED = 'B'
       }
 

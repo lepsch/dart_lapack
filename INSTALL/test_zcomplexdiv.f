@@ -102,7 +102,7 @@
                     print *, "!! fl( subnormal ) may be 0"
                 endif
             endif
- 100    continue
+        } // 100
       endif
 
       // Test (a) y = x + 0 * I, y/y = 1
@@ -128,7 +128,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  10  continue
+      } // 10
 
       // Test (b) y = 0 + x * I, y/y = 1
       for (i = 1; i <= N; i++) { // 20
@@ -153,7 +153,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  20  continue
+      } // 20
 
       // Test (c) y = x + x * I, y/y = 1
       for (i = 1; i <= N; i++) { // 30
@@ -178,7 +178,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  30  continue
+      } // 30
 
       // Test (d) y1 = 0 + x * I, y2 = x + 0 * I, y1/y2 = I
       for (i = 1; i <= N; i++) { // 40
@@ -204,7 +204,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  40  continue
+      } // 40
 
       // Test (e) y1 = 0 + x * I, y2 = x + 0 * I, y2/y1 = -I
       for (i = 1; i <= N; i++) { // 50
@@ -230,7 +230,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  50  continue
+      } // 50
 
       // Test (f) y = x + x * I, y/conj(y) = I
       for (i = 1; i <= N; i++) { // 60
@@ -255,7 +255,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  60  continue
+      } // 60
 
       // Test (g) Infs
       for (i = 1; i <= nInf; i++) { // 70
@@ -276,7 +276,7 @@
               caseInfFails = caseInfFails + 1
               WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
           endif
-  70  continue
+      } // 70
 
       // Test (h) NaNs
       for (i = 1; i <= nNaN; i++) { // 80
@@ -297,7 +297,7 @@
               caseNaNFails = caseNaNFails + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           endif
-  80  continue
+      } // 80
 
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails + caseInfFails + caseNaNFails

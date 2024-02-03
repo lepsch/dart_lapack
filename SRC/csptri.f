@@ -65,7 +65,7 @@
          DO 10 INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP - INFO
-   10    CONTINUE
+         } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
@@ -74,7 +74,7 @@
          for (INFO = 1; INFO <= N; INFO++) { // 20
             IF( IPIV( INFO ).GT.0 .AND. AP( KP ).EQ.ZERO ) RETURN
             KP = KP + N - INFO + 1
-   20    CONTINUE
+         } // 20
       }
       INFO = 0
 
@@ -87,7 +87,7 @@
 
          K = 1
          KC = 1
-   30    CONTINUE
+         } // 30
 
          // If K > N, exit from loop.
 
@@ -150,7 +150,7 @@
                TEMP = AP( KC+J-1 )
                AP( KC+J-1 ) = AP( KX )
                AP( KX ) = TEMP
-   40       CONTINUE
+            } // 40
             TEMP = AP( KC+K-1 )
             AP( KC+K-1 ) = AP( KPC+KP-1 )
             AP( KPC+KP-1 ) = TEMP
@@ -164,7 +164,7 @@
          K = K + KSTEP
          KC = KCNEXT
          GO TO 30
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -176,7 +176,7 @@
          NPP = N*( N+1 ) / 2
          K = N
          KC = NPP
-   60    CONTINUE
+         } // 60
 
          // If K < 1, exit from loop.
 
@@ -239,7 +239,7 @@
                TEMP = AP( KC+J-K )
                AP( KC+J-K ) = AP( KX )
                AP( KX ) = TEMP
-   70       CONTINUE
+            } // 70
             TEMP = AP( KC )
             AP( KC ) = AP( KPC )
             AP( KPC ) = TEMP
@@ -253,7 +253,7 @@
          K = K - KSTEP
          KC = KCNEXT
          GO TO 60
-   80    CONTINUE
+         } // 80
       }
 
       RETURN

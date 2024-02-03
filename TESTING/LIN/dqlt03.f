@@ -87,7 +87,7 @@
 
          for (J = 1; J <= NC; J++) { // 10
             dlarnv(2, ISEED, MC, C( 1, J ) );
-   10    CONTINUE
+         } // 10
          CNORM = DLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.0.0D0 ) CNORM = ONE
 
@@ -120,8 +120,8 @@
             RESID = DLANGE( '1', MC, NC, CC, LDA, RWORK )
             RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( DBLE( MAX( 1, M ) )*CNORM*EPS )
 
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       RETURN
 

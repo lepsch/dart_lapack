@@ -77,10 +77,10 @@
       IF( INFO.NE.0 ) RETURN
       for (I = 1; I <= N; I++) { // 10
          D( I ) = SQRT( D( I ) )
-   10 CONTINUE
+      } // 10
       DO 20 I = 1, N - 1
          E( I ) = E( I )*D( I )
-   20 CONTINUE
+      } // 20
 
       // Call DBDSQR to compute the singular values/vectors of the
       // bidiagonal factor.
@@ -97,7 +97,7 @@
       if ( INFO.EQ.0 ) {
          for (I = 1; I <= N; I++) { // 30
             D( I ) = D( I )*D( I )
-   30    CONTINUE
+         } // 30
       } else {
          INFO = N + INFO
       }

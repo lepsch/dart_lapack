@@ -23,8 +23,8 @@
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             A( I, J ) = SA( I, J )
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       RETURN
 
       // End of SLAG2D

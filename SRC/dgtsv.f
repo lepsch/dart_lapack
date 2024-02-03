@@ -74,7 +74,7 @@
                B( I, 1 ) = B( I+1, 1 )
                B( I+1, 1 ) = TEMP - FACT*B( I+1, 1 )
             }
-   10    CONTINUE
+         } // 10
          if ( N.GT.1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
@@ -112,7 +112,7 @@
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   for (J = 1; J <= NRHS; J++) { // 20
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
-   20             CONTINUE
+                  } // 20
                } else {
                   INFO = I
                   RETURN
@@ -133,9 +133,9 @@
                   TEMP = B( I, J )
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
-   30          CONTINUE
+               } // 30
             }
-   40    CONTINUE
+         } // 40
          if ( N.GT.1 ) {
             I = N - 1
             if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
@@ -144,7 +144,7 @@
                   D( I+1 ) = D( I+1 ) - FACT*DU( I )
                   for (J = 1; J <= NRHS; J++) { // 50
                      B( I+1, J ) = B( I+1, J ) - FACT*B( I, J )
-   50             CONTINUE
+                  } // 50
                } else {
                   INFO = I
                   RETURN
@@ -159,7 +159,7 @@
                   TEMP = B( I, J )
                   B( I, J ) = B( I+1, J )
                   B( I+1, J ) = TEMP - FACT*B( I+1, J )
-   60          CONTINUE
+               } // 60
             }
          }
          if ( D( N ).EQ.ZERO ) {
@@ -172,12 +172,12 @@
 
       if ( NRHS.LE.2 ) {
          J = 1
-   70    CONTINUE
+         } // 70
          B( N, J ) = B( N, J ) / D( N )
          IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
          DO 80 I = N - 2, 1, -1
             B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
-   80    CONTINUE
+         } // 80
          if ( J.LT.NRHS ) {
             J = J + 1
             GO TO 70
@@ -188,8 +188,8 @@
             IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
             DO 90 I = N - 2, 1, -1
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I )
-   90       CONTINUE
-  100    CONTINUE
+            } // 90
+         } // 100
       }
 
       RETURN

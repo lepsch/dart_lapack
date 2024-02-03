@@ -50,7 +50,7 @@
          zcopy(M, A( 1, J ), 1, WORK, 1 );
          zaxpy(M, DCMPLX( -ONE ), B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, DZASUM( N, WORK, 1 ) )
-   10 CONTINUE
+      } // 10
 
       ANORM = MAX( ZLANGE( '1', M, N, A, LDA, RWORK ), UNFL )
 

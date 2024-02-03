@@ -76,7 +76,7 @@
          IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
          MINWRK = MAX( MINWRK, 3*( MVAL( J )+NVAL( J ) ), MVAL( J )*( MVAL( J )+MAX( MVAL( J ), NVAL( J ), NRHS )+1 )+NVAL( J )*MIN( NVAL( J ), MVAL( J ) ) )
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -142,11 +142,11 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             for (J = 1; J <= 34; J++) { // 30
                RESULT( J ) = -ONE
-   30       CONTINUE
+            } // 30
 
             UPLO = ' '
 
@@ -175,19 +175,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*AMNINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*MAX( M, N )*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
@@ -206,7 +206,7 @@
 
                for (JCOL = 1; JCOL <= MNMIN; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -252,7 +252,7 @@
                for (J = 1; J <= MNMIN; J++) { // 90
                   BD( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
                   IF( J.LT.MNMIN ) BE( J ) = EXP( TEMP1*DLARND( 2, ISEED ) )
-   90          CONTINUE
+               } // 90
 
                IINFO = 0
                BIDIAG = .TRUE.
@@ -284,7 +284,7 @@
                RETURN
             }
 
-  100       CONTINUE
+            } // 100
 
             // Call DGEBRD and DORGBR to compute B, Q, and P, do tests.
 
@@ -405,7 +405,7 @@
             RESULT( 8 ) = ZERO
             DO 110 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 8 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 8 ) = ULPINV
-  110       CONTINUE
+            } // 110
             if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 8 ) = ULPINV
             }
@@ -417,7 +417,7 @@
             for (J = 1; J <= MNMIN; J++) { // 120
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( J ) ), ABS( S2( J ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  120       CONTINUE
+            } // 120
 
             RESULT( 9 ) = TEMP2
 
@@ -430,9 +430,9 @@
                 // CALL DSVDCH( MNMIN, BD, BE, S1, TEMP1, IINFO )
                IF( IINFO.EQ.0 ) GO TO 140
                TEMP1 = TEMP1*TWO
-  130       CONTINUE
+            } // 130
 
-  140       CONTINUE
+            } // 140
             RESULT( 10 ) = TEMP1
 
             // Use DBDSQR to form the decomposition A := (QU) S (VT PT)
@@ -508,7 +508,7 @@
             RESULT( 18 ) = ZERO
             DO 150 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 18 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
-  150       CONTINUE
+            } // 150
             if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
             }
@@ -520,7 +520,7 @@
             for (J = 1; J <= MNMIN; J++) { // 160
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  160       CONTINUE
+            } // 160
 
             RESULT( 19 ) = TEMP2
 
@@ -567,7 +567,7 @@
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
                J = J + MNMIN
-  170       CONTINUE
+            } // 170
 
             // Use DBDSVDX to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
@@ -614,7 +614,7 @@
             RESULT( 23 ) = ZERO
             DO 180 I = 1, MNMIN - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 23 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 23 ) = ULPINV
-  180       CONTINUE
+            } // 180
             if ( MNMIN.GE.1 ) {
                IF( S1( MNMIN ).LT.ZERO ) RESULT( 23 ) = ULPINV
             }
@@ -623,7 +623,7 @@
             for (J = 1; J <= MNMIN; J++) { // 190
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  190       CONTINUE
+            } // 190
             RESULT( 24 ) = TEMP2
             ANORM = S1( 1 )
 
@@ -633,7 +633,7 @@
 
             for (I = 1; I <= 4; I++) { // 200
                ISEED2( I ) = ISEED( I )
-  200       CONTINUE
+            } // 200
             if ( MNMIN.LE.1 ) {
                IL = 1
                IU = MNMIN
@@ -671,7 +671,7 @@
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
                J = J + MNMIN
-  210       CONTINUE
+            } // 210
 
             // Use DBDSVDX to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
@@ -706,7 +706,7 @@
             RESULT( 28 ) = ZERO
             DO 220 I = 1, NS1 - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
-  220       CONTINUE
+            } // 220
             if ( NS1.GE.1 ) {
                IF( S1( NS1 ).LT.ZERO ) RESULT( 28 ) = ULPINV
             }
@@ -715,7 +715,7 @@
             for (J = 1; J <= NS1; J++) { // 230
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  230       CONTINUE
+            } // 230
             RESULT( 29 ) = TEMP2
 
             // Use DBDSVDX with RANGE='V': determine the values VL and VU
@@ -767,7 +767,7 @@
                J = J + MNMIN
                dcopy(MNMIN, WORK( J ), 1, VT( I,1 ), LDPT );
                J = J + MNMIN
-  240       CONTINUE
+            } // 240
 
             // Use DBDSVDX to compute only the singular values of the
             // bidiagonal matrix B;  U and VT should not be modified.
@@ -802,7 +802,7 @@
             RESULT( 33 ) = ZERO
             DO 250 I = 1, NS1 - 1
                IF( S1( I ).LT.S1( I+1 ) ) RESULT( 28 ) = ULPINV                IF( S1( I ).LT.ZERO ) RESULT( 28 ) = ULPINV
-  250       CONTINUE
+            } // 250
             if ( NS1.GE.1 ) {
                IF( S1( NS1 ).LT.ZERO ) RESULT( 28 ) = ULPINV
             }
@@ -811,27 +811,27 @@
             for (J = 1; J <= NS1; J++) { // 260
                TEMP1 = ABS( S1( J )-S2( J ) ) / MAX( SQRT( UNFL )*MAX( S1( 1 ), ONE ), ULP*MAX( ABS( S1( 1 ) ), ABS( S2( 1 ) ) ) )
                TEMP2 = MAX( TEMP1, TEMP2 )
-  260       CONTINUE
+            } // 260
             RESULT( 34 ) = TEMP2
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  270       CONTINUE
+            } // 270
 
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ).GE.THRESH ) {
                   IF( NFAIL.EQ.0 ) CALL DLAHD2( NOUT, PATH )                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J )
                   NFAIL = NFAIL + 1
                }
-  280       CONTINUE
+            } // 280
             if ( .NOT.BIDIAG ) {
                NTEST = NTEST + 34
             } else {
                NTEST = NTEST + 30
             }
 
-  290    CONTINUE
-  300 CONTINUE
+         } // 290
+      } // 300
 
       // Summary
 

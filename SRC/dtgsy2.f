@@ -86,7 +86,7 @@
       PQ = 0
       P = 0
       I = 1
-   10 CONTINUE
+      } // 10
       IF( I.GT.M ) GO TO 20
       P = P + 1
       IWORK( P ) = I
@@ -97,14 +97,14 @@
          I = I + 1
       }
       GO TO 10
-   20 CONTINUE
+      } // 20
       IWORK( P+1 ) = M + 1
 
       // Determine block structure of B
 
       Q = P + 1
       J = 1
-   30 CONTINUE
+      } // 30
       IF( J.GT.N ) GO TO 40
       Q = Q + 1
       IWORK( Q ) = J
@@ -115,7 +115,7 @@
          J = J + 1
       }
       GO TO 30
-   40 CONTINUE
+      } // 40
       IWORK( Q+1 ) = N + 1
       PQ = P*( Q-P-1 )
 
@@ -166,7 +166,7 @@
                         for (K = 1; K <= N; K++) { // 50
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
-   50                   CONTINUE
+                        } // 50
                         SCALE = SCALE*SCALOC
                      }
                   } else {
@@ -231,7 +231,7 @@
                         for (K = 1; K <= N; K++) { // 60
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
-   60                   CONTINUE
+                        } // 60
                         SCALE = SCALE*SCALOC
                      }
                   } else {
@@ -296,7 +296,7 @@
                         for (K = 1; K <= N; K++) { // 70
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
-   70                   CONTINUE
+                        } // 70
                         SCALE = SCALE*SCALOC
                      }
                   } else {
@@ -371,7 +371,7 @@
                      dcopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
                      II = II + MB
-   80             CONTINUE
+                  } // 80
 
                   // Solve Z * x = RHS
 
@@ -383,7 +383,7 @@
                         for (K = 1; K <= N; K++) { // 90
                            dscal(M, SCALOC, C( 1, K ), 1 );
                            dscal(M, SCALOC, F( 1, K ), 1 );
-   90                   CONTINUE
+                        } // 90
                         SCALE = SCALE*SCALOC
                      }
                   } else {
@@ -399,7 +399,7 @@
                      dcopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB
                      II = II + MB
-  100             CONTINUE
+                  } // 100
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -414,8 +414,8 @@
 
                }
 
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
       } else {
 
          // Solve (I, J) - subsystem
@@ -462,7 +462,7 @@
                      for (K = 1; K <= N; K++) { // 130
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-  130                CONTINUE
+                     } // 130
                      SCALE = SCALE*SCALOC
                   }
 
@@ -527,7 +527,7 @@
                      for (K = 1; K <= N; K++) { // 140
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-  140                CONTINUE
+                     } // 140
                      SCALE = SCALE*SCALOC
                   }
 
@@ -589,7 +589,7 @@
                      for (K = 1; K <= N; K++) { // 150
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-  150                CONTINUE
+                     } // 150
                      SCALE = SCALE*SCALOC
                   }
 
@@ -661,7 +661,7 @@
                      dcopy(MB, F( IS, JS+JJ ), 1, RHS( II ), 1 );
                      K = K + MB
                      II = II + MB
-  160             CONTINUE
+                  } // 160
 
 
                   // Solve Z**T * x = RHS
@@ -674,7 +674,7 @@
                      for (K = 1; K <= N; K++) { // 170
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-  170                CONTINUE
+                     } // 170
                      SCALE = SCALE*SCALOC
                   }
 
@@ -687,7 +687,7 @@
                      dcopy(MB, RHS( II ), 1, F( IS, JS+JJ ), 1 );
                      K = K + MB
                      II = II + MB
-  180             CONTINUE
+                  } // 180
 
                   // Substitute R(I, J) and L(I, J) into remaining
                   // equation.
@@ -701,8 +701,8 @@
 
                }
 
-  190       CONTINUE
-  200    CONTINUE
+            } // 190
+         } // 200
 
       }
       RETURN

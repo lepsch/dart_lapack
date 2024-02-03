@@ -89,7 +89,7 @@
 
       for (J = 1; J <= NXFRM; J++) { // 40
          X( J ) = CZERO
-   40 CONTINUE
+      } // 40
 
       for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 60
          KBEG = NXFRM - IXFRM + 1
@@ -98,7 +98,7 @@
 
          for (J = KBEG; J <= NXFRM; J++) { // 50
             X( J ) = CLARND( 3, ISEED )
-   50    CONTINUE
+         } // 50
 
          // Generate a Householder transformation from the random vector X
 
@@ -142,7 +142,7 @@
             cgemv('N', M, IXFRM, CONE, A( 1, KBEG ), LDA, X( KBEG ), 1, CZERO, X( 2*NXFRM+1 ), 1 )             CALL CGERC( M, IXFRM, -CMPLX( FACTOR ), X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA );
 
          }
-   60 CONTINUE
+      } // 60
 
       X( 1 ) = CLARND( 3, ISEED )
       XABS = ABS( X( 1 ) )
@@ -158,19 +158,19 @@
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 .OR. ITYPE.EQ.4 ) {
          for (IROW = 1; IROW <= M; IROW++) { // 70
             cscal(N, CONJG( X( NXFRM+IROW ) ), A( IROW, 1 ), LDA );
-   70    CONTINUE
+         } // 70
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 80
             cscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
-   80    CONTINUE
+         } // 80
       }
 
       if ( ITYPE.EQ.4 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 90
             cscal(M, CONJG( X( NXFRM+JCOL ) ), A( 1, JCOL ), 1 );
-   90    CONTINUE
+         } // 90
       }
       RETURN
 

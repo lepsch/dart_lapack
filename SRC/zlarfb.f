@@ -64,7 +64,7 @@
                for (J = 1; J <= K; J++) { // 10
                   zcopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
                   zlacgv(N, WORK( 1, J ), 1 );
-   10          CONTINUE
+               } // 10
 
                // W := W * V1
 
@@ -98,8 +98,8 @@
                for (J = 1; J <= K; J++) { // 30
                   for (I = 1; I <= N; I++) { // 20
                      C( J, I ) = C( J, I ) - DCONJG( WORK( I, J ) )
-   20             CONTINUE
-   30          CONTINUE
+                  } // 20
+               } // 30
 
             } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -111,7 +111,7 @@
 
                for (J = 1; J <= K; J++) { // 40
                   zcopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
-   40          CONTINUE
+               } // 40
 
                // W := W * V1
 
@@ -145,8 +145,8 @@
                for (J = 1; J <= K; J++) { // 60
                   for (I = 1; I <= M; I++) { // 50
                      C( I, J ) = C( I, J ) - WORK( I, J )
-   50             CONTINUE
-   60          CONTINUE
+                  } // 50
+               } // 60
             }
 
          } else {
@@ -167,7 +167,7 @@
                for (J = 1; J <= K; J++) { // 70
                   zcopy(N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 );
                   zlacgv(N, WORK( 1, J ), 1 );
-   70          CONTINUE
+               } // 70
 
                // W := W * V2
 
@@ -201,8 +201,8 @@
                for (J = 1; J <= K; J++) { // 90
                   for (I = 1; I <= N; I++) { // 80
                      C( M-K+J, I ) = C( M-K+J, I ) - DCONJG( WORK( I, J ) )
-   80             CONTINUE
-   90          CONTINUE
+                  } // 80
+               } // 90
 
             } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -214,7 +214,7 @@
 
                for (J = 1; J <= K; J++) { // 100
                   zcopy(M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 );
-  100          CONTINUE
+               } // 100
 
                // W := W * V2
 
@@ -248,8 +248,8 @@
                for (J = 1; J <= K; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
                      C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
-  110             CONTINUE
-  120          CONTINUE
+                  } // 110
+               } // 120
             }
          }
 
@@ -272,7 +272,7 @@
                for (J = 1; J <= K; J++) { // 130
                   zcopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
                   zlacgv(N, WORK( 1, J ), 1 );
-  130          CONTINUE
+               } // 130
 
                // W := W * V1**H
 
@@ -306,8 +306,8 @@
                for (J = 1; J <= K; J++) { // 150
                   for (I = 1; I <= N; I++) { // 140
                      C( J, I ) = C( J, I ) - DCONJG( WORK( I, J ) )
-  140             CONTINUE
-  150          CONTINUE
+                  } // 140
+               } // 150
 
             } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -319,7 +319,7 @@
 
                for (J = 1; J <= K; J++) { // 160
                   zcopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
-  160          CONTINUE
+               } // 160
 
                // W := W * V1**H
 
@@ -353,8 +353,8 @@
                for (J = 1; J <= K; J++) { // 180
                   for (I = 1; I <= M; I++) { // 170
                      C( I, J ) = C( I, J ) - WORK( I, J )
-  170             CONTINUE
-  180          CONTINUE
+                  } // 170
+               } // 180
 
             }
 
@@ -375,7 +375,7 @@
                for (J = 1; J <= K; J++) { // 190
                   zcopy(N, C( M-K+J, 1 ), LDC, WORK( 1, J ), 1 );
                   zlacgv(N, WORK( 1, J ), 1 );
-  190          CONTINUE
+               } // 190
 
                // W := W * V2**H
 
@@ -409,8 +409,8 @@
                for (J = 1; J <= K; J++) { // 210
                   for (I = 1; I <= N; I++) { // 200
                      C( M-K+J, I ) = C( M-K+J, I ) - DCONJG( WORK( I, J ) )
-  200             CONTINUE
-  210          CONTINUE
+                  } // 200
+               } // 210
 
             } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -422,7 +422,7 @@
 
                for (J = 1; J <= K; J++) { // 220
                   zcopy(M, C( 1, N-K+J ), 1, WORK( 1, J ), 1 );
-  220          CONTINUE
+               } // 220
 
                // W := W * V2**H
 
@@ -456,8 +456,8 @@
                for (J = 1; J <= K; J++) { // 240
                   for (I = 1; I <= M; I++) { // 230
                      C( I, N-K+J ) = C( I, N-K+J ) - WORK( I, J )
-  230             CONTINUE
-  240          CONTINUE
+                  } // 230
+               } // 240
 
             }
 

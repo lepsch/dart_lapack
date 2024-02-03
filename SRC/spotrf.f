@@ -86,7 +86,7 @@
 
                   sgemm('Transpose', 'No transpose', JB, N-J-JB+1, J-1, -ONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, ONE, A( J, J+JB ), LDA )                   CALL STRSM( 'Left', 'Upper', 'Transpose', 'Non-unit', JB, N-J-JB+1, ONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                }
-   10       CONTINUE
+            } // 10
 
          } else {
 
@@ -107,15 +107,15 @@
 
                   sgemm('No transpose', 'Transpose', N-J-JB+1, JB, J-1, -ONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+JB, J ), LDA )                   CALL STRSM( 'Right', 'Lower', 'Transpose', 'Non-unit', N-J-JB+1, JB, ONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
-   20       CONTINUE
+            } // 20
          }
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = INFO + J - 1
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of SPOTRF

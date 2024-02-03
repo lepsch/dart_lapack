@@ -158,7 +158,7 @@
                dlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
-   30    CONTINUE
+         } // 30
 
          RETURN
       }
@@ -167,14 +167,14 @@
 
       P = 0
       I = 1
-   40 CONTINUE
+      } // 40
       IF( I.GT.M ) GO TO 50
       P = P + 1
       IWORK( P ) = I
       I = I + MB
       IF( I.GE.M ) GO TO 50       IF( A( I, I-1 ).NE.ZERO ) I = I + 1
       GO TO 40
-   50 CONTINUE
+      } // 50
 
       IWORK( P+1 ) = M + 1
       IF( IWORK( P ).EQ.IWORK( P+1 ) ) P = P - 1
@@ -183,14 +183,14 @@
 
       Q = P + 1
       J = 1
-   60 CONTINUE
+      } // 60
       IF( J.GT.N ) GO TO 70
       Q = Q + 1
       IWORK( Q ) = J
       J = J + NB
       IF( J.GE.N ) GO TO 70       IF( B( J, J-1 ).NE.ZERO ) J = J + 1
       GO TO 60
-   70 CONTINUE
+      } // 70
 
       IWORK( Q+1 ) = N + 1
       IF( IWORK( Q ).EQ.IWORK( Q+1 ) ) Q = Q - 1
@@ -225,19 +225,19 @@
                      DO 80 K = 1, JS - 1
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-   80                CONTINUE
+                     } // 80
                      for (K = JS; K <= JE; K++) { // 90
                         dscal(IS-1, SCALOC, C( 1, K ), 1 );
                         dscal(IS-1, SCALOC, F( 1, K ), 1 );
-   90                CONTINUE
+                     } // 90
                      for (K = JS; K <= JE; K++) { // 100
                         dscal(M-IE, SCALOC, C( IE+1, K ), 1 );
                         dscal(M-IE, SCALOC, F( IE+1, K ), 1 );
-  100                CONTINUE
+                     } // 100
                      DO 110 K = JE + 1, N
                         dscal(M, SCALOC, C( 1, K ), 1 );
                         dscal(M, SCALOC, F( 1, K ), 1 );
-  110                CONTINUE
+                     } // 110
                      SCALE = SCALE*SCALOC
                   }
 
@@ -250,8 +250,8 @@
                   if ( J.LT.Q ) {
                      dgemm('N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL DGEMM( 'N', 'N', MB, N-JE, NB, ONE, F( IS, JS ), LDF, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
                   }
-  120          CONTINUE
-  130       CONTINUE
+               } // 120
+            } // 130
             if ( DSCALE.NE.ZERO ) {
                if ( IJOB.EQ.1 .OR. IJOB.EQ.3 ) {
                   DIF = SQRT( DBLE( 2*M*N ) ) / ( DSCALE*SQRT( DSUM ) )
@@ -273,7 +273,7 @@
                dlacpy('F', M, N, WORK( M*N+1 ), M, F, LDF );
                SCALE = SCALE2
             }
-  150    CONTINUE
+         } // 150
 
       } else {
 
@@ -297,19 +297,19 @@
                   DO 160 K = 1, JS - 1
                      dscal(M, SCALOC, C( 1, K ), 1 );
                      dscal(M, SCALOC, F( 1, K ), 1 );
-  160             CONTINUE
+                  } // 160
                   for (K = JS; K <= JE; K++) { // 170
                      dscal(IS-1, SCALOC, C( 1, K ), 1 );
                      dscal(IS-1, SCALOC, F( 1, K ), 1 );
-  170             CONTINUE
+                  } // 170
                   for (K = JS; K <= JE; K++) { // 180
                      dscal(M-IE, SCALOC, C( IE+1, K ), 1 );
                      dscal(M-IE, SCALOC, F( IE+1, K ), 1 );
-  180             CONTINUE
+                  } // 180
                   DO 190 K = JE + 1, N
                      dscal(M, SCALOC, C( 1, K ), 1 );
                      dscal(M, SCALOC, F( 1, K ), 1 );
-  190             CONTINUE
+                  } // 190
                   SCALE = SCALE*SCALOC
                }
 
@@ -321,8 +321,8 @@
                if ( I.LT.P ) {
                   dgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                   CALL DGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                }
-  200       CONTINUE
-  210    CONTINUE
+            } // 200
+         } // 210
 
       }
 

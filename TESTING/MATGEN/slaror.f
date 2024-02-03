@@ -81,7 +81,7 @@
 
       for (J = 1; J <= NXFRM; J++) { // 10
          X( J ) = ZERO
-   10 CONTINUE
+      } // 10
 
       for (IXFRM = 2; IXFRM <= NXFRM; IXFRM++) { // 30
          KBEG = NXFRM - IXFRM + 1
@@ -90,7 +90,7 @@
 
          for (J = KBEG; J <= NXFRM; J++) { // 20
             X( J ) = SLARND( 3, ISEED )
-   20    CONTINUE
+         } // 20
 
          // Generate a Householder transformation from the random vector X
 
@@ -124,7 +124,7 @@
             sgemv('N', M, IXFRM, ONE, A( 1, KBEG ), LDA, X( KBEG ), 1, ZERO, X( 2*NXFRM+1 ), 1 )             CALL SGER( M, IXFRM, -FACTOR, X( 2*NXFRM+1 ), 1, X( KBEG ), 1, A( 1, KBEG ), LDA );
 
          }
-   30 CONTINUE
+      } // 30
 
       X( 2*NXFRM ) = SIGN( ONE, SLARND( 3, ISEED ) )
 
@@ -133,13 +133,13 @@
       if ( ITYPE.EQ.1 .OR. ITYPE.EQ.3 ) {
          for (IROW = 1; IROW <= M; IROW++) { // 40
             sscal(N, X( NXFRM+IROW ), A( IROW, 1 ), LDA );
-   40    CONTINUE
+         } // 40
       }
 
       if ( ITYPE.EQ.2 .OR. ITYPE.EQ.3 ) {
          for (JCOL = 1; JCOL <= N; JCOL++) { // 50
             sscal(M, X( NXFRM+JCOL ), A( 1, JCOL ), 1 );
-   50    CONTINUE
+         } // 50
       }
       RETURN
 

@@ -176,7 +176,7 @@
          }
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( WR( I ), WI( I ) )
-   10    CONTINUE
+         } // 10
 
          // Reorder eigenvalues and transform Schur vectors
          // (Workspace: none needed)
@@ -237,7 +237,7 @@
                   }
                   INXT = I + 2
                }
-   20       CONTINUE
+            } // 20
          }
 
          // Undo scaling for the imaginary part of the eigenvalues
@@ -278,7 +278,7 @@
             }
             LST2SL = LASTSL
             LASTSL = CURSL
-   30    CONTINUE
+         } // 30
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)

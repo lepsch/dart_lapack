@@ -149,7 +149,7 @@
             if ( INFO.EQ.0 ) {
                for (I = 1; I <= N; I++) { // 10
                   IFAIL( I ) = 0
-   10          CONTINUE
+               } // 10
             }
          }
          if ( INFO.EQ.0 ) {
@@ -177,7 +177,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-   20 CONTINUE
+      } // 20
       if ( ISCALE.EQ.1 ) {
          if ( INFO.EQ.0 ) {
             IMAX = M
@@ -199,7 +199,7 @@
                   I = JJ
                   TMP1 = W( JJ )
                }
-   30       CONTINUE
+            } // 30
 
             if ( I.NE.0 ) {
                ITMP1 = IWORK( 1 + I-1 )
@@ -214,7 +214,7 @@
                   IFAIL( J ) = ITMP1
                }
             }
-   40    CONTINUE
+         } // 40
       }
 
       RETURN

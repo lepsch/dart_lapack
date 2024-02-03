@@ -144,7 +144,7 @@
 
       UPDATE = .TRUE.
       I = N + 1
-   10 CONTINUE
+      } // 10
       if ( UPDATE ) {
          I = I - 1
          KBT = MIN( KB, I-1 )
@@ -175,23 +175,23 @@
             AB( KA1, I ) = ( DBLE( AB( KA1, I ) ) / BII ) / BII
             DO 20 J = I + 1, I1
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII
-   20       CONTINUE
+            } // 20
             DO 30 J = MAX( 1, I-KA ), I - 1
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII
-   30       CONTINUE
+            } // 30
             DO 60 K = I - KBT, I - 1
                DO 40 J = I - KBT, K
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( J-I+KB1, I )* DCONJG( AB( K-I+KA1, I ) ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I ) + DBLE( AB( KA1, I ) )* BB( J-I+KB1, I )* DCONJG( BB( K-I+KB1, I ) )
-   40          CONTINUE
+               } // 40
                DO 50 J = MAX( 1, I-KA ), I - KBT - 1
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - DCONJG( BB( K-I+KB1, I ) )* AB( J-I+KA1, I )
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
             for (J = I; J <= I1; J++) { // 80
                DO 70 K = MAX( J-KA, I-KBT ), I - 1
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( K-I+KB1, I )*AB( I-J+KA1, J )
-   70          CONTINUE
-   80       CONTINUE
+               } // 70
+            } // 80
 
             if ( WANTX ) {
 
@@ -247,7 +247,7 @@
 
                WORK( J-M ) = WORK( J-M )*AB( 1, J+1 )
                AB( 1, J+1 ) = RWORK( J-M )*AB( 1, J+1 )
-   90       CONTINUE
+            } // 90
 
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
@@ -259,7 +259,7 @@
 
                DO 100 L = 1, KA - 1
                   zlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
-  100          CONTINUE
+               } // 100
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
@@ -274,7 +274,7 @@
             DO 110 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
-  110       CONTINUE
+            } // 110
 
             if ( WANTX ) {
 
@@ -282,9 +282,9 @@
 
                DO 120 J = J2, J1, KA1
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), DCONJG( WORK( J-M ) ) );
-  120          CONTINUE
+               } // 120
             }
-  130    CONTINUE
+         } // 130
 
          if ( UPDATE ) {
             if ( I2.LE.N .AND. KBT.GT.0 ) {
@@ -308,13 +308,13 @@
             DO 140 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 )
-  140       CONTINUE
+            } // 140
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
             DO 150 J = J1, J2, -KA1
                WORK( J ) = WORK( J-KA )
                RWORK( J ) = RWORK( J-KA )
-  150       CONTINUE
+            } // 150
             DO 160 J = J2, J1, KA1
 
                // create nonzero element a(j-ka,j+1) outside the band
@@ -322,11 +322,11 @@
 
                WORK( J ) = WORK( J )*AB( 1, J+1 )
                AB( 1, J+1 ) = RWORK( J )*AB( 1, J+1 )
-  160       CONTINUE
+            } // 160
             if ( UPDATE ) {
                IF( I-K.LT.N-KA .AND. K.LE.KBT ) WORK( I-K+KA ) = WORK( I-K )
             }
-  170    CONTINUE
+         } // 170
 
          DO 210 K = KB, 1, -1
             J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
@@ -343,7 +343,7 @@
 
                DO 180 L = 1, KA - 1
                   zlartv(NR, AB( KA1-L, J2 ), INCA, AB( KA-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
-  180          CONTINUE
+               } // 180
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
@@ -358,7 +358,7 @@
             DO 190 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
-  190       CONTINUE
+            } // 190
 
             if ( WANTX ) {
 
@@ -366,9 +366,9 @@
 
                DO 200 J = J2, J1, KA1
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) );
-  200          CONTINUE
+               } // 200
             }
-  210    CONTINUE
+         } // 210
 
          DO 230 K = 1, KB - 1
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
@@ -378,14 +378,14 @@
             DO 220 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
-  220       CONTINUE
-  230    CONTINUE
+            } // 220
+         } // 230
 
          if ( KB.GT.1 ) {
             DO 240 J = N - 1, J2 + KA, -1
                RWORK( J-M ) = RWORK( J-KA-M )
                WORK( J-M ) = WORK( J-KA-M )
-  240       CONTINUE
+            } // 240
          }
 
       } else {
@@ -400,23 +400,23 @@
             AB( 1, I ) = ( DBLE( AB( 1, I ) ) / BII ) / BII
             DO 250 J = I + 1, I1
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII
-  250       CONTINUE
+            } // 250
             DO 260 J = MAX( 1, I-KA ), I - 1
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII
-  260       CONTINUE
+            } // 260
             DO 290 K = I - KBT, I - 1
                DO 270 J = I - KBT, K
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( I-J+1, J )*DCONJG( AB( I-K+1, K ) ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J ) + DBLE( AB( 1, I ) )* BB( I-J+1, J )*DCONJG( BB( I-K+1, K ) )
-  270          CONTINUE
+               } // 270
                DO 280 J = MAX( 1, I-KA ), I - KBT - 1
                   AB( K-J+1, J ) = AB( K-J+1, J ) - DCONJG( BB( I-K+1, K ) )* AB( I-J+1, J )
-  280          CONTINUE
-  290       CONTINUE
+               } // 280
+            } // 290
             for (J = I; J <= I1; J++) { // 310
                DO 300 K = MAX( J-KA, I-KBT ), I - 1
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( I-K+1, K )*AB( J-I+1, I )
-  300          CONTINUE
-  310       CONTINUE
+               } // 300
+            } // 310
 
             if ( WANTX ) {
 
@@ -472,7 +472,7 @@
 
                WORK( J-M ) = WORK( J-M )*AB( KA1, J-KA+1 )
                AB( KA1, J-KA+1 ) = RWORK( J-M )*AB( KA1, J-KA+1 )
-  320       CONTINUE
+            } // 320
 
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
@@ -484,7 +484,7 @@
 
                DO 330 L = 1, KA - 1
                   zlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
-  330          CONTINUE
+               } // 330
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
@@ -499,7 +499,7 @@
             DO 340 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
-  340       CONTINUE
+            } // 340
 
             if ( WANTX ) {
 
@@ -507,9 +507,9 @@
 
                DO 350 J = J2, J1, KA1
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), WORK( J-M ) );
-  350          CONTINUE
+               } // 350
             }
-  360    CONTINUE
+         } // 360
 
          if ( UPDATE ) {
             if ( I2.LE.N .AND. KBT.GT.0 ) {
@@ -533,13 +533,13 @@
             DO 370 L = KB - K, 1, -1
                NRT = ( N-J2+KA+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 )
-  370       CONTINUE
+            } // 370
             NR = ( N-J2+KA ) / KA1
             J1 = J2 + ( NR-1 )*KA1
             DO 380 J = J1, J2, -KA1
                WORK( J ) = WORK( J-KA )
                RWORK( J ) = RWORK( J-KA )
-  380       CONTINUE
+            } // 380
             DO 390 J = J2, J1, KA1
 
                // create nonzero element a(j+1,j-ka) outside the band
@@ -547,11 +547,11 @@
 
                WORK( J ) = WORK( J )*AB( KA1, J-KA+1 )
                AB( KA1, J-KA+1 ) = RWORK( J )*AB( KA1, J-KA+1 )
-  390       CONTINUE
+            } // 390
             if ( UPDATE ) {
                IF( I-K.LT.N-KA .AND. K.LE.KBT ) WORK( I-K+KA ) = WORK( I-K )
             }
-  400    CONTINUE
+         } // 400
 
          DO 440 K = KB, 1, -1
             J2 = I - K - 1 + MAX( 1, K-I0+1 )*KA1
@@ -568,7 +568,7 @@
 
                DO 410 L = 1, KA - 1
                   zlartv(NR, AB( L+1, J2-L ), INCA, AB( L+2, J2-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
-  410          CONTINUE
+               } // 410
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
@@ -583,7 +583,7 @@
             DO 420 L = KA - 1, KB - K + 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 )
-  420       CONTINUE
+            } // 420
 
             if ( WANTX ) {
 
@@ -591,9 +591,9 @@
 
                DO 430 J = J2, J1, KA1
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), WORK( J ) );
-  430          CONTINUE
+               } // 430
             }
-  440    CONTINUE
+         } // 440
 
          DO 460 K = 1, KB - 1
             J2 = I - K - 1 + MAX( 1, K-I0+2 )*KA1
@@ -603,21 +603,21 @@
             DO 450 L = KB - K, 1, -1
                NRT = ( N-J2+L ) / KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 )
-  450       CONTINUE
-  460    CONTINUE
+            } // 450
+         } // 460
 
          if ( KB.GT.1 ) {
             DO 470 J = N - 1, J2 + KA, -1
                RWORK( J-M ) = RWORK( J-KA-M )
                WORK( J-M ) = WORK( J-KA-M )
-  470       CONTINUE
+            } // 470
          }
 
       }
 
       GO TO 10
 
-  480 CONTINUE
+      } // 480
 
       // **************************** Phase 2 *****************************
 
@@ -637,7 +637,7 @@
 
       UPDATE = .TRUE.
       I = 0
-  490 CONTINUE
+      } // 490
       if ( UPDATE ) {
          I = I + 1
          KBT = MIN( KB, M-I )
@@ -674,23 +674,23 @@
             AB( KA1, I ) = ( DBLE( AB( KA1, I ) ) / BII ) / BII
             DO 500 J = I1, I - 1
                AB( J-I+KA1, I ) = AB( J-I+KA1, I ) / BII
-  500       CONTINUE
+            } // 500
             DO 510 J = I + 1, MIN( N, I+KA )
                AB( I-J+KA1, J ) = AB( I-J+KA1, J ) / BII
-  510       CONTINUE
+            } // 510
             DO 540 K = I + 1, I + KBT
                DO 520 J = K, I + KBT
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - BB( I-J+KB1, J )* DCONJG( AB( I-K+KA1, K ) ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J ) + DBLE( AB( KA1, I ) )* BB( I-J+KB1, J )* DCONJG( BB( I-K+KB1, K ) )
-  520          CONTINUE
+               } // 520
                DO 530 J = I + KBT + 1, MIN( N, I+KA )
                   AB( K-J+KA1, J ) = AB( K-J+KA1, J ) - DCONJG( BB( I-K+KB1, K ) )* AB( I-J+KA1, J )
-  530          CONTINUE
-  540       CONTINUE
+               } // 530
+            } // 540
             for (J = I1; J <= I; J++) { // 560
                DO 550 K = I + 1, MIN( J+KA, I+KBT )
                   AB( J-K+KA1, K ) = AB( J-K+KA1, K ) - BB( I-K+KB1, K )*AB( J-I+KA1, I )
-  550          CONTINUE
-  560       CONTINUE
+               } // 550
+            } // 560
 
             if ( WANTX ) {
 
@@ -745,7 +745,7 @@
 
                WORK( J ) = WORK( J )*AB( 1, J+KA-1 )
                AB( 1, J+KA-1 ) = RWORK( J )*AB( 1, J+KA-1 )
-  570       CONTINUE
+            } // 570
 
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
@@ -757,7 +757,7 @@
 
                DO 580 L = 1, KA - 1
                   zlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, RWORK( J1 ), WORK( J1 ), KA1 );
-  580          CONTINUE
+               } // 580
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
@@ -773,7 +773,7 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 )
-  590       CONTINUE
+            } // 590
 
             if ( WANTX ) {
 
@@ -781,9 +781,9 @@
 
                DO 600 J = J1, J2, KA1
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), WORK( J ) );
-  600          CONTINUE
+               } // 600
             }
-  610    CONTINUE
+         } // 610
 
          if ( UPDATE ) {
             if ( I2.GT.0 .AND. KBT.GT.0 ) {
@@ -808,13 +808,13 @@
                NRT = ( J2+KA+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 )
-  620       CONTINUE
+            } // 620
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
             DO 630 J = J1, J2, KA1
                WORK( M-KB+J ) = WORK( M-KB+J+KA )
                RWORK( M-KB+J ) = RWORK( M-KB+J+KA )
-  630       CONTINUE
+            } // 630
             DO 640 J = J1, J2, KA1
 
                // create nonzero element a(j-1,j+ka) outside the band
@@ -822,11 +822,11 @@
 
                WORK( M-KB+J ) = WORK( M-KB+J )*AB( 1, J+KA-1 )
                AB( 1, J+KA-1 ) = RWORK( M-KB+J )*AB( 1, J+KA-1 )
-  640       CONTINUE
+            } // 640
             if ( UPDATE ) {
                IF( I+K.GT.KA1 .AND. K.LE.KBT ) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K )
             }
-  650    CONTINUE
+         } // 650
 
          DO 690 K = KB, 1, -1
             J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
@@ -843,7 +843,7 @@
 
                DO 660 L = 1, KA - 1
                   zlartv(NR, AB( KA1-L, J1+L ), INCA, AB( KA-L, J1+L ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
-  660          CONTINUE
+               } // 660
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
@@ -859,7 +859,7 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 )
-  670       CONTINUE
+            } // 670
 
             if ( WANTX ) {
 
@@ -867,9 +867,9 @@
 
                DO 680 J = J1, J2, KA1
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), WORK( M-KB+J ) );
-  680          CONTINUE
+               } // 680
             }
-  690    CONTINUE
+         } // 690
 
          DO 710 K = 1, KB - 1
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
@@ -880,14 +880,14 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 )
-  700       CONTINUE
-  710    CONTINUE
+            } // 700
+         } // 710
 
          if ( KB.GT.1 ) {
             DO 720 J = 2, I2 - KA
                RWORK( J ) = RWORK( J+KA )
                WORK( J ) = WORK( J+KA )
-  720       CONTINUE
+            } // 720
          }
 
       } else {
@@ -902,23 +902,23 @@
             AB( 1, I ) = ( DBLE( AB( 1, I ) ) / BII ) / BII
             DO 730 J = I1, I - 1
                AB( I-J+1, J ) = AB( I-J+1, J ) / BII
-  730       CONTINUE
+            } // 730
             DO 740 J = I + 1, MIN( N, I+KA )
                AB( J-I+1, I ) = AB( J-I+1, I ) / BII
-  740       CONTINUE
+            } // 740
             DO 770 K = I + 1, I + KBT
                DO 750 J = K, I + KBT
                   AB( J-K+1, K ) = AB( J-K+1, K ) - BB( J-I+1, I )*DCONJG( AB( K-I+1, I ) ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I ) + DBLE( AB( 1, I ) )* BB( J-I+1, I )*DCONJG( BB( K-I+1, I ) )
-  750          CONTINUE
+               } // 750
                DO 760 J = I + KBT + 1, MIN( N, I+KA )
                   AB( J-K+1, K ) = AB( J-K+1, K ) - DCONJG( BB( K-I+1, I ) )* AB( J-I+1, I )
-  760          CONTINUE
-  770       CONTINUE
+               } // 760
+            } // 770
             for (J = I1; J <= I; J++) { // 790
                DO 780 K = I + 1, MIN( J+KA, I+KBT )
                   AB( K-J+1, J ) = AB( K-J+1, J ) - BB( K-I+1, I )*AB( I-J+1, J )
-  780          CONTINUE
-  790       CONTINUE
+               } // 780
+            } // 790
 
             if ( WANTX ) {
 
@@ -973,7 +973,7 @@
 
                WORK( J ) = WORK( J )*AB( KA1, J-1 )
                AB( KA1, J-1 ) = RWORK( J )*AB( KA1, J-1 )
-  800       CONTINUE
+            } // 800
 
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
@@ -985,7 +985,7 @@
 
                DO 810 L = 1, KA - 1
                   zlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, RWORK( J1 ), WORK( J1 ), KA1 );
-  810          CONTINUE
+               } // 810
 
                // apply rotations in 1st set from both sides to diagonal
                // blocks
@@ -1001,7 +1001,7 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 )
-  820       CONTINUE
+            } // 820
 
             if ( WANTX ) {
 
@@ -1009,9 +1009,9 @@
 
                DO 830 J = J1, J2, KA1
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) );
-  830          CONTINUE
+               } // 830
             }
-  840    CONTINUE
+         } // 840
 
          if ( UPDATE ) {
             if ( I2.GT.0 .AND. KBT.GT.0 ) {
@@ -1036,13 +1036,13 @@
                NRT = ( J2+KA+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 )
-  850       CONTINUE
+            } // 850
             NR = ( J2+KA-1 ) / KA1
             J1 = J2 - ( NR-1 )*KA1
             DO 860 J = J1, J2, KA1
                WORK( M-KB+J ) = WORK( M-KB+J+KA )
                RWORK( M-KB+J ) = RWORK( M-KB+J+KA )
-  860       CONTINUE
+            } // 860
             DO 870 J = J1, J2, KA1
 
                // create nonzero element a(j+ka,j-1) outside the band
@@ -1050,11 +1050,11 @@
 
                WORK( M-KB+J ) = WORK( M-KB+J )*AB( KA1, J-1 )
                AB( KA1, J-1 ) = RWORK( M-KB+J )*AB( KA1, J-1 )
-  870       CONTINUE
+            } // 870
             if ( UPDATE ) {
                IF( I+K.GT.KA1 .AND. K.LE.KBT ) WORK( M-KB+I+K-KA ) = WORK( M-KB+I+K )
             }
-  880    CONTINUE
+         } // 880
 
          DO 920 K = KB, 1, -1
             J2 = I + K + 1 - MAX( 1, K+I0-M )*KA1
@@ -1071,7 +1071,7 @@
 
                DO 890 L = 1, KA - 1
                   zlartv(NR, AB( L+1, J1 ), INCA, AB( L+2, J1-1 ), INCA, RWORK( M-KB+J1 ), WORK( M-KB+J1 ), KA1 );
-  890          CONTINUE
+               } // 890
 
                // apply rotations in 2nd set from both sides to diagonal
                // blocks
@@ -1087,7 +1087,7 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 )
-  900       CONTINUE
+            } // 900
 
             if ( WANTX ) {
 
@@ -1095,9 +1095,9 @@
 
                DO 910 J = J1, J2, KA1
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), DCONJG( WORK( M-KB+J ) ) );
-  910          CONTINUE
+               } // 910
             }
-  920    CONTINUE
+         } // 920
 
          DO 940 K = 1, KB - 1
             J2 = I + K + 1 - MAX( 1, K+I0-M+1 )*KA1
@@ -1108,14 +1108,14 @@
                NRT = ( J2+L-1 ) / KA1
                J1T = J2 - ( NRT-1 )*KA1
                IF( NRT.GT.0 ) CALL ZLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 )
-  930       CONTINUE
-  940    CONTINUE
+            } // 930
+         } // 940
 
          if ( KB.GT.1 ) {
             DO 950 J = 2, I2 - KA
                RWORK( J ) = RWORK( J+KA )
                WORK( J ) = WORK( J+KA )
-  950       CONTINUE
+            } // 950
          }
 
       }

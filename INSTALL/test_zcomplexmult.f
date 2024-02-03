@@ -72,7 +72,7 @@
                   WRITE( *, FMT = 9998 ) 'ic',i, Y, Y, R, 'NaN'
               endif
           endif
-  10  continue
+      } // 10
 
       // Test (b) NaNs
       for (i = 1; i <= nNaN; i++) { // 20
@@ -93,7 +93,7 @@
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'nc',i, Y, Y, R, 'NaN'
           endif
-  20  continue
+      } // 20
 
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for complex multiplication,", nFailingTests," fail."

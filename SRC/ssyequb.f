@@ -182,7 +182,7 @@
          END DO
       END DO
 
- 999  CONTINUE
+      } // 999
 
       SMLNUM = SLAMCH( 'SAFEMIN' )
       BIGNUM = ONE / SMLNUM

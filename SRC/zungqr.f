@@ -103,8 +103,8 @@
          DO 20 J = KK + 1, N
             for (I = 1; I <= KK; I++) { // 10
                A( I, J ) = ZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else {
          KK = 0
       }
@@ -140,9 +140,9 @@
             DO 40 J = I, I + IB - 1
                DO 30 L = 1, I - 1
                   A( L, J ) = ZERO
-   30          CONTINUE
-   40       CONTINUE
-   50    CONTINUE
+               } // 30
+            } // 40
+         } // 50
       }
 
       WORK( 1 ) = IWS

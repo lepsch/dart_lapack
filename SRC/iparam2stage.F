@@ -63,7 +63,7 @@
                for (I = 2; I <= 12; I++) { // 100
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
-  100          CONTINUE
+               } // 100
             }
 
          } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
@@ -75,7 +75,7 @@
                for (I = 2; I <= 12; I++) { // 110
                   IC = ICHAR( SUBNAM( I: I ) )
                   IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
-  110          CONTINUE
+               } // 110
             }
 
          } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
@@ -87,7 +87,7 @@
                for (I = 2; I <= 12; I++) { // 120
                  IC = ICHAR( SUBNAM( I: I ) )
                  IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
-  120          CONTINUE
+               } // 120
             }
          }
 

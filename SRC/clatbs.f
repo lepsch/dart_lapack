@@ -96,7 +96,7 @@
             for (J = 1; J <= N; J++) { // 10
                JLEN = MIN( KD, J-1 )
                CNORM( J ) = SCASUM( JLEN, AB( KD+1-JLEN, J ), 1 )
-   10       CONTINUE
+            } // 10
          } else {
 
             // A is lower triangular.
@@ -108,7 +108,7 @@
                } else {
                   CNORM( J ) = ZERO
                }
-   20       CONTINUE
+            } // 20
          }
       }
 
@@ -130,7 +130,7 @@
       XMAX = ZERO
       for (J = 1; J <= N; J++) { // 30
          XMAX = MAX( XMAX, CABS2( X( J ) ) )
-   30 CONTINUE
+      } // 30
       XBND = XMAX
       if ( NOTRAN ) {
 
@@ -194,7 +194,7 @@
 
                   GROW = ZERO
                }
-   40       CONTINUE
+            } // 40
             GROW = XBND
          } else {
 
@@ -212,9 +212,9 @@
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
                GROW = GROW*( ONE / ( ONE+CNORM( J ) ) )
-   50       CONTINUE
+            } // 50
          }
-   60    CONTINUE
+         } // 60
 
       } else {
 
@@ -271,7 +271,7 @@
 
                   XBND = ZERO
                }
-   70       CONTINUE
+            } // 70
             GROW = MIN( GROW, XBND )
          } else {
 
@@ -290,9 +290,9 @@
 
                XJ = ONE + CNORM( J )
                GROW = GROW / XJ
-   80       CONTINUE
+            } // 80
          }
-   90    CONTINUE
+         } // 90
       }
 
       if ( ( GROW*TSCAL ).GT.SMLNUM ) {
@@ -380,13 +380,13 @@
 
                      for (I = 1; I <= N; I++) { // 100
                         X( I ) = ZERO
-  100                CONTINUE
+                     } // 100
                      X( J ) = ONE
                      XJ = ONE
                      SCALE = ZERO
                      XMAX = ZERO
                   }
-  105          CONTINUE
+               } // 105
 
                // Scale x if necessary to avoid overflow when adding a
                // multiple of column j of A.
@@ -432,7 +432,7 @@
                   I = J + ICAMAX( N-J, X( J+1 ), 1 )
                   XMAX = CABS1( X( I ) )
                }
-  110       CONTINUE
+            } // 110
 
          } else if ( LSAME( TRANS, 'T' ) ) {
 
@@ -492,12 +492,12 @@
                      JLEN = MIN( KD, J-1 )
                      for (I = 1; I <= JLEN; I++) { // 120
                         CSUMJ = CSUMJ + ( AB( KD+I-JLEN, J )*USCAL )* X( J-JLEN-1+I )
-  120                CONTINUE
+                     } // 120
                   } else {
                      JLEN = MIN( KD, N-J )
                      for (I = 1; I <= JLEN; I++) { // 130
                         CSUMJ = CSUMJ + ( AB( I+1, J )*USCAL )*X( J+I )
-  130                CONTINUE
+                     } // 130
                   }
                }
 
@@ -555,12 +555,12 @@
 
                         for (I = 1; I <= N; I++) { // 140
                            X( I ) = ZERO
-  140                   CONTINUE
+                        } // 140
                         X( J ) = ONE
                         SCALE = ZERO
                         XMAX = ZERO
                      }
-  145             CONTINUE
+                  } // 145
                } else {
 
                   // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
@@ -569,7 +569,7 @@
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ
                }
                XMAX = MAX( XMAX, CABS1( X( J ) ) )
-  150       CONTINUE
+            } // 150
 
          } else {
 
@@ -629,12 +629,12 @@
                      JLEN = MIN( KD, J-1 )
                      for (I = 1; I <= JLEN; I++) { // 160
                         CSUMJ = CSUMJ + ( CONJG( AB( KD+I-JLEN, J ) )* USCAL )*X( J-JLEN-1+I )
-  160                CONTINUE
+                     } // 160
                   } else {
                      JLEN = MIN( KD, N-J )
                      for (I = 1; I <= JLEN; I++) { // 170
                         CSUMJ = CSUMJ + ( CONJG( AB( I+1, J ) )*USCAL )* X( J+I )
-  170                CONTINUE
+                     } // 170
                   }
                }
 
@@ -692,12 +692,12 @@
 
                         for (I = 1; I <= N; I++) { // 180
                            X( I ) = ZERO
-  180                   CONTINUE
+                        } // 180
                         X( J ) = ONE
                         SCALE = ZERO
                         XMAX = ZERO
                      }
-  185             CONTINUE
+                  } // 185
                } else {
 
                   // Compute x(j) := x(j) / A(j,j) - CSUMJ if the dot
@@ -706,7 +706,7 @@
                   X( J ) = CLADIV( X( J ), TJJS ) - CSUMJ
                }
                XMAX = MAX( XMAX, CABS1( X( J ) ) )
-  190       CONTINUE
+            } // 190
          }
          SCALE = SCALE / TSCAL
       }

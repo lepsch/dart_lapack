@@ -48,11 +48,11 @@
                      TEMP = A( I, K )
                      A( I, K ) = A( IP, K )
                      A( IP, K ) = TEMP
-   10             CONTINUE
+                  } // 10
                }
                IX = IX + INCX
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
       }
       if ( N32.NE.N ) {
          N32 = N32 + 1
@@ -64,10 +64,10 @@
                   TEMP = A( I, K )
                   A( I, K ) = A( IP, K )
                   A( IP, K ) = TEMP
-   40          CONTINUE
+               } // 40
             }
             IX = IX + INCX
-   50    CONTINUE
+         } // 50
       }
 
       RETURN

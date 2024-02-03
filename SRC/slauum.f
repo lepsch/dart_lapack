@@ -79,7 +79,7 @@
                if ( I+IB.LE.N ) {
                   sgemm('No transpose', 'Transpose', I-1, IB, N-I-IB+1, ONE, A( 1, I+IB ), LDA, A( I, I+IB ), LDA, ONE, A( 1, I ), LDA )                   CALL SSYRK( 'Upper', 'No transpose', IB, N-I-IB+1, ONE, A( I, I+IB ), LDA, ONE, A( I, I ), LDA );
                }
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute the product L**T * L.
@@ -92,7 +92,7 @@
                   sgemm('Transpose', 'No transpose', IB, I-1, N-I-IB+1, ONE, A( I+IB, I ), LDA, A( I+IB, 1 ), LDA, ONE, A( I, 1 ), LDA );
                   ssyrk('Lower', 'Transpose', IB, N-I-IB+1, ONE, A( I+IB, I ), LDA, ONE, A( I, I ), LDA );
                }
-   20       CONTINUE
+            } // 20
          }
       }
 

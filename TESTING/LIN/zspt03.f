@@ -74,15 +74,15 @@
                DO 10 K = J + 1, I
                   T = T + A( KCOL+K )*AINV( JCOL )
                   JCOL = JCOL + K
-   10          CONTINUE
+               } // 10
                KCOL = KCOL + 2*I
                DO 20 K = I + 1, N
                   T = T + A( KCOL )*AINV( JCOL )
                   KCOL = KCOL + K
                   JCOL = JCOL + K
-   20          CONTINUE
+               } // 20
                WORK( I, J ) = -T
-   30       CONTINUE
+            } // 30
 
             // Code when J > I
 
@@ -94,16 +94,16 @@
                DO 40 K = I + 1, J
                   T = T + A( KCOL )*AINV( JCOL+K )
                   KCOL = KCOL + K
-   40          CONTINUE
+               } // 40
                JCOL = JCOL + 2*J
                DO 50 K = J + 1, N
                   T = T + A( KCOL )*AINV( JCOL )
                   KCOL = KCOL + K
                   JCOL = JCOL + K
-   50          CONTINUE
+               } // 50
                WORK( I, J ) = -T
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
       } else {
 
          // Case where both A and AINV are lower triangular
@@ -123,14 +123,14 @@
                   T = T + A( KCOL )*AINV( JCOL )
                   JCOL = JCOL + N - K
                   KCOL = KCOL + N - K
-   80          CONTINUE
+               } // 80
                JCOL = JCOL - J
                DO 90 K = J, I - 1
                   T = T + A( KCOL )*AINV( JCOL+K )
                   KCOL = KCOL + N - K
-   90          CONTINUE
+               } // 90
                WORK( I, J ) = -T
-  100       CONTINUE
+            } // 100
 
             // Code when J > I
 
@@ -144,22 +144,22 @@
                   T = T + A( KCOL )*AINV( JCOL )
                   JCOL = JCOL + N - K
                   KCOL = KCOL + N - K
-  110          CONTINUE
+               } // 110
                KCOL = KCOL - I
                DO 120 K = I, J - 1
                   T = T + A( KCOL+K )*AINV( JCOL )
                   JCOL = JCOL + N - K
-  120          CONTINUE
+               } // 120
                WORK( I, J ) = -T
-  130       CONTINUE
-  140    CONTINUE
+            } // 130
+         } // 140
       }
 
       // Add the identity matrix to WORK .
 
       for (I = 1; I <= N; I++) { // 150
          WORK( I, I ) = WORK( I, I ) + ONE
-  150 CONTINUE
+      } // 150
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 

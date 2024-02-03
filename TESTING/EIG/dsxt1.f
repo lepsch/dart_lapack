@@ -31,7 +31,7 @@
 
       J = 1
       for (I = 1; I <= N1; I++) { // 20
-   10    CONTINUE
+         } // 10
          if ( D2( J ).LT.D1( I ) .AND. J.LT.N2 ) {
             J = J + 1
             GO TO 10
@@ -43,7 +43,7 @@
             TEMP2 = MIN( ABS( D2( J )-D1( I ) ), ABS( D1( I )-D2( J-1 ) ) )             IF( IJOB.EQ.2 ) TEMP2 = TEMP2 / MAX( UNFL, ABSTOL+ULP*ABS( D1( I ) ) )
          }
          TEMP1 = MAX( TEMP1, TEMP2 )
-   20 CONTINUE
+      } // 20
 
       DSXT1 = TEMP1
       RETURN

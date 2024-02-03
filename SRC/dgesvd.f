@@ -565,7 +565,7 @@
                      CHUNK = MIN( M-I+1, LDWRKU )
                      dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      dlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   10             CONTINUE
+                  } // 10
 
                } else {
 
@@ -680,7 +680,7 @@
                      CHUNK = MIN( M-I+1, LDWRKU )
                      dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      dlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   20             CONTINUE
+                  } // 20
 
                } else {
 
@@ -1746,7 +1746,7 @@
                      BLK = MIN( N-I+1, CHUNK )
                      dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      dlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
-   30             CONTINUE
+                  } // 30
 
                } else {
 
@@ -1864,7 +1864,7 @@
                      BLK = MIN( N-I+1, CHUNK )
                      dgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      dlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
-   40             CONTINUE
+                  } // 40
 
                } else {
 
@@ -2800,12 +2800,12 @@
          if ( IE.GT.2 ) {
             DO 50 I = 1, MINMN - 1
                WORK( I+1 ) = WORK( I+IE-1 )
-   50       CONTINUE
+            } // 50
          }
          if ( IE.LT.2 ) {
             DO 60 I = MINMN - 1, 1, -1
                WORK( I+1 ) = WORK( I+IE-1 )
-   60       CONTINUE
+            } // 60
          }
       }
 

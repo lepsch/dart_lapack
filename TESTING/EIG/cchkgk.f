@@ -58,25 +58,25 @@
 
       EPS = SLAMCH( 'Precision' )
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, M
       IF( N.EQ.0 ) GO TO 100
 
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
 
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
-   30 CONTINUE
+      } // 30
 
       for (I = 1; I <= N; I++) { // 40
          READ( NIN, FMT = * )( VL( I, J ), J = 1, M )
-   40 CONTINUE
+      } // 40
 
       for (I = 1; I <= N; I++) { // 50
          READ( NIN, FMT = * )( VR( I, J ), J = 1, M )
-   50 CONTINUE
+      } // 50
 
       KNT = KNT + 1
 
@@ -120,8 +120,8 @@
       for (J = 1; J <= M; J++) { // 70
          for (I = 1; I <= M; I++) { // 60
             VMAX = MAX( VMAX, CABS1( E( I, J )-F( I, J ) ) )
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
       if ( VMAX.GT.RMAX ) {
          LMAX( 4 ) = KNT
@@ -138,8 +138,8 @@
       for (J = 1; J <= M; J++) { // 90
          for (I = 1; I <= M; I++) { // 80
             VMAX = MAX( VMAX, CABS1( E( I, J )-F( I, J ) ) )
-   80    CONTINUE
-   90 CONTINUE
+         } // 80
+      } // 90
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
       if ( VMAX.GT.RMAX ) {
          LMAX( 4 ) = KNT
@@ -148,7 +148,7 @@
 
       GO TO 10
 
-  100 CONTINUE
+      } // 100
 
       WRITE( NOUT, FMT = 9999 )
  9999 FORMAT( 1X, '.. test output of CGGBAK .. ' )

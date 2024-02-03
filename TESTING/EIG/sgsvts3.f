@@ -55,15 +55,15 @@
       DO 20 I = 1, MIN( K+L, M )
          DO 10 J = I, K + L
             R( I, J ) = AF( I, N-K-L+J )
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       if ( M-K-L.LT.0 ) {
          DO 40 I = M + 1, K + L
             DO 30 J = I, K + L
                R( I, J ) = BF( I-K, N-K-L+J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       }
 
       // Compute A:= U'*A*Q - D1*R
@@ -75,14 +75,14 @@
       for (I = 1; I <= K; I++) { // 60
          DO 50 J = I, K + L
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - R( I, J )
-   50    CONTINUE
-   60 CONTINUE
+         } // 50
+      } // 60
 
       DO 80 I = K + 1, MIN( K+L, M )
          DO 70 J = I, K + L
             A( I, N-K-L+J ) = A( I, N-K-L+J ) - ALPHA( I )*R( I, J )
-   70    CONTINUE
-   80 CONTINUE
+         } // 70
+      } // 80
 
       // Compute norm( U'*A*Q - D1*R ) / ( MAX(1,M,N)*norm(A)*ULP ) .
 
@@ -103,8 +103,8 @@
       for (I = 1; I <= L; I++) { // 100
          for (J = I; J <= L; J++) { // 90
             B( I, N-L+J ) = B( I, N-L+J ) - BETA( K+I )*R( K+I, K+J )
-   90    CONTINUE
-  100 CONTINUE
+         } // 90
+      } // 100
 
       // Compute norm( V'*B*Q - D2*R ) / ( MAX(P,N)*norm(B)*ULP ) .
 
@@ -155,12 +155,12 @@
             WORK( I ) = WORK( J )
             WORK( J ) = TEMP
          }
-  110 CONTINUE
+      } // 110
 
       RESULT( 6 ) = ZERO
       DO 120 I = K + 1, MIN( K+L, M ) - 1
          IF( WORK( I ).LT.WORK( I+1 ) ) RESULT( 6 ) = ULPINV
-  120 CONTINUE
+      } // 120
 
       RETURN
 

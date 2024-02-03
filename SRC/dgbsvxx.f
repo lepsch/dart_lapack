@@ -93,7 +93,7 @@
             for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
- 10         CONTINUE
+            } // 10
             if ( RCMIN.LE.ZERO ) {
                INFO = -13
             } else if ( N.GT.0 ) {
@@ -108,7 +108,7 @@
             for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
- 20         CONTINUE
+            } // 20
             if ( RCMIN.LE.ZERO ) {
                INFO = -14
             } else if ( N.GT.0 ) {
@@ -174,8 +174,8 @@
          DO 40, J = 1, N
             DO 30, I = KL+1, 2*KL+KU+1
                AFB( I, J ) = AB( I-KL, J )
- 30         CONTINUE
- 40      CONTINUE
+            } // 30
+         } // 40
          dgbtrf(N, N, KL, KU, AFB, LDAFB, IPIV, INFO );
 
          // Return if INFO is non-zero.

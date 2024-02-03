@@ -105,8 +105,8 @@
       DO 20 JCOL = 1, N - 1
          DO 10 JROW = JCOL + 1, N
             B( JROW, JCOL ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // Reduce A and B
 
@@ -128,8 +128,8 @@
             B( JROW, JROW-1 ) = ZERO
             srot(IHI, A( 1, JROW ), 1, A( 1, JROW-1 ), 1, C, S );
             srot(JROW-1, B( 1, JROW ), 1, B( 1, JROW-1 ), 1, C, S )             IF( ILZ ) CALL SROT( N, Z( 1, JROW ), 1, Z( 1, JROW-1 ), 1, C, S );
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       RETURN
 

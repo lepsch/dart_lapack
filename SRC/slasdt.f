@@ -54,9 +54,9 @@
             NDIML( IR ) = NDIMR( NCRNT ) / 2
             NDIMR( IR ) = NDIMR( NCRNT ) - NDIML( IR ) - 1
             INODE( IR ) = INODE( NCRNT ) + NDIML( IR ) + 1
-   10    CONTINUE
+         } // 10
          LLST = LLST*2
-   20 CONTINUE
+      } // 20
       ND = LLST*2 - 1
 
       RETURN

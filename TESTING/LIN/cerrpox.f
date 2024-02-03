@@ -56,14 +56,14 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
             AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
-   10    CONTINUE
+         } // 10
          B( J ) = 0.
          R1( J ) = 0.
          R2( J ) = 0.
          W( J ) = 0.
          X( J ) = 0.
          S( J ) = 0.
-   20 CONTINUE
+      } // 20
       ANRM = 1.
       OK = .TRUE.
 

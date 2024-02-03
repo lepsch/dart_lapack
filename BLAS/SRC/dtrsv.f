@@ -85,9 +85,9 @@
                           TEMP = X(J)
                           DO 10 I = J - 1,1,-1
                               X(I) = X(I) - TEMP*A(I,J)
-   10                     CONTINUE
+                          } // 10
                       }
-   20             CONTINUE
+                  } // 20
               } else {
                   JX = KX + (N-1)*INCX
                   DO 40 J = N,1,-1
@@ -98,10 +98,10 @@
                           DO 30 I = J - 1,1,-1
                               IX = IX - INCX
                               X(IX) = X(IX) - TEMP*A(I,J)
-   30                     CONTINUE
+                          } // 30
                       }
                       JX = JX - INCX
-   40             CONTINUE
+                  } // 40
               }
           } else {
               if (INCX.EQ.1) {
@@ -111,9 +111,9 @@
                           TEMP = X(J)
                           DO 50 I = J + 1,N
                               X(I) = X(I) - TEMP*A(I,J)
-   50                     CONTINUE
+                          } // 50
                       }
-   60             CONTINUE
+                  } // 60
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
@@ -124,10 +124,10 @@
                           DO 70 I = J + 1,N
                               IX = IX + INCX
                               X(IX) = X(IX) - TEMP*A(I,J)
-   70                     CONTINUE
+                          } // 70
                       }
                       JX = JX + INCX
-   80             CONTINUE
+                  } // 80
               }
           }
       } else {
@@ -140,10 +140,10 @@
                       TEMP = X(J)
                       DO 90 I = 1,J - 1
                           TEMP = TEMP - A(I,J)*X(I)
-   90                 CONTINUE
+                      } // 90
                       IF (NOUNIT) TEMP = TEMP/A(J,J)
                       X(J) = TEMP
-  100             CONTINUE
+                  } // 100
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 120
@@ -152,11 +152,11 @@
                       DO 110 I = 1,J - 1
                           TEMP = TEMP - A(I,J)*X(IX)
                           IX = IX + INCX
-  110                 CONTINUE
+                      } // 110
                       IF (NOUNIT) TEMP = TEMP/A(J,J)
                       X(JX) = TEMP
                       JX = JX + INCX
-  120             CONTINUE
+                  } // 120
               }
           } else {
               if (INCX.EQ.1) {
@@ -164,10 +164,10 @@
                       TEMP = X(J)
                       DO 130 I = N,J + 1,-1
                           TEMP = TEMP - A(I,J)*X(I)
-  130                 CONTINUE
+                      } // 130
                       IF (NOUNIT) TEMP = TEMP/A(J,J)
                       X(J) = TEMP
-  140             CONTINUE
+                  } // 140
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
@@ -177,11 +177,11 @@
                       DO 150 I = N,J + 1,-1
                           TEMP = TEMP - A(I,J)*X(IX)
                           IX = IX - INCX
-  150                 CONTINUE
+                      } // 150
                       IF (NOUNIT) TEMP = TEMP/A(J,J)
                       X(JX) = TEMP
                       JX = JX - INCX
-  160             CONTINUE
+                  } // 160
               }
           }
       }

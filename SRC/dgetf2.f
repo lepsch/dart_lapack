@@ -78,7 +78,7 @@
                } else {
                  DO 20 I = 1, M-J
                     A( J+I, J ) = A( J+I, J ) / A( J, J )
-   20            CONTINUE
+                 } // 20
                }
             }
 
@@ -93,7 +93,7 @@
 
             dger(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of DGETF2

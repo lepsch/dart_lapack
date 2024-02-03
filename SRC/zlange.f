@@ -46,8 +46,8 @@
             for (I = 1; I <= M; I++) { // 10
                TEMP = ABS( A( I, J ) )
                IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find norm1(A).
@@ -57,26 +57,26 @@
             SUM = ZERO
             for (I = 1; I <= M; I++) { // 30
                SUM = SUM + ABS( A( I, J ) )
-   30       CONTINUE
+            } // 30
             IF( VALUE.LT.SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   40    CONTINUE
+         } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
          for (I = 1; I <= M; I++) { // 50
             WORK( I ) = ZERO
-   50    CONTINUE
+         } // 50
          for (J = 1; J <= N; J++) { // 70
             for (I = 1; I <= M; I++) { // 60
                WORK( I ) = WORK( I ) + ABS( A( I, J ) )
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
          VALUE = ZERO
          for (I = 1; I <= M; I++) { // 80
             TEMP = WORK( I )
             IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
-   80    CONTINUE
+         } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
@@ -85,7 +85,7 @@
          SUM = ONE
          for (J = 1; J <= N; J++) { // 90
             zlassq(M, A( 1, J ), 1, SCALE, SUM );
-   90    CONTINUE
+         } // 90
          VALUE = SCALE*SQRT( SUM )
       }
 

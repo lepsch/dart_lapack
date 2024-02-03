@@ -160,7 +160,7 @@
             ztrexc('V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
             ILST = ILST + 1
          }
-   10 CONTINUE
+      } // 10
 
          // ==== Return to Hessenberg form ====
 
@@ -175,17 +175,17 @@
             IFST = I
             DO 20 J = I + 1, NS
                IF( CABS1( T( J, J ) ).GT.CABS1( T( IFST, IFST ) ) ) IFST = J
-   20       CONTINUE
+            } // 20
             ILST = I
             IF( IFST.NE.ILST ) CALL ZTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO )
-   30    CONTINUE
+         } // 30
       }
 
       // ==== Restore shift/eigenvalue array from T ====
 
       DO 40 I = INFQR + 1, JW
          SH( KWTOP+I-1 ) = T( I, I )
-   40 CONTINUE
+      } // 40
 
 
       if ( NS.LT.JW .OR. S.EQ.ZERO ) {
@@ -196,7 +196,7 @@
             zcopy(NS, V, LDV, WORK, 1 );
             for (I = 1; I <= NS; I++) { // 50
                WORK( I ) = DCONJG( WORK( I ) )
-   50       CONTINUE
+            } // 50
             BETA = WORK( 1 )
             zlarfg(NS, BETA, WORK( 2 ), 1, TAU );
             WORK( 1 ) = ONE
@@ -230,7 +230,7 @@
             KLN = MIN( NV, KWTOP-KROW )
             zgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             zlacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
-   60    CONTINUE
+         } // 60
 
          // ==== Update horizontal slab in H ====
 
@@ -238,7 +238,7 @@
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
                zgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL ZLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
-   70       CONTINUE
+            } // 70
          }
 
          // ==== Update vertical slab in Z ====
@@ -247,7 +247,7 @@
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
                zgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL ZLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
-   80       CONTINUE
+            } // 80
          }
       }
 

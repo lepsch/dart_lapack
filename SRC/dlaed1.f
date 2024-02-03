@@ -88,10 +88,10 @@
       } else {
          for (I = 1; I <= N; I++) { // 10
             INDXQ( I ) = I
-   10    CONTINUE
+         } // 10
       }
 
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of DLAED1

@@ -120,7 +120,7 @@
 
                zlarfb('Left', 'Conjugate transpose', 'Backward', 'Columnwise', M-K+I+IB-1, N-K+I-1, IB, A( 1, N-K+I ), LDA, WORK, LDWORK, A, LDA, WORK( IB+1 ), LDWORK );
             }
-   10    CONTINUE
+         } // 10
          MU = M - K + I + NB - 1
          NU = N - K + I + NB - 1
       } else {

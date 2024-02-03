@@ -64,7 +64,7 @@
          // KW is the column of W which corresponds to column K of A
 
          K = N
-   10    CONTINUE
+         } // 10
          KW = NB + K - N
 
          // Exit from loop
@@ -255,7 +255,7 @@
                   DO 20 J = 1, K - 2
                      A( J, K-1 ) = D21*( D11*W( J, KW-1 )-W( J, KW ) )
                      A( J, K ) = D21*( D22*W( J, KW )-W( J, KW-1 ) )
-   20             CONTINUE
+                  } // 20
                }
 
                // Copy D(k) to A
@@ -282,7 +282,7 @@
          K = K - KSTEP
          GO TO 10
 
-   30    CONTINUE
+         } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -297,18 +297,18 @@
 
             DO 40 JJ = J, J + JB - 1
                zgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-   40       CONTINUE
+            } // 40
 
             // Update the rectangular superdiagonal block
 
             zgemm('No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
-   50    CONTINUE
+         } // 50
 
          // Put U12 in standard form by partially undoing the interchanges
          // in columns k+1:n looping backwards from k+1 to n
 
          J = K + 1
-   60    CONTINUE
+         } // 60
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J
@@ -339,7 +339,7 @@
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1
-   70    CONTINUE
+         } // 70
 
          // Exit from loop
 
@@ -527,7 +527,7 @@
                   DO 80 J = K + 2, N
                      A( J, K ) = D21*( D11*W( J, K )-W( J, K+1 ) )
                      A( J, K+1 ) = D21*( D22*W( J, K+1 )-W( J, K ) )
-   80             CONTINUE
+                  } // 80
                }
 
                // Copy D(k) to A
@@ -554,7 +554,7 @@
          K = K + KSTEP
          GO TO 70
 
-   90    CONTINUE
+         } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -569,18 +569,18 @@
 
             DO 100 JJ = J, J + JB - 1
                zgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-  100       CONTINUE
+            } // 100
 
             // Update the rectangular subdiagonal block
 
             IF( J+JB.LE.N ) CALL ZGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA )
-  110    CONTINUE
+         } // 110
 
          // Put L21 in standard form by partially undoing the interchanges
          // of rows in columns 1:k-1 looping backwards from k-1 to 1
 
          J = K - 1
-  120    CONTINUE
+         } // 120
 
             // Undo the interchanges (if any) of rows JJ and JP at each
             // step J

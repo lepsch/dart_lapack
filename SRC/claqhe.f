@@ -63,9 +63,9 @@
                CJ = S( J )
                DO 10 I = 1, J - 1
                   A( I, J ) = CJ*S( I )*A( I, J )
-   10          CONTINUE
+               } // 10
                A( J, J ) = CJ*CJ*REAL( A( J, J ) )
-   20       CONTINUE
+            } // 20
          } else {
 
             // Lower triangle of A is stored.
@@ -75,8 +75,8 @@
                A( J, J ) = CJ*CJ*REAL( A( J, J ) )
                DO 30 I = J + 1, N
                   A( I, J ) = CJ*S( I )*A( I, J )
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
          EQUED = 'Y'
       }

@@ -34,7 +34,7 @@
 
          for (I = 2; I <= N; I++) { // 20
             IX = 1 + ( I-1 )*INC
-   10       CONTINUE
+            } // 10
             IF( IX.EQ.1 ) GO TO 20
             IXNEXT = IX - INC
             if ( X( IX ).GT.X( IXNEXT ) ) {
@@ -46,7 +46,7 @@
             }
             IX = IXNEXT
             GO TO 10
-   20    CONTINUE
+         } // 20
 
       } else if ( LSAME( JOB, 'D' ) ) {
 
@@ -54,7 +54,7 @@
 
          for (I = 2; I <= N; I++) { // 40
             IX = 1 + ( I-1 )*INC
-   30       CONTINUE
+            } // 30
             IF( IX.EQ.1 ) GO TO 40
             IXNEXT = IX - INC
             if ( X( IX ).LT.X( IXNEXT ) ) {
@@ -66,7 +66,7 @@
             }
             IX = IXNEXT
             GO TO 30
-   40    CONTINUE
+         } // 40
       }
       RETURN
 

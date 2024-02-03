@@ -64,7 +64,7 @@
       M = 0
       for (K = 1; K <= N; K++) { // 10
          IF( SELECT( K ) ) M = M + 1
-   10 CONTINUE
+      } // 10
 
       INFO = 0
       if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
@@ -130,14 +130,14 @@
 
                DO 20 I = K, KL + 1, -1
                   IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
-   20          CONTINUE
-   30          CONTINUE
+               } // 20
+               } // 30
                KL = I
                if ( K.GT.KR ) {
                   DO 40 I = K, N - 1
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
-   40             CONTINUE
-   50             CONTINUE
+                  } // 40
+                  } // 50
                   KR = I
                }
             }
@@ -164,13 +164,13 @@
             // H(KL:KR,KL:KR). Close roots are modified by EPS3.
 
             WK = W( K )
-   60       CONTINUE
+            } // 60
             DO 70 I = K - 1, KL, -1
                if ( SELECT( I ) .AND. CABS1( W( I )-WK ).LT.EPS3 ) {
                   WK = WK + EPS3
                   GO TO 60
                }
-   70       CONTINUE
+            } // 70
             W( K ) = WK
 
             if ( LEFTV ) {
@@ -186,7 +186,7 @@
                }
                DO 80 I = 1, KL - 1
                   VL( I, KS ) = ZERO
-   80          CONTINUE
+               } // 80
             }
             if ( RIGHTV ) {
 
@@ -201,11 +201,11 @@
                }
                DO 90 I = KR + 1, N
                   VR( I, KS ) = ZERO
-   90          CONTINUE
+               } // 90
             }
             KS = KS + 1
          }
-  100 CONTINUE
+      } // 100
 
       RETURN
 

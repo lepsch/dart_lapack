@@ -87,7 +87,7 @@
          // 1 or 2
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop
 
@@ -145,7 +145,7 @@
 
                // Loop until pivot found
 
-   12          CONTINUE
+               } // 12
 
                   // BEGIN pivot search loop body
 
@@ -231,7 +231,7 @@
                   T = DCONJG( A( J, K ) )
                   A( J, K ) = DCONJG( A( P, J ) )
                   A( P, J ) = T
-   14          CONTINUE
+               } // 14
                // (3) Swap and conjugate corner elements at row-col intersection
                A( P, K ) = DCONJG( A( P, K ) )
                // (4) Swap diagonal elements at row-col intersection
@@ -257,7 +257,7 @@
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
                   A( KP, J ) = T
-   15          CONTINUE
+               } // 15
                // (3) Swap and conjugate corner elements at row-col intersection
                A( KP, KK ) = DCONJG( A( KP, KK ) )
                // (4) Swap diagonal elements at row-col intersection
@@ -319,7 +319,7 @@
                      D11 = DBLE( A( K, K ) )
                      DO 16 II = 1, K - 1
                         A( II, K ) = A( II, K ) / D11
-   16                CONTINUE
+                     } // 16
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - U(k)*D(k)*U(k)**T
@@ -370,7 +370,7 @@
 
                      DO 20 I = J, 1, -1
                         A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K-1 ) / D )*DCONJG( WKM1 )
-   20                CONTINUE
+                     } // 20
 
                      // Store U(k) and U(k-1) in cols k and k-1 for row J
 
@@ -379,7 +379,7 @@
                      // (*) Make sure that diagonal element of pivot is real
                      A( J, J ) = DCMPLX( DBLE( A( J, J ) ), ZERO )
 
-   30             CONTINUE
+                  } // 30
 
                }
 
@@ -410,7 +410,7 @@
          K = K - KSTEP
          GO TO 10
 
-   34    CONTINUE
+         } // 34
 
       } else {
 
@@ -424,7 +424,7 @@
          // 1 or 2
 
          K = 1
-   40    CONTINUE
+         } // 40
 
          // If K > N, exit from loop
 
@@ -482,7 +482,7 @@
 
                // Loop until pivot found
 
-   42          CONTINUE
+               } // 42
 
                   // BEGIN pivot search loop body
 
@@ -569,7 +569,7 @@
                   T = DCONJG( A( J, K ) )
                   A( J, K ) = DCONJG( A( P, J ) )
                   A( P, J ) = T
-   44          CONTINUE
+               } // 44
                // (3) Swap and conjugate corner elements at row-col intersection
                A( P, K ) = DCONJG( A( P, K ) )
                // (4) Swap diagonal elements at row-col intersection
@@ -595,7 +595,7 @@
                   T = DCONJG( A( J, KK ) )
                   A( J, KK ) = DCONJG( A( KP, J ) )
                   A( KP, J ) = T
-   45          CONTINUE
+               } // 45
                // (3) Swap and conjugate corner elements at row-col intersection
                A( KP, KK ) = DCONJG( A( KP, KK ) )
                // (4) Swap diagonal elements at row-col intersection
@@ -659,7 +659,7 @@
                      D11 = DBLE( A( K, K ) )
                      DO 46 II = K + 1, N
                         A( II, K ) = A( II, K ) / D11
-   46                CONTINUE
+                     } // 46
 
                      // Perform a rank-1 update of A(k+1:n,k+1:n) as
                      // A := A - L(k)*D(k)*L(k)**T
@@ -711,7 +711,7 @@
 
                      for (I = J; I <= N; I++) { // 50
                         A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K+1 ) / D )*DCONJG( WKP1 )
-   50                CONTINUE
+                     } // 50
 
                      // Store L(k) and L(k+1) in cols k and k+1 for row J
 
@@ -720,7 +720,7 @@
                      // (*) Make sure that diagonal element of pivot is real
                      A( J, J ) = DCMPLX( DBLE( A( J, J ) ), ZERO )
 
-   60             CONTINUE
+                  } // 60
 
                }
 
@@ -751,7 +751,7 @@
          K = K + KSTEP
          GO TO 40
 
-   64    CONTINUE
+         } // 64
 
       }
 

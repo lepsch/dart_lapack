@@ -70,7 +70,7 @@
             } else {
                csscal(I, AII, A( 1, I ), 1 );
             }
-   10    CONTINUE
+         } // 10
 
       } else {
 
@@ -86,7 +86,7 @@
             } else {
                csscal(I, AII, A( I, 1 ), LDA );
             }
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

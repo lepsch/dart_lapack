@@ -107,7 +107,7 @@
          A( I, NQ-K+I ) = ONE
          slarf(SIDE, MI, NI, A( I, 1 ), LDA, TAU( I ), C, LDC, WORK );
          A( I, NQ-K+I ) = AII
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of SORMR2

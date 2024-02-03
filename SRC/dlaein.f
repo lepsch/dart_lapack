@@ -52,9 +52,9 @@
       for (J = 1; J <= N; J++) { // 20
          DO 10 I = 1, J - 1
             B( I, J ) = H( I, J )
-   10    CONTINUE
+         } // 10
          B( J, J ) = H( J, J ) - WR
-   20 CONTINUE
+      } // 20
 
       if ( WI.EQ.ZERO ) {
 
@@ -66,7 +66,7 @@
 
             for (I = 1; I <= N; I++) { // 30
                VR( I ) = EPS3
-   30       CONTINUE
+            } // 30
          } else {
 
             // Scale supplied initial vector.
@@ -92,7 +92,7 @@
                      TEMP = B( I+1, J )
                      B( I+1, J ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
-   40             CONTINUE
+                  } // 40
                } else {
 
                   // Eliminate without interchange.
@@ -102,10 +102,10 @@
                   if ( X.NE.ZERO ) {
                      DO 50 J = I + 1, N
                         B( I+1, J ) = B( I+1, J ) - X*B( I, J )
-   50                CONTINUE
+                     } // 50
                   }
                }
-   60       CONTINUE
+            } // 60
             IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
 
             TRANS = 'N'
@@ -127,7 +127,7 @@
                      TEMP = B( I, J-1 )
                      B( I, J-1 ) = B( I, J ) - X*TEMP
                      B( I, J ) = TEMP
-   70             CONTINUE
+                  } // 70
                } else {
 
                   // Eliminate without interchange.
@@ -137,10 +137,10 @@
                   if ( X.NE.ZERO ) {
                      DO 80 I = 1, J - 1
                         B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
-   80                CONTINUE
+                     } // 80
                   }
                }
-   90       CONTINUE
+            } // 90
             IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
 
             TRANS = 'T'
@@ -168,15 +168,15 @@
             VR( 1 ) = EPS3
             for (I = 2; I <= N; I++) { // 100
                VR( I ) = TEMP
-  100       CONTINUE
+            } // 100
             VR( N-ITS+1 ) = VR( N-ITS+1 ) - EPS3*ROOTN
-  110    CONTINUE
+         } // 110
 
          // Failure to find eigenvector in N iterations.
 
          INFO = 1
 
-  120    CONTINUE
+         } // 120
 
          // Normalize eigenvector.
 
@@ -193,7 +193,7 @@
             for (I = 1; I <= N; I++) { // 130
                VR( I ) = EPS3
                VI( I ) = ZERO
-  130       CONTINUE
+            } // 130
          } else {
 
             // Scale supplied initial vector.
@@ -215,7 +215,7 @@
             B( 2, 1 ) = -WI
             for (I = 2; I <= N; I++) { // 140
                B( I+1, 1 ) = ZERO
-  140       CONTINUE
+            } // 140
 
             DO 170 I = 1, N - 1
                ABSBII = DLAPY2( B( I, I ), B( I+1, I ) )
@@ -234,7 +234,7 @@
                      B( J+1, I+1 ) = B( J+1, I ) - XI*TEMP
                      B( I, J ) = TEMP
                      B( J+1, I ) = ZERO
-  150             CONTINUE
+                  } // 150
                   B( I+2, I ) = -WI
                   B( I+1, I+1 ) = B( I+1, I+1 ) - XI*WI
                   B( I+2, I+1 ) = B( I+2, I+1 ) + XR*WI
@@ -253,14 +253,14 @@
                   DO 160 J = I + 1, N
                      B( I+1, J ) = B( I+1, J ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J+1, I+1 ) = -XR*B( J+1, I ) - XI*B( I, J )
-  160             CONTINUE
+                  } // 160
                   B( I+2, I+1 ) = B( I+2, I+1 ) - WI
                }
 
                // Compute 1-norm of offdiagonal elements of i-th row.
 
                WORK( I ) = DASUM( N-I, B( I, I+1 ), LDB ) + DASUM( N-I, B( I+2, I ), 1 )
-  170       CONTINUE
+            } // 170
             IF( B( N, N ).EQ.ZERO .AND. B( N+1, N ).EQ.ZERO ) B( N, N ) = EPS3
             WORK( N ) = ZERO
 
@@ -278,7 +278,7 @@
             B( N+1, N ) = WI
             DO 180 J = 1, N - 1
                B( N+1, J ) = ZERO
-  180       CONTINUE
+            } // 180
 
             DO 210 J = N, 2, -1
                EJ = H( J, J-1 )
@@ -297,7 +297,7 @@
                      B( J, I ) = B( J+1, I ) - XI*TEMP
                      B( I, J ) = TEMP
                      B( J+1, I ) = ZERO
-  190             CONTINUE
+                  } // 190
                   B( J+1, J-1 ) = WI
                   B( J-1, J-1 ) = B( J-1, J-1 ) + XI*WI
                   B( J, J-1 ) = B( J, J-1 ) - XR*WI
@@ -316,14 +316,14 @@
                   DO 200 I = 1, J - 1
                      B( I, J-1 ) = B( I, J-1 ) - XR*B( I, J ) + XI*B( J+1, I )
                      B( J, I ) = -XR*B( J+1, I ) - XI*B( I, J )
-  200             CONTINUE
+                  } // 200
                   B( J, J-1 ) = B( J, J-1 ) + WI
                }
 
                // Compute 1-norm of offdiagonal elements of j-th column.
 
                WORK( J ) = DASUM( J-1, B( 1, J ), 1 ) + DASUM( J-1, B( J+1, 1 ), LDB )
-  210       CONTINUE
+            } // 210
             IF( B( 1, 1 ).EQ.ZERO .AND. B( 2, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
             WORK( 1 ) = ZERO
 
@@ -358,12 +358,12 @@
                   DO 220 J = I + 1, N
                      XR = XR - B( I, J )*VR( J ) + B( J+1, I )*VI( J )
                      XI = XI - B( I, J )*VI( J ) - B( J+1, I )*VR( J )
-  220             CONTINUE
+                  } // 220
                } else {
                   DO 230 J = 1, I - 1
                      XR = XR - B( J, I )*VR( J ) + B( I+1, J )*VI( J )
                      XI = XI - B( J, I )*VI( J ) - B( I+1, J )*VR( J )
-  230             CONTINUE
+                  } // 230
                }
 
                W = ABS( B( I, I ) ) + ABS( B( I+1, I ) )
@@ -390,14 +390,14 @@
                   for (J = 1; J <= N; J++) { // 240
                      VR( J ) = ZERO
                      VI( J ) = ZERO
-  240             CONTINUE
+                  } // 240
                   VR( I ) = ONE
                   VI( I ) = ONE
                   SCALE = ZERO
                   VMAX = ONE
                   VCRIT = BIGNUM
                }
-  250       CONTINUE
+            } // 250
 
             // Test for sufficient growth in the norm of (VR,VI).
 
@@ -413,22 +413,22 @@
             for (I = 2; I <= N; I++) { // 260
                VR( I ) = Y
                VI( I ) = ZERO
-  260       CONTINUE
+            } // 260
             VR( N-ITS+1 ) = VR( N-ITS+1 ) - EPS3*ROOTN
-  270    CONTINUE
+         } // 270
 
          // Failure to find eigenvector in N iterations
 
          INFO = 1
 
-  280    CONTINUE
+         } // 280
 
          // Normalize eigenvector.
 
          VNORM = ZERO
          for (I = 1; I <= N; I++) { // 290
             VNORM = MAX( VNORM, ABS( VR( I ) )+ABS( VI( I ) ) )
-  290    CONTINUE
+         } // 290
          dscal(N, ONE / VNORM, VR, 1 );
          dscal(N, ONE / VNORM, VI, 1 );
 

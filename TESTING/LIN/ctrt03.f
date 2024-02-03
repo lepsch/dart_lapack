@@ -54,11 +54,11 @@
       if ( LSAME( DIAG, 'N' ) ) {
          for (J = 1; J <= N; J++) { // 10
             TNORM = MAX( TNORM, TSCAL*ABS( A( J, J ) )+CNORM( J ) )
-   10    CONTINUE
+         } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the maximum over the number of right hand sides of
@@ -88,7 +88,7 @@
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
          }
          RESID = MAX( RESID, ERR )
-   30 CONTINUE
+      } // 30
 
       RETURN
 

@@ -62,7 +62,7 @@
       cgemm('No transpose', 'No transpose', N, N, N, -CONE, AINV, LDAINV, A, LDA, CZERO, WORK, LDWORK );
       for (I = 1; I <= N; I++) { // 10
          WORK( I, I ) = CONE + WORK( I, I )
-   10 CONTINUE
+      } // 10
 
       // Compute norm(I - AINV*A) / (N * norm(A) * norm(AINV) * EPS)
 

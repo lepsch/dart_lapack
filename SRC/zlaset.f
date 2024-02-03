@@ -35,11 +35,11 @@
          for (J = 2; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J-1, M )
                A( I, J ) = ALPHA
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          DO 30 I = 1, MIN( N, M )
             A( I, I ) = BETA
-   30    CONTINUE
+         } // 30
 
       } else if ( LSAME( UPLO, 'L' ) ) {
 
@@ -49,11 +49,11 @@
          DO 50 J = 1, MIN( M, N )
             DO 40 I = J + 1, M
                A( I, J ) = ALPHA
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          DO 60 I = 1, MIN( N, M )
             A( I, I ) = BETA
-   60    CONTINUE
+         } // 60
 
       } else {
 
@@ -63,11 +63,11 @@
          for (J = 1; J <= N; J++) { // 80
             for (I = 1; I <= M; I++) { // 70
                A( I, J ) = ALPHA
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
          DO 90 I = 1, MIN( M, N )
             A( I, I ) = BETA
-   90    CONTINUE
+         } // 90
       }
 
       RETURN

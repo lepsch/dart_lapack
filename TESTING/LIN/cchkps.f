@@ -64,7 +64,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 100
          ISEED( I ) = ISEEDY( I )
-  100 CONTINUE
+      } // 100
 
       // Test the error exits
 
@@ -161,12 +161,12 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
-  110             CONTINUE
+                  } // 110
 
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
       // Print a summary of the results.
 

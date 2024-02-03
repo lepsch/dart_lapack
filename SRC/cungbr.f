@@ -116,12 +116,12 @@
                A( 1, J ) = ZERO
                DO 10 I = J + 1, M
                   A( I, J ) = A( I, J-1 )
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
             A( 1, 1 ) = ONE
             for (I = 2; I <= M; I++) { // 30
                A( I, 1 ) = ZERO
-   30       CONTINUE
+            } // 30
             if ( M.GT.1 ) {
 
                // Form Q(2:m,2:m)
@@ -151,13 +151,13 @@
             A( 1, 1 ) = ONE
             for (I = 2; I <= N; I++) { // 40
                A( I, 1 ) = ZERO
-   40       CONTINUE
+            } // 40
             for (J = 2; J <= N; J++) { // 60
                DO 50 I = J - 1, 2, -1
                   A( I, J ) = A( I-1, J )
-   50          CONTINUE
+               } // 50
                A( 1, J ) = ZERO
-   60       CONTINUE
+            } // 60
             if ( N.GT.1 ) {
 
                // Form P**H(2:n,2:n)

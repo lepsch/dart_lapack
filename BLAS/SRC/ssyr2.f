@@ -90,9 +90,9 @@
                       TEMP2 = ALPHA*X(J)
                       for (I = 1; I <= J; I++) { // 10
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
-   10                 CONTINUE
+                      } // 10
                   }
-   20         CONTINUE
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -104,11 +104,11 @@
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   30                 CONTINUE
+                      } // 30
                   }
                   JX = JX + INCX
                   JY = JY + INCY
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -121,9 +121,9 @@
                       TEMP2 = ALPHA*X(J)
                       for (I = J; I <= N; I++) { // 50
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
-   50                 CONTINUE
+                      } // 50
                   }
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -135,11 +135,11 @@
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   70                 CONTINUE
+                      } // 70
                   }
                   JX = JX + INCX
                   JY = JY + INCY
-   80         CONTINUE
+              } // 80
           }
       }
 

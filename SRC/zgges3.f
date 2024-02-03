@@ -242,7 +242,7 @@
 
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
-   10    CONTINUE
+         } // 10
 
          ztgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHA, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
          IF( IERR.EQ.1 ) INFO = N + 3
@@ -275,11 +275,11 @@
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
             IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             LASTSL = CURSL
-   20    CONTINUE
+         } // 20
 
       }
 
-   30 CONTINUE
+      } // 30
 
       WORK( 1 ) = DCMPLX( LWKOPT )
 

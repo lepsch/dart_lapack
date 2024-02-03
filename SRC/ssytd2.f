@@ -92,7 +92,7 @@
             }
             D( I+1 ) = A( I+1, I+1 )
             TAU( I ) = TAUI
-   10    CONTINUE
+         } // 10
          D( 1 ) = A( 1, 1 )
       } else {
 
@@ -130,7 +130,7 @@
             }
             D( I ) = A( I, I )
             TAU( I ) = TAUI
-   20    CONTINUE
+         } // 20
          D( N ) = A( N, N )
       }
 

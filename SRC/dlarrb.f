@@ -77,7 +77,7 @@
          // Do while( NEGCNT(LEFT).GT.I-1 )
 
          BACK = WERR( II )
- 20      CONTINUE
+         } // 20
          NEGCNT = DLANEG( N, D, LLD, LEFT, PIVMIN, R )
          if ( NEGCNT.GT.I-1 ) {
             LEFT = LEFT - BACK
@@ -89,7 +89,7 @@
          // Compute negcount from dstqds facto L+D+L+^T = L D L^T - RIGHT
 
          BACK = WERR( II )
- 50      CONTINUE
+         } // 50
 
          NEGCNT = DLANEG( N, D, LLD, RIGHT, PIVMIN, R )
           if ( NEGCNT.LT.I ) {
@@ -118,14 +118,14 @@
          }
          WORK( K-1 ) = LEFT
          WORK( K ) = RIGHT
- 75   CONTINUE
+      } // 75
 
 
       // Do while( NINT.GT.0 ), i.e. there are still unconverged intervals
       // and while (ITER.LT.MAXITR)
 
       ITER = 0
- 80   CONTINUE
+      } // 80
       PREV = I1 - 1
       I = I1
       OLNINT = NINT
@@ -171,7 +171,7 @@
             WORK( K ) = MID
          }
          I = NEXT
- 100  CONTINUE
+      } // 100
       ITER = ITER + 1
       // do another loop if there are still unconverged intervals
       // However, in the last iteration, all intervals are accepted
@@ -188,13 +188,13 @@
             W( II ) = HALF*( WORK( K-1 )+WORK( K ) )
             WERR( II ) = WORK( K ) - W( II )
          }
- 110  CONTINUE
+      } // 110
 
       DO 111 I = IFIRST+1, ILAST
          K = 2*I
          II = I - OFFSET
          WGAP( II-1 ) = MAX( ZERO, W(II) - WERR (II) - W( II-1 ) - WERR( II-1 ))
- 111  CONTINUE
+      } // 111
 
       RETURN
 

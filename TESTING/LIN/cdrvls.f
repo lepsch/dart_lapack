@@ -77,7 +77,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
       EPS = SLAMCH( 'Epsilon' )
 
       // Threshold for rank estimation
@@ -507,7 +507,7 @@
 
                         for (J = 1; J <= N; J++) { // 70
                            IWORK( J ) = 0
-   70                   CONTINUE
+                        } // 70
 
                         SRNAMT = 'CGELSY'
                         cgelsy(M, N, NRHS, A, LDA, B, LDB, IWORK, RCOND, CRANK, WORK, LWLSY, RWORK, INFO )                         IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGELSY', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -621,15 +621,15 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   80                   CONTINUE
+                        } // 80
                         NRUN = NRUN + 12
 
-   90                CONTINUE
-  100             CONTINUE
-  110          CONTINUE
-  120       CONTINUE
-  130    CONTINUE
-  140 CONTINUE
+                     } // 90
+                  } // 100
+               } // 110
+            } // 120
+         } // 130
+      } // 140
 
       // Print a summary of the results.
 

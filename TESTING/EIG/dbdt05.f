@@ -55,7 +55,7 @@
          WORK( J+I ) =  WORK( J+I ) + S( I )
          RESID = MAX( RESID, DASUM( NS, WORK( J+1 ), 1 ) )
          J = J + NS
-   10 CONTINUE
+      } // 10
 
       if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS

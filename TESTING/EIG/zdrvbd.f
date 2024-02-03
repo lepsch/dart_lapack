@@ -86,7 +86,7 @@
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MM( J ), NN( J ) ) )
          MINWRK = MAX( MINWRK, MAX( 3*MIN( MM( J ), NN( J ) )+MAX( MM( J ), NN( J ) )**2, 5*MIN( MM( J ), NN( J ) ), 3*MAX( MM( J ), NN( J ) ) ) )
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -146,7 +146,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Compute "A"
 
@@ -159,7 +159,7 @@
                zlaset('Full', M, N, CZERO, CZERO, A, LDA );
                DO 30 I = 1, MIN( M, N )
                   S( I ) = ZERO
-   30          CONTINUE
+               } // 30
 
             } else if ( JTYPE.EQ.2 ) {
 
@@ -168,7 +168,7 @@
                zlaset('Full', M, N, CZERO, CONE, A, LDA );
                DO 40 I = 1, MIN( M, N )
                   S( I ) = ONE
-   40          CONTINUE
+               } // 40
 
             } else {
 
@@ -182,7 +182,7 @@
                }
             }
 
-   50       CONTINUE
+            } // 50
             zlacpy('F', M, N, A, LDA, ASAV, LDA );
 
             // Do for minimal and adequate (for blocking) workspace
@@ -199,7 +199,7 @@
 
                for (J = 1; J <= 35; J++) { // 60
                   RESULT( J ) = -ONE
-   60          CONTINUE
+               } // 60
 
                // Factorize A
 
@@ -221,7 +221,7 @@
                RESULT( 4 ) = 0
                DO 70 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 4 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 4 ) = ULPINV
-   70          CONTINUE
+               } // 70
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 4 ) = ULPINV
                }
@@ -275,10 +275,10 @@
                      DO 80 I = 1, MNMIN - 1
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-   80                CONTINUE
+                     } // 80
                      RESULT( 7 ) = MAX( RESULT( 7 ), DIF )
-   90             CONTINUE
-  100          CONTINUE
+                  } // 90
+               } // 100
 
                // Test for ZGESDD
 
@@ -308,7 +308,7 @@
                RESULT( 11 ) = 0
                DO 110 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 11 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 11 ) = ULPINV
-  110          CONTINUE
+               } // 110
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 11 ) = ULPINV
                }
@@ -363,9 +363,9 @@
                   DO 120 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                      IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                      DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-  120             CONTINUE
+                  } // 120
                   RESULT( 14 ) = MAX( RESULT( 14 ), DIF )
-  130          CONTINUE
+               } // 130
 
                // Test ZGESVDQ
                // Note: ZGESVDQ only works for M >= N
@@ -404,7 +404,7 @@
                   RESULT( 39 ) = ZERO
                   DO 199 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 39 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 39 ) = ULPINV
-  199             CONTINUE
+                  } // 199
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 39 ) = ULPINV
                   }
@@ -453,7 +453,7 @@
                   RESULT( 18 ) = ZERO
                   DO 131 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 18 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 18 ) = ULPINV
-  131             CONTINUE
+                  } // 131
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 18 ) = ULPINV
                   }
@@ -501,7 +501,7 @@
                   RESULT( 22 ) = ZERO
                   DO 134 I = 1, MNMIN - 1
                      IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 22 ) = ULPINV                      IF( SSAV( I ).LT.ZERO ) RESULT( 22 ) = ULPINV
-  134             CONTINUE
+                  } // 134
                   if ( MNMIN.GE.1 ) {
                      IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 22 ) = ULPINV
                   }
@@ -532,7 +532,7 @@
                RESULT( 26 ) = ZERO
                DO 140 I = 1, MNMIN - 1
                   IF( SSAV( I ).LT.SSAV( I+1 ) ) RESULT( 26 ) = ULPINV                   IF( SSAV( I ).LT.ZERO ) RESULT( 26 ) = ULPINV
-  140          CONTINUE
+               } // 140
                if ( MNMIN.GE.1 ) {
                   IF( SSAV( MNMIN ).LT.ZERO ) RESULT( 26 ) = ULPINV
                }
@@ -579,16 +579,16 @@
                      DO 150 I = 1, MNMIN - 1
                         IF( SSAV( I ).LT.SSAV( I+1 ) ) DIF = ULPINV                         IF( SSAV( I ).LT.ZERO ) DIF = ULPINV
                         DIF = MAX( DIF, ABS( SSAV( I )-S( I ) ) / DIV )
-  150                CONTINUE
+                     } // 150
                      RESULT( 29) = MAX( RESULT( 29 ), DIF )
-  160             CONTINUE
-  170          CONTINUE
+                  } // 160
+               } // 170
 
                // Do tests 8--10
 
                for (I = 1; I <= 4; I++) { // 180
                   ISEED2( I ) = ISEED( I )
-  180          CONTINUE
+               } // 180
                if ( MNMIN.LE.1 ) {
                   IL = 1
                   IU = MAX( 1, MNMIN )
@@ -661,7 +661,7 @@
                NFAIL = 0
                for (J = 1; J <= 39; J++) { // 190
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
-  190          CONTINUE
+               } // 190
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                if ( NTESTF.EQ.1 ) {
@@ -674,15 +674,15 @@
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9997 )M, N, JTYPE, IWSPC, IOLDSD, J, RESULT( J )
                   }
-  200          CONTINUE
+               } // 200
 
                NERRS = NERRS + NFAIL
                NTESTT = NTESTT + NTEST
 
-  210       CONTINUE
+            } // 210
 
-  220    CONTINUE
-  230 CONTINUE
+         } // 220
+      } // 230
 
       // Summary
 

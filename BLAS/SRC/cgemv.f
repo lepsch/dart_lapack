@@ -95,11 +95,11 @@
               if (BETA.EQ.ZERO) {
                   for (I = 1; I <= LENY; I++) { // 10
                       Y(I) = ZERO
-   10             CONTINUE
+                  } // 10
               } else {
                   for (I = 1; I <= LENY; I++) { // 20
                       Y(I) = BETA*Y(I)
-   20             CONTINUE
+                  } // 20
               }
           } else {
               IY = KY
@@ -107,12 +107,12 @@
                   for (I = 1; I <= LENY; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
-   30             CONTINUE
+                  } // 30
               } else {
                   for (I = 1; I <= LENY; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
-   40             CONTINUE
+                  } // 40
               }
           }
       }
@@ -127,9 +127,9 @@
                   TEMP = ALPHA*X(JX)
                   for (I = 1; I <= M; I++) { // 50
                       Y(I) = Y(I) + TEMP*A(I,J)
-   50             CONTINUE
+                  } // 50
                   JX = JX + INCX
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   TEMP = ALPHA*X(JX)
@@ -137,9 +137,9 @@
                   for (I = 1; I <= M; I++) { // 70
                       Y(IY) = Y(IY) + TEMP*A(I,J)
                       IY = IY + INCY
-   70             CONTINUE
+                  } // 70
                   JX = JX + INCX
-   80         CONTINUE
+              } // 80
           }
       } else {
 
@@ -152,15 +152,15 @@
                   if (NOCONJ) {
                       for (I = 1; I <= M; I++) { // 90
                           TEMP = TEMP + A(I,J)*X(I)
-   90                 CONTINUE
+                      } // 90
                   } else {
                       for (I = 1; I <= M; I++) { // 100
                           TEMP = TEMP + CONJG(A(I,J))*X(I)
-  100                 CONTINUE
+                      } // 100
                   }
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
-  110         CONTINUE
+              } // 110
           } else {
               for (J = 1; J <= N; J++) { // 140
                   TEMP = ZERO
@@ -169,16 +169,16 @@
                       for (I = 1; I <= M; I++) { // 120
                           TEMP = TEMP + A(I,J)*X(IX)
                           IX = IX + INCX
-  120                 CONTINUE
+                      } // 120
                   } else {
                       for (I = 1; I <= M; I++) { // 130
                           TEMP = TEMP + CONJG(A(I,J))*X(IX)
                           IX = IX + INCX
-  130                 CONTINUE
+                      } // 130
                   }
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
-  140         CONTINUE
+              } // 140
           }
       }
 

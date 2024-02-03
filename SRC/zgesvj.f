@@ -202,10 +202,10 @@
                   GOSCALE = .FALSE.
                   DO 1873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
- 1873             CONTINUE
+                  } // 1873
                }
             }
- 1874    CONTINUE
+         } // 1874
       } else if ( UPPER ) {
          // the input matrix is M-by-N upper triangular (trapezoidal)
          for (p = 1; p <= N; p++) { // 2874
@@ -227,10 +227,10 @@
                   GOSCALE = .FALSE.
                   DO 2873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
- 2873             CONTINUE
+                  } // 2873
                }
             }
- 2874    CONTINUE
+         } // 2874
       } else {
          // the input matrix is M-by-N general dense
          for (p = 1; p <= N; p++) { // 3874
@@ -252,10 +252,10 @@
                   GOSCALE = .FALSE.
                   DO 3873 q = 1, p - 1
                      SVA( q ) = SVA( q )*SKL
- 3873             CONTINUE
+                  } // 3873
                }
             }
- 3874    CONTINUE
+         } // 3874
       }
 
       IF( NOSCALE )SKL = ONE
@@ -269,7 +269,7 @@
       for (p = 1; p <= N; p++) { // 4781
          IF( SVA( p ).NE.ZERO )AAQQ = MIN( AAQQ, SVA( p ) )
          AAPP = MAX( AAPP, SVA( p ) )
- 4781 CONTINUE
+      } // 4781
 
 * #:) Quick return for zero matrix
 
@@ -344,7 +344,7 @@
 
       for (q = 1; q <= N; q++) { // 1868
          CWORK( q ) = CONE
- 1868 CONTINUE
+      } // 1868
 
 
 
@@ -625,10 +625,10 @@
                            GO TO 2103
                         }
 
- 2002                CONTINUE
+                     } // 2002
       // END q-LOOP
 
- 2103                CONTINUE
+                     } // 2103
       // bailed out of q-loop
 
                      SVA( p ) = AAPP
@@ -638,10 +638,10 @@
                      IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
                   }
 
- 2001          CONTINUE
+               } // 2001
       // end of the p-loop
       // end of doing the block ( ibr, ibr )
- 1002       CONTINUE
+            } // 1002
       // end of ir1-loop
 
 * ... go to the off diagonal blocks
@@ -807,9 +807,9 @@
                            GO TO 2203
                         }
 
- 2200                CONTINUE
+                     } // 2200
          // end of the q-loop
- 2203                CONTINUE
+                     } // 2203
 
                      SVA( p ) = AAPP
 
@@ -820,17 +820,17 @@
 
                   }
 
- 2100          CONTINUE
+               } // 2100
       // end of the p-loop
- 2010       CONTINUE
+            } // 2010
       // end of the jbc-loop
- 2011       CONTINUE
+            } // 2011
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
                SVA( p ) = ABS( SVA( p ) )
- 2012       CONTINUE
+            } // 2012
 ***
- 2000    CONTINUE
+         } // 2000
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
@@ -853,20 +853,20 @@
 
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
- 1993 CONTINUE
+      } // 1993
       // end i=1:NSWEEP loop
 
 * #:( Reaching this point means that the procedure has not converged.
       INFO = NSWEEP - 1
       GO TO 1995
 
- 1994 CONTINUE
+      } // 1994
 * #:) Reaching this point means numerical convergence after the i-th
       // sweep.
 
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
- 1995 CONTINUE
+      } // 1995
 
       // Sort the singular values and find how many are above
       // the underflow threshold.
@@ -886,7 +886,7 @@
             N4 = N4 + 1
             IF( SVA( p )*SKL.GT.SFMIN )N2 = N2 + 1
          }
- 5991 CONTINUE
+      } // 5991
       if ( SVA( N ).NE.ZERO ) {
          N4 = N4 + 1
          IF( SVA( N )*SKL.GT.SFMIN )N2 = N2 + 1
@@ -898,7 +898,7 @@
          for (p = 1; p <= N4; p++) { // 1998
              // CALL ZDSCAL( M, ONE / SVA( p ), A( 1, p ), 1 )
             zlascl('G',0,0, SVA(p), ONE, M, 1, A(1,p), M, IERR );
- 1998    CONTINUE
+         } // 1998
       }
 
       // Scale the product of Jacobi rotations.
@@ -907,14 +907,14 @@
             for (p = 1; p <= N; p++) { // 2399
                TEMP1 = ONE / DZNRM2( MVL, V( 1, p ), 1 )
                zdscal(MVL, TEMP1, V( 1, p ), 1 );
- 2399       CONTINUE
+            } // 2399
       }
 
       // Undo scaling, if necessary (and possible).
       if ( ( ( SKL.GT.ONE ) .AND. ( SVA( 1 ).LT.( BIG / SKL ) ) ) .OR. ( ( SKL.LT.ONE ) .AND. ( SVA( MAX( N2, 1 ) ) .GT. ( SFMIN / SKL ) ) ) ) {
          for (p = 1; p <= N; p++) { // 2400
             SVA( p ) = SKL*SVA( p )
- 2400    CONTINUE
+         } // 2400
          SKL = ONE
       }
 

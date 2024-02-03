@@ -275,7 +275,7 @@
          }
       }
 
-   10 CONTINUE
+      } // 10
       WORK( 1 ) = LWKOPT
 
       RETURN

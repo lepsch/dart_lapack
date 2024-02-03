@@ -69,24 +69,24 @@
                TEMP = DZASUM( I2-I1+1, A( I1, J ), 1 )
                IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Find normI(A).
 
          for (I1 = 1; I1 <= M; I1++) { // 12
             RWORK( I1 ) = ZERO
-   12    CONTINUE
+         } // 12
          for (J = 1; J <= N; J++) { // 16
             KD = KU + 1 - J
             DO 14 I1 = MAX( 1, J-KU ), MIN( M, J+KL )
                RWORK( I1 ) = RWORK( I1 ) + CABS1( A( KD+I1, J ) )
-   14       CONTINUE
-   16    CONTINUE
+            } // 14
+         } // 16
          for (I1 = 1; I1 <= M; I1++) { // 18
             TEMP = RWORK( I1 )
             IF( ANORM.LT.TEMP .OR. DISNAN( TEMP ) ) ANORM = TEMP
-   18    CONTINUE
+         } // 18
       }
       if ( ANORM.LE.ZERO ) {
          RESID = ONE / EPS
@@ -103,7 +103,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 20
          zgbmv(TRANS, M, N, KL, KU, -CONE, A, LDA, X( 1, J ), 1, CONE, B( 1, J ), 1 );
-   20 CONTINUE
+      } // 20
 
       // Compute the maximum over the number of right hand sides of
          // norm(B - op(A)*X) / ( norm(op(A)) * norm(X) * EPS ).
@@ -117,7 +117,7 @@
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          }
-   30 CONTINUE
+      } // 30
 
       RETURN
 

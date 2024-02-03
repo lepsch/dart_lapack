@@ -75,7 +75,7 @@
          // 1 or 2
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop
 
@@ -156,7 +156,7 @@
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
                   A( KP, J ) = T
-   20          CONTINUE
+               } // 20
                A( KP, KK ) = CONJG( A( KP, KK ) )
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
@@ -220,11 +220,11 @@
                      WK = D*( D22*A( J, K )-D12*A( J, K-1 ) )
                      DO 30 I = J, 1, -1
                         A( I, J ) = A( I, J ) - A( I, K )*CONJG( WK ) - A( I, K-1 )*CONJG( WKM1 )
-   30                CONTINUE
+                     } // 30
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
                      A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
-   40             CONTINUE
+                  } // 40
 
                }
 
@@ -253,7 +253,7 @@
          // 1 or 2
 
          K = 1
-   50    CONTINUE
+         } // 50
 
          // If K > N, exit from loop
 
@@ -334,7 +334,7 @@
                   T = CONJG( A( J, KK ) )
                   A( J, KK ) = CONJG( A( KP, J ) )
                   A( KP, J ) = T
-   60          CONTINUE
+               } // 60
                A( KP, KK ) = CONJG( A( KP, KK ) )
                R1 = REAL( A( KK, KK ) )
                A( KK, KK ) = REAL( A( KP, KP ) )
@@ -399,11 +399,11 @@
                      WKP1 = D*( D22*A( J, K+1 )-CONJG( D21 )*A( J, K ) )
                      for (I = J; I <= N; I++) { // 70
                         A( I, J ) = A( I, J ) - A( I, K )*CONJG( WK ) - A( I, K+1 )*CONJG( WKP1 )
-   70                CONTINUE
+                     } // 70
                      A( J, K ) = WK
                      A( J, K+1 ) = WKP1
                      A( J, J ) = CMPLX( REAL( A( J, J ) ), 0.0E+0 )
-   80             CONTINUE
+                  } // 80
                }
             }
          }
@@ -424,7 +424,7 @@
 
       }
 
-   90 CONTINUE
+      } // 90
       RETURN
 
       // End of CHETF2

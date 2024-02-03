@@ -43,7 +43,7 @@
          ANORM = ABS( D( N ) )
          DO 10 I = 1, N - 1
             IF( ANORM.LT.ABS( DL( I ) ) .OR. SISNAN( ABS( DL( I ) ) ) ) ANORM = ABS(DL(I))             IF( ANORM.LT.ABS( D( I ) ) .OR. SISNAN( ABS( D( I ) ) ) ) ANORM = ABS(D(I))             IF( ANORM.LT.ABS( DU( I ) ) .OR. SISNAN (ABS( DU( I ) ) ) ) ANORM = ABS(DU(I))
-   10    CONTINUE
+         } // 10
       } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' ) {
 
          // Find norm1(A).
@@ -57,7 +57,7 @@
             DO 20 I = 2, N - 1
                TEMP = ABS( D( I ) )+ABS( DL( I ) )+ABS( DU( I-1 ) )
                IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
-   20       CONTINUE
+            } // 20
          }
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -72,7 +72,7 @@
             DO 30 I = 2, N - 1
                TEMP = ABS( D( I ) )+ABS( DU( I ) )+ABS( DL( I-1 ) )
                IF( ANORM .LT. TEMP .OR. SISNAN( TEMP ) ) ANORM = TEMP
-   30       CONTINUE
+            } // 30
          }
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 

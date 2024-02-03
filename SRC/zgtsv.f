@@ -71,7 +71,7 @@
             D( K+1 ) = D( K+1 ) - MULT*DU( K )
             for (J = 1; J <= NRHS; J++) { // 10
                B( K+1, J ) = B( K+1, J ) - MULT*B( K, J )
-   10       CONTINUE
+            } // 10
             IF( K.LT.( N-1 ) ) DL( K ) = ZERO
          } else {
 
@@ -90,9 +90,9 @@
                TEMP = B( K, J )
                B( K, J ) = B( K+1, J )
                B( K+1, J ) = TEMP - MULT*B( K+1, J )
-   20       CONTINUE
+            } // 20
          }
-   30 CONTINUE
+      } // 30
       if ( D( N ).EQ.ZERO ) {
          INFO = N
          RETURN
@@ -105,8 +105,8 @@
          IF( N.GT.1 ) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 )
          DO 40 K = N - 2, 1, -1
             B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K )
-   40    CONTINUE
-   50 CONTINUE
+         } // 40
+      } // 50
 
       RETURN
 

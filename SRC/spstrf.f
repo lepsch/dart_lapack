@@ -75,7 +75,7 @@
 
          for (I = 1; I <= N; I++) { // 100
             PIV( I ) = I
-  100    CONTINUE
+         } // 100
 
       // Compute stopping value
 
@@ -117,7 +117,7 @@
 
                for (I = K; I <= N; I++) { // 110
                   WORK( I ) = 0
-  110          CONTINUE
+               } // 110
 
                DO 130 J = K, K + JB - 1
 
@@ -132,7 +132,7 @@
                      }
                      WORK( N+I ) = A( I, I ) - WORK( I )
 
-  120             CONTINUE
+                  } // 120
 
                   if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -173,7 +173,7 @@
                      sscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
                   }
 
-  130          CONTINUE
+               } // 130
 
                // Update trailing matrix, J already incremented
 
@@ -181,7 +181,7 @@
                   ssyrk('Upper', 'Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
-  140       CONTINUE
+            } // 140
 
          } else {
 
@@ -198,7 +198,7 @@
 
                for (I = K; I <= N; I++) { // 150
                   WORK( I ) = 0
-  150          CONTINUE
+               } // 150
 
                DO 170 J = K, K + JB - 1
 
@@ -213,7 +213,7 @@
                      }
                      WORK( N+I ) = A( I, I ) - WORK( I )
 
-  160             CONTINUE
+                  } // 160
 
                   if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -254,7 +254,7 @@
                      sscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
                   }
 
-  170          CONTINUE
+               } // 170
 
                // Update trailing matrix, J already incremented
 
@@ -262,7 +262,7 @@
                   ssyrk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 
-  180       CONTINUE
+            } // 180
 
          }
       }
@@ -272,7 +272,7 @@
       RANK = N
 
       GO TO 200
-  190 CONTINUE
+      } // 190
 
       // Rank is the number of steps completed.  Set INFO = 1 to signal
       // that the factorization cannot be used to solve a system.
@@ -280,7 +280,7 @@
       RANK = J - 1
       INFO = 1
 
-  200 CONTINUE
+      } // 200
       RETURN
 
       // End of SPSTRF

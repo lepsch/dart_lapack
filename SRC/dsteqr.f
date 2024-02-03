@@ -95,7 +95,7 @@
       L1 = 1
       NM1 = N - 1
 
-   10 CONTINUE
+      } // 10
       IF( L1.GT.N ) GO TO 160       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       if ( L1.LE.NM1 ) {
          for (M = L1; M <= NM1; M++) { // 20
@@ -104,11 +104,11 @@
                E( M ) = ZERO
                GO TO 30
             }
-   20    CONTINUE
+         } // 20
       }
       M = N
 
-   30 CONTINUE
+      } // 30
       L = L1
       LSV = L
       LEND = M
@@ -142,18 +142,18 @@
 
          // Look for small subdiagonal element.
 
-   40    CONTINUE
+         } // 40
          if ( L.NE.LEND ) {
             LENDM1 = LEND - 1
             for (M = L; M <= LENDM1; M++) { // 50
                TST = ABS( E( M ) )**2
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M+1 ) )+ SAFMIN )GO TO 60
-   50       CONTINUE
+            } // 50
          }
 
          M = LEND
 
-   60    CONTINUE
+         } // 60
          IF( M.LT.LEND ) E( M ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 80
@@ -212,7 +212,7 @@
                WORK( N-1+I ) = -S
             }
 
-   70    CONTINUE
+         } // 70
 
          // If eigenvectors are desired, then apply saved rotations.
 
@@ -227,7 +227,7 @@
 
          // Eigenvalue found.
 
-   80    CONTINUE
+         } // 80
          D( L ) = P
 
          L = L + 1
@@ -240,18 +240,18 @@
 
          // Look for small superdiagonal element.
 
-   90    CONTINUE
+         } // 90
          if ( L.NE.LEND ) {
             LENDP1 = LEND + 1
             DO 100 M = L, LENDP1, -1
                TST = ABS( E( M-1 ) )**2
                IF( TST.LE.( EPS2*ABS( D( M ) ) )*ABS( D( M-1 ) )+ SAFMIN )GO TO 110
-  100       CONTINUE
+            } // 100
          }
 
          M = LEND
 
-  110    CONTINUE
+         } // 110
          IF( M.GT.LEND ) E( M-1 ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 130
@@ -310,7 +310,7 @@
                WORK( N-1+I ) = S
             }
 
-  120    CONTINUE
+         } // 120
 
          // If eigenvectors are desired, then apply saved rotations.
 
@@ -325,7 +325,7 @@
 
          // Eigenvalue found.
 
-  130    CONTINUE
+         } // 130
          D( L ) = P
 
          L = L - 1
@@ -336,7 +336,7 @@
 
       // Undo scaling if necessary
 
-  140 CONTINUE
+      } // 140
       if ( ISCALE.EQ.1 ) {
          dlascl('G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )          CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV, 1, E( LSV ), N, INFO );
       } else if ( ISCALE.EQ.2 ) {
@@ -349,12 +349,12 @@
       IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 150 I = 1, N - 1
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
-  150 CONTINUE
+      } // 150
       GO TO 190
 
       // Order eigenvalues and eigenvectors.
 
-  160 CONTINUE
+      } // 160
       if ( ICOMPZ.EQ.0 ) {
 
          // Use Quick Sort
@@ -374,16 +374,16 @@
                   K = J
                   P = D( J )
                }
-  170       CONTINUE
+            } // 170
             if ( K.NE.I ) {
                D( K ) = D( I )
                D( I ) = P
                dswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
             }
-  180    CONTINUE
+         } // 180
       }
 
-  190 CONTINUE
+      } // 190
       RETURN
 
       // End of DSTEQR

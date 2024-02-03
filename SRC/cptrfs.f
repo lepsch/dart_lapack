@@ -78,7 +78,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -96,7 +96,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -122,7 +122,7 @@
                   EX = E( I )*X( I+1, J )
                   WORK( I ) = BI - CX - DX - EX
                   RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) )
-   30          CONTINUE
+               } // 30
                BI = B( N, J )
                CX = CONJG( E( N-1 ) )*X( N-1, J )
                DX = D( N )*X( N, J )
@@ -148,7 +148,7 @@
                   EX = CONJG( E( I ) )*X( I+1, J )
                   WORK( I ) = BI - CX - DX - EX
                   RWORK( I ) = CABS1( BI ) + CABS1( E( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( DX ) + CABS1( E( I ) )* CABS1( X( I+1, J ) )
-   40          CONTINUE
+               } // 40
                BI = B( N, J )
                CX = E( N-1 )*X( N-1, J )
                DX = D( N )*X( N, J )
@@ -173,7 +173,7 @@
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             }
-   50    CONTINUE
+         } // 50
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -217,7 +217,7 @@
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             }
-   60    CONTINUE
+         } // 60
          IX = ISAMAX( N, RWORK, 1 )
          FERR( J ) = RWORK( IX )
 
@@ -235,14 +235,14 @@
          RWORK( 1 ) = ONE
          for (I = 2; I <= N; I++) { // 70
             RWORK( I ) = ONE + RWORK( I-1 )*ABS( EF( I-1 ) )
-   70    CONTINUE
+         } // 70
 
          // Solve D * M(L)**H * x = b.
 
          RWORK( N ) = RWORK( N ) / DF( N )
          DO 80 I = N - 1, 1, -1
             RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*ABS( EF( I ) )
-   80    CONTINUE
+         } // 80
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
@@ -254,10 +254,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 90
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
-   90    CONTINUE
+         } // 90
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  100 CONTINUE
+      } // 100
 
       RETURN
 

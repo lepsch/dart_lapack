@@ -94,11 +94,11 @@
               if (BETA.EQ.ZERO) {
                   for (I = 1; I <= LENY; I++) { // 10
                       Y(I) = ZERO
-   10             CONTINUE
+                  } // 10
               } else {
                   for (I = 1; I <= LENY; I++) { // 20
                       Y(I) = BETA*Y(I)
-   20             CONTINUE
+                  } // 20
               }
           } else {
               IY = KY
@@ -106,12 +106,12 @@
                   for (I = 1; I <= LENY; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
-   30             CONTINUE
+                  } // 30
               } else {
                   for (I = 1; I <= LENY; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
-   40             CONTINUE
+                  } // 40
               }
           }
       }
@@ -128,9 +128,9 @@
                   K = KUP1 - J
                   DO 50 I = MAX(1,J-KU),MIN(M,J+KL)
                       Y(I) = Y(I) + TEMP*A(K+I,J)
-   50             CONTINUE
+                  } // 50
                   JX = JX + INCX
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   TEMP = ALPHA*X(JX)
@@ -139,10 +139,10 @@
                   DO 70 I = MAX(1,J-KU),MIN(M,J+KL)
                       Y(IY) = Y(IY) + TEMP*A(K+I,J)
                       IY = IY + INCY
-   70             CONTINUE
+                  } // 70
                   JX = JX + INCX
                   IF (J.GT.KU) KY = KY + INCY
-   80         CONTINUE
+              } // 80
           }
       } else {
 
@@ -155,10 +155,10 @@
                   K = KUP1 - J
                   DO 90 I = MAX(1,J-KU),MIN(M,J+KL)
                       TEMP = TEMP + A(K+I,J)*X(I)
-   90             CONTINUE
+                  } // 90
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
-  100         CONTINUE
+              } // 100
           } else {
               for (J = 1; J <= N; J++) { // 120
                   TEMP = ZERO
@@ -167,11 +167,11 @@
                   DO 110 I = MAX(1,J-KU),MIN(M,J+KL)
                       TEMP = TEMP + A(K+I,J)*X(IX)
                       IX = IX + INCX
-  110             CONTINUE
+                  } // 110
                   Y(JY) = Y(JY) + ALPHA*TEMP
                   JY = JY + INCY
                   IF (J.GT.KU) KX = KX + INCX
-  120         CONTINUE
+              } // 120
           }
       }
 

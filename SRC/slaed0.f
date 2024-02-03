@@ -66,19 +66,19 @@
       IWORK( 1 ) = N
       SUBPBS = 1
       TLVLS = 0
-   10 CONTINUE
+      } // 10
       if ( IWORK( SUBPBS ).GT.SMLSIZ ) {
          DO 20 J = SUBPBS, 1, -1
             IWORK( 2*J ) = ( IWORK( J )+1 ) / 2
             IWORK( 2*J-1 ) = IWORK( J ) / 2
-   20    CONTINUE
+         } // 20
          TLVLS = TLVLS + 1
          SUBPBS = 2*SUBPBS
          GO TO 10
       }
       for (J = 2; J <= SUBPBS; J++) { // 30
          IWORK( J ) = IWORK( J ) + IWORK( J-1 )
-   30 CONTINUE
+      } // 30
 
       // Divide the matrix into SUBPBS submatrices of size at most SMLSIZ+1
       // using rank-1 modifications (cuts).
@@ -89,7 +89,7 @@
          SMM1 = SUBMAT - 1
          D( SMM1 ) = D( SMM1 ) - ABS( E( SMM1 ) )
          D( SUBMAT ) = D( SUBMAT ) - ABS( E( SMM1 ) )
-   40 CONTINUE
+      } // 40
 
       INDXQ = 4*N + 3
       if ( ICOMPQ.NE.2 ) {
@@ -115,7 +115,7 @@
          for (I = 0; I <= SUBPBS; I++) { // 50
             IWORK( IPRMPT+I ) = 1
             IWORK( IGIVPT+I ) = 1
-   50    CONTINUE
+         } // 50
          IWORK( IQPTR ) = 1
       }
 
@@ -146,8 +146,8 @@
          DO 60 J = SUBMAT, IWORK( I+1 )
             IWORK( INDXQ+J ) = K
             K = K + 1
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
 
       // Successively merge eigensystems of adjacent submatrices
       // into eigensystem for the corresponding larger matrix.
@@ -155,7 +155,7 @@
       // while ( SUBPBS > 1 )
 
       CURLVL = 1
-   80 CONTINUE
+      } // 80
       if ( SUBPBS.GT.1 ) {
          SPM2 = SUBPBS - 2
          DO 90 I = 0, SPM2, 2
@@ -186,7 +186,7 @@
             }
             IF( INFO.NE.0 ) GO TO 130
             IWORK( I / 2+1 ) = IWORK( I+2 )
-   90    CONTINUE
+         } // 90
          SUBPBS = SUBPBS / 2
          CURLVL = CURLVL + 1
          GO TO 80
@@ -202,29 +202,29 @@
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
             scopy(QSIZ, QSTORE( 1, J ), 1, Q( 1, I ), 1 );
-  100    CONTINUE
+         } // 100
          scopy(N, WORK, 1, D, 1 );
       } else if ( ICOMPQ.EQ.2 ) {
          for (I = 1; I <= N; I++) { // 110
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
             scopy(N, Q( 1, J ), 1, WORK( N*I+1 ), 1 );
-  110    CONTINUE
+         } // 110
          scopy(N, WORK, 1, D, 1 );
          slacpy('A', N, N, WORK( N+1 ), N, Q, LDQ );
       } else {
          for (I = 1; I <= N; I++) { // 120
             J = IWORK( INDXQ+I )
             WORK( I ) = D( J )
-  120    CONTINUE
+         } // 120
          scopy(N, WORK, 1, D, 1 );
       }
       GO TO 140
 
-  130 CONTINUE
+      } // 130
       INFO = SUBMAT*( N+1 ) + SUBMAT + MATSIZ - 1
 
-  140 CONTINUE
+      } // 140
       RETURN
 
       // End of SLAED0

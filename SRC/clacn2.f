@@ -44,7 +44,7 @@
       if ( KASE.EQ.0 ) {
          for (I = 1; I <= N; I++) { // 10
             X( I ) = CMPLX( ONE / REAL( N ) )
-   10    CONTINUE
+         } // 10
          KASE = 1
          ISAVE( 1 ) = 1
          RETURN
@@ -55,7 +55,7 @@
       // ................ ENTRY   (ISAVE( 1 ) = 1)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY A*X.
 
-   20 CONTINUE
+      } // 20
       if ( N.EQ.1 ) {
          V( 1 ) = X( 1 )
          EST = ABS( V( 1 ) )
@@ -71,7 +71,7 @@
          } else {
             X( I ) = CONE
          }
-   30 CONTINUE
+      } // 30
       KASE = 2
       ISAVE( 1 ) = 2
       RETURN
@@ -79,16 +79,16 @@
       // ................ ENTRY   (ISAVE( 1 ) = 2)
       // FIRST ITERATION.  X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
-   40 CONTINUE
+      } // 40
       ISAVE( 2 ) = ICMAX1( N, X, 1 )
       ISAVE( 3 ) = 2
 
       // MAIN LOOP - ITERATIONS 2,3,...,ITMAX.
 
-   50 CONTINUE
+      } // 50
       for (I = 1; I <= N; I++) { // 60
          X( I ) = CZERO
-   60 CONTINUE
+      } // 60
       X( ISAVE( 2 ) ) = CONE
       KASE = 1
       ISAVE( 1 ) = 3
@@ -97,7 +97,7 @@
       // ................ ENTRY   (ISAVE( 1 ) = 3)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-   70 CONTINUE
+      } // 70
       ccopy(N, X, 1, V, 1 );
       ESTOLD = EST
       EST = SCSUM1( N, V, 1 )
@@ -112,7 +112,7 @@
          } else {
             X( I ) = CONE
          }
-   80 CONTINUE
+      } // 80
       KASE = 2
       ISAVE( 1 ) = 4
       RETURN
@@ -120,7 +120,7 @@
       // ................ ENTRY   (ISAVE( 1 ) = 4)
       // X HAS BEEN OVERWRITTEN BY CTRANS(A)*X.
 
-   90 CONTINUE
+      } // 90
       JLAST = ISAVE( 2 )
       ISAVE( 2 ) = ICMAX1( N, X, 1 )
       if ( ( ABS( X( JLAST ) ).NE.ABS( X( ISAVE( 2 ) ) ) ) .AND. ( ISAVE( 3 ).LT.ITMAX ) ) {
@@ -130,12 +130,12 @@
 
       // ITERATION COMPLETE.  FINAL STAGE.
 
-  100 CONTINUE
+      } // 100
       ALTSGN = ONE
       for (I = 1; I <= N; I++) { // 110
          X( I ) = CMPLX( ALTSGN*( ONE + REAL( I-1 ) / REAL( N-1 ) ) )
          ALTSGN = -ALTSGN
-  110 CONTINUE
+      } // 110
       KASE = 1
       ISAVE( 1 ) = 5
       RETURN
@@ -143,14 +143,14 @@
       // ................ ENTRY   (ISAVE( 1 ) = 5)
       // X HAS BEEN OVERWRITTEN BY A*X.
 
-  120 CONTINUE
+      } // 120
       TEMP = TWO*( SCSUM1( N, X, 1 ) / REAL( 3*N ) )
       if ( TEMP.GT.EST ) {
          ccopy(N, X, 1, V, 1 );
          EST = TEMP
       }
 
-  130 CONTINUE
+      } // 130
       KASE = 0
       RETURN
 

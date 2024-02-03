@@ -80,7 +80,7 @@
             INFO = -I
             EXIT
          }
-   40 CONTINUE
+      } // 40
       if ( INFO.LT.0 ) {
          if ( NFAIL.EQ.0 .AND. FIRSTT ) {
             FIRSTT = .FALSE.
@@ -144,11 +144,11 @@
                   WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                   NFAIL = NFAIL + 1
                }
-   10       CONTINUE
+            } // 10
             NRUN = NRUN + NT
 
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       // Print a summary of the results.
 

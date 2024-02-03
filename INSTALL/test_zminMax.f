@@ -44,7 +44,7 @@
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
-  10  continue
+      } // 10
       for (i = 4; i <= 6; i++) { // 20
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
@@ -57,7 +57,7 @@
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
-  20  continue
+      } // 20
       for (i = 7; i <= 8; i++) { // 30
           nTests = nTests + 2
           R = MIN( X(i), Y(i) )
@@ -70,7 +70,7 @@
               nFailingTests = nFailingTests + 1
               WRITE( *, FMT = 9998 ) 'i',i, 'MAX', X(i), Y(i), R
           endif
-  30  continue
+      } // 30
 
       if( nFailingTests .gt. 0 ) then
          print *, "# ", nTests-nFailingTests, " tests out of ", nTests, " pass for intrinsic MIN and MAX,", nFailingTests," fail."

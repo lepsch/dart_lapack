@@ -308,7 +308,7 @@
             } else {
                slaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
-   10    CONTINUE
+         } // 10
 
          // Multiply B by right singular vectors
          // (Workspace: need N, prefer N*NRHS)
@@ -322,7 +322,7 @@
                BL = MIN( NRHS-I+1, CHUNK )
                sgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
-   20       CONTINUE
+            } // 20
          } else if ( NRHS.EQ.1 ) {
             sgemv('T', N, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
             scopy(N, WORK, 1, B, 1 );
@@ -388,7 +388,7 @@
             } else {
                slaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
-   30    CONTINUE
+         } // 30
          IWORK = IE
 
          // Multiply B by right singular vectors of L in WORK(IL)
@@ -402,7 +402,7 @@
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
                sgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL SLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
-   40       CONTINUE
+            } // 40
          } else if ( NRHS.EQ.1 ) {
             sgemv('T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 );
             scopy(M, WORK( IWORK ), 1, B( 1, 1 ), 1 );
@@ -462,7 +462,7 @@
             } else {
                slaset('F', 1, NRHS, ZERO, ZERO, B( I, 1 ), LDB );
             }
-   50    CONTINUE
+         } // 50
 
          // Multiply B by right singular vectors of A
          // (Workspace: need N, prefer N*NRHS)
@@ -476,7 +476,7 @@
                BL = MIN( NRHS-I+1, CHUNK )
                sgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
-   60       CONTINUE
+            } // 60
          } else if ( NRHS.EQ.1 ) {
             sgemv('T', M, N, ONE, A, LDA, B, 1, ZERO, WORK, 1 );
             scopy(N, WORK, 1, B, 1 );
@@ -498,7 +498,7 @@
          slascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-   70 CONTINUE
+      } // 70
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
 

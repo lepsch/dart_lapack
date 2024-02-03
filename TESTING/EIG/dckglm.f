@@ -66,7 +66,7 @@
             }
             WRITE( NOUT, FMT = 9997 )M, P, N
          }
-   10 CONTINUE
+      } // 10
       FIRSTT = .TRUE.
 
       // Do for each value of M in MVAL.
@@ -106,7 +106,7 @@
 
             for (I = 1; I <= N; I++) { // 20
                X( I ) = DLARND( 2, ISEED )
-   20       CONTINUE
+            } // 20
 
             dglmts(N, M, P, A, AF, LDA, B, BF, LDB, X, X( NMAX+1 ), X( 2*NMAX+1 ), X( 3*NMAX+1 ), WORK, LWORK, RWORK, RESID );
 
@@ -123,8 +123,8 @@
             }
             NRUN = NRUN + 1
 
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Print a summary of the results.
 

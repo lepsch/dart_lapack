@@ -98,18 +98,18 @@
                         for (I = 1; I <= N; I++) { // 20
                            for (J = 1; J <= N; J++) { // 10
                               T( I, J ) = DBLE( IVAL( I, J, NDIM ) )* VM1( IVM1 )                               IF( I.GE.J ) T( I, J ) = T( I, J )*VM5( IVM5 )
-   10                      CONTINUE
-   20                   CONTINUE
+                           } // 10
+                        } // 20
 
                         W = ONE*VM2( IVM2 )
 
                         for (I = 1; I <= N; I++) { // 30
                            B( I ) = COS( DBLE( I ) )*VM3( IVM3 )
-   30                   CONTINUE
+                        } // 30
 
                         DO 40 I = 1, 2*N
                            D( I ) = SIN( DBLE( I ) )*VM4( IVM4 )
-   40                   CONTINUE
+                        } // 40
 
                         NORM = DLANGE( '1', N, N, T, LDT, WORK )
                         K = IDAMAX( N, B, 1 )
@@ -164,13 +164,13 @@
                         Y( 1 ) = DDOT( N, B, 1, X( 1+N ), 1 ) + SCALE*Y( 1 )
                         for (I = 2; I <= N; I++) { // 50
                            Y( I ) = W*X( I+N ) + SCALE*Y( I )
-   50                   CONTINUE
+                        } // 50
                         dgemv('No transpose', N, N, ONE, T, LDT, X, 1, -ONE, Y, 1 );
 
                         Y( 1+N ) = DDOT( N, B, 1, X, 1 ) - SCALE*Y( 1+N )
                         for (I = 2; I <= N; I++) { // 60
                            Y( I+N ) = W*X( I ) - SCALE*Y( I+N )
-   60                   CONTINUE
+                        } // 60
                         dgemv('No transpose', N, N, ONE, T, LDT, X( 1+N ), 1, ONE, Y( 1+N ), 1 );
 
                         RESID = DASUM( 2*N, Y, 1 )
@@ -193,13 +193,13 @@
                         Y( 1 ) = B( 1 )*X( 1+N ) - SCALE*Y( 1 )
                         for (I = 2; I <= N; I++) { // 70
                            Y( I ) = B( I )*X( 1+N ) + W*X( I+N ) - SCALE*Y( I )
-   70                   CONTINUE
+                        } // 70
                         dgemv('Transpose', N, N, ONE, T, LDT, X, 1, ONE, Y, 1 );
 
                         Y( 1+N ) = B( 1 )*X( 1 ) + SCALE*Y( 1+N )
                         for (I = 2; I <= N; I++) { // 80
                            Y( I+N ) = B( I )*X( 1 ) + W*X( I ) + SCALE*Y( I+N )
-   80                   CONTINUE
+                        } // 80
                         dgemv('Transpose', N, N, ONE, T, LDT, X( 1+N ), 1, -ONE, Y( 1+N ), 1 );
 
                         RESID = DASUM( 2*N, Y, 1 )
@@ -210,12 +210,12 @@
                            LMAX = KNT
                         }
 
-   90                CONTINUE
-  100             CONTINUE
-  110          CONTINUE
-  120       CONTINUE
-  130    CONTINUE
-  140 CONTINUE
+                     } // 90
+                  } // 100
+               } // 110
+            } // 120
+         } // 130
+      } // 140
 
       RETURN
 

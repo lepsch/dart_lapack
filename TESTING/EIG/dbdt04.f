@@ -57,14 +57,14 @@
             DO 10 J = 1, N-1
                K = K + 1
                WORK( K ) = D( J )*VT( I, J ) + E( J )*VT( I, J+1 )
-   10       CONTINUE
+            } // 10
             K = K + 1
             WORK( K ) = D( N )*VT( I, N )
-   20    CONTINUE
+         } // 20
          BNORM = ABS( D( 1 ) )
          for (I = 2; I <= N; I++) { // 30
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I-1 ) ) )
-   30    CONTINUE
+         } // 30
       } else {
 
          // B is lower bidiagonal.
@@ -76,12 +76,12 @@
             DO 40 J = 1, N-1
                K = K + 1
                WORK( K ) = E( J )*VT( I, J ) + D( J+1 )*VT( I, J+1 )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          BNORM = ABS( D( N ) )
          DO 60 I = 1, N-1
             BNORM = MAX( BNORM, ABS( D( I ) )+ABS( E( I ) ) )
-   60    CONTINUE
+         } // 60
       }
 
       dgemm('T', 'N', NS, NS, N, -ONE, U, LDU, WORK( 1 ), N, ZERO, WORK( 1+N*NS ), NS );
@@ -93,7 +93,7 @@
          WORK( K+I ) =  WORK( K+I ) + S( I )
          RESID = MAX( RESID, DASUM( NS, WORK( K+1 ), 1 ) )
          K = K + NS
-   70 CONTINUE
+      } // 70
 
       if ( BNORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS

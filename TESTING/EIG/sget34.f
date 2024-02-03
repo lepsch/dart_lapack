@@ -90,10 +90,10 @@
                      LMAX = KNT
                      RMAX = RES
                   }
-   10          CONTINUE
-   20       CONTINUE
-   30    CONTINUE
-   40 CONTINUE
+               } // 10
+            } // 20
+         } // 30
+      } // 40
 
       for (IA = 1; IA <= 5; IA++) { // 110
          for (IAM = 1; IAM <= 2; IAM++) { // 100
@@ -125,13 +125,13 @@
                               LMAX = KNT
                               RMAX = RES
                            }
-   50                   CONTINUE
-   60                CONTINUE
-   70             CONTINUE
-   80          CONTINUE
-   90       CONTINUE
-  100    CONTINUE
-  110 CONTINUE
+                        } // 50
+                     } // 60
+                  } // 70
+               } // 80
+            } // 90
+         } // 100
+      } // 110
 
       for (IA11 = 1; IA11 <= 5; IA11++) { // 180
          for (IA12 = 2; IA12 <= 5; IA12++) { // 170
@@ -163,13 +163,13 @@
                               LMAX = KNT
                               RMAX = RES
                            }
-  120                   CONTINUE
-  130                CONTINUE
-  140             CONTINUE
-  150          CONTINUE
-  160       CONTINUE
-  170    CONTINUE
-  180 CONTINUE
+                        } // 120
+                     } // 130
+                  } // 140
+               } // 150
+            } // 160
+         } // 170
+      } // 180
 
       for (IA11 = 1; IA11 <= 5; IA11++) { // 300
          for (IA12 = 2; IA12 <= 5; IA12++) { // 290
@@ -200,8 +200,8 @@
                                     for (I = 1; I <= 4; I++) { // 200
                                        for (J = 1; J <= 4; J++) { // 190
                                           TNRM = MAX( TNRM, ABS( T( I, J ) ) )
-  190                                  CONTINUE
-  200                               CONTINUE
+                                       } // 190
+                                    } // 200
                                     scopy(16, T, 1, T1, 1 );
                                     scopy(16, VAL( 1 ), 0, Q, 1 );
                                     scopy(4, VAL( 3 ), 0, Q, 5 );
@@ -215,16 +215,16 @@
                                        LMAX = KNT
                                        RMAX = RES
                                     }
-  210                            CONTINUE
-  220                         CONTINUE
-  230                      CONTINUE
-  240                   CONTINUE
-  250                CONTINUE
-  260             CONTINUE
-  270          CONTINUE
-  280       CONTINUE
-  290    CONTINUE
-  300 CONTINUE
+                                 } // 210
+                              } // 220
+                           } // 230
+                        } // 240
+                     } // 250
+                  } // 260
+               } // 270
+            } // 280
+         } // 290
+      } // 300
 
       RETURN
 

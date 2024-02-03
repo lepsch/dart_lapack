@@ -69,7 +69,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -182,7 +182,7 @@
                      IW = 2*LDA
                      DO 20 I = 1, MIN( 2*KD+1, N )
                         WORK( IW+I ) = ZERO
-   20                CONTINUE
+                     } // 20
                      IW = IW + 1
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
@@ -304,9 +304,9 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   30                   CONTINUE
+                        } // 30
                         NRUN = NRUN + 5
-   40                CONTINUE
+                     } // 40
 
 *+    TEST 7
                      // Get an estimate of RCOND = 1/CNDNUM.
@@ -327,11 +327,11 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
-   50             CONTINUE
-   60          CONTINUE
-   70       CONTINUE
-   80    CONTINUE
-   90 CONTINUE
+                  } // 50
+               } // 60
+            } // 70
+         } // 80
+      } // 90
 
       // Print a summary of the results.
 

@@ -35,10 +35,10 @@
                GO TO 30
             }
             SA( I, J ) = REAL( A( I, J ) )
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       INFO = 0
-   30 CONTINUE
+      } // 30
       RETURN
 
       // End of DLAG2S

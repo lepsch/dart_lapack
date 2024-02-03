@@ -119,7 +119,7 @@
 
             for (J = 1; J <= NEIG; J++) { // 10
                stpsv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-   10       CONTINUE
+            } // 10
 
          } else if ( ITYPE.EQ.3 ) {
 
@@ -134,7 +134,7 @@
 
             for (J = 1; J <= NEIG; J++) { // 20
                stpmv(UPLO, TRANS, 'Non-unit', N, BP, Z( 1, J ), 1 );
-   20       CONTINUE
+            } // 20
          }
       }
 

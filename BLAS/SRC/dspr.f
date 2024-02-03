@@ -74,10 +74,10 @@
                       for (I = 1; I <= J; I++) { // 10
                           AP(K) = AP(K) + X(I)*TEMP
                           K = K + 1
-   10                 CONTINUE
+                      } // 10
                   }
                   KK = KK + J
-   20         CONTINUE
+              } // 20
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 40
@@ -87,11 +87,11 @@
                       DO 30 K = KK,KK + J - 1
                           AP(K) = AP(K) + X(IX)*TEMP
                           IX = IX + INCX
-   30                 CONTINUE
+                      } // 30
                   }
                   JX = JX + INCX
                   KK = KK + J
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -105,10 +105,10 @@
                       for (I = J; I <= N; I++) { // 50
                           AP(K) = AP(K) + X(I)*TEMP
                           K = K + 1
-   50                 CONTINUE
+                      } // 50
                   }
                   KK = KK + N - J + 1
-   60         CONTINUE
+              } // 60
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 80
@@ -118,11 +118,11 @@
                       DO 70 K = KK,KK + N - J
                           AP(K) = AP(K) + X(IX)*TEMP
                           IX = IX + INCX
-   70                 CONTINUE
+                      } // 70
                   }
                   JX = JX + INCX
                   KK = KK + N - J + 1
-   80         CONTINUE
+              } // 80
           }
       }
 

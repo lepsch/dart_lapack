@@ -92,7 +92,7 @@
       if ( .NOT.LSAME( XTYPE, 'C' ) ) {
          for (J = 1; J <= NRHS; J++) { // 10
             zlarnv(2, ISEED, N, X( 1, J ) );
-   10    CONTINUE
+         } // 10
       }
 
       // Multiply X by op(A) using an appropriate
@@ -122,7 +122,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 20
             zgbmv(TRANS, M, N, KL, KU, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
 
       } else if ( LSAMEN( 2, C2, 'PB' ) .OR. LSAMEN( 2, C2, 'HB' ) ) {
 
@@ -130,7 +130,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 30
             zhbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   30    CONTINUE
+         } // 30
 
       } else if ( LSAMEN( 2, C2, 'SB' ) ) {
 
@@ -138,7 +138,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 40
             zsbmv(UPLO, N, KL, ONE, A, LDA, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
 
       } else if ( LSAMEN( 2, C2, 'PP' ) .OR. LSAMEN( 2, C2, 'HP' ) ) {
 
@@ -146,7 +146,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 50
             zhpmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   50    CONTINUE
+         } // 50
 
       } else if ( LSAMEN( 2, C2, 'SP' ) ) {
 
@@ -154,7 +154,7 @@
 
          for (J = 1; J <= NRHS; J++) { // 60
             zspmv(UPLO, N, ONE, A, X( 1, J ), 1, ZERO, B( 1, J ), 1 );
-   60    CONTINUE
+         } // 60
 
       } else if ( LSAMEN( 2, C2, 'TR' ) ) {
 
@@ -182,7 +182,7 @@
          }
          for (J = 1; J <= NRHS; J++) { // 70
             ztpmv(UPLO, TRANS, DIAG, N, A, B( 1, J ), 1 );
-   70    CONTINUE
+         } // 70
 
       } else if ( LSAMEN( 2, C2, 'TB' ) ) {
 
@@ -196,7 +196,7 @@
          }
          for (J = 1; J <= NRHS; J++) { // 80
             ztbmv(UPLO, TRANS, DIAG, N, KL, A, LDA, B( 1, J ), 1 );
-   80    CONTINUE
+         } // 80
 
       } else {
 

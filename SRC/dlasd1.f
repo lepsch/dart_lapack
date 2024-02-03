@@ -77,7 +77,7 @@
          if ( ABS( D( I ) ).GT.ORGNRM ) {
             ORGNRM = ABS( D( I ) )
          }
-   10 CONTINUE
+      } // 10
       dlascl('G', 0, 0, ORGNRM, ONE, N, 1, D, N, INFO );
       ALPHA = ALPHA / ORGNRM
       BETA = BETA / ORGNRM

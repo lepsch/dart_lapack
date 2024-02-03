@@ -169,7 +169,7 @@
          }
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
-   10 CONTINUE
+      } // 10
 
       // If IHI < ILO, skip QZ steps
 
@@ -282,7 +282,7 @@
                         }
                      }
                      T( JCH+1, JCH+1 ) = CZERO
-   20             CONTINUE
+                  } // 20
                   GO TO 50
                } else {
 
@@ -298,7 +298,7 @@
                      clartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = CZERO
                      crot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL CROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL CROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
-   30             CONTINUE
+                  } // 30
                   GO TO 50
                }
             } else if ( ILAZRO ) {
@@ -311,7 +311,7 @@
 
             // Neither test passed -- try next J
 
-   40    CONTINUE
+         } // 40
 
          // (Drop-through is "impossible")
 
@@ -321,7 +321,7 @@
          // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
          // 1x1 block.
 
-   50    CONTINUE
+         } // 50
          CTEMP = H( ILAST, ILAST )
          clartg(CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = CZERO
@@ -329,7 +329,7 @@
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 
-   60    CONTINUE
+         } // 60
          ABSB = ABS( T( ILAST, ILAST ) )
          if ( ABSB.GT.SAFMIN ) {
             SIGNBC = CONJG( T( ILAST, ILAST ) / ABSB )
@@ -367,7 +367,7 @@
          // This iteration only involves rows/columns IFIRST:ILAST.  We
          // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 
-   70    CONTINUE
+         } // 70
          IITER = IITER + 1
          if ( .NOT.ILSCHR ) {
             IFRSTM = IFIRST
@@ -429,11 +429,11 @@
                TEMP2 = TEMP2 / TEMPR
             }
             IF( ABS1( H( J, J-1 ) )*TEMP2.LE.TEMP*ATOL ) GO TO 90
-   80    CONTINUE
+         } // 80
 
          ISTART = IFIRST
          CTEMP = ASCALE*H( IFIRST, IFIRST ) - SHIFT*( BSCALE*T( IFIRST, IFIRST ) )
-   90    CONTINUE
+         } // 90
 
          // Do an implicit-shift QZ sweep.
 
@@ -458,13 +458,13 @@
                CTEMP2 = C*T( J, JC ) + S*T( J+1, JC )
                T( J+1, JC ) = -CONJG( S )*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = CTEMP2
-  100       CONTINUE
+            } // 100
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 110
                   CTEMP = C*Q( JR, J ) + CONJG( S )*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = CTEMP
-  110          CONTINUE
+               } // 110
             }
 
             CTEMP = T( J+1, J+1 )
@@ -475,34 +475,34 @@
                CTEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -CONJG( S )*H( JR, J+1 ) + C*H( JR, J )
                H( JR, J+1 ) = CTEMP
-  120       CONTINUE
+            } // 120
             for (JR = IFRSTM; JR <= J; JR++) { // 130
                CTEMP = C*T( JR, J+1 ) + S*T( JR, J )
                T( JR, J ) = -CONJG( S )*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = CTEMP
-  130       CONTINUE
+            } // 130
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 140
                   CTEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -CONJG( S )*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = CTEMP
-  140          CONTINUE
+               } // 140
             }
-  150    CONTINUE
+         } // 150
 
-  160    CONTINUE
+         } // 160
 
-  170 CONTINUE
+      } // 170
 
       // Drop-through = non-convergence
 
-  180 CONTINUE
+      } // 180
       INFO = ILAST
       GO TO 210
 
       // Successful completion of all QZ steps
 
-  190 CONTINUE
+      } // 190
 
       // Set Eigenvalues 1:ILO-1
 
@@ -523,7 +523,7 @@
          }
          ALPHA( J ) = H( J, J )
          BETA( J ) = T( J, J )
-  200 CONTINUE
+      } // 200
 
       // Normal Termination
 
@@ -531,7 +531,7 @@
 
       // Exit (other than argument error) -- return optimal workspace size
 
-  210 CONTINUE
+      } // 210
       WORK( 1 ) = CMPLX( N )
       RETURN
 

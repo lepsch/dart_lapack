@@ -68,14 +68,14 @@
          NMAX = MAX( NMAX, NVAL( J ) )
          IF( NVAL( J ).LT.0 ) BADNN = .TRUE.
          MNMAX = MAX( MNMAX, MIN( MVAL( J ), NVAL( J ) ) )
-   10 CONTINUE
+      } // 10
 
       BADNNB = .FALSE.
       KMAX = 0
       for (J = 1; J <= NWDTHS; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
          IF( KK( J ).LT.0 ) BADNNB = .TRUE.
-   20 CONTINUE
+      } // 20
 
       // Check for errors
 
@@ -155,7 +155,7 @@
 
                for (J = 1; J <= 4; J++) { // 30
                   IOLDSD( J ) = ISEED( J )
-   30          CONTINUE
+               } // 30
 
                // Compute "A".
 
@@ -181,19 +181,19 @@
 
                GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40          CONTINUE
+               } // 40
                ANORM = ONE
                GO TO 70
 
-   50          CONTINUE
+               } // 50
                ANORM = ( RTOVFL*ULP )*AMNINV
                GO TO 70
 
-   60          CONTINUE
+               } // 60
                ANORM = RTUNFL*MAX( M, N )*ULPINV
                GO TO 70
 
-   70          CONTINUE
+               } // 70
 
                zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
                zlaset('Full', LDAB, N, CZERO, CZERO, AB, LDAB );
@@ -213,7 +213,7 @@
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                      A( JCOL, JCOL ) = ANORM
-   80             CONTINUE
+                  } // 80
 
                } else if ( ITYPE.EQ.4 ) {
 
@@ -248,15 +248,15 @@
                   RETURN
                }
 
-   90          CONTINUE
+               } // 90
 
                // Copy A to band storage.
 
                for (J = 1; J <= N; J++) { // 110
                   DO 100 I = MAX( 1, J-KU ), MIN( M, J+KL )
                      AB( KU+1+I-J, J ) = A( I, J )
-  100             CONTINUE
-  110          CONTINUE
+                  } // 100
+               } // 110
 
                // Copy C
 
@@ -287,7 +287,7 @@
                // End of Loop -- Check for RESULT(j) > THRESH
 
                NTEST = 4
-  120          CONTINUE
+               } // 120
                NTESTT = NTESTT + NTEST
 
                // Print out tests which fail.
@@ -298,11 +298,11 @@
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   }
-  130          CONTINUE
+               } // 130
 
-  140       CONTINUE
-  150    CONTINUE
-  160 CONTINUE
+            } // 140
+         } // 150
+      } // 160
 
       // Summary
 

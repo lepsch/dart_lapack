@@ -67,7 +67,7 @@
             IF( J.GT.1 ) CALL DSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = AP( JJ )
             dscal(J, AJJ, AP( JC ), 1 );
-   10    CONTINUE
+         } // 10
 
       } else {
 
@@ -79,7 +79,7 @@
             AP( JJ ) = DDOT( N-J+1, AP( JJ ), 1, AP( JJ ), 1 )
             IF( J.LT.N ) CALL DTPMV( 'Lower', 'Transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )
             JJ = JJN
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

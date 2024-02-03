@@ -59,7 +59,7 @@
          SCALE = MAX( ABS( F1 ), ABS( G1 ) )
          if ( SCALE.GE.SAFMX2 ) {
             COUNT = 0
-   10       CONTINUE
+            } // 10
             COUNT = COUNT + 1
             F1 = F1*SAFMN2
             G1 = G1*SAFMN2
@@ -70,10 +70,10 @@
             SN = G1 / R
             for (I = 1; I <= COUNT; I++) { // 20
                R = R*SAFMX2
-   20       CONTINUE
+            } // 20
          } else if ( SCALE.LE.SAFMN2 ) {
             COUNT = 0
-   30       CONTINUE
+            } // 30
             COUNT = COUNT + 1
             F1 = F1*SAFMX2
             G1 = G1*SAFMX2
@@ -84,7 +84,7 @@
             SN = G1 / R
             for (I = 1; I <= COUNT; I++) { // 40
                R = R*SAFMN2
-   40       CONTINUE
+            } // 40
          } else {
             R = SQRT( F1**2+G1**2 )
             CS = F1 / R

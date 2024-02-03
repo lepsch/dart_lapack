@@ -189,7 +189,7 @@
          for (I = 1; I <= N2; I++) { // 10
             dscal(N1, -ONE, LI( 1, I ), 1 );
             LI( N1+I, I ) = SCALE
-   10    CONTINUE
+         } // 10
          dgeqr2(M, N2, LI, LDST, TAUL, WORK, LINFO );
          IF( LINFO.NE.0 ) GO TO 70
          dorg2r(M, M, N2, LI, LDST, TAUL, WORK, LINFO );
@@ -203,7 +203,7 @@
 
          for (I = 1; I <= N1; I++) { // 20
             IR( N2+I, I ) = SCALE
-   20    CONTINUE
+         } // 20
          dgerq2(N1, M, IR( N2+1, 1 ), LDST, TAUR, WORK, LINFO );
          IF( LINFO.NE.0 ) GO TO 70
          dorgr2(M, M, N1, IR, LDST, TAUR, WORK, LINFO );
@@ -229,7 +229,7 @@
          DSUM = ONE
          for (I = 1; I <= N2; I++) { // 30
             dlassq(N1, S( N2+1, I ), 1, DSCALE, DSUM );
-   30    CONTINUE
+         } // 30
          BRQA21 = DSCALE*SQRT( DSUM )
 
          // Triangularize the B-part by a QR factorization.
@@ -244,7 +244,7 @@
          DSUM = ONE
          for (I = 1; I <= N2; I++) { // 40
             dlassq(N1, SCPY( N2+1, I ), 1, DSCALE, DSUM );
-   40    CONTINUE
+         } // 40
          BQRA21 = DSCALE*SQRT( DSUM )
 
          // Decide which method to use.
@@ -370,7 +370,7 @@
 
       // Exit with INFO = 1 if swap was rejected.
 
-   70 CONTINUE
+      } // 70
 
       INFO = 1
       RETURN

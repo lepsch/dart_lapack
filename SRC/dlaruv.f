@@ -47,7 +47,7 @@
 
       DO 10 I = 1, MIN( N, LV )
 
-  20     CONTINUE
+         } // 20
 
          // Multiply the seed by i-th power of the multiplier modulo 2**48
 
@@ -83,7 +83,7 @@
             GOTO 20
          }
 
-   10 CONTINUE
+      } // 10
 
       // Return final value of seed
 

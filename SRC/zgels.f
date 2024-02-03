@@ -197,8 +197,8 @@
             for (J = 1; J <= NRHS; J++) { // 20
                DO 10 I = N + 1, M
                   B( I, J ) = CZERO
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
 
             // B(1:M,1:NRHS) := Q(1:N,:) * B(1:N,1:NRHS)
 
@@ -235,8 +235,8 @@
             for (J = 1; J <= NRHS; J++) { // 40
                DO 30 I = M + 1, N
                   B( I, J ) = CZERO
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
 
             // B(1:N,1:NRHS) := Q(1:N,:)**H * B(1:M,1:NRHS)
 
@@ -283,7 +283,7 @@
          zlascl('G', 0, 0, BIGNUM, BNRM, SCLLEN, NRHS, B, LDB, INFO );
       }
 
-   50 CONTINUE
+      } // 50
       WORK( 1 ) = DBLE( WSIZE )
 
       RETURN

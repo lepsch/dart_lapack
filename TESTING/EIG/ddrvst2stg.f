@@ -70,7 +70,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -111,7 +111,7 @@
       for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
          ISEED3( I ) = ISEED( I )
-   20 CONTINUE
+      } // 20
 
       NERRS = 0
       NMATS = 0
@@ -146,7 +146,7 @@
 
             for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
-   30       CONTINUE
+            } // 30
 
             // 2)      Compute "A"
 
@@ -172,19 +172,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
@@ -203,7 +203,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -248,8 +248,8 @@
                   for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG
                      A( I, J ) = U( IROW, J )
-   90             CONTINUE
-  100          CONTINUE
+                  } // 90
+               } // 100
             } else {
                IINFO = 1
             }
@@ -260,7 +260,7 @@
                RETURN
             }
 
-  110       CONTINUE
+            } // 110
 
             ABSTOL = UNFL + UNFL
             if ( N.LE.1 ) {
@@ -282,10 +282,10 @@
                NTEST = 1
                for (I = 1; I <= N; I++) { // 120
                   D1( I ) = DBLE( A( I, I ) )
-  120          CONTINUE
+               } // 120
                DO 130 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  130          CONTINUE
+               } // 130
                SRNAMT = 'DSTEV'
                dstev('V', N, D1, D2, Z, LDU, WORK, IINFO );
                if ( IINFO.NE.0 ) {
@@ -305,16 +305,16 @@
 
                for (I = 1; I <= N; I++) { // 140
                   D3( I ) = DBLE( A( I, I ) )
-  140          CONTINUE
+               } // 140
                DO 150 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  150          CONTINUE
+               } // 150
                dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 1 ) );
 
                NTEST = 3
                DO 160 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  160          CONTINUE
+               } // 160
                SRNAMT = 'DSTEV'
                dstev('N', N, D3, D4, Z, LDU, WORK, IINFO );
                if ( IINFO.NE.0 ) {
@@ -335,19 +335,19 @@
                for (J = 1; J <= N; J++) { // 170
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  170          CONTINUE
+               } // 170
                RESULT( 3 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  180          CONTINUE
+               } // 180
 
                NTEST = 4
                for (I = 1; I <= N; I++) { // 190
                   EVEIGS( I ) = D3( I )
                   D1( I ) = DBLE( A( I, I ) )
-  190          CONTINUE
+               } // 190
                DO 200 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  200          CONTINUE
+               } // 200
                SRNAMT = 'DSTEVX'
                dstevx('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -372,16 +372,16 @@
 
                for (I = 1; I <= N; I++) { // 210
                   D3( I ) = DBLE( A( I, I ) )
-  210          CONTINUE
+               } // 210
                DO 220 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  220          CONTINUE
+               } // 220
                dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 4 ) );
 
                NTEST = 6
                DO 230 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  230          CONTINUE
+               } // 230
                SRNAMT = 'DSTEVX'
                dstevx('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -402,18 +402,18 @@
                for (J = 1; J <= N; J++) { // 240
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) )
-  240          CONTINUE
+               } // 240
                RESULT( 6 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  250          CONTINUE
+               } // 250
 
                NTEST = 7
                for (I = 1; I <= N; I++) { // 260
                   D1( I ) = DBLE( A( I, I ) )
-  260          CONTINUE
+               } // 260
                DO 270 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  270          CONTINUE
+               } // 270
                SRNAMT = 'DSTEVR'
                dstevr('V', 'A', N, D1, D2, VL, VU, IL, IU, ABSTOL, M, WA1, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -437,16 +437,16 @@
 
                for (I = 1; I <= N; I++) { // 280
                   D3( I ) = DBLE( A( I, I ) )
-  280          CONTINUE
+               } // 280
                DO 290 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  290          CONTINUE
+               } // 290
                dstt21(N, 0, D3, D4, WA1, D2, Z, LDU, WORK, RESULT( 7 ) );
 
                NTEST = 9
                DO 300 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  300          CONTINUE
+               } // 300
                SRNAMT = 'DSTEVR'
                dstevr('N', 'A', N, D3, D4, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -467,19 +467,19 @@
                for (J = 1; J <= N; J++) { // 310
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( EVEIGS( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-EVEIGS( J ) ) )
-  310          CONTINUE
+               } // 310
                RESULT( 9 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  320          CONTINUE
+               } // 320
 
 
                NTEST = 10
                for (I = 1; I <= N; I++) { // 330
                   D1( I ) = DBLE( A( I, I ) )
-  330          CONTINUE
+               } // 330
                DO 340 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  340          CONTINUE
+               } // 340
                SRNAMT = 'DSTEVX'
                dstevx('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -499,17 +499,17 @@
 
                for (I = 1; I <= N; I++) { // 350
                   D3( I ) = DBLE( A( I, I ) )
-  350          CONTINUE
+               } // 350
                DO 360 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  360          CONTINUE
+               } // 360
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 10 ) );
 
 
                NTEST = 12
                DO 370 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  370          CONTINUE
+               } // 370
                SRNAMT = 'DSTEVX'
                dstevx('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -529,7 +529,7 @@
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( 12 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 )
 
-  380          CONTINUE
+               } // 380
 
                NTEST = 12
                if ( N.GT.0 ) {
@@ -550,10 +550,10 @@
 
                for (I = 1; I <= N; I++) { // 390
                   D1( I ) = DBLE( A( I, I ) )
-  390          CONTINUE
+               } // 390
                DO 400 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  400          CONTINUE
+               } // 400
                SRNAMT = 'DSTEVX'
                dstevx('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -580,16 +580,16 @@
 
                for (I = 1; I <= N; I++) { // 410
                   D3( I ) = DBLE( A( I, I ) )
-  410          CONTINUE
+               } // 410
                DO 420 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  420          CONTINUE
+               } // 420
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 13 ) );
 
                NTEST = 15
                DO 430 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  430          CONTINUE
+               } // 430
                SRNAMT = 'DSTEVX'
                dstevx('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -609,15 +609,15 @@
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( 15 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  440          CONTINUE
+               } // 440
 
                NTEST = 16
                for (I = 1; I <= N; I++) { // 450
                   D1( I ) = DBLE( A( I, I ) )
-  450          CONTINUE
+               } // 450
                DO 460 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  460          CONTINUE
+               } // 460
                SRNAMT = 'DSTEVD'
                dstevd('V', N, D1, D2, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
@@ -637,16 +637,16 @@
 
                for (I = 1; I <= N; I++) { // 470
                   D3( I ) = DBLE( A( I, I ) )
-  470          CONTINUE
+               } // 470
                DO 480 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  480          CONTINUE
+               } // 480
                dstt21(N, 0, D3, D4, D1, D2, Z, LDU, WORK, RESULT( 16 ) );
 
                NTEST = 18
                DO 490 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  490          CONTINUE
+               } // 490
                SRNAMT = 'DSTEVD'
                dstevd('N', N, D3, D4, Z, LDU, WORK, LWEDC, IWORK, LIWEDC, IINFO );
                if ( IINFO.NE.0 ) {
@@ -667,18 +667,18 @@
                for (J = 1; J <= N; J++) { // 500
                   TEMP1 = MAX( TEMP1, ABS( EVEIGS( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( EVEIGS( J )-D3( J ) ) )
-  500          CONTINUE
+               } // 500
                RESULT( 18 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  510          CONTINUE
+               } // 510
 
                NTEST = 19
                for (I = 1; I <= N; I++) { // 520
                   D1( I ) = DBLE( A( I, I ) )
-  520          CONTINUE
+               } // 520
                DO 530 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  530          CONTINUE
+               } // 530
                SRNAMT = 'DSTEVR'
                dstevr('V', 'I', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -698,17 +698,17 @@
 
                for (I = 1; I <= N; I++) { // 540
                   D3( I ) = DBLE( A( I, I ) )
-  540          CONTINUE
+               } // 540
                DO 550 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  550          CONTINUE
+               } // 550
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 19 ) );
 
 
                NTEST = 21
                DO 560 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  560          CONTINUE
+               } // 560
                SRNAMT = 'DSTEVR'
                dstevr('N', 'I', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -728,7 +728,7 @@
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( 21 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 )
 
-  570          CONTINUE
+               } // 570
 
                NTEST = 21
                if ( N.GT.0 ) {
@@ -749,10 +749,10 @@
 
                for (I = 1; I <= N; I++) { // 580
                   D1( I ) = DBLE( A( I, I ) )
-  580          CONTINUE
+               } // 580
                DO 590 I = 1, N - 1
                   D2( I ) = DBLE( A( I+1, I ) )
-  590          CONTINUE
+               } // 590
                SRNAMT = 'DSTEVR'
                dstevr('V', 'V', N, D1, D2, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -779,16 +779,16 @@
 
                for (I = 1; I <= N; I++) { // 600
                   D3( I ) = DBLE( A( I, I ) )
-  600          CONTINUE
+               } // 600
                DO 610 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  610          CONTINUE
+               } // 610
                dstt22(N, M2, 0, D3, D4, WA2, D2, Z, LDU, WORK, MAX( 1, M2 ), RESULT( 22 ) );
 
                NTEST = 24
                DO 620 I = 1, N - 1
                   D4( I ) = DBLE( A( I+1, I ) )
-  620          CONTINUE
+               } // 620
                SRNAMT = 'DSTEVR'
                dstevr('N', 'V', N, D3, D4, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, IWORK, WORK, LWORK, IWORK(2*N+1), LIWORK-2*N, IINFO );
                if ( IINFO.NE.0 ) {
@@ -808,7 +808,7 @@
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( 24 ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  630          CONTINUE
+               } // 630
 
 
 
@@ -816,7 +816,7 @@
 
                for (I = 1; I <= 24; I++) { // 640
                   RESULT( I ) = ZERO
-  640          CONTINUE
+               } // 640
                NTEST = 24
             }
 
@@ -877,10 +877,10 @@
                for (J = 1; J <= N; J++) { // 650
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  650          CONTINUE
+               } // 650
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  660          CONTINUE
+               } // 660
                dlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
@@ -945,10 +945,10 @@
                for (J = 1; J <= N; J++) { // 670
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
-  670          CONTINUE
+               } // 670
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  680          CONTINUE
+               } // 680
 
                NTEST = NTEST + 1
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -993,7 +993,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 )
-  690          CONTINUE
+               } // 690
 
                NTEST = NTEST + 1
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -1049,7 +1049,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  700          CONTINUE
+               } // 700
 
                // 5)      Call DSPEV and DSPEVX.
 
@@ -1064,16 +1064,16 @@
                      for (I = 1; I <= J; I++) { // 710
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  710                CONTINUE
-  720             CONTINUE
+                     } // 710
+                  } // 720
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 740
                      for (I = J; I <= N; I++) { // 730
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  730                CONTINUE
-  740             CONTINUE
+                     } // 730
+                  } // 740
                }
 
                NTEST = NTEST + 1
@@ -1102,16 +1102,16 @@
                      for (I = 1; I <= J; I++) { // 750
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  750                CONTINUE
-  760             CONTINUE
+                     } // 750
+                  } // 760
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 780
                      for (I = J; I <= N; I++) { // 770
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  770                CONTINUE
-  780             CONTINUE
+                     } // 770
+                  } // 780
                }
 
                NTEST = NTEST + 2
@@ -1135,29 +1135,29 @@
                for (J = 1; J <= N; J++) { // 790
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  790          CONTINUE
+               } // 790
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                // Load array WORK with the upper or lower triangular part
                // of the matrix in packed form.
 
-  800          CONTINUE
+               } // 800
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 820
                      for (I = 1; I <= J; I++) { // 810
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  810                CONTINUE
-  820             CONTINUE
+                     } // 810
+                  } // 820
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 840
                      for (I = J; I <= N; I++) { // 830
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  830                CONTINUE
-  840             CONTINUE
+                     } // 830
+                  } // 840
                }
 
                NTEST = NTEST + 1
@@ -1207,16 +1207,16 @@
                      for (I = 1; I <= J; I++) { // 850
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  850                CONTINUE
-  860             CONTINUE
+                     } // 850
+                  } // 860
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 880
                      for (I = J; I <= N; I++) { // 870
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  870                CONTINUE
-  880             CONTINUE
+                     } // 870
+                  } // 880
                }
 
                SRNAMT = 'DSPEVX'
@@ -1239,26 +1239,26 @@
                for (J = 1; J <= N; J++) { // 890
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
-  890          CONTINUE
+               } // 890
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  900          CONTINUE
+               } // 900
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 920
                      for (I = 1; I <= J; I++) { // 910
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  910                CONTINUE
-  920             CONTINUE
+                     } // 910
+                  } // 920
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 940
                      for (I = J; I <= N; I++) { // 930
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  930                CONTINUE
-  940             CONTINUE
+                     } // 930
+                  } // 940
                }
 
                NTEST = NTEST + 1
@@ -1290,16 +1290,16 @@
                      for (I = 1; I <= J; I++) { // 950
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  950                CONTINUE
-  960             CONTINUE
+                     } // 950
+                  } // 960
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 980
                      for (I = J; I <= N; I++) { // 970
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  970                CONTINUE
-  980             CONTINUE
+                     } // 970
+                  } // 980
                }
 
                SRNAMT = 'DSPEVX'
@@ -1331,23 +1331,23 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  990          CONTINUE
+               } // 990
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1010
                      for (I = 1; I <= J; I++) { // 1000
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1000                CONTINUE
- 1010             CONTINUE
+                     } // 1000
+                  } // 1010
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1030
                      for (I = J; I <= N; I++) { // 1020
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1020                CONTINUE
- 1030             CONTINUE
+                     } // 1020
+                  } // 1030
                }
 
                NTEST = NTEST + 1
@@ -1379,16 +1379,16 @@
                      for (I = 1; I <= J; I++) { // 1040
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1040                CONTINUE
- 1050             CONTINUE
+                     } // 1040
+                  } // 1050
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1070
                      for (I = J; I <= N; I++) { // 1060
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1060                CONTINUE
- 1070             CONTINUE
+                     } // 1060
+                  } // 1070
                }
 
                SRNAMT = 'DSPEVX'
@@ -1420,7 +1420,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
- 1080          CONTINUE
+               } // 1080
 
                // 6)      Call DSBEV and DSBEVX.
 
@@ -1439,14 +1439,14 @@
                   for (J = 1; J <= N; J++) { // 1100
                      DO 1090 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1090                CONTINUE
- 1100             CONTINUE
+                     } // 1090
+                  } // 1100
                } else {
                   for (J = 1; J <= N; J++) { // 1120
                      DO 1110 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1110                CONTINUE
- 1120             CONTINUE
+                     } // 1110
+                  } // 1120
                }
 
                NTEST = NTEST + 1
@@ -1473,14 +1473,14 @@
                   for (J = 1; J <= N; J++) { // 1140
                      DO 1130 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1130                CONTINUE
- 1140             CONTINUE
+                     } // 1130
+                  } // 1140
                } else {
                   for (J = 1; J <= N; J++) { // 1160
                      DO 1150 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1150                CONTINUE
- 1160             CONTINUE
+                     } // 1150
+                  } // 1160
                }
 
                NTEST = NTEST + 2
@@ -1504,25 +1504,25 @@
                for (J = 1; J <= N; J++) { // 1170
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1170          CONTINUE
+               } // 1170
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
- 1180          CONTINUE
+               } // 1180
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 1200
                      DO 1190 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1190                CONTINUE
- 1200             CONTINUE
+                     } // 1190
+                  } // 1200
                } else {
                   for (J = 1; J <= N; J++) { // 1220
                      DO 1210 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1210                CONTINUE
- 1220             CONTINUE
+                     } // 1210
+                  } // 1220
                }
 
                NTEST = NTEST + 1
@@ -1551,14 +1551,14 @@
                   for (J = 1; J <= N; J++) { // 1240
                      DO 1230 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1230                CONTINUE
- 1240             CONTINUE
+                     } // 1230
+                  } // 1240
                } else {
                   for (J = 1; J <= N; J++) { // 1260
                      DO 1250 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1250                CONTINUE
- 1260             CONTINUE
+                     } // 1250
+                  } // 1260
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
@@ -1581,23 +1581,23 @@
                for (J = 1; J <= N; J++) { // 1270
                   TEMP1 = MAX( TEMP1, ABS( WA2( J ) ), ABS( WA3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA2( J )-WA3( J ) ) )
- 1270          CONTINUE
+               } // 1270
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1280          CONTINUE
+               } // 1280
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 1300
                      DO 1290 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1290                CONTINUE
- 1300             CONTINUE
+                     } // 1290
+                  } // 1300
                } else {
                   for (J = 1; J <= N; J++) { // 1320
                      DO 1310 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1310                CONTINUE
- 1320             CONTINUE
+                     } // 1310
+                  } // 1320
                }
 
                SRNAMT = 'DSBEVX'
@@ -1625,14 +1625,14 @@
                   for (J = 1; J <= N; J++) { // 1340
                      DO 1330 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1330                CONTINUE
- 1340             CONTINUE
+                     } // 1330
+                  } // 1340
                } else {
                   for (J = 1; J <= N; J++) { // 1360
                      DO 1350 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1350                CONTINUE
- 1360             CONTINUE
+                     } // 1350
+                  } // 1360
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
@@ -1659,20 +1659,20 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
- 1370          CONTINUE
+               } // 1370
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 1390
                      DO 1380 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1380                CONTINUE
- 1390             CONTINUE
+                     } // 1380
+                  } // 1390
                } else {
                   for (J = 1; J <= N; J++) { // 1410
                      DO 1400 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1400                CONTINUE
- 1410             CONTINUE
+                     } // 1400
+                  } // 1410
                }
 
                SRNAMT = 'DSBEVX'
@@ -1700,14 +1700,14 @@
                   for (J = 1; J <= N; J++) { // 1430
                      DO 1420 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1420                CONTINUE
- 1430             CONTINUE
+                     } // 1420
+                  } // 1430
                } else {
                   for (J = 1; J <= N; J++) { // 1450
                      DO 1440 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1440                CONTINUE
- 1450             CONTINUE
+                     } // 1440
+                  } // 1450
                }
 
                SRNAMT = 'DSBEVX_2STAGE'
@@ -1739,7 +1739,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
- 1460          CONTINUE
+               } // 1460
 
                // 7)      Call DSYEVD
 
@@ -1788,10 +1788,10 @@
                for (J = 1; J <= N; J++) { // 1470
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1470          CONTINUE
+               } // 1470
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1480          CONTINUE
+               } // 1480
 
                // 8)      Call DSPEVD.
 
@@ -1806,16 +1806,16 @@
                      for (I = 1; I <= J; I++) { // 1490
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1490                CONTINUE
- 1500             CONTINUE
+                     } // 1490
+                  } // 1500
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1520
                      for (I = J; I <= N; I++) { // 1510
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1510                CONTINUE
- 1520             CONTINUE
+                     } // 1510
+                  } // 1520
                }
 
                NTEST = NTEST + 1
@@ -1845,16 +1845,16 @@
 
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1530                CONTINUE
- 1540             CONTINUE
+                     } // 1530
+                  } // 1540
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1560
                      for (I = J; I <= N; I++) { // 1550
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1550                CONTINUE
- 1560             CONTINUE
+                     } // 1550
+                  } // 1560
                }
 
                NTEST = NTEST + 2
@@ -1878,9 +1878,9 @@
                for (J = 1; J <= N; J++) { // 1570
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1570          CONTINUE
+               } // 1570
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
- 1580          CONTINUE
+               } // 1580
 
                // 9)      Call DSBEVD.
 
@@ -1899,14 +1899,14 @@
                   for (J = 1; J <= N; J++) { // 1600
                      DO 1590 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1590                CONTINUE
- 1600             CONTINUE
+                     } // 1590
+                  } // 1600
                } else {
                   for (J = 1; J <= N; J++) { // 1620
                      DO 1610 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1610                CONTINUE
- 1620             CONTINUE
+                     } // 1610
+                  } // 1620
                }
 
                NTEST = NTEST + 1
@@ -1933,14 +1933,14 @@
                   for (J = 1; J <= N; J++) { // 1640
                      DO 1630 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1630                CONTINUE
- 1640             CONTINUE
+                     } // 1630
+                  } // 1640
                } else {
                   for (J = 1; J <= N; J++) { // 1660
                      DO 1650 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1650                CONTINUE
- 1660             CONTINUE
+                     } // 1650
+                  } // 1660
                }
 
                NTEST = NTEST + 2
@@ -1964,10 +1964,10 @@
                for (J = 1; J <= N; J++) { // 1670
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1670          CONTINUE
+               } // 1670
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1680          CONTINUE
+               } // 1680
 
 
                dlacpy(' ', N, N, A, LDA, V, LDU );
@@ -2014,10 +2014,10 @@
                for (J = 1; J <= N; J++) { // 1690
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
- 1690          CONTINUE
+               } // 1690
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1700          CONTINUE
+               } // 1700
 
                NTEST = NTEST + 1
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -2062,7 +2062,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 )
- 1710          CONTINUE
+               } // 1710
 
                NTEST = NTEST + 1
                dlacpy(' ', N, N, V, LDU, A, LDA );
@@ -2120,7 +2120,7 @@
 
                dlacpy(' ', N, N, V, LDU, A, LDA );
 
- 1720       CONTINUE
+            } // 1720
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
@@ -2128,8 +2128,8 @@
 
             dlafts('DST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
- 1730    CONTINUE
- 1740 CONTINUE
+         } // 1730
+      } // 1740
 
       // Summary
 

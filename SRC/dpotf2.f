@@ -78,7 +78,7 @@
                dgemv('Transpose', J-1, N-J, -ONE, A( 1, J+1 ), LDA, A( 1, J ), 1, ONE, A( J, J+1 ), LDA );
                dscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Compute the Cholesky factorization A = L*L**T.
@@ -101,14 +101,14 @@
                dgemv('No transpose', N-J, J-1, -ONE, A( J+1, 1 ), LDA, A( J, 1 ), LDA, ONE, A( J+1, J ), 1 );
                dscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
-   20    CONTINUE
+         } // 20
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = J
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of DPOTF2

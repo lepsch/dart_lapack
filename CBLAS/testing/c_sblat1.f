@@ -43,7 +43,7 @@
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
-   20 CONTINUE
+      } // 20
       STOP
 
 99999 FORMAT (' Real CBLAS Test Program Results',/1X)
@@ -123,7 +123,7 @@
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
          }
-   20 CONTINUE
+      } // 20
    40 RETURN
       }
       SUBROUTINE CHECK1(SFAC)
@@ -164,7 +164,7 @@
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                SX(I) = DV(I,NP1,INCX)
-   20       CONTINUE
+            } // 20
 
             if (ICASE.EQ.7) {
                // .. SNRM2TEST ..
@@ -179,7 +179,7 @@
                sscaltest(N,SA((INCX-1)*5+NP1),SX,INCX);
                for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
-   40          CONTINUE
+               } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE.EQ.10) {
                // .. ISAMAXTEST ..
@@ -188,8 +188,8 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             }
-   60    CONTINUE
-   80 CONTINUE
+         } // 60
+      } // 80
       RETURN
       }
       SUBROUTINE CHECK2(SFAC)
@@ -243,7 +243,7 @@
             for (I = 1; I <= 7; I++) { // 20
                SX(I) = DX1(I)
                SY(I) = DY1(I)
-   20       CONTINUE
+            } // 20
 
             if (ICASE.EQ.1) {
                // .. SDOTTEST ..
@@ -253,13 +253,13 @@
                saxpytest(N,SA,SX,INCX,SY,INCY);
                for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
-   40          CONTINUE
+               } // 40
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. SCOPYTEST ..
                for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
-   60          CONTINUE
+               } // 60
                scopytest(N,SX,INCX,SY,INCY);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
             } else if (ICASE.EQ.6) {
@@ -268,15 +268,15 @@
                for (I = 1; I <= 7; I++) { // 80
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
-   80          CONTINUE
+               } // 80
                stest(LENX,SX,STX,SSIZE2(1,1),1.0E0);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             }
-  100    CONTINUE
-  120 CONTINUE
+         } // 100
+      } // 120
       RETURN
       }
       SUBROUTINE CHECK3(SFAC)
@@ -330,7 +330,7 @@
                   SY(I) = DY1(I)
                   STX(I) = DT9X(I,KN,KI)
                   STY(I) = DT9Y(I,KN,KI)
-   20          CONTINUE
+               } // 20
                srottest(N,SX,INCX,SY,INCY,SC,SS);
                stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
@@ -338,20 +338,20 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
             }
-   40    CONTINUE
-   60 CONTINUE
+         } // 40
+      } // 60
 
       MWPC(1) = 1
       for (I = 2; I <= 11; I++) { // 80
          MWPC(I) = 0
-   80 CONTINUE
+      } // 80
       MWPS(1) = 0
       for (I = 2; I <= 6; I++) { // 100
          MWPS(I) = 1
-  100 CONTINUE
+      } // 100
       for (I = 7; I <= 11; I++) { // 120
          MWPS(I) = -1
-  120 CONTINUE
+      } // 120
       MWPINX(1) = 1
       MWPINX(2) = 1
       MWPINX(3) = 1
@@ -376,7 +376,7 @@
       MWPINY(11) = 1
       for (I = 1; I <= 11; I++) { // 140
          MWPN(I) = 5
-  140 CONTINUE
+      } // 140
       MWPN(5) = 3
       MWPN(10) = 3
       for (I = 1; I <= 5; I++) { // 160
@@ -400,7 +400,7 @@
          MWPTY(9,I) = I
          MWPTX(11,I) = I - 6
          MWPTY(11,I) = 6 - I
-  160 CONTINUE
+      } // 160
       MWPTX(5,1) = 1
       MWPTX(5,2) = 3
       MWPTX(5,3) = 5
@@ -429,11 +429,11 @@
             COPYY(K) = MWPY(K)
             MWPSTX(K) = MWPTX(I,K)
             MWPSTY(K) = MWPTY(I,K)
-  180    CONTINUE
+         } // 180
          srottest(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I));
          stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
          stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
-  200 CONTINUE
+      } // 200
       RETURN
       }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
@@ -480,7 +480,7 @@
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')
@@ -554,7 +554,7 @@
       WRITE (NOUT,99998)
    20 ID = ICOMP - ITRUE
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')

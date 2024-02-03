@@ -61,14 +61,14 @@
       for (J = 1; J <= M; J++) { // 10
          JJ = NN + ( J-1 )*N + J
          WORK( JJ ) = WORK( JJ ) - D( J )
-   10 CONTINUE
+      } // 10
       if ( KBAND.EQ.1 .AND. N.GT.1 ) {
          for (J = 2; J <= M; J++) { // 20
             JJ1 = NN + ( J-1 )*N + J - 1
             JJ2 = NN + ( J-2 )*N + J
             WORK( JJ1 ) = WORK( JJ1 ) - E( J-1 )
             WORK( JJ2 ) = WORK( JJ2 ) - E( J-1 )
-   20    CONTINUE
+         } // 20
       }
       WNORM = CLANHE( '1', UPLO, M, WORK( NNP1 ), N, RWORK )
 

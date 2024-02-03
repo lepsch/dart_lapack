@@ -89,7 +89,7 @@
             BCOEFF = DCONJG( BCOEFF )
          }
          zgemv(TRANS, N, N, ACOEFF, A, LDA, E( 1, JVEC ), 1, CZERO, WORK( N*( JVEC-1 )+1 ), 1 )          CALL ZGEMV( TRANS, N, N, -BCOEFF, B, LDA, E( 1, JVEC ), 1, CONE, WORK( N*( JVEC-1 )+1 ), 1 );
-   10 CONTINUE
+      } // 10
 
       ERRNRM = ZLANGE( 'One', N, N, WORK, N, RWORK ) / ENORM
 
@@ -104,9 +104,9 @@
          TEMP1 = ZERO
          for (J = 1; J <= N; J++) { // 20
             TEMP1 = MAX( TEMP1, ABS1( E( J, JVEC ) ) )
-   20    CONTINUE
+         } // 20
          ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
-   30 CONTINUE
+      } // 30
 
       // Compute RESULT(2) : the normalization error in E.
 

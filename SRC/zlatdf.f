@@ -85,7 +85,7 @@
 
             TEMP = -RHS( J )
             zaxpy(N-J, TEMP, Z( J+1, J ), 1, RHS( J+1 ), 1 );
-   10    CONTINUE
+         } // 10
 
          // Solve for U- part, lockahead for RHS(N) = +-1. This is not done
          // In BSOLVE and will hopefully give us a better estimate because
@@ -104,10 +104,10 @@
             DO 20 K = I + 1, N
                WORK( I ) = WORK( I ) - WORK( K )*( Z( I, K )*TEMP )
                RHS( I ) = RHS( I ) - RHS( K )*( Z( I, K )*TEMP )
-   20       CONTINUE
+            } // 20
             SPLUS = SPLUS + ABS( WORK( I ) )
             SMINU = SMINU + ABS( RHS( I ) )
-   30    CONTINUE
+         } // 30
          IF( SPLUS.GT.SMINU ) CALL ZCOPY( N, WORK, 1, RHS, 1 )
 
          // Apply the permutations JPIV to the computed solution (RHS)

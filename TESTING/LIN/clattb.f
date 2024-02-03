@@ -92,16 +92,16 @@
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
-   10          CONTINUE
+               } // 10
                AB( KD+1, J ) = J
-   20       CONTINUE
+            } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                AB( 1, J ) = J
                DO 30 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
 
       // IMAT > 6:  Non-trivial unit triangular matrix
@@ -118,16 +118,16 @@
             for (J = 1; J <= N; J++) { // 60
                DO 50 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
-   50          CONTINUE
+               } // 50
                AB( KD+1, J ) = REAL( J )
-   60       CONTINUE
+            } // 60
          } else {
             for (J = 1; J <= N; J++) { // 80
                DO 70 I = 2, MIN( KD+1, N-J+1 )
                   AB( I, J ) = ZERO
-   70          CONTINUE
+               } // 70
                AB( 1, J ) = REAL( J )
-   80       CONTINUE
+            } // 80
          }
 
          // Special case:  T is tridiagonal.  Set every other offdiagonal
@@ -140,14 +140,14 @@
                clarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 90
                   AB( 1, 2*( J+1 ) ) = TNORM*WORK( J )
-   90          CONTINUE
+               } // 90
             } else {
                AB( 2, 1 ) = TNORM*CLARND( 5, ISEED )
                LENJ = ( N-3 ) / 2
                clarnv(2, ISEED, LENJ, WORK );
                for (J = 1; J <= LENJ; J++) { // 100
                   AB( 2, 2*J+1 ) = TNORM*WORK( J )
-  100          CONTINUE
+               } // 100
             }
          } else if ( KD.GT.1 ) {
 
@@ -189,7 +189,7 @@
                      STAR1 = SFAC**( ONE+REXP )*CLARND( 5, ISEED )
                   }
                }
-  110       CONTINUE
+            } // 110
 
             // Copy the tridiagonal T to AB.
 
@@ -217,13 +217,13 @@
                LENJ = MIN( J-1, KD )
                clarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = CLARND( 5, ISEED )*TWO
-  120       CONTINUE
+            } // 120
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = CLARND( 5, ISEED )*TWO
-  130       CONTINUE
+            } // 130
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
@@ -250,7 +250,7 @@
                   csscal(LENJ, TSCAL, AB( KD+2-LENJ, J ), 1 );
                }
                AB( KD+1, J ) = CLARND( 5, ISEED )
-  140       CONTINUE
+            } // 140
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
             for (J = 1; J <= N; J++) { // 150
@@ -260,7 +260,7 @@
                   csscal(LENJ, TSCAL, AB( 2, J ), 1 );
                }
                AB( 1, J ) = CLARND( 5, ISEED )
-  150       CONTINUE
+            } // 150
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
          }
 
@@ -276,14 +276,14 @@
                LENJ = MIN( J-1, KD )
                IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) )
                AB( KD+1, J ) = CLARND( 5, ISEED )
-  160       CONTINUE
+            } // 160
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N )
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = CLARND( 5, ISEED )
-  170       CONTINUE
+            } // 170
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 )
          }
 
@@ -298,7 +298,7 @@
             DO 190 J = N, 1, -1
                DO 180 I = MAX( 1, KD+1-( J-1 ) ), KD
                   AB( I, J ) = ZERO
-  180          CONTINUE
+               } // 180
                if ( JCOUNT.LE.2 ) {
                   AB( KD+1, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
@@ -306,13 +306,13 @@
                }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
-  190       CONTINUE
+            } // 190
          } else {
             JCOUNT = 1
             for (J = 1; J <= N; J++) { // 210
                DO 200 I = 2, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
-  200          CONTINUE
+               } // 200
                if ( JCOUNT.LE.2 ) {
                   AB( 1, J ) = SMLNUM*CLARND( 5, ISEED )
                } else {
@@ -320,7 +320,7 @@
                }
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
-  210       CONTINUE
+            } // 210
          }
 
          // Set the right hand side alternately zero and small.
@@ -330,13 +330,13 @@
             DO 220 I = N, 2, -2
                B( I ) = ZERO
                B( I-1 ) = SMLNUM*CLARND( 5, ISEED )
-  220       CONTINUE
+            } // 220
          } else {
             B( N ) = ZERO
             DO 230 I = 1, N - 1, 2
                B( I ) = ZERO
                B( I+1 ) = SMLNUM*CLARND( 5, ISEED )
-  230       CONTINUE
+            } // 230
          }
 
       } else if ( IMAT.EQ.14 ) {
@@ -352,19 +352,19 @@
             for (J = 1; J <= N; J++) { // 250
                DO 240 I = MAX( 1, KD+2-J ), KD
                   AB( I, J ) = ZERO
-  240          CONTINUE
+               } // 240
                IF( J.GT.1 .AND. KD.GT.0 ) AB( KD, J ) = CMPLX( -ONE, -ONE )
                AB( KD+1, J ) = TSCAL*CLARND( 5, ISEED )
-  250       CONTINUE
+            } // 250
             B( N ) = CMPLX( ONE, ONE )
          } else {
             for (J = 1; J <= N; J++) { // 270
                DO 260 I = 3, MIN( N-J+1, KD+1 )
                   AB( I, J ) = ZERO
-  260          CONTINUE
+               } // 260
                IF( J.LT.N .AND. KD.GT.0 ) AB( 2, J ) = CMPLX( -ONE, -ONE )
                AB( 1, J ) = TSCAL*CLARND( 5, ISEED )
-  270       CONTINUE
+            } // 270
             B( 1 ) = CMPLX( ONE, ONE )
          }
 
@@ -382,7 +382,7 @@
                } else {
                   AB( KD+1, J ) = ZERO
                }
-  280       CONTINUE
+            } // 280
          } else {
             for (J = 1; J <= N; J++) { // 290
                LENJ = MIN( N-J+1, KD+1 )
@@ -392,7 +392,7 @@
                } else {
                   AB( 1, J ) = ZERO
                }
-  290       CONTINUE
+            } // 290
          }
          clarnv(2, ISEED, N, B );
          csscal(N, TWO, B, 1 );
@@ -409,8 +409,8 @@
          for (J = 1; J <= N; J++) { // 310
             DO 300 I = 1, KD + 1
                AB( I, J ) = ZERO
-  300       CONTINUE
-  310    CONTINUE
+            } // 300
+         } // 310
          TEXP = ONE
          if ( KD.GT.0 ) {
             if ( UPPER ) {
@@ -425,9 +425,9 @@
                         B( I-1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD )
                      }
                      TEXP = TEXP*TWO
-  320             CONTINUE
+                  } // 320
                   B( MAX( 1, J-KD+1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
-  330          CONTINUE
+               } // 330
             } else {
                DO 350 J = 1, N, KD
                   TEXP = ONE
@@ -442,9 +442,9 @@
                         B( I+1 ) = TEXP*REAL( ( KD+1 )*( KD+1 )+KD )
                      }
                      TEXP = TEXP*TWO
-  340             CONTINUE
+                  } // 340
                   B( MIN( N, J+KD-1 ) ) = ( REAL( KD+2 ) / REAL( KD+3 ) )*TSCAL
-  350          CONTINUE
+               } // 350
             }
          }
 
@@ -459,13 +459,13 @@
                LENJ = MIN( J-1, KD )
                clarnv(4, ISEED, LENJ, AB( KD+1-LENJ, J ) );
                AB( KD+1, J ) = REAL( J )
-  360       CONTINUE
+            } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = MIN( N-J, KD )
                IF( LENJ.GT.0 ) CALL CLARNV( 4, ISEED, LENJ, AB( 2, J ) )
                AB( 1, J ) = REAL( J )
-  370       CONTINUE
+            } // 370
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
@@ -492,8 +492,8 @@
                slarnv(1, ISEED, LENJ, RWORK( KD+2-LENJ ) );
                DO 380 I = KD + 2 - LENJ, KD + 1
                   AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL )
-  380          CONTINUE
-  390       CONTINUE
+               } // 380
+            } // 390
          } else {
             for (J = 1; J <= N; J++) { // 410
                LENJ = MIN( N-J+1, KD+1 )
@@ -501,8 +501,8 @@
                slarnv(1, ISEED, LENJ, RWORK );
                for (I = 1; I <= LENJ; I++) { // 400
                   AB( I, J ) = AB( I, J )*( TLEFT+RWORK( I )*TSCAL )
-  400          CONTINUE
-  410       CONTINUE
+               } // 400
+            } // 410
          }
          clarnv(2, ISEED, N, B );
          csscal(N, TWO, B, 1 );
@@ -515,12 +515,12 @@
             DO 420 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
                cswap(LENJ, AB( KD+1, J ), LDAB-1, AB( KD+2-LENJ, N-J+1 ), -1 );
-  420       CONTINUE
+            } // 420
          } else {
             DO 430 J = 1, N / 2
                LENJ = MIN( N-2*J+1, KD+1 )
                cswap(LENJ, AB( 1, J ), 1, AB( LENJ, N-J+2-LENJ ), -LDAB+1 );
-  430       CONTINUE
+            } // 430
          }
       }
 

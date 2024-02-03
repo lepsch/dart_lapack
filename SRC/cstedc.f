@@ -147,8 +147,8 @@
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
                   Z( I, J ) = RWORK( ( J-1 )*N+I )
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
             GO TO 70
          }
 
@@ -166,7 +166,7 @@
 
          // while ( START <= N )
 
-   30    CONTINUE
+         } // 30
          if ( START.LE.N ) {
 
             // Let FINISH be the position of the next subdiagonal entry
@@ -176,7 +176,7 @@
             // sub-problem.
 
             FINISH = START
-   40       CONTINUE
+            } // 40
             if ( FINISH.LT.N ) {
                TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
                if ( ABS( E( FINISH ) ).GT.TINY ) {
@@ -232,16 +232,16 @@
                  K = J
                  P = D( J )
               }
-   50      CONTINUE
+           } // 50
            if ( K.NE.I ) {
               D( K ) = D( I )
               D( I ) = P
               cswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
            }
-   60    CONTINUE
+         } // 60
       }
 
-   70 CONTINUE
+      } // 70
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
       RWORK( 1 ) = LRWMIN
       IWORK( 1 ) = LIWMIN

@@ -45,7 +45,7 @@
       INFO = 0
       for (I = 1; I <= M; I++) { // 10
          IFAIL( I ) = 0
-   10 CONTINUE
+      } // 10
 
       if ( N.LT.0 ) {
          INFO = -1
@@ -63,8 +63,8 @@
                INFO = -5
                GO TO 30
             }
-   20    CONTINUE
-   30    CONTINUE
+         } // 20
+         } // 30
       }
 
       if ( INFO.NE.0 ) {
@@ -89,7 +89,7 @@
 
       for (I = 1; I <= 4; I++) { // 40
          ISEED( I ) = 1
-   40 CONTINUE
+      } // 40
 
       // Initialize pointers.
 
@@ -122,14 +122,14 @@
          ONENRM = MAX( ONENRM, ABS( D( BN ) )+ABS( E( BN-1 ) ) )
          DO 50 I = B1 + 1, BN - 1
             ONENRM = MAX( ONENRM, ABS( D( I ) )+ABS( E( I-1 ) )+ ABS( E( I ) ) )
-   50    CONTINUE
+         } // 50
          ORTOL = ODM3*ONENRM
 
          DTPCRT = SQRT( ODM1 / BLKSIZ )
 
          // Loop through eigenvalues of block nblk.
 
-   60    CONTINUE
+         } // 60
          JBLK = 0
          for (J = J1; J <= M; J++) { // 150
             if ( IBLOCK( J ).NE.NBLK ) {
@@ -176,7 +176,7 @@
 
             // Update iteration count.
 
-   70       CONTINUE
+            } // 70
             ITS = ITS + 1
             IF( ITS.GT.MAXITS ) GO TO 100
 
@@ -197,12 +197,12 @@
             if ( GPIND.NE.J ) {
                DO 80 I = GPIND, J - 1
                   ZTR = -DDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 )                   CALL DAXPY( BLKSIZ, ZTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 )
-   80          CONTINUE
+               } // 80
             }
 
             // Check the infinity norm of the iterate.
 
-   90       CONTINUE
+            } // 90
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
             NRM = ABS( WORK( INDRV1+JMAX ) )
 
@@ -218,32 +218,32 @@
             // If stopping criterion was not satisfied, update info and
             // store eigenvector number in array ifail.
 
-  100       CONTINUE
+            } // 100
             INFO = INFO + 1
             IFAIL( INFO ) = J
 
             // Accept iterate as jth eigenvector.
 
-  110       CONTINUE
+            } // 110
             SCL = ONE / DNRM2( BLKSIZ, WORK( INDRV1+1 ), 1 )
             JMAX = IDAMAX( BLKSIZ, WORK( INDRV1+1 ), 1 )
             IF( WORK( INDRV1+JMAX ).LT.ZERO ) SCL = -SCL
             dscal(BLKSIZ, SCL, WORK( INDRV1+1 ), 1 );
-  120       CONTINUE
+            } // 120
             for (I = 1; I <= N; I++) { // 130
                Z( I, J ) = ZERO
-  130       CONTINUE
+            } // 130
             for (I = 1; I <= BLKSIZ; I++) { // 140
                Z( B1+I-1, J ) = WORK( INDRV1+I )
-  140       CONTINUE
+            } // 140
 
             // Save the shift to check eigenvalue spacing at next
             // iteration.
 
             XJM = XJ
 
-  150    CONTINUE
-  160 CONTINUE
+         } // 150
+      } // 160
 
       RETURN
 

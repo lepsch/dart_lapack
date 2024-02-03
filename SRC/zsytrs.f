@@ -68,7 +68,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop.
 
@@ -117,12 +117,12 @@
                BK = B( K, J ) / AKM1K
                B( K-1, J ) = ( AK*BKM1-BK ) / DENOM
                B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM
-   20       CONTINUE
+            } // 20
             K = K - 2
          }
 
          GO TO 10
-   30    CONTINUE
+         } // 30
 
          // Next solve U**T *X = B, overwriting B with X.
 
@@ -130,7 +130,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = 1
-   40    CONTINUE
+         } // 40
 
          // If K > N, exit from loop.
 
@@ -167,7 +167,7 @@
          }
 
          GO TO 40
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -179,7 +179,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = 1
-   60    CONTINUE
+         } // 60
 
          // If K > N, exit from loop.
 
@@ -230,12 +230,12 @@
                BK = B( K+1, J ) / AKM1K
                B( K, J ) = ( AK*BKM1-BK ) / DENOM
                B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
-   70       CONTINUE
+            } // 70
             K = K + 2
          }
 
          GO TO 60
-   80    CONTINUE
+         } // 80
 
          // Next solve L**T *X = B, overwriting B with X.
 
@@ -243,7 +243,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = N
-   90    CONTINUE
+         } // 90
 
          // If K < 1, exit from loop.
 
@@ -282,7 +282,7 @@
          }
 
          GO TO 90
-  100    CONTINUE
+         } // 100
       }
 
       RETURN

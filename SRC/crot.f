@@ -37,16 +37,16 @@
          CX( IX ) = STEMP
          IX = IX + INCX
          IY = IY + INCY
-   10 CONTINUE
+      } // 10
       RETURN
 
       // Code for both increments equal to 1
 
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          STEMP = C*CX( I ) + S*CY( I )
          CY( I ) = C*CY( I ) - CONJG( S )*CX( I )
          CX( I ) = STEMP
-   30 CONTINUE
+      } // 30
       RETURN
       }

@@ -97,7 +97,7 @@
                     print *, "!! fl( subnormal ) may be 0"
                 endif
             endif
- 100    continue
+        } // 100
       endif
 
       // Test (a) y = x + 0 * I, |y| = x
@@ -123,7 +123,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  10  continue
+      } // 10
 
       // Test (b) y = 0 + x * I, |y| = x
       for (i = 1; i <= N; i++) { // 20
@@ -148,7 +148,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  20  continue
+      } // 20
 
       // Test (c) y = (3/4)*x + x * I, |y| = (5/4)*x
       for (i = 1; i <= N; i++) { // 30
@@ -179,7 +179,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  30  continue
+      } // 30
 
       // Test (d) y = (1/2)*x + (1/2)*x * I, |y| = (1/2)*x*sqrt(2)
       for (i = 1; i <= N; i++) { // 40
@@ -217,7 +217,7 @@
                 Xj = Xj * stepX(i)
             end do
         endif
-  40  continue
+      } // 40
 
       // Test (e) Infs
       for (i = 1; i <= nInf; i++) { // 50
@@ -228,7 +228,7 @@
             caseEFails = caseEFails + 1
             WRITE( *, FMT = 9997 ) 'i',i, Y, R
         endif
-  50  continue
+      } // 50
 
       // Test (f) NaNs
       for (i = 1; i <= nNaN; i++) { // 60
@@ -239,7 +239,7 @@
             caseFFails = caseFFails + 1
             WRITE( *, FMT = 9998 ) 'n',i, Y, R
         endif
-  60  continue
+      } // 60
 
       // If any test fails, displays a message
       nFailingTests = caseAFails + caseBFails + caseCFails + caseDFails + caseEFails + caseFFails

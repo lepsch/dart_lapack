@@ -62,7 +62,7 @@
          // If the zero finder fails, the computation is terminated.
 
          IF( INFO.NE.0 ) GO TO 120
-   20 CONTINUE
+      } // 20
 
       IF( K.EQ.1 ) GO TO 110
       if ( K.EQ.2 ) {
@@ -73,7 +73,7 @@
             Q( 1, J ) = W( II )
             II = INDX( 2 )
             Q( 2, J ) = W( II )
-   30    CONTINUE
+         } // 30
          GO TO 110
       }
 
@@ -87,31 +87,31 @@
       for (J = 1; J <= K; J++) { // 60
          DO 40 I = 1, J - 1
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
-   40    CONTINUE
+         } // 40
          DO 50 I = J + 1, K
             W( I ) = W( I )*( Q( I, J )/( DLAMBDA( I )-DLAMBDA( J ) ) )
-   50    CONTINUE
-   60 CONTINUE
+         } // 50
+      } // 60
       for (I = 1; I <= K; I++) { // 70
          W( I ) = SIGN( SQRT( -W( I ) ), S( I ) )
-   70 CONTINUE
+      } // 70
 
       // Compute eigenvectors of the modified rank-1 modification.
 
       for (J = 1; J <= K; J++) { // 100
          for (I = 1; I <= K; I++) { // 80
             S( I ) = W( I ) / Q( I, J )
-   80    CONTINUE
+         } // 80
          TEMP = DNRM2( K, S, 1 )
          for (I = 1; I <= K; I++) { // 90
             II = INDX( I )
             Q( I, J ) = S( II ) / TEMP
-   90    CONTINUE
-  100 CONTINUE
+         } // 90
+      } // 100
 
       // Compute the updated eigenvectors.
 
-  110 CONTINUE
+      } // 110
 
       N2 = N - N1
       N12 = CTOT( 1 ) + CTOT( 2 )
@@ -133,7 +133,7 @@
       }
 
 
-  120 CONTINUE
+      } // 120
       RETURN
 
       // End of DLAED3

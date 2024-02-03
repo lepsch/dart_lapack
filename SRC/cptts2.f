@@ -39,22 +39,22 @@
 
          if ( NRHS.LE.2 ) {
             J = 1
-    5       CONTINUE
+            } // 5
 
             // Solve U**H * x = b.
 
             for (I = 2; I <= N; I++) { // 10
                B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
-   10       CONTINUE
+            } // 10
 
             // Solve D * U * x = b.
 
             for (I = 1; I <= N; I++) { // 20
                B( I, J ) = B( I, J ) / D( I )
-   20       CONTINUE
+            } // 20
             DO 30 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I )
-   30       CONTINUE
+            } // 30
             if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 5
@@ -66,15 +66,15 @@
 
                for (I = 2; I <= N; I++) { // 40
                   B( I, J ) = B( I, J ) - B( I-1, J )*CONJG( E( I-1 ) )
-   40          CONTINUE
+               } // 40
 
                // Solve D * U * x = b.
 
                B( N, J ) = B( N, J ) / D( N )
                DO 50 I = N - 1, 1, -1
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I )
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
          }
       } else {
 
@@ -83,22 +83,22 @@
 
          if ( NRHS.LE.2 ) {
             J = 1
-   65       CONTINUE
+            } // 65
 
             // Solve L * x = b.
 
             for (I = 2; I <= N; I++) { // 70
                B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
-   70       CONTINUE
+            } // 70
 
             // Solve D * L**H * x = b.
 
             for (I = 1; I <= N; I++) { // 80
                B( I, J ) = B( I, J ) / D( I )
-   80       CONTINUE
+            } // 80
             DO 90 I = N - 1, 1, -1
                B( I, J ) = B( I, J ) - B( I+1, J )*CONJG( E( I ) )
-   90       CONTINUE
+            } // 90
             if ( J.LT.NRHS ) {
                J = J + 1
                GO TO 65
@@ -110,15 +110,15 @@
 
                for (I = 2; I <= N; I++) { // 100
                   B( I, J ) = B( I, J ) - B( I-1, J )*E( I-1 )
-  100          CONTINUE
+               } // 100
 
                // Solve D * L**H * x = b.
 
                B( N, J ) = B( N, J ) / D( N )
                DO 110 I = N - 1, 1, -1
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*CONJG( E( I ) )
-  110          CONTINUE
-  120       CONTINUE
+               } // 110
+            } // 120
          }
       }
 

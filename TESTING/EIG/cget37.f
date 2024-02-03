@@ -69,15 +69,15 @@
       // lexicographically (increasing by real part if ISRT = 0,
       // increasing by imaginary part if ISRT = 1)
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, ISRT
       IF( N.EQ.0 ) RETURN
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )WRIN( I ), WIIN( I ), SIN( I ), SEPIN( I )
-   30 CONTINUE
+      } // 30
       TNRM = CLANGE( 'M', N, N, TMP, LDT, RWORK )
       for (ISCL = 1; ISCL <= 3; ISCL++) { // 260
 
@@ -88,7 +88,7 @@
          VMUL = VAL( ISCL )
          for (I = 1; I <= N; I++) { // 40
             csscal(N, VMUL, T( 1, I ), 1 );
-   40    CONTINUE
+         } // 40
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 
          // Compute eigenvalues and eigenvectors
@@ -102,8 +102,8 @@
          DO 60 J = 1, N - 2
             DO 50 I = J + 2, N
                T( I, J ) = ZERO
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // Compute Schur form
 
@@ -118,7 +118,7 @@
 
          for (I = 1; I <= N; I++) { // 70
             SELECT( I ) = .TRUE.
-   70    CONTINUE
+         } // 70
          ctrevc('B', 'A', SELECT, N, T, LDT, LE, LDT, RE, LDT, N, M, WORK, RWORK, INFO );
 
          // Compute condition numbers
@@ -140,14 +140,14 @@
 
             for (I = 1; I <= N; I++) { // 80
                WSRT( I ) = REAL( W( I ) )
-   80       CONTINUE
+            } // 80
          } else {
 
             // Sort by increasing imaginary part
 
             for (I = 1; I <= N; I++) { // 90
                WSRT( I ) = AIMAG( W( I ) )
-   90       CONTINUE
+            } // 90
          }
          scopy(N, S, 1, STMP, 1 );
          scopy(N, SEP, 1, SEPTMP, 1 );
@@ -160,7 +160,7 @@
                   KMIN = J
                   VMIN = WSRT( J )
                }
-  100       CONTINUE
+            } // 100
             WSRT( KMIN ) = WSRT( I )
             WSRT( I ) = VMIN
             VCMIN = REAL( WTMP( I ) )
@@ -172,7 +172,7 @@
             VMIN = SEPTMP( KMIN )
             SEPTMP( KMIN ) = SEPTMP( I )
             SEPTMP( I ) = VMIN
-  110    CONTINUE
+         } // 110
 
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
@@ -207,7 +207,7 @@
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             }
-  120    CONTINUE
+         } // 120
 
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
@@ -240,7 +240,7 @@
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             }
-  130    CONTINUE
+         } // 130
 
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
@@ -263,7 +263,7 @@
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             }
-  140    CONTINUE
+         } // 140
 
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
@@ -286,7 +286,7 @@
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             }
-  150    CONTINUE
+         } // 150
 
          // Compute eigenvalue condition numbers only and compare
 
@@ -302,7 +302,7 @@
          }
          for (I = 1; I <= N; I++) { // 160
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  160    CONTINUE
+         } // 160
 
          // Compute eigenvector condition numbers only and compare
 
@@ -316,13 +316,13 @@
          }
          for (I = 1; I <= N; I++) { // 170
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
-  170    CONTINUE
+         } // 170
 
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 180
             SELECT( I ) = .TRUE.
-  180    CONTINUE
+         } // 180
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          ctrsna('B', 'S', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, RWORK, INFO );
@@ -333,7 +333,7 @@
          }
          for (I = 1; I <= N; I++) { // 190
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
-  190    CONTINUE
+         } // 190
 
          // Compute eigenvalue condition numbers using SELECT and compare
 
@@ -347,7 +347,7 @@
          }
          for (I = 1; I <= N; I++) { // 200
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  200    CONTINUE
+         } // 200
 
          // Compute eigenvector condition numbers using SELECT and compare
 
@@ -361,7 +361,7 @@
          }
          for (I = 1; I <= N; I++) { // 210
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
-  210    CONTINUE
+         } // 210
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
@@ -371,7 +371,7 @@
 
          for (I = 1; I <= N; I++) { // 220
             SELECT( I ) = .FALSE.
-  220    CONTINUE
+         } // 220
          ICMP = 0
          if ( N.GT.1 ) {
             ICMP = 1
@@ -401,7 +401,7 @@
          for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
-  230    CONTINUE
+         } // 230
 
          // Compute selected eigenvalue condition numbers
 
@@ -416,7 +416,7 @@
          for (I = 1; I <= ICMP; I++) { // 240
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  240    CONTINUE
+         } // 240
 
          // Compute selected eigenvector condition numbers
 
@@ -431,12 +431,12 @@
          for (I = 1; I <= ICMP; I++) { // 250
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
-  250    CONTINUE
+         } // 250
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          }
-  260 CONTINUE
+      } // 260
       GO TO 10
 
       // End of CGET37

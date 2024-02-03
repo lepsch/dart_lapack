@@ -103,16 +103,16 @@
             DO 10 JROW = NLF, NLF + NL - 1
                J = J + 1
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          dgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1 ), NL );
          J = NL*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 40
             DO 30 JROW = NLF, NLF + NL - 1
                J = J + 1
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          dgemm('T', 'N', NL, NRHS, NL, ONE, U( NLF, 1 ), LDU, RWORK( 1+NL*NRHS*2 ), NL, ZERO, RWORK( 1+NL*NRHS ), NL );
          JREAL = 0
          JIMAG = NL*NRHS
@@ -121,8 +121,8 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // Since B and BX are complex, the following call to DGEMM
          // is performed in two steps (real and imaginary parts).
@@ -135,16 +135,16 @@
             DO 70 JROW = NRF, NRF + NR - 1
                J = J + 1
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
          dgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1 ), NR );
          J = NR*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 100
             DO 90 JROW = NRF, NRF + NR - 1
                J = J + 1
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
-   90       CONTINUE
-  100    CONTINUE
+            } // 90
+         } // 100
          dgemm('T', 'N', NR, NRHS, NR, ONE, U( NRF, 1 ), LDU, RWORK( 1+NR*NRHS*2 ), NR, ZERO, RWORK( 1+NR*NRHS ), NR );
          JREAL = 0
          JIMAG = NR*NRHS
@@ -153,10 +153,10 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
 
-  130 CONTINUE
+      } // 130
 
       // Next copy the rows of B that correspond to unchanged rows
       // in the bidiagonal matrix to BX.
@@ -164,7 +164,7 @@
       for (I = 1; I <= ND; I++) { // 140
          IC = IWORK( INODE+I-1 )
          zcopy(NRHS, B( IC, 1 ), LDB, BX( IC, 1 ), LDBX );
-  140 CONTINUE
+      } // 140
 
       // Finally go through the left singular vector matrices of all
       // the other subproblems bottom-up on the tree.
@@ -194,13 +194,13 @@
             NRF = IC + 1
             J = J - 1
             zlals0(ICOMPQ, NL, NR, SQRE, NRHS, BX( NLF, 1 ), LDBX, B( NLF, 1 ), LDB, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO );
-  150    CONTINUE
-  160 CONTINUE
+         } // 150
+      } // 160
       GO TO 330
 
       // ICOMPQ = 1: applying back the right singular vector factors.
 
-  170 CONTINUE
+      } // 170
 
       // First now go through the right singular vector matrices of all
       // the tree nodes top-down.
@@ -233,8 +233,8 @@
             }
             J = J + 1
             zlals0(ICOMPQ, NL, NR, SQRE, NRHS, B( NLF, 1 ), LDB, BX( NLF, 1 ), LDBX, PERM( NLF, LVL ), GIVPTR( J ), GIVCOL( NLF, LVL2 ), LDGCOL, GIVNUM( NLF, LVL2 ), LDU, POLES( NLF, LVL2 ), DIFL( NLF, LVL ), DIFR( NLF, LVL2 ), Z( NLF, LVL ), K( J ), C( J ), S( J ), RWORK, INFO );
-  180    CONTINUE
-  190 CONTINUE
+         } // 180
+      } // 190
 
       // The nodes on the bottom level of the tree were solved
       // by DLASDQ. The corresponding right singular vector
@@ -266,16 +266,16 @@
             DO 200 JROW = NLF, NLF + NLP1 - 1
                J = J + 1
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
-  200       CONTINUE
-  210    CONTINUE
+            } // 200
+         } // 210
          dgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1 ), NLP1 );
          J = NLP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 230
             DO 220 JROW = NLF, NLF + NLP1 - 1
                J = J + 1
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
-  220       CONTINUE
-  230    CONTINUE
+            } // 220
+         } // 230
          dgemm('T', 'N', NLP1, NRHS, NLP1, ONE, VT( NLF, 1 ), LDU, RWORK( 1+NLP1*NRHS*2 ), NLP1, ZERO, RWORK( 1+NLP1*NRHS ), NLP1 );
          JREAL = 0
          JIMAG = NLP1*NRHS
@@ -284,8 +284,8 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  240       CONTINUE
-  250    CONTINUE
+            } // 240
+         } // 250
 
          // Since B and BX are complex, the following call to DGEMM is
          // performed in two steps (real and imaginary parts).
@@ -298,16 +298,16 @@
             DO 260 JROW = NRF, NRF + NRP1 - 1
                J = J + 1
                RWORK( J ) = DBLE( B( JROW, JCOL ) )
-  260       CONTINUE
-  270    CONTINUE
+            } // 260
+         } // 270
          dgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1 ), NRP1 );
          J = NRP1*NRHS*2
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 290
             DO 280 JROW = NRF, NRF + NRP1 - 1
                J = J + 1
                RWORK( J ) = DIMAG( B( JROW, JCOL ) )
-  280       CONTINUE
-  290    CONTINUE
+            } // 280
+         } // 290
          dgemm('T', 'N', NRP1, NRHS, NRP1, ONE, VT( NRF, 1 ), LDU, RWORK( 1+NRP1*NRHS*2 ), NRP1, ZERO, RWORK( 1+NRP1*NRHS ), NRP1 );
          JREAL = 0
          JIMAG = NRP1*NRHS
@@ -316,12 +316,12 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                BX( JROW, JCOL ) = DCMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  300       CONTINUE
-  310    CONTINUE
+            } // 300
+         } // 310
 
-  320 CONTINUE
+      } // 320
 
-  330 CONTINUE
+      } // 330
 
       RETURN
 

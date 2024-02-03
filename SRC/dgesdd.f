@@ -478,7 +478,7 @@
                   CHUNK = MIN( M - I + 1, LDWRKR )
                   dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), N, ZERO, WORK( IR ), LDWRKR );
                   dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
-   10          CONTINUE
+               } // 10
 
             } else if ( WNTQS ) {
 
@@ -704,7 +704,7 @@
                      CHUNK = MIN( M - I + 1, LDWRKR )
                      dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR );
                      dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
-   20             CONTINUE
+                  } // 20
                }
 
             } else if ( WNTQS ) {
@@ -865,7 +865,7 @@
                DO 30 I = 1, N, CHUNK
                   BLK = MIN( N - I + 1, CHUNK )
                   dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL )                   CALL DLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
-   30          CONTINUE
+               } // 30
 
             } else if ( WNTQS ) {
 
@@ -1088,7 +1088,7 @@
                      BLK = MIN( N - I + 1, CHUNK )
                      dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M );
                      dlacpy('F', M, BLK, WORK( IL ), M, A( 1, I ), LDA );
-   40             CONTINUE
+                  } // 40
                }
             } else if ( WNTQS ) {
 

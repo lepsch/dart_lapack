@@ -156,7 +156,7 @@
 
          // while ( START <= N )
 
-   10    CONTINUE
+         } // 10
          if ( START.LE.N ) {
 
             // Let FINISH be the position of the next subdiagonal entry
@@ -166,7 +166,7 @@
             // sub-problem.
 
             FINISH = START
-   20       CONTINUE
+            } // 20
             if ( FINISH.LT.N ) {
                TINY = EPS*SQRT( ABS( D( FINISH ) ) )* SQRT( ABS( D( FINISH+1 ) ) )
                if ( ABS( E( FINISH ) ).GT.TINY ) {
@@ -248,17 +248,17 @@
                     K = J
                     P = D( J )
                  }
-   30         CONTINUE
+              } // 30
               if ( K.NE.I ) {
                  D( K ) = D( I )
                  D( I ) = P
                  dswap(N, Z( 1, I ), 1, Z( 1, K ), 1 );
               }
-   40      CONTINUE
+           } // 40
          }
       }
 
-   50 CONTINUE
+      } // 50
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN
 

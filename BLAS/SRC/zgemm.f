@@ -93,14 +93,14 @@
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
-   10             CONTINUE
-   20         CONTINUE
+                  } // 10
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   for (I = 1; I <= M; I++) { // 30
                       C(I,J) = BETA*C(I,J)
-   30             CONTINUE
-   40         CONTINUE
+                  } // 30
+              } // 40
           }
           RETURN
       }
@@ -116,19 +116,19 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
-   50                 CONTINUE
+                      } // 50
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= M; I++) { // 60
                           C(I,J) = BETA*C(I,J)
-   60                 CONTINUE
+                      } // 60
                   }
                   for (L = 1; L <= K; L++) { // 80
                       TEMP = ALPHA*B(L,J)
                       for (I = 1; I <= M; I++) { // 70
                           C(I,J) = C(I,J) + TEMP*A(I,L)
-   70                 CONTINUE
-   80             CONTINUE
-   90         CONTINUE
+                      } // 70
+                  } // 80
+              } // 90
           } else if (CONJA) {
 
             // Form  C := alpha*A**H*B + beta*C.
@@ -138,14 +138,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 100
                           TEMP = TEMP + DCONJG(A(L,I))*B(L,J)
-  100                 CONTINUE
+                      } // 100
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  110             CONTINUE
-  120         CONTINUE
+                  } // 110
+              } // 120
           } else {
 
             // Form  C := alpha*A**T*B + beta*C
@@ -155,14 +155,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 130
                           TEMP = TEMP + A(L,I)*B(L,J)
-  130                 CONTINUE
+                      } // 130
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  140             CONTINUE
-  150         CONTINUE
+                  } // 140
+              } // 150
           }
       } else if (NOTA) {
           if (CONJB) {
@@ -173,19 +173,19 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= M; I++) { // 160
                           C(I,J) = ZERO
-  160                 CONTINUE
+                      } // 160
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= M; I++) { // 170
                           C(I,J) = BETA*C(I,J)
-  170                 CONTINUE
+                      } // 170
                   }
                   for (L = 1; L <= K; L++) { // 190
                       TEMP = ALPHA*DCONJG(B(J,L))
                       for (I = 1; I <= M; I++) { // 180
                           C(I,J) = C(I,J) + TEMP*A(I,L)
-  180                 CONTINUE
-  190             CONTINUE
-  200         CONTINUE
+                      } // 180
+                  } // 190
+              } // 200
           } else {
 
             // Form  C := alpha*A*B**T + beta*C
@@ -194,19 +194,19 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= M; I++) { // 210
                           C(I,J) = ZERO
-  210                 CONTINUE
+                      } // 210
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= M; I++) { // 220
                           C(I,J) = BETA*C(I,J)
-  220                 CONTINUE
+                      } // 220
                   }
                   for (L = 1; L <= K; L++) { // 240
                       TEMP = ALPHA*B(J,L)
                       for (I = 1; I <= M; I++) { // 230
                           C(I,J) = C(I,J) + TEMP*A(I,L)
-  230                 CONTINUE
-  240             CONTINUE
-  250         CONTINUE
+                      } // 230
+                  } // 240
+              } // 250
           }
       } else if (CONJA) {
           if (CONJB) {
@@ -218,14 +218,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 260
                           TEMP = TEMP + DCONJG(A(L,I))*DCONJG(B(J,L))
-  260                 CONTINUE
+                      } // 260
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  270             CONTINUE
-  280         CONTINUE
+                  } // 270
+              } // 280
           } else {
 
             // Form  C := alpha*A**H*B**T + beta*C
@@ -235,14 +235,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 290
                           TEMP = TEMP + DCONJG(A(L,I))*B(J,L)
-  290                 CONTINUE
+                      } // 290
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  300             CONTINUE
-  310         CONTINUE
+                  } // 300
+              } // 310
           }
       } else {
           if (CONJB) {
@@ -254,14 +254,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 320
                           TEMP = TEMP + A(L,I)*DCONJG(B(J,L))
-  320                 CONTINUE
+                      } // 320
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  330             CONTINUE
-  340         CONTINUE
+                  } // 330
+              } // 340
           } else {
 
             // Form  C := alpha*A**T*B**T + beta*C
@@ -271,14 +271,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 350
                           TEMP = TEMP + A(L,I)*B(J,L)
-  350                 CONTINUE
+                      } // 350
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  360             CONTINUE
-  370         CONTINUE
+                  } // 360
+              } // 370
           }
       }
 

@@ -38,7 +38,7 @@
          Z( IX ) = CI*T4 - SI*T5
          IX = IX + INCX
          IC = IC + INCC
-   10 CONTINUE
+      } // 10
 
       // End of DLAR2V
 

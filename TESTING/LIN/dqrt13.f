@@ -47,7 +47,7 @@
          if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + SIGN( DASUM( M, A( 1, J ), 1 ), A( J, J ) )
          }
-   10 CONTINUE
+      } // 10
 
       // scaled versions
 

@@ -66,7 +66,7 @@
          DIFF = ZERO
          for (I = 1; I <= N; I++) { // 10
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
-   10    CONTINUE
+         } // 10
 
          if ( XNORM.GT.ONE ) {
             GO TO 20
@@ -77,13 +77,13 @@
             GO TO 30
          }
 
-   20    CONTINUE
+         } // 20
          if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
          }
-   30 CONTINUE
+      } // 30
       RESLTS( 1 ) = ERRBND
 
       // Test 2:  Compute the maximum of BERR / ( (n+1)*EPS + (*) ), where
@@ -96,37 +96,37 @@
                JC = ( ( I-1 )*I ) / 2
                DO 40 J = 1, I - 1
                   TMP = TMP + CABS1( AP( JC+J ) )*CABS1( X( J, K ) )
-   40          CONTINUE
+               } // 40
                TMP = TMP + ABS( REAL( AP( JC+I ) ) )*CABS1( X( I, K ) )
                JC = JC + I + I
                DO 50 J = I + 1, N
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) )
                   JC = JC + J
-   50          CONTINUE
+               } // 50
             } else {
                JC = I
                DO 60 J = 1, I - 1
                   TMP = TMP + CABS1( AP( JC ) )*CABS1( X( J, K ) )
                   JC = JC + N - J
-   60          CONTINUE
+               } // 60
                TMP = TMP + ABS( REAL( AP( JC ) ) )*CABS1( X( I, K ) )
                DO 70 J = I + 1, N
                   TMP = TMP + CABS1( AP( JC+J-I ) )*CABS1( X( J, K ) )
-   70          CONTINUE
+               } // 70
             }
             if ( I.EQ.1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
             }
-   80    CONTINUE
+         } // 80
          TMP = BERR( K ) / ( ( N+1 )*EPS+( N+1 )*UNFL / MAX( AXBI, ( N+1 )*UNFL ) )
          if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          }
-   90 CONTINUE
+      } // 90
 
       RETURN
 

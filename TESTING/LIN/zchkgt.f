@@ -70,7 +70,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -173,7 +173,7 @@
                      A( 2*N-2+I ) = ZERO
                      A( N-1+I ) = ZERO
                      A( I ) = ZERO
-   20             CONTINUE
+                  } // 20
                   A( 3*N-2 ) = ZERO
                   A( 2*N-1 ) = ZERO
                }
@@ -221,11 +221,11 @@
                   for (I = 1; I <= N; I++) { // 40
                      for (J = 1; J <= N; J++) { // 30
                         X( J ) = ZERO
-   30                CONTINUE
+                     } // 30
                      X( I ) = ONE
                      zgttrs(TRANS, N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
-   40             CONTINUE
+                  } // 40
 
                   // Compute RCONDC = 1 / (norm(A) * norm(inv(A))
 
@@ -263,7 +263,7 @@
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
-   50       CONTINUE
+            } // 50
 
             // Skip the remaining tests if the matrix is singular.
 
@@ -278,7 +278,7 @@
                for (J = 1; J <= NRHS; J++) { // 60
                   zlarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
-   60          CONTINUE
+               } // 60
 
                for (ITRAN = 1; ITRAN <= 3; ITRAN++) { // 80
                   TRANS = TRANSS( ITRAN )
@@ -331,12 +331,12 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   70             CONTINUE
+                  } // 70
                   NRUN = NRUN + 5
-   80          CONTINUE
-   90       CONTINUE
-  100    CONTINUE
-  110 CONTINUE
+               } // 80
+            } // 90
+         } // 100
+      } // 110
 
       // Print a summary of the results.
 

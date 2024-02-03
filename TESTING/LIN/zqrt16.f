@@ -76,7 +76,7 @@
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / ( MAX( M, N )*EPS ) )
          }
-   10 CONTINUE
+      } // 10
 
       RETURN
 

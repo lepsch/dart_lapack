@@ -71,17 +71,17 @@
          for (J = 1; J <= N; J++) { // 20
             for (I = 1; I <= J; I++) { // 10
                C( I, J ) = C( I, J ) - A( JC+I )
-   10       CONTINUE
+            } // 10
             JC = JC + J
-   20    CONTINUE
+         } // 20
       } else {
          JC = 1
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= N; I++) { // 30
                C( I, J ) = C( I, J ) - A( JC+I-J )
-   30       CONTINUE
+            } // 30
             JC = JC + N - J + 1
-   40    CONTINUE
+         } // 40
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )

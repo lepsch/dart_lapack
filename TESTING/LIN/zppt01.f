@@ -66,7 +66,7 @@
                RETURN
             }
             KC = KC + K + 1
-   10    CONTINUE
+         } // 10
       } else {
          for (K = 1; K <= N; K++) { // 20
             if ( DIMAG( AFAC( KC ) ).NE.ZERO ) {
@@ -74,7 +74,7 @@
                RETURN
             }
             KC = KC + N - K + 1
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the product U'*U, overwriting U.
@@ -94,7 +94,7 @@
                ztpmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }
-   30    CONTINUE
+         } // 30
 
          // Compute the difference  L*L' - A
 
@@ -102,10 +102,10 @@
          for (K = 1; K <= N; K++) { // 50
             DO 40 I = 1, K - 1
                AFAC( KC+I-1 ) = AFAC( KC+I-1 ) - A( KC+I-1 )
-   40       CONTINUE
+            } // 40
             AFAC( KC+K-1 ) = AFAC( KC+K-1 ) - DBLE( A( KC+K-1 ) )
             KC = KC + K
-   50    CONTINUE
+         } // 50
 
       // Compute the product L*L', overwriting L.
 
@@ -124,7 +124,7 @@
             zscal(N-K+1, TC, AFAC( KC ), 1 );
 
             KC = KC - ( N-K+2 )
-   60    CONTINUE
+         } // 60
 
          // Compute the difference  U'*U - A
 
@@ -133,9 +133,9 @@
             AFAC( KC ) = AFAC( KC ) - DBLE( A( KC ) )
             DO 70 I = K + 1, N
                AFAC( KC+I-K ) = AFAC( KC+I-K ) - A( KC+I-K )
-   70       CONTINUE
+            } // 70
             KC = KC + N - K + 1
-   80    CONTINUE
+         } // 80
       }
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )

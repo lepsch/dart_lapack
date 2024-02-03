@@ -66,7 +66,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
       EPS = DLAMCH( 'Epsilon' )
       INFOT = 0
 
@@ -104,12 +104,12 @@
 
                for (I = 1; I <= N; I++) { // 20
                   IWORK( I ) = 0
-   20          CONTINUE
+               } // 20
                if ( IMODE.EQ.1 ) {
                   dlaset('Full', M, N, ZERO, ZERO, COPYA, LDA );
                   for (I = 1; I <= MNMIN; I++) { // 30
                      S( I ) = ZERO
-   30             CONTINUE
+                  } // 30
                } else {
                   dlatms(M, N, 'Uniform', ISEED, 'Nonsymm', S, MODE, ONE / EPS, ONE, M, N, 'No packing', COPYA, LDA, WORK, INFO );
                   if ( IMODE.GE.4 ) {
@@ -128,7 +128,7 @@
                      }
                      DO 40 I = ILOW, IHIGH, ISTEP
                         IWORK( I ) = 1
-   40                CONTINUE
+                     } // 40
                   }
                   dlaord('Decreasing', MNMIN, S, 1 );
                }
@@ -177,13 +177,13 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'DGEQP3', M, N, NB, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   50             CONTINUE
+                  } // 50
                   NRUN = NRUN + NTESTS
 
-   60          CONTINUE
-   70       CONTINUE
-   80    CONTINUE
-   90 CONTINUE
+               } // 60
+            } // 70
+         } // 80
+      } // 90
 
       // Print a summary of the results.
 

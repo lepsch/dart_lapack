@@ -85,12 +85,12 @@
 
          for (J = 1; J <= N; J++) { // 10
             dspr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
-   10    CONTINUE
+         } // 10
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 1, N - 1
                dspr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
-   20       CONTINUE
+            } // 20
          }
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( N**2+1 ) )
 
@@ -109,7 +109,7 @@
                   WORK( JP+J+1 ) = ( ONE-TAU( J ) )*E( J )
                   DO 30 JR = J + 2, N
                      WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR )
-   30             CONTINUE
+                  } // 30
                }
 
                if ( TAU( J ).NE.ZERO ) {
@@ -119,7 +119,7 @@
                   VP( JP+J+1 ) = VSAVE
                }
                WORK( JP+J ) = D( J )
-   40       CONTINUE
+            } // 40
          } else {
             WORK( 1 ) = D( 1 )
             DO 60 J = 1, N - 1
@@ -129,7 +129,7 @@
                   WORK( JP1+J ) = ( ONE-TAU( J ) )*E( J )
                   DO 50 JR = 1, J - 1
                      WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR )
-   50             CONTINUE
+                  } // 50
                }
 
                if ( TAU( J ).NE.ZERO ) {
@@ -139,12 +139,12 @@
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )
-   60       CONTINUE
+            } // 60
          }
 
          for (J = 1; J <= LAP; J++) { // 70
             WORK( J ) = WORK( J ) - AP( J )
-   70    CONTINUE
+         } // 70
          WNORM = DLANSP( '1', CUPLO, N, WORK, WORK( LAP+1 ) )
 
       } else if ( ITYPE.EQ.3 ) {
@@ -161,7 +161,7 @@
 
          for (J = 1; J <= N; J++) { // 80
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
-   80    CONTINUE
+         } // 80
 
          WNORM = DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) )
       }
@@ -185,7 +185,7 @@
 
          for (J = 1; J <= N; J++) { // 90
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
-   90    CONTINUE
+         } // 90
 
          RESULT( 2 ) = MIN( DLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), DBLE( N ) ) / ( N*ULP )
       }

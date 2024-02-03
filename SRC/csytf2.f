@@ -76,7 +76,7 @@
          // 1 or 2
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop
 
@@ -210,10 +210,10 @@
                      WK = D12*( D22*A( J, K )-A( J, K-1 ) )
                      DO 20 I = J, 1, -1
                         A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1
-   20                CONTINUE
+                     } // 20
                      A( J, K ) = WK
                      A( J, K-1 ) = WKM1
-   30             CONTINUE
+                  } // 30
 
                }
 
@@ -242,7 +242,7 @@
          // 1 or 2
 
          K = 1
-   40    CONTINUE
+         } // 40
 
          // If K > N, exit from loop
 
@@ -376,10 +376,10 @@
                      WKP1 = D21*( D22*A( J, K+1 )-A( J, K ) )
                      for (I = J; I <= N; I++) { // 50
                         A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K+1 )*WKP1
-   50                CONTINUE
+                     } // 50
                      A( J, K ) = WK
                      A( J, K+1 ) = WKP1
-   60             CONTINUE
+                  } // 60
                }
             }
          }
@@ -400,7 +400,7 @@
 
       }
 
-   70 CONTINUE
+      } // 70
       RETURN
 
       // End of CSYTF2

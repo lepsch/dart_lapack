@@ -50,7 +50,7 @@
          // Factorize A as U**T*D*U using the upper triangle of A
          // .....................................................
 
- 10      CONTINUE
+         } // 10
          IF ( J.GT.MIN(M, NB) ) GO TO 20
 
          // K is the column to be factorized
@@ -186,7 +186,7 @@
          }
          J = J + 1
          GO TO 10
- 20      CONTINUE
+         } // 20
 
       } else {
 
@@ -194,7 +194,7 @@
          // Factorize A as L*D*L**T using the lower triangle of A
          // .....................................................
 
- 30      CONTINUE
+         } // 30
          IF( J.GT.MIN( M, NB ) ) GO TO 40
 
          // K is the column to be factorized
@@ -330,7 +330,7 @@
          }
          J = J + 1
          GO TO 30
- 40      CONTINUE
+         } // 40
       }
       RETURN
 

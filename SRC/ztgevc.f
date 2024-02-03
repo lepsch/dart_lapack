@@ -106,7 +106,7 @@
          IM = 0
          for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) IM = IM + 1
-   10    CONTINUE
+         } // 10
       } else {
          IM = N
       }
@@ -116,7 +116,7 @@
       ILBBAD = .FALSE.
       for (J = 1; J <= N; J++) { // 20
          IF( DIMAG( P( J, J ) ).NE.ZERO ) ILBBAD = .TRUE.
-   20 CONTINUE
+      } // 20
 
       if ( ILBBAD ) {
          INFO = -7
@@ -160,10 +160,10 @@
          DO 30 I = 1, J - 1
             RWORK( J ) = RWORK( J ) + ABS1( S( I, J ) )
             RWORK( N+J ) = RWORK( N+J ) + ABS1( P( I, J ) )
-   30    CONTINUE
+         } // 30
          ANORM = MAX( ANORM, RWORK( J )+ABS1( S( J, J ) ) )
          BNORM = MAX( BNORM, RWORK( N+J )+ABS1( P( J, J ) ) )
-   40 CONTINUE
+      } // 40
 
       ASCALE = ONE / MAX( ANORM, SAFMIN )
       BSCALE = ONE / MAX( BNORM, SAFMIN )
@@ -190,7 +190,7 @@
 
                   for (JR = 1; JR <= N; JR++) { // 50
                      VL( JR, IEIG ) = CZERO
-   50             CONTINUE
+                  } // 50
                   VL( IEIG, IEIG ) = CONE
                   GO TO 140
                }
@@ -232,7 +232,7 @@
                XMAX = ONE
                for (JR = 1; JR <= N; JR++) { // 60
                   WORK( JR ) = CZERO
-   60          CONTINUE
+               } // 60
                WORK( JE ) = CONE
                DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 
@@ -254,7 +254,7 @@
                   if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GT.BIGNUM* TEMP ) {
                      DO 70 JR = JE, J - 1
                         WORK( JR ) = TEMP*WORK( JR )
-   70                CONTINUE
+                     } // 70
                      XMAX = ONE
                   }
                   SUMA = CZERO
@@ -263,7 +263,7 @@
                   DO 80 JR = JE, J - 1
                      SUMA = SUMA + DCONJG( S( JR, J ) )*WORK( JR )
                      SUMB = SUMB + DCONJG( P( JR, J ) )*WORK( JR )
-   80             CONTINUE
+                  } // 80
                   SUM = ACOEFF*SUMA - DCONJG( BCOEFF )*SUMB
 
                   // Form x(j) = - SUM / conjg( a*S(j,j) - b*P(j,j) )
@@ -278,14 +278,14 @@
                         TEMP = ONE / ABS1( SUM )
                         DO 90 JR = JE, J - 1
                            WORK( JR ) = TEMP*WORK( JR )
-   90                   CONTINUE
+                        } // 90
                         XMAX = TEMP*XMAX
                         SUM = TEMP*SUM
                      }
                   }
                   WORK( J ) = ZLADIV( -SUM, D )
                   XMAX = MAX( XMAX, ABS1( WORK( J ) ) )
-  100          CONTINUE
+               } // 100
 
                // Back transform eigenvector if HOWMNY='B'.
 
@@ -303,23 +303,23 @@
                XMAX = ZERO
                for (JR = IBEG; JR <= N; JR++) { // 110
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
-  110          CONTINUE
+               } // 110
 
                if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
                   for (JR = IBEG; JR <= N; JR++) { // 120
                      VL( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
-  120             CONTINUE
+                  } // 120
                } else {
                   IBEG = N + 1
                }
 
                DO 130 JR = 1, IBEG - 1
                   VL( JR, IEIG ) = CZERO
-  130          CONTINUE
+               } // 130
 
             }
-  140    CONTINUE
+         } // 140
       }
 
       // Right eigenvectors
@@ -344,7 +344,7 @@
 
                   for (JR = 1; JR <= N; JR++) { // 150
                      VR( JR, IEIG ) = CZERO
-  150             CONTINUE
+                  } // 150
                   VR( IEIG, IEIG ) = CONE
                   GO TO 250
                }
@@ -386,7 +386,7 @@
                XMAX = ONE
                for (JR = 1; JR <= N; JR++) { // 160
                   WORK( JR ) = CZERO
-  160          CONTINUE
+               } // 160
                WORK( JE ) = CONE
                DMIN = MAX( ULP*ACOEFA*ANORM, ULP*BCOEFA*BNORM, SAFMIN )
 
@@ -397,7 +397,7 @@
 
                DO 170 JR = 1, JE - 1
                   WORK( JR ) = ACOEFF*S( JR, JE ) - BCOEFF*P( JR, JE )
-  170          CONTINUE
+               } // 170
                WORK( JE ) = CONE
 
                DO 210 J = JE - 1, 1, -1
@@ -413,7 +413,7 @@
                         TEMP = ONE / ABS1( WORK( J ) )
                         for (JR = 1; JR <= JE; JR++) { // 180
                            WORK( JR ) = TEMP*WORK( JR )
-  180                   CONTINUE
+                        } // 180
                      }
                   }
 
@@ -428,7 +428,7 @@
                         if ( ACOEFA*RWORK( J )+BCOEFA*RWORK( N+J ).GE. BIGNUM*TEMP ) {
                            for (JR = 1; JR <= JE; JR++) { // 190
                               WORK( JR ) = TEMP*WORK( JR )
-  190                      CONTINUE
+                           } // 190
                         }
                      }
 
@@ -436,9 +436,9 @@
                      CB = BCOEFF*WORK( J )
                      DO 200 JR = 1, J - 1
                         WORK( JR ) = WORK( JR ) + CA*S( JR, J ) - CB*P( JR, J )
-  200                CONTINUE
+                     } // 200
                   }
-  210          CONTINUE
+               } // 210
 
                // Back transform eigenvector if HOWMNY='B'.
 
@@ -456,23 +456,23 @@
                XMAX = ZERO
                for (JR = 1; JR <= IEND; JR++) { // 220
                   XMAX = MAX( XMAX, ABS1( WORK( ( ISRC-1 )*N+JR ) ) )
-  220          CONTINUE
+               } // 220
 
                if ( XMAX.GT.SAFMIN ) {
                   TEMP = ONE / XMAX
                   for (JR = 1; JR <= IEND; JR++) { // 230
                      VR( JR, IEIG ) = TEMP*WORK( ( ISRC-1 )*N+JR )
-  230             CONTINUE
+                  } // 230
                } else {
                   IEND = 0
                }
 
                DO 240 JR = IEND + 1, N
                   VR( JR, IEIG ) = CZERO
-  240          CONTINUE
+               } // 240
 
             }
-  250    CONTINUE
+         } // 250
       }
 
       RETURN

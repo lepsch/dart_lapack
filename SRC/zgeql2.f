@@ -59,7 +59,7 @@
          A( M-K+I, N-K+I ) = ONE
          zlarf('Left', M-K+I, N-K+I-1, A( 1, N-K+I ), 1, DCONJG( TAU( I ) ), A, LDA, WORK );
          A( M-K+I, N-K+I ) = ALPHA
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZGEQL2

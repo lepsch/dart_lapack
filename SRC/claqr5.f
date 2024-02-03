@@ -160,7 +160,7 @@
                   REFSUM = H( J, K+1 ) + V( 2, M22 )*H( J, K+2 )
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
-   30          CONTINUE
+               } // 30
 
                // ==== Perform update from left within
                // .    computational window. ====
@@ -178,7 +178,7 @@
                   REFSUM = H( K+1, J ) + CONJG( V( 2, M22 ) )*H( K+2, J )
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
-   40          CONTINUE
+               } // 40
 
                // ==== The following convergence test requires that
                // .    the tradition small-compared-to-nearby-diagonals
@@ -212,13 +212,13 @@
                      REFSUM = V( 1, M22 )*( U( J, KMS+1 )+ V( 2, M22 )*U( J, KMS+2 ) )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*CONJG( V( 2, M22 ) )
-  50                 CONTINUE
+                     } // 50
                } else if ( WANTZ ) {
                   for (J = ILOZ; J <= IHIZ; J++) { // 60
                      REFSUM = V( 1, M22 )*( Z( J, K+1 )+V( 2, M22 )* Z( J, K+2 ) )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*CONJG( V( 2, M22 ) )
-  60              CONTINUE
+                  } // 60
                }
             }
 
@@ -320,7 +320,7 @@
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
                   H( J, K+3 ) = H( J, K+3 ) - REFSUM*T3
-   70          CONTINUE
+               } // 70
 
                // ==== Perform update from left for subsequent
                // .    column. ====
@@ -355,7 +355,7 @@
                      IF( TST2.EQ.RZERO .OR. H21*( H12 / SCL ).LE. MAX( SMLNUM, ULP*TST2 ) )H( K+1, K ) = ZERO
                   }
                }
-   80       CONTINUE
+            } // 80
 
             // ==== Multiply H by reflections from the left ====
 
@@ -377,8 +377,8 @@
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
                   H( K+3, J ) = H( K+3, J ) - REFSUM*T3
-   90          CONTINUE
-  100       CONTINUE
+               } // 90
+            } // 100
 
             // ==== Accumulate orthogonal transformations. ====
 
@@ -402,8 +402,8 @@
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2
                      U( J, KMS+3 ) = U( J, KMS+3 ) - REFSUM*T3
-  110             CONTINUE
-  120          CONTINUE
+                  } // 110
+               } // 120
             } else if ( WANTZ ) {
 
                // ==== U is not accumulated, so update Z
@@ -420,13 +420,13 @@
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM*T1
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*T2
                      Z( J, K+3 ) = Z( J, K+3 ) - REFSUM*T3
-  130             CONTINUE
-  140          CONTINUE
+                  } // 130
+               } // 140
             }
 
             // ==== End of near-the-diagonal bulge chase. ====
 
-  145    CONTINUE
+         } // 145
 
          // ==== Use U (if accumulated) to update far-from-diagonal
          // .    entries in H.  If required, use U to update Z as
@@ -449,7 +449,7 @@
                JLEN = MIN( NH, JBOT-JCOL+1 )
                cgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
                clacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
-  150       CONTINUE
+            } // 150
 
             // ==== Vertical multiply ====
 
@@ -457,7 +457,7 @@
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
                cgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                clacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
-  160       CONTINUE
+            } // 160
 
             // ==== Z multiply (also vertical) ====
 
@@ -466,10 +466,10 @@
                   JLEN = MIN( NV, IHIZ-JROW+1 )
                   cgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                   clacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
-  170          CONTINUE
+               } // 170
             }
          }
-  180 CONTINUE
+      } // 180
 
       // ==== End of CLAQR5 ====
 

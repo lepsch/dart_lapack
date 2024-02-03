@@ -76,14 +76,14 @@
             for (I = ILO; I <= IHI; I++) { // 10
                S = SCALE( I )
                zdscal(M, S, V( I, 1 ), LDV );
-   10       CONTINUE
+            } // 10
          }
 
          if ( LEFTV ) {
             for (I = ILO; I <= IHI; I++) { // 20
                S = ONE / SCALE( I )
                zdscal(M, S, V( I, 1 ), LDV );
-   20       CONTINUE
+            } // 20
          }
 
       }
@@ -93,7 +93,7 @@
       // For  I = ILO-1 step -1 until 1,
                // IHI+1 step 1 until N do --
 
-   30 CONTINUE
+      } // 30
       if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
          if ( RIGHTV ) {
             for (II = 1; II <= N; II++) { // 40
@@ -102,7 +102,7 @@
                K = INT( SCALE( I ) )
                IF( K.EQ.I ) GO TO 40
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-   40       CONTINUE
+            } // 40
          }
 
          if ( LEFTV ) {
@@ -112,7 +112,7 @@
                K = INT( SCALE( I ) )
                IF( K.EQ.I ) GO TO 50
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-   50       CONTINUE
+            } // 50
          }
       }
 

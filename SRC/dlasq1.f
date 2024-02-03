@@ -56,7 +56,7 @@
       DO 10 I = 1, N - 1
          D( I ) = ABS( D( I ) )
          SIGMX = MAX( SIGMX, ABS( E( I ) ) )
-   10 CONTINUE
+      } // 10
       D( N ) = ABS( D( N ) )
 
       // Early return if SIGMX is zero (matrix is already diagonal).
@@ -68,7 +68,7 @@
 
       for (I = 1; I <= N; I++) { // 20
          SIGMX = MAX( SIGMX, D( I ) )
-   20 CONTINUE
+      } // 20
 
       // Copy D and E into WORK (in the Z format) and scale (squaring the
       // input data makes scaling by a power of the radix pointless).
@@ -84,7 +84,7 @@
 
       DO 30 I = 1, 2*N - 1
          WORK( I ) = WORK( I )**2
-   30 CONTINUE
+      } // 30
       WORK( 2*N ) = ZERO
 
       dlasq2(N, WORK, INFO );
@@ -92,7 +92,7 @@
       if ( INFO.EQ.0 ) {
          for (I = 1; I <= N; I++) { // 40
             D( I ) = SQRT( WORK( I ) )
-   40    CONTINUE
+         } // 40
          dlascl('G', 0, 0, SCALE, SIGMX, N, 1, D, N, IINFO );
       } else if ( INFO.EQ.2 ) {
 

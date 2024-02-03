@@ -61,7 +61,7 @@
       if ( LSAME( DIAG, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 10
             AINV( J, J ) = ONE
-   10    CONTINUE
+         } // 10
       }
 
       // Compute A * AINV, overwriting AINV.
@@ -69,18 +69,18 @@
       if ( LSAME( UPLO, 'U' ) ) {
          for (J = 1; J <= N; J++) { // 20
             dtrmv('Upper', 'No transpose', DIAG, J, A, LDA, AINV( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
       } else {
          for (J = 1; J <= N; J++) { // 30
             dtrmv('Lower', 'No transpose', DIAG, N-J+1, A( J, J ), LDA, AINV( J, J ), 1 );
-   30    CONTINUE
+         } // 30
       }
 
       // Subtract 1 from each diagonal element to form A*AINV - I.
 
       for (J = 1; J <= N; J++) { // 40
          AINV( J, J ) = AINV( J, J ) - ONE
-   40 CONTINUE
+      } // 40
 
       // Compute norm(A*AINV - I) / (N * norm(A) * norm(AINV) * EPS)
 

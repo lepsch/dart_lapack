@@ -69,7 +69,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -119,7 +119,7 @@
                   D( I ) = REAL( A( IA ) )
                   E( I ) = A( IA+1 )
                   IA = IA + 2
-   20          CONTINUE
+               } // 20
                IF( N.GT.0 ) D( N ) = REAL( A( IA ) )
             } else {
 
@@ -142,7 +142,7 @@
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
-   30                CONTINUE
+                     } // 30
                   }
 
                   // Scale D and E so the maximum element is ANORM.
@@ -209,7 +209,7 @@
             for (J = 1; J <= NRHS; J++) { // 40
                clarnv(2, ISEED, N, XACT( IX ) );
                IX = IX + LDA
-   40       CONTINUE
+            } // 40
 
             // Set the right hand side.
 
@@ -249,11 +249,11 @@
                   for (I = 1; I <= N; I++) { // 60
                      for (J = 1; J <= N; J++) { // 50
                         X( J ) = ZERO
-   50                CONTINUE
+                     } // 50
                      X( I ) = ONE
                      cpttrs('Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
-   60             CONTINUE
+                  } // 60
 
                   // Compute the 1-norm condition number of A.
 
@@ -307,7 +307,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   70             CONTINUE
+                  } // 70
                   NRUN = NRUN + NT
                }
 
@@ -320,7 +320,7 @@
                   DO 80 I = 1, N - 1
                      D( N+I ) = ZERO
                      E( N+I ) = ZERO
-   80             CONTINUE
+                  } // 80
                   IF( N.GT.0 ) D( N+N ) = ZERO
                }
 
@@ -375,11 +375,11 @@
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   }
-   90          CONTINUE
+               } // 90
                NRUN = NRUN + 7 - K1
-  100       CONTINUE
-  110    CONTINUE
-  120 CONTINUE
+            } // 100
+         } // 110
+      } // 120
 
       // Print a summary of the results.
 

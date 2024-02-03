@@ -64,14 +64,14 @@
                RESID = ONE / EPS
                RETURN
             }
-   10    CONTINUE
+         } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             if ( DIMAG( AFAC( 1, J ) ).NE.ZERO ) {
                RESID = ONE / EPS
                RETURN
             }
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the product U'*U, overwriting U.
@@ -90,7 +90,7 @@
 
             IF( KLEN.GT.0 ) CALL ZTRMV( 'Upper', 'Conjugate', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 )
 
-   30    CONTINUE
+         } // 30
 
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
@@ -108,7 +108,7 @@
             AKK = DBLE( AFAC( 1, K ) )
             zdscal(KLEN+1, AKK, AFAC( 1, K ), 1 );
 
-   40    CONTINUE
+         } // 40
       }
 
       // Compute the difference  L*L' - A  or  U'*U - A.
@@ -118,15 +118,15 @@
             MU = MAX( 1, KD+2-J )
             DO 50 I = MU, KD + 1
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       } else {
          for (J = 1; J <= N; J++) { // 80
             ML = MIN( KD+1, N-J+1 )
             for (I = 1; I <= ML; I++) { // 70
                AFAC( I, J ) = AFAC( I, J ) - A( I, J )
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
       }
 
       // Compute norm( L*L' - A ) / ( N * norm(A) * EPS )

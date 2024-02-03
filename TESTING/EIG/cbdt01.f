@@ -57,11 +57,11 @@
                ccopy(M, A( 1, J ), 1, WORK, 1 );
                DO 10 I = 1, N - 1
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
-   10          CONTINUE
+               } // 10
                WORK( M+N ) = D( N )*PT( N, J )
                cgemv('No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
-   20       CONTINUE
+            } // 20
          } else if ( KD.LT.0 ) {
 
             // B is upper bidiagonal and M < N.
@@ -70,11 +70,11 @@
                ccopy(M, A( 1, J ), 1, WORK, 1 );
                DO 30 I = 1, M - 1
                   WORK( M+I ) = D( I )*PT( I, J ) + E( I )*PT( I+1, J )
-   30          CONTINUE
+               } // 30
                WORK( M+M ) = D( M )*PT( M, J )
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
-   40       CONTINUE
+            } // 40
          } else {
 
             // B is lower bidiagonal.
@@ -84,10 +84,10 @@
                WORK( M+1 ) = D( 1 )*PT( 1, J )
                for (I = 2; I <= M; I++) { // 50
                   WORK( M+I ) = E( I-1 )*PT( I-1, J ) + D( I )*PT( I, J )
-   50          CONTINUE
+               } // 50
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
-   60       CONTINUE
+            } // 60
          }
       } else {
 
@@ -98,19 +98,19 @@
                ccopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= N; I++) { // 70
                   WORK( M+I ) = D( I )*PT( I, J )
-   70          CONTINUE
+               } // 70
                cgemv('No transpose', M, N, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
-   80       CONTINUE
+            } // 80
          } else {
             for (J = 1; J <= N; J++) { // 100
                ccopy(M, A( 1, J ), 1, WORK, 1 );
                for (I = 1; I <= M; I++) { // 90
                   WORK( M+I ) = D( I )*PT( I, J )
-   90          CONTINUE
+               } // 90
                cgemv('No transpose', M, M, -CMPLX( ONE ), Q, LDQ, WORK( M+1 ), 1, CMPLX( ONE ), WORK, 1 );
                RESID = MAX( RESID, SCASUM( M, WORK, 1 ) )
-  100       CONTINUE
+            } // 100
          }
       }
 

@@ -105,7 +105,7 @@
                      BK = B( I, J ) / AKM1K
                      B( I-1, J ) = ( AK*BKM1-BK ) / DENOM
                      B( I, J ) = ( AKM1*BK-BKM1 ) / DENOM
- 15              CONTINUE
+                 } // 15
                I = I - 1
                ENDIF
             ENDIF
@@ -177,7 +177,7 @@
                      BK = B( I+1, J ) / AKM1K
                      B( I, J ) = ( AK*BKM1-BK ) / DENOM
                      B( I+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
- 25              CONTINUE
+                 } // 25
                   I = I + 1
             ENDIF
             I = I + 1

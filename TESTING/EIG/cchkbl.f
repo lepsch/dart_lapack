@@ -54,18 +54,18 @@
       SFMIN = SLAMCH( 'S' )
       MEPS = SLAMCH( 'E' )
 
-   10 CONTINUE
+      } // 10
 
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) GO TO 70
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
 
       READ( NIN, FMT = * )ILOIN, IHIIN
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( AIN( I, J ), J = 1, N )
-   30 CONTINUE
+      } // 30
       READ( NIN, FMT = * )( SCALIN( I ), I = 1, N )
 
       ANORM = CLANGE( 'M', N, N, A, LDA, DUMMY )
@@ -87,14 +87,14 @@
             TEMP = MAX( CABS1( A( I, J ) ), CABS1( AIN( I, J ) ) )
             TEMP = MAX( TEMP, SFMIN )
             VMAX = MAX( VMAX, CABS1( A( I, J )-AIN( I, J ) ) / TEMP )
-   40    CONTINUE
-   50 CONTINUE
+         } // 40
+      } // 50
 
       for (I = 1; I <= N; I++) { // 60
          TEMP = MAX( SCALE( I ), SCALIN( I ) )
          TEMP = MAX( TEMP, SFMIN )
          VMAX = MAX( VMAX, ABS( SCALE( I )-SCALIN( I ) ) / TEMP )
-   60 CONTINUE
+      } // 60
 
       if ( VMAX.GT.RMAX ) {
          LMAX( 3 ) = KNT
@@ -103,7 +103,7 @@
 
       GO TO 10
 
-   70 CONTINUE
+      } // 70
 
       WRITE( NOUT, FMT = 9999 )
  9999 FORMAT( 1X, '.. test output of CGEBAL .. ' )

@@ -32,21 +32,21 @@
          SY( IY ) = SX( IX )
          IX = IX + INCX
          IY = IY + INCY
-   10 CONTINUE
+      } // 10
       RETURN
 
       // Code for both increments equal to 1
 
       // Clean-up loop
 
-   20 CONTINUE
+      } // 20
       M = MOD( N, 7 )
       IF( M.EQ.0 ) GO TO 40
       for (I = 1; I <= M; I++) { // 30
          SY( I ) = SX( I )
-   30 CONTINUE
+      } // 30
       IF( N.LT.7 ) RETURN
-   40 CONTINUE
+      } // 40
       MP1 = M + 1
       DO 50 I = MP1, N, 7
          SY( I ) = SX( I )
@@ -56,7 +56,7 @@
          SY( I+4 ) = SX( I+4 )
          SY( I+5 ) = SX( I+5 )
          SY( I+6 ) = SX( I+6 )
-   50 CONTINUE
+      } // 50
       RETURN
 
       // End of ICOPY

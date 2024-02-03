@@ -75,11 +75,11 @@
               if (BETA.EQ.ZERO) {
                   for (I = 1; I <= N; I++) { // 10
                       Y(I) = ZERO
-   10             CONTINUE
+                  } // 10
               } else {
                   for (I = 1; I <= N; I++) { // 20
                       Y(I) = BETA*Y(I)
-   20             CONTINUE
+                  } // 20
               }
           } else {
               IY = KY
@@ -87,12 +87,12 @@
                   for (I = 1; I <= N; I++) { // 30
                       Y(IY) = ZERO
                       IY = IY + INCY
-   30             CONTINUE
+                  } // 30
               } else {
                   for (I = 1; I <= N; I++) { // 40
                       Y(IY) = BETA*Y(IY)
                       IY = IY + INCY
-   40             CONTINUE
+                  } // 40
               }
           }
       }
@@ -111,10 +111,10 @@
                       Y(I) = Y(I) + TEMP1*AP(K)
                       TEMP2 = TEMP2 + AP(K)*X(I)
                       K = K + 1
-   50             CONTINUE
+                  } // 50
                   Y(J) = Y(J) + TEMP1*AP(KK+J-1) + ALPHA*TEMP2
                   KK = KK + J
-   60         CONTINUE
+              } // 60
           } else {
               JX = KX
               JY = KY
@@ -128,12 +128,12 @@
                       TEMP2 = TEMP2 + AP(K)*X(IX)
                       IX = IX + INCX
                       IY = IY + INCY
-   70             CONTINUE
+                  } // 70
                   Y(JY) = Y(JY) + TEMP1*AP(KK+J-1) + ALPHA*TEMP2
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + J
-   80         CONTINUE
+              } // 80
           }
       } else {
 
@@ -149,10 +149,10 @@
                       Y(I) = Y(I) + TEMP1*AP(K)
                       TEMP2 = TEMP2 + AP(K)*X(I)
                       K = K + 1
-   90             CONTINUE
+                  } // 90
                   Y(J) = Y(J) + ALPHA*TEMP2
                   KK = KK + (N-J+1)
-  100         CONTINUE
+              } // 100
           } else {
               JX = KX
               JY = KY
@@ -167,12 +167,12 @@
                       IY = IY + INCY
                       Y(IY) = Y(IY) + TEMP1*AP(K)
                       TEMP2 = TEMP2 + AP(K)*X(IX)
-  110             CONTINUE
+                  } // 110
                   Y(JY) = Y(JY) + ALPHA*TEMP2
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + (N-J+1)
-  120         CONTINUE
+              } // 120
           }
       }
 

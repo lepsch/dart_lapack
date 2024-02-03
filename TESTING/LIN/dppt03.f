@@ -70,7 +70,7 @@
             dcopy(J, AINV( JJ ), 1, WORK( 1, J+1 ), 1 );
             dcopy(J-1, AINV( JJ ), 1, WORK( J, 2 ), LDWORK );
             JJ = JJ + J
-   10    CONTINUE
+         } // 10
          JJ = ( ( N-1 )*N ) / 2 + 1
          dcopy(N-1, AINV( JJ ), 1, WORK( N, 2 ), LDWORK );
 
@@ -78,7 +78,7 @@
 
          DO 20 J = 1, N - 1
             dspmv('Upper', N, -ONE, A, WORK( 1, J+1 ), 1, ZERO, WORK( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
          dspmv('Upper', N, -ONE, A, AINV( JJ ), 1, ZERO, WORK( 1, N ), 1 );
 
       // UPLO = 'L':
@@ -95,13 +95,13 @@
             dcopy(N-J+1, AINV( JJ ), 1, WORK( J, J-1 ), 1 );
             dcopy(N-J, AINV( JJ+1 ), 1, WORK( J, J ), LDWORK );
             JJ = JJ + N - J + 1
-   30    CONTINUE
+         } // 30
 
          // Multiply by A
 
          DO 40 J = N, 2, -1
             dspmv('Lower', N, -ONE, A, WORK( 1, J-1 ), 1, ZERO, WORK( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
          dspmv('Lower', N, -ONE, A, AINV( 1 ), 1, ZERO, WORK( 1, 1 ), 1 );
 
       }
@@ -110,7 +110,7 @@
 
       for (I = 1; I <= N; I++) { // 50
          WORK( I, I ) = WORK( I, I ) + ONE
-   50 CONTINUE
+      } // 50
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 

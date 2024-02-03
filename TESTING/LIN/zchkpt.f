@@ -71,7 +71,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -121,7 +121,7 @@
                   D( I ) = DBLE( A( IA ) )
                   E( I ) = A( IA+1 )
                   IA = IA + 2
-   20          CONTINUE
+               } // 20
                IF( N.GT.0 ) D( N ) = DBLE( A( IA ) )
             } else {
 
@@ -144,7 +144,7 @@
                      D( N ) = ABS( D( N ) ) + ABS( E( N-1 ) )
                      DO 30 I = 2, N - 1
                         D( I ) = ABS( D( I ) ) + ABS( E( I ) ) + ABS( E( I-1 ) )
-   30                CONTINUE
+                     } // 30
                   }
 
                   // Scale D and E so the maximum element is ANORM.
@@ -250,11 +250,11 @@
             for (I = 1; I <= N; I++) { // 50
                for (J = 1; J <= N; J++) { // 40
                   X( J ) = ZERO
-   40          CONTINUE
+               } // 40
                X( I ) = ONE
                zpttrs('Lower', N, 1, D( N+1 ), E( N+1 ), X, LDA, INFO );
                AINVNM = MAX( AINVNM, DZASUM( N, X, 1 ) )
-   50       CONTINUE
+            } // 50
             RCONDC = ONE / MAX( ONE, ANORM*AINVNM )
 
             for (IRHS = 1; IRHS <= NNS; IRHS++) { // 90
@@ -266,7 +266,7 @@
                for (J = 1; J <= NRHS; J++) { // 60
                   zlarnv(2, ISEED, N, XACT( IX ) );
                   IX = IX + LDA
-   60          CONTINUE
+               } // 60
 
                for (IUPLO = 1; IUPLO <= 2; IUPLO++) { // 80
 
@@ -316,17 +316,17 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   70             CONTINUE
+                  } // 70
                   NRUN = NRUN + 5
 
-   80          CONTINUE
-   90       CONTINUE
+               } // 80
+            } // 90
 
 *+    TEST 7
             // Estimate the reciprocal of the condition number of the
             // matrix.
 
-  100       CONTINUE
+            } // 100
             SRNAMT = 'ZPTCON'
             zptcon(N, D( N+1 ), E( N+1 ), ANORM, RCOND, RWORK, INFO );
 
@@ -344,8 +344,8 @@
                NFAIL = NFAIL + 1
             }
             NRUN = NRUN + 1
-  110    CONTINUE
-  120 CONTINUE
+         } // 110
+      } // 120
 
       // Print a summary of the results.
 

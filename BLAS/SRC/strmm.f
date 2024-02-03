@@ -79,8 +79,8 @@
           for (J = 1; J <= N; J++) { // 20
               for (I = 1; I <= M; I++) { // 10
                   B(I,J) = ZERO
-   10         CONTINUE
-   20     CONTINUE
+              } // 10
+          } // 20
           RETURN
       }
 
@@ -98,12 +98,12 @@
                               TEMP = ALPHA*B(K,J)
                               DO 30 I = 1,K - 1
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
-   30                         CONTINUE
+                              } // 30
                               IF (NOUNIT) TEMP = TEMP*A(K,K)
                               B(K,J) = TEMP
                           }
-   40                 CONTINUE
-   50             CONTINUE
+                      } // 40
+                  } // 50
               } else {
                   for (J = 1; J <= N; J++) { // 80
                       DO 70 K = M,1,-1
@@ -113,10 +113,10 @@
                               IF (NOUNIT) B(K,J) = B(K,J)*A(K,K)
                               DO 60 I = K + 1,M
                                   B(I,J) = B(I,J) + TEMP*A(I,K)
-   60                         CONTINUE
+                              } // 60
                           }
-   70                 CONTINUE
-   80             CONTINUE
+                      } // 70
+                  } // 80
               }
           } else {
 
@@ -129,10 +129,10 @@
                           IF (NOUNIT) TEMP = TEMP*A(I,I)
                           DO 90 K = 1,I - 1
                               TEMP = TEMP + A(K,I)*B(K,J)
-   90                     CONTINUE
+                          } // 90
                           B(I,J) = ALPHA*TEMP
-  100                 CONTINUE
-  110             CONTINUE
+                      } // 100
+                  } // 110
               } else {
                   for (J = 1; J <= N; J++) { // 140
                       for (I = 1; I <= M; I++) { // 130
@@ -140,10 +140,10 @@
                           IF (NOUNIT) TEMP = TEMP*A(I,I)
                           DO 120 K = I + 1,M
                               TEMP = TEMP + A(K,I)*B(K,J)
-  120                     CONTINUE
+                          } // 120
                           B(I,J) = ALPHA*TEMP
-  130                 CONTINUE
-  140             CONTINUE
+                      } // 130
+                  } // 140
               }
           }
       } else {
@@ -157,32 +157,32 @@
                       IF (NOUNIT) TEMP = TEMP*A(J,J)
                       for (I = 1; I <= M; I++) { // 150
                           B(I,J) = TEMP*B(I,J)
-  150                 CONTINUE
+                      } // 150
                       DO 170 K = 1,J - 1
                           if (A(K,J).NE.ZERO) {
                               TEMP = ALPHA*A(K,J)
                               for (I = 1; I <= M; I++) { // 160
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
-  160                         CONTINUE
+                              } // 160
                           }
-  170                 CONTINUE
-  180             CONTINUE
+                      } // 170
+                  } // 180
               } else {
                   for (J = 1; J <= N; J++) { // 220
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(J,J)
                       for (I = 1; I <= M; I++) { // 190
                           B(I,J) = TEMP*B(I,J)
-  190                 CONTINUE
+                      } // 190
                       DO 210 K = J + 1,N
                           if (A(K,J).NE.ZERO) {
                               TEMP = ALPHA*A(K,J)
                               for (I = 1; I <= M; I++) { // 200
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
-  200                         CONTINUE
+                              } // 200
                           }
-  210                 CONTINUE
-  220             CONTINUE
+                      } // 210
+                  } // 220
               }
           } else {
 
@@ -195,17 +195,17 @@
                               TEMP = ALPHA*A(J,K)
                               for (I = 1; I <= M; I++) { // 230
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
-  230                         CONTINUE
+                              } // 230
                           }
-  240                 CONTINUE
+                      } // 240
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(K,K)
                       if (TEMP.NE.ONE) {
                           for (I = 1; I <= M; I++) { // 250
                               B(I,K) = TEMP*B(I,K)
-  250                     CONTINUE
+                          } // 250
                       }
-  260             CONTINUE
+                  } // 260
               } else {
                   DO 300 K = N,1,-1
                       DO 280 J = K + 1,N
@@ -213,17 +213,17 @@
                               TEMP = ALPHA*A(J,K)
                               for (I = 1; I <= M; I++) { // 270
                                   B(I,J) = B(I,J) + TEMP*B(I,K)
-  270                         CONTINUE
+                              } // 270
                           }
-  280                 CONTINUE
+                      } // 280
                       TEMP = ALPHA
                       IF (NOUNIT) TEMP = TEMP*A(K,K)
                       if (TEMP.NE.ONE) {
                           for (I = 1; I <= M; I++) { // 290
                               B(I,K) = TEMP*B(I,K)
-  290                     CONTINUE
+                          } // 290
                       }
-  300             CONTINUE
+                  } // 300
               }
           }
       }

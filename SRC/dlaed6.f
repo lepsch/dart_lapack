@@ -135,7 +135,7 @@
          for (I = 1; I <= 3; I++) { // 10
             DSCALE( I ) = D( I )*SCLFAC
             ZSCALE( I ) = Z( I )*SCLFAC
-   10    CONTINUE
+         } // 10
          TAU = TAU*SCLFAC
          LBD = LBD*SCLFAC
          UBD = UBD*SCLFAC
@@ -146,7 +146,7 @@
          for (I = 1; I <= 3; I++) { // 20
             DSCALE( I ) = D( I )
             ZSCALE( I ) = Z( I )
-   20    CONTINUE
+         } // 20
       }
 
       FC = ZERO
@@ -160,7 +160,7 @@
          FC = FC + TEMP1 / DSCALE( I )
          DF = DF + TEMP2
          DDF = DDF + TEMP3
-   30 CONTINUE
+      } // 30
       F = FINIT + TAU*FC
 
       IF( ABS( F ).LE.ZERO ) GO TO 60
@@ -231,7 +231,7 @@
             } else {
                GO TO 60
             }
-   40    CONTINUE
+         } // 40
          F = FINIT + TAU*FC
          ERRETM = EIGHT*( ABS( FINIT )+ABS( TAU )*ERRETM ) + ABS( TAU )*DF          IF( ( ABS( F ).LE.FOUR*EPS*ERRETM ) .OR. ( (UBD-LBD).LE.FOUR*EPS*ABS(TAU) )  ) GO TO 60
          if ( F .LE. ZERO ) {
@@ -239,9 +239,9 @@
          } else {
             UBD = TAU
          }
-   50 CONTINUE
+      } // 50
       INFO = 1
-   60 CONTINUE
+      } // 60
 
       // Undo scaling
 

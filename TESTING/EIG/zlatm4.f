@@ -66,18 +66,18 @@
 
          // abs(ITYPE) = 1: Identity
 
-   10    CONTINUE
+         } // 10
          for (JD = 1; JD <= N; JD++) { // 20
             A( JD, JD ) = CONE
-   20    CONTINUE
+         } // 20
          GO TO 220
 
          // abs(ITYPE) = 2: Transposed Jordan block
 
-   30    CONTINUE
+         } // 30
          DO 40 JD = 1, N - 1
             A( JD+1, JD ) = CONE
-   40    CONTINUE
+         } // 40
          ISDB = 1
          ISDE = N - 1
          GO TO 220
@@ -85,94 +85,94 @@
          // abs(ITYPE) = 3: Transposed Jordan block, followed by the
                          // identity.
 
-   50    CONTINUE
+         } // 50
          K = ( N-1 ) / 2
          for (JD = 1; JD <= K; JD++) { // 60
             A( JD+1, JD ) = CONE
-   60    CONTINUE
+         } // 60
          ISDB = 1
          ISDE = K
          DO 70 JD = K + 2, 2*K + 1
             A( JD, JD ) = CONE
-   70    CONTINUE
+         } // 70
          GO TO 220
 
          // abs(ITYPE) = 4: 1,...,k
 
-   80    CONTINUE
+         } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
             A( JD, JD ) = DCMPLX( JD-NZ1 )
-   90    CONTINUE
+         } // 90
          GO TO 220
 
          // abs(ITYPE) = 5: One large D value:
 
-  100    CONTINUE
+         } // 100
          DO 110 JD = KBEG + 1, KEND
             A( JD, JD ) = DCMPLX( RCOND )
-  110    CONTINUE
+         } // 110
          A( KBEG, KBEG ) = CONE
          GO TO 220
 
          // abs(ITYPE) = 6: One small D value:
 
-  120    CONTINUE
+         } // 120
          DO 130 JD = KBEG, KEND - 1
             A( JD, JD ) = CONE
-  130    CONTINUE
+         } // 130
          A( KEND, KEND ) = DCMPLX( RCOND )
          GO TO 220
 
          // abs(ITYPE) = 7: Exponentially distributed D values:
 
-  140    CONTINUE
+         } // 140
          A( KBEG, KBEG ) = CONE
          if ( KLEN.GT.1 ) {
             ALPHA = RCOND**( ONE / DBLE( KLEN-1 ) )
             for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = DCMPLX( ALPHA**DBLE( I-1 ) )
-  150       CONTINUE
+            } // 150
          }
          GO TO 220
 
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
-  160    CONTINUE
+         } // 160
          A( KBEG, KBEG ) = CONE
          if ( KLEN.GT.1 ) {
             ALPHA = ( ONE-RCOND ) / DBLE( KLEN-1 )
             for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = DCMPLX( DBLE( KLEN-I )*ALPHA+RCOND )
-  170       CONTINUE
+            } // 170
          }
          GO TO 220
 
          // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
 
-  180    CONTINUE
+         } // 180
          ALPHA = LOG( RCOND )
          for (JD = KBEG; JD <= KEND; JD++) { // 190
             A( JD, JD ) = EXP( ALPHA*DLARAN( ISEED ) )
-  190    CONTINUE
+         } // 190
          GO TO 220
 
          // abs(ITYPE) = 10: Randomly distributed D values from DIST
 
-  200    CONTINUE
+         } // 200
          for (JD = KBEG; JD <= KEND; JD++) { // 210
             A( JD, JD ) = ZLARND( IDIST, ISEED )
-  210    CONTINUE
+         } // 210
 
-  220    CONTINUE
+         } // 220
 
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
             A( JD, JD ) = AMAGN*DBLE( A( JD, JD ) )
-  230    CONTINUE
+         } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
             A( JD+1, JD ) = AMAGN*DBLE( A( JD+1, JD ) )
-  240    CONTINUE
+         } // 240
 
          // If RSIGN = .TRUE., assign random signs to diagonal and
          // subdiagonal
@@ -184,14 +184,14 @@
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD, JD ) = CTEMP*DBLE( A( JD, JD ) )
                }
-  250       CONTINUE
+            } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( DBLE( A( JD+1, JD ) ).NE.ZERO ) {
                   CTEMP = ZLARND( 3, ISEED )
                   CTEMP = CTEMP / ABS( CTEMP )
                   A( JD+1, JD ) = CTEMP*DBLE( A( JD+1, JD ) )
                }
-  260       CONTINUE
+            } // 260
          }
 
          // Reverse if ITYPE < 0
@@ -201,12 +201,12 @@
                CTEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )
                A( KBEG+KEND-JD, KBEG+KEND-JD ) = CTEMP
-  270       CONTINUE
+            } // 270
             DO 280 JD = 1, ( N-1 ) / 2
                CTEMP = A( JD+1, JD )
                A( JD+1, JD ) = A( N+1-JD, N-JD )
                A( N+1-JD, N-JD ) = CTEMP
-  280       CONTINUE
+            } // 280
          }
 
       }
@@ -217,8 +217,8 @@
          for (JC = 2; JC <= N; JC++) { // 300
             DO 290 JR = 1, JC - 1
                A( JR, JC ) = TRIANG*ZLARND( IDIST, ISEED )
-  290       CONTINUE
-  300    CONTINUE
+            } // 290
+         } // 300
       }
 
       RETURN

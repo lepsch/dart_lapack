@@ -57,7 +57,7 @@
             }
             DMIN = MIN( DMIN, D )
             EMIN = MIN( EMIN, Z( J4 ) )
-   10    CONTINUE
+         } // 10
       } else {
          DO 20 J4 = 4*I0, 4*( N0-3 ), 4
             Z( J4-3 ) = D + Z( J4 )
@@ -76,7 +76,7 @@
             }
             DMIN = MIN( DMIN, D )
             EMIN = MIN( EMIN, Z( J4-1 ) )
-   20    CONTINUE
+         } // 20
       }
 
       // Unroll last two steps.

@@ -62,7 +62,7 @@
 
          for (J = 1; J <= K; J++) { // 10
             dcopy(N, C( J, 1 ), LDC, WORK( 1, J ), 1 );
-   10    CONTINUE
+         } // 10
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
                          // C( m-l+1:m, 1:n )**T * V( 1:k, 1:l )**T
@@ -78,8 +78,8 @@
          for (J = 1; J <= N; J++) { // 30
             for (I = 1; I <= K; I++) { // 20
                C( I, J ) = C( I, J ) - WORK( J, I )
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
 
          // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
                              // V( 1:k, 1:l )**T * W( 1:n, 1:k )**T
@@ -94,7 +94,7 @@
 
          for (J = 1; J <= K; J++) { // 40
             dcopy(M, C( 1, J ), 1, WORK( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
                          // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**T
@@ -110,8 +110,8 @@
          for (J = 1; J <= K; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
                C( I, J ) = C( I, J ) - WORK( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // C( 1:m, n-l+1:n ) = C( 1:m, n-l+1:n ) - ...
                              // W( 1:m, 1:k ) * V( 1:k, 1:l )

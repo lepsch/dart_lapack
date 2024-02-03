@@ -81,7 +81,7 @@
       T = ONE / SQRT( TWO )
       for (J = 1; J <= N; J++) { // 10
          INDX( J ) = J
-   10 CONTINUE
+      } // 10
       sscal(N, T, Z, 1 );
       RHO = ABS( TWO*RHO )
 
@@ -89,18 +89,18 @@
 
       DO 20 I = CUTPNT + 1, N
          INDXQ( I ) = INDXQ( I ) + CUTPNT
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          DLAMBDA( I ) = D( INDXQ( I ) )
          W( I ) = Z( INDXQ( I ) )
-   30 CONTINUE
+      } // 30
       I = 1
       J = CUTPNT + 1
       slamrg(N1, N2, DLAMBDA, 1, 1, INDX );
       for (I = 1; I <= N; I++) { // 40
          D( I ) = DLAMBDA( INDX( I ) )
          Z( I ) = W( INDX( I ) )
-   40 CONTINUE
+      } // 40
 
       // Calculate the allowable deflation tolerance
 
@@ -118,7 +118,7 @@
          for (J = 1; J <= N; J++) { // 50
             PERM( J ) = INDXQ( INDX( J ) )
             ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
-   50    CONTINUE
+         } // 50
          clacpy('A', QSIZ, N, Q2( 1, 1 ), LDQ2, Q( 1, 1 ), LDQ );
          RETURN
       }
@@ -143,8 +143,8 @@
             JLAM = J
             GO TO 70
          }
-   60 CONTINUE
-   70 CONTINUE
+      } // 60
+      } // 70
       J = J + 1
       IF( J.GT.N ) GO TO 90
       if ( RHO*ABS( Z( J ) ).LE.TOL ) {
@@ -187,7 +187,7 @@
             D( JLAM ) = T
             K2 = K2 - 1
             I = 1
-   80       CONTINUE
+            } // 80
             if ( K2+I.LE.N ) {
                if ( D( JLAM ).LT.D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
@@ -210,7 +210,7 @@
          }
       }
       GO TO 70
-   90 CONTINUE
+      } // 90
 
       // Record the last eigenvalue.
 
@@ -219,7 +219,7 @@
       DLAMBDA( K ) = D( JLAM )
       INDXP( K ) = JLAM
 
-  100 CONTINUE
+      } // 100
 
       // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
       // and Q2 respectively.  The eigenvalues/vectors which were not
@@ -231,7 +231,7 @@
          DLAMBDA( J ) = D( JP )
          PERM( J ) = INDXQ( INDX( JP ) )
          ccopy(QSIZ, Q( 1, PERM( J ) ), 1, Q2( 1, J ), 1 );
-  110 CONTINUE
+      } // 110
 
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.

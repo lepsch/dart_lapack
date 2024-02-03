@@ -63,7 +63,7 @@
                RETURN
             }
             JC = JC + J + 1
-   10    CONTINUE
+         } // 10
       } else {
          for (J = 1; J <= N; J++) { // 20
             if ( DIMAG( AFAC( JC ) ).NE.ZERO ) {
@@ -71,7 +71,7 @@
                RETURN
             }
             JC = JC + N - J + 1
-   20    CONTINUE
+         } // 20
       }
 
       // Initialize C to the identity matrix.
@@ -93,19 +93,19 @@
          for (J = 1; J <= N; J++) { // 40
             DO 30 I = 1, J - 1
                C( I, J ) = C( I, J ) - A( JC+I )
-   30       CONTINUE
+            } // 30
             C( J, J ) = C( J, J ) - DBLE( A( JC+J ) )
             JC = JC + J
-   40    CONTINUE
+         } // 40
       } else {
          JC = 1
          for (J = 1; J <= N; J++) { // 60
             C( J, J ) = C( J, J ) - DBLE( A( JC ) )
             DO 50 I = J + 1, N
                C( I, J ) = C( I, J ) - A( JC+I-J )
-   50       CONTINUE
+            } // 50
             JC = JC + N - J + 1
-   60    CONTINUE
+         } // 60
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )

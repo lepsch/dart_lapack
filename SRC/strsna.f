@@ -86,7 +86,7 @@
                      IF( SELECT( N ) ) M = M + 1
                   }
                }
-   10       CONTINUE
+            } // 10
          } else {
             M = N
          }
@@ -202,7 +202,7 @@
 
                   for (I = 2; I <= N; I++) { // 20
                      WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
-   20             CONTINUE
+                  } // 20
                   N2 = 1
                   NN = N - 1
                } else {
@@ -234,13 +234,13 @@
                   for (J = 3; J <= N; J++) { // 30
                      WORK( 2, J ) = CS*WORK( 2, J )
                      WORK( J, J ) = WORK( J, J ) - WORK( 1, 1 )
-   30             CONTINUE
+                  } // 30
                   WORK( 2, 2 ) = ZERO
 
                   WORK( 1, N+1 ) = TWO*MU
                   DO 40 I = 2, N - 1
                      WORK( I, N+1 ) = SN*WORK( 1, I+1 )
-   40             CONTINUE
+                  } // 40
                   N2 = 2
                   NN = 2*( N-1 )
                }
@@ -249,7 +249,7 @@
 
                EST = ZERO
                KASE = 0
-   50          CONTINUE
+               } // 50
                slacn2(NN, WORK( 1, N+2 ), WORK( 1, N+4 ), IWORK, EST, KASE, ISAVE );
                if ( KASE.NE.0 ) {
                   if ( KASE.EQ.1 ) {
@@ -291,7 +291,7 @@
 
          IF( PAIR ) KS = KS + 1
 
-   60 CONTINUE
+      } // 60
       RETURN
 
       // End of STRSNA

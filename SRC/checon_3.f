@@ -89,7 +89,7 @@
       // Estimate the 1-norm of the inverse.
 
       KASE = 0
-   30 CONTINUE
+      } // 30
       clacn2(N, WORK( N+1 ), WORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
 

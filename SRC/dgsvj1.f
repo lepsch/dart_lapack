@@ -345,9 +345,9 @@
                         }
 
 
- 2200                CONTINUE
+                     } // 2200
          // end of the q-loop
- 2203                CONTINUE
+                     } // 2203
 
                      SVA( p ) = AAPP
 
@@ -357,17 +357,17 @@
 ***      IF ( NOTROT .GE. EMPTSW )  GO TO 2011
                   }
 
- 2100          CONTINUE
+               } // 2100
       // end of the p-loop
- 2010       CONTINUE
+            } // 2010
       // end of the jbc-loop
- 2011       CONTINUE
+            } // 2011
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
                SVA( p ) = DABS( SVA( p ) )
- 2012       CONTINUE
+            } // 2012
 ***   IF ( NOTROT .GE. EMPTSW ) GO TO 1994
- 2000    CONTINUE
+         } // 2000
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
@@ -390,19 +390,19 @@
 
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
- 1993 CONTINUE
+      } // 1993
       // end i=1:NSWEEP loop
 * #:) Reaching this point means that the procedure has completed the given
       // number of sweeps.
       INFO = NSWEEP - 1
       GO TO 1995
- 1994 CONTINUE
+      } // 1994
 * #:) Reaching this point means that during the i-th sweep all pivots were
       // below the given threshold, causing early exit.
 
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
- 1995 CONTINUE
+      } // 1995
 
       // Sort the vector D
 
@@ -418,7 +418,7 @@
             dswap(M, A( 1, p ), 1, A( 1, q ), 1 );
             IF( RSVEC )CALL DSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
          }
- 5991 CONTINUE
+      } // 5991
 
       RETURN
       // ..

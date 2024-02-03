@@ -155,7 +155,7 @@
                            RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
                            RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
                         }
-   10                CONTINUE
+                     } // 10
 
                      // Test (4)
 
@@ -206,19 +206,19 @@
                               WRITE( NOUT, FMT = 9990 )IPTYPE, IWA, IWB, IWX, IWY, J, RESULT( J )
                            }
                         }
-   20                CONTINUE
+                     } // 20
 
-   30                CONTINUE
+                     } // 30
 
-   40             CONTINUE
-   50          CONTINUE
-   60       CONTINUE
-   70    CONTINUE
-   80 CONTINUE
+                  } // 40
+               } // 50
+            } // 60
+         } // 70
+      } // 80
 
       GO TO 150
 
-   90 CONTINUE
+      } // 90
 
       // Read in data from file to check accuracy of condition estimation
       // Read input data until N=0
@@ -227,10 +227,10 @@
       IF( N.EQ.0 ) GO TO 150
       for (I = 1; I <= N; I++) { // 100
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
-  100 CONTINUE
+      } // 100
       for (I = 1; I <= N; I++) { // 110
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
-  110 CONTINUE
+      } // 110
       READ( NIN, FMT = * )( STRU( I ), I = 1, N )
       READ( NIN, FMT = * )( DIFTRU( I ), I = 1, N )
 
@@ -282,7 +282,7 @@
             RWORK( I ) = MAX( ABS( STRU( I ) / S( I ) ), ABS( S( I ) / STRU( I ) ) )
             RESULT( 3 ) = MAX( RESULT( 3 ), RWORK( I ) )
          }
-  120 CONTINUE
+      } // 120
 
       // Test (4)
 
@@ -331,12 +331,12 @@
                WRITE( NOUT, FMT = 9988 )NPTKNT, N, J, RESULT( J )
             }
          }
-  130 CONTINUE
+      } // 130
 
-  140 CONTINUE
+      } // 140
 
       GO TO 90
-  150 CONTINUE
+      } // 150
 
       // Summary
 

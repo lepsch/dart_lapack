@@ -92,7 +92,7 @@
             }
          }
          IF( ( MAX( PIV1, PIV2 ).LE.TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = K
-   10 CONTINUE
+      } // 10
       IF( ( ABS( A( N ) ).LE.SCALE1*TL ) .AND. ( IN( N ).EQ.0 ) ) IN( N ) = N
 
       RETURN

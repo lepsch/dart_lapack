@@ -136,7 +136,7 @@
          RANK = 1
       }
 
-   10 CONTINUE
+      } // 10
       if ( RANK.LT.MN ) {
          I = RANK + 1
          slaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL SLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
@@ -145,7 +145,7 @@
             for (I = 1; I <= RANK; I++) { // 20
                WORK( ISMIN+I-1 ) = S1*WORK( ISMIN+I-1 )
                WORK( ISMAX+I-1 ) = S2*WORK( ISMAX+I-1 )
-   20       CONTINUE
+            } // 20
             WORK( ISMIN+RANK ) = C1
             WORK( ISMAX+RANK ) = C2
             SMIN = SMINPR
@@ -178,15 +178,15 @@
       DO 40 I = RANK + 1, N
          for (J = 1; J <= NRHS; J++) { // 30
             B( I, J ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // B(1:N,1:NRHS) := Y**T * B(1:N,1:NRHS)
 
       if ( RANK.LT.N ) {
          for (I = 1; I <= RANK; I++) { // 50
             slatzm('Left', N-RANK+1, NRHS, A( I, RANK+1 ), LDA, WORK( MN+I ), B( I, 1 ), B( RANK+1, 1 ), LDB, WORK( 2*MN+1 ) );
-   50    CONTINUE
+         } // 50
       }
 
       // workspace NRHS
@@ -196,14 +196,14 @@
       for (J = 1; J <= NRHS; J++) { // 90
          for (I = 1; I <= N; I++) { // 60
             WORK( 2*MN+I ) = NTDONE
-   60    CONTINUE
+         } // 60
          for (I = 1; I <= N; I++) { // 80
             if ( WORK( 2*MN+I ).EQ.NTDONE ) {
                if ( JPVT( I ).NE.I ) {
                   K = I
                   T1 = B( K, J )
                   T2 = B( JPVT( K ), J )
-   70             CONTINUE
+                  } // 70
                   B( JPVT( K ), J ) = T1
                   WORK( 2*MN+K ) = DONE
                   T1 = T2
@@ -214,8 +214,8 @@
                   WORK( 2*MN+K ) = DONE
                }
             }
-   80    CONTINUE
-   90 CONTINUE
+         } // 80
+      } // 90
 
       // Undo scaling
 
@@ -232,7 +232,7 @@
          slascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
 
-  100 CONTINUE
+      } // 100
 
       RETURN
 

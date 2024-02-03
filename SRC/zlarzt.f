@@ -50,7 +50,7 @@
 
             for (J = I; J <= K; J++) { // 10
                T( J, I ) = ZERO
-   10       CONTINUE
+            } // 10
          } else {
 
             // general case
@@ -69,7 +69,7 @@
             }
             T( I, I ) = TAU( I )
          }
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of ZLARZT

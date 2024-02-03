@@ -47,7 +47,7 @@
          if ( J.LE.M ) {
             A( J, J ) = A( J, J ) + DCMPLX( SIGN( DZASUM( M, A( 1, J ), 1 ), DBLE( A( J, J ) ) ) )
          }
-   10 CONTINUE
+      } // 10
 
       // scaled versions
 

@@ -49,12 +49,12 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = ZERO
             B( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       for (I = 1; I <= NMAX; I++) { // 30
          A( I, I ) = ONE
          SEL( I ) = .TRUE.
-   30 CONTINUE
+      } // 30
 
       // Test STRSYL
 

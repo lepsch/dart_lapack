@@ -114,13 +114,13 @@
                      if ( NR.GE.2*KD-1 ) {
                         DO 10 L = 1, KD - 1
                            dlartv(NR, AB( L+1, J1-1 ), INCA, AB( L, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
-   10                   CONTINUE
+                        } // 10
 
                      } else {
                         JEND = J1 + ( NR-1 )*KD1
                         DO 20 JINC = J1, JEND, KD1
                            drot(KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) );
-   20                   CONTINUE
+                        } // 20
                      }
                   }
 
@@ -162,13 +162,13 @@
                               NRT = NR
                            }
                            IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 )
-   30                   CONTINUE
+                        } // 30
                      } else {
                         J1END = J1 + KD1*( NR-2 )
                         if ( J1END.GE.J1 ) {
                            DO 40 JIN = J1, J1END, KD1
                               drot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
-   40                      CONTINUE
+                           } // 40
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
@@ -197,12 +197,12 @@
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            drot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) );
-   50                   CONTINUE
+                        } // 50
                      } else {
 
                         DO 60 J = J1, J2, KD1
                            drot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
-   60                   CONTINUE
+                        } // 60
                      }
 
                   }
@@ -222,9 +222,9 @@
 
                      WORK( J+KD ) = WORK( J )*AB( 1, J+KD )
                      AB( 1, J+KD ) = D( J )*AB( 1, J+KD )
-   70             CONTINUE
-   80          CONTINUE
-   90       CONTINUE
+                  } // 70
+               } // 80
+            } // 90
          }
 
          if ( KD.GT.0 ) {
@@ -233,21 +233,21 @@
 
             DO 100 I = 1, N - 1
                E( I ) = AB( KD, I+1 )
-  100       CONTINUE
+            } // 100
          } else {
 
             // set E to zero if original matrix was diagonal
 
             DO 110 I = 1, N - 1
                E( I ) = ZERO
-  110       CONTINUE
+            } // 110
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 120
             D( I ) = AB( KD1, I )
-  120    CONTINUE
+         } // 120
 
       } else {
 
@@ -283,12 +283,12 @@
                      if ( NR.GT.2*KD-1 ) {
                         DO 130 L = 1, KD - 1
                            dlartv(NR, AB( KD1-L, J1-KD1+L ), INCA, AB( KD1-L+1, J1-KD1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
-  130                   CONTINUE
+                        } // 130
                      } else {
                         JEND = J1 + KD1*( NR-1 )
                         DO 140 JINC = J1, JEND, KD1
                            drot(KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) );
-  140                   CONTINUE
+                        } // 140
                      }
 
                   }
@@ -330,13 +330,13 @@
                               NRT = NR
                            }
                            IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 )
-  150                   CONTINUE
+                        } // 150
                      } else {
                         J1END = J1 + KD1*( NR-2 )
                         if ( J1END.GE.J1 ) {
                            DO 160 J1INC = J1, J1END, KD1
                               drot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
-  160                      CONTINUE
+                           } // 160
                         }
                         LEND = MIN( KDM1, N-J2 )
                         LAST = J1END + KD1
@@ -367,12 +367,12 @@
                            NQ = 1 + IQAEND - IQB
                            IQAEND = MIN( IQAEND+KD, IQEND )
                            drot(NQ, Q( IQB, J-1 ), 1, Q( IQB, J ), 1, D( J ), WORK( J ) );
-  170                   CONTINUE
+                        } // 170
                      } else {
 
                         DO 180 J = J1, J2, KD1
                            drot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
-  180                   CONTINUE
+                        } // 180
                      }
                   }
 
@@ -391,9 +391,9 @@
 
                      WORK( J+KD ) = WORK( J )*AB( KD1, J )
                      AB( KD1, J ) = D( J )*AB( KD1, J )
-  190             CONTINUE
-  200          CONTINUE
-  210       CONTINUE
+                  } // 190
+               } // 200
+            } // 210
          }
 
          if ( KD.GT.0 ) {
@@ -402,21 +402,21 @@
 
             DO 220 I = 1, N - 1
                E( I ) = AB( 2, I )
-  220       CONTINUE
+            } // 220
          } else {
 
             // set E to zero if original matrix was diagonal
 
             DO 230 I = 1, N - 1
                E( I ) = ZERO
-  230       CONTINUE
+            } // 230
          }
 
          // copy diagonal elements to D
 
          for (I = 1; I <= N; I++) { // 240
             D( I ) = AB( 1, I )
-  240    CONTINUE
+         } // 240
       }
 
       RETURN

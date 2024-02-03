@@ -83,7 +83,7 @@
             for (J = 1; J <= N; J++) { // 10
                CNORM( J ) = SASUM( J-1, AP( IP ), 1 )
                IP = IP + J
-   10       CONTINUE
+            } // 10
          } else {
 
             // A is lower triangular.
@@ -92,7 +92,7 @@
             DO 20 J = 1, N - 1
                CNORM( J ) = SASUM( N-J, AP( IP+1 ), 1 )
                IP = IP + N - J + 1
-   20       CONTINUE
+            } // 20
             CNORM( N ) = ZERO
          }
       }
@@ -168,7 +168,7 @@
                }
                IP = IP + JINC*JLEN
                JLEN = JLEN - 1
-   30       CONTINUE
+            } // 30
             GROW = XBND
          } else {
 
@@ -186,9 +186,9 @@
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
                GROW = GROW*( ONE / ( ONE+CNORM( J ) ) )
-   40       CONTINUE
+            } // 40
          }
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -237,7 +237,7 @@
                IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
                JLEN = JLEN + 1
                IP = IP + JINC*JLEN
-   60       CONTINUE
+            } // 60
             GROW = MIN( GROW, XBND )
          } else {
 
@@ -256,9 +256,9 @@
 
                XJ = ONE + CNORM( J )
                GROW = GROW / XJ
-   70       CONTINUE
+            } // 70
          }
-   80    CONTINUE
+         } // 80
       }
 
       if ( ( GROW*TSCAL ).GT.SMLNUM ) {
@@ -345,13 +345,13 @@
 
                      for (I = 1; I <= N; I++) { // 90
                         X( I ) = ZERO
-   90                CONTINUE
+                     } // 90
                      X( J ) = ONE
                      XJ = ONE
                      SCALE = ZERO
                      XMAX = ZERO
                   }
-   95          CONTINUE
+               } // 95
 
                // Scale x if necessary to avoid overflow when adding a
                // multiple of column j of A.
@@ -397,7 +397,7 @@
                   }
                   IP = IP + N - J + 1
                }
-  100       CONTINUE
+            } // 100
 
          } else {
 
@@ -456,11 +456,11 @@
                   if ( UPPER ) {
                      DO 110 I = 1, J - 1
                         SUMJ = SUMJ + ( AP( IP-J+I )*USCAL )*X( I )
-  110                CONTINUE
+                     } // 110
                   } else if ( J.LT.N ) {
                      DO 120 I = 1, N - J
                         SUMJ = SUMJ + ( AP( IP+I )*USCAL )*X( J+I )
-  120                CONTINUE
+                     } // 120
                   }
                }
 
@@ -518,12 +518,12 @@
 
                         for (I = 1; I <= N; I++) { // 130
                            X( I ) = ZERO
-  130                   CONTINUE
+                        } // 130
                         X( J ) = ONE
                         SCALE = ZERO
                         XMAX = ZERO
                      }
-  135             CONTINUE
+                  } // 135
                } else {
 
                   // Compute x(j) := x(j) / A(j,j)  - sumj if the dot
@@ -534,7 +534,7 @@
                XMAX = MAX( XMAX, ABS( X( J ) ) )
                JLEN = JLEN + 1
                IP = IP + JINC*JLEN
-  140       CONTINUE
+            } // 140
          }
          SCALE = SCALE / TSCAL
       }

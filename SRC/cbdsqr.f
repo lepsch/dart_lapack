@@ -114,7 +114,7 @@
             D( I+1 ) = CS*D( I+1 )
             RWORK( I ) = CS
             RWORK( NM1+I ) = SN
-   10    CONTINUE
+         } // 10
 
          // Update singular vectors if desired
 
@@ -133,10 +133,10 @@
       SMAX = ZERO
       for (I = 1; I <= N; I++) { // 20
          SMAX = MAX( SMAX, ABS( D( I ) ) )
-   20 CONTINUE
+      } // 20
       DO 30 I = 1, N - 1
          SMAX = MAX( SMAX, ABS( E( I ) ) )
-   30 CONTINUE
+      } // 30
       SMIN = ZERO
       if ( TOL.GE.ZERO ) {
 
@@ -149,8 +149,8 @@
             MU = ABS( D( I ) )*( MU / ( MU+ABS( E( I-1 ) ) ) )
             SMINOA = MIN( SMINOA, MU )
             IF( SMINOA.EQ.ZERO ) GO TO 50
-   40    CONTINUE
-   50    CONTINUE
+         } // 40
+         } // 50
          SMINOA = SMINOA / SQRT( REAL( N ) )
          THRESH = MAX( TOL*SMINOA, MAXITR*(N*(N*UNFL)) )
       } else {
@@ -176,7 +176,7 @@
 
       // Begin main iteration loop
 
-   60 CONTINUE
+      } // 60
 
       // Check for convergence or exceeding iteration count
 
@@ -197,10 +197,10 @@
          ABSE = ABS( E( LL ) )
          IF( TOL.LT.ZERO .AND. ABSS.LE.THRESH ) D( LL ) = ZERO          IF( ABSE.LE.THRESH ) GO TO 80
          SMAX = MAX( SMAX, ABSS, ABSE )
-   70 CONTINUE
+      } // 70
       LL = 0
       GO TO 90
-   80 CONTINUE
+      } // 80
       E( LL ) = ZERO
 
       // Matrix splits since E(LL) = 0
@@ -212,7 +212,7 @@
          M = M - 1
          GO TO 60
       }
-   90 CONTINUE
+      } // 90
       LL = LL + 1
 
       // E(LL) through E(M-1) are nonzero, E(LL-1) is zero
@@ -276,7 +276,7 @@
                }
                MU = ABS( D( LLL+1 ) )*( MU / ( MU+ABS( E( LLL ) ) ) )
                SMIN = MIN( SMIN, MU )
-  100       CONTINUE
+            } // 100
          }
 
       } else {
@@ -303,7 +303,7 @@
                }
                MU = ABS( D( LLL ) )*( MU / ( MU+ABS( E( LLL ) ) ) )
                SMIN = MIN( SMIN, MU )
-  110       CONTINUE
+            } // 110
          }
       }
       OLDLL = LL
@@ -358,7 +358,7 @@
                RWORK( I-LL+1+NM1 ) = SN
                RWORK( I-LL+1+NM12 ) = OLDCS
                RWORK( I-LL+1+NM13 ) = OLDSN
-  120       CONTINUE
+            } // 120
             H = D( M )*CS
             D( M ) = H*OLDCS
             E( M-1 ) = H*OLDSN
@@ -386,7 +386,7 @@
                RWORK( I-LL+NM1 ) = -SN
                RWORK( I-LL+NM12 ) = OLDCS
                RWORK( I-LL+NM13 ) = -OLDSN
-  130       CONTINUE
+            } // 130
             H = D( LL )*CS
             D( LL ) = H*OLDCS
             E( LL ) = H*OLDSN
@@ -429,7 +429,7 @@
                RWORK( I-LL+1+NM1 ) = SINR
                RWORK( I-LL+1+NM12 ) = COSL
                RWORK( I-LL+1+NM13 ) = SINL
-  140       CONTINUE
+            } // 140
             E( M-1 ) = F
 
             // Update singular vectors
@@ -466,7 +466,7 @@
                RWORK( I-LL+NM1 ) = -SINR
                RWORK( I-LL+NM12 ) = COSL
                RWORK( I-LL+NM13 ) = -SINL
-  150       CONTINUE
+            } // 150
             E( LL ) = F
 
             // Test convergence
@@ -485,7 +485,7 @@
 
       // All singular values converged, so make them positive
 
-  160 CONTINUE
+      } // 160
       for (I = 1; I <= N; I++) { // 170
          if ( D( I ).LT.ZERO ) {
             D( I ) = -D( I )
@@ -494,7 +494,7 @@
 
             IF( NCVT.GT.0 ) CALL CSSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT )
          }
-  170 CONTINUE
+      } // 170
 
       // Sort the singular values into decreasing order (insertion sort on
       // singular values, but only one transposition per singular vector)
@@ -510,7 +510,7 @@
                ISUB = J
                SMIN = D( J )
             }
-  180    CONTINUE
+         } // 180
          if ( ISUB.NE.N+1-I ) {
 
             // Swap singular values and vectors
@@ -520,17 +520,17 @@
             IF( NCVT.GT.0 ) CALL CSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT )
             IF( NRU.GT.0 ) CALL CSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 )             IF( NCC.GT.0 ) CALL CSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC )
          }
-  190 CONTINUE
+      } // 190
       GO TO 220
 
       // Maximum number of iterations exceeded, failure to converge
 
-  200 CONTINUE
+      } // 200
       INFO = 0
       DO 210 I = 1, N - 1
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
-  210 CONTINUE
-  220 CONTINUE
+      } // 210
+      } // 220
       RETURN
 
       // End of CBDSQR

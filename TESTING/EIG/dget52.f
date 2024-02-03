@@ -117,7 +117,7 @@
                dgemv(TRANS, N, N, ACOEF, A, LDA, E( 1, JVEC+1 ), 1, ZERO, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFI, B, LDA, E( 1, JVEC ), 1, ONE, WORK( N*JVEC+1 ), 1 )                CALL DGEMV( TRANS, N, N, -BCOEFR, B, LDA, E( 1, JVEC+1 ), 1, ONE, WORK( N*JVEC+1 ), 1 );
             }
          }
-   10 CONTINUE
+      } // 10
 
       ERRNRM = DLANGE( 'One', N, N, WORK, N, WORK( N**2+1 ) ) / ENORM
 
@@ -137,17 +137,17 @@
             if ( ALPHAI( JVEC ).EQ.ZERO ) {
                for (J = 1; J <= N; J++) { // 20
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
-   20          CONTINUE
+               } // 20
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
             } else {
                ILCPLX = .TRUE.
                for (J = 1; J <= N; J++) { // 30
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
-   30          CONTINUE
+               } // 30
                ENRMER = MAX( ENRMER, ABS( TEMP1-ONE ) )
             }
          }
-   40 CONTINUE
+      } // 40
 
       // Compute RESULT(2) : the normalization error in E.
 

@@ -108,7 +108,7 @@
 
          dlarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAU( I ), C( IC, JC ), LDC, WORK );
 
-   10 CONTINUE
+      } // 10
 
       RETURN
 

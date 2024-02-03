@@ -49,7 +49,7 @@
          scopy(M, A( 1, J ), 1, WORK, 1 );
          saxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, SASUM( N, WORK, 1 ) )
-   10 CONTINUE
+      } // 10
 
       ANORM = MAX( SLANGE( '1', M, N, A, LDA, WORK ), UNFL )
 

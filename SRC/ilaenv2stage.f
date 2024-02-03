@@ -28,7 +28,7 @@
       ILAENV2STAGE = -1
       RETURN
 
-   10 CONTINUE
+      } // 10
 
       // 2stage eigenvalues and SVD or related subroutines.
 

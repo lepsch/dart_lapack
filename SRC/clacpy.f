@@ -30,22 +30,22 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, MIN( J, M )
                B( I, J ) = A( I, J )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
       } else if ( LSAME( UPLO, 'L' ) ) {
          for (J = 1; J <= N; J++) { // 40
             for (I = J; I <= M; I++) { // 30
                B( I, J ) = A( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
       } else {
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= M; I++) { // 50
                B( I, J ) = A( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       RETURN

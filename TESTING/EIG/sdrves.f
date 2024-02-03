@@ -79,7 +79,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -135,7 +135,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Compute "A"
 
@@ -162,19 +162,19 @@
 
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
 
-   30       CONTINUE
+            } // 30
             ANORM = ONE
             GO TO 60
 
-   40       CONTINUE
+            } // 40
             ANORM = OVFL*ULP
             GO TO 60
 
-   50       CONTINUE
+            } // 50
             ANORM = UNFL*ULPINV
             GO TO 60
 
-   60       CONTINUE
+            } // 60
 
             slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
@@ -193,7 +193,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = ANORM
-   70          CONTINUE
+               } // 70
 
             } else if ( ITYPE.EQ.3 ) {
 
@@ -202,7 +202,7 @@
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -270,7 +270,7 @@
                RETURN
             }
 
-   90       CONTINUE
+            } // 90
 
             // Test for minimal and generous workspace
 
@@ -286,7 +286,7 @@
 
                for (J = 1; J <= 13; J++) { // 100
                   RESULT( J ) = -ONE
-  100          CONTINUE
+               } // 100
 
                // Test with and without sorting of eigenvalues
 
@@ -316,16 +316,16 @@
                   DO 120 J = 1, N - 2
                      DO 110 I = J + 2, N
                         IF( H( I, J ).NE.ZERO ) RESULT( 1+RSUB ) = ULPINV
-  110                CONTINUE
-  120             CONTINUE
+                     } // 110
+                  } // 120
                   DO 130 I = 1, N - 2
                      IF( H( I+1, I ).NE.ZERO .AND. H( I+2, I+1 ).NE. ZERO )RESULT( 1+RSUB ) = ULPINV
-  130             CONTINUE
+                  } // 130
                   DO 140 I = 1, N - 1
                      if ( H( I+1, I ).NE.ZERO ) {
                         IF( H( I, I ).NE.H( I+1, I+1 ) .OR. H( I, I+1 ).EQ.ZERO .OR. SIGN( ONE, H( I+1, I ) ).EQ. SIGN( ONE, H( I, I+1 ) ) )RESULT( 1+RSUB ) = ULPINV
                      }
-  140             CONTINUE
+                  } // 140
 
                   // Do Tests (2) and (3) or Tests (8) and (9)
 
@@ -339,7 +339,7 @@
                   RESULT( 4+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 150
                      IF( H( I, I ).NE.WR( I ) ) RESULT( 4+RSUB ) = ULPINV
-  150             CONTINUE
+                  } // 150
                   if ( N.GT.1 ) {
                      IF( H( 2, 1 ).EQ.ZERO .AND. WI( 1 ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV                      IF( H( N, N-1 ).EQ.ZERO .AND. WI( N ).NE.ZERO ) RESULT( 4+RSUB ) = ULPINV
                   }
@@ -349,7 +349,7 @@
                      } else if ( I.GT.1 ) {
                         IF( H( I+1, I ).EQ.ZERO .AND. H( I, I-1 ).EQ. ZERO .AND. WI( I ).NE.ZERO )RESULT( 4+RSUB ) = ULPINV
                      }
-  160             CONTINUE
+                  } // 160
 
                   // Do Test (5) or Test (11)
 
@@ -366,15 +366,15 @@
                   for (J = 1; J <= N; J++) { // 180
                      for (I = 1; I <= N; I++) { // 170
                         IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
-  170                CONTINUE
-  180             CONTINUE
+                     } // 170
+                  } // 180
 
                   // Do Test (6) or Test (12)
 
                   RESULT( 6+RSUB ) = ZERO
                   for (I = 1; I <= N; I++) { // 190
                      IF( WR( I ).NE.WRT( I ) .OR. WI( I ).NE.WIT( I ) ) RESULT( 6+RSUB ) = ULPINV
-  190             CONTINUE
+                  } // 190
 
                   // Do Test (13)
 
@@ -386,23 +386,23 @@
                         if ( I.LT.N ) {
                            IF( ( SSLECT( WR( I+1 ), WI( I+1 ) ) .OR. SSLECT( WR( I+1 ), -WI( I+1 ) ) ) .AND. ( .NOT.( SSLECT( WR( I ), WI( I ) ) .OR. SSLECT( WR( I ), -WI( I ) ) ) ) .AND. IINFO.NE.N+2 ) RESULT( 13 ) = ULPINV
                         }
-  200                CONTINUE
+                     } // 200
                      if ( SDIM.NE.KNTEIG ) {
                         RESULT( 13 ) = ULPINV
                      }
                   }
 
-  210          CONTINUE
+               } // 210
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-  220          CONTINUE
+               } // 220
 
                NTEST = 0
                NFAIL = 0
                for (J = 1; J <= 13; J++) { // 230
                   IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                   IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
-  230          CONTINUE
+               } // 230
 
                IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                if ( NTESTF.EQ.1 ) {
@@ -419,14 +419,14 @@
                   if ( RESULT( J ).GE.THRESH ) {
                      WRITE( NOUNIT, FMT = 9993 )N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                   }
-  240          CONTINUE
+               } // 240
 
                NERRS = NERRS + NFAIL
                NTESTT = NTESTT + NTEST
 
-  250       CONTINUE
-  260    CONTINUE
-  270 CONTINUE
+            } // 250
+         } // 260
+      } // 270
 
       // Summary
 

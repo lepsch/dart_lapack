@@ -192,7 +192,7 @@
          IF( SCALEA ) CALL ZLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, W, N, IERR )
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELECT( W( I ) )
-   10    CONTINUE
+         } // 10
 
          // Reorder eigenvalues, transform Schur vectors, and compute
          // reciprocal condition numbers

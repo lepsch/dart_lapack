@@ -88,14 +88,14 @@
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
-   10             CONTINUE
-   20         CONTINUE
+                  } // 10
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   for (I = 1; I <= M; I++) { // 30
                       C(I,J) = BETA*C(I,J)
-   30             CONTINUE
-   40         CONTINUE
+                  } // 30
+              } // 40
           }
           RETURN
       }
@@ -111,19 +111,19 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= M; I++) { // 50
                           C(I,J) = ZERO
-   50                 CONTINUE
+                      } // 50
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= M; I++) { // 60
                           C(I,J) = BETA*C(I,J)
-   60                 CONTINUE
+                      } // 60
                   }
                   for (L = 1; L <= K; L++) { // 80
                       TEMP = ALPHA*B(L,J)
                       for (I = 1; I <= M; I++) { // 70
                           C(I,J) = C(I,J) + TEMP*A(I,L)
-   70                 CONTINUE
-   80             CONTINUE
-   90         CONTINUE
+                      } // 70
+                  } // 80
+              } // 90
           } else {
 
             // Form  C := alpha*A**T*B + beta*C
@@ -133,14 +133,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 100
                           TEMP = TEMP + A(L,I)*B(L,J)
-  100                 CONTINUE
+                      } // 100
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  110             CONTINUE
-  120         CONTINUE
+                  } // 110
+              } // 120
           }
       } else {
           if (NOTA) {
@@ -151,19 +151,19 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= M; I++) { // 130
                           C(I,J) = ZERO
-  130                 CONTINUE
+                      } // 130
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= M; I++) { // 140
                           C(I,J) = BETA*C(I,J)
-  140                 CONTINUE
+                      } // 140
                   }
                   for (L = 1; L <= K; L++) { // 160
                       TEMP = ALPHA*B(J,L)
                       for (I = 1; I <= M; I++) { // 150
                           C(I,J) = C(I,J) + TEMP*A(I,L)
-  150                 CONTINUE
-  160             CONTINUE
-  170         CONTINUE
+                      } // 150
+                  } // 160
+              } // 170
           } else {
 
             // Form  C := alpha*A**T*B**T + beta*C
@@ -173,14 +173,14 @@
                       TEMP = ZERO
                       for (L = 1; L <= K; L++) { // 180
                           TEMP = TEMP + A(L,I)*B(J,L)
-  180                 CONTINUE
+                      } // 180
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP
                       } else {
                           C(I,J) = ALPHA*TEMP + BETA*C(I,J)
                       }
-  190             CONTINUE
-  200         CONTINUE
+                  } // 190
+              } // 200
           }
       }
 

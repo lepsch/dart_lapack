@@ -80,7 +80,7 @@
                sscal(KN, ONE / AJJ, AB( KD, J+1 ), KLD );
                ssyr('Upper', KN, -ONE, AB( KD, J+1 ), KLD, AB( KD+1, J+1 ), KLD );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Compute the Cholesky factorization A = L*L**T.
@@ -102,11 +102,11 @@
                sscal(KN, ONE / AJJ, AB( 2, J ), 1 );
                ssyr('Lower', KN, -ONE, AB( 2, J ), 1, AB( 1, J+1 ), KLD );
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 
-   30 CONTINUE
+      } // 30
       INFO = J
       RETURN
 

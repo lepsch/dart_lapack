@@ -79,7 +79,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -155,22 +155,22 @@
                         IOFF = ( IZERO-1 )*LDA
                         DO 20 I = 1, IZERO - 1
                            A( IOFF+I ) = ZERO
-   20                   CONTINUE
+                        } // 20
                         IOFF = IOFF + IZERO
                         for (I = IZERO; I <= N; I++) { // 30
                            A( IOFF ) = ZERO
                            IOFF = IOFF + LDA
-   30                   CONTINUE
+                        } // 30
                      } else {
                         IOFF = IZERO
                         DO 40 I = 1, IZERO - 1
                            A( IOFF ) = ZERO
                            IOFF = IOFF + LDA
-   40                   CONTINUE
+                        } // 40
                         IOFF = IOFF - IZERO
                         for (I = IZERO; I <= N; I++) { // 50
                            A( IOFF+I ) = ZERO
-   50                   CONTINUE
+                        } // 50
                      }
                   } else {
                      IOFF = 0
@@ -182,9 +182,9 @@
                            I2 = MIN( J, IZERO )
                            for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = ZERO
-   60                      CONTINUE
+                           } // 60
                            IOFF = IOFF + LDA
-   70                   CONTINUE
+                        } // 70
                         IZERO = 1
                      } else {
 
@@ -194,9 +194,9 @@
                            I1 = MAX( J, IZERO )
                            for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = ZERO
-   80                      CONTINUE
+                           } // 80
                            IOFF = IOFF + LDA
-   90                   CONTINUE
+                        } // 90
                      }
                   }
                } else {
@@ -232,7 +232,7 @@
                      if ( IZERO.GT.0 ) {
                         J = 1
                         K = IZERO
-  100                   CONTINUE
+                        } // 100
                         if ( J.EQ.K ) {
                            K = IWORK( J )
                         } else if ( IWORK( J ).EQ.K ) {
@@ -274,16 +274,16 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'DSYSV_AA ', UPLO, N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         }
-  110                CONTINUE
+                     } // 110
                      NRUN = NRUN + NT
-  120                CONTINUE
+                     } // 120
                   }
 
-  150          CONTINUE
+               } // 150
 
-  160       CONTINUE
-  170    CONTINUE
-  180 CONTINUE
+            } // 160
+         } // 170
+      } // 180
 
       // Print a summary of the results.
 

@@ -66,7 +66,7 @@
       if ( NOUNIT ) {
          for (INFO = 1; INFO <= N; INFO++) { // 10
             IF( A( INFO, INFO ).EQ.ZERO ) RETURN
-   10    CONTINUE
+         } // 10
       }
       INFO = 0
 

@@ -80,14 +80,14 @@
 
          for (I = 1; I <= GIVPTR; I++) { // 10
             csrot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
-   10    CONTINUE
+         } // 10
 
          // Step (2L): permute rows of B.
 
          ccopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
          for (I = 2; I <= N; I++) { // 20
             ccopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
-   20    CONTINUE
+         } // 20
 
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
@@ -122,14 +122,14 @@
 
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   }
-   30          CONTINUE
+               } // 30
                DO 40 I = J + 1, K
                   if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = POLES( I, 2 )*Z( I ) / ( SLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
                   }
-   40          CONTINUE
+               } // 40
                RWORK( 1 ) = NEGONE
                TEMP = SNRM2( K, RWORK, 1 )
 
@@ -144,22 +144,22 @@
                   for (JROW = 1; JROW <= K; JROW++) { // 50
                      I = I + 1
                      RWORK( I ) = REAL( BX( JROW, JCOL ) )
-   50             CONTINUE
-   60          CONTINUE
+                  } // 50
+               } // 60
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 80
                   for (JROW = 1; JROW <= K; JROW++) { // 70
                      I = I + 1
                      RWORK( I ) = AIMAG( BX( JROW, JCOL ) )
-   70             CONTINUE
-   80          CONTINUE
+                  } // 70
+               } // 80
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 90
                   B( J, JCOL ) = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
-   90          CONTINUE
+               } // 90
                clascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
-  100       CONTINUE
+            } // 100
          }
 
          // Move the deflated rows of BX to B also.
@@ -193,14 +193,14 @@
 
                      RWORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
-  110          CONTINUE
+               } // 110
                DO 120 I = J + 1, K
                   if ( Z( J ).EQ.ZERO ) {
                      RWORK( I ) = ZERO
                   } else {
                      RWORK( I ) = Z( J ) / ( SLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
-  120          CONTINUE
+               } // 120
 
                // Since B and BX are complex, the following call to SGEMV
                // is performed in two steps (real and imaginary parts).
@@ -213,21 +213,21 @@
                   for (JROW = 1; JROW <= K; JROW++) { // 130
                      I = I + 1
                      RWORK( I ) = REAL( B( JROW, JCOL ) )
-  130             CONTINUE
-  140          CONTINUE
+                  } // 130
+               } // 140
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K ), 1 );
                I = K + NRHS*2
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 160
                   for (JROW = 1; JROW <= K; JROW++) { // 150
                      I = I + 1
                      RWORK( I ) = AIMAG( B( JROW, JCOL ) )
-  150             CONTINUE
-  160          CONTINUE
+                  } // 150
+               } // 160
                sgemv('T', K, NRHS, ONE, RWORK( 1+K+NRHS*2 ), K, RWORK( 1 ), 1, ZERO, RWORK( 1+K+NRHS ), 1 );
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 170
                   BX( J, JCOL ) = CMPLX( RWORK( JCOL+K ), RWORK( JCOL+K+NRHS ) )
-  170          CONTINUE
-  180       CONTINUE
+               } // 170
+            } // 180
          }
 
          // Step (2R): if SQRE = 1, apply back the rotation that is
@@ -247,13 +247,13 @@
          }
          for (I = 2; I <= N; I++) { // 190
             ccopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
-  190    CONTINUE
+         } // 190
 
          // Step (4R): apply back the Givens rotations performed.
 
          DO 200 I = GIVPTR, 1, -1
             csrot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
-  200    CONTINUE
+         } // 200
       }
 
       RETURN

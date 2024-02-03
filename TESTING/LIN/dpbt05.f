@@ -59,7 +59,7 @@
          DIFF = ZERO
          for (I = 1; I <= N; I++) { // 10
             DIFF = MAX( DIFF, ABS( X( I, J )-XACT( I, J ) ) )
-   10    CONTINUE
+         } // 10
 
          if ( XNORM.GT.ONE ) {
             GO TO 20
@@ -70,13 +70,13 @@
             GO TO 30
          }
 
-   20    CONTINUE
+         } // 20
          if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
          }
-   30 CONTINUE
+      } // 30
       RESLTS( 1 ) = ERRBND
 
       // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
@@ -88,31 +88,31 @@
             if ( UPPER ) {
                DO 40 J = MAX( I-KD, 1 ), I
                   TMP = TMP + ABS( AB( KD+1-I+J, I ) )*ABS( X( J, K ) )
-   40          CONTINUE
+               } // 40
                DO 50 J = I + 1, MIN( I+KD, N )
                   TMP = TMP + ABS( AB( KD+1+I-J, J ) )*ABS( X( J, K ) )
-   50          CONTINUE
+               } // 50
             } else {
                DO 60 J = MAX( I-KD, 1 ), I - 1
                   TMP = TMP + ABS( AB( 1+I-J, J ) )*ABS( X( J, K ) )
-   60          CONTINUE
+               } // 60
                DO 70 J = I, MIN( I+KD, N )
                   TMP = TMP + ABS( AB( 1+J-I, I ) )*ABS( X( J, K ) )
-   70          CONTINUE
+               } // 70
             }
             if ( I.EQ.1 ) {
                AXBI = TMP
             } else {
                AXBI = MIN( AXBI, TMP )
             }
-   80    CONTINUE
+         } // 80
          TMP = BERR( K ) / ( NZ*EPS+NZ*UNFL / MAX( AXBI, NZ*UNFL ) )
          if ( K.EQ.1 ) {
             RESLTS( 2 ) = TMP
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          }
-   90 CONTINUE
+      } // 90
 
       RETURN
 

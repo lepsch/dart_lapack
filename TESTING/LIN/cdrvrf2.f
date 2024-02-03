@@ -50,7 +50,7 @@
       INFO = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       for (IIN = 1; IIN <= NN; IIN++) { // 120
 
@@ -145,9 +145,9 @@
                   NERRS = NERRS + 1
                }
 
-  100       CONTINUE
-  110    CONTINUE
-  120 CONTINUE
+            } // 100
+         } // 110
+      } // 120
 
       // Print a summary of the results.
 

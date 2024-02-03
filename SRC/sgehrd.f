@@ -78,10 +78,10 @@
 
       DO 10 I = 1, ILO - 1
          TAU( I ) = ZERO
-   10 CONTINUE
+      } // 10
       DO 20 I = MAX( 1, IHI ), N - 1
          TAU( I ) = ZERO
-   20 CONTINUE
+      } // 20
 
       // Quick return if possible
 
@@ -156,13 +156,13 @@
             strmm('Right', 'Lower', 'Transpose', 'Unit', I, IB-1, ONE, A( I+1, I ), LDA, WORK, LDWORK );
             DO 30 J = 0, IB-2
                saxpy(I, -ONE, WORK( LDWORK*J+1 ), 1, A( 1, I+J+1 ), 1 );
-   30       CONTINUE
+            } // 30
 
             // Apply the block reflector H to A(i+1:ihi,i+ib:n) from the
             // left
 
             slarfb('Left', 'Transpose', 'Forward', 'Columnwise', IHI-I, N-I-IB+1, IB, A( I+1, I ), LDA, WORK( IWT ), LDT, A( I+1, I+IB ), LDA, WORK, LDWORK );
-   40    CONTINUE
+         } // 40
       }
 
       // Use unblocked code to reduce the rest of the matrix

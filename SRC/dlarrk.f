@@ -52,7 +52,7 @@
       RIGHT = GU + FUDGE*TNORM*EPS*N + FUDGE*TWO*PIVMIN
       IT = 0
 
- 10   CONTINUE
+      } // 10
 
       // Check if interval converged or maximum number of iterations reached
 
@@ -76,7 +76,7 @@
       for (I = 2; I <= N; I++) { // 20
          TMP1 = D( I ) - E2( I-1 ) / TMP1 - MID
          IF( ABS( TMP1 ).LT.PIVMIN ) TMP1 = -PIVMIN          IF( TMP1.LE.ZERO ) NEGCNT = NEGCNT + 1
- 20   CONTINUE
+      } // 20
 
       if (NEGCNT.GE.IW) {
          RIGHT = MID
@@ -85,7 +85,7 @@
       ENDIF
       GOTO 10
 
- 30   CONTINUE
+      } // 30
 
       // Converged or maximum number of iterations reached
 

@@ -53,7 +53,7 @@
          EI = E( I )
          E( I ) = EI / D( I )
          D( I+1 ) = D( I+1 ) - E( I )*EI
-   10 CONTINUE
+      } // 10
 
       DO 20 I = I4 + 1, N - 4, 4
 
@@ -103,13 +103,13 @@
          EI = E( I+3 )
          E( I+3 ) = EI / D( I+3 )
          D( I+4 ) = D( I+4 ) - E( I+3 )*EI
-   20 CONTINUE
+      } // 20
 
       // Check d(n) for positive definiteness.
 
       IF( D( N ).LE.ZERO ) INFO = N
 
-   30 CONTINUE
+      } // 30
       RETURN
 
       // End of SPTTRF

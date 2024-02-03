@@ -79,13 +79,13 @@
 
          for (I = 1; I <= N; I++) { // 100
             PIV( I ) = I
-  100    CONTINUE
+         } // 100
 
       // Compute stopping value
 
          for (I = 1; I <= N; I++) { // 110
             WORK( I ) = DBLE( A( I, I ) )
-  110    CONTINUE
+         } // 110
          PVT = MAXLOC( WORK( 1:N ), 1 )
          AJJ = DBLE( A( PVT, PVT ) )
          if ( AJJ.LE.ZERO.OR.DISNAN( AJJ ) ) {
@@ -118,7 +118,7 @@
 
                for (I = K; I <= N; I++) { // 120
                   WORK( I ) = 0
-  120          CONTINUE
+               } // 120
 
                DO 150 J = K, K + JB - 1
 
@@ -133,7 +133,7 @@
                      }
                      WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I )
 
-  130             CONTINUE
+                  } // 130
 
                   if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -156,7 +156,7 @@
                         ZTEMP = DCONJG( A( J, I ) )
                         A( J, I ) = DCONJG( A( I, PVT ) )
                         A( I, PVT ) = ZTEMP
-  140                CONTINUE
+                     } // 140
                      A( J, PVT ) = DCONJG( A( J, PVT ) )
 
                      // Swap dot products and PIV
@@ -181,7 +181,7 @@
                      zdscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
                   }
 
-  150          CONTINUE
+               } // 150
 
                // Update trailing matrix, J already incremented
 
@@ -189,7 +189,7 @@
                   zherk('Upper', 'Conj Trans', N-J+1, JB, -ONE, A( K, J ), LDA, ONE, A( J, J ), LDA );
                }
 
-  160       CONTINUE
+            } // 160
 
          } else {
 
@@ -206,7 +206,7 @@
 
                for (I = K; I <= N; I++) { // 170
                   WORK( I ) = 0
-  170          CONTINUE
+               } // 170
 
                DO 200 J = K, K + JB - 1
 
@@ -221,7 +221,7 @@
                      }
                      WORK( N+I ) = DBLE( A( I, I ) ) - WORK( I )
 
-  180             CONTINUE
+                  } // 180
 
                   if ( J.GT.1 ) {
                      ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -244,7 +244,7 @@
                         ZTEMP = DCONJG( A( I, J ) )
                         A( I, J ) = DCONJG( A( PVT, I ) )
                         A( PVT, I ) = ZTEMP
-  190                CONTINUE
+                     } // 190
                      A( PVT, J ) = DCONJG( A( PVT, J ) )
 
 
@@ -270,7 +270,7 @@
                      zdscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
                   }
 
-  200          CONTINUE
+               } // 200
 
                // Update trailing matrix, J already incremented
 
@@ -278,7 +278,7 @@
                   zherk('Lower', 'No Trans', N-J+1, JB, -ONE, A( J, K ), LDA, ONE, A( J, J ), LDA );
                }
 
-  210       CONTINUE
+            } // 210
 
          }
       }
@@ -288,7 +288,7 @@
       RANK = N
 
       GO TO 230
-  220 CONTINUE
+      } // 220
 
       // Rank is the number of steps completed.  Set INFO = 1 to signal
       // that the factorization cannot be used to solve a system.
@@ -296,7 +296,7 @@
       RANK = J - 1
       INFO = 1
 
-  230 CONTINUE
+      } // 230
       RETURN
 
       // End of ZPSTRF

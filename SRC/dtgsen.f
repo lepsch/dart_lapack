@@ -99,7 +99,7 @@
                IF( SELECT( N ) ) M = M + 1
             }
          }
-   10 CONTINUE
+      } // 10
       }
 
       if ( IJOB.EQ.1 .OR. IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
@@ -142,7 +142,7 @@
             for (I = 1; I <= N; I++) { // 20
                dlassq(N, A( 1, I ), 1, DSCALE, DSUM );
                dlassq(N, B( 1, I ), 1, DSCALE, DSUM );
-   20       CONTINUE
+            } // 20
             DIF( 1 ) = DSCALE*SQRT( DSUM )
             DIF( 2 ) = DIF( 1 )
          }
@@ -196,7 +196,7 @@
                IF( PAIR ) KS = KS + 1
             }
          }
-   30 CONTINUE
+      } // 30
       if ( WANTP ) {
 
          // Solve generalized Sylvester equation for R and L
@@ -266,7 +266,7 @@
 
             // 1-norm-based estimate of Difu.
 
-   40       CONTINUE
+            } // 40
             dlacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 1 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
@@ -286,7 +286,7 @@
 
             // 1-norm-based estimate of Difl.
 
-   50       CONTINUE
+            } // 50
             dlacn2(MN2, WORK( MN2+1 ), WORK, IWORK, DIF( 2 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
@@ -307,7 +307,7 @@
          }
       }
 
-   60 CONTINUE
+      } // 60
 
       // Compute generalized eigenvalues of reordered pair (A, B) and
       // normalize the generalized Schur form.
@@ -349,7 +349,7 @@
                      A( K, I ) = -A( K, I )
                      B( K, I ) = -B( K, I )
                      IF( WANTQ ) Q( I, K ) = -Q( I, K )
-   70             CONTINUE
+                  } // 70
                }
 
                ALPHAR( K ) = A( K, K )
@@ -358,7 +358,7 @@
 
             }
          }
-   80 CONTINUE
+      } // 80
 
       WORK( 1 ) = LWMIN
       IWORK( 1 ) = LIWMIN

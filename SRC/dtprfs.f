@@ -76,7 +76,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -116,7 +116,7 @@
 
          for (I = 1; I <= N; I++) { // 20
             WORK( I ) = ABS( B( I, J ) )
-   20    CONTINUE
+         } // 20
 
          if ( NOTRAN ) {
 
@@ -129,18 +129,18 @@
                      XK = ABS( X( K, J ) )
                      for (I = 1; I <= K; I++) { // 30
                         WORK( I ) = WORK( I ) + ABS( AP( KC+I-1 ) )*XK
-   30                CONTINUE
+                     } // 30
                      KC = KC + K
-   40             CONTINUE
+                  } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = ABS( X( K, J ) )
                      DO 50 I = 1, K - 1
                         WORK( I ) = WORK( I ) + ABS( AP( KC+I-1 ) )*XK
-   50                CONTINUE
+                     } // 50
                      WORK( K ) = WORK( K ) + XK
                      KC = KC + K
-   60             CONTINUE
+                  } // 60
                }
             } else {
                KC = 1
@@ -149,18 +149,18 @@
                      XK = ABS( X( K, J ) )
                      for (I = K; I <= N; I++) { // 70
                         WORK( I ) = WORK( I ) + ABS( AP( KC+I-K ) )*XK
-   70                CONTINUE
+                     } // 70
                      KC = KC + N - K + 1
-   80             CONTINUE
+                  } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = ABS( X( K, J ) )
                      DO 90 I = K + 1, N
                         WORK( I ) = WORK( I ) + ABS( AP( KC+I-K ) )*XK
-   90                CONTINUE
+                     } // 90
                      WORK( K ) = WORK( K ) + XK
                      KC = KC + N - K + 1
-  100             CONTINUE
+                  } // 100
                }
             }
          } else {
@@ -174,19 +174,19 @@
                      S = ZERO
                      for (I = 1; I <= K; I++) { // 110
                         S = S + ABS( AP( KC+I-1 ) )*ABS( X( I, J ) )
-  110                CONTINUE
+                     } // 110
                      WORK( K ) = WORK( K ) + S
                      KC = KC + K
-  120             CONTINUE
+                  } // 120
                } else {
                   for (K = 1; K <= N; K++) { // 140
                      S = ABS( X( K, J ) )
                      DO 130 I = 1, K - 1
                         S = S + ABS( AP( KC+I-1 ) )*ABS( X( I, J ) )
-  130                CONTINUE
+                     } // 130
                      WORK( K ) = WORK( K ) + S
                      KC = KC + K
-  140             CONTINUE
+                  } // 140
                }
             } else {
                KC = 1
@@ -195,19 +195,19 @@
                      S = ZERO
                      for (I = K; I <= N; I++) { // 150
                         S = S + ABS( AP( KC+I-K ) )*ABS( X( I, J ) )
-  150                CONTINUE
+                     } // 150
                      WORK( K ) = WORK( K ) + S
                      KC = KC + N - K + 1
-  160             CONTINUE
+                  } // 160
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = ABS( X( K, J ) )
                      DO 170 I = K + 1, N
                         S = S + ABS( AP( KC+I-K ) )*ABS( X( I, J ) )
-  170                CONTINUE
+                     } // 170
                      WORK( K ) = WORK( K ) + S
                      KC = KC + N - K + 1
-  180             CONTINUE
+                  } // 180
                }
             }
          }
@@ -218,7 +218,7 @@
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             }
-  190    CONTINUE
+         } // 190
          BERR( J ) = S
 
          // Bound error from formula
@@ -249,10 +249,10 @@
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             }
-  200    CONTINUE
+         } // 200
 
          KASE = 0
-  210    CONTINUE
+         } // 210
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -262,14 +262,14 @@
                dtpsv(UPLO, TRANST, DIAG, N, AP, WORK( N+1 ), 1 );
                for (I = 1; I <= N; I++) { // 220
                   WORK( N+I ) = WORK( I )*WORK( N+I )
-  220          CONTINUE
+               } // 220
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 230
                   WORK( N+I ) = WORK( I )*WORK( N+I )
-  230          CONTINUE
+               } // 230
                dtpsv(UPLO, TRANS, DIAG, N, AP, WORK( N+1 ), 1 );
             }
             GO TO 210
@@ -280,10 +280,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 240
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
-  240    CONTINUE
+         } // 240
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  250 CONTINUE
+      } // 250
 
       RETURN
 

@@ -80,17 +80,17 @@
 
       for (I = N1P1; I <= N; I++) { // 10
          INDXQ( I ) = INDXQ( I ) + N1
-   10 CONTINUE
+      } // 10
 
       // re-integrate the deflated parts from the last pass
 
       for (I = 1; I <= N; I++) { // 20
          DLAMBDA( I ) = D( INDXQ( I ) )
-   20 CONTINUE
+      } // 20
       slamrg(N1, N2, DLAMBDA, 1, 1, INDXC );
       for (I = 1; I <= N; I++) { // 30
          INDX( I ) = INDXQ( INDXC( I ) )
-   30 CONTINUE
+      } // 30
 
       // Calculate the allowable deflation tolerance
 
@@ -111,7 +111,7 @@
             scopy(N, Q( 1, I ), 1, Q2( IQ2 ), 1 );
             DLAMBDA( J ) = D( I )
             IQ2 = IQ2 + N
-   40    CONTINUE
+         } // 40
          slacpy('A', N, N, Q2, N, Q, LDQ );
          scopy(N, DLAMBDA, 1, D, 1 );
          GO TO 190
@@ -125,10 +125,10 @@
 
       for (I = 1; I <= N1; I++) { // 50
          COLTYP( I ) = 1
-   50 CONTINUE
+      } // 50
       for (I = N1P1; I <= N; I++) { // 60
          COLTYP( I ) = 3
-   60 CONTINUE
+      } // 60
 
 
       K = 0
@@ -147,8 +147,8 @@
             PJ = NJ
             GO TO 80
          }
-   70 CONTINUE
-   80 CONTINUE
+      } // 70
+      } // 80
       J = J + 1
       NJ = INDX( J )
       IF( J.GT.N ) GO TO 100
@@ -187,7 +187,7 @@
             D( PJ ) = T
             K2 = K2 - 1
             I = 1
-   90       CONTINUE
+            } // 90
             if ( K2+I.LE.N ) {
                if ( D( PJ ).LT.D( INDXP( K2+I ) ) ) {
                   INDXP( K2+I-1 ) = INDXP( K2+I )
@@ -210,7 +210,7 @@
          }
       }
       GO TO 80
-  100 CONTINUE
+      } // 100
 
       // Record the last eigenvalue.
 
@@ -226,11 +226,11 @@
 
       for (J = 1; J <= 4; J++) { // 110
          CTOT( J ) = 0
-  110 CONTINUE
+      } // 110
       for (J = 1; J <= N; J++) { // 120
          CT = COLTYP( J )
          CTOT( CT ) = CTOT( CT ) + 1
-  120 CONTINUE
+      } // 120
 
       // PSM(*) = Position in SubMatrix (of types 1 through 4)
 
@@ -250,7 +250,7 @@
          INDX( PSM( CT ) ) = JS
          INDXC( PSM( CT ) ) = J
          PSM( CT ) = PSM( CT ) + 1
-  130 CONTINUE
+      } // 130
 
       // Sort the eigenvalues and corresponding eigenvectors into DLAMBDA
       // and Q2 respectively.  The eigenvalues/vectors which were not
@@ -266,7 +266,7 @@
          Z( I ) = D( JS )
          I = I + 1
          IQ1 = IQ1 + N1
-  140 CONTINUE
+      } // 140
 
       DO 150 J = 1, CTOT( 2 )
          JS = INDX( I )
@@ -276,7 +276,7 @@
          I = I + 1
          IQ1 = IQ1 + N1
          IQ2 = IQ2 + N2
-  150 CONTINUE
+      } // 150
 
       DO 160 J = 1, CTOT( 3 )
          JS = INDX( I )
@@ -284,7 +284,7 @@
          Z( I ) = D( JS )
          I = I + 1
          IQ2 = IQ2 + N2
-  160 CONTINUE
+      } // 160
 
       IQ1 = IQ2
       DO 170 J = 1, CTOT( 4 )
@@ -293,7 +293,7 @@
          IQ2 = IQ2 + N
          Z( I ) = D( JS )
          I = I + 1
-  170 CONTINUE
+      } // 170
 
       // The deflated eigenvalues and their corresponding vectors go back
       // into the last N - K slots of D and Q respectively.
@@ -307,9 +307,9 @@
 
       for (J = 1; J <= 4; J++) { // 180
          COLTYP( J ) = CTOT( J )
-  180 CONTINUE
+      } // 180
 
-  190 CONTINUE
+      } // 190
       RETURN
 
       // End of SLAED2

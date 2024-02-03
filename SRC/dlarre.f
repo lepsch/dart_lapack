@@ -116,7 +116,7 @@
          GERS( 2*I ) = D(I) + TMP1
          GU = MAX( GU, GERS(2*I) )
          EOLD  = EABS
- 5    CONTINUE
+      } // 5
       // The minimum pivot allowed in the Sturm sequence for T
       PIVMIN = SAFMIN * MAX( ONE, EMAX**2 )
       // Compute spectral diameter. The Gerschgorin bounds give an
@@ -156,7 +156,7 @@
             WERR( I ) = ZERO
             IBLOCK( I ) = 0
             INDEXW( I ) = 0
- 14      CONTINUE
+         } // 14
       }
 
 
@@ -198,7 +198,7 @@
          for (I = IBEGIN; I <= IEND; I++) { // 15
             GL = MIN( GERS( 2*I-1 ), GL )
             GU = MAX( GERS( 2*I ), GU )
- 15      CONTINUE
+         } // 15
          SPDIAM = GU - GL
 
          if (.NOT. ((IRANGE.EQ.ALLRNG).AND.(.NOT.FORCEB)) ) {
@@ -210,8 +210,8 @@
                } else {
                   GOTO 21
                ENDIF
- 20         CONTINUE
- 21         CONTINUE
+            } // 20
+            } // 21
 
             if ( MB.EQ.0) {
                // No eigenvalue in the current block lies in the desired range
@@ -230,7 +230,7 @@
                SIGMA = ZERO
                DO 30 I = WBEGIN, WEND - 1
                   WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
- 30            CONTINUE
+               } // 30
                WGAP( WEND ) = MAX( ZERO, VU - SIGMA - (W( WEND )+WERR( WEND )))
                // Find local index of the first and last desired evalue.
                INDL = INDEXW(WBEGIN)
@@ -374,7 +374,7 @@
                WORK( I+1 ) = DPIVOT
                DMAX = MAX( DMAX, ABS(DPIVOT) )
                J = J + 1
- 70         CONTINUE
+            } // 70
             // check for element growth
             if ( DMAX .GT. MAXGROWTH*SPDIAM ) {
                NOREP = .TRUE.
@@ -387,7 +387,7 @@
                for (I = 1; I <= IN; I++) { // 71
                   TMP = SGNDEF*WORK( I )
                   IF( TMP.LT.ZERO ) NOREP = .TRUE.
- 71            CONTINUE
+               } // 71
             ENDIF
             if (NOREP) {
                // Note that in the case of IRANGE=ALLRNG, we use the Gerschgorin
@@ -408,13 +408,13 @@
                // an initial RRR is found
                GO TO 83
             }
- 80      CONTINUE
+         } // 80
          // if the program reaches this point, no base representation could be
          // found in MAXTRY iterations.
          INFO = 2
          RETURN
 
- 83      CONTINUE
+         } // 83
          // At this point, we have found an initial base representation
          // T - SIGMA I = L D L^T with not too much element growth.
          // Store the shift.
@@ -432,13 +432,13 @@
 
             for (I = 1; I <= 4; I++) { // 122
                ISEED( I ) = 1
- 122        CONTINUE
+            } // 122
 
             dlarnv(2, ISEED, 2*IN-1, WORK(1));
             DO 125 I = 1,IN-1
                D(IBEGIN+I-1) = D(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(I))
                E(IBEGIN+I-1) = E(IBEGIN+I-1)*(ONE+EPS*PERT*WORK(IN+I))
- 125        CONTINUE
+            } // 125
             D(IEND) = D(IEND)*(ONE+EPS*FOUR*WORK(IN))
 
          ENDIF
@@ -458,12 +458,12 @@
             for (J = WBEGIN; J <= WEND; J++) { // 134
                W(J) = W(J) - SIGMA
                WERR(J) = WERR(J) + ABS(W(J)) * EPS
- 134        CONTINUE
+            } // 134
             // call DLARRB to reduce eigenvalue error of the approximations
             // from DLARRD
             DO 135 I = IBEGIN, IEND-1
                WORK( I ) = D( I ) * E( I )**2
- 135        CONTINUE
+            } // 135
             // use bisection to find EV from INDL to INDU
             dlarrb(IN, D(IBEGIN), WORK(IBEGIN), INDL, INDU, RTOL1, RTOL2, INDL-1, W(WBEGIN), WGAP(WBEGIN), WERR(WBEGIN), WORK( 2*N+1 ), IWORK, PIVMIN, SPDIAM, IN, IINFO );
             if ( IINFO .NE. 0 ) {
@@ -477,7 +477,7 @@
                M = M + 1
                IBLOCK(M) = JBLK
                INDEXW(M) = I
- 138        CONTINUE
+            } // 138
          } else {
             // Call dqds to get all eigs (and then possibly delete unwanted
             // eigenvalues).
@@ -496,7 +496,7 @@
                WORK( 2*I-1 ) = ABS( D( J ) )
                WORK( 2*I ) = E( J )*E( J )*WORK( 2*I-1 )
                J = J + 1
-  140       CONTINUE
+            } // 140
             WORK( 2*IN-1 ) = ABS( D( IEND ) )
             WORK( 2*IN ) = ZERO
             dlasq2(IN, WORK, IINFO );
@@ -513,7 +513,7 @@
                      INFO = -6
                      RETURN
                   ENDIF
- 149           CONTINUE
+               } // 149
             }
             if ( SGNDEF.GT.ZERO ) {
                for (I = INDL; I <= INDU; I++) { // 150
@@ -521,30 +521,30 @@
                   W( M ) = WORK( IN-I+1 )
                   IBLOCK( M ) = JBLK
                   INDEXW( M ) = I
- 150           CONTINUE
+               } // 150
             } else {
                for (I = INDL; I <= INDU; I++) { // 160
                   M = M + 1
                   W( M ) = -WORK( I )
                   IBLOCK( M ) = JBLK
                   INDEXW( M ) = I
- 160           CONTINUE
+               } // 160
             }
 
             DO 165 I = M - MB + 1, M
                // the value of RTOL below should be the tolerance in DLASQ2
                WERR( I ) = RTOL * ABS( W(I) )
- 165        CONTINUE
+            } // 165
             DO 166 I = M - MB + 1, M - 1
                // compute the right gap between the intervals
                WGAP( I ) = MAX( ZERO, W(I+1)-WERR(I+1) - (W(I)+WERR(I)) )
- 166        CONTINUE
+            } // 166
             WGAP( M ) = MAX( ZERO, ( VU-SIGMA ) - ( W( M ) + WERR( M ) ) )
          }
          // proceed with next block
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1
- 170  CONTINUE
+      } // 170
 
 
       RETURN

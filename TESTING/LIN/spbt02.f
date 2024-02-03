@@ -55,7 +55,7 @@
 
       for (J = 1; J <= NRHS; J++) { // 10
          ssbmv(UPLO, N, KD, -ONE, A, LDA, X( 1, J ), 1, ONE, B( 1, J ), 1 );
-   10 CONTINUE
+      } // 10
 
       // Compute the maximum over the number of right hand sides of
            // norm( B - A*X ) / ( norm(A) * norm(X) * EPS )
@@ -69,7 +69,7 @@
          } else {
             RESID = MAX( RESID, ( ( BNORM / ANORM ) / XNORM ) / EPS )
          }
-   20 CONTINUE
+      } // 20
 
       RETURN
 

@@ -89,9 +89,9 @@
                           TEMP = X(J)
                           DO 10 I = J - 1,MAX(1,J-K),-1
                               X(I) = X(I) - TEMP*A(L+I,J)
-   10                     CONTINUE
+                          } // 10
                       }
-   20             CONTINUE
+                  } // 20
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
@@ -105,10 +105,10 @@
                           DO 30 I = J - 1,MAX(1,J-K),-1
                               X(IX) = X(IX) - TEMP*A(L+I,J)
                               IX = IX - INCX
-   30                     CONTINUE
+                          } // 30
                       }
                       JX = JX - INCX
-   40             CONTINUE
+                  } // 40
               }
           } else {
               if (INCX.EQ.1) {
@@ -119,9 +119,9 @@
                           TEMP = X(J)
                           DO 50 I = J + 1,MIN(N,J+K)
                               X(I) = X(I) - TEMP*A(L+I,J)
-   50                     CONTINUE
+                          } // 50
                       }
-   60             CONTINUE
+                  } // 60
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 80
@@ -134,10 +134,10 @@
                           DO 70 I = J + 1,MIN(N,J+K)
                               X(IX) = X(IX) - TEMP*A(L+I,J)
                               IX = IX + INCX
-   70                     CONTINUE
+                          } // 70
                       }
                       JX = JX + INCX
-   80             CONTINUE
+                  } // 80
               }
           }
       } else {
@@ -152,10 +152,10 @@
                       L = KPLUS1 - J
                       DO 90 I = MAX(1,J-K),J - 1
                           TEMP = TEMP - A(L+I,J)*X(I)
-   90                 CONTINUE
+                      } // 90
                       IF (NOUNIT) TEMP = TEMP/A(KPLUS1,J)
                       X(J) = TEMP
-  100             CONTINUE
+                  } // 100
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 120
@@ -165,12 +165,12 @@
                       DO 110 I = MAX(1,J-K),J - 1
                           TEMP = TEMP - A(L+I,J)*X(IX)
                           IX = IX + INCX
-  110                 CONTINUE
+                      } // 110
                       IF (NOUNIT) TEMP = TEMP/A(KPLUS1,J)
                       X(JX) = TEMP
                       JX = JX + INCX
                       IF (J.GT.K) KX = KX + INCX
-  120             CONTINUE
+                  } // 120
               }
           } else {
               if (INCX.EQ.1) {
@@ -179,10 +179,10 @@
                       L = 1 - J
                       DO 130 I = MIN(N,J+K),J + 1,-1
                           TEMP = TEMP - A(L+I,J)*X(I)
-  130                 CONTINUE
+                      } // 130
                       IF (NOUNIT) TEMP = TEMP/A(1,J)
                       X(J) = TEMP
-  140             CONTINUE
+                  } // 140
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
@@ -193,12 +193,12 @@
                       DO 150 I = MIN(N,J+K),J + 1,-1
                           TEMP = TEMP - A(L+I,J)*X(IX)
                           IX = IX - INCX
-  150                 CONTINUE
+                      } // 150
                       IF (NOUNIT) TEMP = TEMP/A(1,J)
                       X(JX) = TEMP
                       JX = JX - INCX
                       IF ((N-J).GE.K) KX = KX - INCX
-  160             CONTINUE
+                  } // 160
               }
           }
       }

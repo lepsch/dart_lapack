@@ -72,7 +72,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -138,22 +138,22 @@
                      IOFF = ( IZERO-1 )*IZERO / 2
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
-   20                CONTINUE
+                     } // 20
                      IOFF = IOFF + IZERO
                      for (I = IZERO; I <= N; I++) { // 30
                         A( IOFF ) = ZERO
                         IOFF = IOFF + I
-   30                CONTINUE
+                     } // 30
                   } else {
                      IOFF = IZERO
                      DO 40 I = 1, IZERO - 1
                         A( IOFF ) = ZERO
                         IOFF = IOFF + N - I
-   40                CONTINUE
+                     } // 40
                      IOFF = IOFF - IZERO
                      for (I = IZERO; I <= N; I++) { // 50
                         A( IOFF+I ) = ZERO
-   50                CONTINUE
+                     } // 50
                   }
                } else {
                   IZERO = 0
@@ -212,7 +212,7 @@
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   }
-   60          CONTINUE
+               } // 60
                NRUN = NRUN + 2
 
                for (IRHS = 1; IRHS <= NNS; IRHS++) { // 80
@@ -260,9 +260,9 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   70             CONTINUE
+                  } // 70
                   NRUN = NRUN + 5
-   80          CONTINUE
+               } // 80
 
 *+    TEST 8
                // Get an estimate of RCOND = 1/CNDNUM.
@@ -285,9 +285,9 @@
                }
                NRUN = NRUN + 1
 
-   90       CONTINUE
-  100    CONTINUE
-  110 CONTINUE
+            } // 90
+         } // 100
+      } // 110
 
       // Print a summary of the results.
 

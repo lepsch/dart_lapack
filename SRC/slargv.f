@@ -54,7 +54,7 @@
          IC = IC + INCC
          IY = IY + INCY
          IX = IX + INCX
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of SLARGV

@@ -45,10 +45,10 @@
 
       for (I = 1; I <= N; I++) { // 10
          IPIV( I ) = I
-   10 CONTINUE
+      } // 10
       DO 20 I = 1, N - 2
          DU2( I ) = ZERO
-   20 CONTINUE
+      } // 20
 
       DO 30 I = 1, N - 2
          if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
@@ -74,7 +74,7 @@
             DU( I+1 ) = -FACT*DU( I+1 )
             IPIV( I ) = I + 1
          }
-   30 CONTINUE
+      } // 30
       if ( N.GT.1 ) {
          I = N - 1
          if ( ABS( D( I ) ).GE.ABS( DL( I ) ) ) {
@@ -101,8 +101,8 @@
             INFO = I
             GO TO 50
          }
-   40 CONTINUE
-   50 CONTINUE
+      } // 40
+      } // 50
 
       RETURN
 

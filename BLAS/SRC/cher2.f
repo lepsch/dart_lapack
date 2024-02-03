@@ -90,12 +90,12 @@
                       TEMP2 = CONJG(ALPHA*X(J))
                       DO 10 I = 1,J - 1
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
-   10                 CONTINUE
+                      } // 10
                       A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
                   } else {
                       A(J,J) = REAL(A(J,J))
                   }
-   20         CONTINUE
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -107,14 +107,14 @@
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   30                 CONTINUE
+                      } // 30
                       A(J,J) = REAL(A(J,J)) + REAL(X(JX)*TEMP1+Y(JY)*TEMP2)
                   } else {
                       A(J,J) = REAL(A(J,J))
                   }
                   JX = JX + INCX
                   JY = JY + INCY
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -128,11 +128,11 @@
                       A(J,J) = REAL(A(J,J)) + REAL(X(J)*TEMP1+Y(J)*TEMP2)
                       DO 50 I = J + 1,N
                           A(I,J) = A(I,J) + X(I)*TEMP1 + Y(I)*TEMP2
-   50                 CONTINUE
+                      } // 50
                   } else {
                       A(J,J) = REAL(A(J,J))
                   }
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -145,13 +145,13 @@
                           IX = IX + INCX
                           IY = IY + INCY
                           A(I,J) = A(I,J) + X(IX)*TEMP1 + Y(IY)*TEMP2
-   70                 CONTINUE
+                      } // 70
                   } else {
                       A(J,J) = REAL(A(J,J))
                   }
                   JX = JX + INCX
                   JY = JY + INCY
-   80         CONTINUE
+              } // 80
           }
       }
 

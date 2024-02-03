@@ -240,7 +240,7 @@
 
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
-   10    CONTINUE
+         } // 10
 
          stgsen(0, ILVSL, ILVSR, BWORK, N, A, LDA, B, LDB, ALPHAR, ALPHAI, BETA, VSL, LDVSL, VSR, LDVSR, SDIM, PVSL, PVSR, DIF, WORK( IWRK ), LWORK-IWRK+1, IDUM, 1, IERR );
          IF( IERR.EQ.1 ) INFO = N + 3
@@ -273,7 +273,7 @@
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
                }
             }
-   50    CONTINUE
+         } // 50
       }
 
       if ( ILBSCL ) {
@@ -286,7 +286,7 @@
                    ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
                 }
              }
-   60    CONTINUE
+         } // 60
       }
 
       // Undo scaling
@@ -335,11 +335,11 @@
             }
             LST2SL = LASTSL
             LASTSL = CURSL
-   30    CONTINUE
+         } // 30
 
       }
 
-   40 CONTINUE
+      } // 40
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
 

@@ -50,7 +50,7 @@
          zhemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
          for (I = 1; I <= M; I++) { // 10
             zdscal(N, D( I ), Z( 1, I ), 1 );
-   10    CONTINUE
+         } // 10
          zhemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, -CONE, WORK, N );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, WORK, N, RWORK ) / ANORM ) / ( N*ULP )
@@ -62,7 +62,7 @@
          zhemm('Left', UPLO, N, M, CONE, B, LDB, Z, LDZ, CZERO, WORK, N );
          for (I = 1; I <= M; I++) { // 20
             zdscal(N, D( I ), Z( 1, I ), 1 );
-   20    CONTINUE
+         } // 20
          zhemm('Left', UPLO, N, M, CONE, A, LDA, WORK, N, -CONE, Z, LDZ );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )
@@ -74,7 +74,7 @@
          zhemm('Left', UPLO, N, M, CONE, A, LDA, Z, LDZ, CZERO, WORK, N );
          for (I = 1; I <= M; I++) { // 30
             zdscal(N, D( I ), Z( 1, I ), 1 );
-   30    CONTINUE
+         } // 30
          zhemm('Left', UPLO, N, M, CONE, B, LDB, WORK, N, -CONE, Z, LDZ );
 
          RESULT( 1 ) = ( ZLANGE( '1', N, M, Z, LDZ, RWORK ) / ANORM ) / ( N*ULP )

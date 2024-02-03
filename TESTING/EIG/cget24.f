@@ -84,7 +84,7 @@
 
       for (I = 1; I <= 17; I++) { // 10
          RESULT( I ) = -ONE
-   10 CONTINUE
+      } // 10
 
       IF( N.EQ.0 ) RETURN
 
@@ -130,8 +130,8 @@
          DO 30 J = 1, N - 1
             DO 20 I = J + 1, N
                IF( H( I, J ).NE.CZERO ) RESULT( 1+RSUB ) = ULPINV
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
 
          // Test (2) or (8): Compute norm(A - Q*H*Q') / (norm(A) * N * ULP)
 
@@ -169,7 +169,7 @@
          RESULT( 4+RSUB ) = ZERO
          for (I = 1; I <= N; I++) { // 40
             IF( H( I, I ).NE.W( I ) ) RESULT( 4+RSUB ) = ULPINV
-   40    CONTINUE
+         } // 40
 
          // Do Test (5) or Test (11)
 
@@ -190,15 +190,15 @@
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 5+RSUB ) = ULPINV
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // Do Test (6) or Test (12)
 
          RESULT( 6+RSUB ) = ZERO
          for (I = 1; I <= N; I++) { // 70
             IF( W( I ).NE.WT( I ) ) RESULT( 6+RSUB ) = ULPINV
-   70    CONTINUE
+         } // 70
 
          // Do Test (13)
 
@@ -210,11 +210,11 @@
                if ( I.LT.N ) {
                   IF( CSLECT( W( I+1 ) ) .AND. ( .NOT.CSLECT( W( I ) ) ) )RESULT( 13 ) = ULPINV
                }
-   80       CONTINUE
+            } // 80
             IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
          }
 
-   90 CONTINUE
+      } // 90
 
       // If there is enough workspace, perform tests (14) and (15)
       // as well as (10) through (13)
@@ -246,8 +246,8 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 100
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  100       CONTINUE
-  110    CONTINUE
+            } // 100
+         } // 110
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute both RCONDE and RCONDV without VS, and compare
@@ -276,8 +276,8 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 120
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  120       CONTINUE
-  130    CONTINUE
+            } // 120
+         } // 130
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDE with VS, and compare
@@ -305,8 +305,8 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 140
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  140       CONTINUE
-  150    CONTINUE
+            } // 140
+         } // 150
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDE without VS, and compare
@@ -334,8 +334,8 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 160
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  160       CONTINUE
-  170    CONTINUE
+            } // 160
+         } // 170
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDV with VS, and compare
@@ -363,8 +363,8 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 180
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  180       CONTINUE
-  190    CONTINUE
+            } // 180
+         } // 190
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
          // Compute RCONDV without VS, and compare
@@ -392,13 +392,13 @@
             IF( W( I ).NE.WT( I ) ) RESULT( 10 ) = ULPINV
             for (J = 1; J <= N; J++) { // 200
                IF( H( I, J ).NE.HT( I, J ) ) RESULT( 11 ) = ULPINV                IF( VS( I, J ).NE.VS1( I, J ) ) RESULT( 12 ) = ULPINV
-  200       CONTINUE
-  210    CONTINUE
+            } // 200
+         } // 210
          IF( SDIM.NE.SDIM1 ) RESULT( 13 ) = ULPINV
 
       }
 
-  220 CONTINUE
+      } // 220
 
       // If there are precomputed reciprocal condition numbers, compare
       // computed values with them.
@@ -417,7 +417,7 @@
             SELVAL( I ) = .FALSE.
             SELWR( I ) = REAL( WTMP( I ) )
             SELWI( I ) = AIMAG( WTMP( I ) )
-  230    CONTINUE
+         } // 230
          DO 250 I = 1, N - 1
             KMIN = I
             if ( ISRT.EQ.0 ) {
@@ -435,17 +435,17 @@
                   KMIN = J
                   VRIMIN = VRICMP
                }
-  240       CONTINUE
+            } // 240
             CTMP = WTMP( KMIN )
             WTMP( KMIN ) = WTMP( I )
             WTMP( I ) = CTMP
             ITMP = IPNT( I )
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
-  250    CONTINUE
+         } // 250
          for (I = 1; I <= NSLCT; I++) { // 260
             SELVAL( IPNT( ISLCT( I ) ) ) = .TRUE.
-  260    CONTINUE
+         } // 260
 
          // Compute condition numbers
 
@@ -516,7 +516,7 @@
             RESULT( 17 ) = ONE
          }
 
-  270    CONTINUE
+         } // 270
 
       }
 

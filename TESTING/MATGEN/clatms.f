@@ -181,7 +181,7 @@
 
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
-   10 CONTINUE
+      } // 10
 
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
@@ -211,7 +211,7 @@
          TEMP = ABS( D( 1 ) )
          for (I = 2; I <= MNMIN; I++) { // 20
             TEMP = MAX( TEMP, ABS( D( I ) ) )
-   20    CONTINUE
+         } // 20
 
          if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
@@ -261,7 +261,7 @@
       if ( LLB.EQ.0 .AND. UUB.EQ.0 ) {
          for (J = 1; J <= MNMIN; J++) { // 30
             A( ( 1-ISKEW )*J+IOFFST, J ) = CMPLX( D( J ) )
-   30    CONTINUE
+         } // 30
 
          IF( IPACK.LE.2 .OR. IPACK.GE.5 ) IPACKG = IPACK
 
@@ -282,7 +282,7 @@
 
             for (J = 1; J <= MNMIN; J++) { // 40
                A( ( 1-ISKEW )*J+IOFFST, J ) = CMPLX( D( J ) )
-   40       CONTINUE
+            } // 40
 
             if ( TOPDWN ) {
                JKL = 0
@@ -333,9 +333,9 @@
                            IC = ICOL
                            IR = IROW
                         }
-   50                CONTINUE
-   60             CONTINUE
-   70          CONTINUE
+                     } // 50
+                  } // 60
+               } // 70
 
                JKU = UUB
                for (JKL = 1; JKL <= LLB; JKL++) { // 100
@@ -381,9 +381,9 @@
                            IC = ICOL
                            IR = IROW
                         }
-   80                CONTINUE
-   90             CONTINUE
-  100          CONTINUE
+                     } // 80
+                  } // 90
+               } // 100
 
             } else {
 
@@ -435,9 +435,9 @@
                            clarot(.FALSE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( JCH-ISKEW*ICOL+IOFFST, ICOL ), ILDA, CTEMP, EXTRA );
                            IC = ICOL
                         }
-  110                CONTINUE
-  120             CONTINUE
-  130          CONTINUE
+                     } // 110
+                  } // 120
+               } // 130
 
                JKU = UUB
                for (JKL = 1; JKL <= LLB; JKL++) { // 160
@@ -485,9 +485,9 @@
                            clarot(.TRUE., .TRUE., JCH+JKL+JKU.LE.IENDCH, IL, C, S, A( IROW-ISKEW*JCH+IOFFST, JCH ), ILDA, CTEMP, EXTRA );
                            IR = IROW
                         }
-  140                CONTINUE
-  150             CONTINUE
-  160          CONTINUE
+                     } // 140
+                  } // 150
+               } // 160
 
             }
 
@@ -512,7 +512,7 @@
 
                for (J = 1; J <= MNMIN; J++) { // 170
                   A( ( 1-ISKEW )*J+IOFFG, J ) = CMPLX( D( J ) )
-  170          CONTINUE
+               } // 170
 
                for (K = 1; K <= UUB; K++) { // 200
                   DO 190 JC = 1, N - 1
@@ -556,9 +556,9 @@
                         EXTRA = CZERO
                         clarot(.FALSE., JCH.GT.K, .TRUE., IL, CT, ST, A( IROW-ISKEW*JCH+IOFFG, JCH ), ILDA, EXTRA, CTEMP );
                         ICOL = JCH
-  180                CONTINUE
-  190             CONTINUE
-  200          CONTINUE
+                     } // 180
+                  } // 190
+               } // 200
 
                // If we need lower triangle, copy from upper. Note that
                // the order of copying is chosen to work for 'q' -> 'b'
@@ -569,19 +569,19 @@
                      if ( CSYM ) {
                         DO 210 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
-  210                   CONTINUE
+                        } // 210
                      } else {
                         DO 220 JR = JC, MIN( N, JC+UUB )
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
-  220                   CONTINUE
+                        } // 220
                      }
-  230             CONTINUE
+                  } // 230
                   if ( IPACK.EQ.5 ) {
                      DO 250 JC = N - UUB + 1, N
                         DO 240 JR = N + 2 - JC, UUB + 1
                            A( JR, JC ) = CZERO
-  240                   CONTINUE
-  250                CONTINUE
+                        } // 240
+                     } // 250
                   }
                   if ( IPACKG.EQ.6 ) {
                      IPACKG = IPACK
@@ -602,7 +602,7 @@
 
                for (J = 1; J <= MNMIN; J++) { // 260
                   A( ( 1-ISKEW )*J+IOFFG, J ) = CMPLX( D( J ) )
-  260          CONTINUE
+               } // 260
 
                for (K = 1; K <= UUB; K++) { // 290
                   DO 280 JC = N - 1, 1, -1
@@ -646,9 +646,9 @@
                         EXTRA = CZERO
                         clarot(.FALSE., .TRUE., N-JCH.GT.K, IL, CT, ST, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, CTEMP, EXTRA );
                         ICOL = JCH
-  270                CONTINUE
-  280             CONTINUE
-  290          CONTINUE
+                     } // 270
+                  } // 280
+               } // 290
 
                // If we need upper triangle, copy from lower. Note that
                // the order of copying is chosen to work for 'b' -> 'q'
@@ -659,19 +659,19 @@
                      if ( CSYM ) {
                         DO 300 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR )
-  300                   CONTINUE
+                        } // 300
                      } else {
                         DO 310 JR = JC, MAX( 1, JC-UUB ), -1
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) )
-  310                   CONTINUE
+                        } // 310
                      }
-  320             CONTINUE
+                  } // 320
                   if ( IPACK.EQ.6 ) {
                      for (JC = 1; JC <= UUB; JC++) { // 340
                         DO 330 JR = 1, UUB + 1 - JC
                            A( JR, JC ) = CZERO
-  330                   CONTINUE
-  340                CONTINUE
+                        } // 330
+                     } // 340
                   }
                   if ( IPACKG.EQ.5 ) {
                      IPACKG = IPACK
@@ -687,7 +687,7 @@
                for (JC = 1; JC <= N; JC++) { // 350
                   IROW = IOFFST + ( 1-ISKEW )*JC
                   A( IROW, JC ) = CMPLX( REAL( A( IROW, JC ) ) )
-  350          CONTINUE
+               } // 350
             }
 
          }
@@ -734,8 +734,8 @@
             for (J = 1; J <= M; J++) { // 370
                DO 360 I = J + 1, M
                   A( I, J ) = CZERO
-  360          CONTINUE
-  370       CONTINUE
+               } // 360
+            } // 370
 
          } else if ( IPACK.EQ.2 ) {
 
@@ -744,8 +744,8 @@
             for (J = 2; J <= M; J++) { // 390
                DO 380 I = 1, J - 1
                   A( I, J ) = CZERO
-  380          CONTINUE
-  390       CONTINUE
+               } // 380
+            } // 390
 
          } else if ( IPACK.EQ.3 ) {
 
@@ -761,8 +761,8 @@
                      ICOL = ICOL + 1
                   }
                   A( IROW, ICOL ) = A( I, J )
-  400          CONTINUE
-  410       CONTINUE
+               } // 400
+            } // 410
 
          } else if ( IPACK.EQ.4 ) {
 
@@ -778,8 +778,8 @@
                      ICOL = ICOL + 1
                   }
                   A( IROW, ICOL ) = A( I, J )
-  420          CONTINUE
-  430       CONTINUE
+               } // 420
+            } // 430
 
          } else if ( IPACK.GE.5 ) {
 
@@ -792,14 +792,14 @@
             for (J = 1; J <= UUB; J++) { // 450
                DO 440 I = MIN( J+LLB, M ), 1, -1
                   A( I-J+UUB+1, J ) = A( I, J )
-  440          CONTINUE
-  450       CONTINUE
+               } // 440
+            } // 450
 
             DO 470 J = UUB + 2, N
                DO 460 I = J - UUB, MIN( J+LLB, M )
                   A( I-J+UUB+1, J ) = A( I, J )
-  460          CONTINUE
-  470       CONTINUE
+               } // 460
+            } // 470
          }
 
          // If packed, zero out extraneous elements.
@@ -811,9 +811,9 @@
             for (JC = ICOL; JC <= M; JC++) { // 490
                DO 480 JR = IROW + 1, LDA
                   A( JR, JC ) = CZERO
-  480          CONTINUE
+               } // 480
                IROW = 0
-  490       CONTINUE
+            } // 490
 
          } else if ( IPACK.GE.5 ) {
 
@@ -828,11 +828,11 @@
             for (JC = 1; JC <= N; JC++) { // 520
                DO 500 JR = 1, UUB + 1 - JC
                   A( JR, JC ) = CZERO
-  500          CONTINUE
+               } // 500
                DO 510 JR = MAX( 1, MIN( IR1, IR2-JC ) ), LDA
                   A( JR, JC ) = CZERO
-  510          CONTINUE
-  520       CONTINUE
+               } // 510
+            } // 520
          }
       }
 

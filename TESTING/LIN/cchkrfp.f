@@ -89,7 +89,7 @@
             WRITE( NOUT, FMT = 9995 )' M  ', NVAL( I ), NMAX
             FATAL = .TRUE.
          }
-   10 CONTINUE
+      } // 10
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 
       // Read the values of NRHS
@@ -113,7 +113,7 @@
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
          }
-   30 CONTINUE
+      } // 30
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
       // Read the matrix types
@@ -137,7 +137,7 @@
             WRITE( NOUT, FMT = 9995 )'TYPE', NTVAL( I ), NTYPES
             FATAL = .TRUE.
          }
-  320 CONTINUE
+      } // 320
       IF( NNT.GT.0 ) WRITE( NOUT, FMT = 9993 )'TYPE', ( NTVAL( I ), I = 1, NNT )
 
       // Read the threshold value for the test ratios.

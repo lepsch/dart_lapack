@@ -86,8 +86,8 @@
             S = SIGN( ONE, U( I, LMX ) )*SIGN( ONE, V( I, LMX ) )
             for (J = 1; J <= N; J++) { // 10
                RES1 = MAX( RES1, ABS( U( I, J )-S*V( I, J ) ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          RES1 = RES1 / ( REAL( N )*ULP )
 
          // Compute orthogonality of rows of V.
@@ -104,8 +104,8 @@
             S = SIGN( ONE, U( LMX, I ) )*SIGN( ONE, V( LMX, I ) )
             for (J = 1; J <= N; J++) { // 30
                RES1 = MAX( RES1, ABS( U( J, I )-S*V( J, I ) ) )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          RES1 = RES1 / ( REAL( N )*ULP )
 
          // Compute orthogonality of columns of V.

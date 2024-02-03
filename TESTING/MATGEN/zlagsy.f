@@ -57,11 +57,11 @@
       for (J = 1; J <= N; J++) { // 20
          DO 10 I = J + 1, N
             A( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          A( I, I ) = D( I )
-   30 CONTINUE
+      } // 30
 
       // Generate lower triangle of symmetric matrix
 
@@ -103,9 +103,9 @@
          for (JJ = I; JJ <= N; JJ++) { // 50
             for (II = JJ; II <= N; II++) { // 40
                A( II, JJ ) = A( II, JJ ) - WORK( II-I+1 )*WORK( N+JJ-I+1 ) - WORK( N+II-I+1 )*WORK( JJ-I+1 )
-   40       CONTINUE
-   50    CONTINUE
-   60 CONTINUE
+            } // 40
+         } // 50
+      } // 60
 
       // Reduce number of subdiagonals to K
 
@@ -149,22 +149,22 @@
          DO 80 JJ = K + I, N
             for (II = JJ; II <= N; II++) { // 70
                A( II, JJ ) = A( II, JJ ) - A( II, I )*WORK( JJ-K-I+1 ) - WORK( II-K-I+1 )*A( JJ, I )
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
 
          A( K+I, I ) = -WA
          DO 90 J = K + I + 1, N
             A( J, I ) = ZERO
-   90    CONTINUE
-  100 CONTINUE
+         } // 90
+      } // 100
 
       // Store full symmetric matrix
 
       for (J = 1; J <= N; J++) { // 120
          DO 110 I = J + 1, N
             A( J, I ) = A( I, J )
-  110    CONTINUE
-  120 CONTINUE
+         } // 110
+      } // 120
       RETURN
 
       // End of ZLAGSY

@@ -271,7 +271,7 @@
 
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHAR( I ), ALPHAI( I ), BETA( I ) )
-   10    CONTINUE
+         } // 10
 
          // Reorder eigenvalues, transform Generalized Schur vectors, and
          // compute reciprocal condition numbers
@@ -324,7 +324,7 @@
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
                }
             }
-   20    CONTINUE
+         } // 20
       }
 
       if ( ILBSCL ) {
@@ -337,7 +337,7 @@
                   ALPHAI( I ) = ALPHAI( I )*WORK( 1 )
                }
             }
-   30    CONTINUE
+         } // 30
       }
 
       // Undo scaling
@@ -386,11 +386,11 @@
             }
             LST2SL = LASTSL
             LASTSL = CURSL
-   50    CONTINUE
+         } // 50
 
       }
 
-   60 CONTINUE
+      } // 60
 
       WORK( 1 ) = MAXWRK
       IWORK( 1 ) = LIWMIN

@@ -348,10 +348,10 @@
                            GO TO 2103
                         }
 
- 2002                CONTINUE
+                     } // 2002
       // END q-LOOP
 
- 2103                CONTINUE
+                     } // 2103
       // bailed out of q-loop
 
                      SVA( p ) = AAPP
@@ -361,10 +361,10 @@
                      IF( ( ir1.EQ.0 ) .AND. ( AAPP.EQ.ZERO ) ) NOTROT = NOTROT + MIN( igl+KBL-1, N ) - p
                   }
 
- 2001          CONTINUE
+               } // 2001
       // end of the p-loop
       // end of doing the block ( ibr, ibr )
- 1002       CONTINUE
+            } // 1002
       // end of ir1-loop
 
 *........................................................
@@ -566,9 +566,9 @@
                            GO TO 2203
                         }
 
- 2200                CONTINUE
+                     } // 2200
          // end of the q-loop
- 2203                CONTINUE
+                     } // 2203
 
                      SVA( p ) = AAPP
 
@@ -577,17 +577,17 @@
                      IF( AAPP.LT.ZERO )NOTROT = 0
                   }
 
- 2100          CONTINUE
+               } // 2100
       // end of the p-loop
- 2010       CONTINUE
+            } // 2010
       // end of the jbc-loop
- 2011       CONTINUE
+            } // 2011
 *2011 bailed out of the jbc-loop
             DO 2012 p = igl, MIN( igl+KBL-1, N )
                SVA( p ) = ABS( SVA( p ) )
- 2012       CONTINUE
+            } // 2012
 
- 2000    CONTINUE
+         } // 2000
 *2000 :: end of the ibr-loop
 
       // .. update SVA(N)
@@ -610,19 +610,19 @@
 
          IF( NOTROT.GE.EMPTSW )GO TO 1994
 
- 1993 CONTINUE
+      } // 1993
       // end i=1:NSWEEP loop
 * #:) Reaching this point means that the procedure has completed the given
       // number of iterations.
       INFO = NSWEEP - 1
       GO TO 1995
- 1994 CONTINUE
+      } // 1994
 * #:) Reaching this point means that during the i-th sweep all pivots were
       // below the given tolerance, causing early exit.
 
       INFO = 0
 * #:) INFO = 0 confirms successful iterations.
- 1995 CONTINUE
+      } // 1995
 
       // Sort the vector D.
       DO 5991 p = 1, N - 1
@@ -637,7 +637,7 @@
             sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
             IF( RSVEC )CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 )
          }
- 5991 CONTINUE
+      } // 5991
 
       RETURN
       // ..

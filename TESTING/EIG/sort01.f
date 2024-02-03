@@ -82,8 +82,8 @@
                }
                TMP = TMP - SDOT( M, U( 1, I ), 1, U( 1, J ), 1 )
                RESID = MAX( RESID, ABS( TMP ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          RESID = ( RESID / REAL( M ) ) / EPS
       } else {
 
@@ -98,8 +98,8 @@
                }
                TMP = TMP - SDOT( N, U( J, 1 ), LDU, U( I, 1 ), LDU )
                RESID = MAX( RESID, ABS( TMP ) )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          RESID = ( RESID / REAL( N ) ) / EPS
       }
       RETURN

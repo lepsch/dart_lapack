@@ -72,7 +72,7 @@
          // multiply A(1:n,i:n) by random reflection from the right
 
          sgemv('No transpose', N, N-I+1, ONE, A( 1, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )          CALL SGER( N, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( 1, I ), LDA );
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of SLARGE

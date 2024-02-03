@@ -80,7 +80,7 @@
                zaxpy(I-1, ALPHA, A( 1, I ), 1, W( 1, IW ), 1 );
             }
 
-   10    CONTINUE
+         } // 10
       } else {
 
          // Reduce first NB columns of lower triangle
@@ -116,7 +116,7 @@
                zaxpy(N-I, ALPHA, A( I+1, I ), 1, W( I+1, I ), 1 );
             }
 
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

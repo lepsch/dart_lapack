@@ -76,7 +76,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -141,7 +141,7 @@
                if ( IMAT.LT.7 ) {
                   for (I = 1; I <= N; I++) { // 20
                      A( IOFF+I ) = ZERO
-   20             CONTINUE
+                  } // 20
                } else {
                   dlaset('Full', N, N-IZERO+1, ZERO, ZERO, A( IOFF+1 ), LDA );
                }
@@ -312,7 +312,7 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'DGESV ', N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   30                   CONTINUE
+                        } // 30
                         NRUN = NRUN + NT
                      }
 
@@ -415,7 +415,7 @@
                               }
                               NFAIL = NFAIL + 1
                            }
-   40                   CONTINUE
+                        } // 40
                         NRUN = NRUN + NTESTS - K1 + 1
                      } else {
                         IF( RESULT( 1 ).GE.THRESH .AND. .NOT.PREFAC ) THEN                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )
@@ -450,11 +450,11 @@
 
                      }
 
-   50             CONTINUE
-   60          CONTINUE
-   70       CONTINUE
-   80    CONTINUE
-   90 CONTINUE
+                  } // 50
+               } // 60
+            } // 70
+         } // 80
+      } // 90
 
       // Print a summary of the results.
 

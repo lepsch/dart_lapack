@@ -89,7 +89,7 @@
       KD = KL + KU + 1
       LNOTI = KL.GT.0
       KASE = 0
-   10 CONTINUE
+      } // 10
       slacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
       if ( KASE.NE.0 ) {
          if ( KASE.EQ.KASE1 ) {
@@ -106,7 +106,7 @@
                      WORK( J ) = T
                   }
                   saxpy(LM, -T, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
-   20          CONTINUE
+               } // 20
             }
 
             // Multiply by inv(U).
@@ -130,7 +130,7 @@
                      WORK( JP ) = WORK( J )
                      WORK( J ) = T
                   }
-   30          CONTINUE
+               } // 30
             }
          }
 
@@ -149,7 +149,7 @@
 
       IF( AINVNM.NE.ZERO ) RCOND = ( ONE / AINVNM ) / ANORM
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of SGBCON

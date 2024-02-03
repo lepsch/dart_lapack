@@ -79,7 +79,7 @@
 
             cgeru(M-J, N-J, -ONE, A( J+1, J ), 1, A( J, J+1 ), LDA, A( J+1, J+1 ), LDA );
          }
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of CGETF2

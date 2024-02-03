@@ -73,7 +73,7 @@
             for (J = 1; J <= N; J++) { // 10
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
-   10       CONTINUE
+            } // 10
             if ( SMIN.LE.ZERO ) {
                INFO = -10
             } else if ( N.GT.0 ) {
@@ -116,8 +116,8 @@
          for (J = 1; J <= NRHS; J++) { // 30
             for (I = 1; I <= N; I++) { // 20
                B( I, J ) = S( I )*B( I, J )
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
       }
 
       if ( NOFACT .OR. EQUIL ) {
@@ -160,11 +160,11 @@
          for (J = 1; J <= NRHS; J++) { // 50
             for (I = 1; I <= N; I++) { // 40
                X( I, J ) = S( I )*X( I, J )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          for (J = 1; J <= NRHS; J++) { // 60
             FERR( J ) = FERR( J ) / SCOND
-   60    CONTINUE
+         } // 60
       }
 
       // Set INFO = N+1 if the matrix is singular to working precision.

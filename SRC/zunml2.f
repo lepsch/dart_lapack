@@ -118,7 +118,7 @@
          zlarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
          IF( I.LT.NQ ) CALL ZLACGV( NQ-I, A( I, I+1 ), LDA )
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZUNML2

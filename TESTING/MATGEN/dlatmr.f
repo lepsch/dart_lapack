@@ -159,7 +159,7 @@
       if ( IGRADE.EQ.4 .AND. MODEL.EQ.0 ) {
          for (I = 1; I <= M; I++) { // 10
             IF( DL( I ).EQ.ZERO ) DZERO = .TRUE.
-   10    CONTINUE
+         } // 10
       }
 
       // Check values in IPIVOT
@@ -168,7 +168,7 @@
       if ( IPVTNG.GT.0 ) {
          for (J = 1; J <= NPVTS; J++) { // 20
             IF( IPIVOT( J ).LE.0 .OR. IPIVOT( J ).GT.NPVTS ) BADPVT = .TRUE.
-   20    CONTINUE
+         } // 20
       }
 
       // Set INFO if an error
@@ -231,7 +231,7 @@
 
       for (I = 1; I <= 4; I++) { // 30
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
-   30 CONTINUE
+      } // 30
 
       ISEED( 4 ) = 2*( ISEED( 4 ) / 2 ) + 1
 
@@ -251,7 +251,7 @@
          TEMP = ABS( D( 1 ) )
          for (I = 2; I <= MNMIN; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
-   40    CONTINUE
+         } // 40
          if ( TEMP.EQ.ZERO .AND. DMAX.NE.ZERO ) {
             INFO = 2
             RETURN
@@ -263,7 +263,7 @@
          }
          for (I = 1; I <= MNMIN; I++) { // 50
             D( I ) = ALPHA*D( I )
-   50    CONTINUE
+         } // 50
 
       }
 
@@ -292,21 +292,21 @@
       if ( IPVTNG.GT.0 ) {
          for (I = 1; I <= NPVTS; I++) { // 60
             IWORK( I ) = I
-   60    CONTINUE
+         } // 60
          if ( FULBND ) {
             for (I = 1; I <= NPVTS; I++) { // 70
                K = IPIVOT( I )
                J = IWORK( I )
                IWORK( I ) = IWORK( K )
                IWORK( K ) = J
-   70       CONTINUE
+            } // 70
          } else {
             DO 80 I = NPVTS, 1, -1
                K = IPIVOT( I )
                J = IWORK( I )
                IWORK( I ) = IWORK( K )
                IWORK( K ) = J
-   80       CONTINUE
+            } // 80
          }
       }
 
@@ -327,15 +327,15 @@
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
                      A( JSUB, ISUB ) = TEMP
-   90             CONTINUE
-  100          CONTINUE
+                  } // 90
+               } // 100
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 120
                   for (I = 1; I <= M; I++) { // 110
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB, JSUB ) = TEMP
-  110             CONTINUE
-  120          CONTINUE
+                  } // 110
+               } // 120
             }
 
          } else if ( IPACK.EQ.1 ) {
@@ -347,8 +347,8 @@
                   MXSUB = MAX( ISUB, JSUB )
                   A( MNSUB, MXSUB ) = TEMP
                   IF( MNSUB.NE.MXSUB ) A( MXSUB, MNSUB ) = ZERO
-  130          CONTINUE
-  140       CONTINUE
+               } // 130
+            } // 140
 
          } else if ( IPACK.EQ.2 ) {
 
@@ -359,8 +359,8 @@
                   MXSUB = MAX( ISUB, JSUB )
                   A( MXSUB, MNSUB ) = TEMP
                   IF( MNSUB.NE.MXSUB ) A( MNSUB, MXSUB ) = ZERO
-  150          CONTINUE
-  160       CONTINUE
+               } // 150
+            } // 160
 
          } else if ( IPACK.EQ.3 ) {
 
@@ -381,8 +381,8 @@
                   IISUB = K - LDA*( JJSUB-1 )
 
                   A( IISUB, JJSUB ) = TEMP
-  170          CONTINUE
-  180       CONTINUE
+               } // 170
+            } // 180
 
          } else if ( IPACK.EQ.4 ) {
 
@@ -406,8 +406,8 @@
                   IISUB = K - LDA*( JJSUB-1 )
 
                   A( IISUB, JJSUB ) = TEMP
-  190          CONTINUE
-  200       CONTINUE
+               } // 190
+            } // 200
 
          } else if ( IPACK.EQ.5 ) {
 
@@ -421,8 +421,8 @@
                      MXSUB = MAX( ISUB, JSUB )
                      A( MXSUB-MNSUB+1, MNSUB ) = TEMP
                   }
-  210          CONTINUE
-  220       CONTINUE
+               } // 210
+            } // 220
 
          } else if ( IPACK.EQ.6 ) {
 
@@ -432,8 +432,8 @@
                   MNSUB = MIN( ISUB, JSUB )
                   MXSUB = MAX( ISUB, JSUB )
                   A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
-  230          CONTINUE
-  240       CONTINUE
+               } // 230
+            } // 240
 
          } else if ( IPACK.EQ.7 ) {
 
@@ -445,15 +445,15 @@
                      MXSUB = MAX( ISUB, JSUB )
                      A( MNSUB-MXSUB+KUU+1, MXSUB ) = TEMP
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. MNSUB.NE.MXSUB ) A( MXSUB-MNSUB+1+KUU, MNSUB ) = TEMP
-  250             CONTINUE
-  260          CONTINUE
+                  } // 250
+               } // 260
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 280
                   DO 270 I = J - KUU, J + KLL
                      TEMP = DLATM3( M, N, I, J, ISUB, JSUB, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( ISUB-JSUB+KUU+1, JSUB ) = TEMP
-  270             CONTINUE
-  280          CONTINUE
+                  } // 270
+               } // 280
             }
 
          }
@@ -468,14 +468,14 @@
                   for (I = 1; I <= J; I++) { // 290
                      A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      A( J, I ) = A( I, J )
-  290             CONTINUE
-  300          CONTINUE
+                  } // 290
+               } // 300
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 320
                   for (I = 1; I <= M; I++) { // 310
                      A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  310             CONTINUE
-  320          CONTINUE
+                  } // 310
+               } // 320
             }
 
          } else if ( IPACK.EQ.1 ) {
@@ -483,16 +483,16 @@
             for (J = 1; J <= N; J++) { // 340
                for (I = 1; I <= J; I++) { // 330
                   A( I, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( J, I ) = ZERO
-  330          CONTINUE
-  340       CONTINUE
+               } // 330
+            } // 340
 
          } else if ( IPACK.EQ.2 ) {
 
             for (J = 1; J <= N; J++) { // 360
                for (I = 1; I <= J; I++) { // 350
                   A( J, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )                   IF( I.NE.J ) A( I, J ) = ZERO
-  350          CONTINUE
-  360       CONTINUE
+               } // 350
+            } // 360
 
          } else if ( IPACK.EQ.3 ) {
 
@@ -506,8 +506,8 @@
                      JSUB = JSUB + 1
                   }
                   A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  370          CONTINUE
-  380       CONTINUE
+               } // 370
+            } // 380
 
          } else if ( IPACK.EQ.4 ) {
 
@@ -529,8 +529,8 @@
                      ISUB = K - LDA*( JSUB-1 )
 
                      A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  390             CONTINUE
-  400          CONTINUE
+                  } // 390
+               } // 400
             } else {
                ISUB = 0
                JSUB = 1
@@ -542,8 +542,8 @@
                         JSUB = JSUB + 1
                      }
                      A( ISUB, JSUB ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  410             CONTINUE
-  420          CONTINUE
+                  } // 410
+               } // 420
             }
 
          } else if ( IPACK.EQ.5 ) {
@@ -555,16 +555,16 @@
                   } else {
                      A( J-I+1, I ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                   }
-  430          CONTINUE
-  440       CONTINUE
+               } // 430
+            } // 440
 
          } else if ( IPACK.EQ.6 ) {
 
             for (J = 1; J <= N; J++) { // 460
                DO 450 I = J - KUU, J
                   A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  450          CONTINUE
-  460       CONTINUE
+               } // 450
+            } // 460
 
          } else if ( IPACK.EQ.7 ) {
 
@@ -573,14 +573,14 @@
                   DO 470 I = J - KUU, J
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
                      IF( I.LT.1 ) A( J-I+1+KUU, I+N ) = ZERO                      IF( I.GE.1 .AND. I.NE.J ) A( J-I+1+KUU, I ) = A( I-J+KUU+1, J )
-  470             CONTINUE
-  480          CONTINUE
+                  } // 470
+               } // 480
             } else if ( ISYM.EQ.1 ) {
                for (J = 1; J <= N; J++) { // 500
                   DO 490 I = J - KUU, J + KLL
                      A( I-J+KUU+1, J ) = DLATM2( M, N, I, J, KL, KU, IDIST, ISEED, D, IGRADE, DL, DR, IPVTNG, IWORK, SPARSE )
-  490             CONTINUE
-  500          CONTINUE
+                  } // 490
+               } // 500
             }
 
          }
@@ -624,7 +624,7 @@
                for (J = 1; J <= N; J++) { // 510
                   dscal(M, ONE / ONORM, A( 1, J ), 1 );
                   dscal(M, ANORM, A( 1, J ), 1 );
-  510          CONTINUE
+               } // 510
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
@@ -636,7 +636,7 @@
                for (J = 1; J <= N; J++) { // 520
                   dscal(KLL+KUU+1, ONE / ONORM, A( 1, J ), 1 );
                   dscal(KLL+KUU+1, ANORM, A( 1, J ), 1 );
-  520          CONTINUE
+               } // 520
 
             }
 
@@ -647,7 +647,7 @@
             if ( IPACK.LE.2 ) {
                for (J = 1; J <= N; J++) { // 530
                   dscal(M, ANORM / ONORM, A( 1, J ), 1 );
-  530          CONTINUE
+               } // 530
 
             } else if ( IPACK.EQ.3 .OR. IPACK.EQ.4 ) {
 
@@ -657,7 +657,7 @@
 
                for (J = 1; J <= N; J++) { // 540
                   dscal(KLL+KUU+1, ANORM / ONORM, A( 1, J ), 1 );
-  540          CONTINUE
+               } // 540
             }
 
          }

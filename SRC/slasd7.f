@@ -78,7 +78,7 @@
          VF( I+1 ) = VF( I )
          D( I+1 ) = D( I )
          IDXQ( I+1 ) = IDXQ( I ) + 1
-   10 CONTINUE
+      } // 10
       VF( 1 ) = TAU
 
       // Generate the second part of the vector Z.
@@ -86,13 +86,13 @@
       for (I = NLP2; I <= M; I++) { // 20
          Z( I ) = BETA*VF( I )
          VF( I ) = ZERO
-   20 CONTINUE
+      } // 20
 
       // Sort the singular values into increasing order
 
       for (I = NLP2; I <= N; I++) { // 30
          IDXQ( I ) = IDXQ( I ) + NLP1
-   30 CONTINUE
+      } // 30
 
       // DSIGMA, IDXC, IDXC, and ZW are used as storage space.
 
@@ -101,7 +101,7 @@
          ZW( I ) = Z( IDXQ( I ) )
          VFW( I ) = VF( IDXQ( I ) )
          VLW( I ) = VL( IDXQ( I ) )
-   40 CONTINUE
+      } // 40
 
       slamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
@@ -111,7 +111,7 @@
          Z( I ) = ZW( IDXI )
          VF( I ) = VFW( IDXI )
          VL( I ) = VLW( IDXI )
-   50 CONTINUE
+      } // 50
 
       // Calculate the allowable deflation tolerance
 
@@ -152,10 +152,10 @@
             JPREV = J
             GO TO 70
          }
-   60 CONTINUE
-   70 CONTINUE
+      } // 60
+      } // 70
       J = JPREV
-   80 CONTINUE
+      } // 80
       J = J + 1
       IF( J.GT.N ) GO TO 90
       if ( ABS( Z( J ) ).LE.TOL ) {
@@ -215,7 +215,7 @@
          }
       }
       GO TO 80
-   90 CONTINUE
+      } // 90
 
       // Record the last singular value.
 
@@ -224,7 +224,7 @@
       DSIGMA( K ) = D( JPREV )
       IDXP( K ) = JPREV
 
-  100 CONTINUE
+      } // 100
 
       // Sort the singular values into DSIGMA. The singular values which
       // were not deflated go into the first K slots of DSIGMA, except
@@ -235,7 +235,7 @@
          DSIGMA( J ) = D( JP )
          VFW( J ) = VF( JP )
          VLW( J ) = VL( JP )
-  110 CONTINUE
+      } // 110
       if ( ICOMPQ.EQ.1 ) {
          for (J = 2; J <= N; J++) { // 120
             JP = IDXP( J )
@@ -243,7 +243,7 @@
             if ( PERM( J ).LE.NLP1 ) {
                PERM( J ) = PERM( J ) - 1
             }
-  120    CONTINUE
+         } // 120
       }
 
       // The deflated singular values go back into the last N - K slots of

@@ -34,7 +34,7 @@
       } else if ( M.EQ.N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -49,7 +49,7 @@
 
          dlarz('Right', I-1, N-I+1, L, A( I, N-L+1 ), LDA, TAU( I ), A( 1, I ), LDA, WORK );
 
-   20 CONTINUE
+      } // 20
 
       RETURN
 

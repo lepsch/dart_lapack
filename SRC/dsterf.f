@@ -70,17 +70,17 @@
 
       L1 = 1
 
-   10 CONTINUE
+      } // 10
       IF( L1.GT.N ) GO TO 170       IF( L1.GT.1 ) E( L1-1 ) = ZERO
       DO 20 M = L1, N - 1
          if ( ABS( E( M ) ).LE.( SQRT( ABS( D( M ) ) )*SQRT( ABS( D( M+ 1 ) ) ) )*EPS ) {
             E( M ) = ZERO
             GO TO 30
          }
-   20 CONTINUE
+      } // 20
       M = N
 
-   30 CONTINUE
+      } // 30
       L = L1
       LSV = L
       LEND = M
@@ -103,7 +103,7 @@
 
       DO 40 I = L, LEND - 1
          E( I ) = E( I )**2
-   40 CONTINUE
+      } // 40
 
       // Choose between QL and QR iteration
 
@@ -118,15 +118,15 @@
 
          // Look for small subdiagonal element.
 
-   50    CONTINUE
+         } // 50
          if ( L.NE.LEND ) {
             DO 60 M = L, LEND - 1
                IF( ABS( E( M ) ).LE.EPS2*ABS( D( M )*D( M+1 ) ) ) GO TO 70
-   60       CONTINUE
+            } // 60
          }
          M = LEND
 
-   70    CONTINUE
+         } // 70
          IF( M.LT.LEND ) E( M ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 90
@@ -178,7 +178,7 @@
             } else {
                P = OLDC*BB
             }
-   80    CONTINUE
+         } // 80
 
          E( L ) = S*P
          D( L ) = SIGMA + GAMMA
@@ -186,7 +186,7 @@
 
          // Eigenvalue found.
 
-   90    CONTINUE
+         } // 90
          D( L ) = P
 
          L = L + 1
@@ -199,13 +199,13 @@
 
          // Look for small superdiagonal element.
 
-  100    CONTINUE
+         } // 100
          DO 110 M = L, LEND + 1, -1
             IF( ABS( E( M-1 ) ).LE.EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120
-  110    CONTINUE
+         } // 110
          M = LEND
 
-  120    CONTINUE
+         } // 120
          IF( M.GT.LEND ) E( M-1 ) = ZERO
          P = D( L )
          IF( M.EQ.L ) GO TO 140
@@ -257,7 +257,7 @@
             } else {
                P = OLDC*BB
             }
-  130    CONTINUE
+         } // 130
 
          E( L-1 ) = S*P
          D( L ) = SIGMA + GAMMA
@@ -265,7 +265,7 @@
 
          // Eigenvalue found.
 
-  140    CONTINUE
+         } // 140
          D( L ) = P
 
          L = L - 1
@@ -276,7 +276,7 @@
 
       // Undo scaling if necessary
 
-  150 CONTINUE
+      } // 150
       IF( ISCALE.EQ.1 ) CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )       IF( ISCALE.EQ.2 ) CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO )
 
       // Check for no convergence to an eigenvalue after a total
@@ -285,15 +285,15 @@
       IF( JTOT.LT.NMAXIT ) GO TO 10
       DO 160 I = 1, N - 1
          IF( E( I ).NE.ZERO ) INFO = INFO + 1
-  160 CONTINUE
+      } // 160
       GO TO 180
 
       // Sort eigenvalues in increasing order.
 
-  170 CONTINUE
+      } // 170
       dlasrt('I', N, D, INFO );
 
-  180 CONTINUE
+      } // 180
       RETURN
 
       // End of DSTERF

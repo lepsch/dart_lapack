@@ -73,7 +73,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -137,7 +137,7 @@
                   if ( IMAT.LT.7 ) {
                      for (I = 1; I <= M; I++) { // 20
                         A( IOFF+I ) = ZERO
-   20                CONTINUE
+                     } // 20
                   } else {
                      zlaset('Full', M, N-IZERO+1, DCMPLX( ZERO ), DCMPLX( ZERO ), A( IOFF+1 ), LDA );
                   }
@@ -226,7 +226,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   30             CONTINUE
+                  } // 30
                   NRUN = NRUN + NT
 
                   // Skip the remaining tests if this is not the first
@@ -290,15 +290,15 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   40                   CONTINUE
+                        } // 40
                         NRUN = NRUN + 5
-   50                CONTINUE
-   60             CONTINUE
+                     } // 50
+                  } // 60
 
 *+    TEST 8
                      // Get an estimate of RCOND = 1/CNDNUM.
 
-   70             CONTINUE
+                  } // 70
                   for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 80
                      if ( ITRAN.EQ.1 ) {
                         ANORM = ANORMO
@@ -330,12 +330,12 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
-   80             CONTINUE
-   90          CONTINUE
-  100       CONTINUE
+                  } // 80
+               } // 90
+            } // 100
 
-  110    CONTINUE
-  120 CONTINUE
+         } // 110
+      } // 120
 
       // Print a summary of the results.
 

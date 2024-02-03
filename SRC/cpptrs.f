@@ -65,7 +65,7 @@
             // Solve U*X = B, overwriting B with X.
 
             ctpsv('Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
-   10    CONTINUE
+         } // 10
       } else {
 
          // Solve A*X = B where A = L * L**H.
@@ -79,7 +79,7 @@
             // Solve L**H *X = Y, overwriting B with X.
 
             ctpsv('Lower', 'Conjugate transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

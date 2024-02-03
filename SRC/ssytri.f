@@ -65,14 +65,14 @@
 
          DO 10 INFO = N, 1, -1
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
-   10    CONTINUE
+         } // 10
       } else {
 
          // Lower triangular storage: examine D from top to bottom.
 
          for (INFO = 1; INFO <= N; INFO++) { // 20
             IF( IPIV( INFO ).GT.0 .AND. A( INFO, INFO ).EQ.ZERO ) RETURN
-   20    CONTINUE
+         } // 20
       }
       INFO = 0
 
@@ -84,7 +84,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = 1
-   30    CONTINUE
+         } // 30
 
          // If K > N, exit from loop.
 
@@ -151,7 +151,7 @@
 
          K = K + KSTEP
          GO TO 30
-   40    CONTINUE
+         } // 40
 
       } else {
 
@@ -161,7 +161,7 @@
          // 1 or 2, depending on the size of the diagonal blocks.
 
          K = N
-   50    CONTINUE
+         } // 50
 
          // If K < 1, exit from loop.
 
@@ -228,7 +228,7 @@
 
          K = K - KSTEP
          GO TO 50
-   60    CONTINUE
+         } // 60
       }
 
       RETURN

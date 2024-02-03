@@ -72,7 +72,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       NBLOCK = ILAENV( 1, 'ZHETRD', 'L', NMAX, -1, -1, -1 )
       NBLOCK = MIN( NMAX, MAX( 1, NBLOCK ) )
@@ -116,7 +116,7 @@
 
       for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
-   20 CONTINUE
+      } // 20
       NERRS = 0
       NMATS = 0
 
@@ -149,7 +149,7 @@
 
             for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
-   30       CONTINUE
+            } // 30
 
             // Compute "A"
 
@@ -176,19 +176,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
@@ -211,7 +211,7 @@
 
                for (JC = 1; JC <= N; JC++) { // 80
                   A( JC, JC ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -256,7 +256,7 @@
                      A( I-1, I ) = A( I-1, I )* ( HALF*TEMP2 / ( UNFL+TEMP1 ) )
                      A( I, I-1 ) = DCONJG( A( I-1, I ) )
                   }
-   90          CONTINUE
+               } // 90
 
             } else {
 
@@ -269,7 +269,7 @@
                RETURN
             }
 
-  100       CONTINUE
+            } // 100
 
             // Call ZHETRD and ZUNGTR to compute S and U from
             // upper triangle.
@@ -403,7 +403,7 @@
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
                TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) )
-  151       CONTINUE
+            } // 151
 
             RESULT( 3 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             RESULT( 4 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
@@ -415,8 +415,8 @@
                for (JR = 1; JR <= JC; JR++) { // 110
                   I = I + 1
                   AP( I ) = A( JR, JC )
-  110          CONTINUE
-  120       CONTINUE
+               } // 110
+            } // 120
 
             // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
@@ -460,8 +460,8 @@
                for (JR = JC; JR <= N; JR++) { // 130
                   I = I + 1
                   AP( I ) = A( JR, JC )
-  130          CONTINUE
-  140       CONTINUE
+               } // 130
+            } // 140
 
             // Call ZHPTRD and ZUPGTR to compute S and U from AP
 
@@ -569,7 +569,7 @@
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
                TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) )
-  150       CONTINUE
+            } // 150
 
             RESULT( 11 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             RESULT( 12 ) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
@@ -584,9 +584,9 @@
                dstech(N, SD, SE, D1, TEMP1, RWORK, IINFO );
                IF( IINFO.EQ.0 ) GO TO 170
                TEMP1 = TEMP1*TWO
-  160       CONTINUE
+            } // 160
 
-  170       CONTINUE
+            } // 170
             RESULT( 13 ) = TEMP1
 
             // For positive definite matrices ( JTYPE.GT.15 ) call ZPTEQR
@@ -642,7 +642,7 @@
                for (J = 1; J <= N; J++) { // 180
                   TEMP1 = MAX( TEMP1, ABS( D4( J ) ), ABS( D5( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D4( J )-D5( J ) ) )
-  180          CONTINUE
+               } // 180
 
                RESULT( 16 ) = TEMP2 / MAX( UNFL, HUN*ULP*MAX( TEMP1, TEMP2 ) )
             } else {
@@ -682,7 +682,7 @@
                TEMP1 = ZERO
                for (J = 1; J <= N; J++) { // 190
                   TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
-  190          CONTINUE
+               } // 190
 
                RESULT( 17 ) = TEMP1 / TEMP2
             } else {
@@ -712,7 +712,7 @@
             for (J = 1; J <= N; J++) { // 200
                TEMP1 = MAX( TEMP1, ABS( D3( J ) ), ABS( WA1( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D3( J )-WA1( J ) ) )
-  200       CONTINUE
+            } // 200
 
             RESULT( 18 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
@@ -909,7 +909,7 @@
             for (J = 1; J <= N; J++) { // 210
                TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
-  210       CONTINUE
+            } // 210
 
             RESULT( 26 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
@@ -948,7 +948,7 @@
                   TEMP1 = ZERO
                   for (J = 1; J <= N; J++) { // 220
                      TEMP1 = MAX( TEMP1, ABS( D4( J )-WR( N-J+1 ) ) / ( ABSTOL+ABS( D4( J ) ) ) )
-  220             CONTINUE
+                  } // 220
 
                   RESULT( 27 ) = TEMP1 / TEMP2
 
@@ -983,7 +983,7 @@
                      TEMP1 = ZERO
                      for (J = IL; J <= IU; J++) { // 230
                         TEMP1 = MAX( TEMP1, ABS( WR( J-IL+1 )-D4( N-J+ 1 ) ) / ( ABSTOL+ABS( WR( J-IL+1 ) ) ) )
-  230                CONTINUE
+                     } // 230
 
                      RESULT( 28 ) = TEMP1 / TEMP2
                   } else {
@@ -1053,7 +1053,7 @@
                   DO 240 J = 1, IU - IL + 1
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
-  240             CONTINUE
+                  } // 240
 
                   RESULT( 31 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
@@ -1127,7 +1127,7 @@
                   DO 250 J = 1, IU - IL + 1
                      TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
-  250             CONTINUE
+                  } // 250
 
                   RESULT( 34 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
                } else {
@@ -1192,12 +1192,12 @@
                for (J = 1; J <= N; J++) { // 260
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
-  260          CONTINUE
+               } // 260
 
                RESULT( 37 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
             }
-  270       CONTINUE
-  280       CONTINUE
+            } // 270
+            } // 280
             NTESTT = NTESTT + NTEST
 
             // End of Loop -- Check for RESULT(j) > THRESH
@@ -1228,9 +1228,9 @@
                      WRITE( NOUNIT, FMT = 9988 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   }
                }
-  290       CONTINUE
-  300    CONTINUE
-  310 CONTINUE
+            } // 290
+         } // 300
+      } // 310
 
       // Summary
 

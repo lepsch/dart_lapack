@@ -60,7 +60,7 @@
             dlarf('Right', M-I, N-I+1, A( I, I ), LDA, TAU( I ), A( I+1, I ), LDA, WORK );
             A( I, I ) = AII
          }
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of DGELQ2

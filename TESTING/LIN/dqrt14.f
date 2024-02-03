@@ -88,8 +88,8 @@
          DO 20 J = N + 1, N + NRHS
             DO 10 I = N + 1, MIN( M, J )
                ERR = MAX( ERR, ABS( WORK( I+( J-1 )*M ) ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
       } else {
 
@@ -98,8 +98,8 @@
          for (I = 1; I <= N; I++) { // 40
             for (J = 1; J <= NRHS; J++) { // 30
                WORK( M+J+( I-1 )*LDWORK ) = X( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
          XNRM = DLANGE( 'M', NRHS, N, WORK( M+1 ), LDWORK, RWORK )
          IF( XNRM.NE.ZERO ) CALL DLASCL( 'G', 0, 0, XNRM, ONE, NRHS, N, WORK( M+1 ), LDWORK, INFO )
@@ -115,8 +115,8 @@
          DO 60 J = M + 1, N
             for (I = J; I <= LDWORK; I++) { // 50
                ERR = MAX( ERR, ABS( WORK( I+( J-1 )*LDWORK ) ) )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
       }
 

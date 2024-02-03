@@ -86,14 +86,14 @@
 
             for (J = 1; J <= N; J++) { // 10
                CNORM( J ) = DASUM( J-1, A( 1, J ), 1 )
-   10       CONTINUE
+            } // 10
          } else {
 
             // A is lower triangular.
 
             DO 20 J = 1, N - 1
                CNORM( J ) = DASUM( N-J, A( J+1, J ), 1 )
-   20       CONTINUE
+            } // 20
             CNORM( N ) = ZERO
          }
       }
@@ -220,7 +220,7 @@
 
                   GROW = ZERO
                }
-   30       CONTINUE
+            } // 30
             GROW = XBND
          } else {
 
@@ -238,9 +238,9 @@
                // G(j) = G(j-1)*( 1 + CNORM(j) )
 
                GROW = GROW*( ONE / ( ONE+CNORM( J ) ) )
-   40       CONTINUE
+            } // 40
          }
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -285,7 +285,7 @@
 
                TJJ = ABS( A( J, J ) )
                IF( XJ.GT.TJJ ) XBND = XBND*( TJJ / XJ )
-   60       CONTINUE
+            } // 60
             GROW = MIN( GROW, XBND )
          } else {
 
@@ -304,9 +304,9 @@
 
                XJ = ONE + CNORM( J )
                GROW = GROW / XJ
-   70       CONTINUE
+            } // 70
          }
-   80    CONTINUE
+         } // 80
       }
 
       if ( ( GROW*TSCAL ).GT.SMLNUM ) {
@@ -392,13 +392,13 @@
 
                   for (I = 1; I <= N; I++) { // 90
                      X( I ) = ZERO
-   90             CONTINUE
+                  } // 90
                   X( J ) = ONE
                   XJ = ONE
                   SCALE = ZERO
                   XMAX = ZERO
                }
-  100          CONTINUE
+               } // 100
 
                // Scale x if necessary to avoid overflow when adding a
                // multiple of column j of A.
@@ -442,7 +442,7 @@
                      XMAX = ABS( X( I ) )
                   }
                }
-  110       CONTINUE
+            } // 110
 
          } else {
 
@@ -499,11 +499,11 @@
                   if ( UPPER ) {
                      DO 120 I = 1, J - 1
                         SUMJ = SUMJ + ( A( I, J )*USCAL )*X( I )
-  120                CONTINUE
+                     } // 120
                   } else if ( J.LT.N ) {
                      DO 130 I = J + 1, N
                         SUMJ = SUMJ + ( A( I, J )*USCAL )*X( I )
-  130                CONTINUE
+                     } // 130
                   }
                }
 
@@ -561,12 +561,12 @@
 
                      for (I = 1; I <= N; I++) { // 140
                         X( I ) = ZERO
-  140                CONTINUE
+                     } // 140
                      X( J ) = ONE
                      SCALE = ZERO
                      XMAX = ZERO
                   }
-  150             CONTINUE
+                  } // 150
                } else {
 
                   // Compute x(j) := x(j) / A(j,j)  - sumj if the dot
@@ -575,7 +575,7 @@
                   X( J ) = X( J ) / TJJS - SUMJ
                }
                XMAX = MAX( XMAX, ABS( X( J ) ) )
-  160       CONTINUE
+            } // 160
          }
          SCALE = SCALE / TSCAL
       }

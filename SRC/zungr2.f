@@ -56,9 +56,9 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 L = 1, M - K
                A( L, J ) = ZERO
-   10       CONTINUE
+            } // 10
             IF( J.GT.N-M .AND. J.LE.N-K ) A( M-N+J, J ) = ONE
-   20    CONTINUE
+         } // 20
       }
 
       for (I = 1; I <= K; I++) { // 40
@@ -77,8 +77,8 @@
 
          DO 30 L = N - M + II + 1, N
             A( II, L ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       RETURN
 
       // End of ZUNGR2

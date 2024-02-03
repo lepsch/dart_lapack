@@ -133,7 +133,7 @@
                      NRT = NR
                   }
                   IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 )
-   10          CONTINUE
+               } // 10
 
                if ( ML.GT.ML0 ) {
                   if ( ML.LE.M-I+1 ) {
@@ -155,7 +155,7 @@
 
                   DO 20 J = J1, J2, KB1
                      drot(M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) );
-   20             CONTINUE
+                  } // 20
                }
 
                if ( WANTC ) {
@@ -164,7 +164,7 @@
 
                   DO 30 J = J1, J2, KB1
                      drot(NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) );
-   30             CONTINUE
+                  } // 30
                }
 
                if ( J2+KUN.GT.N ) {
@@ -182,7 +182,7 @@
 
                   WORK( J+KUN ) = WORK( J )*AB( 1, J+KUN )
                   AB( 1, J+KUN ) = WORK( MN+J )*AB( 1, J+KUN )
-   40          CONTINUE
+               } // 40
 
                // generate plane rotations to annihilate nonzero elements
                // which have been generated above the band
@@ -198,7 +198,7 @@
                      NRT = NR
                   }
                   IF( NRT.GT.0 ) CALL DLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 )
-   50          CONTINUE
+               } // 50
 
                if ( ML.EQ.ML0 .AND. MU.GT.MU0 ) {
                   if ( MU.LE.N-I+1 ) {
@@ -220,7 +220,7 @@
 
                   DO 60 J = J1, J2, KB1
                      drot(N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) );
-   60             CONTINUE
+                  } // 60
                }
 
                if ( J2+KB.GT.M ) {
@@ -238,15 +238,15 @@
 
                   WORK( J+KB ) = WORK( J+KUN )*AB( KLU1, J+KUN )
                   AB( KLU1, J+KUN ) = WORK( MN+J+KUN )*AB( KLU1, J+KUN )
-   70          CONTINUE
+               } // 70
 
                if ( ML.GT.ML0 ) {
                   ML = ML - 1
                } else {
                   MU = MU - 1
                }
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
       }
 
       if ( KU.EQ.0 .AND. KL.GT.0 ) {
@@ -265,7 +265,7 @@
                AB( 1, I+1 ) = RC*AB( 1, I+1 )
             }
             IF( WANTQ ) CALL DROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS )             IF( WANTC ) CALL DROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS )
-  100    CONTINUE
+         } // 100
          IF( M.LE.N ) D( M ) = AB( 1, M )
       } else if ( KU.GT.0 ) {
 
@@ -286,17 +286,17 @@
                   E( I-1 ) = RC*AB( KU, I )
                }
                IF( WANTPT ) CALL DROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS )
-  110       CONTINUE
+            } // 110
          } else {
 
             // Copy off-diagonal elements to E and diagonal elements to D
 
             DO 120 I = 1, MINMN - 1
                E( I ) = AB( KU, I+1 )
-  120       CONTINUE
+            } // 120
             for (I = 1; I <= MINMN; I++) { // 130
                D( I ) = AB( KU+1, I )
-  130       CONTINUE
+            } // 130
          }
       } else {
 
@@ -305,10 +305,10 @@
 
          DO 140 I = 1, MINMN - 1
             E( I ) = ZERO
-  140    CONTINUE
+         } // 140
          for (I = 1; I <= MINMN; I++) { // 150
             D( I ) = AB( 1, I )
-  150    CONTINUE
+         } // 150
       }
       RETURN
 

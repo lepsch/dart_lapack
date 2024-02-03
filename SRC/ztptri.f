@@ -57,13 +57,13 @@
             for (INFO = 1; INFO <= N; INFO++) { // 10
                JJ = JJ + INFO
                IF( AP( JJ ).EQ.ZERO ) RETURN
-   10       CONTINUE
+            } // 10
          } else {
             JJ = 1
             for (INFO = 1; INFO <= N; INFO++) { // 20
                IF( AP( JJ ).EQ.ZERO ) RETURN
                JJ = JJ + N - INFO + 1
-   20       CONTINUE
+            } // 20
          }
          INFO = 0
       }
@@ -86,7 +86,7 @@
             ztpmv('Upper', 'No transpose', DIAG, J-1, AP, AP( JC ), 1 );
             zscal(J-1, AJJ, AP( JC ), 1 );
             JC = JC + J
-   30    CONTINUE
+         } // 30
 
       } else {
 
@@ -109,7 +109,7 @@
             }
             JCLAST = JC
             JC = JC - N + J - 2
-   40    CONTINUE
+         } // 40
       }
 
       RETURN

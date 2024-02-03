@@ -61,8 +61,8 @@
                CJ = C( J )
                DO 10 I = MAX( 1, J-KU ), MIN( M, J+KL )
                   AB( KU+1+I-J, J ) = CJ*AB( KU+1+I-J, J )
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
             EQUED = 'C'
          }
       } else if ( COLCND.GE.THRESH ) {
@@ -72,8 +72,8 @@
          for (J = 1; J <= N; J++) { // 40
             DO 30 I = MAX( 1, J-KU ), MIN( M, J+KL )
                AB( KU+1+I-J, J ) = R( I )*AB( KU+1+I-J, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
          EQUED = 'R'
       } else {
 
@@ -83,8 +83,8 @@
             CJ = C( J )
             DO 50 I = MAX( 1, J-KU ), MIN( M, J+KL )
                AB( KU+1+I-J, J ) = CJ*R( I )*AB( KU+1+I-J, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
          EQUED = 'B'
       }
 

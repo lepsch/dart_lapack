@@ -56,7 +56,7 @@
             for (J = 1; J <= N; J++) { // 20
                for (I = 1; I <= N; I++) { // 10
                   WORK( N+I ) = S( I )*VT( I, J )
-   10          CONTINUE
+               } // 10
                dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
                if ( J.GT.1 ) {
@@ -66,7 +66,7 @@
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
                }
                RESID = MAX( RESID, DASUM( N, WORK, 1 ) )
-   20       CONTINUE
+            } // 20
          } else {
 
             // B is lower bidiagonal.
@@ -74,7 +74,7 @@
             for (J = 1; J <= N; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
                   WORK( N+I ) = S( I )*VT( I, J )
-   30          CONTINUE
+               } // 30
                dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
                WORK( J ) = WORK( J ) + D( J )
                if ( J.LT.N ) {
@@ -84,7 +84,7 @@
                   BNORM = MAX( BNORM, ABS( D( J ) ) )
                }
                RESID = MAX( RESID, DASUM( N, WORK, 1 ) )
-   40       CONTINUE
+            } // 40
          }
       } else {
 
@@ -93,11 +93,11 @@
          for (J = 1; J <= N; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
                WORK( N+I ) = S( I )*VT( I, J )
-   50       CONTINUE
+            } // 50
             dgemv('No transpose', N, N, -ONE, U, LDU, WORK( N+1 ), 1, ZERO, WORK, 1 );
             WORK( J ) = WORK( J ) + D( J )
             RESID = MAX( RESID, DASUM( N, WORK, 1 ) )
-   60    CONTINUE
+         } // 60
          J = IDAMAX( N, D, 1 )
          BNORM = ABS( D( J ) )
       }

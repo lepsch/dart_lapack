@@ -97,15 +97,15 @@
                RWORK( I*2-1 ) = CS
                RWORK( I*2 ) = SN
             }
-   10    CONTINUE
+         } // 10
          if ( NRHS.GT.1 ) {
             for (I = 1; I <= NRHS; I++) { // 30
                DO 20 J = 1, N - 1
                   CS = RWORK( J*2-1 )
                   SN = RWORK( J*2 )
                   csrot(1, B( J, I ), 1, B( J+1, I ), 1, CS, SN );
-   20          CONTINUE
-   30       CONTINUE
+               } // 20
+            } // 30
          }
       }
 
@@ -147,16 +147,16 @@
             for (JROW = 1; JROW <= N; JROW++) { // 40
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 70
             for (JROW = 1; JROW <= N; JROW++) { // 60
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWU ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
@@ -165,8 +165,8 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
 
          TOL = RCND*ABS( D( ISAMAX( N, D, 1 ) ) )
          for (I = 1; I <= N; I++) { // 100
@@ -176,7 +176,7 @@
                clascl('G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO );
                RANK = RANK + 1
             }
-  100    CONTINUE
+         } // 100
 
          // Since B is complex, the following call to SGEMM is performed
          // in two steps (real and imaginary parts). That is for V * B
@@ -190,16 +190,16 @@
             for (JROW = 1; JROW <= N; JROW++) { // 110
                J = J + 1
                RWORK( J ) = REAL( B( JROW, JCOL ) )
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWRB ), N );
          J = IRWB - 1
          for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 140
             for (JROW = 1; JROW <= N; JROW++) { // 130
                J = J + 1
                RWORK( J ) = AIMAG( B( JROW, JCOL ) )
-  130       CONTINUE
-  140    CONTINUE
+            } // 130
+         } // 140
          sgemm('T', 'N', N, NRHS, N, ONE, RWORK( IRWVT ), N, RWORK( IRWB ), N, ZERO, RWORK( IRWIB ), N );
          JREAL = IRWRB - 1
          JIMAG = IRWIB - 1
@@ -208,8 +208,8 @@
                JREAL = JREAL + 1
                JIMAG = JIMAG + 1
                B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  150       CONTINUE
-  160    CONTINUE
+            } // 150
+         } // 160
 
          // Unscale.
 
@@ -259,7 +259,7 @@
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
-  170 CONTINUE
+      } // 170
 
       for (I = 1; I <= NM1; I++) { // 240
          if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
@@ -319,16 +319,16 @@
                   DO 180 JROW = ST, ST + NSIZE - 1
                      J = J + 1
                      RWORK( J ) = REAL( B( JROW, JCOL ) )
-  180             CONTINUE
-  190          CONTINUE
+                  } // 180
+               } // 190
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
                J = IRWB - 1
                for (JCOL = 1; JCOL <= NRHS; JCOL++) { // 210
                   DO 200 JROW = ST, ST + NSIZE - 1
                      J = J + 1
                      RWORK( J ) = AIMAG( B( JROW, JCOL ) )
-  200             CONTINUE
-  210          CONTINUE
+                  } // 200
+               } // 210
                sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( U+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
                JREAL = IRWRB - 1
                JIMAG = IRWIB - 1
@@ -337,8 +337,8 @@
                      JREAL = JREAL + 1
                      JIMAG = JIMAG + 1
                      B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  220             CONTINUE
-  230          CONTINUE
+                  } // 220
+               } // 230
 
                clacpy('A', NSIZE, NRHS, B( ST, 1 ), LDB, WORK( BX+ST1 ), N );
             } else {
@@ -357,7 +357,7 @@
             }
             ST = I + 1
          }
-  240 CONTINUE
+      } // 240
 
       // Apply the singular values and treat the tiny ones as zero.
 
@@ -375,7 +375,7 @@
             clascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
          D( I ) = ABS( D( I ) )
-  250 CONTINUE
+      } // 250
 
       // Now apply back the right singular vectors.
 
@@ -403,8 +403,8 @@
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 260
                   JREAL = JREAL + 1
                   RWORK( JREAL ) = REAL( WORK( J+JROW ) )
-  260          CONTINUE
-  270       CONTINUE
+               } // 260
+            } // 270
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWRB ), NSIZE );
             J = BXST - N - 1
             JIMAG = IRWB - 1
@@ -413,8 +413,8 @@
                for (JROW = 1; JROW <= NSIZE; JROW++) { // 280
                   JIMAG = JIMAG + 1
                   RWORK( JIMAG ) = AIMAG( WORK( J+JROW ) )
-  280          CONTINUE
-  290       CONTINUE
+               } // 280
+            } // 290
             sgemm('T', 'N', NSIZE, NRHS, NSIZE, ONE, RWORK( VT+ST1 ), N, RWORK( IRWB ), NSIZE, ZERO, RWORK( IRWIB ), NSIZE );
             JREAL = IRWRB - 1
             JIMAG = IRWIB - 1
@@ -423,15 +423,15 @@
                   JREAL = JREAL + 1
                   JIMAG = JIMAG + 1
                   B( JROW, JCOL ) = CMPLX( RWORK( JREAL ), RWORK( JIMAG ) )
-  300          CONTINUE
-  310       CONTINUE
+               } // 300
+            } // 310
          } else {
             clalsa(ICMPQ2, SMLSIZ, NSIZE, NRHS, WORK( BXST ), N, B( ST, 1 ), LDB, RWORK( U+ST1 ), N, RWORK( VT+ST1 ), IWORK( K+ST1 ), RWORK( DIFL+ST1 ), RWORK( DIFR+ST1 ), RWORK( Z+ST1 ), RWORK( POLES+ST1 ), IWORK( GIVPTR+ST1 ), IWORK( GIVCOL+ST1 ), N, IWORK( PERM+ST1 ), RWORK( GIVNUM+ST1 ), RWORK( C+ST1 ), RWORK( S+ST1 ), RWORK( NRWORK ), IWORK( IWK ), INFO );
             if ( INFO.NE.0 ) {
                RETURN
             }
          }
-  320 CONTINUE
+      } // 320
 
       // Unscale and sort the singular values.
 

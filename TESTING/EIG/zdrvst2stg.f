@@ -63,7 +63,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -104,7 +104,7 @@
       for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
          ISEED3( I ) = ISEED( I )
-   20 CONTINUE
+      } // 20
 
       NERRS = 0
       NMATS = 0
@@ -137,7 +137,7 @@
 
             for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
-   30       CONTINUE
+            } // 30
 
             // 2)      Compute "A"
 
@@ -163,19 +163,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             zlaset('Full', LDA, N, CZERO, CZERO, A, LDA );
             IINFO = 0
@@ -194,7 +194,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -237,8 +237,8 @@
                   for (J = J1; J <= J2; J++) { // 90
                      I = J - IDIAG
                      A( I, J ) = U( IROW, J )
-   90             CONTINUE
-  100          CONTINUE
+                  } // 90
+               } // 100
             } else {
                IINFO = 1
             }
@@ -249,7 +249,7 @@
                RETURN
             }
 
-  110       CONTINUE
+            } // 110
 
             ABSTOL = UNFL + UNFL
             if ( N.LE.1 ) {
@@ -320,10 +320,10 @@
                for (J = 1; J <= N; J++) { // 120
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  120          CONTINUE
+               } // 120
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  130          CONTINUE
+               } // 130
                zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
@@ -386,10 +386,10 @@
                for (J = 1; J <= N; J++) { // 140
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
-  140          CONTINUE
+               } // 140
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  150          CONTINUE
+               } // 150
                zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
@@ -437,7 +437,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  160          CONTINUE
+               } // 160
                zlacpy(' ', N, N, V, LDU, A, LDA );
 
                NTEST = NTEST + 1
@@ -490,7 +490,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  170          CONTINUE
+               } // 170
 
                // Call ZHPEVD and CHPEVX.
 
@@ -505,16 +505,16 @@
                      for (I = 1; I <= J; I++) { // 180
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  180                CONTINUE
-  190             CONTINUE
+                     } // 180
+                  } // 190
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 210
                      for (I = J; I <= N; I++) { // 200
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  200                CONTINUE
-  210             CONTINUE
+                     } // 200
+                  } // 210
                }
 
                NTEST = NTEST + 1
@@ -543,16 +543,16 @@
                      for (I = 1; I <= J; I++) { // 220
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  220                CONTINUE
-  230             CONTINUE
+                     } // 220
+                  } // 230
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 250
                      for (I = J; I <= N; I++) { // 240
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  240                CONTINUE
-  250             CONTINUE
+                     } // 240
+                  } // 250
                }
 
                NTEST = NTEST + 2
@@ -576,29 +576,29 @@
                for (J = 1; J <= N; J++) { // 260
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  260          CONTINUE
+               } // 260
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                // Load array WORK with the upper or lower triangular part
                // of the matrix in packed form.
 
-  270          CONTINUE
+               } // 270
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 290
                      for (I = 1; I <= J; I++) { // 280
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  280                CONTINUE
-  290             CONTINUE
+                     } // 280
+                  } // 290
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 310
                      for (I = J; I <= N; I++) { // 300
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  300                CONTINUE
-  310             CONTINUE
+                     } // 300
+                  } // 310
                }
 
                NTEST = NTEST + 1
@@ -647,16 +647,16 @@
                      for (I = 1; I <= J; I++) { // 320
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  320                CONTINUE
-  330             CONTINUE
+                     } // 320
+                  } // 330
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 350
                      for (I = J; I <= N; I++) { // 340
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  340                CONTINUE
-  350             CONTINUE
+                     } // 340
+                  } // 350
                }
 
                zhpevx('N', 'A', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -678,10 +678,10 @@
                for (J = 1; J <= N; J++) { // 360
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
-  360          CONTINUE
+               } // 360
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  370          CONTINUE
+               } // 370
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -689,16 +689,16 @@
                      for (I = 1; I <= J; I++) { // 380
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  380                CONTINUE
-  390             CONTINUE
+                     } // 380
+                  } // 390
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 410
                      for (I = J; I <= N; I++) { // 400
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  400                CONTINUE
-  410             CONTINUE
+                     } // 400
+                  } // 410
                }
 
                zhpevx('V', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -727,16 +727,16 @@
                      for (I = 1; I <= J; I++) { // 420
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  420                CONTINUE
-  430             CONTINUE
+                     } // 420
+                  } // 430
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 450
                      for (I = J; I <= N; I++) { // 440
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  440                CONTINUE
-  450             CONTINUE
+                     } // 440
+                  } // 450
                }
 
                zhpevx('N', 'I', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -762,7 +762,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  460          CONTINUE
+               } // 460
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   INDX = 1
@@ -770,16 +770,16 @@
                      for (I = 1; I <= J; I++) { // 470
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  470                CONTINUE
-  480             CONTINUE
+                     } // 470
+                  } // 480
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 500
                      for (I = J; I <= N; I++) { // 490
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  490                CONTINUE
-  500             CONTINUE
+                     } // 490
+                  } // 500
                }
 
                zhpevx('V', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -808,16 +808,16 @@
                      for (I = 1; I <= J; I++) { // 510
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  510                CONTINUE
-  520             CONTINUE
+                     } // 510
+                  } // 520
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 540
                      for (I = J; I <= N; I++) { // 530
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  530                CONTINUE
-  540             CONTINUE
+                     } // 530
+                  } // 540
                }
 
                zhpevx('N', 'V', UPLO, N, WORK, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, V, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -848,7 +848,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  550          CONTINUE
+               } // 550
 
                // Call ZHBEVD and CHBEVX.
 
@@ -867,14 +867,14 @@
                   for (J = 1; J <= N; J++) { // 570
                      DO 560 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  560                CONTINUE
-  570             CONTINUE
+                     } // 560
+                  } // 570
                } else {
                   for (J = 1; J <= N; J++) { // 590
                      DO 580 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  580                CONTINUE
-  590             CONTINUE
+                     } // 580
+                  } // 590
                }
 
                NTEST = NTEST + 1
@@ -900,14 +900,14 @@
                   for (J = 1; J <= N; J++) { // 610
                      DO 600 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  600                CONTINUE
-  610             CONTINUE
+                     } // 600
+                  } // 610
                } else {
                   for (J = 1; J <= N; J++) { // 630
                      DO 620 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  620                CONTINUE
-  630             CONTINUE
+                     } // 620
+                  } // 630
                }
 
                NTEST = NTEST + 2
@@ -930,25 +930,25 @@
                for (J = 1; J <= N; J++) { // 640
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  640          CONTINUE
+               } // 640
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-  650          CONTINUE
+               } // 650
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 670
                      DO 660 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  660                CONTINUE
-  670             CONTINUE
+                     } // 660
+                  } // 670
                } else {
                   for (J = 1; J <= N; J++) { // 690
                      DO 680 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  680                CONTINUE
-  690             CONTINUE
+                     } // 680
+                  } // 690
                }
 
                NTEST = NTEST + 1
@@ -976,14 +976,14 @@
                   for (J = 1; J <= N; J++) { // 710
                      DO 700 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  700                CONTINUE
-  710             CONTINUE
+                     } // 700
+                  } // 710
                } else {
                   for (J = 1; J <= N; J++) { // 730
                      DO 720 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  720                CONTINUE
-  730             CONTINUE
+                     } // 720
+                  } // 730
                }
 
                zhbevx_2stage('N', 'A', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -1005,26 +1005,26 @@
                for (J = 1; J <= N; J++) { // 740
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
-  740          CONTINUE
+               } // 740
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-  750          CONTINUE
+               } // 750
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 770
                      DO 760 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  760                CONTINUE
-  770             CONTINUE
+                     } // 760
+                  } // 770
                } else {
                   for (J = 1; J <= N; J++) { // 790
                      DO 780 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  780                CONTINUE
-  790             CONTINUE
+                     } // 780
+                  } // 790
                }
 
                zhbevx('V', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
@@ -1051,14 +1051,14 @@
                   for (J = 1; J <= N; J++) { // 810
                      DO 800 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  800                CONTINUE
-  810             CONTINUE
+                     } // 800
+                  } // 810
                } else {
                   for (J = 1; J <= N; J++) { // 830
                      DO 820 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  820                CONTINUE
-  830             CONTINUE
+                     } // 820
+                  } // 830
                }
                zhbevx_2stage('N', 'I', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -1086,20 +1086,20 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
-  840          CONTINUE
+               } // 840
                NTEST = NTEST + 1
                if ( IUPLO.EQ.1 ) {
                   for (J = 1; J <= N; J++) { // 860
                      DO 850 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  850                CONTINUE
-  860             CONTINUE
+                     } // 850
+                  } // 860
                } else {
                   for (J = 1; J <= N; J++) { // 880
                      DO 870 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  870                CONTINUE
-  880             CONTINUE
+                     } // 870
+                  } // 880
                }
                zhbevx('V', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M2, WA2, Z, LDU, WORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -1125,14 +1125,14 @@
                   for (J = 1; J <= N; J++) { // 900
                      DO 890 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
-  890                CONTINUE
-  900             CONTINUE
+                     } // 890
+                  } // 900
                } else {
                   for (J = 1; J <= N; J++) { // 920
                      DO 910 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
-  910                CONTINUE
-  920             CONTINUE
+                     } // 910
+                  } // 920
                }
                zhbevx_2stage('N', 'V', UPLO, N, KD, V, LDU, U, LDU, VL, VU, IL, IU, ABSTOL, M3, WA3, Z, LDU, WORK, LWORK, RWORK, IWORK, IWORK( 5*N+1 ), IINFO );
                if ( IINFO.NE.0 ) {
@@ -1162,7 +1162,7 @@
                }
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, TEMP3*ULP )
 
-  930          CONTINUE
+               } // 930
 
                // Call ZHEEV
 
@@ -1209,10 +1209,10 @@
                for (J = 1; J <= N; J++) { // 940
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
-  940          CONTINUE
+               } // 940
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
-  950          CONTINUE
+               } // 950
 
                zlacpy(' ', N, N, V, LDU, A, LDA );
 
@@ -1227,16 +1227,16 @@
                      for (I = 1; I <= J; I++) { // 960
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  960                CONTINUE
-  970             CONTINUE
+                     } // 960
+                  } // 970
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 990
                      for (I = J; I <= N; I++) { // 980
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
-  980                CONTINUE
-  990             CONTINUE
+                     } // 980
+                  } // 990
                }
 
                NTEST = NTEST + 1
@@ -1265,16 +1265,16 @@
                      for (I = 1; I <= J; I++) { // 1000
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1000                CONTINUE
- 1010             CONTINUE
+                     } // 1000
+                  } // 1010
                } else {
                   INDX = 1
                   for (J = 1; J <= N; J++) { // 1030
                      for (I = J; I <= N; I++) { // 1020
                         WORK( INDX ) = A( I, J )
                         INDX = INDX + 1
- 1020                CONTINUE
- 1030             CONTINUE
+                     } // 1020
+                  } // 1030
                }
 
                NTEST = NTEST + 2
@@ -1298,10 +1298,10 @@
                for (J = 1; J <= N; J++) { // 1040
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1040          CONTINUE
+               } // 1040
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1050          CONTINUE
+               } // 1050
 
                // Call ZHBEV
 
@@ -1320,14 +1320,14 @@
                   for (J = 1; J <= N; J++) { // 1070
                      DO 1060 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1060                CONTINUE
- 1070             CONTINUE
+                     } // 1060
+                  } // 1070
                } else {
                   for (J = 1; J <= N; J++) { // 1090
                      DO 1080 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1080                CONTINUE
- 1090             CONTINUE
+                     } // 1080
+                  } // 1090
                }
 
                NTEST = NTEST + 1
@@ -1353,14 +1353,14 @@
                   for (J = 1; J <= N; J++) { // 1110
                      DO 1100 I = MAX( 1, J-KD ), J
                         V( KD+1+I-J, J ) = A( I, J )
- 1100                CONTINUE
- 1110             CONTINUE
+                     } // 1100
+                  } // 1110
                } else {
                   for (J = 1; J <= N; J++) { // 1130
                      DO 1120 I = J, MIN( N, J+KD )
                         V( 1+I-J, J ) = A( I, J )
- 1120                CONTINUE
- 1130             CONTINUE
+                     } // 1120
+                  } // 1130
                }
 
                NTEST = NTEST + 2
@@ -1376,7 +1376,7 @@
                   }
                }
 
- 1140          CONTINUE
+               } // 1140
 
                // Do test 45.
 
@@ -1385,7 +1385,7 @@
                for (J = 1; J <= N; J++) { // 1150
                   TEMP1 = MAX( TEMP1, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D3( J ) ) )
- 1150          CONTINUE
+               } // 1150
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
                zlacpy(' ', N, N, A, LDA, V, LDU );
@@ -1430,10 +1430,10 @@
                for (J = 1; J <= N; J++) { // 1160
                   TEMP1 = MAX( TEMP1, ABS( WA1( J ) ), ABS( WA2( J ) ) )
                   TEMP2 = MAX( TEMP2, ABS( WA1( J )-WA2( J ) ) )
- 1160          CONTINUE
+               } // 1160
                RESULT( NTEST ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
- 1170          CONTINUE
+               } // 1170
 
                NTEST = NTEST + 1
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -1476,7 +1476,7 @@
                TEMP1 = DSXT1( 1, WA2, M2, WA3, M3, ABSTOL, ULP, UNFL )
                TEMP2 = DSXT1( 1, WA3, M3, WA2, M2, ABSTOL, ULP, UNFL )
                RESULT( NTEST ) = ( TEMP1+TEMP2 ) / MAX( UNFL, ULP*TEMP3 )
- 1180          CONTINUE
+               } // 1180
 
                NTEST = NTEST + 1
                zlacpy(' ', N, N, V, LDU, A, LDA );
@@ -1538,17 +1538,17 @@
                // Load array V with the upper or lower triangular part
                // of the matrix in band form.
 
- 1190          CONTINUE
+               } // 1190
 
- 1200       CONTINUE
+            } // 1200
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
             dlafts('ZST', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
- 1210    CONTINUE
- 1220 CONTINUE
+         } // 1210
+      } // 1220
 
       // Summary
 

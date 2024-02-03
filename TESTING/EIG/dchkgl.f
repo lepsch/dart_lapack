@@ -45,25 +45,25 @@
 
       EPS = DLAMCH( 'Precision' )
 
-   10 CONTINUE
+      } // 10
 
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) GO TO 90
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( A( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
 
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( B( I, J ), J = 1, N )
-   30 CONTINUE
+      } // 30
 
       READ( NIN, FMT = * )ILOIN, IHIIN
       for (I = 1; I <= N; I++) { // 40
          READ( NIN, FMT = * )( AIN( I, J ), J = 1, N )
-   40 CONTINUE
+      } // 40
       for (I = 1; I <= N; I++) { // 50
          READ( NIN, FMT = * )( BIN( I, J ), J = 1, N )
-   50 CONTINUE
+      } // 50
 
       READ( NIN, FMT = * )( LSCLIN( I ), I = 1, N )
       READ( NIN, FMT = * )( RSCLIN( I ), I = 1, N )
@@ -90,13 +90,13 @@
          for (J = 1; J <= N; J++) { // 60
             VMAX = MAX( VMAX, ABS( A( I, J )-AIN( I, J ) ) )
             VMAX = MAX( VMAX, ABS( B( I, J )-BIN( I, J ) ) )
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
 
       for (I = 1; I <= N; I++) { // 80
          VMAX = MAX( VMAX, ABS( LSCALE( I )-LSCLIN( I ) ) )
          VMAX = MAX( VMAX, ABS( RSCALE( I )-RSCLIN( I ) ) )
-   80 CONTINUE
+      } // 80
 
       VMAX = VMAX / ( EPS*MAX( ANORM, BNORM ) )
 
@@ -107,7 +107,7 @@
 
       GO TO 10
 
-   90 CONTINUE
+      } // 90
 
       WRITE( NOUT, FMT = 9999 )
  9999 FORMAT( 1X, '.. test output of DGGBAL .. ' )

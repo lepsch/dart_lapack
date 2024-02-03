@@ -57,7 +57,7 @@
       DO 10 J = ILO, IHI - 3
          H( J+2, J ) = ZERO
          H( J+3, J ) = ZERO
-   10 CONTINUE
+      } // 10
       IF( ILO.LE.IHI-2 ) H( IHI, IHI-2 ) = ZERO
 
       NH = IHI - ILO + 1
@@ -94,7 +94,7 @@
       // H(L,L-1) is negligible so that the matrix splits.
 
       I = IHI
-   20 CONTINUE
+      } // 20
       L = ILO
       IF( I.LT.ILO ) GO TO 160
 
@@ -123,8 +123,8 @@
                S = AA + AB
                IF( BA*( AB / S ).LE.MAX( SMLNUM, ULP*( BB*( AA / S ) ) ) )GO TO 40
             }
-   30    CONTINUE
-   40    CONTINUE
+         } // 30
+         } // 40
          L = K
          if ( L.GT.ILO ) {
 
@@ -234,8 +234,8 @@
             V( 2 ) = V( 2 ) / S
             V( 3 ) = V( 3 ) / S
             IF( M.EQ.L ) GO TO 60             IF( ABS( H( M, M-1 ) )*( ABS( V( 2 ) )+ABS( V( 3 ) ) ).LE. ULP*ABS( V( 1 ) )*( ABS( H( M-1, M-1 ) )+ABS( H( M, M ) )+ABS( H( M+1, M+1 ) ) ) )GO TO 60
-   50    CONTINUE
-   60    CONTINUE
+         } // 50
+         } // 60
 
          // Double-shift QR step
 
@@ -278,7 +278,7 @@
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
                   H( K+2, J ) = H( K+2, J ) - SUM*T3
-   70          CONTINUE
+               } // 70
 
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
@@ -288,7 +288,7 @@
                   H( J, K ) = H( J, K ) - SUM*T1
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
                   H( J, K+2 ) = H( J, K+2 ) - SUM*T3
-   80          CONTINUE
+               } // 80
 
                if ( WANTZ ) {
 
@@ -299,7 +299,7 @@
                      Z( J, K ) = Z( J, K ) - SUM*T1
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
                      Z( J, K+2 ) = Z( J, K+2 ) - SUM*T3
-   90             CONTINUE
+                  } // 90
                }
             } else if ( NR.EQ.2 ) {
 
@@ -310,7 +310,7 @@
                   SUM = H( K, J ) + V2*H( K+1, J )
                   H( K, J ) = H( K, J ) - SUM*T1
                   H( K+1, J ) = H( K+1, J ) - SUM*T2
-  100          CONTINUE
+               } // 100
 
                // Apply G from the right to transform the columns of the
                // matrix in rows I1 to min(K+3,I).
@@ -319,7 +319,7 @@
                   SUM = H( J, K ) + V2*H( J, K+1 )
                   H( J, K ) = H( J, K ) - SUM*T1
                   H( J, K+1 ) = H( J, K+1 ) - SUM*T2
-  110          CONTINUE
+               } // 110
 
                if ( WANTZ ) {
 
@@ -329,19 +329,19 @@
                      SUM = Z( J, K ) + V2*Z( J, K+1 )
                      Z( J, K ) = Z( J, K ) - SUM*T1
                      Z( J, K+1 ) = Z( J, K+1 ) - SUM*T2
-  120             CONTINUE
+                  } // 120
                }
             }
-  130    CONTINUE
+         } // 130
 
-  140 CONTINUE
+      } // 140
 
       // Failure to converge in remaining number of iterations
 
       INFO = I
       RETURN
 
-  150 CONTINUE
+      } // 150
 
       if ( L.EQ.I ) {
 
@@ -380,7 +380,7 @@
       I = L - 1
       GO TO 20
 
-  160 CONTINUE
+      } // 160
       RETURN
 
       // End of DLAHQR

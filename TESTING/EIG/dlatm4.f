@@ -63,18 +63,18 @@
 
          // abs(ITYPE) = 1: Identity
 
-   10    CONTINUE
+         } // 10
          for (JD = 1; JD <= N; JD++) { // 20
             A( JD, JD ) = ONE
-   20    CONTINUE
+         } // 20
          GO TO 220
 
          // abs(ITYPE) = 2: Transposed Jordan block
 
-   30    CONTINUE
+         } // 30
          DO 40 JD = 1, N - 1
             A( JD+1, JD ) = ONE
-   40    CONTINUE
+         } // 40
          ISDB = 1
          ISDE = N - 1
          GO TO 220
@@ -82,94 +82,94 @@
          // abs(ITYPE) = 3: Transposed Jordan block, followed by the
                          // identity.
 
-   50    CONTINUE
+         } // 50
          K = ( N-1 ) / 2
          for (JD = 1; JD <= K; JD++) { // 60
             A( JD+1, JD ) = ONE
-   60    CONTINUE
+         } // 60
          ISDB = 1
          ISDE = K
          DO 70 JD = K + 2, 2*K + 1
             A( JD, JD ) = ONE
-   70    CONTINUE
+         } // 70
          GO TO 220
 
          // abs(ITYPE) = 4: 1,...,k
 
-   80    CONTINUE
+         } // 80
          for (JD = KBEG; JD <= KEND; JD++) { // 90
             A( JD, JD ) = DBLE( JD-NZ1 )
-   90    CONTINUE
+         } // 90
          GO TO 220
 
          // abs(ITYPE) = 5: One large D value:
 
-  100    CONTINUE
+         } // 100
          DO 110 JD = KBEG + 1, KEND
             A( JD, JD ) = RCOND
-  110    CONTINUE
+         } // 110
          A( KBEG, KBEG ) = ONE
          GO TO 220
 
          // abs(ITYPE) = 6: One small D value:
 
-  120    CONTINUE
+         } // 120
          DO 130 JD = KBEG, KEND - 1
             A( JD, JD ) = ONE
-  130    CONTINUE
+         } // 130
          A( KEND, KEND ) = RCOND
          GO TO 220
 
          // abs(ITYPE) = 7: Exponentially distributed D values:
 
-  140    CONTINUE
+         } // 140
          A( KBEG, KBEG ) = ONE
          if ( KLEN.GT.1 ) {
             ALPHA = RCOND**( ONE / DBLE( KLEN-1 ) )
             for (I = 2; I <= KLEN; I++) { // 150
                A( NZ1+I, NZ1+I ) = ALPHA**DBLE( I-1 )
-  150       CONTINUE
+            } // 150
          }
          GO TO 220
 
          // abs(ITYPE) = 8: Arithmetically distributed D values:
 
-  160    CONTINUE
+         } // 160
          A( KBEG, KBEG ) = ONE
          if ( KLEN.GT.1 ) {
             ALPHA = ( ONE-RCOND ) / DBLE( KLEN-1 )
             for (I = 2; I <= KLEN; I++) { // 170
                A( NZ1+I, NZ1+I ) = DBLE( KLEN-I )*ALPHA + RCOND
-  170       CONTINUE
+            } // 170
          }
          GO TO 220
 
          // abs(ITYPE) = 9: Randomly distributed D values on ( RCOND, 1):
 
-  180    CONTINUE
+         } // 180
          ALPHA = LOG( RCOND )
          for (JD = KBEG; JD <= KEND; JD++) { // 190
             A( JD, JD ) = EXP( ALPHA*DLARAN( ISEED ) )
-  190    CONTINUE
+         } // 190
          GO TO 220
 
          // abs(ITYPE) = 10: Randomly distributed D values from DIST
 
-  200    CONTINUE
+         } // 200
          for (JD = KBEG; JD <= KEND; JD++) { // 210
             A( JD, JD ) = DLARND( IDIST, ISEED )
-  210    CONTINUE
+         } // 210
 
-  220    CONTINUE
+         } // 220
 
          // Scale by AMAGN
 
          for (JD = KBEG; JD <= KEND; JD++) { // 230
             A( JD, JD ) = AMAGN*DBLE( A( JD, JD ) )
-  230    CONTINUE
+         } // 230
          for (JD = ISDB; JD <= ISDE; JD++) { // 240
             A( JD+1, JD ) = AMAGN*DBLE( A( JD+1, JD ) )
-  240    CONTINUE
+         } // 240
 
          // If ISIGN = 1 or 2, assign random signs to diagonal and
          // subdiagonal
@@ -179,12 +179,12 @@
                if ( DBLE( A( JD, JD ) ).NE.ZERO ) {
                   IF( DLARAN( ISEED ).GT.HALF ) A( JD, JD ) = -A( JD, JD )
                }
-  250       CONTINUE
+            } // 250
             for (JD = ISDB; JD <= ISDE; JD++) { // 260
                if ( DBLE( A( JD+1, JD ) ).NE.ZERO ) {
                   IF( DLARAN( ISEED ).GT.HALF ) A( JD+1, JD ) = -A( JD+1, JD )
                }
-  260       CONTINUE
+            } // 260
          }
 
          // Reverse if ITYPE < 0
@@ -194,12 +194,12 @@
                TEMP = A( JD, JD )
                A( JD, JD ) = A( KBEG+KEND-JD, KBEG+KEND-JD )
                A( KBEG+KEND-JD, KBEG+KEND-JD ) = TEMP
-  270       CONTINUE
+            } // 270
             DO 280 JD = 1, ( N-1 ) / 2
                TEMP = A( JD+1, JD )
                A( JD+1, JD ) = A( N+1-JD, N-JD )
                A( N+1-JD, N-JD ) = TEMP
-  280       CONTINUE
+            } // 280
          }
 
          // If ISIGN = 2, and no subdiagonals already, then apply
@@ -235,7 +235,7 @@
                   A( JD, JD+1 ) = -CL*SR*SV1 + SL*CR*SV2
                   A( JD+1, JD+1 ) = SL*SR*SV1 + CL*CR*SV2
                }
-  290       CONTINUE
+            } // 290
          }
 
       }
@@ -249,14 +249,14 @@
             IOFF = 2
             DO 300 JR = 1, N - 1
                IF( A( JR+1, JR ).EQ.ZERO ) A( JR, JR+1 ) = TRIANG*DLARND( IDIST, ISEED )
-  300       CONTINUE
+            } // 300
          }
 
          for (JC = 2; JC <= N; JC++) { // 320
             DO 310 JR = 1, JC - IOFF
                A( JR, JC ) = TRIANG*DLARND( IDIST, ISEED )
-  310       CONTINUE
-  320    CONTINUE
+            } // 310
+         } // 320
       }
 
       RETURN

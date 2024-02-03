@@ -111,7 +111,7 @@
 
                zlarfb('Right', 'No transpose', 'Forward', 'Rowwise', M-I-IB+1, N-I+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I+IB, I ), LDA, WORK( IB+1 ), LDWORK );
             }
-   10    CONTINUE
+         } // 10
       } else {
          I = 1
       }

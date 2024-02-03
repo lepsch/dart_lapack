@@ -67,7 +67,7 @@
 
          K = N
          KC = N*( N+1 ) / 2 + 1
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop.
 
@@ -117,13 +117,13 @@
                BK = B( K, J ) / AKM1K
                B( K-1, J ) = ( AK*BKM1-BK ) / DENOM
                B( K, J ) = ( AKM1*BK-BKM1 ) / DENOM
-   20       CONTINUE
+            } // 20
             KC = KC - K + 1
             K = K - 2
          }
 
          GO TO 10
-   30    CONTINUE
+         } // 30
 
          // Next solve U**T*X = B, overwriting B with X.
 
@@ -132,7 +132,7 @@
 
          K = 1
          KC = 1
-   40    CONTINUE
+         } // 40
 
          // If K > N, exit from loop.
 
@@ -171,7 +171,7 @@
          }
 
          GO TO 40
-   50    CONTINUE
+         } // 50
 
       } else {
 
@@ -184,7 +184,7 @@
 
          K = 1
          KC = 1
-   60    CONTINUE
+         } // 60
 
          // If K > N, exit from loop.
 
@@ -236,13 +236,13 @@
                BK = B( K+1, J ) / AKM1K
                B( K, J ) = ( AK*BKM1-BK ) / DENOM
                B( K+1, J ) = ( AKM1*BK-BKM1 ) / DENOM
-   70       CONTINUE
+            } // 70
             KC = KC + 2*( N-K ) + 1
             K = K + 2
          }
 
          GO TO 60
-   80    CONTINUE
+         } // 80
 
          // Next solve L**T*X = B, overwriting B with X.
 
@@ -251,7 +251,7 @@
 
          K = N
          KC = N*( N+1 ) / 2 + 1
-   90    CONTINUE
+         } // 90
 
          // If K < 1, exit from loop.
 
@@ -292,7 +292,7 @@
          }
 
          GO TO 90
-  100    CONTINUE
+         } // 100
       }
 
       RETURN

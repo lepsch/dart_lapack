@@ -73,71 +73,71 @@
 
          // One large D value:
 
-  100    CONTINUE
+         } // 100
          for (I = 2; I <= RANK; I++) { // 110
             D( I ) = ONE / COND
-  110    CONTINUE
+         } // 110
          DO 120 I = RANK + 1, N
             D( I ) = ZERO
-  120    CONTINUE
+         } // 120
          D( 1 ) = ONE
          GO TO 240
 
          // One small D value:
 
-  130    CONTINUE
+         } // 130
          DO 140 I = 1, RANK - 1
             D( I ) = ONE
-  140    CONTINUE
+         } // 140
          DO 150 I = RANK + 1, N
             D( I ) = ZERO
-  150    CONTINUE
+         } // 150
          D( RANK ) = ONE / COND
          GO TO 240
 
          // Exponentially distributed D values:
 
-  160    CONTINUE
+         } // 160
          D( 1 ) = ONE
          if ( N.GT.1 .AND. RANK.GT.1 ) {
             ALPHA = COND**( -ONE / DBLE( RANK-1 ) )
             for (I = 2; I <= RANK; I++) { // 170
                D( I ) = ALPHA**( I-1 )
-  170       CONTINUE
+            } // 170
             DO 180 I = RANK + 1, N
                D( I ) = ZERO
-  180       CONTINUE
+            } // 180
          }
          GO TO 240
 
          // Arithmetically distributed D values:
 
-  190    CONTINUE
+         } // 190
          D( 1 ) = ONE
          if ( N.GT.1 ) {
             TEMP = ONE / COND
             ALPHA = ( ONE-TEMP ) / DBLE( N-1 )
             for (I = 2; I <= N; I++) { // 200
                D( I ) = DBLE( N-I )*ALPHA + TEMP
-  200       CONTINUE
+            } // 200
          }
          GO TO 240
 
          // Randomly distributed D values on ( 1/COND , 1):
 
-  210    CONTINUE
+         } // 210
          ALPHA = LOG( ONE / COND )
          for (I = 1; I <= N; I++) { // 220
             D( I ) = EXP( ALPHA*DLARAN( ISEED ) )
-  220    CONTINUE
+         } // 220
          GO TO 240
 
          // Randomly distributed D values from IDIST
 
-  230    CONTINUE
+         } // 230
          dlarnv(IDIST, ISEED, N, D );
 
-  240    CONTINUE
+         } // 240
 
          // If MODE neither -6 nor 0 nor 6, and IRSIGN = 1, assign
          // random signs to D
@@ -146,7 +146,7 @@
             for (I = 1; I <= N; I++) { // 250
                TEMP = DLARAN( ISEED )
                IF( TEMP.GT.HALF ) D( I ) = -D( I )
-  250       CONTINUE
+            } // 250
          }
 
          // Reverse if MODE < 0
@@ -156,7 +156,7 @@
                TEMP = D( I )
                D( I ) = D( N+1-I )
                D( N+1-I ) = TEMP
-  260       CONTINUE
+            } // 260
          }
 
       }

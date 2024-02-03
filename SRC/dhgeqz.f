@@ -145,7 +145,7 @@
                for (JR = 1; JR <= J; JR++) { // 10
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
-   10          CONTINUE
+               } // 10
             } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
@@ -153,13 +153,13 @@
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 20
                   Z( JR, J ) = -Z( JR, J )
-   20          CONTINUE
+               } // 20
             }
          }
          ALPHAR( J ) = H( J, J )
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )
-   30 CONTINUE
+      } // 30
 
       // If IHI < ILO, skip QZ steps
 
@@ -276,7 +276,7 @@
                         }
                      }
                      T( JCH+1, JCH+1 ) = ZERO
-   40             CONTINUE
+                  } // 40
                   GO TO 70
                } else {
 
@@ -292,7 +292,7 @@
                      dlartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = ZERO
                      drot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL DROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL DROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
-   50             CONTINUE
+                  } // 50
                   GO TO 70
                }
             } else if ( ILAZRO ) {
@@ -305,7 +305,7 @@
 
             // Neither test passed -- try next J
 
-   60    CONTINUE
+         } // 60
 
          // (Drop-through is "impossible")
 
@@ -315,7 +315,7 @@
          // T(ILAST,ILAST)=0 -- clear H(ILAST,ILAST-1) to split off a
          // 1x1 block.
 
-   70    CONTINUE
+         } // 70
          TEMP = H( ILAST, ILAST )
          dlartg(TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = ZERO
@@ -324,13 +324,13 @@
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
                                // and BETA
 
-   80    CONTINUE
+         } // 80
          if ( T( ILAST, ILAST ).LT.ZERO ) {
             if ( ILSCHR ) {
                for (J = IFRSTM; J <= ILAST; J++) { // 90
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
-   90          CONTINUE
+               } // 90
             } else {
                H( ILAST, ILAST ) = -H( ILAST, ILAST )
                T( ILAST, ILAST ) = -T( ILAST, ILAST )
@@ -338,7 +338,7 @@
             if ( ILZ ) {
                for (J = 1; J <= N; J++) { // 100
                   Z( J, ILAST ) = -Z( J, ILAST )
-  100          CONTINUE
+               } // 100
             }
          }
          ALPHAR( ILAST ) = H( ILAST, ILAST )
@@ -365,7 +365,7 @@
          // This iteration only involves rows/columns IFIRST:ILAST. We
          // assume IFIRST < ILAST, and that the diagonal of B is non-zero.
 
-  110    CONTINUE
+         } // 110
          IITER = IITER + 1
          if ( .NOT.ILSCHR ) {
             IFRSTM = IFIRST
@@ -435,10 +435,10 @@
                TEMP2 = TEMP2 / TEMPR
             }
             IF( ABS( ( ASCALE*H( J+1, J ) )*TEMP ).LE.( ASCALE*ATOL )* TEMP2 )GO TO 130
-  120    CONTINUE
+         } // 120
 
          ISTART = IFIRST
-  130    CONTINUE
+         } // 130
 
          // Do an implicit single-shift QZ sweep.
 
@@ -464,13 +464,13 @@
                TEMP2 = C*T( J, JC ) + S*T( J+1, JC )
                T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = TEMP2
-  140       CONTINUE
+            } // 140
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 150
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = TEMP
-  150          CONTINUE
+               } // 150
             }
 
             TEMP = T( J+1, J+1 )
@@ -481,20 +481,20 @@
                TEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J )
                H( JR, J+1 ) = TEMP
-  160       CONTINUE
+            } // 160
             for (JR = IFRSTM; JR <= J; JR++) { // 170
                TEMP = C*T( JR, J+1 ) + S*T( JR, J )
                T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = TEMP
-  170       CONTINUE
+            } // 170
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 180
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = TEMP
-  180          CONTINUE
+               } // 180
             }
-  190    CONTINUE
+         } // 190
 
          GO TO 350
 
@@ -505,7 +505,7 @@
                // This code may break if this point is reached with
                // a 2x2 block with real eigenvalues.
 
-  200    CONTINUE
+         } // 200
          if ( IFIRST+1.EQ.ILAST ) {
 
             // Special case -- 2x2 block with complex eigenvectors
@@ -542,12 +542,12 @@
                for (J = IFRSTM; J <= ILAST; J++) { // 210
                   H( J, ILAST ) = -H( J, ILAST )
                   T( J, ILAST ) = -T( J, ILAST )
-  210          CONTINUE
+               } // 210
 
                if ( ILZ ) {
                   for (J = 1; J <= N; J++) { // 220
                      Z( J, ILAST ) = -Z( J, ILAST )
-  220             CONTINUE
+                  } // 220
                }
                B22 = -B22
             }
@@ -731,14 +731,14 @@
                   T( J, JC ) = T( J, JC ) - TEMP2*TAU
                   T( J+1, JC ) = T( J+1, JC ) - TEMP2*T2
                   T( J+2, JC ) = T( J+2, JC ) - TEMP2*T3
-  230          CONTINUE
+               } // 230
                if ( ILQ ) {
                   for (JR = 1; JR <= N; JR++) { // 240
                      TEMP = Q( JR, J )+V( 2 )*Q( JR, J+1 )+V( 3 )* Q( JR, J+2 )
                      Q( JR, J ) = Q( JR, J ) - TEMP*TAU
                      Q( JR, J+1 ) = Q( JR, J+1 ) - TEMP*T2
                      Q( JR, J+2 ) = Q( JR, J+2 ) - TEMP*T3
-  240             CONTINUE
+                  } // 240
                }
 
                // Zero j-th column of B (see DLAGBC for details)
@@ -804,7 +804,7 @@
                U2 = ( SCALE*U2 ) / W22
                U1 = ( SCALE*U1-W12*U2 ) / W11
 
-  250          CONTINUE
+               } // 250
                if ( ILPIVT ) {
                   TEMP = U2
                   U2 = U1
@@ -829,24 +829,24 @@
                   H( JR, J ) = H( JR, J ) - TEMP*TAU
                   H( JR, J+1 ) = H( JR, J+1 ) - TEMP*T2
                   H( JR, J+2 ) = H( JR, J+2 ) - TEMP*T3
-  260          CONTINUE
+               } // 260
                DO 270 JR = IFRSTM, J + 2
                   TEMP = T( JR, J )+V( 2 )*T( JR, J+1 )+V( 3 )* T( JR, J+2 )
                   T( JR, J ) = T( JR, J ) - TEMP*TAU
                   T( JR, J+1 ) = T( JR, J+1 ) - TEMP*T2
                   T( JR, J+2 ) = T( JR, J+2 ) - TEMP*T3
-  270          CONTINUE
+               } // 270
                if ( ILZ ) {
                   for (JR = 1; JR <= N; JR++) { // 280
                      TEMP = Z( JR, J )+V( 2 )*Z( JR, J+1 )+V( 3 )* Z( JR, J+2 )
                      Z( JR, J ) = Z( JR, J ) - TEMP*TAU
                      Z( JR, J+1 ) = Z( JR, J+1 ) - TEMP*T2
                      Z( JR, J+2 ) = Z( JR, J+2 ) - TEMP*T3
-  280             CONTINUE
+                  } // 280
                }
                T( J+1, J ) = ZERO
                T( J+2, J ) = ZERO
-  290       CONTINUE
+            } // 290
 
             // Last elements: Use Givens rotations
 
@@ -864,13 +864,13 @@
                TEMP2 = C*T( J, JC ) + S*T( J+1, JC )
                T( J+1, JC ) = -S*T( J, JC ) + C*T( J+1, JC )
                T( J, JC ) = TEMP2
-  300       CONTINUE
+            } // 300
             if ( ILQ ) {
                for (JR = 1; JR <= N; JR++) { // 310
                   TEMP = C*Q( JR, J ) + S*Q( JR, J+1 )
                   Q( JR, J+1 ) = -S*Q( JR, J ) + C*Q( JR, J+1 )
                   Q( JR, J ) = TEMP
-  310          CONTINUE
+               } // 310
             }
 
             // Rotations from the right.
@@ -883,18 +883,18 @@
                TEMP = C*H( JR, J+1 ) + S*H( JR, J )
                H( JR, J ) = -S*H( JR, J+1 ) + C*H( JR, J )
                H( JR, J+1 ) = TEMP
-  320       CONTINUE
+            } // 320
             DO 330 JR = IFRSTM, ILAST - 1
                TEMP = C*T( JR, J+1 ) + S*T( JR, J )
                T( JR, J ) = -S*T( JR, J+1 ) + C*T( JR, J )
                T( JR, J+1 ) = TEMP
-  330       CONTINUE
+            } // 330
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 340
                   TEMP = C*Z( JR, J+1 ) + S*Z( JR, J )
                   Z( JR, J ) = -S*Z( JR, J+1 ) + C*Z( JR, J )
                   Z( JR, J+1 ) = TEMP
-  340          CONTINUE
+               } // 340
             }
 
             // End of Double-Shift code
@@ -905,8 +905,8 @@
 
          // End of iteration loop
 
-  350    CONTINUE
-  360 CONTINUE
+         } // 350
+      } // 360
 
       // Drop-through = non-convergence
 
@@ -915,7 +915,7 @@
 
       // Successful completion of all QZ steps
 
-  380 CONTINUE
+      } // 380
 
       // Set Eigenvalues 1:ILO-1
 
@@ -925,7 +925,7 @@
                for (JR = 1; JR <= J; JR++) { // 390
                   H( JR, J ) = -H( JR, J )
                   T( JR, J ) = -T( JR, J )
-  390          CONTINUE
+               } // 390
             } else {
                H( J, J ) = -H( J, J )
                T( J, J ) = -T( J, J )
@@ -933,13 +933,13 @@
             if ( ILZ ) {
                for (JR = 1; JR <= N; JR++) { // 400
                   Z( JR, J ) = -Z( JR, J )
-  400          CONTINUE
+               } // 400
             }
          }
          ALPHAR( J ) = H( J, J )
          ALPHAI( J ) = ZERO
          BETA( J ) = T( J, J )
-  410 CONTINUE
+      } // 410
 
       // Normal Termination
 
@@ -947,7 +947,7 @@
 
       // Exit (other than argument error) -- return optimal workspace size
 
-  420 CONTINUE
+      } // 420
       WORK( 1 ) = DBLE( N )
       RETURN
 

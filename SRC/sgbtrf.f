@@ -90,16 +90,16 @@
          for (J = 1; J <= NB; J++) { // 20
             DO 10 I = 1, J - 1
                WORK13( I, J ) = ZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
          // Zero the subdiagonal elements of the work array WORK31
 
          for (J = 1; J <= NB; J++) { // 40
             DO 30 I = J + 1, NB
                WORK31( I, J ) = ZERO
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
          // Gaussian elimination with partial pivoting
 
@@ -108,8 +108,8 @@
          DO 60 J = KU + 2, MIN( KV, N )
             DO 50 I = KV - J + 2, KL
                AB( I, J ) = ZERO
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // JU is the index of the last column affected by the current
          // stage of the factorization
@@ -145,7 +145,7 @@
                if ( JJ+KV.LE.N ) {
                   for (I = 1; I <= KL; I++) { // 70
                      AB( I, JJ+KV ) = ZERO
-   70             CONTINUE
+                  } // 70
                }
 
                // Find pivot and test for singularity. KM is the number of
@@ -194,7 +194,7 @@
 
                NW = MIN( JJ-J+1, I3 )
                IF( NW.GT.0 ) CALL SCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 )
-   80       CONTINUE
+            } // 80
             if ( J+JB.LE.N ) {
 
                // Apply the row interchanges to the other blocks.
@@ -211,7 +211,7 @@
 
                DO 90 I = J, J + JB - 1
                   IPIV( I ) = IPIV( I ) + J - 1
-   90          CONTINUE
+               } // 90
 
                // Apply the row interchanges to A13, A23, and A33
                // columnwise.
@@ -226,8 +226,8 @@
                         AB( KV+1+II-JJ, JJ ) = AB( KV+1+IP-JJ, JJ )
                         AB( KV+1+IP-JJ, JJ ) = TEMP
                      }
-  100             CONTINUE
-  110          CONTINUE
+                  } // 100
+               } // 110
 
                // Update the relevant part of the trailing submatrix
 
@@ -260,8 +260,8 @@
                   for (JJ = 1; JJ <= J3; JJ++) { // 130
                      for (II = JJ; II <= JB; II++) { // 120
                         WORK13( II, JJ ) = AB( II-JJ+1, JJ+J+KV-1 )
-  120                CONTINUE
-  130             CONTINUE
+                     } // 120
+                  } // 130
 
                   // Update A13 in the work array
 
@@ -286,8 +286,8 @@
                   for (JJ = 1; JJ <= J3; JJ++) { // 150
                      for (II = JJ; II <= JB; II++) { // 140
                         AB( II-JJ+1, JJ+J+KV-1 ) = WORK13( II, JJ )
-  140                CONTINUE
-  150             CONTINUE
+                     } // 140
+                  } // 150
                }
             } else {
 
@@ -295,7 +295,7 @@
 
                DO 160 I = J, J + JB - 1
                   IPIV( I ) = IPIV( I ) + J - 1
-  160          CONTINUE
+               } // 160
             }
 
             // Partially undo the interchanges in the current block to
@@ -325,8 +325,8 @@
 
                NW = MIN( I3, JJ-J+1 )
                IF( NW.GT.0 ) CALL SCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 )
-  170       CONTINUE
-  180    CONTINUE
+            } // 170
+         } // 180
       }
 
       RETURN

@@ -123,7 +123,7 @@
          QMAX = MAX( QMAX, Z( K ) )
          EMIN = MIN( EMIN, Z( K+1 ) )
          ZMAX = MAX( QMAX, ZMAX, Z( K+1 ) )
-   10 CONTINUE
+      } // 10
       if ( Z( 2*N-1 ).LT.ZERO ) {
          INFO = -( 200+2*N-1 )
          xerbla('SLASQ2', 2 );
@@ -138,7 +138,7 @@
       if ( E.EQ.ZERO ) {
          for (K = 2; K <= N; K++) { // 20
             Z( K ) = Z( 2*K-1 )
-   20    CONTINUE
+         } // 20
          slasrt('D', N, Z, IINFO );
          Z( 2*N-1 ) = D
          RETURN
@@ -169,7 +169,7 @@
          Z( 2*K-1 ) = Z( K )
          Z( 2*K-2 ) = ZERO
          Z( 2*K-3 ) = Z( K-1 )
-   30 CONTINUE
+      } // 30
 
       I0 = 1
       N0 = N
@@ -185,7 +185,7 @@
             TEMP = Z( I4-1 )
             Z( I4-1 ) = Z( IPN4-I4-5 )
             Z( IPN4-I4-5 ) = TEMP
-   40    CONTINUE
+         } // 40
       }
 
       // Initial split checking via dqd and Li's test.
@@ -202,7 +202,7 @@
             } else {
                D = Z( I4-3 )*( D / ( D+Z( I4-1 ) ) )
             }
-   50    CONTINUE
+         } // 50
 
          // dqd maps Z to ZZ plus Li's test.
 
@@ -224,7 +224,7 @@
                D = Z( I4+1 )*( D / Z( I4-2*PP-2 ) )
             }
             EMIN = MIN( EMIN, Z( I4-2*PP ) )
-   60    CONTINUE
+         } // 60
          Z( 4*N0-PP-2 ) = D
 
          // Now find qmax.
@@ -232,12 +232,12 @@
          QMAX = Z( 4*I0-PP-2 )
          DO 70 I4 = 4*I0 - PP + 2, 4*N0 - PP - 2, 4
             QMAX = MAX( QMAX, Z( I4 ) )
-   70    CONTINUE
+         } // 70
 
          // Prepare for the next iteration on K.
 
          PP = 1 - PP
-   80 CONTINUE
+      } // 80
 
       // Initialise variables to pass to SLASQ3.
 
@@ -292,10 +292,10 @@
             }
             QMAX = MAX( QMAX, Z( I4-7 )+Z( I4-5 ) )
             EMIN = MIN( EMIN, Z( I4-5 ) )
-   90    CONTINUE
+         } // 90
          I4 = 4
 
-  100    CONTINUE
+         } // 100
          I0 = I4 / 4
          PP = 0
 
@@ -309,7 +309,7 @@
                   DEEMIN = DEE
                   KMIN = ( I4+3 )/4
                }
-  110       CONTINUE
+            } // 110
             if ( (KMIN-I0)*2.LT.N0-KMIN .AND. DEEMIN.LE.HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 )
                PP = 2
@@ -326,7 +326,7 @@
                   TEMP = Z( I4 )
                   Z( I4 ) = Z( IPN4-I4-4 )
                   Z( IPN4-I4-4 ) = TEMP
-  120          CONTINUE
+               } // 120
             }
          }
 
@@ -370,14 +370,14 @@
                         EMIN = MIN( EMIN, Z( I4-1 ) )
                         OLDEMN = MIN( OLDEMN, Z( I4 ) )
                      }
-  130             CONTINUE
+                  } // 130
                   Z( 4*N0-1 ) = EMIN
                   Z( 4*N0 ) = OLDEMN
                   I0 = SPLT + 1
                }
             }
 
-  140    CONTINUE
+         } // 140
 
          INFO = 2
 
@@ -387,7 +387,7 @@
 
          I1 = I0
          N1 = N0
- 145     CONTINUE
+         } // 145
          TEMPQ = Z( 4*I0-3 )
          Z( 4*I0-3 ) = Z( 4*I0-3 ) + SIGMA
          DO K = I0+1, N0
@@ -427,22 +427,22 @@
 
          // end IWHILB
 
-  150    CONTINUE
+         } // 150
 
-  160 CONTINUE
+      } // 160
 
       INFO = 3
       RETURN
 
       // end IWHILA
 
-  170 CONTINUE
+      } // 170
 
       // Move q's to the front.
 
       for (K = 2; K <= N; K++) { // 180
          Z( K ) = Z( 4*K-3 )
-  180 CONTINUE
+      } // 180
 
       // Sort and compute sum of eigenvalues.
 
@@ -451,7 +451,7 @@
       E = ZERO
       DO 190 K = N, 1, -1
          E = E + Z( K )
-  190 CONTINUE
+      } // 190
 
       // Store trace, sum(eigenvalues) and information on performance.
 

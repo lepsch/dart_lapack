@@ -61,7 +61,7 @@
 
       for (I = 1; I <= N; I++) { // 10
          IF( D( I ).LE.ZERO ) RETURN
-   10 CONTINUE
+      } // 10
 
       // Solve M(A) * x = e, where M(A) = (m(i,j)) is given by
 
@@ -75,14 +75,14 @@
       WORK( 1 ) = ONE
       for (I = 2; I <= N; I++) { // 20
          WORK( I ) = ONE + WORK( I-1 )*ABS( E( I-1 ) )
-   20 CONTINUE
+      } // 20
 
       // Solve D * M(L)**T * x = b.
 
       WORK( N ) = WORK( N ) / D( N )
       DO 30 I = N - 1, 1, -1
          WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*ABS( E( I ) )
-   30 CONTINUE
+      } // 30
 
       // Compute AINVNM = max(x(i)), 1<=i<=n.
 

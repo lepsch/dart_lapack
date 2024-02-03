@@ -71,7 +71,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -176,7 +176,7 @@
                         KOFF = MAX( 1, KU+2-N )
                         DO 20 I = 1, KOFF - 1
                            A( I ) = ZERO
-   20                   CONTINUE
+                        } // 20
                         SRNAMT = 'ZLATMS'
                         zlatms(M, N, DIST, ISEED, TYPE, RWORK, MODE, CNDNUM, ANORM, KL, KU, 'Z', A( KOFF ), LDA, WORK, INFO );
 
@@ -217,14 +217,14 @@
 
                            for (I = I1; I <= I2; I++) { // 30
                               A( IOFF+I ) = ZERO
-   30                      CONTINUE
+                           } // 30
                         } else {
                            for (J = IZERO; J <= N; J++) { // 50
                               DO 40 I = MAX( 1, KU+2-J ), MIN( KL+KU+1, KU+1+( M-J ) )
                                  A( IOFF+I ) = ZERO
-   40                         CONTINUE
+                              } // 40
                               IOFF = IOFF + LDA
-   50                      CONTINUE
+                           } // 50
                         }
                      }
 
@@ -374,15 +374,15 @@
                                     IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K )
                                     NFAIL = NFAIL + 1
                                  }
-   60                         CONTINUE
+                              } // 60
                               NRUN = NRUN + 5
-   70                      CONTINUE
-   80                   CONTINUE
+                           } // 70
+                        } // 80
 
 *+    TEST 7:
                            // Get an estimate of RCOND = 1/CNDNUM.
 
-   90                   CONTINUE
+                        } // 90
                         for (ITRAN = 1; ITRAN <= 2; ITRAN++) { // 100
                            if ( ITRAN.EQ.1 ) {
                               ANORM = ANORMO
@@ -410,13 +410,13 @@
                               NFAIL = NFAIL + 1
                            }
                            NRUN = NRUN + 1
-  100                   CONTINUE
-  110                CONTINUE
-  120             CONTINUE
-  130          CONTINUE
-  140       CONTINUE
-  150    CONTINUE
-  160 CONTINUE
+                        } // 100
+                     } // 110
+                  } // 120
+               } // 130
+            } // 140
+         } // 150
+      } // 160
 
       // Print a summary of the results.
 

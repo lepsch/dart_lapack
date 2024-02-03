@@ -75,7 +75,7 @@
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             cgtts2(ITRANS, N, JB, DL, D, DU, DU2, IPIV, B( 1, J ), LDB );
-   10    CONTINUE
+         } // 10
       }
 
       // End of CGTTRS

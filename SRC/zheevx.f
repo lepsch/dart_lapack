@@ -152,11 +152,11 @@
          if ( LOWER ) {
             for (J = 1; J <= N; J++) { // 10
                zdscal(N-J+1, SIGMA, A( J, J ), 1 );
-   10       CONTINUE
+            } // 10
          } else {
             for (J = 1; J <= N; J++) { // 20
                zdscal(J, SIGMA, A( 1, J ), 1 );
-   20       CONTINUE
+            } // 20
          }
          IF( ABSTOL.GT.0 ) ABSTLL = ABSTOL*SIGMA
          if ( VALEIG ) {
@@ -199,7 +199,7 @@
             if ( INFO.EQ.0 ) {
                for (I = 1; I <= N; I++) { // 30
                   IFAIL( I ) = 0
-   30          CONTINUE
+               } // 30
             }
          }
          if ( INFO.EQ.0 ) {
@@ -232,7 +232,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-   40 CONTINUE
+      } // 40
       if ( ISCALE.EQ.1 ) {
          if ( INFO.EQ.0 ) {
             IMAX = M
@@ -254,7 +254,7 @@
                   I = JJ
                   TMP1 = W( JJ )
                }
-   50       CONTINUE
+            } // 50
 
             if ( I.NE.0 ) {
                ITMP1 = IWORK( INDIBL+I-1 )
@@ -269,7 +269,7 @@
                   IFAIL( J ) = ITMP1
                }
             }
-   60    CONTINUE
+         } // 60
       }
 
       // Set WORK(1) to optimal complex workspace size.

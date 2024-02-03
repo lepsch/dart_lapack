@@ -115,7 +115,7 @@
             WRITE( NOUT, FMT = 9995 )' M  ', MVAL( I ), NMAX
             FATAL = .TRUE.
          }
-   10 CONTINUE
+      } // 10
       IF( NM.GT.0 ) WRITE( NOUT, FMT = 9993 )'M   ', ( MVAL( I ), I = 1, NM )
 
       // Read the values of N
@@ -139,7 +139,7 @@
             WRITE( NOUT, FMT = 9995 )' N  ', NVAL( I ), NMAX
             FATAL = .TRUE.
          }
-   20 CONTINUE
+      } // 20
       IF( NN.GT.0 ) WRITE( NOUT, FMT = 9993 )'N   ', ( NVAL( I ), I = 1, NN )
 
       // Read the values of NRHS
@@ -163,7 +163,7 @@
             WRITE( NOUT, FMT = 9995 )'NRHS', NSVAL( I ), MAXRHS
             FATAL = .TRUE.
          }
-   30 CONTINUE
+      } // 30
       IF( NNS.GT.0 ) WRITE( NOUT, FMT = 9993 )'NRHS', ( NSVAL( I ), I = 1, NNS )
 
       // Read the values of NB
@@ -184,7 +184,7 @@
             WRITE( NOUT, FMT = 9996 )' NB ', NBVAL( I ), 0
             FATAL = .TRUE.
          }
-   40 CONTINUE
+      } // 40
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NB  ', ( NBVAL( I ), I = 1, NNB )
 
       // Set NBVAL2 to be the set of unique values of NB
@@ -194,10 +194,10 @@
          NB = NBVAL( I )
          for (J = 1; J <= NNB2; J++) { // 50
             IF( NB.EQ.NBVAL2( J ) ) GO TO 60
-   50    CONTINUE
+         } // 50
          NNB2 = NNB2 + 1
          NBVAL2( NNB2 ) = NB
-   60 CONTINUE
+      } // 60
 
       // Read the values of NX
 
@@ -207,7 +207,7 @@
             WRITE( NOUT, FMT = 9996 )' NX ', NXVAL( I ), 0
             FATAL = .TRUE.
          }
-   70 CONTINUE
+      } // 70
       IF( NNB.GT.0 ) WRITE( NOUT, FMT = 9993 )'NX  ', ( NXVAL( I ), I = 1, NNB )
 
       // Read the values of RANKVAL
@@ -266,7 +266,7 @@
       WRITE( NOUT, FMT = 9991 )'precision', EPS
       WRITE( NOUT, FMT = * )
 
-   80 CONTINUE
+      } // 80
 
       // Read a test path and the number of matrix types to use.
 
@@ -274,7 +274,7 @@
       PATH = ALINE( 1: 3 )
       NMATS = MATMAX
       I = 3
-   90 CONTINUE
+      } // 90
       I = I + 1
       if ( I.GT.72 ) {
          NMATS = MATMAX
@@ -282,21 +282,21 @@
       }
       IF( ALINE( I: I ).EQ.' ' ) GO TO 90
       NMATS = 0
-  100 CONTINUE
+      } // 100
       C1 = ALINE( I: I )
       for (K = 1; K <= 10; K++) { // 110
          if ( C1.EQ.INTSTR( K: K ) ) {
             IC = K - 1
             GO TO 120
          }
-  110 CONTINUE
+      } // 110
       GO TO 130
-  120 CONTINUE
+      } // 120
       NMATS = NMATS*10 + IC
       I = I + 1
       IF( I.GT.72 ) GO TO 130
       GO TO 100
-  130 CONTINUE
+      } // 130
       C1 = PATH( 1: 1 )
       C2 = PATH( 2: 3 )
       NRHS = NSVAL( 1 )
@@ -807,7 +807,7 @@
 
       // Branch to this line when the last record is read.
 
-  140 CONTINUE
+      } // 140
       CLOSE ( NIN )
       S2 = SECOND( )
       WRITE( NOUT, FMT = 9998 )

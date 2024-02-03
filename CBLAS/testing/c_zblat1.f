@@ -39,7 +39,7 @@
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
-   20 CONTINUE
+      } // 20
       STOP
 
 99999 FORMAT (' Complex CBLAS Test Program Results',/1X)
@@ -116,7 +116,7 @@
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                CX(I) = CV(I,NP1,INCX)
-   20       CONTINUE
+            } // 20
             if (ICASE.EQ.6) {
                // .. DZNRM2TEST ..
                stest1(DZNRM2TEST(N,CX,INCX),STRUE2(NP1), STRUE2(NP1),SFAC);
@@ -139,8 +139,8 @@
                STOP
             }
 
-   40    CONTINUE
-   60 CONTINUE
+         } // 40
+      } // 60
 
       INCX = 1
       if (ICASE.EQ.8) {
@@ -150,7 +150,7 @@
          for (I = 1; I <= 5; I++) { // 80
             MWPCT(I) = (0.0D0,0.0D0)
             MWPCS(I) = (1.0D0,1.0D0)
-   80    CONTINUE
+         } // 80
          zscaltest(5,CA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
       } else if (ICASE.EQ.9) {
@@ -160,7 +160,7 @@
          for (I = 1; I <= 5; I++) { // 100
             MWPCT(I) = (0.0D0,0.0D0)
             MWPCS(I) = (1.0D0,1.0D0)
-  100    CONTINUE
+         } // 100
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to one.
@@ -168,7 +168,7 @@
          for (I = 1; I <= 5; I++) { // 120
             MWPCT(I) = CX(I)
             MWPCS(I) = CX(I)
-  120    CONTINUE
+         } // 120
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
          // Add a test for alpha equal to minus one.
@@ -176,7 +176,7 @@
          for (I = 1; I <= 5; I++) { // 140
             MWPCT(I) = -CX(I)
             MWPCS(I) = -CX(I)
-  140    CONTINUE
+         } // 140
          zdscaltest(5,SA,CX,INCX);
          ctest(5,CX,MWPCT,MWPCS,SFAC);
       }
@@ -230,7 +230,7 @@
             for (I = 1; I <= 7; I++) { // 20
                CX(I) = CX1(I)
                CY(I) = CY1(I)
-   20       CONTINUE
+            } // 20
             if (ICASE.EQ.1) {
                // .. ZDOTCTEST ..
                zdotctest(N,CX,INCX,CY,INCY,ZTEMP);
@@ -259,8 +259,8 @@
                STOP
             }
 
-   40    CONTINUE
-   60 CONTINUE
+         } // 40
+      } // 60
       RETURN
       }
       SUBROUTINE STEST(LEN,SCOMP,STRUE,SSIZE,SFAC)
@@ -307,7 +307,7 @@
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')
@@ -375,7 +375,7 @@
          STRUE(2*I) = DIMAG(CTRUE(I))
          SSIZE(2*I-1) = DBLE(CSIZE(I))
          SSIZE(2*I) = DIMAG(CSIZE(I))
-   20 CONTINUE
+      } // 20
 
       stest(2*LEN,SCOMP,STRUE,SSIZE,SFAC);
       RETURN
@@ -411,7 +411,7 @@
       WRITE (NOUT,99998)
    20 ID = ICOMP - ITRUE
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, MODE, ICOMP, ITRUE, ID
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')

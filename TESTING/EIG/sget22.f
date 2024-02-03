@@ -80,7 +80,7 @@
 
                for (J = 1; J <= N; J++) { // 10
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) )+ ABS( E( J, JVEC+1 ) ) )
-   10          CONTINUE
+               } // 10
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
                IPAIR = 2
@@ -92,12 +92,12 @@
 
                for (J = 1; J <= N; J++) { // 20
                   TEMP1 = MAX( TEMP1, ABS( E( J, JVEC ) ) )
-   20          CONTINUE
+               } // 20
                ENRMIN = MIN( ENRMIN, TEMP1 )
                ENRMAX = MAX( ENRMAX, TEMP1 )
                IPAIR = 0
             }
-   30    CONTINUE
+         } // 30
 
       } else {
 
@@ -105,7 +105,7 @@
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 40
             WORK( JVEC ) = ZERO
-   40    CONTINUE
+         } // 40
 
          for (J = 1; J <= N; J++) { // 60
             IPAIR = 0
@@ -120,13 +120,13 @@
                   WORK( JVEC ) = MAX( WORK( JVEC ), ABS( E( J, JVEC ) ) )
                   IPAIR = 0
                }
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          for (JVEC = 1; JVEC <= N; JVEC++) { // 70
             ENRMIN = MIN( ENRMIN, WORK( JVEC ) )
             ENRMAX = MAX( ENRMAX, WORK( JVEC ) )
-   70    CONTINUE
+         } // 70
       }
 
       // Norm of A:
@@ -172,7 +172,7 @@
             IPAIR = 0
          }
 
-   80 CONTINUE
+      } // 80
 
       sgemm(TRANSA, TRANSE, N, N, N, ONE, A, LDA, E, LDE, -ONE, WORK, N );
 

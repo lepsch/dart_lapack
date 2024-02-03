@@ -43,16 +43,16 @@
 
          dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
-   10    CONTINUE
+         } // 10
 
          // Special code for 1 x 1 Householder
 
          T1 = ONE - TAU*V( 1 )*V( 1 )
          for (J = 1; J <= N; J++) { // 20
             C( 1, J ) = T1*C( 1, J )
-   20    CONTINUE
+         } // 20
          GO TO 410
-   30    CONTINUE
+         } // 30
 
          // Special code for 2 x 2 Householder
 
@@ -64,9 +64,9 @@
             SUM = V1*C( 1, J ) + V2*C( 2, J )
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
-   40    CONTINUE
+         } // 40
          GO TO 410
-   50    CONTINUE
+         } // 50
 
          // Special code for 3 x 3 Householder
 
@@ -81,9 +81,9 @@
             C( 1, J ) = C( 1, J ) - SUM*T1
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
-   60    CONTINUE
+         } // 60
          GO TO 410
-   70    CONTINUE
+         } // 70
 
          // Special code for 4 x 4 Householder
 
@@ -101,9 +101,9 @@
             C( 2, J ) = C( 2, J ) - SUM*T2
             C( 3, J ) = C( 3, J ) - SUM*T3
             C( 4, J ) = C( 4, J ) - SUM*T4
-   80    CONTINUE
+         } // 80
          GO TO 410
-   90    CONTINUE
+         } // 90
 
          // Special code for 5 x 5 Householder
 
@@ -124,9 +124,9 @@
             C( 3, J ) = C( 3, J ) - SUM*T3
             C( 4, J ) = C( 4, J ) - SUM*T4
             C( 5, J ) = C( 5, J ) - SUM*T5
-  100    CONTINUE
+         } // 100
          GO TO 410
-  110    CONTINUE
+         } // 110
 
          // Special code for 6 x 6 Householder
 
@@ -150,9 +150,9 @@
             C( 4, J ) = C( 4, J ) - SUM*T4
             C( 5, J ) = C( 5, J ) - SUM*T5
             C( 6, J ) = C( 6, J ) - SUM*T6
-  120    CONTINUE
+         } // 120
          GO TO 410
-  130    CONTINUE
+         } // 130
 
          // Special code for 7 x 7 Householder
 
@@ -179,9 +179,9 @@
             C( 5, J ) = C( 5, J ) - SUM*T5
             C( 6, J ) = C( 6, J ) - SUM*T6
             C( 7, J ) = C( 7, J ) - SUM*T7
-  140    CONTINUE
+         } // 140
          GO TO 410
-  150    CONTINUE
+         } // 150
 
          // Special code for 8 x 8 Householder
 
@@ -211,9 +211,9 @@
             C( 6, J ) = C( 6, J ) - SUM*T6
             C( 7, J ) = C( 7, J ) - SUM*T7
             C( 8, J ) = C( 8, J ) - SUM*T8
-  160    CONTINUE
+         } // 160
          GO TO 410
-  170    CONTINUE
+         } // 170
 
          // Special code for 9 x 9 Householder
 
@@ -246,9 +246,9 @@
             C( 7, J ) = C( 7, J ) - SUM*T7
             C( 8, J ) = C( 8, J ) - SUM*T8
             C( 9, J ) = C( 9, J ) - SUM*T9
-  180    CONTINUE
+         } // 180
          GO TO 410
-  190    CONTINUE
+         } // 190
 
          // Special code for 10 x 10 Householder
 
@@ -284,7 +284,7 @@
             C( 8, J ) = C( 8, J ) - SUM*T8
             C( 9, J ) = C( 9, J ) - SUM*T9
             C( 10, J ) = C( 10, J ) - SUM*T10
-  200    CONTINUE
+         } // 200
          GO TO 410
       } else {
 
@@ -296,16 +296,16 @@
 
          dlarf(SIDE, M, N, V, 1, TAU, C, LDC, WORK );
          GO TO 410
-  210    CONTINUE
+         } // 210
 
          // Special code for 1 x 1 Householder
 
          T1 = ONE - TAU*V( 1 )*V( 1 )
          for (J = 1; J <= M; J++) { // 220
             C( J, 1 ) = T1*C( J, 1 )
-  220    CONTINUE
+         } // 220
          GO TO 410
-  230    CONTINUE
+         } // 230
 
          // Special code for 2 x 2 Householder
 
@@ -317,9 +317,9 @@
             SUM = V1*C( J, 1 ) + V2*C( J, 2 )
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
-  240    CONTINUE
+         } // 240
          GO TO 410
-  250    CONTINUE
+         } // 250
 
          // Special code for 3 x 3 Householder
 
@@ -334,9 +334,9 @@
             C( J, 1 ) = C( J, 1 ) - SUM*T1
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
-  260    CONTINUE
+         } // 260
          GO TO 410
-  270    CONTINUE
+         } // 270
 
          // Special code for 4 x 4 Householder
 
@@ -354,9 +354,9 @@
             C( J, 2 ) = C( J, 2 ) - SUM*T2
             C( J, 3 ) = C( J, 3 ) - SUM*T3
             C( J, 4 ) = C( J, 4 ) - SUM*T4
-  280    CONTINUE
+         } // 280
          GO TO 410
-  290    CONTINUE
+         } // 290
 
          // Special code for 5 x 5 Householder
 
@@ -377,9 +377,9 @@
             C( J, 3 ) = C( J, 3 ) - SUM*T3
             C( J, 4 ) = C( J, 4 ) - SUM*T4
             C( J, 5 ) = C( J, 5 ) - SUM*T5
-  300    CONTINUE
+         } // 300
          GO TO 410
-  310    CONTINUE
+         } // 310
 
          // Special code for 6 x 6 Householder
 
@@ -403,9 +403,9 @@
             C( J, 4 ) = C( J, 4 ) - SUM*T4
             C( J, 5 ) = C( J, 5 ) - SUM*T5
             C( J, 6 ) = C( J, 6 ) - SUM*T6
-  320    CONTINUE
+         } // 320
          GO TO 410
-  330    CONTINUE
+         } // 330
 
          // Special code for 7 x 7 Householder
 
@@ -432,9 +432,9 @@
             C( J, 5 ) = C( J, 5 ) - SUM*T5
             C( J, 6 ) = C( J, 6 ) - SUM*T6
             C( J, 7 ) = C( J, 7 ) - SUM*T7
-  340    CONTINUE
+         } // 340
          GO TO 410
-  350    CONTINUE
+         } // 350
 
          // Special code for 8 x 8 Householder
 
@@ -464,9 +464,9 @@
             C( J, 6 ) = C( J, 6 ) - SUM*T6
             C( J, 7 ) = C( J, 7 ) - SUM*T7
             C( J, 8 ) = C( J, 8 ) - SUM*T8
-  360    CONTINUE
+         } // 360
          GO TO 410
-  370    CONTINUE
+         } // 370
 
          // Special code for 9 x 9 Householder
 
@@ -499,9 +499,9 @@
             C( J, 7 ) = C( J, 7 ) - SUM*T7
             C( J, 8 ) = C( J, 8 ) - SUM*T8
             C( J, 9 ) = C( J, 9 ) - SUM*T9
-  380    CONTINUE
+         } // 380
          GO TO 410
-  390    CONTINUE
+         } // 390
 
          // Special code for 10 x 10 Householder
 
@@ -537,10 +537,10 @@
             C( J, 8 ) = C( J, 8 ) - SUM*T8
             C( J, 9 ) = C( J, 9 ) - SUM*T9
             C( J, 10 ) = C( J, 10 ) - SUM*T10
-  400    CONTINUE
+         } // 400
          GO TO 410
       }
-  410 CONTINUE
+      } // 410
       RETURN
 
       // End of DLARFX

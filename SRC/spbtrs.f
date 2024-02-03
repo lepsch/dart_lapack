@@ -69,7 +69,7 @@
             // Solve U*X = B, overwriting B with X.
 
             stbsv('Upper', 'No transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
-   10    CONTINUE
+         } // 10
       } else {
 
          // Solve A*X = B where A = L*L**T.
@@ -83,7 +83,7 @@
             // Solve L**T *X = B, overwriting B with X.
 
             stbsv('Lower', 'Transpose', 'Non-unit', N, KD, AB, LDAB, B( 1, J ), 1 );
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

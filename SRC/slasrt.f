@@ -60,7 +60,7 @@
       STKPNT = 1
       STACK( 1, 1 ) = 1
       STACK( 2, 1 ) = N
-   10 CONTINUE
+      } // 10
       START = STACK( 1, STKPNT )
       ENDD = STACK( 2, STKPNT )
       STKPNT = STKPNT - 1
@@ -81,8 +81,8 @@
                   } else {
                      GO TO 30
                   }
-   20          CONTINUE
-   30       CONTINUE
+               } // 20
+            } // 30
 
          } else {
 
@@ -97,8 +97,8 @@
                   } else {
                      GO TO 50
                   }
-   40          CONTINUE
-   50       CONTINUE
+               } // 40
+            } // 50
 
          }
 
@@ -136,11 +136,11 @@
 
             I = START - 1
             J = ENDD + 1
-   60       CONTINUE
-   70       CONTINUE
+            } // 60
+            } // 70
             J = J - 1
             IF( D( J ).LT.DMNMX ) GO TO 70
-   80       CONTINUE
+            } // 80
             I = I + 1
             IF( D( I ).GT.DMNMX ) GO TO 80
             if ( I.LT.J ) {
@@ -170,11 +170,11 @@
 
             I = START - 1
             J = ENDD + 1
-   90       CONTINUE
-  100       CONTINUE
+            } // 90
+            } // 100
             J = J - 1
             IF( D( J ).GT.DMNMX ) GO TO 100
-  110       CONTINUE
+            } // 110
             I = I + 1
             IF( D( I ).LT.DMNMX ) GO TO 110
             if ( I.LT.J ) {

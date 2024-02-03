@@ -68,7 +68,7 @@
 
       // 1 by 1: TL11*X + SGN*X*TR11 = B11
 
-   10 CONTINUE
+      } // 10
       TAU1 = TL( 1, 1 ) + SGN*TR( 1, 1 )
       BET = ABS( TAU1 )
       if ( BET.LE.SMLNUM ) {
@@ -89,7 +89,7 @@
       // TL11*[X11 X12] + ISGN*[X11 X12]*op[TR11 TR12]  = [B11 B12]
                                         // [TR21 TR22]
 
-   20 CONTINUE
+      } // 20
 
       SMIN = MAX( EPS*MAX( ABS( TL( 1, 1 ) ), ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
@@ -109,7 +109,7 @@
            // op[TL11 TL12]*[X11] + ISGN* [X11]*TR11  = [B11]
              // [TL21 TL22] [X21]         [X21]         [B21]
 
-   30 CONTINUE
+      } // 30
       SMIN = MAX( EPS*MAX( ABS( TR( 1, 1 ) ), ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) ), SMLNUM )
       TMP( 1 ) = TL( 1, 1 ) + SGN*TR( 1, 1 )
       TMP( 4 ) = TL( 2, 2 ) + SGN*TR( 1, 1 )
@@ -122,7 +122,7 @@
       }
       BTMP( 1 ) = B( 1, 1 )
       BTMP( 2 ) = B( 2, 1 )
-   40 CONTINUE
+      } // 40
 
       // Solve 2 by 2 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.
@@ -179,7 +179,7 @@
       // Solve equivalent 4 by 4 system using complete pivoting.
       // Set pivots less than SMIN to SMIN.
 
-   50 CONTINUE
+      } // 50
       SMIN = MAX( ABS( TR( 1, 1 ) ), ABS( TR( 1, 2 ) ), ABS( TR( 2, 1 ) ), ABS( TR( 2, 2 ) ) )       SMIN = MAX( SMIN, ABS( TL( 1, 1 ) ), ABS( TL( 1, 2 ) ), ABS( TL( 2, 1 ) ), ABS( TL( 2, 2 ) ) )
       SMIN = MAX( EPS*SMIN, SMLNUM )
       BTMP( 1 ) = ZERO
@@ -226,8 +226,8 @@
                   IPSV = IP
                   JPSV = JP
                }
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
          if ( IPSV.NE.I ) {
             sswap(4, T16( IPSV, 1 ), 4, T16( I, 1 ), 4 );
             TEMP = BTMP( I )
@@ -245,9 +245,9 @@
             BTMP( J ) = BTMP( J ) - T16( J, I )*BTMP( I )
             DO 80 K = I + 1, 4
                T16( J, K ) = T16( J, K ) - T16( J, I )*T16( I, K )
-   80       CONTINUE
-   90    CONTINUE
-  100 CONTINUE
+            } // 80
+         } // 90
+      } // 100
       if ( ABS( T16( 4, 4 ) ).LT.SMIN ) {
          INFO = 1
          T16( 4, 4 ) = SMIN
@@ -266,15 +266,15 @@
          TMP( K ) = BTMP( K )*TEMP
          DO 110 J = K + 1, 4
             TMP( K ) = TMP( K ) - ( TEMP*T16( K, J ) )*TMP( J )
-  110    CONTINUE
-  120 CONTINUE
+         } // 110
+      } // 120
       for (I = 1; I <= 3; I++) { // 130
          if ( JPIV( 4-I ).NE.4-I ) {
             TEMP = TMP( 4-I )
             TMP( 4-I ) = TMP( JPIV( 4-I ) )
             TMP( JPIV( 4-I ) ) = TEMP
          }
-  130 CONTINUE
+      } // 130
       X( 1, 1 ) = TMP( 1 )
       X( 2, 1 ) = TMP( 2 )
       X( 1, 2 ) = TMP( 3 )

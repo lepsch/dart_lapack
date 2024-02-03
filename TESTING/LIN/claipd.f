@@ -33,6 +33,6 @@
          A( IA ) = CMPLX( REAL( A( IA ) ), BIGNUM )
          IA = IA + IXA
          IXA = IXA + VINDA
-   10 CONTINUE
+      } // 10
       RETURN
       }

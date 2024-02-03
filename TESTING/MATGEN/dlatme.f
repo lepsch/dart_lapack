@@ -81,7 +81,7 @@
                } else {
                   IF( .NOT.LSAME( EI( J ), 'R' ) ) BADEI = .TRUE.
                }
-   10       CONTINUE
+            } // 10
          } else {
             BADEI = .TRUE.
          }
@@ -123,7 +123,7 @@
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
          for (J = 1; J <= N; J++) { // 20
             IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
-   20    CONTINUE
+         } // 20
       }
 
       // Set INFO if an error
@@ -167,7 +167,7 @@
 
       for (I = 1; I <= 4; I++) { // 30
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
-   30 CONTINUE
+      } // 30
 
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
@@ -187,7 +187,7 @@
          TEMP = ABS( D( 1 ) )
          for (I = 2; I <= N; I++) { // 40
             TEMP = MAX( TEMP, ABS( D( I ) ) )
-   40    CONTINUE
+         } // 40
 
          if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
@@ -215,7 +215,7 @@
                   A( J, J-1 ) = -A( J, J )
                   A( J, J ) = A( J-1, J-1 )
                }
-   50       CONTINUE
+            } // 50
          }
 
       } else if ( ABS( MODE ).EQ.5 ) {
@@ -226,7 +226,7 @@
                A( J, J-1 ) = -A( J, J )
                A( J, J ) = A( J-1, J-1 )
             }
-   60    CONTINUE
+         } // 60
       }
 
       // 3)      If UPPER='T', set upper triangle of A to random numbers.
@@ -240,7 +240,7 @@
                JR = JC - 1
             }
             dlarnv(IDIST, ISEED, JR, A( 1, JC ) );
-   70    CONTINUE
+         } // 70
       }
 
       // 4)      If SIM='T', apply similarity transformation.
@@ -279,7 +279,7 @@
                INFO = 5
                RETURN
             }
-   80    CONTINUE
+         } // 80
 
          // Multiply by U and U'
 
@@ -312,7 +312,7 @@
 
             A( JCR, IC ) = XNORMS
             dlaset('Full', IROWS-1, 1, ZERO, ZERO, A( JCR+1, IC ), LDA );
-   90    CONTINUE
+         } // 90
       } else if ( KU.LT.N-1 ) {
 
          // Reduce upper bandwidth -- kill a row at a time.
@@ -333,7 +333,7 @@
 
             A( IR, JCR ) = XNORMS
             dlaset('Full', 1, ICOLS-1, ZERO, ZERO, A( IR, JCR+1 ), LDA );
-  100    CONTINUE
+         } // 100
       }
 
       // Scale the matrix to have norm ANORM
@@ -344,7 +344,7 @@
             ALPHA = ANORM / TEMP
             for (J = 1; J <= N; J++) { // 110
                dscal(N, ALPHA, A( 1, J ), 1 );
-  110       CONTINUE
+            } // 110
          }
       }
 

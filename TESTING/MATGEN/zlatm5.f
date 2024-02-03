@@ -43,8 +43,8 @@
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
                }
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
          for (I = 1; I <= N; I++) { // 40
             for (J = 1; J <= N; J++) { // 30
@@ -58,15 +58,15 @@
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
                }
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
          for (I = 1; I <= M; I++) { // 60
             for (J = 1; J <= N; J++) { // 50
                R( I, J ) = ( HALF-SIN( DCMPLX( I / J ) ) )*TWENTY
                L( I, J ) = R( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
       } else if ( PRTYPE.EQ.2 .OR. PRTYPE.EQ.3 ) {
          for (I = 1; I <= M; I++) { // 80
@@ -78,8 +78,8 @@
                   A( I, J ) = ZERO
                   D( I, J ) = ZERO
                }
-   70       CONTINUE
-   80    CONTINUE
+            } // 70
+         } // 80
 
          for (I = 1; I <= N; I++) { // 100
             for (J = 1; J <= N; J++) { // 90
@@ -90,28 +90,28 @@
                   B( I, J ) = ZERO
                   E( I, J ) = ZERO
                }
-   90       CONTINUE
-  100    CONTINUE
+            } // 90
+         } // 100
 
          for (I = 1; I <= M; I++) { // 120
             for (J = 1; J <= N; J++) { // 110
                R( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWENTY
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
 
          if ( PRTYPE.EQ.3 ) {
             IF( QBLCKA.LE.1 ) QBLCKA = 2
             DO 130 K = 1, M - 1, QBLCKA
                A( K+1, K+1 ) = A( K, K )
                A( K+1, K ) = -SIN( A( K, K+1 ) )
-  130       CONTINUE
+            } // 130
 
             IF( QBLCKB.LE.1 ) QBLCKB = 2
             DO 140 K = 1, N - 1, QBLCKB
                B( K+1, K+1 ) = B( K, K )
                B( K+1, K ) = -SIN( B( K, K+1 ) )
-  140       CONTINUE
+            } // 140
          }
 
       } else if ( PRTYPE.EQ.4 ) {
@@ -119,22 +119,22 @@
             for (J = 1; J <= M; J++) { // 150
                A( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWENTY
                D( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWO
-  150       CONTINUE
-  160    CONTINUE
+            } // 150
+         } // 160
 
          for (I = 1; I <= N; I++) { // 180
             for (J = 1; J <= N; J++) { // 170
                B( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*TWENTY
                E( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWO
-  170       CONTINUE
-  180    CONTINUE
+            } // 170
+         } // 180
 
          for (I = 1; I <= M; I++) { // 200
             for (J = 1; J <= N; J++) { // 190
                R( I, J ) = ( HALF-SIN( DCMPLX( J / I ) ) )*TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*TWO
-  190       CONTINUE
-  200    CONTINUE
+            } // 190
+         } // 200
 
       } else if ( PRTYPE.GE.5 ) {
          REEPS = HALF*TWO*TWENTY / ALPHA
@@ -143,12 +143,12 @@
             for (J = 1; J <= N; J++) { // 210
                R( I, J ) = ( HALF-SIN( DCMPLX( I*J ) ) )*ALPHA / TWENTY
                L( I, J ) = ( HALF-SIN( DCMPLX( I+J ) ) )*ALPHA / TWENTY
-  210       CONTINUE
-  220    CONTINUE
+            } // 210
+         } // 220
 
          for (I = 1; I <= M; I++) { // 230
             D( I, I ) = ONE
-  230    CONTINUE
+         } // 230
 
          for (I = 1; I <= M; I++) { // 240
             if ( I.LE.4 ) {
@@ -178,7 +178,7 @@
                   A( I, I-1 ) = -IMEPS*2
                }
             }
-  240    CONTINUE
+         } // 240
 
          for (I = 1; I <= N; I++) { // 250
             E( I, I ) = ONE
@@ -209,7 +209,7 @@
                   B( I, I-1 ) = -IMEPS*2
                }
             }
-  250    CONTINUE
+         } // 250
       }
 
       // Compute rhs (C, F)

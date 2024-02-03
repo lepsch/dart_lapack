@@ -122,7 +122,7 @@
       for (I = 1; I <= N; I++) { // 5
          GL =  MIN( GL, GERS( 2*I - 1))
          GU = MAX( GU, GERS(2*I) )
- 5    CONTINUE
+      } // 5
       // Compute global Gerschgorin bounds and spectral diameter
       TNORM = MAX( ABS( GL ), ABS( GU ) )
       GL = GL - FUDGE*TNORM*EPS*N - FUDGE*TWO*PIVMIN
@@ -283,7 +283,7 @@
             for (J = IBEGIN; J <= IEND; J++) { // 40
                GL =  MIN( GL, GERS( 2*J - 1))
                GU = MAX( GU, GERS(2*J) )
-   40       CONTINUE
+            } // 40
             // [JAN/28/2009]
             // change SPDIAM by TNORM in lines 2 and 3 thereafter
             // line 1: remove computation of SPDIAM (not useful anymore)
@@ -346,12 +346,12 @@
                   WERR( JE ) = TMP2
                   INDEXW( JE ) = JE - IWOFF
                   IBLOCK( JE ) = IB
-   50          CONTINUE
-   60       CONTINUE
+               } // 50
+            } // 60
 
             M = M + IM
          }
-   70 CONTINUE
+      } // 70
 
       // If RANGE='I', then (WL,WU) contains eigenvalues NWL+1,...,NWU
       // If NWL+1 < IL or NWU > IU, discard extra eigenvalues.
@@ -373,7 +373,7 @@
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
                }
- 80         CONTINUE
+            } // 80
             M = IM
          }
          if ( IDISCU.GT.0 ) {
@@ -390,7 +390,7 @@
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
                }
- 81         CONTINUE
+            } // 81
             JEE = 0
             for (JE = IM; JE <= M; JE++) { // 82
                JEE = JEE + 1
@@ -398,7 +398,7 @@
                WERR( JEE ) = WERR( JE )
                INDEXW( JEE ) = INDEXW( JE )
                IBLOCK( JEE ) = IBLOCK( JE )
- 82         CONTINUE
+            } // 82
             M = M-IM+1
          }
 
@@ -418,9 +418,9 @@
                         IW = JE
                         WKILL = W( JE )
                      }
- 90               CONTINUE
+                  } // 90
                   IBLOCK( IW ) = 0
- 100           CONTINUE
+               } // 100
             }
             if ( IDISCU.GT.0 ) {
                WKILL = WL
@@ -431,9 +431,9 @@
                         IW = JE
                         WKILL = W( JE )
                      }
- 110              CONTINUE
+                  } // 110
                   IBLOCK( IW ) = 0
- 120           CONTINUE
+               } // 120
             }
             // Now erase all eigenvalues with IBLOCK set to zero
             IM = 0
@@ -445,7 +445,7 @@
                   INDEXW( IM ) = INDEXW( JE )
                   IBLOCK( IM ) = IBLOCK( JE )
                }
- 130        CONTINUE
+            } // 130
             M = IM
          }
          if ( IDISCL.LT.0 .OR. IDISCU.LT.0 ) {
@@ -470,7 +470,7 @@
                   IE = J
                   TMP1 = W( J )
                }
-  140       CONTINUE
+            } // 140
             if ( IE.NE.0 ) {
                TMP2 = WERR( IE )
                ITMP1 = IBLOCK( IE )
@@ -484,7 +484,7 @@
                IBLOCK( JE ) = ITMP1
                INDEXW( JE ) = ITMP2
             }
-  150    CONTINUE
+         } // 150
       }
 
       INFO = 0

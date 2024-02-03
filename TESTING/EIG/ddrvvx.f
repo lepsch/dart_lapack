@@ -71,7 +71,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -132,7 +132,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Compute "A"
 
@@ -159,19 +159,19 @@
 
             GO TO ( 30, 40, 50 )KMAGN( JTYPE )
 
-   30       CONTINUE
+            } // 30
             ANORM = ONE
             GO TO 60
 
-   40       CONTINUE
+            } // 40
             ANORM = OVFL*ULP
             GO TO 60
 
-   50       CONTINUE
+            } // 50
             ANORM = UNFL*ULPINV
             GO TO 60
 
-   60       CONTINUE
+            } // 60
 
             dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
@@ -190,7 +190,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 70
                   A( JCOL, JCOL ) = ANORM
-   70          CONTINUE
+               } // 70
 
             } else if ( ITYPE.EQ.3 ) {
 
@@ -199,7 +199,7 @@
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -267,7 +267,7 @@
                RETURN
             }
 
-   90       CONTINUE
+            } // 90
 
             // Test for minimal and generous workspace
 
@@ -296,7 +296,7 @@
                   NFAIL = 0
                   for (J = 1; J <= 9; J++) { // 100
                      IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1                      IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
-  100             CONTINUE
+                  } // 100
 
                   IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
                   if ( NTESTF.EQ.1 ) {
@@ -312,24 +312,24 @@
                      if ( RESULT( J ).GE.THRESH ) {
                         WRITE( NOUNIT, FMT = 9994 )BALANC, N, IWK, IOLDSD, JTYPE, J, RESULT( J )
                      }
-  110             CONTINUE
+                  } // 110
 
                   NERRS = NERRS + NFAIL
                   NTESTT = NTESTT + NTEST
 
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
-  160 CONTINUE
+      } // 160
 
       // Read in data from file to check accuracy of condition estimation.
       // Assume input eigenvalues are sorted lexicographically (increasing
       // by real part, then decreasing by imaginary part)
 
       JTYPE = 0
-  170 CONTINUE
+      } // 170
       READ( NIUNIT, FMT = *, END = 220 )N
 
       // Read input data until N=0
@@ -339,10 +339,10 @@
       ISEED( 1 ) = JTYPE
       for (I = 1; I <= N; I++) { // 180
          READ( NIUNIT, FMT = * )( A( I, J ), J = 1, N )
-  180 CONTINUE
+      } // 180
       for (I = 1; I <= N; I++) { // 190
          READ( NIUNIT, FMT = * )WR1( I ), WI1( I ), RCDEIN( I ), RCDVIN( I )
-  190 CONTINUE
+      } // 190
       dget23(.TRUE., 'N', 22, THRESH, ISEED, NOUNIT, N, A, LDA, H, WR, WI, WR1, WI1, VL, LDVL, VR, LDVR, LRE, LDLRE, RCONDV, RCNDV1, RCDVIN, RCONDE, RCNDE1, RCDEIN, SCALE, SCALE1, RESULT, WORK, 6*N+2*N**2, IWORK, INFO );
 
       // Check for RESULT(j) > THRESH
@@ -351,7 +351,7 @@
       NFAIL = 0
       for (J = 1; J <= 11; J++) { // 200
          IF( RESULT( J ).GE.ZERO ) NTEST = NTEST + 1          IF( RESULT( J ).GE.THRESH ) NFAIL = NFAIL + 1
-  200 CONTINUE
+      } // 200
 
       IF( NFAIL.GT.0 ) NTESTF = NTESTF + 1
       if ( NTESTF.EQ.1 ) {
@@ -367,12 +367,12 @@
          if ( RESULT( J ).GE.THRESH ) {
             WRITE( NOUNIT, FMT = 9993 )N, JTYPE, J, RESULT( J )
          }
-  210 CONTINUE
+      } // 210
 
       NERRS = NERRS + NFAIL
       NTESTT = NTESTT + NTEST
       GO TO 170
-  220 CONTINUE
+      } // 220
 
       // Summary
 

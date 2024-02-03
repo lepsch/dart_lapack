@@ -78,7 +78,7 @@
          TEMPX = C*A( IX+J*IINC ) + S*A( IY+J*IINC )
          A( IY+J*IINC ) = -CONJG( S )*A( IX+J*IINC ) + CONJG( C )*A( IY+J*IINC )
          A( IX+J*IINC ) = TEMPX
-   10 CONTINUE
+      } // 10
 
       // CROT( NT, XT,1, YT,1, C, S ) with complex C, S
 
@@ -86,7 +86,7 @@
          TEMPX = C*XT( J ) + S*YT( J )
          YT( J ) = -CONJG( S )*XT( J ) + CONJG( C )*YT( J )
          XT( J ) = TEMPX
-   20 CONTINUE
+      } // 20
 
       // Stuff values back into XLEFT, XRIGHT, etc.
 

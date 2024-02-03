@@ -82,11 +82,11 @@
                           DO 10 I = 1,J - 1
                               X(I) = X(I) + TEMP*AP(K)
                               K = K + 1
-   10                     CONTINUE
+                          } // 10
                           IF (NOUNIT) X(J) = X(J)*AP(KK+J-1)
                       }
                       KK = KK + J
-   20             CONTINUE
+                  } // 20
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 40
@@ -96,12 +96,12 @@
                           DO 30 K = KK,KK + J - 2
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX + INCX
-   30                     CONTINUE
+                          } // 30
                           IF (NOUNIT) X(JX) = X(JX)*AP(KK+J-1)
                       }
                       JX = JX + INCX
                       KK = KK + J
-   40             CONTINUE
+                  } // 40
               }
           } else {
               KK = (N* (N+1))/2
@@ -113,11 +113,11 @@
                           DO 50 I = N,J + 1,-1
                               X(I) = X(I) + TEMP*AP(K)
                               K = K - 1
-   50                     CONTINUE
+                          } // 50
                           IF (NOUNIT) X(J) = X(J)*AP(KK-N+J)
                       }
                       KK = KK - (N-J+1)
-   60             CONTINUE
+                  } // 60
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
@@ -128,12 +128,12 @@
                           DO 70 K = KK,KK - (N- (J+1)),-1
                               X(IX) = X(IX) + TEMP*AP(K)
                               IX = IX - INCX
-   70                     CONTINUE
+                          } // 70
                           IF (NOUNIT) X(JX) = X(JX)*AP(KK-N+J)
                       }
                       JX = JX - INCX
                       KK = KK - (N-J+1)
-   80             CONTINUE
+                  } // 80
               }
           }
       } else {
@@ -150,10 +150,10 @@
                       DO 90 I = J - 1,1,-1
                           TEMP = TEMP + AP(K)*X(I)
                           K = K - 1
-   90                 CONTINUE
+                      } // 90
                       X(J) = TEMP
                       KK = KK - J
-  100             CONTINUE
+                  } // 100
               } else {
                   JX = KX + (N-1)*INCX
                   DO 120 J = N,1,-1
@@ -163,11 +163,11 @@
                       DO 110 K = KK - 1,KK - J + 1,-1
                           IX = IX - INCX
                           TEMP = TEMP + AP(K)*X(IX)
-  110                 CONTINUE
+                      } // 110
                       X(JX) = TEMP
                       JX = JX - INCX
                       KK = KK - J
-  120             CONTINUE
+                  } // 120
               }
           } else {
               KK = 1
@@ -179,10 +179,10 @@
                       DO 130 I = J + 1,N
                           TEMP = TEMP + AP(K)*X(I)
                           K = K + 1
-  130                 CONTINUE
+                      } // 130
                       X(J) = TEMP
                       KK = KK + (N-J+1)
-  140             CONTINUE
+                  } // 140
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 160
@@ -192,11 +192,11 @@
                       DO 150 K = KK + 1,KK + N - J
                           IX = IX + INCX
                           TEMP = TEMP + AP(K)*X(IX)
-  150                 CONTINUE
+                      } // 150
                       X(JX) = TEMP
                       JX = JX + INCX
                       KK = KK + (N-J+1)
-  160             CONTINUE
+                  } // 160
               }
           }
       }

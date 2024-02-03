@@ -77,28 +77,28 @@
                   for (J = 1; J <= N; J++) { // 20
                       for (I = 1; I <= J; I++) { // 10
                           C(I,J) = ZERO
-   10                 CONTINUE
-   20             CONTINUE
+                      } // 10
+                  } // 20
               } else {
                   for (J = 1; J <= N; J++) { // 40
                       for (I = 1; I <= J; I++) { // 30
                           C(I,J) = BETA*C(I,J)
-   30                 CONTINUE
-   40             CONTINUE
+                      } // 30
+                  } // 40
               }
           } else {
               if (BETA.EQ.ZERO) {
                   for (J = 1; J <= N; J++) { // 60
                       for (I = J; I <= N; I++) { // 50
                           C(I,J) = ZERO
-   50                 CONTINUE
-   60             CONTINUE
+                      } // 50
+                  } // 60
               } else {
                   for (J = 1; J <= N; J++) { // 80
                       for (I = J; I <= N; I++) { // 70
                           C(I,J) = BETA*C(I,J)
-   70                 CONTINUE
-   80             CONTINUE
+                      } // 70
+                  } // 80
               }
           }
           RETURN
@@ -115,11 +115,11 @@
                   if (BETA.EQ.ZERO) {
                       for (I = 1; I <= J; I++) { // 90
                           C(I,J) = ZERO
-   90                 CONTINUE
+                      } // 90
                   } else if (BETA.NE.ONE) {
                       for (I = 1; I <= J; I++) { // 100
                           C(I,J) = BETA*C(I,J)
-  100                 CONTINUE
+                      } // 100
                   }
                   for (L = 1; L <= K; L++) { // 120
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
@@ -127,20 +127,20 @@
                           TEMP2 = ALPHA*A(J,L)
                           for (I = 1; I <= J; I++) { // 110
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
-  110                     CONTINUE
+                          } // 110
                       }
-  120             CONTINUE
-  130         CONTINUE
+                  } // 120
+              } // 130
           } else {
               for (J = 1; J <= N; J++) { // 180
                   if (BETA.EQ.ZERO) {
                       for (I = J; I <= N; I++) { // 140
                           C(I,J) = ZERO
-  140                 CONTINUE
+                      } // 140
                   } else if (BETA.NE.ONE) {
                       for (I = J; I <= N; I++) { // 150
                           C(I,J) = BETA*C(I,J)
-  150                 CONTINUE
+                      } // 150
                   }
                   for (L = 1; L <= K; L++) { // 170
                       if ((A(J,L).NE.ZERO) .OR. (B(J,L).NE.ZERO)) {
@@ -148,10 +148,10 @@
                           TEMP2 = ALPHA*A(J,L)
                           for (I = J; I <= N; I++) { // 160
                               C(I,J) = C(I,J) + A(I,L)*TEMP1 + B(I,L)*TEMP2
-  160                     CONTINUE
+                          } // 160
                       }
-  170             CONTINUE
-  180         CONTINUE
+                  } // 170
+              } // 180
           }
       } else {
 
@@ -165,14 +165,14 @@
                       for (L = 1; L <= K; L++) { // 190
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
-  190                 CONTINUE
+                      } // 190
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2
                       }
-  200             CONTINUE
-  210         CONTINUE
+                  } // 200
+              } // 210
           } else {
               for (J = 1; J <= N; J++) { // 240
                   for (I = J; I <= N; I++) { // 230
@@ -181,14 +181,14 @@
                       for (L = 1; L <= K; L++) { // 220
                           TEMP1 = TEMP1 + A(L,I)*B(L,J)
                           TEMP2 = TEMP2 + B(L,I)*A(L,J)
-  220                 CONTINUE
+                      } // 220
                       if (BETA.EQ.ZERO) {
                           C(I,J) = ALPHA*TEMP1 + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + ALPHA*TEMP1 + ALPHA*TEMP2
                       }
-  230             CONTINUE
-  240         CONTINUE
+                  } // 230
+              } // 240
           }
       }
 

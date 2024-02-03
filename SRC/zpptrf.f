@@ -75,7 +75,7 @@
                GO TO 30
             }
             AP( JJ ) = SQRT( AJJ )
-   10    CONTINUE
+         } // 10
       } else {
 
          // Compute the Cholesky factorization A = L * L**H.
@@ -101,14 +101,14 @@
                zhpr('Lower', N-J, -ONE, AP( JJ+1 ), 1, AP( JJ+N-J+1 ) );
                JJ = JJ + N - J + 1
             }
-   20    CONTINUE
+         } // 20
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = J
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of ZPPTRF

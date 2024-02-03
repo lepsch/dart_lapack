@@ -73,7 +73,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -99,7 +99,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -119,7 +119,7 @@
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DU( 1 )*X( 2, J ) )
                DO 30 I = 2, N - 1
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DL( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DU( I )*X( I+1, J ) )
-   30          CONTINUE
+               } // 30
                WORK( N ) = ABS( B( N, J ) ) + ABS( DL( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             }
          } else {
@@ -129,7 +129,7 @@
                WORK( 1 ) = ABS( B( 1, J ) ) + ABS( D( 1 )*X( 1, J ) ) + ABS( DL( 1 )*X( 2, J ) )
                DO 40 I = 2, N - 1
                   WORK( I ) = ABS( B( I, J ) ) + ABS( DU( I-1 )*X( I-1, J ) ) + ABS( D( I )*X( I, J ) ) + ABS( DL( I )*X( I+1, J ) )
-   40          CONTINUE
+               } // 40
                WORK( N ) = ABS( B( N, J ) ) + ABS( DU( N-1 )*X( N-1, J ) ) + ABS( D( N )*X( N, J ) )
             }
          }
@@ -150,7 +150,7 @@
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             }
-   50    CONTINUE
+         } // 50
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -198,10 +198,10 @@
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             }
-   60    CONTINUE
+         } // 60
 
          KASE = 0
-   70    CONTINUE
+         } // 70
          dlacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -211,14 +211,14 @@
                dgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 80
                   WORK( N+I ) = WORK( I )*WORK( N+I )
-   80          CONTINUE
+               } // 80
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 90
                   WORK( N+I ) = WORK( I )*WORK( N+I )
-   90          CONTINUE
+               } // 90
                dgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK( N+1 ), N, INFO );
             }
             GO TO 70
@@ -229,10 +229,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 100
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
-  100    CONTINUE
+         } // 100
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  110 CONTINUE
+      } // 110
 
       RETURN
 

@@ -86,7 +86,7 @@
             for (J = 1; J <= N; J++) { // 10
                SMIN = MIN( SMIN, S( J ) )
                SMAX = MAX( SMAX, S( J ) )
- 10         CONTINUE
+            } // 10
             if ( SMIN.LE.ZERO ) {
                INFO = -10
             } else if ( N.GT.0 ) {

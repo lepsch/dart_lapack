@@ -46,7 +46,7 @@
          }
          // -- Print
          IF (PASS) WRITE (NOUT,99998)
-   20 CONTINUE
+      } // 20
       STOP
 
 99999 FORMAT (' Real BLAS Test Program Results',/1X)
@@ -171,7 +171,7 @@
             WRITE (NOUT,*) ' Shouldn''t be here in CHECK0'
             STOP
          }
-   20 CONTINUE
+      } // 20
    40 RETURN
 
       // End of CHECK0
@@ -218,7 +218,7 @@
             // .. Set vector arguments ..
             for (I = 1; I <= LEN; I++) { // 20
                SX(I) = DV(I,NP1,INCX)
-   20       CONTINUE
+            } // 20
 
             if (ICASE.EQ.7) {
                // .. DNRM2 ..
@@ -237,30 +237,30 @@
                dscal(N,SA((INCX-1)*5+NP1),SX,INCX);
                for (I = 1; I <= LEN; I++) { // 40
                   STRUE(I) = DTRUE5(I,NP1,INCX)
-   40          CONTINUE
+               } // 40
                stest(LEN,SX,STRUE,STRUE,SFAC);
             } else if (ICASE.EQ.10) {
                // .. IDAMAX ..
                itest1(IDAMAX(N,SX,INCX),ITRUE2(NP1));
                for (I = 1; I <= LEN; I++) { // 100
                   SX(I) = 42.0D0
-  100          CONTINUE
+               } // 100
                itest1(IDAMAX(N,SX,INCX),ITRUEC(NP1));
             } else {
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK1'
                STOP
             }
-   60    CONTINUE
+         } // 60
          if (ICASE.EQ.10) {
             N = 8
             IX = 1
             for (I = 1; I <= N; I++) { // 120
                SXR(IX) = DVR(I)
                IX = IX + INCX
-  120       CONTINUE
+            } // 120
             itest1(IDAMAX(N,SXR,INCX),3);
          }
-   80 CONTINUE
+      } // 80
       RETURN
 
       // End of CHECK1
@@ -340,7 +340,7 @@
             for (I = 1; I <= 7; I++) { // 20
                SX(I) = DX1(I)
                SY(I) = DY1(I)
-   20       CONTINUE
+            } // 20
 
             if (ICASE.EQ.1) {
                // .. DDOT ..
@@ -350,13 +350,13 @@
                daxpy(N,SA,SX,INCX,SY,INCY);
                for (J = 1; J <= LENY; J++) { // 40
                   STY(J) = DT8(J,KN,KI)
-   40          CONTINUE
+               } // 40
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
             } else if (ICASE.EQ.5) {
                // .. DCOPY ..
                for (I = 1; I <= 7; I++) { // 60
                   STY(I) = DT10Y(I,KN,KI)
-   60          CONTINUE
+               } // 60
                dcopy(N,SX,INCX,SY,INCY);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0D0);
                if (KI.EQ.1) {
@@ -382,7 +382,7 @@
                for (I = 1; I <= 7; I++) { // 80
                   STX(I) = DT10X(I,KN,KI)
                   STY(I) = DT10Y(I,KN,KI)
-   80          CONTINUE
+               } // 80
                stest(LENX,SX,STX,SSIZE2(1,1),1.0D0);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0D0);
             } else if (ICASE.EQ.12) {
@@ -418,8 +418,8 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK2'
                STOP
             }
-  100    CONTINUE
-  120 CONTINUE
+         } // 100
+      } // 120
       RETURN
 
       // End of CHECK2
@@ -476,7 +476,7 @@
                   SY(I) = DY1(I)
                   STX(I) = DT9X(I,KN,KI)
                   STY(I) = DT9Y(I,KN,KI)
-   20          CONTINUE
+               } // 20
                drot(N,SX,INCX,SY,INCY,SC,SS);
                stest(LENX,SX,STX,SSIZE2(1,KSIZE),SFAC);
                stest(LENY,SY,STY,SSIZE2(1,KSIZE),SFAC);
@@ -484,20 +484,20 @@
                WRITE (NOUT,*) ' Shouldn''t be here in CHECK3'
                STOP
             }
-   40    CONTINUE
-   60 CONTINUE
+         } // 40
+      } // 60
 
       MWPC(1) = 1
       for (I = 2; I <= 11; I++) { // 80
          MWPC(I) = 0
-   80 CONTINUE
+      } // 80
       MWPS(1) = 0
       for (I = 2; I <= 6; I++) { // 100
          MWPS(I) = 1
-  100 CONTINUE
+      } // 100
       for (I = 7; I <= 11; I++) { // 120
          MWPS(I) = -1
-  120 CONTINUE
+      } // 120
       MWPINX(1) = 1
       MWPINX(2) = 1
       MWPINX(3) = 1
@@ -522,7 +522,7 @@
       MWPINY(11) = 1
       for (I = 1; I <= 11; I++) { // 140
          MWPN(I) = 5
-  140 CONTINUE
+      } // 140
       MWPN(5) = 3
       MWPN(10) = 3
       for (I = 1; I <= 5; I++) { // 160
@@ -546,7 +546,7 @@
          MWPTY(9,I) = I
          MWPTX(11,I) = I - 6
          MWPTY(11,I) = 6 - I
-  160 CONTINUE
+      } // 160
       MWPTX(5,1) = 1
       MWPTX(5,2) = 3
       MWPTX(5,3) = 5
@@ -575,11 +575,11 @@
             COPYY(K) = MWPY(K)
             MWPSTX(K) = MWPTX(I,K)
             MWPSTY(K) = MWPTY(I,K)
-  180    CONTINUE
+         } // 180
          drot(MWPN(I),COPYX,INCX,COPYY,INCY,MWPC(I),MWPS(I));
          stest(5,COPYX,MWPSTX,MWPSTX,SFAC);
          stest(5,COPYY,MWPSTY,MWPSTY,SFAC);
-  200 CONTINUE
+      } // 200
       RETURN
 
       // End of CHECK3
@@ -630,7 +630,7 @@
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, I, SCOMP(I), STRUE(I), SD, SSIZE(I)
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')
@@ -677,7 +677,7 @@
          WRITE (NOUT,99999)
          WRITE (NOUT,99998)
    20    WRITE (NOUT,99997) ICASE, N, INCX, INCY, SCOMP, STRUE, SD, SSIZE
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')
@@ -760,7 +760,7 @@
       WRITE (NOUT,99998)
    20 ID = ICOMP - ITRUE
       WRITE (NOUT,99997) ICASE, N, INCX, INCY, ICOMP, ITRUE, ID
-   40 CONTINUE
+      } // 40
       RETURN
 
 99999 FORMAT ('                                       FAIL')

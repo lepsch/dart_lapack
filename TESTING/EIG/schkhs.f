@@ -59,7 +59,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -125,13 +125,13 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 16; J++) { // 30
                RESULT( J ) = ZERO
-   30       CONTINUE
+            } // 30
 
             // Compute "A"
 
@@ -158,19 +158,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
             IINFO = 0
@@ -190,7 +190,7 @@
 
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.3 ) {
 
@@ -199,7 +199,7 @@
                for (JCOL = 1; JCOL <= N; JCOL++) { // 90
                   A( JCOL, JCOL ) = ANORM
                   IF( JCOL.GT.1 ) A( JCOL, JCOL-1 ) = ONE
-   90          CONTINUE
+               } // 90
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -263,7 +263,7 @@
                RETURN
             }
 
-  100       CONTINUE
+            } // 100
 
             // Call SGEHRD to compute H and U, do tests.
 
@@ -289,8 +289,8 @@
                   U( I, J ) = H( I, J )
                   UU( I, J ) = H( I, J )
                   H( I, J ) = ZERO
-  110          CONTINUE
-  120       CONTINUE
+               } // 110
+            } // 120
             scopy(N-1, WORK, 1, TAU, 1 );
             sorghr(N, ILO, IHI, U, LDU, WORK, WORK( N+1 ), NWORK-N, IINFO );
             NTEST = 2
@@ -363,7 +363,7 @@
             TEMP2 = ZERO
             for (J = 1; J <= N; J++) { // 130
                TEMP1 = MAX( TEMP1, ABS( WR1( J ) )+ABS( WI1( J ) ), ABS( WR2( J ) )+ABS( WI2( J ) ) )                TEMP2 = MAX( TEMP2, ABS( WR1( J )-WR2( J ) )+ ABS( WI1( J )-WI2( J ) ) )
-  130       CONTINUE
+            } // 130
 
             RESULT( 8 ) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
@@ -379,7 +379,7 @@
             NSELC = 0
             NSELR = 0
             J = N
-  140       CONTINUE
+            } // 140
             if ( WI1( J ).EQ.ZERO ) {
                if ( NSELR.LT.MAX( N / 4, 1 ) ) {
                   NSELR = NSELR + 1
@@ -435,7 +435,7 @@
                         MATCH = .FALSE.
                         GO TO 180
                      }
-  150             CONTINUE
+                  } // 150
                   K = K + 1
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 160
@@ -443,11 +443,11 @@
                         MATCH = .FALSE.
                         GO TO 180
                      }
-  160             CONTINUE
+                  } // 160
                   K = K + 2
                }
-  170       CONTINUE
-  180       CONTINUE
+            } // 170
+            } // 180
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Right', 'STREVC', N, JTYPE, IOLDSD
 
             // Compute the Left eigenvector Matrix:
@@ -488,7 +488,7 @@
                         MATCH = .FALSE.
                         GO TO 220
                      }
-  190             CONTINUE
+                  } // 190
                   K = K + 1
                } else if ( SELECT( J ) .AND. WI1( J ).NE.ZERO ) {
                   for (JJ = 1; JJ <= N; JJ++) { // 200
@@ -496,11 +496,11 @@
                         MATCH = .FALSE.
                         GO TO 220
                      }
-  200             CONTINUE
+                  } // 200
                   K = K + 2
                }
-  210       CONTINUE
-  220       CONTINUE
+            } // 210
+            } // 220
             IF( .NOT.MATCH ) WRITE( NOUNIT, FMT = 9997 )'Left', 'STREVC', N, JTYPE, IOLDSD
 
             // Call SHSEIN for Right eigenvectors of H, do test 11
@@ -509,7 +509,7 @@
             RESULT( 11 ) = ULPINV
             for (J = 1; J <= N; J++) { // 230
                SELECT( J ) = .TRUE.
-  230       CONTINUE
+            } // 230
 
             shsein('Right', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, DUMMA, LDU, EVECTX, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -534,7 +534,7 @@
             RESULT( 12 ) = ULPINV
             for (J = 1; J <= N; J++) { // 240
                SELECT( J ) = .TRUE.
-  240       CONTINUE
+            } // 240
 
             shsein('Left', 'Qr', 'Ninitv', SELECT, N, H, LDA, WR3, WI3, EVECTY, LDU, DUMMA, LDU, N1, IN, WORK, IWORK, IWORK, IINFO );
             if ( IINFO.NE.0 ) {
@@ -643,13 +643,13 @@
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  250       CONTINUE
+            } // 250
 
             NTESTT = NTESTT + NTEST
             slafts('SHS', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
 
-  260    CONTINUE
-  270 CONTINUE
+         } // 260
+      } // 270
 
       // Summary
 

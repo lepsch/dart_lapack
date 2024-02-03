@@ -48,19 +48,19 @@
 
       // Read input data until N=0
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, IFST, ILST
       IF( N.EQ.0 ) RETURN
       KNT = KNT + 1
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       dlacpy('F', N, N, TMP, LDT, T, LDT );
       dlacpy('F', N, N, TMP, LDT, T1, LDT );
       dlacpy('F', N, N, TMP, LDT, T2, LDT );
       for (I = 1; I <= N; I++) { // 25
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   25 CONTINUE
+      } // 25
       dlacpy('F', N, N, TMP, LDT, S, LDT );
       dlacpy('F', N, N, TMP, LDT, S1, LDT );
       dlacpy('F', N, N, TMP, LDT, S2, LDT );
@@ -80,8 +80,8 @@
       for (I = 1; I <= N; I++) { // 40
          for (J = 1; J <= N; J++) { // 30
             IF( I.EQ.J .AND. Q( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Q( I, J ).NE.ZERO ) RES = RES + ONE / EPS             IF( I.EQ.J .AND. Z( I, J ).NE.ONE ) RES = RES + ONE / EPS             IF( I.NE.J .AND. Z( I, J ).NE.ZERO ) RES = RES + ONE / EPS
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Test with accumulating Q
 
@@ -94,8 +94,8 @@
       for (I = 1; I <= N; I++) { // 60
          for (J = 1; J <= N; J++) { // 50
             IF( T1( I, J ).NE.T2( I, J ) ) RES = RES + ONE / EPS             IF( S1( I, J ).NE.S2( I, J ) ) RES = RES + ONE / EPS
-   50    CONTINUE
-   60 CONTINUE
+         } // 50
+      } // 60
       IF( IFST1.NE.IFST2 ) RES = RES + ONE / EPS       IF( ILST1.NE.ILST2 ) RES = RES + ONE / EPS       IF( NINFO( 1 ).NE.NINFO( 2 ) ) RES = RES + ONE / EPS
 
       // Test orthogonality of Q and Z and backward error on T2 and S2

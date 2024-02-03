@@ -64,9 +64,9 @@
       for (J = 1; J <= N; J++) { // 20
          DO 10 I = 1, J - 1
             B( I, J ) = H( I, J )
-   10    CONTINUE
+         } // 10
          B( J, J ) = H( J, J ) - W
-   20 CONTINUE
+      } // 20
 
       if ( NOINIT ) {
 
@@ -74,7 +74,7 @@
 
          for (I = 1; I <= N; I++) { // 30
             V( I ) = EPS3
-   30    CONTINUE
+         } // 30
       } else {
 
          // Scale supplied initial vector.
@@ -100,7 +100,7 @@
                   TEMP = B( I+1, J )
                   B( I+1, J ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
-   40          CONTINUE
+               } // 40
             } else {
 
                // Eliminate without interchange.
@@ -110,10 +110,10 @@
                if ( X.NE.ZERO ) {
                   DO 50 J = I + 1, N
                      B( I+1, J ) = B( I+1, J ) - X*B( I, J )
-   50             CONTINUE
+                  } // 50
                }
             }
-   60    CONTINUE
+         } // 60
          IF( B( N, N ).EQ.ZERO ) B( N, N ) = EPS3
 
          TRANS = 'N'
@@ -135,7 +135,7 @@
                   TEMP = B( I, J-1 )
                   B( I, J-1 ) = B( I, J ) - X*TEMP
                   B( I, J ) = TEMP
-   70          CONTINUE
+               } // 70
             } else {
 
                // Eliminate without interchange.
@@ -145,10 +145,10 @@
                if ( X.NE.ZERO ) {
                   DO 80 I = 1, J - 1
                      B( I, J-1 ) = B( I, J-1 ) - X*B( I, J )
-   80             CONTINUE
+                  } // 80
                }
             }
-   90    CONTINUE
+         } // 90
          IF( B( 1, 1 ).EQ.ZERO ) B( 1, 1 ) = EPS3
 
          TRANS = 'C'
@@ -176,15 +176,15 @@
          V( 1 ) = EPS3
          for (I = 2; I <= N; I++) { // 100
             V( I ) = RTEMP
-  100    CONTINUE
+         } // 100
          V( N-ITS+1 ) = V( N-ITS+1 ) - EPS3*ROOTN
-  110 CONTINUE
+      } // 110
 
       // Failure to find eigenvector in N iterations.
 
       INFO = 1
 
-  120 CONTINUE
+      } // 120
 
       // Normalize eigenvector.
 

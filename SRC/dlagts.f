@@ -58,7 +58,7 @@
             IF( N.GT.1 ) TOL = MAX( TOL, ABS( A( 2 ) ), ABS( B( 1 ) ) )
             for (K = 3; K <= N; K++) { // 10
                TOL = MAX( TOL, ABS( A( K ) ), ABS( B( K-1 ) ), ABS( D( K-2 ) ) )
-   10       CONTINUE
+            } // 10
             TOL = TOL*EPS
             IF( TOL.EQ.ZERO ) TOL = EPS
          }
@@ -73,7 +73,7 @@
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )
             }
-   20    CONTINUE
+         } // 20
          if ( JOB.EQ.1 ) {
             DO 30 K = N, 1, -1
                if ( K.LE.N-2 ) {
@@ -100,7 +100,7 @@
                   }
                }
                Y( K ) = TEMP / AK
-   30       CONTINUE
+            } // 30
          } else {
             DO 50 K = N, 1, -1
                if ( K.LE.N-2 ) {
@@ -112,7 +112,7 @@
                }
                AK = A( K )
                PERT = SIGN( TOL, AK )
-   40          CONTINUE
+               } // 40
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
@@ -131,7 +131,7 @@
                   }
                }
                Y( K ) = TEMP / AK
-   50       CONTINUE
+            } // 50
          }
       } else {
 
@@ -163,7 +163,7 @@
                   }
                }
                Y( K ) = TEMP / AK
-   60       CONTINUE
+            } // 60
          } else {
             for (K = 1; K <= N; K++) { // 80
                if ( K.GE.3 ) {
@@ -175,7 +175,7 @@
                }
                AK = A( K )
                PERT = SIGN( TOL, AK )
-   70          CONTINUE
+               } // 70
                ABSAK = ABS( AK )
                if ( ABSAK.LT.ONE ) {
                   if ( ABSAK.LT.SFMIN ) {
@@ -194,7 +194,7 @@
                   }
                }
                Y( K ) = TEMP / AK
-   80       CONTINUE
+            } // 80
          }
 
          DO 90 K = N, 2, -1
@@ -205,7 +205,7 @@
                Y( K-1 ) = Y( K )
                Y( K ) = TEMP - C( K-1 )*Y( K )
             }
-   90    CONTINUE
+         } // 90
       }
 
       // End of DLAGTS

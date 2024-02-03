@@ -46,8 +46,8 @@
             DO 10 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
                TEMP = ABS( AB( I, J ) )
                IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
          // Find norm1(A).
@@ -57,27 +57,27 @@
             SUM = ZERO
             DO 30 I = MAX( KU+2-J, 1 ), MIN( N+KU+1-J, KL+KU+1 )
                SUM = SUM + ABS( AB( I, J ) )
-   30       CONTINUE
+            } // 30
             IF( VALUE.LT.SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   40    CONTINUE
+         } // 40
       } else if ( LSAME( NORM, 'I' ) ) {
 
          // Find normI(A).
 
          for (I = 1; I <= N; I++) { // 50
             WORK( I ) = ZERO
-   50    CONTINUE
+         } // 50
          for (J = 1; J <= N; J++) { // 70
             K = KU + 1 - J
             DO 60 I = MAX( 1, J-KU ), MIN( N, J+KL )
                WORK( I ) = WORK( I ) + ABS( AB( K+I, J ) )
-   60       CONTINUE
-   70    CONTINUE
+            } // 60
+         } // 70
          VALUE = ZERO
          for (I = 1; I <= N; I++) { // 80
             TEMP = WORK( I )
             IF( VALUE.LT.TEMP .OR. DISNAN( TEMP ) ) VALUE = TEMP
-   80    CONTINUE
+         } // 80
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
@@ -88,7 +88,7 @@
             L = MAX( 1, J-KU )
             K = KU + 1 - J + L
             zlassq(MIN( N, J+KL )-L+1, AB( K, J ), 1, SCALE, SUM );
-   90    CONTINUE
+         } // 90
          VALUE = SCALE*SQRT( SUM )
       }
 

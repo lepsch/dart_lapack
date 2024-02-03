@@ -54,7 +54,7 @@
       M = 0
       for (K = 1; K <= N; K++) { // 10
          IF( SELECT( K ) ) M = M + 1
-   10 CONTINUE
+      } // 10
 
       N1 = M
       N2 = N - M
@@ -114,7 +114,7 @@
 
             IF( K.NE.KS ) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR )
          }
-   20 CONTINUE
+      } // 20
 
       if ( WANTS ) {
 
@@ -142,7 +142,7 @@
 
          EST = ZERO
          KASE = 0
-   30    CONTINUE
+         } // 30
          clacn2(NN, WORK( NN+1 ), WORK, EST, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -162,13 +162,13 @@
          SEP = SCALE / EST
       }
 
-   40 CONTINUE
+      } // 40
 
       // Copy reordered eigenvalues to W.
 
       for (K = 1; K <= N; K++) { // 50
          W( K ) = T( K, K )
-   50 CONTINUE
+      } // 50
 
       WORK( 1 ) = SROUNDUP_LWORK(LWMIN)
 

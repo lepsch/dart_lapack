@@ -34,7 +34,7 @@
          IX = IX + INCX
          IY = IY + INCY
          IC = IC + INCC
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of CLARTV

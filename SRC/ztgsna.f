@@ -79,7 +79,7 @@
             M = 0
             for (K = 1; K <= N; K++) { // 10
                IF( SELECT( K ) ) M = M + 1
-   10       CONTINUE
+            } // 10
          } else {
             M = N
          }
@@ -186,7 +186,7 @@
             }
          }
 
-   20 CONTINUE
+      } // 20
       WORK( 1 ) = LWMIN
       RETURN
 

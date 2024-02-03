@@ -43,7 +43,7 @@
       MX = ABS( S( 1 ) )
       DO 10 I = 1, N - 1
          MX = MAX( MX, ABS( S( I+1 ) ), ABS( E( I ) ) )
-   10 CONTINUE
+      } // 10
 
       if ( MX.EQ.ZERO ) {
          if ( SHIFT.LT.ZERO ) {
@@ -113,7 +113,7 @@
                U = SUN
             }
          }
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of SSVDCT

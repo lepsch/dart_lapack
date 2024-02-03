@@ -61,7 +61,7 @@
          WORK( J+I ) =  WORK( J+I ) + DCMPLX( S( I ), ZERO )
          RESID = MAX( RESID, DZASUM( NS, WORK( J+1 ), 1 ) )
          J = J + NS
-   10 CONTINUE
+      } // 10
 
       if ( ANORM.LE.ZERO ) {
          IF( RESID.NE.ZERO ) RESID = ONE / EPS

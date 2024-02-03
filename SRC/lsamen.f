@@ -34,10 +34,10 @@
 
          IF( .NOT.LSAME( CA( I: I ), CB( I: I ) ) ) GO TO 20
 
-   10 CONTINUE
+      } // 10
       LSAMEN = .TRUE.
 
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of LSAMEN

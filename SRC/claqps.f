@@ -45,7 +45,7 @@
 
       // Beginning of while loop.
 
-   10 CONTINUE
+      } // 10
       if ( ( K.LT.NB ) .AND. ( LSTICC.EQ.0 ) ) {
          K = K + 1
          RK = OFFSET + K
@@ -69,11 +69,11 @@
          if ( K.GT.1 ) {
             DO 20 J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
-   20       CONTINUE
+            } // 20
             cgemv('No transpose', M-RK+1, K-1, -CONE, A( RK, 1 ), LDA, F( K, 1 ), LDF, CONE, A( RK, K ), 1 );
             DO 30 J = 1, K - 1
                F( K, J ) = CONJG( F( K, J ) )
-   30       CONTINUE
+            } // 30
          }
 
          // Generate elementary reflector H(k).
@@ -99,7 +99,7 @@
 
          for (J = 1; J <= K; J++) { // 40
             F( J, K ) = CZERO
-   40    CONTINUE
+         } // 40
 
          // Incremental updating of F:
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**H
@@ -137,7 +137,7 @@
                      VN1( J ) = VN1( J )*SQRT( TEMP )
                   }
                }
-   50       CONTINUE
+            } // 50
          }
 
          A( RK, K ) = AKK
@@ -159,7 +159,7 @@
 
       // Recomputation of difficult columns.
 
-   60 CONTINUE
+      } // 60
       if ( LSTICC.GT.0 ) {
          ITEMP = NINT( VN2( LSTICC ) )
          VN1( LSTICC ) = SCNRM2( M-RK, A( RK+1, LSTICC ), 1 )

@@ -52,7 +52,7 @@
       EPS = DLAMCH( 'E' )
       SAFMIN = DLAMCH( 'S' )
 
-   10 CONTINUE
+      } // 10
 
       READ( NIN, FMT = * )N, ILO, IHI
       IF( N.EQ.0 ) GO TO 60
@@ -60,11 +60,11 @@
       READ( NIN, FMT = * )( SCALE( I ), I = 1, N )
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( E( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
 
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )( EIN( I, J ), J = 1, N )
-   30 CONTINUE
+      } // 30
 
       KNT = KNT + 1
       zgebak('B', 'R', N, ILO, IHI, SCALE, N, E, LDE, INFO );
@@ -80,8 +80,8 @@
             X = CABS1( E( I, J )-EIN( I, J ) ) / EPS
             IF( CABS1( E( I, J ) ).GT.SAFMIN ) X = X / CABS1( E( I, J ) )
             VMAX = MAX( VMAX, X )
-   40    CONTINUE
-   50 CONTINUE
+         } // 40
+      } // 50
 
       if ( VMAX.GT.RMAX ) {
          LMAX( 2 ) = KNT
@@ -90,7 +90,7 @@
 
       GO TO 10
 
-   60 CONTINUE
+      } // 60
 
       WRITE( NOUT, FMT = 9999 )
  9999 FORMAT( 1X, '.. test output of ZGEBAK .. ' )

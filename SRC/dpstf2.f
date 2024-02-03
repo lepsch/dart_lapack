@@ -62,7 +62,7 @@
 
       for (I = 1; I <= N; I++) { // 100
          PIV( I ) = I
-  100 CONTINUE
+      } // 100
 
       // Compute stopping value
 
@@ -92,7 +92,7 @@
 
       for (I = 1; I <= N; I++) { // 110
          WORK( I ) = 0
-  110 CONTINUE
+      } // 110
 
       if ( UPPER ) {
 
@@ -111,7 +111,7 @@
                }
                WORK( N+I ) = A( I, I ) - WORK( I )
 
-  120       CONTINUE
+            } // 120
 
             if ( J.GT.1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -152,7 +152,7 @@
                dscal(N-J, ONE / AJJ, A( J, J+1 ), LDA );
             }
 
-  130    CONTINUE
+         } // 130
 
       } else {
 
@@ -171,7 +171,7 @@
                }
                WORK( N+I ) = A( I, I ) - WORK( I )
 
-  140       CONTINUE
+            } // 140
 
             if ( J.GT.1 ) {
                ITEMP = MAXLOC( WORK( (N+J):(2*N) ), 1 )
@@ -212,7 +212,7 @@
                dscal(N-J, ONE / AJJ, A( J+1, J ), 1 );
             }
 
-  150    CONTINUE
+         } // 150
 
       }
 
@@ -221,7 +221,7 @@
       RANK = N
 
       GO TO 170
-  160 CONTINUE
+      } // 160
 
       // Rank is number of steps completed.  Set INFO = 1 to signal
       // that the factorization cannot be used to solve a system.
@@ -229,7 +229,7 @@
       RANK = J - 1
       INFO = 1
 
-  170 CONTINUE
+      } // 170
       RETURN
 
       // End of DPSTF2

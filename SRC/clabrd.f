@@ -84,7 +84,7 @@
                cscal(M-I, TAUP( I ), X( I+1, I ), 1 );
                clacgv(N-I, A( I, I+1 ), LDA );
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Reduce to lower bidiagonal form
@@ -137,7 +137,7 @@
             } else {
                clacgv(N-I+1, A( I, I ), LDA );
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

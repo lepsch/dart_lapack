@@ -163,7 +163,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 10
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   10                CONTINUE
+                     } // 10
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -184,7 +184,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 20
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   20                CONTINUE
+                     } // 20
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -206,7 +206,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 30
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   30                CONTINUE
+                     } // 30
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -236,7 +236,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 40
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   40                CONTINUE
+                     } // 40
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -245,9 +245,9 @@
                   C( K2, L2 ) = X( 2, 2 )
                }
 
-   50       CONTINUE
+            } // 50
 
-   60    CONTINUE
+         } // 60
 
       } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
@@ -327,7 +327,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 70
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   70                CONTINUE
+                     } // 70
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -348,7 +348,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 80
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   80                CONTINUE
+                     } // 80
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -370,7 +370,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 90
                         dscal(M, SCALOC, C( 1, J ), 1 );
-   90                CONTINUE
+                     } // 90
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -400,7 +400,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 100
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  100                CONTINUE
+                     } // 100
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -409,8 +409,8 @@
                   C( K2, L2 ) = X( 2, 2 )
                }
 
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
 
       } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
@@ -490,7 +490,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 130
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  130                CONTINUE
+                     } // 130
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -511,7 +511,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 140
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  140                CONTINUE
+                     } // 140
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -533,7 +533,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 150
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  150                CONTINUE
+                     } // 150
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -563,7 +563,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 160
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  160                CONTINUE
+                     } // 160
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -572,8 +572,8 @@
                   C( K2, L2 ) = X( 2, 2 )
                }
 
-  170       CONTINUE
-  180    CONTINUE
+            } // 170
+         } // 180
 
       } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
@@ -652,7 +652,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 190
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  190                CONTINUE
+                     } // 190
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -671,7 +671,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 200
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  200                CONTINUE
+                     } // 200
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -691,7 +691,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 210
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  210                CONTINUE
+                     } // 210
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -717,7 +717,7 @@
                   if ( SCALOC.NE.ONE ) {
                      for (J = 1; J <= N; J++) { // 220
                         dscal(M, SCALOC, C( 1, J ), 1 );
-  220                CONTINUE
+                     } // 220
                      SCALE = SCALE*SCALOC
                   }
                   C( K1, L1 ) = X( 1, 1 )
@@ -726,8 +726,8 @@
                   C( K2, L2 ) = X( 2, 2 )
                }
 
-  230       CONTINUE
-  240    CONTINUE
+            } // 230
+         } // 240
 
       }
 

@@ -49,7 +49,7 @@
       if ( M.EQ.N ) {
          for (I = 1; I <= N; I++) { // 10
             TAU( I ) = ZERO
-   10    CONTINUE
+         } // 10
       } else {
          M1 = MIN( M+1, N )
          DO 20 K = M, 1, -1
@@ -80,7 +80,7 @@
                saxpy(K-1, -TAU( K ), TAU, 1, A( 1, K ), 1 );
                sger(K-1, N-M, -TAU( K ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

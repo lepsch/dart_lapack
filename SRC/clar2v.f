@@ -48,7 +48,7 @@
          Z( IX ) = CI*T3 + CONJG( SI )*CMPLX( T6, T1I )
          IX = IX + INCX
          IC = IC + INCC
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of CLAR2V

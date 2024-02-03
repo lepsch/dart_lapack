@@ -56,16 +56,16 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 1; J <= N; J++) { // 10
                TNORM = MAX( TNORM, TSCAL*ABS( AB( KD+1, J ) )+ CNORM( J ) )
-   10       CONTINUE
+            } // 10
          } else {
             for (J = 1; J <= N; J++) { // 20
                TNORM = MAX( TNORM, TSCAL*ABS( AB( 1, J ) )+CNORM( J ) )
-   20       CONTINUE
+            } // 20
          }
       } else {
          for (J = 1; J <= N; J++) { // 30
             TNORM = MAX( TNORM, TSCAL+CNORM( J ) )
-   30    CONTINUE
+         } // 30
       }
 
       // Compute the maximum over the number of right hand sides of
@@ -95,7 +95,7 @@
             IF( ERR.GT.ZERO ) ERR = ONE / EPS
          }
          RESID = MAX( RESID, ERR )
-   40 CONTINUE
+      } // 40
 
       RETURN
 

@@ -49,7 +49,7 @@
          dcopy(M, A( 1, J ), 1, WORK, 1 );
          daxpy(M, -ONE, B( 1, J ), 1, WORK, 1 );
          WNORM = MAX( WNORM, DASUM( N, WORK, 1 ) )
-   10 CONTINUE
+      } // 10
 
       ANORM = MAX( DLANGE( '1', M, N, A, LDA, WORK ), UNFL )
 

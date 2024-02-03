@@ -86,7 +86,7 @@
                                  RES = Q( J1, 1 )*CS + Q( J1, 2 )*SN
                                  Q( J1, 2 ) = -Q( J1, 1 )*SN + Q( J1, 2 )*CS
                                  Q( J1, 1 ) = RES
-   10                         CONTINUE
+                              } // 10
 
                               RES = ZERO
                               RES = RES + ABS( Q( 1, 1 )**2+ Q( 1, 2 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 2, 2 )**2+ Q( 2, 1 )**2-ONE ) / EPS                               RES = RES + ABS( Q( 1, 1 )*Q( 2, 1 )+ Q( 1, 2 )*Q( 2, 2 ) ) / EPS
@@ -95,32 +95,32 @@
                                     T2( J1, J2 ) = ZERO
                                     for (J3 = 1; J3 <= 2; J3++) { // 20
                                        T2( J1, J2 ) = T2( J1, J2 ) + T1( J1, J3 )* Q( J3, J2 )
-   20                               CONTINUE
-   30                            CONTINUE
-   40                         CONTINUE
+                                    } // 20
+                                 } // 30
+                              } // 40
                               for (J1 = 1; J1 <= 2; J1++) { // 70
                                  for (J2 = 1; J2 <= 2; J2++) { // 60
                                     SUM = T( J1, J2 )
                                     for (J3 = 1; J3 <= 2; J3++) { // 50
                                        SUM = SUM - Q( J3, J1 )* T2( J3, J2 )
-   50                               CONTINUE
+                                    } // 50
                                     RES = RES + ABS( SUM ) / EPS / TNRM
-   60                            CONTINUE
-   70                         CONTINUE
+                                 } // 60
+                              } // 70
                               IF( T( 2, 1 ).NE.ZERO .AND. ( T( 1, 1 ).NE.T( 2, 2 ) .OR. SIGN( ONE, T( 1, 2 ) )*SIGN( ONE, T( 2, 1 ) ).GT.ZERO ) )RES = RES + ONE / EPS
                               KNT = KNT + 1
                               if ( RES.GT.RMAX ) {
                                  LMAX = KNT
                                  RMAX = RES
                               }
-   80                      CONTINUE
-   90                   CONTINUE
-  100                CONTINUE
-  110             CONTINUE
-  120          CONTINUE
-  130       CONTINUE
-  140    CONTINUE
-  150 CONTINUE
+                           } // 80
+                        } // 90
+                     } // 100
+                  } // 110
+               } // 120
+            } // 130
+         } // 140
+      } // 150
 
       RETURN
 

@@ -61,7 +61,7 @@
          RANK = ( 3*MN ) / 4
          DO 10 J = RANK + 1, MN
             S( J ) = ZERO
-   10    CONTINUE
+         } // 10
       } else {
          xerbla('ZQRT15', 2 );
       }
@@ -72,14 +72,14 @@
 
          S( 1 ) = ONE
          for (J = 2; J <= RANK; J++) { // 30
-   20       CONTINUE
+            } // 20
             TEMP = DLARND( 1, ISEED )
             if ( TEMP.GT.SVMIN ) {
                S( J ) = ABS( TEMP )
             } else {
                GO TO 20
             }
-   30    CONTINUE
+         } // 30
          dlaord('Decreasing', RANK, S, 1 );
 
          // Generate 'rank' columns of a random orthogonal matrix in A
@@ -102,7 +102,7 @@
 
          for (J = 1; J <= RANK; J++) { // 40
             zdscal(M, S( J ), A( 1, J ), 1 );
-   40    CONTINUE
+         } // 40
          IF( RANK.LT.N ) CALL ZLASET( 'Full', M, N-RANK, CZERO, CZERO, A( 1, RANK+1 ), LDA )
          zlaror('Right', 'No initialization', M, N, A, LDA, ISEED, WORK, INFO );
 
@@ -114,7 +114,7 @@
 
          for (J = 1; J <= MN; J++) { // 50
             S( J ) = ZERO
-   50    CONTINUE
+         } // 50
          zlaset('Full', M, N, CZERO, CZERO, A, LDA );
          zlaset('Full', M, NRHS, CZERO, CZERO, B, LDB );
 

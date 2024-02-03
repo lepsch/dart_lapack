@@ -44,7 +44,7 @@
  9998             FORMAT( ' Matrix order=', I5, ', type=', I2, ', seed=', 4( I4, ',' ), ' result ', I3, ' is', 1P, D10.3 )
                }
             }
-   10    CONTINUE
+         } // 10
       } else {
 
       // Output for rectangular matrices
@@ -65,7 +65,7 @@
  9996             FORMAT( 1X, I5, ' x', I5, ' matrix, type=', I2, ', s', 'eed=', 3( I4, ',' ), I4, ': result ', I3, ' is', 1P, D10.3 )
                }
             }
-   20    CONTINUE
+         } // 20
 
       }
       RETURN

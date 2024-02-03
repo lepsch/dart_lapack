@@ -58,7 +58,7 @@
             // XNORM, BETA may be inaccurate; scale X and recompute them
 
             RSAFMN = ONE / SAFMIN
-   10       CONTINUE
+            } // 10
             KNT = KNT + 1
             dscal(N-1, RSAFMN, X, INCX );
             BETA = BETA*RSAFMN
@@ -77,7 +77,7 @@
 
          for (J = 1; J <= KNT; J++) { // 20
             BETA = BETA*SAFMIN
- 20      CONTINUE
+         } // 20
          ALPHA = BETA
       }
 

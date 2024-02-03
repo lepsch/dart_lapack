@@ -88,7 +88,7 @@
 
             COUNT = 0
             SIGMA = B + C
-   10       CONTINUE
+            } // 10
             COUNT = COUNT + 1
             SCALE = MAX( ABS(TEMP), ABS(SIGMA) )
             if ( SCALE.GE.SAFMX2 ) {

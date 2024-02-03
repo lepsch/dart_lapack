@@ -49,15 +49,15 @@
                   DO 10 I = MAX( K+2-J, 1 ), K
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   10             CONTINUE
-   20          CONTINUE
+                  } // 10
+               } // 20
             } else {
                for (J = 1; J <= N; J++) { // 40
                   DO 30 I = 2, MIN( N+1-J, K+1 )
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   30             CONTINUE
-   40          CONTINUE
+                  } // 30
+               } // 40
             }
          } else {
             VALUE = ZERO
@@ -66,15 +66,15 @@
                   DO 50 I = MAX( K+2-J, 1 ), K + 1
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   50             CONTINUE
-   60          CONTINUE
+                  } // 50
+               } // 60
             } else {
                for (J = 1; J <= N; J++) { // 80
                   DO 70 I = 1, MIN( N+1-J, K+1 )
                      SUM = ABS( AB( I, J ) )
                      IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   70             CONTINUE
-   80          CONTINUE
+                  } // 70
+               } // 80
             }
          }
       } else if ( ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
@@ -89,30 +89,30 @@
                   SUM = ONE
                   DO 90 I = MAX( K+2-J, 1 ), K
                      SUM = SUM + ABS( AB( I, J ) )
-   90             CONTINUE
+                  } // 90
                } else {
                   SUM = ZERO
                   DO 100 I = MAX( K+2-J, 1 ), K + 1
                      SUM = SUM + ABS( AB( I, J ) )
-  100             CONTINUE
+                  } // 100
                }
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-  110       CONTINUE
+            } // 110
          } else {
             for (J = 1; J <= N; J++) { // 140
                if ( UDIAG ) {
                   SUM = ONE
                   DO 120 I = 2, MIN( N+1-J, K+1 )
                      SUM = SUM + ABS( AB( I, J ) )
-  120             CONTINUE
+                  } // 120
                } else {
                   SUM = ZERO
                   DO 130 I = 1, MIN( N+1-J, K+1 )
                      SUM = SUM + ABS( AB( I, J ) )
-  130             CONTINUE
+                  } // 130
                }
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-  140       CONTINUE
+            } // 140
          }
       } else if ( LSAME( NORM, 'I' ) ) {
 
@@ -123,51 +123,51 @@
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 150
                   WORK( I ) = ONE
-  150          CONTINUE
+               } // 150
                for (J = 1; J <= N; J++) { // 170
                   L = K + 1 - J
                   DO 160 I = MAX( 1, J-K ), J - 1
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
-  160             CONTINUE
-  170          CONTINUE
+                  } // 160
+               } // 170
             } else {
                for (I = 1; I <= N; I++) { // 180
                   WORK( I ) = ZERO
-  180          CONTINUE
+               } // 180
                for (J = 1; J <= N; J++) { // 200
                   L = K + 1 - J
                   DO 190 I = MAX( 1, J-K ), J
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
-  190             CONTINUE
-  200          CONTINUE
+                  } // 190
+               } // 200
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
                for (I = 1; I <= N; I++) { // 210
                   WORK( I ) = ONE
-  210          CONTINUE
+               } // 210
                for (J = 1; J <= N; J++) { // 230
                   L = 1 - J
                   DO 220 I = J + 1, MIN( N, J+K )
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
-  220             CONTINUE
-  230          CONTINUE
+                  } // 220
+               } // 230
             } else {
                for (I = 1; I <= N; I++) { // 240
                   WORK( I ) = ZERO
-  240          CONTINUE
+               } // 240
                for (J = 1; J <= N; J++) { // 260
                   L = 1 - J
                   DO 250 I = J, MIN( N, J+K )
                      WORK( I ) = WORK( I ) + ABS( AB( L+I, J ) )
-  250             CONTINUE
-  260          CONTINUE
+                  } // 250
+               } // 260
             }
          }
          for (I = 1; I <= N; I++) { // 270
             SUM = WORK( I )
             IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-  270    CONTINUE
+         } // 270
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
          // Find normF(A).
@@ -179,14 +179,14 @@
                if ( K.GT.0 ) {
                   for (J = 2; J <= N; J++) { // 280
                      classq(MIN( J-1, K ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
-  280             CONTINUE
+                  } // 280
                }
             } else {
                SCALE = ZERO
                SUM = ONE
                for (J = 1; J <= N; J++) { // 290
                   classq(MIN( J, K+1 ), AB( MAX( K+2-J, 1 ), J ), 1, SCALE, SUM );
-  290          CONTINUE
+               } // 290
             }
          } else {
             if ( LSAME( DIAG, 'U' ) ) {
@@ -195,14 +195,14 @@
                if ( K.GT.0 ) {
                   DO 300 J = 1, N - 1
                      classq(MIN( N-J, K ), AB( 2, J ), 1, SCALE, SUM );
-  300             CONTINUE
+                  } // 300
                }
             } else {
                SCALE = ZERO
                SUM = ONE
                for (J = 1; J <= N; J++) { // 310
                   classq(MIN( N-J+1, K+1 ), AB( 1, J ), 1, SCALE, SUM );
-  310          CONTINUE
+               } // 310
             }
          }
          VALUE = SCALE*SQRT( SUM )

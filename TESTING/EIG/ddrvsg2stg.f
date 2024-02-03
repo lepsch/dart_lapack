@@ -60,7 +60,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       // Check for errors
 
@@ -100,7 +100,7 @@
 
       for (I = 1; I <= 4; I++) { // 20
          ISEED2( I ) = ISEED( I )
-   20 CONTINUE
+      } // 20
 
       // Loop over sizes, types
 
@@ -126,7 +126,7 @@
 
             for (J = 1; J <= 4; J++) { // 30
                IOLDSD( J ) = ISEED( J )
-   30       CONTINUE
+            } // 30
 
             // 2)      Compute "A"
 
@@ -152,19 +152,19 @@
 
             GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40       CONTINUE
+            } // 40
             ANORM = ONE
             GO TO 70
 
-   50       CONTINUE
+            } // 50
             ANORM = ( RTOVFL*ULP )*ANINV
             GO TO 70
 
-   60       CONTINUE
+            } // 60
             ANORM = RTUNFL*N*ULPINV
             GO TO 70
 
-   70       CONTINUE
+            } // 70
 
             IINFO = 0
             COND = ULPINV
@@ -188,7 +188,7 @@
                dlaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                   A( JCOL, JCOL ) = ANORM
-   80          CONTINUE
+               } // 80
 
             } else if ( ITYPE.EQ.4 ) {
 
@@ -255,7 +255,7 @@
                RETURN
             }
 
-   90       CONTINUE
+            } // 90
 
             ABSTOL = UNFL + UNFL
             if ( N.LE.1 ) {
@@ -347,7 +347,7 @@
                   for (J = 1; J <= N; J++) { // 151
                      TEMP1 = MAX( TEMP1, ABS( D( J ) ),  ABS( D2( J ) ) )
                      TEMP2 = MAX( TEMP2, ABS( D( J )-D2( J ) ) )
-  151             CONTINUE
+                  } // 151
 
                   RESULT( NTEST ) = TEMP2 /  MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
 
@@ -446,7 +446,7 @@
 
                   dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-  100             CONTINUE
+                  } // 100
 
                   // Test DSPGV
 
@@ -461,8 +461,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  110                   CONTINUE
-  120                CONTINUE
+                        } // 110
+                     } // 120
                   } else {
                      IJ = 1
                      for (J = 1; J <= N; J++) { // 140
@@ -470,8 +470,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  130                   CONTINUE
-  140                CONTINUE
+                        } // 130
+                     } // 140
                   }
 
                   dspgv(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, IINFO );
@@ -503,8 +503,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  150                   CONTINUE
-  160                CONTINUE
+                        } // 150
+                     } // 160
                   } else {
                      IJ = 1
                      for (J = 1; J <= N; J++) { // 180
@@ -512,8 +512,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  170                   CONTINUE
-  180                CONTINUE
+                        } // 170
+                     } // 180
                   }
 
                   dspgvd(IBTYPE, 'V', UPLO, N, AP, BP, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
@@ -545,8 +545,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  190                   CONTINUE
-  200                CONTINUE
+                        } // 190
+                     } // 200
                   } else {
                      IJ = 1
                      for (J = 1; J <= N; J++) { // 220
@@ -554,8 +554,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  210                   CONTINUE
-  220                CONTINUE
+                        } // 210
+                     } // 220
                   }
 
                   dspgvx(IBTYPE, 'V', 'A', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
@@ -585,8 +585,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  230                   CONTINUE
-  240                CONTINUE
+                        } // 230
+                     } // 240
                   } else {
                      IJ = 1
                      for (J = 1; J <= N; J++) { // 260
@@ -594,8 +594,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  250                   CONTINUE
-  260                CONTINUE
+                        } // 250
+                     } // 260
                   }
 
                   VL = ZERO
@@ -627,8 +627,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  270                   CONTINUE
-  280                CONTINUE
+                        } // 270
+                     } // 280
                   } else {
                      IJ = 1
                      for (J = 1; J <= N; J++) { // 300
@@ -636,8 +636,8 @@
                            AP( IJ ) = A( I, J )
                            BP( IJ ) = B( I, J )
                            IJ = IJ + 1
-  290                   CONTINUE
-  300                CONTINUE
+                        } // 290
+                     } // 300
                   }
 
                   dspgvx(IBTYPE, 'V', 'I', UPLO, N, AP, BP, VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, INFO );
@@ -656,7 +656,7 @@
 
                   dsgt01(IBTYPE, UPLO, N, M, A, LDA, B, LDB, Z, LDZ, D, WORK, RESULT( NTEST ) );
 
-  310             CONTINUE
+                  } // 310
 
                   if ( IBTYPE.EQ.1 ) {
 
@@ -670,20 +670,20 @@
                         for (J = 1; J <= N; J++) { // 340
                            DO 320 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
-  320                      CONTINUE
+                           } // 320
                            DO 330 I = MAX( 1, J-KB ), J
                               BB( KB+1+I-J, J ) = B( I, J )
-  330                      CONTINUE
-  340                   CONTINUE
+                           } // 330
+                        } // 340
                      } else {
                         for (J = 1; J <= N; J++) { // 370
                            DO 350 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
-  350                      CONTINUE
+                           } // 350
                            DO 360 I = J, MIN( N, J+KB )
                               BB( 1+I-J, J ) = B( I, J )
-  360                      CONTINUE
-  370                   CONTINUE
+                           } // 360
+                        } // 370
                      }
 
                      dsbgv('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, IINFO );
@@ -712,20 +712,20 @@
                         for (J = 1; J <= N; J++) { // 400
                            DO 380 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
-  380                      CONTINUE
+                           } // 380
                            DO 390 I = MAX( 1, J-KB ), J
                               BB( KB+1+I-J, J ) = B( I, J )
-  390                      CONTINUE
-  400                   CONTINUE
+                           } // 390
+                        } // 400
                      } else {
                         for (J = 1; J <= N; J++) { // 430
                            DO 410 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
-  410                      CONTINUE
+                           } // 410
                            DO 420 I = J, MIN( N, J+KB )
                               BB( 1+I-J, J ) = B( I, J )
-  420                      CONTINUE
-  430                   CONTINUE
+                           } // 420
+                        } // 430
                      }
 
                      dsbgvd('V', UPLO, N, KA, KB, AB, LDA, BB, LDB, D, Z, LDZ, WORK, NWORK, IWORK, LIWORK, IINFO );
@@ -754,20 +754,20 @@
                         for (J = 1; J <= N; J++) { // 460
                            DO 440 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
-  440                      CONTINUE
+                           } // 440
                            DO 450 I = MAX( 1, J-KB ), J
                               BB( KB+1+I-J, J ) = B( I, J )
-  450                      CONTINUE
-  460                   CONTINUE
+                           } // 450
+                        } // 460
                      } else {
                         for (J = 1; J <= N; J++) { // 490
                            DO 470 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
-  470                      CONTINUE
+                           } // 470
                            DO 480 I = J, MIN( N, J+KB )
                               BB( 1+I-J, J ) = B( I, J )
-  480                      CONTINUE
-  490                   CONTINUE
+                           } // 480
+                        } // 490
                      }
 
                      dsbgvx('V', 'A', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
@@ -795,20 +795,20 @@
                         for (J = 1; J <= N; J++) { // 520
                            DO 500 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
-  500                      CONTINUE
+                           } // 500
                            DO 510 I = MAX( 1, J-KB ), J
                               BB( KB+1+I-J, J ) = B( I, J )
-  510                      CONTINUE
-  520                   CONTINUE
+                           } // 510
+                        } // 520
                      } else {
                         for (J = 1; J <= N; J++) { // 550
                            DO 530 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
-  530                      CONTINUE
+                           } // 530
                            DO 540 I = J, MIN( N, J+KB )
                               BB( 1+I-J, J ) = B( I, J )
-  540                      CONTINUE
-  550                   CONTINUE
+                           } // 540
+                        } // 550
                      }
 
                      VL = ZERO
@@ -837,20 +837,20 @@
                         for (J = 1; J <= N; J++) { // 580
                            DO 560 I = MAX( 1, J-KA ), J
                               AB( KA+1+I-J, J ) = A( I, J )
-  560                      CONTINUE
+                           } // 560
                            DO 570 I = MAX( 1, J-KB ), J
                               BB( KB+1+I-J, J ) = B( I, J )
-  570                      CONTINUE
-  580                   CONTINUE
+                           } // 570
+                        } // 580
                      } else {
                         for (J = 1; J <= N; J++) { // 610
                            DO 590 I = J, MIN( N, J+KA )
                               AB( 1+I-J, J ) = A( I, J )
-  590                      CONTINUE
+                           } // 590
                            DO 600 I = J, MIN( N, J+KB )
                               BB( 1+I-J, J ) = B( I, J )
-  600                      CONTINUE
-  610                   CONTINUE
+                           } // 600
+                        } // 610
                      }
 
                      dsbgvx('V', 'I', UPLO, N, KA, KB, AB, LDA, BB, LDB, BP, MAX( 1, N ), VL, VU, IL, IU, ABSTOL, M, D, Z, LDZ, WORK, IWORK( N+1 ), IWORK, IINFO );
@@ -871,15 +871,15 @@
 
                   }
 
-  620          CONTINUE
-  630       CONTINUE
+               } // 620
+            } // 630
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
             NTESTT = NTESTT + NTEST
             dlafts('DSG', N, N, JTYPE, NTEST, RESULT, IOLDSD, THRESH, NOUNIT, NERRS );
-  640    CONTINUE
-  650 CONTINUE
+         } // 640
+      } // 650
 
       // Summary
 

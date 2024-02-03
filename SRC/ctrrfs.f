@@ -85,7 +85,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -127,7 +127,7 @@
 
          for (I = 1; I <= N; I++) { // 20
             RWORK( I ) = CABS1( B( I, J ) )
-   20    CONTINUE
+         } // 20
 
          if ( NOTRAN ) {
 
@@ -139,16 +139,16 @@
                      XK = CABS1( X( K, J ) )
                      for (I = 1; I <= K; I++) { // 30
                         RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
-   30                CONTINUE
-   40             CONTINUE
+                     } // 30
+                  } // 40
                } else {
                   for (K = 1; K <= N; K++) { // 60
                      XK = CABS1( X( K, J ) )
                      DO 50 I = 1, K - 1
                         RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
-   50                CONTINUE
+                     } // 50
                      RWORK( K ) = RWORK( K ) + XK
-   60             CONTINUE
+                  } // 60
                }
             } else {
                if ( NOUNIT ) {
@@ -156,16 +156,16 @@
                      XK = CABS1( X( K, J ) )
                      for (I = K; I <= N; I++) { // 70
                         RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
-   70                CONTINUE
-   80             CONTINUE
+                     } // 70
+                  } // 80
                } else {
                   for (K = 1; K <= N; K++) { // 100
                      XK = CABS1( X( K, J ) )
                      DO 90 I = K + 1, N
                         RWORK( I ) = RWORK( I ) + CABS1( A( I, K ) )*XK
-   90                CONTINUE
+                     } // 90
                      RWORK( K ) = RWORK( K ) + XK
-  100             CONTINUE
+                  } // 100
                }
             }
          } else {
@@ -178,17 +178,17 @@
                      S = ZERO
                      for (I = 1; I <= K; I++) { // 110
                         S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
-  110                CONTINUE
+                     } // 110
                      RWORK( K ) = RWORK( K ) + S
-  120             CONTINUE
+                  } // 120
                } else {
                   for (K = 1; K <= N; K++) { // 140
                      S = CABS1( X( K, J ) )
                      DO 130 I = 1, K - 1
                         S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
-  130                CONTINUE
+                     } // 130
                      RWORK( K ) = RWORK( K ) + S
-  140             CONTINUE
+                  } // 140
                }
             } else {
                if ( NOUNIT ) {
@@ -196,17 +196,17 @@
                      S = ZERO
                      for (I = K; I <= N; I++) { // 150
                         S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
-  150                CONTINUE
+                     } // 150
                      RWORK( K ) = RWORK( K ) + S
-  160             CONTINUE
+                  } // 160
                } else {
                   for (K = 1; K <= N; K++) { // 180
                      S = CABS1( X( K, J ) )
                      DO 170 I = K + 1, N
                         S = S + CABS1( A( I, K ) )*CABS1( X( I, J ) )
-  170                CONTINUE
+                     } // 170
                      RWORK( K ) = RWORK( K ) + S
-  180             CONTINUE
+                  } // 180
                }
             }
          }
@@ -217,7 +217,7 @@
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             }
-  190    CONTINUE
+         } // 190
          BERR( J ) = S
 
          // Bound error from formula
@@ -248,10 +248,10 @@
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             }
-  200    CONTINUE
+         } // 200
 
          KASE = 0
-  210    CONTINUE
+         } // 210
          clacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -261,14 +261,14 @@
                ctrsv(UPLO, TRANST, DIAG, N, A, LDA, WORK, 1 );
                for (I = 1; I <= N; I++) { // 220
                   WORK( I ) = RWORK( I )*WORK( I )
-  220          CONTINUE
+               } // 220
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 230
                   WORK( I ) = RWORK( I )*WORK( I )
-  230          CONTINUE
+               } // 230
                ctrsv(UPLO, TRANSN, DIAG, N, A, LDA, WORK, 1 );
             }
             GO TO 210
@@ -279,10 +279,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 240
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
-  240    CONTINUE
+         } // 240
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  250 CONTINUE
+      } // 250
 
       RETURN
 

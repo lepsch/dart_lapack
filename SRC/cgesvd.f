@@ -558,7 +558,7 @@
                      CHUNK = MIN( M-I+1, LDWRKU )
                      cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   10             CONTINUE
+                  } // 10
 
                } else {
 
@@ -683,7 +683,7 @@
                      CHUNK = MIN( M-I+1, LDWRKU )
                      cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   20             CONTINUE
+                  } // 20
 
                } else {
 
@@ -1848,7 +1848,7 @@
                      BLK = MIN( N-I+1, CHUNK )
                      cgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      clacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
-   30             CONTINUE
+                  } // 30
 
                } else {
 
@@ -1976,7 +1976,7 @@
                      BLK = MIN( N-I+1, CHUNK )
                      cgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      clacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
-   40             CONTINUE
+                  } // 40
 
                } else {
 

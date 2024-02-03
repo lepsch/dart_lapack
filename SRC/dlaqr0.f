@@ -187,9 +187,9 @@
 
             DO 10 K = KBOT, ILO + 1, -1
                IF( H( K, K-1 ).EQ.ZERO ) GO TO 20
-   10       CONTINUE
+            } // 10
             K = ILO
-   20       CONTINUE
+            } // 20
             KTOP = K
 
             // ==== Select deflation window size:
@@ -291,7 +291,7 @@
                      CC = WILK2*SS
                      DD = AA
                      dlanv2(AA, BB, CC, DD, WR( I-1 ), WI( I-1 ), WR( I ), WI( I ), CS, SN );
-   30             CONTINUE
+                  } // 30
                   if ( KS.EQ.KTOP ) {
                      WR( KS+1 ) = H( KS+1, KS+1 )
                      WI( KS+1 ) = ZERO
@@ -353,9 +353,9 @@
                               WI( I ) = WI( I+1 )
                               WI( I+1 ) = SWAP
                            }
-   40                   CONTINUE
-   50                CONTINUE
-   60                CONTINUE
+                        } // 40
+                     } // 50
+                     } // 60
                   }
 
                   // ==== Shuffle shifts into pairs of real shifts
@@ -377,7 +377,7 @@
                         WI( I-1 ) = WI( I-2 )
                         WI( I-2 ) = SWAP
                      }
-   70             CONTINUE
+                  } // 70
                }
 
                // ==== If there are only two shifts and both are
@@ -434,13 +434,13 @@
             }
 
             // ==== End of main loop ====
-   80    CONTINUE
+         } // 80
 
          // ==== Iteration limit exceeded.  Set INFO to show where
          // .    the problem occurred and exit. ====
 
          INFO = KBOT
-   90    CONTINUE
+         } // 90
       }
 
       // ==== Return the optimal value of LWORK. ====

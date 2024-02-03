@@ -186,7 +186,7 @@
          C = 1
 
 *+       WHILE( C.EQ.ONE )LOOP
-   10    CONTINUE
+         } // 10
          if ( C.EQ.ONE ) {
             A = 2*A
             C = DLAMC3( A, ONE )
@@ -204,7 +204,7 @@
          C = DLAMC3( A, B )
 
 *+       WHILE( C.EQ.A )LOOP
-   20    CONTINUE
+         } // 20
          if ( C.EQ.A ) {
             B = 2*B
             C = DLAMC3( A, B )
@@ -259,7 +259,7 @@
          C = 1
 
 *+       WHILE( C.EQ.ONE )LOOP
-   30    CONTINUE
+         } // 30
          if ( C.EQ.ONE ) {
             LT = LT + 1
             A = A*LBETA
@@ -420,7 +420,7 @@
          LEPS = 1
 
 *+       WHILE( ( LEPS.GT.B ).AND.( B.GT.ZERO ) )LOOP
-   10    CONTINUE
+         } // 10
          if ( ( LEPS.GT.B ) .AND. ( B.GT.ZERO ) ) {
             LEPS = B
             C = DLAMC3( HALF*LEPS, ( TWO**5 )*( LEPS**2 ) )
@@ -444,7 +444,7 @@
          SMALL = ONE
          for (I = 1; I <= 3; I++) { // 20
             SMALL = DLAMC3( SMALL*RBASE, ZERO )
-   20    CONTINUE
+         } // 20
          A = DLAMC3( ONE, SMALL )
          dlamc4(NGPMIN, ONE, LBETA );
          dlamc4(NGNMIN, -ONE, LBETA );
@@ -518,7 +518,7 @@
          LRMIN = 1
          DO 30 I = 1, 1 - LEMIN
             LRMIN = DLAMC3( LRMIN*RBASE, ZERO )
-   30    CONTINUE
+         } // 30
 
          // Finally, call DLAMC5 to compute EMAX and RMAX.
 
@@ -641,7 +641,7 @@
       D2 = A
 *+    WHILE( ( C1.EQ.A ).AND.( C2.EQ.A ).AND.
 *    $       ( D1.EQ.A ).AND.( D2.EQ.A )      )LOOP
-   10 CONTINUE
+      } // 10
       if ( ( C1.EQ.A ) .AND. ( C2.EQ.A ) .AND. ( D1.EQ.A ) .AND. ( D2.EQ.A ) ) {
          EMIN = EMIN - 1
          A = B1
@@ -650,13 +650,13 @@
          D1 = ZERO
          for (I = 1; I <= BASE; I++) { // 20
             D1 = D1 + B1
-   20    CONTINUE
+         } // 20
          B2 = DLAMC3( A*RBASE, ZERO )
          C2 = DLAMC3( B2 / RBASE, ZERO )
          D2 = ZERO
          for (I = 1; I <= BASE; I++) { // 30
             D2 = D2 + B2
-   30    CONTINUE
+         } // 30
          GO TO 10
       }
 *+    END WHILE
@@ -750,7 +750,7 @@
 
       LEXP = 1
       EXBITS = 1
-   10 CONTINUE
+      } // 10
       TRY = LEXP*2
       if ( TRY.LE.( -EMIN ) ) {
          LEXP = TRY
@@ -820,14 +820,14 @@
          Z = Z*RECBAS
          IF( Y.LT.ONE ) OLDY = Y
          Y = DLAMC3( Y, Z )
-   20 CONTINUE
+      } // 20
       IF( Y.GE.ONE ) Y = OLDY
 
       // Now multiply by BETA**EMAX to get RMAX.
 
       for (I = 1; I <= EMAX; I++) { // 30
          Y = DLAMC3( Y*BETA, ZERO )
-   30 CONTINUE
+      } // 30
 
       RMAX = Y
       RETURN

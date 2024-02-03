@@ -68,7 +68,7 @@
                }
             }
          }
-   10 CONTINUE
+      } // 10
 
       INFO = 0
       if ( .NOT.RIGHTV .AND. .NOT.LEFTV ) {
@@ -135,14 +135,14 @@
 
                DO 20 I = K, KL + 1, -1
                   IF( H( I, I-1 ).EQ.ZERO ) GO TO 30
-   20          CONTINUE
-   30          CONTINUE
+               } // 20
+               } // 30
                KL = I
                if ( K.GT.KR ) {
                   DO 40 I = K, N - 1
                      IF( H( I+1, I ).EQ.ZERO ) GO TO 50
-   40             CONTINUE
-   50             CONTINUE
+                  } // 40
+                  } // 50
                   KR = I
                }
             }
@@ -170,13 +170,13 @@
 
             WKR = WR( K )
             WKI = WI( K )
-   60       CONTINUE
+            } // 60
             DO 70 I = K - 1, KL, -1
                if ( SELECT( I ) .AND. ABS( WR( I )-WKR )+ ABS( WI( I )-WKI ).LT.EPS3 ) {
                   WKR = WKR + EPS3
                   GO TO 60
                }
-   70       CONTINUE
+            } // 70
             WR( K ) = WKR
 
             PAIR = WKI.NE.ZERO
@@ -204,11 +204,11 @@
                }
                DO 80 I = 1, KL - 1
                   VL( I, KSR ) = ZERO
-   80          CONTINUE
+               } // 80
                if ( PAIR ) {
                   DO 90 I = 1, KL - 1
                      VL( I, KSI ) = ZERO
-   90             CONTINUE
+                  } // 90
                }
             }
             if ( RIGHTV ) {
@@ -230,11 +230,11 @@
                }
                DO 100 I = KR + 1, N
                   VR( I, KSR ) = ZERO
-  100          CONTINUE
+               } // 100
                if ( PAIR ) {
                   DO 110 I = KR + 1, N
                      VR( I, KSI ) = ZERO
-  110             CONTINUE
+                  } // 110
                }
             }
 
@@ -244,7 +244,7 @@
                KSR = KSR + 1
             }
          }
-  120 CONTINUE
+      } // 120
 
       RETURN
 

@@ -65,7 +65,7 @@
             // Solve U*X = B, overwriting B with X.
 
             dtpsv('Upper', 'No transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
-   10    CONTINUE
+         } // 10
       } else {
 
          // Solve A*X = B where A = L * L**T.
@@ -79,7 +79,7 @@
             // Solve L**T *X = Y, overwriting B with X.
 
             dtpsv('Lower', 'Transpose', 'Non-unit', N, AP, B( 1, I ), 1 );
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

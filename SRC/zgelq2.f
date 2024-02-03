@@ -62,7 +62,7 @@
          }
          A( I, I ) = ALPHA
          zlacgv(N-I+1, A( I, I ), LDA );
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZGELQ2

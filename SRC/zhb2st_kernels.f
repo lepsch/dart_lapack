@@ -69,7 +69,7 @@
               DO 10 I = 1, LM-1
                   V( VPOS+I )         = DCONJG( A( OFDPOS-I, ST+I ) )
                   A( OFDPOS-I, ST+I ) = ZERO
-   10         CONTINUE
+              } // 10
               CTMP = DCONJG( A( OFDPOS, ST ) )
               zlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
               A( OFDPOS, ST ) = CTMP
@@ -104,7 +104,7 @@
                   DO 30 I = 1, LM-1
                       V( VPOS+I )          = DCONJG( A( DPOS-NB-I, J1+I ) )
                       A( DPOS-NB-I, J1+I ) = ZERO
-   30             CONTINUE
+                  } // 30
                   CTMP = DCONJG( A( DPOS-NB, J1 ) )
                   zlarfg(LM, CTMP, V( VPOS+1 ), 1, TAU( TAUPOS ) );
                   A( DPOS-NB, J1 ) = CTMP
@@ -132,7 +132,7 @@
               DO 20 I = 1, LM-1
                   V( VPOS+I )         = A( OFDPOS+I, ST-1 )
                   A( OFDPOS+I, ST-1 ) = ZERO
-   20         CONTINUE
+              } // 20
               zlarfg(LM, A( OFDPOS, ST-1 ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
               LM = ED - ST + 1
@@ -169,7 +169,7 @@
                   DO 40 I = 1, LM-1
                       V( VPOS+I )        = A( DPOS+NB+I, ST )
                       A( DPOS+NB+I, ST ) = ZERO
-   40             CONTINUE
+                  } // 40
                   zlarfg(LM, A( DPOS+NB, ST ), V( VPOS+1 ), 1, TAU( TAUPOS ) );
 
                   zlarfx('Left', LM, LN-1, V( VPOS ), DCONJG( TAU( TAUPOS ) ), A( DPOS+NB-1, ST+1 ), LDA-1, WORK);

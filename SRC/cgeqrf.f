@@ -112,7 +112,7 @@
 
                clarfb('Left', 'Conjugate transpose', 'Forward', 'Columnwise', M-I+1, N-I-IB+1, IB, A( I, I ), LDA, WORK, LDWORK, A( I, I+IB ), LDA, WORK( IB+1 ), LDWORK );
             }
-   10    CONTINUE
+         } // 10
       } else {
          I = 1
       }

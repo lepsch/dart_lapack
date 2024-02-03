@@ -62,7 +62,7 @@
 
       for (I = 1; I <= N; I++) { // 10
          WORK( ( I-1 )*N+I ) = WORK( ( I-1 )*N+I ) - ONE
-   10 CONTINUE
+      } // 10
 
       ZRZT02 = ZLANGE( 'One-norm', N, N, WORK, N, RWORK ) / ( DLAMCH( 'Epsilon' )*DBLE( MAX( M, N ) ) )
       RETURN

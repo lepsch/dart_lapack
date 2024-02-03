@@ -23,7 +23,7 @@
         S = (S + S) - S
         Y(I) = ((X(I) - S) + W(I)) + Y(I)
         X(I) = S
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZLA_WWADDW

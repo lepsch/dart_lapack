@@ -32,7 +32,7 @@
       ILAENV = -1
       RETURN
 
-   10 CONTINUE
+      } // 10
 
       // Convert NAME to upper case if the first character is lower case.
 
@@ -49,7 +49,7 @@
             for (I = 2; I <= 6; I++) { // 20
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.97 .AND. IC.LE.122 ) SUBNAM( I: I ) = CHAR( IC-32 )
-   20       CONTINUE
+            } // 20
          }
 
       } else if ( IZ.EQ.233 .OR. IZ.EQ.169 ) {
@@ -61,7 +61,7 @@
             for (I = 2; I <= 6; I++) { // 30
                IC = ICHAR( SUBNAM( I: I ) )
                IF( ( IC.GE.129 .AND. IC.LE.137 ) .OR. ( IC.GE.145 .AND. IC.LE.153 ) .OR. ( IC.GE.162 .AND. IC.LE.169 ) )SUBNAM( I: I ) = CHAR( IC+64 )
-   30       CONTINUE
+            } // 30
          }
 
       } else if ( IZ.EQ.218 .OR. IZ.EQ.250 ) {
@@ -73,7 +73,7 @@
             for (I = 2; I <= 6; I++) { // 40
                IC = ICHAR( SUBNAM( I: I ) )
                IF( IC.GE.225 .AND. IC.LE.250 ) SUBNAM( I: I ) = CHAR( IC-32 )
-   40       CONTINUE
+            } // 40
          }
       }
 
@@ -88,7 +88,7 @@
 
       GO TO ( 50, 60, 70 )ISPEC
 
-   50 CONTINUE
+      } // 50
 
       // ISPEC = 1:  block size
 
@@ -335,7 +335,7 @@
       ILAENV = NB
       RETURN
 
-   60 CONTINUE
+      } // 60
 
       // ISPEC = 2:  minimum block size
 
@@ -416,7 +416,7 @@
       ILAENV = NBMIN
       RETURN
 
-   70 CONTINUE
+      } // 70
 
       // ISPEC = 3:  crossover point
 
@@ -476,42 +476,42 @@
       ILAENV = NX
       RETURN
 
-   80 CONTINUE
+      } // 80
 
       // ISPEC = 4:  number of shifts (used by xHSEQR)
 
       ILAENV = 6
       RETURN
 
-   90 CONTINUE
+      } // 90
 
       // ISPEC = 5:  minimum column dimension (not used)
 
       ILAENV = 2
       RETURN
 
-  100 CONTINUE
+      } // 100
 
       // ISPEC = 6:  crossover point for SVD (used by xGELSS and xGESVD)
 
       ILAENV = INT( REAL( MIN( N1, N2 ) )*1.6E0 )
       RETURN
 
-  110 CONTINUE
+      } // 110
 
       // ISPEC = 7:  number of processors (not used)
 
       ILAENV = 1
       RETURN
 
-  120 CONTINUE
+      } // 120
 
       // ISPEC = 8:  crossover point for multishift (used by xHSEQR)
 
       ILAENV = 50
       RETURN
 
-  130 CONTINUE
+      } // 130
 
       // ISPEC = 9:  maximum size of the subproblems at the bottom of the
                   // computation tree in the divide-and-conquer algorithm
@@ -520,7 +520,7 @@
       ILAENV = 25
       RETURN
 
-  140 CONTINUE
+      } // 140
 
       // ISPEC = 10: ieee and infinity NaN arithmetic can be trusted not to trap
 
@@ -531,7 +531,7 @@
       }
       RETURN
 
-  150 CONTINUE
+      } // 150
 
       // ISPEC = 11: ieee infinity arithmetic can be trusted not to trap
 
@@ -542,7 +542,7 @@
       }
       RETURN
 
-  160 CONTINUE
+      } // 160
 
       // 12 <= ISPEC <= 17: xHSEQR or related subroutines.
 

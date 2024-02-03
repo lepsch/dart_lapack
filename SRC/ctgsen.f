@@ -90,7 +90,7 @@
          } else {
             IF( SELECT( N ) ) M = M + 1
          }
-   10 CONTINUE
+      } // 10
       }
 
       if ( IJOB.EQ.1 .OR. IJOB.EQ.2 .OR. IJOB.EQ.4 ) {
@@ -133,7 +133,7 @@
             for (I = 1; I <= N; I++) { // 20
                classq(N, A( 1, I ), 1, DSCALE, DSUM );
                classq(N, B( 1, I ), 1, DSCALE, DSUM );
-   20       CONTINUE
+            } // 20
             DIF( 1 ) = DSCALE*SQRT( DSUM )
             DIF( 2 ) = DIF( 1 )
          }
@@ -173,7 +173,7 @@
                GO TO 70
             }
          }
-   30 CONTINUE
+      } // 30
       if ( WANTP ) {
 
          // Solve generalized Sylvester equation for R and L:
@@ -243,7 +243,7 @@
 
             // 1-norm-based estimate of Difu.
 
-   40       CONTINUE
+            } // 40
             clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 1 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
@@ -263,7 +263,7 @@
 
             // 1-norm-based estimate of Difl.
 
-   50       CONTINUE
+            } // 50
             clacn2(MN2, WORK( MN2+1 ), WORK, DIF( 2 ), KASE, ISAVE );
             if ( KASE.NE.0 ) {
                if ( KASE.EQ.1 ) {
@@ -303,9 +303,9 @@
          ALPHA( K ) = A( K, K )
          BETA( K ) = B( K, K )
 
-   60 CONTINUE
+      } // 60
 
-   70 CONTINUE
+      } // 70
 
       WORK( 1 ) =  SROUNDUP_LWORK(LWMIN)
       IWORK( 1 ) = LIWMIN

@@ -71,13 +71,13 @@
       // lexicographically (increasing by real part, then decreasing by
       // imaginary part)
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N, NDIM
       IF( N.EQ.0 ) RETURN
       READ( NIN, FMT = * )( ISELEC( I ), I = 1, NDIM )
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       READ( NIN, FMT = * )SIN, SEPIN
 
       TNRM = DLANGE( 'M', N, N, TMP, LDT, WORK )
@@ -90,7 +90,7 @@
          VMUL = VAL( ISCL )
          for (I = 1; I <= N; I++) { // 30
             dscal(N, VMUL, T( 1, I ), 1 );
-   30    CONTINUE
+         } // 30
          IF( TNRM.EQ.ZERO ) VMUL = ONE
          dlacpy('F', N, N, T, LDT, TSAV, LDT );
 
@@ -122,7 +122,7 @@
          for (I = 1; I <= N; I++) { // 40
             IPNT( I ) = I
             SELECT( I ) = .FALSE.
-   40    CONTINUE
+         } // 40
          dcopy(N, WR, 1, WRTMP, 1 );
          dcopy(N, WI, 1, WITMP, 1 );
          DO 60 I = 1, N - 1
@@ -135,7 +135,7 @@
                   VRMIN = WRTMP( J )
                   VIMIN = WITMP( J )
                }
-   50       CONTINUE
+            } // 50
             WRTMP( KMIN ) = WRTMP( I )
             WITMP( KMIN ) = WITMP( I )
             WRTMP( I ) = VRMIN
@@ -143,10 +143,10 @@
             ITMP = IPNT( I )
             IPNT( I ) = IPNT( KMIN )
             IPNT( KMIN ) = ITMP
-   60    CONTINUE
+         } // 60
          for (I = 1; I <= NDIM; I++) { // 70
             SELECT( IPNT( ISELEC( I ) ) ) = .TRUE.
-   70    CONTINUE
+         } // 70
 
          // Compute condition numbers
 
@@ -294,8 +294,8 @@
          for (I = 1; I <= N; I++) { // 90
             for (J = 1; J <= N; J++) { // 80
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
 
          // Compute invariant subspace condition number only and compare
          // Update Q
@@ -314,8 +314,8 @@
          for (I = 1; I <= N; I++) { // 110
             for (J = 1; J <= N; J++) { // 100
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.Q( I, J ) ) VMAX = ONE / EPS
-  100       CONTINUE
-  110    CONTINUE
+            } // 100
+         } // 110
 
          // Compute eigenvalue condition number only and compare
          // Do not update Q
@@ -334,8 +334,8 @@
          for (I = 1; I <= N; I++) { // 130
             for (J = 1; J <= N; J++) { // 120
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
-  120       CONTINUE
-  130    CONTINUE
+            } // 120
+         } // 130
 
          // Compute invariant subspace condition number only and compare
          // Do not update Q
@@ -354,13 +354,13 @@
          for (I = 1; I <= N; I++) { // 150
             for (J = 1; J <= N; J++) { // 140
                IF( TTMP( I, J ).NE.T( I, J ) ) VMAX = ONE / EPS                IF( QTMP( I, J ).NE.QSAV( I, J ) ) VMAX = ONE / EPS
-  140       CONTINUE
-  150    CONTINUE
+            } // 140
+         } // 150
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          }
-  160 CONTINUE
+      } // 160
       GO TO 10
 
       // End of DGET38

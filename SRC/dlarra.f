@@ -50,7 +50,7 @@
                ISPLIT( NSPLIT ) = I
                NSPLIT = NSPLIT + 1
             }
- 9       CONTINUE
+         } // 9
       } else {
          // Criterion that guarantees relative accuracy
          DO 10 I = 1, N-1
@@ -61,7 +61,7 @@
                ISPLIT( NSPLIT ) = I
                NSPLIT = NSPLIT + 1
             }
- 10      CONTINUE
+         } // 10
       ENDIF
       ISPLIT( NSPLIT ) = N
 

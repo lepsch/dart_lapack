@@ -133,8 +133,8 @@
             DO 10 J = I, I + NB - 1
                A( J-1, J ) = E( J-1 )
                D( J ) = REAL( A( J, J ) )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
          // Use unblocked code to reduce the last or only block
 
@@ -162,8 +162,8 @@
             DO 30 J = I, I + NB - 1
                A( J+1, J ) = E( J )
                D( J ) = REAL( A( J, J ) )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
          // Use unblocked code to reduce the last or only block
 

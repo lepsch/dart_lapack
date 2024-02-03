@@ -55,23 +55,23 @@
 
             for (I = 1; I <= IL; I++) { // 10
                X( IV+I-1 ) = U( I )
-   10       CONTINUE
+            } // 10
          } else if ( IDIST.EQ.2 ) {
 
             // Convert generated numbers to uniform (-1,1) distribution
 
             for (I = 1; I <= IL; I++) { // 20
                X( IV+I-1 ) = TWO*U( I ) - ONE
-   20       CONTINUE
+            } // 20
          } else if ( IDIST.EQ.3 ) {
 
             // Convert generated numbers to normal (0,1) distribution
 
             for (I = 1; I <= IL; I++) { // 30
                X( IV+I-1 ) = SQRT( -TWO*LOG( U( 2*I-1 ) ) )* COS( TWOPI*U( 2*I ) )
-   30       CONTINUE
+            } // 30
          }
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of DLARNV

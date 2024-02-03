@@ -77,7 +77,7 @@
 
          for (J = 1; J <= NC; J++) { // 10
             clarnv(2, ISEED, MC, C( 1, J ) );
-   10    CONTINUE
+         } // 10
          CNORM = CLANGE( '1', MC, NC, C, LDA, RWORK )
          IF( CNORM.EQ.ZERO ) CNORM = ONE
 
@@ -110,8 +110,8 @@
             RESID = CLANGE( '1', MC, NC, CC, LDA, RWORK )
             RESULT( ( ISIDE-1 )*2+ITRANS ) = RESID / ( REAL( MAX( 1, M ) )*CNORM*EPS )
 
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       RETURN
 

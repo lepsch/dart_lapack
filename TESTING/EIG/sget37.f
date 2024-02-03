@@ -69,15 +69,15 @@
       // lexicographically (increasing by real part, then decreasing by
       // imaginary part)
 
-   10 CONTINUE
+      } // 10
       READ( NIN, FMT = * )N
       IF( N.EQ.0 ) RETURN
       for (I = 1; I <= N; I++) { // 20
          READ( NIN, FMT = * )( TMP( I, J ), J = 1, N )
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          READ( NIN, FMT = * )WRIN( I ), WIIN( I ), SIN( I ), SEPIN( I )
-   30 CONTINUE
+      } // 30
       TNRM = SLANGE( 'M', N, N, TMP, LDT, WORK )
 
       // Begin test
@@ -91,7 +91,7 @@
          VMUL = VAL( ISCL )
          for (I = 1; I <= N; I++) { // 40
             sscal(N, VMUL, T( 1, I ), 1 );
-   40    CONTINUE
+         } // 40
          IF( TNRM.EQ.ZERO ) VMUL = ONE
 
          // Compute eigenvalues and eigenvectors
@@ -105,8 +105,8 @@
          DO 60 J = 1, N - 2
             DO 50 I = J + 2, N
                T( I, J ) = ZERO
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
          // Compute Schur form
 
@@ -148,7 +148,7 @@
                   VRMIN = WRTMP( J )
                   VIMIN = WITMP( J )
                }
-   70       CONTINUE
+            } // 70
             WRTMP( KMIN ) = WRTMP( I )
             WITMP( KMIN ) = WITMP( I )
             WRTMP( I ) = VRMIN
@@ -159,7 +159,7 @@
             VRMIN = SEPTMP( KMIN )
             SEPTMP( KMIN ) = SEPTMP( I )
             SEPTMP( I ) = VRMIN
-   80    CONTINUE
+         } // 80
 
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
@@ -194,7 +194,7 @@
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             }
-   90    CONTINUE
+         } // 90
 
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
@@ -227,7 +227,7 @@
                RMAX( 2 ) = VMAX
                IF( NINFO( 2 ).EQ.0 ) LMAX( 2 ) = KNT
             }
-  100    CONTINUE
+         } // 100
 
          // Compare condition numbers for eigenvalues
          // without taking their condition numbers into account
@@ -250,7 +250,7 @@
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             }
-  110    CONTINUE
+         } // 110
 
          // Compare condition numbers for eigenvectors
          // without taking their condition numbers into account
@@ -273,7 +273,7 @@
                RMAX( 3 ) = VMAX
                IF( NINFO( 3 ).EQ.0 ) LMAX( 3 ) = KNT
             }
-  120    CONTINUE
+         } // 120
 
          // Compute eigenvalue condition numbers only and compare
 
@@ -289,7 +289,7 @@
          }
          for (I = 1; I <= N; I++) { // 130
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  130    CONTINUE
+         } // 130
 
          // Compute eigenvector condition numbers only and compare
 
@@ -303,13 +303,13 @@
          }
          for (I = 1; I <= N; I++) { // 140
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
-  140    CONTINUE
+         } // 140
 
          // Compute all condition numbers using SELECT and compare
 
          for (I = 1; I <= N; I++) { // 150
             SELECT( I ) = .TRUE.
-  150    CONTINUE
+         } // 150
          scopy(N, DUM, 0, STMP, 1 );
          scopy(N, DUM, 0, SEPTMP, 1 );
          strsna('Bothcond', 'Some', SELECT, N, T, LDT, LE, LDT, RE, LDT, STMP, SEPTMP, N, M, WORK, N, IWORK, INFO );
@@ -320,7 +320,7 @@
          }
          for (I = 1; I <= N; I++) { // 160
             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS
-  160    CONTINUE
+         } // 160
 
          // Compute eigenvalue condition numbers using SELECT and compare
 
@@ -334,7 +334,7 @@
          }
          for (I = 1; I <= N; I++) { // 170
             IF( STMP( I ).NE.S( I ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  170    CONTINUE
+         } // 170
 
          // Compute eigenvector condition numbers using SELECT and compare
 
@@ -348,7 +348,7 @@
          }
          for (I = 1; I <= N; I++) { // 180
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( I ) ) VMAX = ONE / EPS
-  180    CONTINUE
+         } // 180
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
@@ -371,7 +371,7 @@
                   scopy(N, LE( 1, I ), 1, LE( 1, 2 ), 1 );
                   scopy(N, LE( 1, I+1 ), 1, LE( 1, 3 ), 1 );
                }
-  190       CONTINUE
+            } // 190
             if ( IFND.EQ.0 ) {
                ICMP = 1
             } else {
@@ -390,7 +390,7 @@
                   scopy(N, RE( 1, I ), 1, RE( 1, 3 ), 1 );
                   scopy(N, LE( 1, I ), 1, LE( 1, 3 ), 1 );
                }
-  200       CONTINUE
+            } // 200
             if ( IFND.EQ.0 ) {
                ICMP = 2
             } else {
@@ -411,7 +411,7 @@
          for (I = 1; I <= ICMP; I++) { // 210
             J = LCMP( I )
             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS
-  210    CONTINUE
+         } // 210
 
          // Compute selected eigenvalue condition numbers
 
@@ -426,7 +426,7 @@
          for (I = 1; I <= ICMP; I++) { // 220
             J = LCMP( I )
             IF( STMP( I ).NE.S( J ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS
-  220    CONTINUE
+         } // 220
 
          // Compute selected eigenvector condition numbers
 
@@ -441,12 +441,12 @@
          for (I = 1; I <= ICMP; I++) { // 230
             J = LCMP( I )
             IF( STMP( I ).NE.DUM( 1 ) ) VMAX = ONE / EPS             IF( SEPTMP( I ).NE.SEP( J ) ) VMAX = ONE / EPS
-  230    CONTINUE
+         } // 230
          if ( VMAX.GT.RMAX( 1 ) ) {
             RMAX( 1 ) = VMAX
             IF( NINFO( 1 ).EQ.0 ) LMAX( 1 ) = KNT
          }
-  240 CONTINUE
+      } // 240
       GO TO 10
 
       // End of SGET37

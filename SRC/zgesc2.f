@@ -52,8 +52,8 @@
       DO 20 I = 1, N - 1
          DO 10 J = I + 1, N
             RHS( J ) = RHS( J ) - A( J, I )*RHS( I )
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // Solve for U part
 
@@ -72,8 +72,8 @@
          RHS( I ) = RHS( I )*TEMP
          DO 30 J = I + 1, N
             RHS( I ) = RHS( I ) - RHS( J )*( A( I, J )*TEMP )
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Apply permutations JPIV to the solution (RHS)
 

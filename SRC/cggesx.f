@@ -271,7 +271,7 @@
 
          for (I = 1; I <= N; I++) { // 10
             BWORK( I ) = SELCTG( ALPHA( I ), BETA( I ) )
-   10    CONTINUE
+         } // 10
 
          // Reorder eigenvalues, transform Generalized Schur vectors, and
          // compute reciprocal condition numbers
@@ -329,11 +329,11 @@
             CURSL = SELCTG( ALPHA( I ), BETA( I ) )
             IF( CURSL ) SDIM = SDIM + 1             IF( CURSL .AND. .NOT.LASTSL ) INFO = N + 2
             LASTSL = CURSL
-   30    CONTINUE
+         } // 30
 
       }
 
-   40 CONTINUE
+      } // 40
 
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       IWORK( 1 ) = LIWMIN

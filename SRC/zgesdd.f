@@ -528,7 +528,7 @@
                   CHUNK = MIN( M-I+1, LDWRKR )
                   zgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR );
                   zlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
-   10          CONTINUE
+               } // 10
 
             } else if ( WNTQS ) {
 
@@ -786,7 +786,7 @@
                DO 20 I = 1, M, LDWRKU
                   CHUNK = MIN( M-I+1, LDWRKU )
                   zlacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) )                   CALL ZLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   20          CONTINUE
+               } // 20
 
             } else if ( WNTQS ) {
 
@@ -980,7 +980,7 @@
                      CHUNK = MIN( M-I+1, LDWRKU )
                      zlacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                      zlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
-   30             CONTINUE
+                  } // 30
                }
 
             } else if ( WNTQS ) {
@@ -1198,7 +1198,7 @@
                   BLK = MIN( N-I+1, CHUNK )
                   zgemm('N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL );
                   zlacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
-   40          CONTINUE
+               } // 40
 
             } else if ( WNTQS ) {
 
@@ -1459,7 +1459,7 @@
                DO 50 I = 1, N, CHUNK
                   BLK = MIN( N-I+1, CHUNK )
                   zlarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )                   CALL ZLACPY( 'F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
-   50          CONTINUE
+               } // 50
             } else if ( WNTQS ) {
 
                // Path 5ts (N >> M, JOBZ='S')
@@ -1654,7 +1654,7 @@
                      BLK = MIN( N-I+1, CHUNK )
                      zlarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                      zlacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
-   60             CONTINUE
+                  } // 60
                }
             } else if ( WNTQS ) {
 

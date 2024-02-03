@@ -42,7 +42,7 @@
 
       // Beginning of while loop.
 
-   10 CONTINUE
+      } // 10
       if ( ( K.LT.NB ) .AND. ( LSTICC.EQ.0 ) ) {
          K = K + 1
          RK = OFFSET + K
@@ -90,7 +90,7 @@
 
          for (J = 1; J <= K; J++) { // 20
             F( J, K ) = ZERO
-   20    CONTINUE
+         } // 20
 
          // Incremental updating of F:
          // F(1:N,K) := F(1:N,K) - tau(K)*F(1:N,1:K-1)*A(RK:M,1:K-1)**T
@@ -128,7 +128,7 @@
                      VN1( J ) = VN1( J )*SQRT( TEMP )
                   }
                }
-   30       CONTINUE
+            } // 30
          }
 
          A( RK, K ) = AKK
@@ -150,7 +150,7 @@
 
       // Recomputation of difficult columns.
 
-   40 CONTINUE
+      } // 40
       if ( LSTICC.GT.0 ) {
          ITEMP = NINT( VN2( LSTICC ) )
          VN1( LSTICC ) = SNRM2( M-RK, A( RK+1, LSTICC ), 1 )

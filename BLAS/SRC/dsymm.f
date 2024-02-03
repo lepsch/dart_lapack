@@ -78,14 +78,14 @@
               for (J = 1; J <= N; J++) { // 20
                   for (I = 1; I <= M; I++) { // 10
                       C(I,J) = ZERO
-   10             CONTINUE
-   20         CONTINUE
+                  } // 10
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   for (I = 1; I <= M; I++) { // 30
                       C(I,J) = BETA*C(I,J)
-   30             CONTINUE
-   40         CONTINUE
+                  } // 30
+              } // 40
           }
           RETURN
       }
@@ -104,14 +104,14 @@
                       DO 50 K = 1,I - 1
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
-   50                 CONTINUE
+                      } // 50
                       if (BETA.EQ.ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       }
-   60             CONTINUE
-   70         CONTINUE
+                  } // 60
+              } // 70
           } else {
               for (J = 1; J <= N; J++) { // 100
                   DO 90 I = M,1,-1
@@ -120,14 +120,14 @@
                       DO 80 K = I + 1,M
                           C(K,J) = C(K,J) + TEMP1*A(K,I)
                           TEMP2 = TEMP2 + B(K,J)*A(K,I)
-   80                 CONTINUE
+                      } // 80
                       if (BETA.EQ.ZERO) {
                           C(I,J) = TEMP1*A(I,I) + ALPHA*TEMP2
                       } else {
                           C(I,J) = BETA*C(I,J) + TEMP1*A(I,I) + ALPHA*TEMP2
                       }
-   90             CONTINUE
-  100         CONTINUE
+                  } // 90
+              } // 100
           }
       } else {
 
@@ -138,11 +138,11 @@
               if (BETA.EQ.ZERO) {
                   for (I = 1; I <= M; I++) { // 110
                       C(I,J) = TEMP1*B(I,J)
-  110             CONTINUE
+                  } // 110
               } else {
                   for (I = 1; I <= M; I++) { // 120
                       C(I,J) = BETA*C(I,J) + TEMP1*B(I,J)
-  120             CONTINUE
+                  } // 120
               }
               DO 140 K = 1,J - 1
                   if (UPPER) {
@@ -152,8 +152,8 @@
                   }
                   for (I = 1; I <= M; I++) { // 130
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
-  130             CONTINUE
-  140         CONTINUE
+                  } // 130
+              } // 140
               DO 160 K = J + 1,N
                   if (UPPER) {
                       TEMP1 = ALPHA*A(J,K)
@@ -162,9 +162,9 @@
                   }
                   for (I = 1; I <= M; I++) { // 150
                       C(I,J) = C(I,J) + TEMP1*B(I,K)
-  150             CONTINUE
-  160         CONTINUE
-  170     CONTINUE
+                  } // 150
+              } // 160
+          } // 170
       }
 
       RETURN

@@ -69,7 +69,7 @@
                stpmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, AFAC( KC ), 1 );
                KC = KC - ( K-1 )
             }
-   10    CONTINUE
+         } // 10
 
       // Compute the product L*L', overwriting L.
 
@@ -88,7 +88,7 @@
             sscal(N-K+1, T, AFAC( KC ), 1 );
 
             KC = KC - ( N-K+2 )
-   20    CONTINUE
+         } // 20
       }
 
       // Compute the difference  L*L' - A (or U'*U - A).
@@ -96,7 +96,7 @@
       NPP = N*( N+1 ) / 2
       for (I = 1; I <= NPP; I++) { // 30
          AFAC( I ) = AFAC( I ) - A( I )
-   30 CONTINUE
+      } // 30
 
       // Compute norm( L*U - A ) / ( N * norm(A) * EPS )
 

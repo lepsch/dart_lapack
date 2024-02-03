@@ -82,7 +82,7 @@
                LM = MIN( KL, N-J )
                L = IPIV( J )
                IF( L.NE.J ) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL SGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB )
-   10       CONTINUE
+            } // 10
          }
 
          for (I = 1; I <= NRHS; I++) { // 20
@@ -90,7 +90,7 @@
             // Solve U*X = B, overwriting B with X.
 
             stbsv('Upper', 'No transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
-   20    CONTINUE
+         } // 20
 
       } else {
 
@@ -101,7 +101,7 @@
             // Solve U**T*X = B, overwriting B with X.
 
             stbsv('Upper', 'Transpose', 'Non-unit', N, KL+KU, AB, LDAB, B( 1, I ), 1 );
-   30    CONTINUE
+         } // 30
 
          // Solve L**T*X = B, overwriting B with X.
 
@@ -111,7 +111,7 @@
                sgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J )
                IF( L.NE.J ) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )
-   40       CONTINUE
+            } // 40
          }
       }
       RETURN

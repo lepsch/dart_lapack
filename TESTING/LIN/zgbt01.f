@@ -50,7 +50,7 @@
          I1 = MAX( KD+1-J, 1 )
          I2 = MIN( KD+M-J, KL+KD )
          IF( I2.GE.I1 ) ANORM = MAX( ANORM, DZASUM( I2-I1+1, A( I1, J ), 1 ) )
-   10 CONTINUE
+      } // 10
 
       // Compute one column at a time of L*U - A.
 
@@ -66,7 +66,7 @@
             zcopy(LENJ, AFAC( KD-JU, J ), 1, WORK, 1 );
             DO 20 I = LENJ + 1, JU + JL + 1
                WORK( I ) = ZERO
-   20       CONTINUE
+            } // 20
 
             // Multiply by the unit lower triangular matrix L.  Note that L
             // is stored as a product of transformations and permutations.
@@ -84,7 +84,7 @@
                      WORK( IP ) = T
                   }
                }
-   30       CONTINUE
+            } // 30
 
             // Subtract the corresponding column of A.
 
@@ -95,7 +95,7 @@
 
             RESID = MAX( RESID, DZASUM( JU+JL+1, WORK, 1 ) )
          }
-   40 CONTINUE
+      } // 40
 
       // Compute norm(L*U - A) / ( N * norm(A) * EPS )
 

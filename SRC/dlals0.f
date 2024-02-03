@@ -79,14 +79,14 @@
 
          for (I = 1; I <= GIVPTR; I++) { // 10
             drot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), GIVNUM( I, 1 ) );
-   10    CONTINUE
+         } // 10
 
          // Step (2L): permute rows of B.
 
          dcopy(NRHS, B( NLP1, 1 ), LDB, BX( 1, 1 ), LDBX );
          for (I = 2; I <= N; I++) { // 20
             dcopy(NRHS, B( PERM( I ), 1 ), LDB, BX( I, 1 ), LDBX );
-   20    CONTINUE
+         } // 20
 
          // Step (3L): apply the inverse of the left singular vector
          // matrix to BX.
@@ -121,18 +121,18 @@
 
                      WORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJ )- DIFLJ ) / ( POLES( I, 2 )+DJ )
                   }
-   30          CONTINUE
+               } // 30
                DO 40 I = J + 1, K
                   if ( ( Z( I ).EQ.ZERO ) .OR. ( POLES( I, 2 ).EQ.ZERO ) ) {
                      WORK( I ) = ZERO
                   } else {
                      WORK( I ) = POLES( I, 2 )*Z( I ) / ( DLAMC3( POLES( I, 2 ), DSIGJP )+ DIFRJ ) / ( POLES( I, 2 )+DJ )
                   }
-   40          CONTINUE
+               } // 40
                WORK( 1 ) = NEGONE
                TEMP = DNRM2( K, WORK, 1 )
                dgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL DLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
-   50       CONTINUE
+            } // 50
          }
 
          // Move the deflated rows of BX to B also.
@@ -166,16 +166,16 @@
 
                      WORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I+1, 2 ) )-DIFR( I, 1 ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
-   60          CONTINUE
+               } // 60
                DO 70 I = J + 1, K
                   if ( Z( J ).EQ.ZERO ) {
                      WORK( I ) = ZERO
                   } else {
                      WORK( I ) = Z( J ) / ( DLAMC3( DSIGJ, -POLES( I, 2 ) )-DIFL( I ) ) / ( DSIGJ+POLES( I, 1 ) ) / DIFR( I, 2 )
                   }
-   70          CONTINUE
+               } // 70
                dgemv('T', K, NRHS, ONE, B, LDB, WORK, 1, ZERO, BX( J, 1 ), LDBX );
-   80       CONTINUE
+            } // 80
          }
 
          // Step (2R): if SQRE = 1, apply back the rotation that is
@@ -195,13 +195,13 @@
          }
          for (I = 2; I <= N; I++) { // 90
             dcopy(NRHS, BX( I, 1 ), LDBX, B( PERM( I ), 1 ), LDB );
-   90    CONTINUE
+         } // 90
 
          // Step (4R): apply back the Givens rotations performed.
 
          DO 100 I = GIVPTR, 1, -1
             drot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
-  100    CONTINUE
+         } // 100
       }
 
       RETURN

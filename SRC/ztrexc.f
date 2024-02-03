@@ -100,7 +100,7 @@
             zrot(N, Q( 1, K ), 1, Q( 1, K+1 ), 1, CS, DCONJG( SN ) );
          }
 
-   10 CONTINUE
+      } // 10
 
       RETURN
 

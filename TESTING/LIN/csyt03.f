@@ -67,14 +67,14 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = 1, J - 1
                AINV( J, I ) = AINV( I, J )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else {
          for (J = 1; J <= N; J++) { // 40
             DO 30 I = J + 1, N
                AINV( J, I ) = AINV( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       }
       csymm('Left', UPLO, N, N, -CONE, A, LDA, AINV, LDAINV, CZERO, WORK, LDWORK );
 
@@ -82,7 +82,7 @@
 
       for (I = 1; I <= N; I++) { // 50
          WORK( I, I ) = WORK( I, I ) + CONE
-   50 CONTINUE
+      } // 50
 
       // Compute norm(I - A*AINV) / (N * norm(A) * norm(AINV) * EPS)
 

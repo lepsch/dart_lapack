@@ -95,17 +95,17 @@
          DIFR( J, 1 ) = -WORK( J+1 )
          DO 20 I = 1, J - 1
             WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) )
-   20    CONTINUE
+         } // 20
          DO 30 I = J + 1, K
             WORK( IWK3I+I ) = WORK( IWK3I+I )*WORK( I )* WORK( IWK2I+I ) / ( DSIGMA( I )- DSIGMA( J ) ) / ( DSIGMA( I )+ DSIGMA( J ) )
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
 
       // Compute updated Z.
 
       for (I = 1; I <= K; I++) { // 50
          Z( I ) = SIGN( SQRT( ABS( WORK( IWK3I+I ) ) ), Z( I ) )
-   50 CONTINUE
+      } // 50
 
       // Update VF and VL.
 
@@ -125,17 +125,17 @@
 
          DO 60 I = 1, J - 1
             WORK( I ) = Z( I ) / ( SLAMC3( DSIGMA( I ), DSIGJ )-DIFLJ ) / ( DSIGMA( I )+DJ )
-   60    CONTINUE
+         } // 60
          DO 70 I = J + 1, K
             WORK( I ) = Z( I ) / ( SLAMC3( DSIGMA( I ), DSIGJP )+DIFRJ ) / ( DSIGMA( I )+DJ )
-   70    CONTINUE
+         } // 70
          TEMP = SNRM2( K, WORK, 1 )
          WORK( IWK2I+J ) = SDOT( K, WORK, 1, VF, 1 ) / TEMP
          WORK( IWK3I+J ) = SDOT( K, WORK, 1, VL, 1 ) / TEMP
          if ( ICOMPQ.EQ.1 ) {
             DIFR( J, 2 ) = TEMP
          }
-   80 CONTINUE
+      } // 80
 
       scopy(K, WORK( IWK2 ), 1, VF, 1 );
       scopy(K, WORK( IWK3 ), 1, VL, 1 );

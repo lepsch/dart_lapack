@@ -79,12 +79,12 @@
 
          for (J = 1; J <= N; J++) { // 10
             ssyr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK, N );
-   10    CONTINUE
+         } // 10
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 1, N - 1
                ssyr2(CUPLO, N, -E( J ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
-   20       CONTINUE
+            } // 20
          }
          WNORM = SLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) )
 
@@ -101,7 +101,7 @@
                   WORK( ( N+1 )*( J-1 )+2 ) = ( ONE-TAU( J ) )*E( J )
                   DO 30 JR = J + 2, N
                      WORK( ( J-1 )*N+JR ) = -TAU( J )*E( J )*V( JR, J )
-   30             CONTINUE
+                  } // 30
                }
 
                VSAVE = V( J+1, J )
@@ -109,7 +109,7 @@
                slarfy('L', N-J, V( J+1, J ), 1, TAU( J ), WORK( ( N+1 )*J+1 ), N, WORK( N**2+1 ) );
                V( J+1, J ) = VSAVE
                WORK( ( N+1 )*( J-1 )+1 ) = D( J )
-   40       CONTINUE
+            } // 40
          } else {
             WORK( 1 ) = D( 1 )
             DO 60 J = 1, N - 1
@@ -117,7 +117,7 @@
                   WORK( ( N+1 )*J ) = ( ONE-TAU( J ) )*E( J )
                   DO 50 JR = 1, J - 1
                      WORK( J*N+JR ) = -TAU( J )*E( J )*V( JR, J+1 )
-   50             CONTINUE
+                  } // 50
                }
 
                VSAVE = V( J, J+1 )
@@ -125,20 +125,20 @@
                slarfy('U', J, V( 1, J+1 ), 1, TAU( J ), WORK, N, WORK( N**2+1 ) );
                V( J, J+1 ) = VSAVE
                WORK( ( N+1 )*J+1 ) = D( J+1 )
-   60       CONTINUE
+            } // 60
          }
 
          for (JCOL = 1; JCOL <= N; JCOL++) { // 90
             if ( LOWER ) {
                for (JROW = JCOL; JROW <= N; JROW++) { // 70
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
-   70          CONTINUE
+               } // 70
             } else {
                for (JROW = 1; JROW <= JCOL; JROW++) { // 80
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
-   80          CONTINUE
+               } // 80
             }
-   90    CONTINUE
+         } // 90
          WNORM = SLANSY( '1', CUPLO, N, WORK, N, WORK( N**2+1 ) )
 
       } else if ( ITYPE.EQ.3 ) {
@@ -159,7 +159,7 @@
 
          for (J = 1; J <= N; J++) { // 100
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
-  100    CONTINUE
+         } // 100
 
          WNORM = SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) )
       }
@@ -183,7 +183,7 @@
 
          for (J = 1; J <= N; J++) { // 110
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - ONE
-  110    CONTINUE
+         } // 110
 
          RESULT( 2 ) = MIN( SLANGE( '1', N, N, WORK, N, WORK( N**2+1 ) ), REAL( N ) ) / ( N*ULP )
       }

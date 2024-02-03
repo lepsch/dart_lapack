@@ -111,8 +111,8 @@
          DO 20 J = N - KK + 1, N
             DO 10 I = 1, M - KK
                A( I, J ) = ZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else {
          KK = 0
       }
@@ -149,9 +149,9 @@
             DO 40 L = N - K + I + IB, N
                DO 30 J = II, II + IB - 1
                   A( J, L ) = ZERO
-   30          CONTINUE
-   40       CONTINUE
-   50    CONTINUE
+               } // 30
+            } // 40
+         } // 50
       }
 
       WORK( 1 ) = IWS

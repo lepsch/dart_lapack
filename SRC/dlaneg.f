@@ -51,7 +51,7 @@
             IF( DPLUS.LT.ZERO ) NEG1 = NEG1 + 1
             TMP = T / DPLUS
             T = TMP * LLD( J ) - SIGMA
- 21      CONTINUE
+         } // 21
          SAWNAN = DISNAN( T )
       // Run a slower version of the above loop if a NaN is detected.
       // A NaN should occur only with a zero pivot after an infinite
@@ -66,10 +66,10 @@
                TMP = T / DPLUS
                IF (DISNAN(TMP)) TMP = ONE
                T = TMP * LLD(J) - SIGMA
- 22         CONTINUE
+            } // 22
          }
          NEGCNT = NEGCNT + NEG1
- 210  CONTINUE
+      } // 210
 
       // II) lower part: L D L^T - SIGMA I = U- D- U-^T
       P = D( N ) - SIGMA
@@ -81,7 +81,7 @@
             IF( DMINUS.LT.ZERO ) NEG2 = NEG2 + 1
             TMP = P / DMINUS
             P = TMP * D( J ) - SIGMA
- 23      CONTINUE
+         } // 23
          SAWNAN = DISNAN( P )
       // As above, run a slower version that substitutes 1 for Inf/Inf.
 
@@ -94,10 +94,10 @@
                TMP = P / DMINUS
                IF (DISNAN(TMP)) TMP = ONE
                P = TMP * D(J) - SIGMA
- 24         CONTINUE
+            } // 24
          }
          NEGCNT = NEGCNT + NEG2
- 230  CONTINUE
+      } // 230
 
       // III) Twist index
         // T was shifted by SIGMA initially.

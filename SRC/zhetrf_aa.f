@@ -109,7 +109,7 @@
          // JB is either NB, or N-J+1 for the last block
 
          J = 0
- 10      CONTINUE
+         } // 10
          IF( J.GE.N ) GO TO 20
 
          // each step of the main loop
@@ -216,7 +216,7 @@
          // JB is either NB, or N-J+1 for the last block
 
          J = 0
- 11      CONTINUE
+         } // 11
          IF( J.GE.N ) GO TO 20
 
          // each step of the main loop
@@ -309,7 +309,7 @@
          GO TO 11
       }
 
-   20 CONTINUE
+      } // 20
       WORK( 1 ) = LWKOPT
       RETURN
 

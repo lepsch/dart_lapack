@@ -72,7 +72,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -140,22 +140,22 @@
                      IOFF = ( IZERO-1 )*IZERO / 2
                      DO 20 I = 1, IZERO - 1
                         A( IOFF+I ) = ZERO
-   20                CONTINUE
+                     } // 20
                      IOFF = IOFF + IZERO
                      for (I = IZERO; I <= N; I++) { // 30
                         A( IOFF ) = ZERO
                         IOFF = IOFF + I
-   30                CONTINUE
+                     } // 30
                   } else {
                      IOFF = IZERO
                      DO 40 I = 1, IZERO - 1
                         A( IOFF ) = ZERO
                         IOFF = IOFF + N - I
-   40                CONTINUE
+                     } // 40
                      IOFF = IOFF - IZERO
                      for (I = IZERO; I <= N; I++) { // 50
                         A( IOFF+I ) = ZERO
-   50                CONTINUE
+                     } // 50
                   }
                } else {
                   IZERO = 0
@@ -289,9 +289,9 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )'DPPSV ', UPLO, N, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   60                   CONTINUE
+                        } // 60
                         NRUN = NRUN + NT
-   70                   CONTINUE
+                        } // 70
                      }
 
                      // --- Test DPPSVX ---
@@ -368,14 +368,14 @@
                            }
                            NFAIL = NFAIL + 1
                         }
-   80                CONTINUE
+                     } // 80
                      NRUN = NRUN + 7 - K1
-   90                CONTINUE
-  100             CONTINUE
-  110          CONTINUE
-  120       CONTINUE
-  130    CONTINUE
-  140 CONTINUE
+                     } // 90
+                  } // 100
+               } // 110
+            } // 120
+         } // 130
+      } // 140
 
       // Print a summary of the results.
 

@@ -59,7 +59,7 @@
          for (I = 1; I <= NMAX; I++) { // 10
             A( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
             AF( I, J ) = CMPLX( 1. / REAL( I+J ), -1. / REAL( I+J ) )
-   10    CONTINUE
+         } // 10
          B( J ) = 0.E+0
          E( J ) = 0E+0
          R1( J ) = 0.E+0
@@ -69,7 +69,7 @@
          C( J ) = 0.E+0
          R( J ) = 0.E+0
          IP( J ) = J
-   20 CONTINUE
+      } // 20
       EQ = ' '
       OK = .TRUE.
 

@@ -62,7 +62,7 @@
 
       for (I = 1; I <= MINWSIZE; I++) { // 5
          WORK( I ) = ZERO
- 5    CONTINUE
+      } // 5
 
       // IWORK(IINDR+1:IINDR+N) hold the twist indices R for the
       // factorization used to compute the FP vector
@@ -76,7 +76,7 @@
       MINIWSIZE = 7 * N
       for (I = 1; I <= MINIWSIZE; I++) { // 10
          IWORK( I ) = 0
- 10   CONTINUE
+      } // 10
 
       ZUSEDL = 1
       if (DOL.GT.1) {
@@ -124,7 +124,7 @@
          // Find the eigenvectors of the submatrix indexed IBEGIN
          // through IEND.
          WEND = WBEGIN - 1
- 15      CONTINUE
+         } // 15
          if ( WEND.LT.M ) {
             if ( IBLOCK( WEND+1 ).EQ.JBLK ) {
                WEND = WEND + 1
@@ -146,7 +146,7 @@
          DO 20 I = IBEGIN+1 , IEND
             GL = MIN( GERS( 2*I-1 ), GL )
             GU = MAX( GERS( 2*I ), GU )
- 20      CONTINUE
+         } // 20
          SPDIAM = GU - GL
 
          // OLDIEN is the last index of the previous block
@@ -181,7 +181,7 @@
          // matrix T.
          for (I = 1; I <= IM; I++) { // 30
             W(WBEGIN+I-1) = W(WBEGIN+I-1)+SIGMA
- 30      CONTINUE
+         } // 30
 
 
          // NDEPTH is the current depth of the representation tree
@@ -200,7 +200,7 @@
          // loop while( IDONE.LT.IM )
          // generate the representation tree for the current block and
          // compute the eigenvectors
-   40    CONTINUE
+         } // 40
          if ( IDONE.LT.IM ) {
             // This is a crude protection against infinitely deep trees
             if ( NDEPTH.GT.M ) {
@@ -252,7 +252,7 @@
                   ENDIF
                   DO 45 K = 1, IN - 1
                      D( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J ) )                      L( IBEGIN+K-1 ) = DBLE( Z( IBEGIN+K-1, J+1 ) )
-   45             CONTINUE
+                  } // 45
                   D( IEND ) = DBLE( Z( IEND, J ) )
                   SIGMA = DBLE( Z( IEND, J+1 ) )
 
@@ -265,7 +265,7 @@
                   TMP = D( J )*L( J )
                   WORK( INDLD-1+J ) = TMP
                   WORK( INDLLD-1+J ) = TMP*L( J )
-   50          CONTINUE
+               } // 50
 
                if ( NDEPTH.GT.0 ) {
                   // P and Q are index of the first and last eigenvalue to compute
@@ -300,7 +300,7 @@
                   // the newly found approximation with all shifts applied in W
                   for (J = OLDFST; J <= OLDLST; J++) { // 53
                      W(WBEGIN+J-1) = WORK(WBEGIN+J-1)+SIGMA
- 53               CONTINUE
+                  } // 53
                }
 
                // Process the current node.
@@ -376,7 +376,7 @@
                         ENDIF
                         OFFSET = INDEXW( WBEGIN ) - 1
                         dlarrb(IN, D(IBEGIN), WORK( INDLLD+IBEGIN-1 ),P,P, RQTOL, RQTOL, OFFSET, WORK(WBEGIN),WGAP(WBEGIN), WERR(WBEGIN),WORK( INDWRK ), IWORK( IINDWK ), PIVMIN, SPDIAM, IN, IINFO );
- 55                  CONTINUE
+                     } // 55
 
                      if ((WBEGIN+NEWLST-1.LT.DOL).OR. (WBEGIN+NEWFST-1.GT.DOU)) {
                         // if the cluster contains no desired eigenvalues
@@ -400,7 +400,7 @@
                      // workspace
                      DO 56 K = 1, IN-1
                         Z( IBEGIN+K-1, NEWFTT ) = DCMPLX( WORK( INDIN1+K-1 ), ZERO )                         Z( IBEGIN+K-1, NEWFTT+1 ) = DCMPLX( WORK( INDIN2+K-1 ), ZERO )
-   56                CONTINUE
+                     } // 56
                      Z( IEND, NEWFTT ) = DCMPLX( WORK( INDIN1+IN-1 ), ZERO )
                      if ( IINFO.EQ.0 ) {
                         // a new RRR for the cluster was found by DLARRF
@@ -420,7 +420,7 @@
                            // of judging eigenvalues 'separated' which in
                            // reality are not. This could have a negative impact
                            // on the orthogonality of the computed eigenvectors.
- 116                    CONTINUE
+                        } // 116
 
                         NCLUS = NCLUS + 1
                         K = NEWCLS + 2*NCLUS
@@ -510,7 +510,7 @@
                      USEDRQ = .FALSE.
                      // Bisection is initially turned off unless it is forced
                      NEEDBS =  .NOT.TRYRQC
- 120                 CONTINUE
+                     } // 120
                      // Check if bisection should be used to refine eigenvalue
                      if (NEEDBS) {
                         // Take the bisection as new iterate
@@ -631,15 +631,15 @@
                      if (ISUPMN.LT.ZFROM) {
                         DO 122 II = ISUPMN,ZFROM-1
                            Z( II, WINDEX ) = ZERO
- 122                    CONTINUE
+                        } // 122
                      ENDIF
                      if (ISUPMX.GT.ZTO) {
                         DO 123 II = ZTO+1,ISUPMX
                            Z( II, WINDEX ) = ZERO
- 123                    CONTINUE
+                        } // 123
                      ENDIF
                      zdscal(ZTO-ZFROM+1, NRMINV, Z( ZFROM, WINDEX ), 1 );
- 125                 CONTINUE
+                     } // 125
                      // Update W
                      W( WINDEX ) = LAMBDA+SIGMA
                      // Recompute the gaps on the left and right
@@ -660,17 +660,17 @@
                   ENDIF
                   // here ends the code for the current child
 
- 139              CONTINUE
+                  } // 139
                   // Proceed to any remaining child nodes
                   NEWFST = J + 1
- 140           CONTINUE
- 150        CONTINUE
+               } // 140
+            } // 150
             NDEPTH = NDEPTH + 1
             GO TO 40
          }
          IBEGIN = IEND + 1
          WBEGIN = WEND + 1
- 170  CONTINUE
+      } // 170
 
 
       RETURN

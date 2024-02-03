@@ -45,7 +45,7 @@
 
       // Check for deflation.
 
-   10 CONTINUE
+      } // 10
 
       IF( N0.LT.I0 ) RETURN       IF( N0.EQ.I0 ) GO TO 20
       NN = 4*N0 + PP
@@ -55,7 +55,7 @@
 
       IF( Z( NN-5 ).GT.TOL2*( SIGMA+Z( NN-3 ) ) .AND. Z( NN-2*PP-4 ).GT.TOL2*Z( NN-7 ) ) GO TO 30
 
-   20 CONTINUE
+      } // 20
 
       Z( 4*N0-3 ) = Z( 4*N0+PP-3 ) + SIGMA
       N0 = N0 - 1
@@ -63,11 +63,11 @@
 
       // Check  whether E(N0-2) is negligible, 2 eigenvalues.
 
-   30 CONTINUE
+      } // 30
 
       IF( Z( NN-9 ).GT.TOL2*SIGMA .AND. Z( NN-2*PP-8 ).GT.TOL2*Z( NN-11 ) ) GO TO 50
 
-   40 CONTINUE
+      } // 40
 
       if ( Z( NN-3 ).GT.Z( NN-7 ) ) {
          S = Z( NN-3 )
@@ -91,7 +91,7 @@
       N0 = N0 - 2
       GO TO 10
 
-   50 CONTINUE
+      } // 50
       IF( PP.EQ.2 ) PP = 0
 
       // Reverse the qd-array, if warranted.
@@ -112,7 +112,7 @@
                TEMP = Z( J4 )
                Z( J4 ) = Z( IPN4-J4-4 )
                Z( IPN4-J4-4 ) = TEMP
-   60       CONTINUE
+            } // 60
             if ( N0-I0.LE.4 ) {
                Z( 4*N0+PP-1 ) = Z( 4*I0+PP-1 )
                Z( 4*N0-PP ) = Z( 4*I0-PP )
@@ -130,7 +130,7 @@
 
       // Call dqds until DMIN > 0.
 
-   70 CONTINUE
+      } // 70
 
       slasq5(I0, N0, Z, PP, TAU, SIGMA, DMIN, DMIN1, DMIN2, DN, DN1, DN2, IEEE, EPS );
 
@@ -195,13 +195,13 @@
 
       // Risk of underflow.
 
-   80 CONTINUE
+      } // 80
       slasq6(I0, N0, Z, PP, DMIN, DMIN1, DMIN2, DN, DN1, DN2 );
       NDIV = NDIV + ( N0-I0+2 )
       ITER = ITER + 1
       TAU = ZERO
 
-   90 CONTINUE
+      } // 90
       if ( TAU.LT.SIGMA ) {
          DESIG = DESIG + TAU
          T = SIGMA + DESIG

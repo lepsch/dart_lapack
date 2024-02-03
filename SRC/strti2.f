@@ -70,7 +70,7 @@
 
             strmv('Upper', 'No transpose', DIAG, J-1, A, LDA, A( 1, J ), 1 );
             sscal(J-1, AJJ, A( 1, J ), 1 );
-   10    CONTINUE
+         } // 10
       } else {
 
          // Compute inverse of lower triangular matrix.
@@ -89,7 +89,7 @@
                strmv('Lower', 'No transpose', DIAG, N-J, A( J+1, J+1 ), LDA, A( J+1, J ), 1 );
                sscal(N-J, AJJ, A( J+1, J ), 1 );
             }
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

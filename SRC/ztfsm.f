@@ -74,8 +74,8 @@
          DO 20 J = 0, N - 1
             DO 10 I = 0, M - 1
                B( I, J ) = CZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
          RETURN
       }
 

@@ -86,12 +86,12 @@
          for (J = 1; J <= N; J++) { // 10
             WORK( J ) = D( J ) + D( N ) + TEMP1
             DELTA( J ) = ( D( J )-D( N ) ) - TEMP1
-   10    CONTINUE
+         } // 10
 
          PSI = ZERO
          DO 20 J = 1, N - 2
             PSI = PSI + Z( J )*Z( J ) / ( DELTA( J )*WORK( J ) )
-   20    CONTINUE
+         } // 20
 
          C = RHOINV + PSI
          W = C + Z( II )*Z( II ) / ( DELTA( II )*WORK( II ) ) + Z( N )*Z( N ) / ( DELTA( N )*WORK( N ) )
@@ -149,7 +149,7 @@
          for (J = 1; J <= N; J++) { // 30
             DELTA( J ) = ( D( J )-D( N ) ) - TAU
             WORK( J ) = D( J ) + D( N ) + TAU
-   30    CONTINUE
+         } // 30
 
          // Evaluate PSI and the derivative DPSI
 
@@ -161,7 +161,7 @@
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
             ERRETM = ERRETM + PSI
-   40    CONTINUE
+         } // 40
          ERRETM = ABS( ERRETM )
 
          // Evaluate PHI and the derivative DPHI
@@ -214,7 +214,7 @@
          for (J = 1; J <= N; J++) { // 50
             DELTA( J ) = DELTA( J ) - ETA
             WORK( J ) = WORK( J ) + ETA
-   50    CONTINUE
+         } // 50
 
          // Evaluate PSI and the derivative DPSI
 
@@ -226,7 +226,7 @@
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
             ERRETM = ERRETM + PSI
-   60    CONTINUE
+         } // 60
          ERRETM = ABS( ERRETM )
 
          // Evaluate PHI and the derivative DPHI
@@ -282,7 +282,7 @@
             for (J = 1; J <= N; J++) { // 70
                DELTA( J ) = DELTA( J ) - ETA
                WORK( J ) = WORK( J ) + ETA
-   70       CONTINUE
+            } // 70
 
             // Evaluate PSI and the derivative DPSI
 
@@ -294,7 +294,7 @@
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP
                ERRETM = ERRETM + PSI
-   80       CONTINUE
+            } // 80
             ERRETM = ABS( ERRETM )
 
             // Evaluate PHI and the derivative DPHI
@@ -307,7 +307,7 @@
 *    $             + ABS( TAU2 )*( DPSI+DPHI )
 
             W = RHOINV + PHI + PSI
-   90    CONTINUE
+         } // 90
 
          // Return with INFO = 1, NITER = MAXIT and not converged
 
@@ -332,17 +332,17 @@
          for (J = 1; J <= N; J++) { // 100
             WORK( J ) = D( J ) + D( I ) + TEMP
             DELTA( J ) = ( D( J )-D( I ) ) - TEMP
-  100    CONTINUE
+         } // 100
 
          PSI = ZERO
          DO 110 J = 1, I - 1
             PSI = PSI + Z( J )*Z( J ) / ( WORK( J )*DELTA( J ) )
-  110    CONTINUE
+         } // 110
 
          PHI = ZERO
          DO 120 J = N, I + 2, -1
             PHI = PHI + Z( J )*Z( J ) / ( WORK( J )*DELTA( J ) )
-  120    CONTINUE
+         } // 120
          C = RHOINV + PSI + PHI
          W = C + Z( I )*Z( I ) / ( WORK( I )*DELTA( I ) ) + Z( IP1 )*Z( IP1 ) / ( WORK( IP1 )*DELTA( IP1 ) )
 
@@ -404,7 +404,7 @@
          for (J = 1; J <= N; J++) { // 130
             WORK( J ) = D( J ) + D( II ) + TAU
             DELTA( J ) = ( D( J )-D( II ) ) - TAU
-  130    CONTINUE
+         } // 130
          IIM1 = II - 1
          IIP1 = II + 1
 
@@ -418,7 +418,7 @@
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
             ERRETM = ERRETM + PSI
-  150    CONTINUE
+         } // 150
          ERRETM = ABS( ERRETM )
 
          // Evaluate PHI and the derivative DPHI
@@ -430,7 +430,7 @@
             PHI = PHI + Z( J )*TEMP
             DPHI = DPHI + TEMP*TEMP
             ERRETM = ERRETM + PHI
-  160    CONTINUE
+         } // 160
 
          W = RHOINV + PHI + PSI
 
@@ -595,7 +595,7 @@
          for (J = 1; J <= N; J++) { // 170
             WORK( J ) = WORK( J ) + ETA
             DELTA( J ) = DELTA( J ) - ETA
-  170    CONTINUE
+         } // 170
 
          // Evaluate PSI and the derivative DPSI
 
@@ -607,7 +607,7 @@
             PSI = PSI + Z( J )*TEMP
             DPSI = DPSI + TEMP*TEMP
             ERRETM = ERRETM + PSI
-  180    CONTINUE
+         } // 180
          ERRETM = ABS( ERRETM )
 
          // Evaluate PHI and the derivative DPHI
@@ -619,7 +619,7 @@
             PHI = PHI + Z( J )*TEMP
             DPHI = DPHI + TEMP*TEMP
             ERRETM = ERRETM + PHI
-  190    CONTINUE
+         } // 190
 
          TAU2 = WORK( II )*DELTA( II )
          TEMP = Z( II ) / TAU2
@@ -820,7 +820,7 @@
             for (J = 1; J <= N; J++) { // 200
                WORK( J ) = WORK( J ) + ETA
                DELTA( J ) = DELTA( J ) - ETA
-  200       CONTINUE
+            } // 200
 
             // Evaluate PSI and the derivative DPSI
 
@@ -832,7 +832,7 @@
                PSI = PSI + Z( J )*TEMP
                DPSI = DPSI + TEMP*TEMP
                ERRETM = ERRETM + PSI
-  210       CONTINUE
+            } // 210
             ERRETM = ABS( ERRETM )
 
             // Evaluate PHI and the derivative DPHI
@@ -844,7 +844,7 @@
                PHI = PHI + Z( J )*TEMP
                DPHI = DPHI + TEMP*TEMP
                ERRETM = ERRETM + PHI
-  220       CONTINUE
+            } // 220
 
             TAU2 = WORK( II )*DELTA( II )
             TEMP = Z( II ) / TAU2
@@ -856,7 +856,7 @@
 
             IF( W*PREW.GT.ZERO .AND. ABS( W ).GT.ABS( PREW ) / TEN ) SWTCH = .NOT.SWTCH
 
-  230    CONTINUE
+         } // 230
 
          // Return with INFO = 1, NITER = MAXIT and not converged
 
@@ -864,7 +864,7 @@
 
       }
 
-  240 CONTINUE
+      } // 240
       RETURN
 
       // End of DLASD4

@@ -48,18 +48,18 @@
                DO 10 I = K, K + J - 1
                   SUM = ABS( AP( I ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   10          CONTINUE
+               } // 10
                K = K + J
-   20       CONTINUE
+            } // 20
          } else {
             K = 1
             for (J = 1; J <= N; J++) { // 40
                DO 30 I = K, K + N - J
                   SUM = ABS( AP( I ) )
                   IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   30          CONTINUE
+               } // 30
                K = K + N - J + 1
-   40       CONTINUE
+            } // 40
          }
       } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
@@ -75,18 +75,18 @@
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
                   K = K + 1
-   50          CONTINUE
+               } // 50
                WORK( J ) = SUM + ABS( AP( K ) )
                K = K + 1
-   60       CONTINUE
+            } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-   70       CONTINUE
+            } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
                WORK( I ) = ZERO
-   80       CONTINUE
+            } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( AP( K ) )
                K = K + 1
@@ -95,9 +95,9 @@
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
                   K = K + 1
-   90          CONTINUE
+               } // 90
                IF( VALUE .LT. SUM .OR. DISNAN( SUM ) ) VALUE = SUM
-  100       CONTINUE
+            } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
@@ -110,12 +110,12 @@
             for (J = 2; J <= N; J++) { // 110
                zlassq(J-1, AP( K ), 1, SCALE, SUM );
                K = K + J
-  110       CONTINUE
+            } // 110
          } else {
             DO 120 J = 1, N - 1
                zlassq(N-J, AP( K ), 1, SCALE, SUM );
                K = K + N - J + 1
-  120       CONTINUE
+            } // 120
          }
          SUM = 2*SUM
          K = 1
@@ -143,7 +143,7 @@
             } else {
                K = K + N - I + 1
             }
-  130    CONTINUE
+         } // 130
          VALUE = SCALE*SQRT( SUM )
       }
 

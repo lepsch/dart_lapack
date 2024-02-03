@@ -259,25 +259,25 @@
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 10
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
-   10             CONTINUE
+                  } // 10
                } else {
                   for (JR = 1; JR <= N; JR++) { // 20
                      TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
-   20             CONTINUE
+                  } // 20
                }
                IF( TEMP.LT.SMLNUM ) GO TO 50
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 30
                      VL( JR, JC ) = VL( JR, JC )*TEMP
-   30             CONTINUE
+                  } // 30
                } else {
                   for (JR = 1; JR <= N; JR++) { // 40
                      VL( JR, JC ) = VL( JR, JC )*TEMP
                      VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
-   40             CONTINUE
+                  } // 40
                }
-   50       CONTINUE
+            } // 50
          }
          if ( ILVR ) {
             dggbak('P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VR, LDVR, IERR );
@@ -287,25 +287,25 @@
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 60
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
-   60             CONTINUE
+                  } // 60
                } else {
                   for (JR = 1; JR <= N; JR++) { // 70
                      TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
-   70             CONTINUE
+                  } // 70
                }
                IF( TEMP.LT.SMLNUM ) GO TO 100
                TEMP = ONE / TEMP
                if ( ALPHAI( JC ).EQ.ZERO ) {
                   for (JR = 1; JR <= N; JR++) { // 80
                      VR( JR, JC ) = VR( JR, JC )*TEMP
-   80             CONTINUE
+                  } // 80
                } else {
                   for (JR = 1; JR <= N; JR++) { // 90
                      VR( JR, JC ) = VR( JR, JC )*TEMP
                      VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
-   90             CONTINUE
+                  } // 90
                }
-  100       CONTINUE
+            } // 100
          }
 
          // End of eigenvector calculation
@@ -314,7 +314,7 @@
 
       // Undo scaling if necessary
 
-  110 CONTINUE
+      } // 110
 
       if ( ILASCL ) {
          dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );

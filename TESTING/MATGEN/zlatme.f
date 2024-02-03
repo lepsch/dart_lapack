@@ -110,7 +110,7 @@
       if ( MODES.EQ.0 .AND. ISIM.EQ.1 ) {
          for (J = 1; J <= N; J++) { // 10
             IF( DS( J ).EQ.ZERO ) BADS = .TRUE.
-   10    CONTINUE
+         } // 10
       }
 
       // Set INFO if an error
@@ -152,7 +152,7 @@
 
       for (I = 1; I <= 4; I++) { // 20
          ISEED( I ) = MOD( ABS( ISEED( I ) ), 4096 )
-   20 CONTINUE
+      } // 20
 
       IF( MOD( ISEED( 4 ), 2 ).NE.1 ) ISEED( 4 ) = ISEED( 4 ) + 1
 
@@ -172,7 +172,7 @@
          TEMP = ABS( D( 1 ) )
          for (I = 2; I <= N; I++) { // 30
             TEMP = MAX( TEMP, ABS( D( I ) ) )
-   30    CONTINUE
+         } // 30
 
          if ( TEMP.GT.ZERO ) {
             ALPHA = DMAX / TEMP
@@ -193,7 +193,7 @@
       if ( IUPPER.NE.0 ) {
          for (JC = 2; JC <= N; JC++) { // 40
             zlarnv(IDIST, ISEED, JC-1, A( 1, JC ) );
-   40    CONTINUE
+         } // 40
       }
 
       // 4)      If SIM='T', apply similarity transformation.
@@ -232,7 +232,7 @@
                INFO = 5
                RETURN
             }
-   50    CONTINUE
+         } // 50
 
          // Multiply by U and U'
 
@@ -270,7 +270,7 @@
 
             zscal(ICOLS+1, ALPHA, A( JCR, IC ), LDA );
             zscal(N, DCONJG( ALPHA ), A( 1, JCR ), 1 );
-   60    CONTINUE
+         } // 60
       } else if ( KU.LT.N-1 ) {
 
          // Reduce upper bandwidth -- kill a row at a time.
@@ -297,7 +297,7 @@
 
             zscal(IROWS+1, ALPHA, A( IR, JCR ), 1 );
             zscal(N, DCONJG( ALPHA ), A( JCR, 1 ), LDA );
-   70    CONTINUE
+         } // 70
       }
 
       // Scale the matrix to have norm ANORM
@@ -308,7 +308,7 @@
             RALPHA = ANORM / TEMP
             for (J = 1; J <= N; J++) { // 80
                zdscal(N, RALPHA, A( 1, J ), 1 );
-   80       CONTINUE
+            } // 80
          }
       }
 

@@ -91,8 +91,8 @@
             for (J = 1; J <= NB; J++) { // 20
                DO 10 I = 1, J - 1
                   WORK( I, J ) = ZERO
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
 
             // Process the band matrix one diagonal block at a time.
 
@@ -143,8 +143,8 @@
                      for (JJ = 1; JJ <= I3; JJ++) { // 40
                         for (II = JJ; II <= IB; II++) { // 30
                            WORK( II, JJ ) = AB( II-JJ+1, JJ+I+KD-1 )
-   30                   CONTINUE
-   40                CONTINUE
+                        } // 30
+                     } // 40
 
                      // Update A13 (in the work array).
 
@@ -163,11 +163,11 @@
                      for (JJ = 1; JJ <= I3; JJ++) { // 60
                         for (II = JJ; II <= IB; II++) { // 50
                            AB( II-JJ+1, JJ+I+KD-1 ) = WORK( II, JJ )
-   50                   CONTINUE
-   60                CONTINUE
+                        } // 50
+                     } // 60
                   }
                }
-   70       CONTINUE
+            } // 70
          } else {
 
             // Compute the Cholesky factorization of a Hermitian band
@@ -179,8 +179,8 @@
             for (J = 1; J <= NB; J++) { // 90
                DO 80 I = J + 1, NB
                   WORK( I, J ) = ZERO
-   80          CONTINUE
-   90       CONTINUE
+               } // 80
+            } // 90
 
             // Process the band matrix one diagonal block at a time.
 
@@ -231,8 +231,8 @@
                      for (JJ = 1; JJ <= IB; JJ++) { // 110
                         DO 100 II = 1, MIN( JJ, I3 )
                            WORK( II, JJ ) = AB( KD+1-JJ+II, JJ+I-1 )
-  100                   CONTINUE
-  110                CONTINUE
+                        } // 100
+                     } // 110
 
                      // Update A31 (in the work array).
 
@@ -251,16 +251,16 @@
                      for (JJ = 1; JJ <= IB; JJ++) { // 130
                         DO 120 II = 1, MIN( JJ, I3 )
                            AB( KD+1-JJ+II, JJ+I-1 ) = WORK( II, JJ )
-  120                   CONTINUE
-  130                CONTINUE
+                        } // 120
+                     } // 130
                   }
                }
-  140       CONTINUE
+            } // 140
          }
       }
       RETURN
 
-  150 CONTINUE
+      } // 150
       RETURN
 
       // End of CPBTRF

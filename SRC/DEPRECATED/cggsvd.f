@@ -105,7 +105,7 @@
                ISUB = J
                SMAX = TEMP
             }
-   10    CONTINUE
+         } // 10
          if ( ISUB.NE.I ) {
             RWORK( K+ISUB ) = RWORK( K+I )
             RWORK( K+I ) = SMAX
@@ -113,7 +113,7 @@
          } else {
             IWORK( K+I ) = K + I
          }
-   20 CONTINUE
+      } // 20
 
       RETURN
 

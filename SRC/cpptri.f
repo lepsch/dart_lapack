@@ -69,7 +69,7 @@
             IF( J.GT.1 ) CALL CHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP )
             AJJ = REAL( AP( JJ ) )
             csscal(J, AJJ, AP( JC ), 1 );
-   10    CONTINUE
+         } // 10
 
       } else {
 
@@ -81,7 +81,7 @@
             AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) )
             IF( J.LT.N ) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 )
             JJ = JJN
-   20    CONTINUE
+         } // 20
       }
 
       RETURN

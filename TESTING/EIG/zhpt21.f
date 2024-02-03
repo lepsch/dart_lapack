@@ -90,12 +90,12 @@
 
          for (J = 1; J <= N; J++) { // 10
             zhpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
-   10    CONTINUE
+         } // 10
 
          if ( N.GT.1 .AND. KBAND.EQ.1 ) {
             DO 20 J = 2, N - 1
                zhpr2(CUPLO, N, -DCMPLX( E( J ) ), U( 1, J ), 1, U( 1, J-1 ), 1, WORK );
-   20       CONTINUE
+            } // 20
          }
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
 
@@ -114,7 +114,7 @@
                   WORK( JP+J+1 ) = ( CONE-TAU( J ) )*E( J )
                   DO 30 JR = J + 2, N
                      WORK( JP+JR ) = -TAU( J )*E( J )*VP( JP+JR )
-   30             CONTINUE
+                  } // 30
                }
 
                if ( TAU( J ).NE.CZERO ) {
@@ -125,7 +125,7 @@
                   VP( JP+J+1 ) = VSAVE
                }
                WORK( JP+J ) = D( J )
-   40       CONTINUE
+            } // 40
          } else {
             WORK( 1 ) = D( 1 )
             DO 60 J = 1, N - 1
@@ -135,7 +135,7 @@
                   WORK( JP1+J ) = ( CONE-TAU( J ) )*E( J )
                   DO 50 JR = 1, J - 1
                      WORK( JP1+JR ) = -TAU( J )*E( J )*VP( JP1+JR )
-   50             CONTINUE
+                  } // 50
                }
 
                if ( TAU( J ).NE.CZERO ) {
@@ -145,12 +145,12 @@
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )
-   60       CONTINUE
+            } // 60
          }
 
          for (J = 1; J <= LAP; J++) { // 70
             WORK( J ) = WORK( J ) - AP( J )
-   70    CONTINUE
+         } // 70
          WNORM = ZLANHP( '1', CUPLO, N, WORK, RWORK )
 
       } else if ( ITYPE.EQ.3 ) {
@@ -167,7 +167,7 @@
 
          for (J = 1; J <= N; J++) { // 80
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
-   80    CONTINUE
+         } // 80
 
          WNORM = ZLANGE( '1', N, N, WORK, N, RWORK )
       }
@@ -191,7 +191,7 @@
 
          for (J = 1; J <= N; J++) { // 90
             WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
-   90    CONTINUE
+         } // 90
 
          RESULT( 2 ) = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
       }

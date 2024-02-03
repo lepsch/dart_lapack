@@ -73,7 +73,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -192,7 +192,7 @@
                      IW = 2*LDA
                      DO 20 I = 1, MIN( 2*KD+1, N )
                         WORK( IW+I ) = ZERO
-   20                CONTINUE
+                     } // 20
                      IW = IW + 1
                      I1 = MAX( IZERO-KD, 1 )
                      I2 = MIN( IZERO+KD, N )
@@ -340,9 +340,9 @@
                                  IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                                  WRITE( NOUT, FMT = 9999 )'SPBSV ', UPLO, N, KD, IMAT, K, RESULT( K )
                                  NFAIL = NFAIL + 1
                               }
-   30                      CONTINUE
+                           } // 30
                            NRUN = NRUN + NT
-   40                      CONTINUE
+                           } // 40
                         }
 
                         // --- Test SPBSVX ---
@@ -419,14 +419,14 @@
                               }
                               NFAIL = NFAIL + 1
                            }
-   50                   CONTINUE
+                        } // 50
                         NRUN = NRUN + 7 - K1
-   60                CONTINUE
-   70             CONTINUE
-   80          CONTINUE
-   90       CONTINUE
-  100    CONTINUE
-  110 CONTINUE
+                     } // 60
+                  } // 70
+               } // 80
+            } // 90
+         } // 100
+      } // 110
 
       // Print a summary of the results.
 

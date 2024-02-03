@@ -78,9 +78,9 @@
                   TEMP = ALPHA*X( J )
                   for (I = 1; I <= J; I++) { // 10
                      A( I, J ) = A( I, J ) + X( I )*TEMP
-   10             CONTINUE
+                  } // 10
                }
-   20       CONTINUE
+            } // 20
          } else {
             JX = KX
             for (J = 1; J <= N; J++) { // 40
@@ -90,10 +90,10 @@
                   for (I = 1; I <= J; I++) { // 30
                      A( I, J ) = A( I, J ) + X( IX )*TEMP
                      IX = IX + INCX
-   30             CONTINUE
+                  } // 30
                }
                JX = JX + INCX
-   40       CONTINUE
+            } // 40
          }
       } else {
 
@@ -105,9 +105,9 @@
                   TEMP = ALPHA*X( J )
                   for (I = J; I <= N; I++) { // 50
                      A( I, J ) = A( I, J ) + X( I )*TEMP
-   50             CONTINUE
+                  } // 50
                }
-   60       CONTINUE
+            } // 60
          } else {
             JX = KX
             for (J = 1; J <= N; J++) { // 80
@@ -117,10 +117,10 @@
                   for (I = J; I <= N; I++) { // 70
                      A( I, J ) = A( I, J ) + X( IX )*TEMP
                      IX = IX + INCX
-   70             CONTINUE
+                  } // 70
                }
                JX = JX + INCX
-   80       CONTINUE
+            } // 80
          }
       }
 

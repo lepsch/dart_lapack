@@ -77,31 +77,31 @@
             DO 10 JR = 1, MIN( IKA+1, N+1-JC )
                J = J + 1
                WORK( J ) = A( JR, JC )
-   10       CONTINUE
+            } // 10
             DO 20 JR = IKA + 2, N + 1 - JC
                J = J + 1
                WORK( J ) = ZERO
-   20       CONTINUE
+            } // 20
          } else {
             DO 30 JR = IKA + 2, JC
                J = J + 1
                WORK( J ) = ZERO
-   30       CONTINUE
+            } // 30
             DO 40 JR = MIN( IKA, JC-1 ), 0, -1
                J = J + 1
                WORK( J ) = A( IKA+1-JR, JC )
-   40       CONTINUE
+            } // 40
          }
-   50 CONTINUE
+      } // 50
 
       for (J = 1; J <= N; J++) { // 60
          chpr(CUPLO, N, -D( J ), U( 1, J ), 1, WORK );
-   60 CONTINUE
+      } // 60
 
       if ( N.GT.1 .AND. KS.EQ.1 ) {
          DO 70 J = 1, N - 1
             chpr2(CUPLO, N, -CMPLX( E( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK );
-   70    CONTINUE
+         } // 70
       }
       WNORM = CLANHP( '1', CUPLO, N, WORK, RWORK )
 
@@ -123,7 +123,7 @@
 
       for (J = 1; J <= N; J++) { // 80
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
-   80 CONTINUE
+      } // 80
 
       RESULT( 2 ) = MIN( CLANGE( '1', N, N, WORK, N, RWORK ), REAL( N ) ) / ( N*ULP )
 

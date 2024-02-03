@@ -309,7 +309,7 @@
             } else {
                claset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
-   10    CONTINUE
+         } // 10
 
          // Multiply B by right singular vectors
          // (CWorkspace: need N, prefer N*NRHS)
@@ -324,7 +324,7 @@
                BL = MIN( NRHS-I+1, CHUNK )
                cgemm('C', 'N', N, BL, N, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
                clacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
-   20       CONTINUE
+            } // 20
          } else if ( NRHS.EQ.1 ) {
             cgemv('C', N, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 );
             ccopy(N, WORK, 1, B, 1 );
@@ -397,7 +397,7 @@
             } else {
                claset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
-   30    CONTINUE
+         } // 30
          IWORK = IL + M*LDWORK
 
          // Multiply B by right singular vectors of L in WORK(IL)
@@ -412,7 +412,7 @@
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
                cgemm('C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M )                CALL CLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
-   40       CONTINUE
+            } // 40
          } else if ( NRHS.EQ.1 ) {
             cgemv('C', M, M, CONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, CZERO, WORK( IWORK ), 1 );
             ccopy(M, WORK( IWORK ), 1, B( 1, 1 ), 1 );
@@ -477,7 +477,7 @@
             } else {
                claset('F', 1, NRHS, CZERO, CZERO, B( I, 1 ), LDB );
             }
-   50    CONTINUE
+         } // 50
 
          // Multiply B by right singular vectors of A
          // (CWorkspace: need N, prefer N*NRHS)
@@ -492,7 +492,7 @@
                BL = MIN( NRHS-I+1, CHUNK )
                cgemm('C', 'N', N, BL, M, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
                clacpy('F', N, BL, WORK, N, B( 1, I ), LDB );
-   60       CONTINUE
+            } // 60
          } else if ( NRHS.EQ.1 ) {
             cgemv('C', M, N, CONE, A, LDA, B, 1, CZERO, WORK, 1 );
             ccopy(N, WORK, 1, B, 1 );
@@ -513,7 +513,7 @@
       } else if ( IBSCL.EQ.2 ) {
          clascl('G', 0, 0, BIGNUM, BNRM, N, NRHS, B, LDB, INFO );
       }
-   70 CONTINUE
+      } // 70
       WORK( 1 ) = SROUNDUP_LWORK(MAXWRK)
       RETURN
 

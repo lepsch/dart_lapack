@@ -237,7 +237,7 @@
 
          END DO
          // Target of "IF (Z_STOP .AND. X_STOP)".  Sun's f77 won't EXIT.
- 666     CONTINUE
+         } // 666
 
       // Set final_* when cnt hits ithresh.
 

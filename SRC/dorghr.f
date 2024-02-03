@@ -77,26 +77,26 @@
       DO 40 J = IHI, ILO + 1, -1
          DO 10 I = 1, J - 1
             A( I, J ) = ZERO
-   10    CONTINUE
+         } // 10
          DO 20 I = J + 1, IHI
             A( I, J ) = A( I, J-1 )
-   20    CONTINUE
+         } // 20
          DO 30 I = IHI + 1, N
             A( I, J ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       for (J = 1; J <= ILO; J++) { // 60
          for (I = 1; I <= N; I++) { // 50
             A( I, J ) = ZERO
-   50    CONTINUE
+         } // 50
          A( J, J ) = ONE
-   60 CONTINUE
+      } // 60
       DO 80 J = IHI + 1, N
          for (I = 1; I <= N; I++) { // 70
             A( I, J ) = ZERO
-   70    CONTINUE
+         } // 70
          A( J, J ) = ONE
-   80 CONTINUE
+      } // 80
 
       if ( NH.GT.0 ) {
 

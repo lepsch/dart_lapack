@@ -121,7 +121,7 @@
             WRITE( NOUT, FMT = 9996 )NMAX
             GO TO 220
          }
-   10 CONTINUE
+      } // 10
       // Values of ALPHA
       READ( NIN, FMT = * )NALF
       if ( NALF.LT.1.OR.NALF.GT.NALMAX ) {
@@ -172,27 +172,27 @@
 
       for (I = 1; I <= NSUBS; I++) { // 20
          LTEST( I ) = .FALSE.
-   20 CONTINUE
+      } // 20
    30 READ( NIN, FMT = 9988, END = 60 )SNAMET, LTESTT
       for (I = 1; I <= NSUBS; I++) { // 40
          IF( SNAMET.EQ.SNAMES( I ) ) GO TO 50
-   40 CONTINUE
+      } // 40
       WRITE( NOUT, FMT = 9990 )SNAMET
       STOP
    50 LTEST( I ) = LTESTT
       GO TO 30
 
-   60 CONTINUE
+      } // 60
       CLOSE ( NIN )
 
       // Compute EPS (the machine precision).
 
       EPS = ONE
-   70 CONTINUE
+      } // 70
       IF( DDIFF( ONE + EPS, ONE ).EQ.ZERO ) GO TO 80
       EPS = HALF*EPS
       GO TO 70
-   80 CONTINUE
+      } // 80
       EPS = EPS + EPS
       WRITE( NOUT, FMT = 9998 )EPS
 
@@ -202,14 +202,14 @@
       for (J = 1; J <= N; J++) { // 100
          for (I = 1; I <= N; I++) { // 90
             AB( I, J ) = MAX( I - J + 1, 0 )
-   90    CONTINUE
+         } // 90
          AB( J, NMAX + 1 ) = J
          AB( 1, NMAX + J ) = J
          C( J, 1 ) = ZERO
-  100 CONTINUE
+      } // 100
       for (J = 1; J <= N; J++) { // 110
          CC( J ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
-  110 CONTINUE
+      } // 110
       // CC holds the exact result. On exit from DMMCH CT holds
       // the result computed by DMMCH.
       TRANSA = 'N'
@@ -230,10 +230,10 @@
       for (J = 1; J <= N; J++) { // 120
          AB( J, NMAX + 1 ) = N - J + 1
          AB( 1, NMAX + J ) = N - J + 1
-  120 CONTINUE
+      } // 120
       for (J = 1; J <= N; J++) { // 130
          CC( N - J + 1 ) = J*( ( J + 1 )*J )/2 - ( ( J + 1 )*J*( J - 1 ) )/3
-  130 CONTINUE
+      } // 130
       TRANSA = 'T'
       TRANSB = 'N'
       dmmch(TRANSA, TRANSB, N, 1, N, ONE, AB, NMAX, AB( 1, NMAX + 1 ), NMAX, ZERO, C, NMAX, CT, G, CC, NMAX, EPS, ERR, FATAL, NOUT, .TRUE. );
@@ -312,18 +312,18 @@
 
   190       IF( FATAL.AND.SFATAL ) GO TO 210
          }
-  200 CONTINUE
+      } // 200
       WRITE( NOUT, FMT = 9986 )
       GO TO 230
 
-  210 CONTINUE
+      } // 210
       WRITE( NOUT, FMT = 9985 )
       GO TO 230
 
-  220 CONTINUE
+      } // 220
       WRITE( NOUT, FMT = 9991 )
 
-  230 CONTINUE
+      } // 230
       IF( TRACE ) CLOSE ( NTRA )
       CLOSE ( NOUT )
       STOP
@@ -486,16 +486,16 @@
                            ALS = ALPHA
                            for (I = 1; I <= LAA; I++) { // 10
                               AS( I ) = AA( I )
-   10                      CONTINUE
+                           } // 10
                            LDAS = LDA
                            for (I = 1; I <= LBB; I++) { // 20
                               BS( I ) = BB( I )
-   20                      CONTINUE
+                           } // 20
                            LDBS = LDB
                            BLS = BETA
                            for (I = 1; I <= LCC; I++) { // 30
                               CS( I ) = CC( I )
-   30                      CONTINUE
+                           } // 30
                            LDCS = LDC
 
                            // Call the subroutine.
@@ -538,7 +538,7 @@
                            for (I = 1; I <= NARGS; I++) { // 40
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                      CONTINUE
+                           } // 40
                            if ( .NOT.SAME ) {
                               FATAL = .TRUE.
                               GO TO 120
@@ -555,19 +555,19 @@
                               IF( FATAL ) GO TO 120
                            }
 
-   50                   CONTINUE
+                        } // 50
 
-   60                CONTINUE
+                     } // 60
 
-   70             CONTINUE
+                  } // 70
 
-   80          CONTINUE
+               } // 80
 
-   90       CONTINUE
+            } // 90
 
-  100    CONTINUE
+         } // 100
 
-  110 CONTINUE
+      } // 110
 
       // Report result.
 
@@ -580,11 +580,11 @@
       }
       GO TO 130
 
-  120 CONTINUE
+      } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
       dprcn1(NOUT, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
-  130 CONTINUE
+      } // 130
       RETURN
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -753,16 +753,16 @@
                         ALS = ALPHA
                         for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
-   10                   CONTINUE
+                        } // 10
                         LDAS = LDA
                         for (I = 1; I <= LBB; I++) { // 20
                            BS( I ) = BB( I )
-   20                   CONTINUE
+                        } // 20
                         LDBS = LDB
                         BLS = BETA
                         for (I = 1; I <= LCC; I++) { // 30
                            CS( I ) = CC( I )
-   30                   CONTINUE
+                        } // 30
                         LDCS = LDC
 
                         // Call the subroutine.
@@ -804,7 +804,7 @@
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                   CONTINUE
+                        } // 40
                         if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 110
@@ -825,17 +825,17 @@
                            IF( FATAL ) GO TO 110
                         }
 
-   50                CONTINUE
+                     } // 50
 
-   60             CONTINUE
+                  } // 60
 
-   70          CONTINUE
+               } // 70
 
-   80       CONTINUE
+            } // 80
 
-   90    CONTINUE
+         } // 90
 
-  100 CONTINUE
+      } // 100
 
       // Report result.
 
@@ -848,11 +848,11 @@
       }
       GO TO 120
 
-  110 CONTINUE
+      } // 110
       WRITE( NOUT, FMT = 9996 )SNAME
       dprcn2(NOUT, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
 
-  120 CONTINUE
+      } // 120
       RETURN
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -953,8 +953,8 @@
       for (J = 1; J <= NMAX; J++) { // 20
          for (I = 1; I <= NMAX; I++) { // 10
             C( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       for (IM = 1; IM <= NIDIM; IM++) { // 140
          M = IDIM( IM )
@@ -1018,11 +1018,11 @@
                            ALS = ALPHA
                            for (I = 1; I <= LAA; I++) { // 30
                               AS( I ) = AA( I )
-   30                      CONTINUE
+                           } // 30
                            LDAS = LDA
                            for (I = 1; I <= LBB; I++) { // 40
                               BS( I ) = BB( I )
-   40                      CONTINUE
+                           } // 40
                            LDBS = LDB
 
                            // Call the subroutine.
@@ -1068,7 +1068,7 @@
                            for (I = 1; I <= NARGS; I++) { // 50
                               SAME = SAME.AND.ISAME( I )
                               IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   50                      CONTINUE
+                           } // 50
                            if ( .NOT.SAME ) {
                               FATAL = .TRUE.
                               GO TO 150
@@ -1092,8 +1092,8 @@
                                  for (J = 1; J <= N; J++) { // 70
                                     for (I = 1; I <= M; I++) { // 60
                                        C( I, J ) = BB( I + ( J - 1 )* LDB )                                        BB( I + ( J - 1 )*LDB ) = ALPHA* B( I, J )
-   60                               CONTINUE
-   70                            CONTINUE
+                                    } // 60
+                                 } // 70
 
                                  if ( LEFT ) {
                                     dmmch(TRANSA, 'N', M, N, M, ONE, A, NMAX, C, NMAX, ZERO, B, NMAX, CT, G, BB, LDB, EPS, ERR, FATAL, NOUT, .FALSE. );
@@ -1107,19 +1107,19 @@
                               IF( FATAL ) GO TO 150
                            }
 
-   80                   CONTINUE
+                        } // 80
 
-   90                CONTINUE
+                     } // 90
 
-  100             CONTINUE
+                  } // 100
 
-  110          CONTINUE
+               } // 110
 
-  120       CONTINUE
+            } // 120
 
-  130    CONTINUE
+         } // 130
 
-  140 CONTINUE
+      } // 140
 
       // Report result.
 
@@ -1132,11 +1132,11 @@
       }
       GO TO 160
 
-  150 CONTINUE
+      } // 150
       WRITE( NOUT, FMT = 9996 )SNAME
       IF( TRACE ) CALL DPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB)
 
-  160 CONTINUE
+      } // 160
       RETURN
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1305,12 +1305,12 @@
                         ALS = ALPHA
                         for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
-   10                   CONTINUE
+                        } // 10
                         LDAS = LDA
                         BETS = BETA
                         for (I = 1; I <= LCC; I++) { // 20
                            CS( I ) = CC( I )
-   20                   CONTINUE
+                        } // 20
                         LDCS = LDC
 
                         // Call the subroutine.
@@ -1350,7 +1350,7 @@
                         for (I = 1; I <= NARGS; I++) { // 30
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   30                   CONTINUE
+                        } // 30
                         if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 120
@@ -1383,20 +1383,20 @@
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 110
-   40                      CONTINUE
+                           } // 40
                         }
 
-   50                CONTINUE
+                     } // 50
 
-   60             CONTINUE
+                  } // 60
 
-   70          CONTINUE
+               } // 70
 
-   80       CONTINUE
+            } // 80
 
-   90    CONTINUE
+         } // 90
 
-  100 CONTINUE
+      } // 100
 
       // Report result.
 
@@ -1409,14 +1409,14 @@
       }
       GO TO 130
 
-  110 CONTINUE
+      } // 110
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
 
-  120 CONTINUE
+      } // 120
       WRITE( NOUT, FMT = 9996 )SNAME
       dprcn4(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
 
-  130 CONTINUE
+      } // 130
       RETURN
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1590,16 +1590,16 @@
                         ALS = ALPHA
                         for (I = 1; I <= LAA; I++) { // 10
                            AS( I ) = AA( I )
-   10                   CONTINUE
+                        } // 10
                         LDAS = LDA
                         for (I = 1; I <= LBB; I++) { // 20
                            BS( I ) = BB( I )
-   20                   CONTINUE
+                        } // 20
                         LDBS = LDB
                         BETS = BETA
                         for (I = 1; I <= LCC; I++) { // 30
                            CS( I ) = CC( I )
-   30                   CONTINUE
+                        } // 30
                         LDCS = LDC
 
                         // Call the subroutine.
@@ -1640,7 +1640,7 @@
                         for (I = 1; I <= NARGS; I++) { // 40
                            SAME = SAME.AND.ISAME( I )
                            IF( .NOT.ISAME( I ) ) WRITE( NOUT, FMT = 9998 )I
-   40                   CONTINUE
+                        } // 40
                         if ( .NOT.SAME ) {
                            FATAL = .TRUE.
                            GO TO 150
@@ -1663,12 +1663,12 @@
                               if ( TRAN ) {
                                  for (I = 1; I <= K; I++) { // 50
                                     W( I ) = AB( ( J - 1 )*2*NMAX + K + I )                                     W( K + I ) = AB( ( J - 1 )*2*NMAX + I )
-   50                            CONTINUE
+                                 } // 50
                                  dmmch('T', 'N', LJ, 1, 2*K, ALPHA, AB( JJAB ), 2*NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               } else {
                                  for (I = 1; I <= K; I++) { // 60
                                     W( I ) = AB( ( K + I - 1 )*NMAX + J )                                     W( K + I ) = AB( ( I - 1 )*NMAX + J )
-   60                            CONTINUE
+                                 } // 60
                                  dmmch('N', 'N', LJ, 1, 2*K, ALPHA, AB( JJ ), NMAX, W, 2*NMAX, BETA, C( JJ, J ), NMAX, CT, G, CC( JC ), LDC, EPS, ERR, FATAL, NOUT, .TRUE. );
                               }
                               if ( UPPER ) {
@@ -1681,20 +1681,20 @@
                               // If got really bad answer, report and
                               // return.
                               IF( FATAL ) GO TO 140
-   70                      CONTINUE
+                           } // 70
                         }
 
-   80                CONTINUE
+                     } // 80
 
-   90             CONTINUE
+                  } // 90
 
-  100          CONTINUE
+               } // 100
 
-  110       CONTINUE
+            } // 110
 
-  120    CONTINUE
+         } // 120
 
-  130 CONTINUE
+      } // 130
 
       // Report result.
 
@@ -1707,14 +1707,14 @@
       }
       GO TO 160
 
-  140 CONTINUE
+      } // 140
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9995 )J
 
-  150 CONTINUE
+      } // 150
       WRITE( NOUT, FMT = 9996 )SNAME
       dprcn5(NOUT, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
 
-  160 CONTINUE
+      } // 160
       RETURN
 
 10003 FORMAT( ' ', A12,' COMPLETED THE ROW-MAJOR    COMPUTATIONAL ', 'TESTS (', I6, ' CALLS)', /' ******* BUT WITH MAXIMUM TEST ', 'RATIO ', F8.2, ' - SUSPECT *******' )
@@ -1821,9 +1821,9 @@
                   }
                }
             }
-   10    CONTINUE
+         } // 10
          IF( TRI ) A( J, J ) = A( J, J ) + ONE          IF( UNIT ) A( J, J ) = ONE
-   20 CONTINUE
+      } // 20
 
       // Store elements in array AS in data structure required by routine.
 
@@ -1831,11 +1831,11 @@
          for (J = 1; J <= N; J++) { // 50
             for (I = 1; I <= M; I++) { // 30
                AA( I + ( J - 1 )*LDA ) = A( I, J )
-   30       CONTINUE
+            } // 30
             DO 40 I = M + 1, LDA
                AA( I + ( J - 1 )*LDA ) = ROGUE
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       } else if ( TYPE.EQ.'SY'.OR.TYPE.EQ.'TR' ) {
          for (J = 1; J <= N; J++) { // 90
             if ( UPPER ) {
@@ -1855,14 +1855,14 @@
             }
             DO 60 I = 1, IBEG - 1
                AA( I + ( J - 1 )*LDA ) = ROGUE
-   60       CONTINUE
+            } // 60
             for (I = IBEG; I <= IEND; I++) { // 70
                AA( I + ( J - 1 )*LDA ) = A( I, J )
-   70       CONTINUE
+            } // 70
             DO 80 I = IEND + 1, LDA
                AA( I + ( J - 1 )*LDA ) = ROGUE
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
       }
       RETURN
 
@@ -1910,40 +1910,40 @@
          for (I = 1; I <= M; I++) { // 10
             CT( I ) = ZERO
             G( I ) = ZERO
-   10    CONTINUE
+         } // 10
          if ( .NOT.TRANA.AND..NOT.TRANB ) {
             for (K = 1; K <= KK; K++) { // 30
                for (I = 1; I <= M; I++) { // 20
                   CT( I ) = CT( I ) + A( I, K )*B( K, J )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( K, J ) )
-   20          CONTINUE
-   30       CONTINUE
+               } // 20
+            } // 30
          } else if ( TRANA.AND..NOT.TRANB ) {
             for (K = 1; K <= KK; K++) { // 50
                for (I = 1; I <= M; I++) { // 40
                   CT( I ) = CT( I ) + A( K, I )*B( K, J )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( K, J ) )
-   40          CONTINUE
-   50       CONTINUE
+               } // 40
+            } // 50
          } else if ( .NOT.TRANA.AND.TRANB ) {
             for (K = 1; K <= KK; K++) { // 70
                for (I = 1; I <= M; I++) { // 60
                   CT( I ) = CT( I ) + A( I, K )*B( J, K )
                   G( I ) = G( I ) + ABS( A( I, K ) )*ABS( B( J, K ) )
-   60          CONTINUE
-   70       CONTINUE
+               } // 60
+            } // 70
          } else if ( TRANA.AND.TRANB ) {
             for (K = 1; K <= KK; K++) { // 90
                for (I = 1; I <= M; I++) { // 80
                   CT( I ) = CT( I ) + A( K, I )*B( J, K )
                   G( I ) = G( I ) + ABS( A( K, I ) )*ABS( B( J, K ) )
-   80          CONTINUE
-   90       CONTINUE
+               } // 80
+            } // 90
          }
          for (I = 1; I <= M; I++) { // 100
             CT( I ) = ALPHA*CT( I ) + BETA*C( I, J )
             G( I ) = ABS( ALPHA )*G( I ) + ABS( BETA )*ABS( C( I, J ) )
-  100    CONTINUE
+         } // 100
 
          // Compute the error ratio for this result.
 
@@ -1953,9 +1953,9 @@
             IF( G( I ).NE.ZERO ) ERRI = ERRI/G( I )
             ERR = MAX( ERR, ERRI )
             IF( ERR*SQRT( EPS ).GE.ONE ) GO TO 130
-  110    CONTINUE
+         } // 110
 
-  120 CONTINUE
+      } // 120
 
       // If the loop completes, all results are at least half accurate.
       GO TO 150
@@ -1970,10 +1970,10 @@
          } else {
             WRITE( NOUT, FMT = 9998 )I, CC( I, J ), CT( I )
          }
-  140 CONTINUE
+      } // 140
       IF( N.GT.1 ) WRITE( NOUT, FMT = 9997 )J
 
-  150 CONTINUE
+      } // 150
       RETURN
 
  9999 FORMAT( ' ******* FATAL ERROR - COMPUTED RESULT IS LESS THAN HAL', 'F ACCURATE *******', /'           EXPECTED RESULT   COMPU', 'TED RESULT' )
@@ -2004,10 +2004,10 @@
       // .. Executable Statements ..
       for (I = 1; I <= LR; I++) { // 10
          IF( RI( I ).NE.RJ( I ) ) GO TO 20
-   10 CONTINUE
+      } // 10
       LDE = .TRUE.
       GO TO 30
-   20 CONTINUE
+      } // 20
       LDE = .FALSE.
    30 RETURN
 
@@ -2043,8 +2043,8 @@
          for (J = 1; J <= N; J++) { // 20
             DO 10 I = M + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else if ( TYPE.EQ.'SY' ) {
          for (J = 1; J <= N; J++) { // 50
             if ( UPPER ) {
@@ -2056,17 +2056,17 @@
             }
             DO 30 I = 1, IBEG - 1
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   30       CONTINUE
+            } // 30
             DO 40 I = IEND + 1, LDA
                IF( AA( I, J ).NE.AS( I, J ) ) GO TO 70
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       }
 
-   60 CONTINUE
+      } // 60
       LDERES = .TRUE.
       GO TO 80
-   70 CONTINUE
+      } // 70
       LDERES = .FALSE.
    80 RETURN
 

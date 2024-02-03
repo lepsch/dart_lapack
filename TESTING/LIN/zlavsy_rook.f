@@ -77,7 +77,7 @@
          // Loop forward applying the transformations.
 
             K = 1
-   10       CONTINUE
+            } // 10
             IF( K.GT.N ) GO TO 30
             if ( IPIV( K ).GT.0 ) {
 
@@ -117,7 +117,7 @@
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
-   20             CONTINUE
+                  } // 20
                }
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
@@ -144,7 +144,7 @@
                K = K + 2
             }
             GO TO 10
-   30       CONTINUE
+            } // 30
 
          // Compute  B := L*B
          // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
@@ -154,7 +154,7 @@
             // Loop backward applying the transformations to B.
 
             K = N
-   40       CONTINUE
+            } // 40
             IF( K.LT.1 ) GO TO 60
 
             // Test the pivot index.  If greater than zero, a 1 x 1
@@ -200,7 +200,7 @@
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
-   50             CONTINUE
+                  } // 50
                }
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
@@ -227,7 +227,7 @@
                K = K - 2
             }
             GO TO 40
-   60       CONTINUE
+            } // 60
          }
 *----------------------------------------
 
@@ -245,7 +245,7 @@
             // Loop backward applying the transformations.
 
             K = N
-   70       CONTINUE
+            } // 70
             IF( K.LT.1 ) GO TO 90
 
             // 1 x 1 pivot block.
@@ -297,12 +297,12 @@
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
-   80             CONTINUE
+                  } // 80
                }
                K = K - 2
             }
             GO TO 70
-   90       CONTINUE
+            } // 90
 
          // Form  B := L'*B
          // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
@@ -313,7 +313,7 @@
             // Loop forward applying the L-transformations.
 
             K = 1
-  100       CONTINUE
+            } // 100
             IF( K.GT.N ) GO TO 120
 
             // 1 x 1 pivot block
@@ -365,12 +365,12 @@
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
-  110             CONTINUE
+                  } // 110
                }
                K = K + 2
             }
             GO TO 100
-  120       CONTINUE
+            } // 120
          }
       }
       RETURN

@@ -83,7 +83,7 @@
                // Update trailing submatrix.
 
                dgemm('No transpose', 'No transpose', M-K-NB+1, JB, NB, -ONE, A( K+NB, K ), LDA, A( K, J ), LDA, ONE, A( K+NB, J ), LDA );
-   30       CONTINUE
+            } // 30
 
             // Factor diagonal and subdiagonal blocks and test for exact
             // singularity.
@@ -95,16 +95,16 @@
             IF( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + J - 1
             DO 10 I = J, MIN( M, J+JB-1 )
                IPIV( I ) = J - 1 + IPIV( I )
-   10       CONTINUE
+            } // 10
 
-   20    CONTINUE
+         } // 20
 
 
          // Apply interchanges to the left-overs
 
          DO 40 K = 1, MIN( M, N ), NB
             dlaswp(K-1, A( 1, 1 ), LDA, K, MIN (K+NB-1, MIN ( M, N )), IPIV, 1 );
-   40    CONTINUE
+         } // 40
 
          // Apply update to the M+1:N columns when N > M
 
@@ -122,7 +122,7 @@
                if ( K+NB.LE.M ) {
                     dgemm('No transpose', 'No transpose', M-K-NB+1, N-M, NB, -ONE, A( K+NB, K ), LDA, A( K, M+1 ), LDA, ONE, A( K+NB, M+1 ), LDA );
                }
-   50       CONTINUE
+            } // 50
          }
 
       }

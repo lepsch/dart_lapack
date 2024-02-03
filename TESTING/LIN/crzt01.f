@@ -55,8 +55,8 @@
       for (J = 1; J <= M; J++) { // 20
          for (I = 1; I <= J; I++) { // 10
             WORK( ( J-1 )*M+I ) = AF( I, J )
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
 
       // R = R * P(1) * ... *P(m)
 
@@ -66,7 +66,7 @@
 
       for (I = 1; I <= N; I++) { // 30
          caxpy(M, CMPLX( -ONE ), A( 1, I ), 1, WORK( ( I-1 )*M+1 ), 1 );
-   30 CONTINUE
+      } // 30
 
       CRZT01 = CLANGE( 'One-norm', M, N, WORK, M, RWORK )
 

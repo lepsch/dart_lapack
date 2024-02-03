@@ -67,7 +67,7 @@
          M = 0
          for (J = 1; J <= N; J++) { // 10
             IF( SELECT( J ) ) M = M + 1
-   10    CONTINUE
+         } // 10
       } else {
          M = N
       }
@@ -147,7 +147,7 @@
 
             for (I = 2; I <= N; I++) { // 20
                WORK( I, I ) = WORK( I, I ) - WORK( 1, 1 )
-   20       CONTINUE
+            } // 20
 
             // Estimate a lower bound for the 1-norm of inv(C**H). The 1st
             // and (N+1)th columns of WORK are used to store work vectors.
@@ -156,7 +156,7 @@
             EST = ZERO
             KASE = 0
             NORMIN = 'N'
-   30       CONTINUE
+            } // 30
             clacn2(N-1, WORK( 1, N+1 ), WORK, EST, KASE, ISAVE );
 
             if ( KASE.NE.0 ) {
@@ -188,9 +188,9 @@
             SEP( KS ) = ONE / MAX( EST, SMLNUM )
          }
 
-   40    CONTINUE
+         } // 40
          KS = KS + 1
-   50 CONTINUE
+      } // 50
       RETURN
 
       // End of CTRSNA

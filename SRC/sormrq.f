@@ -160,7 +160,7 @@
             // Apply H or H**T
 
             slarfb(SIDE, TRANST, 'Backward', 'Rowwise', MI, NI, IB, A( I, 1 ), LDA, WORK( IWT ), LDT, C, LDC, WORK, LDWORK );
-   10    CONTINUE
+         } // 10
       }
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT)
       RETURN

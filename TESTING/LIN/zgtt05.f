@@ -67,7 +67,7 @@
          DIFF = ZERO
          for (I = 1; I <= N; I++) { // 10
             DIFF = MAX( DIFF, CABS1( X( I, J )-XACT( I, J ) ) )
-   10    CONTINUE
+         } // 10
 
          if ( XNORM.GT.ONE ) {
             GO TO 20
@@ -78,13 +78,13 @@
             GO TO 30
          }
 
-   20    CONTINUE
+         } // 20
          if ( DIFF / XNORM.LE.FERR( J ) ) {
             ERRBND = MAX( ERRBND, ( DIFF / XNORM ) / FERR( J ) )
          } else {
             ERRBND = ONE / EPS
          }
-   30 CONTINUE
+      } // 30
       RESLTS( 1 ) = ERRBND
 
       // Test 2:  Compute the maximum of BERR / ( NZ*EPS + (*) ), where
@@ -99,7 +99,7 @@
                DO 40 I = 2, N - 1
                   TMP = CABS1( B( I, K ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DU( I ) )*CABS1( X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
-   40          CONTINUE
+               } // 40
                TMP = CABS1( B( N, K ) ) + CABS1( DL( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             }
@@ -111,7 +111,7 @@
                DO 50 I = 2, N - 1
                   TMP = CABS1( B( I, K ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, K ) ) + CABS1( D( I ) )*CABS1( X( I, K ) ) + CABS1( DL( I ) )*CABS1( X( I+1, K ) )
                   AXBI = MIN( AXBI, TMP )
-   50          CONTINUE
+               } // 50
                TMP = CABS1( B( N, K ) ) + CABS1( DU( N-1 ) )* CABS1( X( N-1, K ) ) + CABS1( D( N ) )* CABS1( X( N, K ) )
                AXBI = MIN( AXBI, TMP )
             }
@@ -122,7 +122,7 @@
          } else {
             RESLTS( 2 ) = MAX( RESLTS( 2 ), TMP )
          }
-   60 CONTINUE
+      } // 60
 
       RETURN
 

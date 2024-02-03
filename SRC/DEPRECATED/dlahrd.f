@@ -93,7 +93,7 @@
          dtrmv('Upper', 'No transpose', 'Non-unit', I-1, T, LDT, T( 1, I ), 1 );
          T( I, I ) = TAU( I )
 
-   10 CONTINUE
+      } // 10
       A( K+NB, NB ) = EI
 
       RETURN

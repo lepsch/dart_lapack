@@ -68,7 +68,7 @@
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // KW is the column of W which corresponds to column K of A
 
@@ -130,7 +130,7 @@
 
                // Loop until pivot found
 
-   12          CONTINUE
+               } // 12
 
                   // Begin pivot search loop body
 
@@ -267,7 +267,7 @@
                   } else if ( A( K, K ).NE.CZERO ) {
                      DO 14 II = 1, K - 1
                         A( II, K ) = A( II, K ) / A( K, K )
-   14                CONTINUE
+                     } // 14
                   }
                }
 
@@ -291,7 +291,7 @@
                   T = CONE / ( D11*D22-CONE )
                   DO 20 J = 1, K - 2
                      A( J, K-1 ) = T*( (D11*W( J, KW-1 )-W( J, KW ) ) / D12 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / D12 )
-   20             CONTINUE
+                  } // 20
                }
 
                // Copy D(k) to A
@@ -316,7 +316,7 @@
          K = K - KSTEP
          GO TO 10
 
-   30    CONTINUE
+         } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -331,18 +331,18 @@
 
             DO 40 JJ = J, J + JB - 1
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
-   40       CONTINUE
+            } // 40
 
             // Update the rectangular superdiagonal block
 
             IF( J.GE.2 ) CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
-   50    CONTINUE
+         } // 50
 
          // Put U12 in standard form by partially undoing the interchanges
          // in columns k+1:n
 
          J = K + 1
-   60    CONTINUE
+         } // 60
 
             KSTEP = 1
             JP1 = 1
@@ -373,7 +373,7 @@
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1
-   70   CONTINUE
+        } // 70
 
          // Exit from loop
 
@@ -431,7 +431,7 @@
 
                // Loop until pivot found
 
-   72          CONTINUE
+               } // 72
 
                   // Begin pivot search loop body
 
@@ -561,7 +561,7 @@
                   } else if ( A( K, K ).NE.CZERO ) {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / A( K, K )
-   74                CONTINUE
+                     } // 74
                   }
                }
 
@@ -584,7 +584,7 @@
                   T = CONE / ( D11*D22-CONE )
                   DO 80 J = K + 2, N
                      A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / D21 )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
-   80             CONTINUE
+                  } // 80
                }
 
                // Copy D(k) to A
@@ -609,7 +609,7 @@
          K = K + KSTEP
          GO TO 70
 
-   90    CONTINUE
+         } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -624,18 +624,18 @@
 
             DO 100 JJ = J, J + JB - 1
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
-  100       CONTINUE
+            } // 100
 
             // Update the rectangular subdiagonal block
 
             IF( J+JB.LE.N ) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA )
-  110    CONTINUE
+         } // 110
 
          // Put L21 in standard form by partially undoing the interchanges
          // in columns 1:k-1
 
          J = K - 1
-  120    CONTINUE
+         } // 120
 
             KSTEP = 1
             JP1 = 1

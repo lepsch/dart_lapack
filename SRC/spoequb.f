@@ -69,7 +69,7 @@
          S( I ) = A( I, I )
          SMIN = MIN( SMIN, S( I ) )
          AMAX = MAX( AMAX, S( I ) )
-   10 CONTINUE
+      } // 10
 
       if ( SMIN.LE.ZERO ) {
 
@@ -80,7 +80,7 @@
                INFO = I
                RETURN
             }
-   20    CONTINUE
+         } // 20
       } else {
 
          // Set the scale factors to the reciprocals
@@ -88,7 +88,7 @@
 
          for (I = 1; I <= N; I++) { // 30
             S( I ) = BASE ** INT( TMP * LOG( S( I ) ) )
-   30    CONTINUE
+         } // 30
 
          // Compute SCOND = min(S(I)) / max(S(I)).
 

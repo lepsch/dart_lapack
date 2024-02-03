@@ -49,8 +49,8 @@
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= N; I++) { // 10
             WORK( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          if ( I.EQ.1 ) {
             WORK( I, I ) = DF( I )
@@ -62,7 +62,7 @@
             WORK( I, I+1 ) = DUF( I )
             IF( I.LT.N-1 ) WORK( I, I+2 ) = DU2( I )
          }
-   30 CONTINUE
+      } // 30
 
       // Multiply on the left by L.
 
@@ -76,7 +76,7 @@
          } else {
             sswap(LASTJ-I+1, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          }
-   40 CONTINUE
+      } // 40
 
       // Subtract the matrix A.
 
@@ -89,7 +89,7 @@
             WORK( I, I-1 ) = WORK( I, I-1 ) - DL( I-1 )
             WORK( I, I ) = WORK( I, I ) - D( I )
             WORK( I, I+1 ) = WORK( I, I+1 ) - DU( I )
-   50    CONTINUE
+         } // 50
       }
 
       // Compute the 1-norm of the tridiagonal matrix A.

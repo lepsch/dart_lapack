@@ -80,7 +80,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -98,7 +98,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -118,7 +118,7 @@
 
          for (I = 1; I <= N; I++) { // 30
             WORK( I ) = ABS( B( I, J ) )
-   30    CONTINUE
+         } // 30
 
          // Compute abs(A)*abs(X) + abs(B).
 
@@ -130,9 +130,9 @@
                DO 40 I = MAX( 1, K-KD ), K - 1
                   WORK( I ) = WORK( I ) + ABS( AB( L+I, K ) )*XK
                   S = S + ABS( AB( L+I, K ) )*ABS( X( I, J ) )
-   40          CONTINUE
+               } // 40
                WORK( K ) = WORK( K ) + ABS( AB( KD+1, K ) )*XK + S
-   50       CONTINUE
+            } // 50
          } else {
             for (K = 1; K <= N; K++) { // 70
                S = ZERO
@@ -142,9 +142,9 @@
                DO 60 I = K + 1, MIN( N, K+KD )
                   WORK( I ) = WORK( I ) + ABS( AB( L+I, K ) )*XK
                   S = S + ABS( AB( L+I, K ) )*ABS( X( I, J ) )
-   60          CONTINUE
+               } // 60
                WORK( K ) = WORK( K ) + S
-   70       CONTINUE
+            } // 70
          }
          S = ZERO
          for (I = 1; I <= N; I++) { // 80
@@ -153,7 +153,7 @@
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             }
-   80    CONTINUE
+         } // 80
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -201,10 +201,10 @@
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             }
-   90    CONTINUE
+         } // 90
 
          KASE = 0
-  100    CONTINUE
+         } // 100
          slacn2(N, WORK( 2*N+1 ), WORK( N+1 ), IWORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -214,14 +214,14 @@
                spbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
                for (I = 1; I <= N; I++) { // 110
                   WORK( N+I ) = WORK( N+I )*WORK( I )
-  110          CONTINUE
+               } // 110
             } else if ( KASE.EQ.2 ) {
 
                // Multiply by inv(A)*diag(W).
 
                for (I = 1; I <= N; I++) { // 120
                   WORK( N+I ) = WORK( N+I )*WORK( I )
-  120          CONTINUE
+               } // 120
                spbtrs(UPLO, N, KD, 1, AFB, LDAFB, WORK( N+1 ), N, INFO );
             }
             GO TO 100
@@ -232,10 +232,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 130
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
-  130    CONTINUE
+         } // 130
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  140 CONTINUE
+      } // 140
 
       RETURN
 

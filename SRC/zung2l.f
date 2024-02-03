@@ -54,9 +54,9 @@
       DO 20 J = 1, N - K
          for (L = 1; L <= M; L++) { // 10
             A( L, J ) = ZERO
-   10    CONTINUE
+         } // 10
          A( M-N+J, J ) = ONE
-   20 CONTINUE
+      } // 20
 
       for (I = 1; I <= K; I++) { // 40
          II = N - K + I
@@ -72,8 +72,8 @@
 
          DO 30 L = M - N + II + 1, M
             A( L, II ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       RETURN
 
       // End of ZUNG2L

@@ -93,7 +93,7 @@
             } else {
                DO 10 I = 1, M-1
                   A( 1+I, 1 ) = A( 1+I, 1 ) / A( 1, 1 )
-   10          CONTINUE
+               } // 10
             }
 
          } else {
@@ -137,7 +137,7 @@
          IF ( INFO.EQ.0 .AND. IINFO.GT.0 ) INFO = IINFO + N1
          DO 20 I = N1+1, MIN( M, N )
             IPIV( I ) = IPIV( I ) + N1
-   20    CONTINUE
+         } // 20
 
          // Apply interchanges to A21
 

@@ -47,7 +47,7 @@
          dcopy(M, B( 1, J ), 1, WORK, 1 );
          dgemv('No transpose', M, M, -ONE, U, LDU, C( 1, J ), 1, ONE, WORK, 1 );
          RESID = MAX( RESID, DASUM( M, WORK, 1 ) )
-   10 CONTINUE
+      } // 10
 
       // Compute norm of B.
 

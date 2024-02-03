@@ -60,14 +60,14 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       BADNNB = .FALSE.
       KMAX = 0
       for (J = 1; J <= NSIZES; J++) { // 20
          KMAX = MAX( KMAX, KK( J ) )
          IF( KK( J ).LT.0 ) BADNNB = .TRUE.
-   20 CONTINUE
+      } // 20
       KMAX = MIN( NMAX-1, KMAX )
 
       // Check for errors
@@ -135,7 +135,7 @@
 
                for (J = 1; J <= 4; J++) { // 30
                   IOLDSD( J ) = ISEED( J )
-   30          CONTINUE
+               } // 30
 
                // Compute "A".
                // Store as "Upper"; later, we will copy to other format.
@@ -163,19 +163,19 @@
 
                GO TO ( 40, 50, 60 )KMAGN( JTYPE )
 
-   40          CONTINUE
+               } // 40
                ANORM = ONE
                GO TO 70
 
-   50          CONTINUE
+               } // 50
                ANORM = ( RTOVFL*ULP )*ANINV
                GO TO 70
 
-   60          CONTINUE
+               } // 60
                ANORM = RTUNFL*N*ULPINV
                GO TO 70
 
-   70          CONTINUE
+               } // 70
 
                slaset('Full', LDA, N, ZERO, ZERO, A, LDA );
                IINFO = 0
@@ -198,7 +198,7 @@
 
                   for (JCOL = 1; JCOL <= N; JCOL++) { // 80
                      A( K+1, JCOL ) = ANORM
-   80             CONTINUE
+                  } // 80
 
                } else if ( ITYPE.EQ.4 ) {
 
@@ -240,7 +240,7 @@
                      if ( TEMP1.GT.HALF ) {
                         A( K, I ) = HALF*SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      }
-   90             CONTINUE
+                  } // 90
 
                } else {
 
@@ -253,7 +253,7 @@
                   RETURN
                }
 
-  100          CONTINUE
+               } // 100
 
                // Call SSBTRD to compute S and U from upper triangle.
 
@@ -339,13 +339,13 @@
                for (JC = 1; JC <= N; JC++) { // 120
                   DO 110 JR = 0, MIN( K, N-JC )
                      A( JR+1, JC ) = A( K+1-JR, JC+JR )
-  110             CONTINUE
-  120          CONTINUE
+                  } // 110
+               } // 120
                DO 140 JC = N + 1 - K, N
                   DO 130 JR = MIN( K, N-JC ) + 1, K
                      A( JR+1, JC ) = ZERO
-  130             CONTINUE
-  140          CONTINUE
+                  } // 130
+               } // 140
 
                // Call SSBTRD to compute S and U from lower triangle
 
@@ -414,14 +414,14 @@
                   TEMP2 = MAX( TEMP2, ABS( D1( J )-D2( J ) ) )
                   TEMP3 = MAX( TEMP3, ABS( D1( J ) ), ABS( D3( J ) ) )
                   TEMP4 = MAX( TEMP4, ABS( D1( J )-D3( J ) ) )
-  151          CONTINUE
+               } // 151
 
                RESULT(5) = TEMP2 / MAX( UNFL, ULP*MAX( TEMP1, TEMP2 ) )
                RESULT(6) = TEMP4 / MAX( UNFL, ULP*MAX( TEMP3, TEMP4 ) )
 
                // End of Loop -- Check for RESULT(j) > THRESH
 
-  150          CONTINUE
+               } // 150
                NTESTT = NTESTT + NTEST
 
                // Print out tests which fail.
@@ -442,11 +442,11 @@
                      NERRS = NERRS + 1
                      WRITE( NOUNIT, FMT = 9993 )N, K, IOLDSD, JTYPE, JR, RESULT( JR )
                   }
-  160          CONTINUE
+               } // 160
 
-  170       CONTINUE
-  180    CONTINUE
-  190 CONTINUE
+            } // 170
+         } // 180
+      } // 190
 
       // Summary
 

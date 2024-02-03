@@ -73,7 +73,7 @@
          // K is the main loop index, decreasing from N in steps of 1 or 2
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // KW is the column of W which corresponds to column K of A
 
@@ -145,7 +145,7 @@
 
                DONE = .FALSE.
 
-   12          CONTINUE
+               } // 12
 
                   // BEGIN pivot search loop body
 
@@ -330,7 +330,7 @@
                   } else {
                      DO 14 II = 1, K-1
                         A( II, K ) = A( II, K ) / T
-   14                CONTINUE
+                     } // 14
                   }
 
                   // (2) Conjugate column W(kw)
@@ -418,7 +418,7 @@
 
                   DO 20 J = 1, K - 2
                      A( J, K-1 ) = T*( ( D11*W( J, KW-1 )-W( J, KW ) ) / D21 )                      A( J, K ) = T*( ( D22*W( J, KW )-W( J, KW-1 ) ) / CONJG( D21 ) )
-   20             CONTINUE
+                  } // 20
                }
 
                // Copy diagonal elements of D(K) to A,
@@ -456,7 +456,7 @@
          K = K - KSTEP
          GO TO 10
 
-   30    CONTINUE
+         } // 30
 
          // Update the upper triangle of A11 (= A(1:k,1:k)) as
 
@@ -474,12 +474,12 @@
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
                cgemv('No transpose', JJ-J+1, N-K, -CONE, A( J, K+1 ), LDA, W( JJ, KW+1 ), LDW, CONE, A( J, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
-   40       CONTINUE
+            } // 40
 
             // Update the rectangular superdiagonal block
 
             IF( J.GE.2 ) CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA )
-   50    CONTINUE
+         } // 50
 
          // Set KB to the number of columns factorized
 
@@ -498,7 +498,7 @@
          // K is the main loop index, increasing from 1 in steps of 1 or 2
 
          K = 1
-   70    CONTINUE
+         } // 70
 
          // Exit from loop
 
@@ -567,7 +567,7 @@
 
                // Loop until pivot found
 
-   72          CONTINUE
+               } // 72
 
                   // BEGIN pivot search loop body
 
@@ -748,7 +748,7 @@
                   } else {
                      DO 74 II = K + 1, N
                         A( II, K ) = A( II, K ) / T
-   74                CONTINUE
+                     } // 74
                   }
 
                   // (2) Conjugate column W(k)
@@ -836,7 +836,7 @@
 
                   DO 80 J = K + 2, N
                      A( J, K ) = T*( ( D11*W( J, K )-W( J, K+1 ) ) / CONJG( D21 ) )                      A( J, K+1 ) = T*( ( D22*W( J, K+1 )-W( J, K ) ) / D21 )
-   80             CONTINUE
+                  } // 80
                }
 
                // Copy diagonal elements of D(K) to A,
@@ -874,7 +874,7 @@
          K = K + KSTEP
          GO TO 70
 
-   90    CONTINUE
+         } // 90
 
          // Update the lower triangle of A22 (= A(k:n,k:n)) as
 
@@ -892,12 +892,12 @@
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
                cgemv('No transpose', J+JB-JJ, K-1, -CONE, A( JJ, 1 ), LDA, W( JJ, 1 ), LDW, CONE, A( JJ, JJ ), 1 );
                A( JJ, JJ ) = REAL( A( JJ, JJ ) )
-  100       CONTINUE
+            } // 100
 
             // Update the rectangular subdiagonal block
 
             IF( J+JB.LE.N ) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA )
-  110    CONTINUE
+         } // 110
 
          // Set KB to the number of columns factorized
 

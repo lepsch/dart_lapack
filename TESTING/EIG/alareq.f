@@ -38,11 +38,11 @@
 
          for (I = 1; I <= NTYPES; I++) { // 10
             DOTYPE( I ) = .TRUE.
-   10    CONTINUE
+         } // 10
       } else {
          for (I = 1; I <= NTYPES; I++) { // 20
             DOTYPE( I ) = .FALSE.
-   20    CONTINUE
+         } // 20
          FIRSTT = .TRUE.
 
          // Read a line of matrix types if 0 < NMATS < NTYPES.
@@ -54,7 +54,7 @@
             for (J = 1; J <= NMATS; J++) { // 60
                NREQ( J ) = 0
                I1 = 0
-   30          CONTINUE
+               } // 30
                I = I + 1
                if ( I.GT.LENP ) {
                   if ( J.EQ.NMATS .AND. I1.GT.0 ) {
@@ -76,11 +76,11 @@
                         IC = K - 1
                         GO TO 50
                      }
-   40             CONTINUE
+                  } // 40
                   WRITE( NOUT, FMT = 9996 )I, LINE
                   WRITE( NOUT, FMT = 9994 )NMATS
                   GO TO 80
-   50             CONTINUE
+                  } // 50
                   NREQ( J ) = 10*NREQ( J ) + IC
                   GO TO 30
                } else if ( I1.GT.0 ) {
@@ -88,7 +88,7 @@
                } else {
                   GO TO 30
                }
-   60       CONTINUE
+            } // 60
          }
          for (I = 1; I <= NMATS; I++) { // 70
             NT = NREQ( I )
@@ -103,12 +103,12 @@
                WRITE( NOUT, FMT = 9999 )PATH, NT, NTYPES
  9999          FORMAT( ' *** Invalid type request for ', A3, ', type  ', I4, ': must satisfy  1 <= type <= ', I2 )
             }
-   70    CONTINUE
-   80    CONTINUE
+         } // 70
+         } // 80
       }
       RETURN
 
-   90 CONTINUE
+      } // 90
       WRITE( NOUT, FMT = 9998 )PATH
  9998 FORMAT( /' *** End of file reached when trying to read matrix ', 'types for ', A3, /' *** Check that you are requesting the', ' right number of types for each path', / )
  9997 FORMAT( ' *** Warning:  duplicate request of matrix type ', I2, ' for ', A3 )

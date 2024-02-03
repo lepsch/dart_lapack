@@ -60,7 +60,7 @@
             RESID = ONE / EPS
             RETURN
          }
-   10 CONTINUE
+      } // 10
 
       // Initialize C to the identity matrix.
 
@@ -80,16 +80,16 @@
          for (J = 1; J <= N; J++) { // 30
             DO 20 I = 1, J - 1
                C( I, J ) = C( I, J ) - A( I, J )
-   20       CONTINUE
+            } // 20
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
-   30    CONTINUE
+         } // 30
       } else {
          for (J = 1; J <= N; J++) { // 50
             C( J, J ) = C( J, J ) - REAL( A( J, J ) )
             DO 40 I = J + 1, N
                C( I, J ) = C( I, J ) - A( I, J )
-   40       CONTINUE
-   50    CONTINUE
+            } // 40
+         } // 50
       }
 
       // Compute norm( C - A ) / ( N * norm(A) * EPS )

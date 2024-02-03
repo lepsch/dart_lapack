@@ -76,7 +76,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       if ( NSIZES.LT.0 ) {
          INFO = -1
@@ -158,13 +158,13 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Initialize RESULT
 
             for (J = 1; J <= 13; J++) { // 30
                RESULT( J ) = ZERO
-   30       CONTINUE
+            } // 30
 
             // Generate test matrices A and B
 
@@ -226,14 +226,14 @@
                      for (JR = JC; JR <= N; JR++) { // 40
                         Q( JR, JC ) = CLARND( 3, ISEED )
                         Z( JR, JC ) = CLARND( 3, ISEED )
-   40                CONTINUE
+                     } // 40
                      clarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, REAL( Q( JC, JC ) ) )
                      Q( JC, JC ) = CONE
                      clarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, REAL( Z( JC, JC ) ) )
                      Z( JC, JC ) = CONE
-   50             CONTINUE
+                  } // 50
                   CTEMP = CLARND( 3, ISEED )
                   Q( N, N ) = CONE
                   WORK( N ) = CZERO
@@ -248,8 +248,8 @@
                   for (JC = 1; JC <= N; JC++) { // 70
                      for (JR = 1; JR <= N; JR++) { // 60
                         A( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* CONJG( WORK( 3*N+JC ) )* B( JR, JC )
-   60                CONTINUE
-   70             CONTINUE
+                     } // 60
+                  } // 70
                   CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL CUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL CUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                }
             } else {
@@ -259,11 +259,11 @@
                for (JC = 1; JC <= N; JC++) { // 90
                   for (JR = 1; JR <= N; JR++) { // 80
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* CLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* CLARND( 4, ISEED )
-   80             CONTINUE
-   90          CONTINUE
+                  } // 80
+               } // 90
             }
 
-  100       CONTINUE
+            } // 100
 
             if ( IINFO.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IINFO, N, JTYPE, IOLDSD
@@ -271,11 +271,11 @@
                RETURN
             }
 
-  110       CONTINUE
+            } // 110
 
             for (I = 1; I <= 13; I++) { // 120
                RESULT( I ) = -ONE
-  120       CONTINUE
+            } // 120
 
             // Test with and without sorting of eigenvalues
 
@@ -349,7 +349,7 @@
                   if ( ILABAD ) {
                      WRITE( NOUNIT, FMT = 9998 )J, N, JTYPE, IOLDSD
                   }
-  130          CONTINUE
+               } // 130
                RESULT( 6+RSUB ) = TEMP1
 
                if ( ISORT.GE.1 ) {
@@ -361,15 +361,15 @@
                   KNTEIG = 0
                   for (I = 1; I <= N; I++) { // 140
                      IF( CLCTES( ALPHA( I ), BETA( I ) ) ) KNTEIG = KNTEIG + 1
-  140             CONTINUE
+                  } // 140
                   IF( SDIM.NE.KNTEIG ) RESULT( 13 ) = ULPINV
                }
 
-  150       CONTINUE
+            } // 150
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  160       CONTINUE
+            } // 160
 
             NTESTT = NTESTT + NTEST
 
@@ -402,10 +402,10 @@
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   }
                }
-  170       CONTINUE
+            } // 170
 
-  180    CONTINUE
-  190 CONTINUE
+         } // 180
+      } // 190
 
       // Summary
 

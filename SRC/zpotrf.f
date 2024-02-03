@@ -88,7 +88,7 @@
                   zgemm('Conjugate transpose', 'No transpose', JB, N-J-JB+1, J-1, -CONE, A( 1, J ), LDA, A( 1, J+JB ), LDA, CONE, A( J, J+JB ), LDA );
                   ztrsm('Left', 'Upper', 'Conjugate transpose', 'Non-unit', JB, N-J-JB+1, CONE, A( J, J ), LDA, A( J, J+JB ), LDA );
                }
-   10       CONTINUE
+            } // 10
 
          } else {
 
@@ -110,15 +110,15 @@
                   zgemm('No transpose', 'Conjugate transpose', N-J-JB+1, JB, J-1, -CONE, A( J+JB, 1 ), LDA, A( J, 1 ), LDA, CONE, A( J+JB, J ), LDA );
                   ztrsm('Right', 'Lower', 'Conjugate transpose', 'Non-unit', N-J-JB+1, JB, CONE, A( J, J ), LDA, A( J+JB, J ), LDA );
                }
-   20       CONTINUE
+            } // 20
          }
       }
       GO TO 40
 
-   30 CONTINUE
+      } // 30
       INFO = INFO + J - 1
 
-   40 CONTINUE
+      } // 40
       RETURN
 
       // End of ZPOTRF

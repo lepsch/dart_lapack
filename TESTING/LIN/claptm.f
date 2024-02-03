@@ -38,14 +38,14 @@
          for (J = 1; J <= NRHS; J++) { // 20
             for (I = 1; I <= N; I++) { // 10
                B( I, J ) = ZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else if ( BETA.EQ.-ONE ) {
          for (J = 1; J <= NRHS; J++) { // 40
             for (I = 1; I <= N; I++) { // 30
                B( I, J ) = -B( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
       }
 
       if ( ALPHA.EQ.ONE ) {
@@ -60,9 +60,9 @@
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + E( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) + CONJG( E( N-1 ) )* X( N-1, J ) + D( N )*X( N, J )
                   DO 50 I = 2, N - 1
                      B( I, J ) = B( I, J ) + CONJG( E( I-1 ) )* X( I-1, J ) + D( I )*X( I, J ) + E( I )*X( I+1, J )
-   50             CONTINUE
+                  } // 50
                }
-   60       CONTINUE
+            } // 60
          } else {
 
             // Compute B := B + A*X, where E is the subdiagonal of A.
@@ -74,9 +74,9 @@
                   B( 1, J ) = B( 1, J ) + D( 1 )*X( 1, J ) + CONJG( E( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) + E( N-1 )*X( N-1, J ) + D( N )*X( N, J )
                   DO 70 I = 2, N - 1
                      B( I, J ) = B( I, J ) + E( I-1 )*X( I-1, J ) + D( I )*X( I, J ) + CONJG( E( I ) )*X( I+1, J )
-   70             CONTINUE
+                  } // 70
                }
-   80       CONTINUE
+            } // 80
          }
       } else if ( ALPHA.EQ.-ONE ) {
          if ( LSAME( UPLO, 'U' ) ) {
@@ -90,9 +90,9 @@
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - E( 1 )*X( 2, J )                   B( N, J ) = B( N, J ) - CONJG( E( N-1 ) )* X( N-1, J ) - D( N )*X( N, J )
                   DO 90 I = 2, N - 1
                      B( I, J ) = B( I, J ) - CONJG( E( I-1 ) )* X( I-1, J ) - D( I )*X( I, J ) - E( I )*X( I+1, J )
-   90             CONTINUE
+                  } // 90
                }
-  100       CONTINUE
+            } // 100
          } else {
 
             // Compute B := B - A*X, where E is the subdiagonal of A.
@@ -104,9 +104,9 @@
                   B( 1, J ) = B( 1, J ) - D( 1 )*X( 1, J ) - CONJG( E( 1 ) )*X( 2, J )                   B( N, J ) = B( N, J ) - E( N-1 )*X( N-1, J ) - D( N )*X( N, J )
                   DO 110 I = 2, N - 1
                      B( I, J ) = B( I, J ) - E( I-1 )*X( I-1, J ) - D( I )*X( I, J ) - CONJG( E( I ) )*X( I+1, J )
-  110             CONTINUE
+                  } // 110
                }
-  120       CONTINUE
+            } // 120
          }
       }
       RETURN

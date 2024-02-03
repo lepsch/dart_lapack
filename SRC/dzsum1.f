@@ -34,19 +34,19 @@
          // NEXT LINE MODIFIED.
 
          STEMP = STEMP + ABS( CX( I ) )
-   10 CONTINUE
+      } // 10
       DZSUM1 = STEMP
       RETURN
 
       // CODE FOR INCREMENT EQUAL TO 1
 
-   20 CONTINUE
+      } // 20
       for (I = 1; I <= N; I++) { // 30
 
          // NEXT LINE MODIFIED.
 
          STEMP = STEMP + ABS( CX( I ) )
-   30 CONTINUE
+      } // 30
       DZSUM1 = STEMP
       RETURN
 

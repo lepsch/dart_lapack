@@ -74,7 +74,7 @@
 
          K = N
          KC = ( N-1 )*N / 2 + 1
-   10    CONTINUE
+         } // 10
          KNC = KC
 
          // If K < 1, exit from loop
@@ -124,7 +124,7 @@
                      JMAX = J
                   }
                   KX = KX + J
-   20          CONTINUE
+               } // 20
                KPC = ( IMAX-1 )*IMAX / 2 + 1
                if ( IMAX.GT.1 ) {
                   JMAX = ICAMAX( IMAX-1, AP( KPC ), 1 )
@@ -166,7 +166,7 @@
                   T = CONJG( AP( KNC+J-1 ) )
                   AP( KNC+J-1 ) = CONJG( AP( KX ) )
                   AP( KX ) = T
-   30          CONTINUE
+               } // 30
                AP( KX+KK-1 ) = CONJG( AP( KX+KK-1 ) )
                R1 = REAL( AP( KNC+KK-1 ) )
                AP( KNC+KK-1 ) = REAL( AP( KPC+KP-1 ) )
@@ -229,11 +229,11 @@
                      WKM1 = D*( D11*AP( J+( K-2 )*( K-1 ) / 2 )- CONJG( D12 )*AP( J+( K-1 )*K / 2 ) )                      WK = D*( D22*AP( J+( K-1 )*K / 2 )-D12* AP( J+( K-2 )*( K-1 ) / 2 ) )
                      DO 40 I = J, 1, -1
                         AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*CONJG( WK ) - AP( I+( K-2 )*( K-1 ) / 2 )*CONJG( WKM1 )
-   40                CONTINUE
+                     } // 40
                      AP( J+( K-1 )*K / 2 ) = WK
                      AP( J+( K-2 )*( K-1 ) / 2 ) = WKM1
                      AP( J+( J-1 )*J / 2 ) = CMPLX( REAL( AP( J+( J-1 )* J / 2 ) ), 0.0E+0 )
-   50             CONTINUE
+                  } // 50
 
                }
 
@@ -265,7 +265,7 @@
          K = 1
          KC = 1
          NPP = N*( N+1 ) / 2
-   60    CONTINUE
+         } // 60
          KNC = KC
 
          // If K > N, exit from loop
@@ -314,7 +314,7 @@
                      JMAX = J
                   }
                   KX = KX + N - J
-   70          CONTINUE
+               } // 70
                KPC = NPP - ( N-IMAX+1 )*( N-IMAX+2 ) / 2 + 1
                if ( IMAX.LT.N ) {
                   JMAX = IMAX + ICAMAX( N-IMAX, AP( KPC+1 ), 1 )
@@ -356,7 +356,7 @@
                   T = CONJG( AP( KNC+J-KK ) )
                   AP( KNC+J-KK ) = CONJG( AP( KX ) )
                   AP( KX ) = T
-   80          CONTINUE
+               } // 80
                AP( KNC+KP-KK ) = CONJG( AP( KNC+KP-KK ) )
                R1 = REAL( AP( KNC ) )
                AP( KNC ) = REAL( AP( KPC ) )
@@ -425,11 +425,11 @@
                      WK = D*( D11*AP( J+( K-1 )*( 2*N-K ) / 2 )-D21* AP( J+K*( 2*N-K-1 ) / 2 ) )                      WKP1 = D*( D22*AP( J+K*( 2*N-K-1 ) / 2 )- CONJG( D21 )*AP( J+( K-1 )*( 2*N-K ) / 2 ) )
                      for (I = J; I <= N; I++) { // 90
                         AP( I+( J-1 )*( 2*N-J ) / 2 ) = AP( I+( J-1 )* ( 2*N-J ) / 2 ) - AP( I+( K-1 )*( 2*N-K ) / 2 )*CONJG( WK ) - AP( I+K*( 2*N-K-1 ) / 2 )* CONJG( WKP1 )
-   90                CONTINUE
+                     } // 90
                      AP( J+( K-1 )*( 2*N-K ) / 2 ) = WK
                      AP( J+K*( 2*N-K-1 ) / 2 ) = WKP1
                      AP( J+( J-1 )*( 2*N-J ) / 2 ) = CMPLX( REAL( AP( J+( J-1 )*( 2*N-J ) / 2 ) ), 0.0E+0 )
-  100             CONTINUE
+                  } // 100
                }
             }
          }
@@ -451,7 +451,7 @@
 
       }
 
-  110 CONTINUE
+      } // 110
       RETURN
 
       // End of CHPTRF

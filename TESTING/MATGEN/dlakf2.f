@@ -39,19 +39,19 @@
          for (I = 1; I <= M; I++) { // 20
             for (J = 1; J <= M; J++) { // 10
                Z( IK+I-1, IK+J-1 ) = A( I, J )
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
          // form kron(In, D)
 
          for (I = 1; I <= M; I++) { // 40
             for (J = 1; J <= M; J++) { // 30
                Z( IK+MN+I-1, IK+J-1 ) = D( I, J )
-   30       CONTINUE
-   40    CONTINUE
+            } // 30
+         } // 40
 
          IK = IK + M
-   50 CONTINUE
+      } // 50
 
       IK = 1
       for (L = 1; L <= N; L++) { // 90
@@ -63,19 +63,19 @@
 
             for (I = 1; I <= M; I++) { // 60
                Z( IK+I-1, JK+I-1 ) = -B( J, L )
-   60       CONTINUE
+            } // 60
 
             // form -kron(E', Im)
 
             for (I = 1; I <= M; I++) { // 70
                Z( IK+MN+I-1, JK+I-1 ) = -E( J, L )
-   70       CONTINUE
+            } // 70
 
             JK = JK + M
-   80    CONTINUE
+         } // 80
 
          IK = IK + M
-   90 CONTINUE
+      } // 90
 
       RETURN
 

@@ -61,8 +61,8 @@
             DO 110 J = RANK + 1, N
                DO 100 I = RANK + 1, J
                   AFAC( I, J ) = ZERO
-  100          CONTINUE
-  110       CONTINUE
+               } // 100
+            } // 110
          }
 
          DO 120 K = N, 1, -1
@@ -76,7 +76,7 @@
 
             dtrmv('Upper', 'Transpose', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
-  120    CONTINUE
+         } // 120
 
       // Compute the product L*L', overwriting L.
 
@@ -86,8 +86,8 @@
             DO 140 J = RANK + 1, N
                for (I = J; I <= N; I++) { // 130
                   AFAC( I, J ) = ZERO
-  130          CONTINUE
-  140       CONTINUE
+               } // 130
+            } // 140
          }
 
          DO 150 K = N, 1, -1
@@ -100,7 +100,7 @@
 
             T = AFAC( K, K )
             dscal(N-K+1, T, AFAC( K, K ), 1 );
-  150    CONTINUE
+         } // 150
 
       }
 
@@ -117,8 +117,8 @@
                      PERM( PIV( I ), PIV( J ) ) = AFAC( J, I )
                   }
                }
-  160       CONTINUE
-  170    CONTINUE
+            } // 160
+         } // 170
 
 
       } else {
@@ -132,8 +132,8 @@
                      PERM( PIV( I ), PIV( J ) ) = AFAC( J, I )
                   }
                }
-  180       CONTINUE
-  190    CONTINUE
+            } // 180
+         } // 190
 
       }
 
@@ -143,14 +143,14 @@
          for (J = 1; J <= N; J++) { // 210
             for (I = 1; I <= J; I++) { // 200
                PERM( I, J ) = PERM( I, J ) - A( I, J )
-  200       CONTINUE
-  210    CONTINUE
+            } // 200
+         } // 210
       } else {
          for (J = 1; J <= N; J++) { // 230
             for (I = J; I <= N; I++) { // 220
                PERM( I, J ) = PERM( I, J ) - A( I, J )
-  220       CONTINUE
-  230    CONTINUE
+            } // 220
+         } // 230
       }
 
       // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or

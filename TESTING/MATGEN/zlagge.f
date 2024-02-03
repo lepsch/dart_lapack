@@ -60,11 +60,11 @@
       for (J = 1; J <= N; J++) { // 20
          for (I = 1; I <= M; I++) { // 10
             A( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       DO 30 I = 1, MIN( M, N )
          A( I, I ) = D( I )
-   30 CONTINUE
+      } // 30
 
       // Quick exit if the user wants a diagonal matrix
 
@@ -113,7 +113,7 @@
 
             zgemv('No transpose', M-I+1, N-I+1, ONE, A( I, I ), LDA, WORK, 1, ZERO, WORK( N+1 ), 1 )             CALL ZGERC( M-I+1, N-I+1, -TAU, WORK( N+1 ), 1, WORK, 1, A( I, I ), LDA );
          }
-   40 CONTINUE
+      } // 40
 
       // Reduce number of subdiagonals to KL and number of superdiagonals
       // to KU
@@ -221,15 +221,15 @@
          if (I .LE. N) {
             DO 50 J = KL + I + 1, M
                A( J, I ) = ZERO
-   50       CONTINUE
+            } // 50
          }
 
          if (I .LE. M) {
             DO 60 J = KU + I + 1, N
                A( I, J ) = ZERO
-   60       CONTINUE
+            } // 60
          }
-   70 CONTINUE
+      } // 70
       RETURN
 
       // End of ZLAGGE

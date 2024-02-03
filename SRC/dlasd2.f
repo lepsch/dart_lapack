@@ -79,28 +79,28 @@
          Z( I+1 ) = ALPHA*VT( I, NLP1 )
          D( I+1 ) = D( I )
          IDXQ( I+1 ) = IDXQ( I ) + 1
-   10 CONTINUE
+      } // 10
 
       // Generate the second part of the vector Z.
 
       for (I = NLP2; I <= M; I++) { // 20
          Z( I ) = BETA*VT( I, NLP2 )
-   20 CONTINUE
+      } // 20
 
       // Initialize some reference arrays.
 
       for (I = 2; I <= NLP1; I++) { // 30
          COLTYP( I ) = 1
-   30 CONTINUE
+      } // 30
       for (I = NLP2; I <= N; I++) { // 40
          COLTYP( I ) = 2
-   40 CONTINUE
+      } // 40
 
       // Sort the singular values into increasing order
 
       for (I = NLP2; I <= N; I++) { // 50
          IDXQ( I ) = IDXQ( I ) + NLP1
-   50 CONTINUE
+      } // 50
 
       // DSIGMA, IDXC, IDXC, and the first column of U2
       // are used as storage space.
@@ -109,7 +109,7 @@
          DSIGMA( I ) = D( IDXQ( I ) )
          U2( I, 1 ) = Z( IDXQ( I ) )
          IDXC( I ) = COLTYP( IDXQ( I ) )
-   60 CONTINUE
+      } // 60
 
       dlamrg(NL, NR, DSIGMA( 2 ), 1, 1, IDX( 2 ) );
 
@@ -118,7 +118,7 @@
          D( I ) = DSIGMA( IDXI )
          Z( I ) = U2( IDXI, 1 )
          COLTYP( I ) = IDXC( IDXI )
-   70 CONTINUE
+      } // 70
 
       // Calculate the allowable deflation tolerance
 
@@ -160,10 +160,10 @@
             JPREV = J
             GO TO 90
          }
-   80 CONTINUE
-   90 CONTINUE
+      } // 80
+      } // 90
       J = JPREV
-  100 CONTINUE
+      } // 100
       J = J + 1
       IF( J.GT.N ) GO TO 110
       if ( ABS( Z( J ) ).LE.TOL ) {
@@ -222,7 +222,7 @@
          }
       }
       GO TO 100
-  110 CONTINUE
+      } // 110
 
       // Record the last singular value.
 
@@ -231,7 +231,7 @@
       DSIGMA( K ) = D( JPREV )
       IDXP( K ) = JPREV
 
-  120 CONTINUE
+      } // 120
 
       // Count up the total number of the various types of columns, then
       // form a permutation which positions the four column types into
@@ -240,11 +240,11 @@
 
       for (J = 1; J <= 4; J++) { // 130
          CTOT( J ) = 0
-  130 CONTINUE
+      } // 130
       for (J = 2; J <= N; J++) { // 140
          CT = COLTYP( J )
          CTOT( CT ) = CTOT( CT ) + 1
-  140 CONTINUE
+      } // 140
 
       // PSM(*) = Position in SubMatrix (of types 1 through 4)
 
@@ -263,7 +263,7 @@
          CT = COLTYP( JP )
          IDXC( PSM( CT ) ) = J
          PSM( CT ) = PSM( CT ) + 1
-  150 CONTINUE
+      } // 150
 
       // Sort the singular values and corresponding singular vectors into
       // DSIGMA, U2, and VT2 respectively.  The singular values/vectors
@@ -281,7 +281,7 @@
          }
          dcopy(N, U( 1, IDXJ ), 1, U2( 1, J ), 1 );
          dcopy(M, VT( IDXJ, 1 ), LDVT, VT2( J, 1 ), LDVT2 );
-  160 CONTINUE
+      } // 160
 
       // Determine DSIGMA(1), DSIGMA(2) and Z(1)
 
@@ -319,11 +319,11 @@
          for (I = 1; I <= NLP1; I++) { // 170
             VT( M, I ) = -S*VT( NLP1, I )
             VT2( 1, I ) = C*VT( NLP1, I )
-  170    CONTINUE
+         } // 170
          for (I = NLP2; I <= M; I++) { // 180
             VT2( 1, I ) = S*VT( M, I )
             VT( M, I ) = C*VT( M, I )
-  180    CONTINUE
+         } // 180
       } else {
          dcopy(M, VT( NLP1, 1 ), LDVT, VT2( 1, 1 ), LDVT2 );
       }
@@ -343,7 +343,7 @@
 
       for (J = 1; J <= 4; J++) { // 190
          COLTYP( J ) = CTOT( J )
-  190 CONTINUE
+      } // 190
 
       RETURN
 

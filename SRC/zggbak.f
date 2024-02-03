@@ -76,7 +76,7 @@
          if ( RIGHTV ) {
             for (I = ILO; I <= IHI; I++) { // 10
                zdscal(M, RSCALE( I ), V( I, 1 ), LDV );
-   10       CONTINUE
+            } // 10
          }
 
          // Backward transformation on left eigenvectors
@@ -84,13 +84,13 @@
          if ( LEFTV ) {
             for (I = ILO; I <= IHI; I++) { // 20
                zdscal(M, LSCALE( I ), V( I, 1 ), LDV );
-   20       CONTINUE
+            } // 20
          }
       }
 
       // Backward permutation
 
-   30 CONTINUE
+      } // 30
       if ( LSAME( JOB, 'P' ) .OR. LSAME( JOB, 'B' ) ) {
 
          // Backward permutation on right eigenvectors
@@ -101,39 +101,39 @@
                K = INT(RSCALE( I ))
                IF( K.EQ.I ) GO TO 40
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-   40       CONTINUE
+            } // 40
 
-   50       CONTINUE
+            } // 50
             IF( IHI.EQ.N ) GO TO 70
             DO 60 I = IHI + 1, N
                K = INT(RSCALE( I ))
                IF( K.EQ.I ) GO TO 60
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-   60       CONTINUE
+            } // 60
          }
 
          // Backward permutation on left eigenvectors
 
-   70    CONTINUE
+         } // 70
          if ( LEFTV ) {
             IF( ILO.EQ.1 ) GO TO 90
             DO 80 I = ILO - 1, 1, -1
                K = INT(LSCALE( I ))
                IF( K.EQ.I ) GO TO 80
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-   80       CONTINUE
+            } // 80
 
-   90       CONTINUE
+            } // 90
             IF( IHI.EQ.N ) GO TO 110
             DO 100 I = IHI + 1, N
                K = INT(LSCALE( I ))
                IF( K.EQ.I ) GO TO 100
                zswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
-  100       CONTINUE
+            } // 100
          }
       }
 
-  110 CONTINUE
+      } // 110
 
       RETURN
 

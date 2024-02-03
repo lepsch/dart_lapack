@@ -87,19 +87,19 @@
             for (J = 1; J <= N; J++) { // 20
                DO 10 I = 1, J - 1
                   AP( JC+I-1 ) = ZERO
-   10          CONTINUE
+               } // 10
                AP( JC+J-1 ) = J
                JC = JC + J
-   20       CONTINUE
+            } // 20
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 40
                AP( JC ) = J
                DO 30 I = J + 1, N
                   AP( JC+I-J ) = ZERO
-   30          CONTINUE
+               } // 30
                JC = JC + N - J + 1
-   40       CONTINUE
+            } // 40
          }
 
       // IMAT > 7:  Non-trivial unit triangular matrix
@@ -114,19 +114,19 @@
             for (J = 1; J <= N; J++) { // 60
                DO 50 I = 1, J - 1
                   AP( JC+I ) = ZERO
-   50          CONTINUE
+               } // 50
                AP( JC+J ) = J
                JC = JC + J
-   60       CONTINUE
+            } // 60
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 80
                AP( JC ) = J
                DO 70 I = J + 1, N
                   AP( JC+I-J ) = ZERO
-   70          CONTINUE
+               } // 70
                JC = JC + N - J + 1
-   80       CONTINUE
+            } // 80
          }
 
          // Since the trace of a unit triangular matrix is 1, the product
@@ -205,7 +205,7 @@
                   STAR1 = SFAC**( ONE+REXP )*CLARND( 5, ISEED )
                }
             }
-   90    CONTINUE
+         } // 90
 
          X = SQRT( CNDNUM ) - ONE / SQRT( CNDNUM )
          if ( N.GT.2 ) {
@@ -225,12 +225,12 @@
                AP( JC+1 ) = Y
                IF( J.GT.2 ) AP( JC+J-1 ) = WORK( J-2 )                IF( J.GT.3 ) AP( JC+J-2 ) = WORK( N+J-3 )
                JC = JC + J
-  100       CONTINUE
+            } // 100
             JC = JC - N
             AP( JC+1 ) = Z
             DO 110 J = 2, N - 1
                AP( JC+J ) = Y
-  110       CONTINUE
+            } // 110
          } else {
 
             // Set the lower triangle of A with a unit triangular matrix
@@ -238,7 +238,7 @@
 
             DO 120 I = 2, N - 1
                AP( I ) = Y
-  120       CONTINUE
+            } // 120
             AP( N ) = Z
             JC = N + 1
             DO 130 J = 2, N - 1
@@ -246,7 +246,7 @@
                IF( J.LT.N-1 ) AP( JC+2 ) = WORK( N+J-1 )
                AP( JC+N-J ) = Y
                JC = JC + N - J + 1
-  130       CONTINUE
+            } // 130
          }
 
          // Fill in the zeros using Givens rotations
@@ -268,7 +268,7 @@
                      AP( JX+J+1 ) = -CONJG( S )*AP( JX+J ) + C*AP( JX+J+1 )
                      AP( JX+J ) = CTEMP
                      JX = JX + I
-  140             CONTINUE
+                  } // 140
                }
 
                // Multiply by [-c -s;  conjg(s) -c] on the right.
@@ -279,7 +279,7 @@
 
                AP( JCNEXT+J-1 ) = -AP( JCNEXT+J-1 )
                JC = JCNEXT
-  150       CONTINUE
+            } // 150
          } else {
             JC = 1
             DO 170 J = 1, N - 1
@@ -302,14 +302,14 @@
                      AP( JX+J-I+1 ) = -CONJG( S )*AP( JX+J-I ) - C*AP( JX+J-I+1 )
                      AP( JX+J-I ) = CTEMP
                      JX = JX + N - I + 1
-  160             CONTINUE
+                  } // 160
                }
 
                // Negate A(J+1,J).
 
                AP( JC+1 ) = -AP( JC+1 )
                JC = JCNEXT
-  170       CONTINUE
+            } // 170
          }
 
       // IMAT > 10:  Pathological test cases.  These triangular matrices
@@ -328,14 +328,14 @@
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = CLARND( 5, ISEED )*TWO
                JC = JC + J
-  180       CONTINUE
+            } // 180
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 190
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = CLARND( 5, ISEED )*TWO
                JC = JC + N - J + 1
-  190       CONTINUE
+            } // 190
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
@@ -361,7 +361,7 @@
                csscal(J-1, TSCAL, AP( JC ), 1 );
                AP( JC+J-1 ) = CLARND( 5, ISEED )
                JC = JC + J
-  200       CONTINUE
+            } // 200
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
          } else {
             JC = 1
@@ -370,7 +370,7 @@
                csscal(N-J, TSCAL, AP( JC+1 ), 1 );
                AP( JC ) = CLARND( 5, ISEED )
                JC = JC + N - J + 1
-  210       CONTINUE
+            } // 210
             AP( 1 ) = SMLNUM*AP( 1 )
          }
 
@@ -387,7 +387,7 @@
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = CLARND( 5, ISEED )
                JC = JC + J
-  220       CONTINUE
+            } // 220
             AP( N*( N+1 ) / 2 ) = SMLNUM*AP( N*( N+1 ) / 2 )
          } else {
             JC = 1
@@ -395,7 +395,7 @@
                clarnv(4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = CLARND( 5, ISEED )
                JC = JC + N - J + 1
-  230       CONTINUE
+            } // 230
             AP( 1 ) = SMLNUM*AP( 1 )
          }
 
@@ -411,7 +411,7 @@
             DO 250 J = N, 1, -1
                DO 240 I = 1, J - 1
                   AP( JC+I-1 ) = ZERO
-  240          CONTINUE
+               } // 240
                if ( JCOUNT.LE.2 ) {
                   AP( JC+J-1 ) = SMLNUM*CLARND( 5, ISEED )
                } else {
@@ -420,14 +420,14 @@
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC - J + 1
-  250       CONTINUE
+            } // 250
          } else {
             JCOUNT = 1
             JC = 1
             for (J = 1; J <= N; J++) { // 270
                DO 260 I = J + 1, N
                   AP( JC+I-J ) = ZERO
-  260          CONTINUE
+               } // 260
                if ( JCOUNT.LE.2 ) {
                   AP( JC ) = SMLNUM*CLARND( 5, ISEED )
                } else {
@@ -436,7 +436,7 @@
                JCOUNT = JCOUNT + 1
                IF( JCOUNT.GT.4 ) JCOUNT = 1
                JC = JC + N - J + 1
-  270       CONTINUE
+            } // 270
          }
 
          // Set the right hand side alternately zero and small.
@@ -446,13 +446,13 @@
             DO 280 I = N, 2, -2
                B( I ) = ZERO
                B( I-1 ) = SMLNUM*CLARND( 5, ISEED )
-  280       CONTINUE
+            } // 280
          } else {
             B( N ) = ZERO
             DO 290 I = 1, N - 1, 2
                B( I ) = ZERO
                B( I+1 ) = SMLNUM*CLARND( 5, ISEED )
-  290       CONTINUE
+            } // 290
          }
 
       } else if ( IMAT.EQ.15 ) {
@@ -469,22 +469,22 @@
             for (J = 1; J <= N; J++) { // 310
                DO 300 I = 1, J - 2
                   AP( JC+I-1 ) = ZERO
-  300          CONTINUE
+               } // 300
                IF( J.GT.1 ) AP( JC+J-2 ) = CMPLX( -ONE, -ONE )
                AP( JC+J-1 ) = TSCAL*CLARND( 5, ISEED )
                JC = JC + J
-  310       CONTINUE
+            } // 310
             B( N ) = CMPLX( ONE, ONE )
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 330
                DO 320 I = J + 2, N
                   AP( JC+I-J ) = ZERO
-  320          CONTINUE
+               } // 320
                IF( J.LT.N ) AP( JC+1 ) = CMPLX( -ONE, -ONE )
                AP( JC ) = TSCAL*CLARND( 5, ISEED )
                JC = JC + N - J + 1
-  330       CONTINUE
+            } // 330
             B( 1 ) = CMPLX( ONE, ONE )
          }
 
@@ -503,7 +503,7 @@
                   AP( JC+J-1 ) = ZERO
                }
                JC = JC + J
-  340       CONTINUE
+            } // 340
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 350
@@ -514,7 +514,7 @@
                   AP( JC ) = ZERO
                }
                JC = JC + N - J + 1
-  350       CONTINUE
+            } // 350
          }
          clarnv(2, ISEED, N, B );
          csscal(N, TWO, B, 1 );
@@ -530,7 +530,7 @@
          TSCAL = ( ONE-ULP ) / TSCAL
          DO 360 J = 1, N*( N+1 ) / 2
             AP( J ) = ZERO
-  360    CONTINUE
+         } // 360
          TEXP = ONE
          if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1
@@ -544,7 +544,7 @@
                B( J-1 ) = TEXP*REAL( N*N+N-1 )
                TEXP = TEXP*TWO
                JC = JC - J + 2
-  370       CONTINUE
+            } // 370
             B( 1 ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
          } else {
             JC = 1
@@ -558,7 +558,7 @@
                B( J+1 ) = TEXP*REAL( N*N+N-1 )
                TEXP = TEXP*TWO
                JC = JC + N - J
-  380       CONTINUE
+            } // 380
             B( N ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL
          }
 
@@ -574,14 +574,14 @@
                clarnv(4, ISEED, J-1, AP( JC ) );
                AP( JC+J-1 ) = ZERO
                JC = JC + J
-  390       CONTINUE
+            } // 390
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 400
                IF( J.LT.N ) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) )
                AP( JC ) = ZERO
                JC = JC + N - J + 1
-  400       CONTINUE
+            } // 400
          }
 
          // Set the right hand side so that the largest value is BIGNUM.
@@ -608,9 +608,9 @@
                slarnv(1, ISEED, J, RWORK );
                for (I = 1; I <= J; I++) { // 410
                   AP( JC+I-1 ) = AP( JC+I-1 )*( TLEFT+RWORK( I )*TSCAL )
-  410          CONTINUE
+               } // 410
                JC = JC + J
-  420       CONTINUE
+            } // 420
          } else {
             JC = 1
             for (J = 1; J <= N; J++) { // 440
@@ -618,9 +618,9 @@
                slarnv(1, ISEED, N-J+1, RWORK );
                for (I = J; I <= N; I++) { // 430
                   AP( JC+I-J ) = AP( JC+I-J )* ( TLEFT+RWORK( I-J+1 )*TSCAL )
-  430          CONTINUE
+               } // 430
                JC = JC + N - J + 1
-  440       CONTINUE
+            } // 440
          }
          clarnv(2, ISEED, N, B );
          csscal(N, TWO, B, 1 );
@@ -640,10 +640,10 @@
                   AP( JR-I+J ) = AP( JL )
                   AP( JL ) = T
                   JL = JL + I
-  450          CONTINUE
+               } // 450
                JJ = JJ + J + 1
                JR = JR - ( N-J+1 )
-  460       CONTINUE
+            } // 460
          } else {
             JL = 1
             JJ = N*( N+1 ) / 2
@@ -654,10 +654,10 @@
                   AP( JL+I-J ) = AP( JR )
                   AP( JR ) = T
                   JR = JR - I
-  470          CONTINUE
+               } // 470
                JL = JL + N - J + 1
                JJ = JJ - J - 1
-  480       CONTINUE
+            } // 480
          }
       }
 

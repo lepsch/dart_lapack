@@ -60,7 +60,7 @@
          TEMP2 = ABS( AE( J ) )
          ANORM = MAX( ANORM, ABS( AD( J ) )+TEMP1+TEMP2 )
          TEMP1 = TEMP2
-   10 CONTINUE
+      } // 10
 
       WORK( N**2 ) = AD( N )
       ANORM = MAX( ANORM, ABS( AD( N ) )+TEMP1, UNFL )
@@ -69,12 +69,12 @@
 
       for (J = 1; J <= N; J++) { // 20
          cher('L', N, -SD( J ), U( 1, J ), 1, WORK, N );
-   20 CONTINUE
+      } // 20
 
       if ( N.GT.1 .AND. KBAND.EQ.1 ) {
          DO 30 J = 1, N - 1
             cher2('L', N, -CMPLX( SE( J ) ), U( 1, J ), 1, U( 1, J+1 ), 1, WORK, N );
-   30    CONTINUE
+         } // 30
       }
 
       WNORM = CLANHE( '1', 'L', N, WORK, N, RWORK )
@@ -97,7 +97,7 @@
 
       for (J = 1; J <= N; J++) { // 40
          WORK( ( N+1 )*( J-1 )+1 ) = WORK( ( N+1 )*( J-1 )+1 ) - CONE
-   40 CONTINUE
+      } // 40
 
       RESULT( 2 ) = MIN( REAL( N ), CLANGE( '1', N, N, WORK, N, RWORK ) ) / ( N*ULP )
 

@@ -54,9 +54,9 @@
       DO 20 J = K + 1, N
          for (L = 1; L <= M; L++) { // 10
             A( L, J ) = ZERO
-   10    CONTINUE
+         } // 10
          A( J, J ) = ONE
-   20 CONTINUE
+      } // 20
 
       DO 40 I = K, 1, -1
 
@@ -73,8 +73,8 @@
 
          DO 30 L = 1, I - 1
             A( L, I ) = ZERO
-   30    CONTINUE
-   40 CONTINUE
+         } // 30
+      } // 40
       RETURN
 
       // End of CUNG2R

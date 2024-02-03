@@ -116,7 +116,7 @@
          A( I, I ) = ONE
          zlarf(SIDE, MI, NI, A( I, I ), 1, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZUNM2R

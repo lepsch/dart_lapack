@@ -76,8 +76,8 @@
             for (JCOL = 1; JCOL <= N; JCOL++) { // 20
                for (JROW = 1; JROW <= N; JROW++) { // 10
                   WORK( JROW+N*( JCOL-1 ) ) = WORK( JROW+N*( JCOL-1 ) ) - A( JROW, JCOL )
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
          }
 
          // Compute norm(W)/ ( ulp*norm(A) )
@@ -104,7 +104,7 @@
 
          for (JDIAG = 1; JDIAG <= N; JDIAG++) { // 30
             WORK( ( N+1 )*( JDIAG-1 )+1 ) = WORK( ( N+1 )*( JDIAG-1 )+ 1 ) - CONE
-   30    CONTINUE
+         } // 30
 
          RESULT = MIN( ZLANGE( '1', N, N, WORK, N, RWORK ), DBLE( N ) ) / ( N*ULP )
       }

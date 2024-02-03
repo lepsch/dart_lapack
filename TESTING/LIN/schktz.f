@@ -67,7 +67,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
       EPS = SLAMCH( 'Epsilon' )
 
       // Test the error exits
@@ -110,7 +110,7 @@
                      slaset('Full', M, N, ZERO, ZERO, A, LDA );
                      for (I = 1; I <= MNMIN; I++) { // 30
                         S( I ) = ZERO
-   30                CONTINUE
+                     } // 30
                   } else {
                      slatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
                      sgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL SLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
@@ -147,12 +147,12 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-   40             CONTINUE
+                  } // 40
                   NRUN = NRUN + 3
-   50          CONTINUE
+               } // 50
             }
-   60    CONTINUE
-   70 CONTINUE
+         } // 60
+      } // 70
 
       // Print a summary of the results.
 

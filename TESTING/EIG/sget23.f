@@ -84,7 +84,7 @@
 
       for (I = 1; I <= 11; I++) { // 10
          RESULT( I ) = -ONE
-   10 CONTINUE
+      } // 10
 
       IF( N.EQ.0 ) RETURN
 
@@ -142,10 +142,10 @@
             for (JJ = 1; JJ <= N; JJ++) { // 20
                VTST = SLAPY2( VR( JJ, J ), VR( JJ, J+1 ) )
                IF( VTST.GT.VMX ) VMX = VTST                IF( VR( JJ, J+1 ).EQ.ZERO .AND. ABS( VR( JJ, J ) ).GT. VRMX )VRMX = ABS( VR( JJ, J ) )
-   20       CONTINUE
+            } // 20
             IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 3 ) = ULPINV
          }
-   30 CONTINUE
+      } // 30
 
       // Do Test (4)
 
@@ -163,10 +163,10 @@
             for (JJ = 1; JJ <= N; JJ++) { // 40
                VTST = SLAPY2( VL( JJ, J ), VL( JJ, J+1 ) )
                IF( VTST.GT.VMX ) VMX = VTST                IF( VL( JJ, J+1 ).EQ.ZERO .AND. ABS( VL( JJ, J ) ).GT. VRMX )VRMX = ABS( VL( JJ, J ) )
-   40       CONTINUE
+            } // 40
             IF( VRMX / VMX.LT.ONE-TWO*ULP ) RESULT( 4 ) = ULPINV
          }
-   50 CONTINUE
+      } // 50
 
       // Test for all options of computing condition numbers
 
@@ -193,14 +193,14 @@
 
          for (J = 1; J <= N; J++) { // 60
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
-   60    CONTINUE
+         } // 60
 
          // Do Test (8)
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 70
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
-   70       CONTINUE
+            } // 70
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          }
 
@@ -209,7 +209,7 @@
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 80
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
-   80       CONTINUE
+            } // 80
          }
 
          // Compute eigenvalues and right eigenvectors, and test them
@@ -231,22 +231,22 @@
 
          for (J = 1; J <= N; J++) { // 90
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
-   90    CONTINUE
+         } // 90
 
          // Do Test (6)
 
          for (J = 1; J <= N; J++) { // 110
             for (JJ = 1; JJ <= N; JJ++) { // 100
                IF( VR( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 6 ) = ULPINV
-  100       CONTINUE
-  110    CONTINUE
+            } // 100
+         } // 110
 
          // Do Test (8) again
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 120
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
-  120       CONTINUE
+            } // 120
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          }
 
@@ -255,7 +255,7 @@
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 130
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
-  130       CONTINUE
+            } // 130
          }
 
          // Compute eigenvalues and left eigenvectors, and test them
@@ -277,22 +277,22 @@
 
          for (J = 1; J <= N; J++) { // 140
             IF( WR( J ).NE.WR1( J ) .OR. WI( J ).NE.WI1( J ) ) RESULT( 5 ) = ULPINV
-  140    CONTINUE
+         } // 140
 
          // Do Test (7)
 
          for (J = 1; J <= N; J++) { // 160
             for (JJ = 1; JJ <= N; JJ++) { // 150
                IF( VL( J, JJ ).NE.LRE( J, JJ ) ) RESULT( 7 ) = ULPINV
-  150       CONTINUE
-  160    CONTINUE
+            } // 150
+         } // 160
 
          // Do Test (8) again
 
          if ( .NOT.NOBAL ) {
             for (J = 1; J <= N; J++) { // 170
                IF( SCALE( J ).NE.SCALE1( J ) ) RESULT( 8 ) = ULPINV
-  170       CONTINUE
+            } // 170
             IF( ILO.NE.ILO1 ) RESULT( 8 ) = ULPINV             IF( IHI.NE.IHI1 ) RESULT( 8 ) = ULPINV             IF( ABNRM.NE.ABNRM1 ) RESULT( 8 ) = ULPINV
          }
 
@@ -301,12 +301,12 @@
          if ( ISENS.EQ.2 .AND. N.GT.1 ) {
             for (J = 1; J <= N; J++) { // 180
                IF( RCONDV( J ).NE.RCNDV1( J ) ) RESULT( 9 ) = ULPINV
-  180       CONTINUE
+            } // 180
          }
 
-  190    CONTINUE
+         } // 190
 
-  200 CONTINUE
+      } // 200
 
       // If COMP, compare condition numbers to precomputed ones
 
@@ -333,7 +333,7 @@
                   VRMIN = WR( J )
                   VIMIN = WI( J )
                }
-  210       CONTINUE
+            } // 210
             WR( KMIN ) = WR( I )
             WI( KMIN ) = WI( I )
             WR( I ) = VRMIN
@@ -344,7 +344,7 @@
             VRMIN = RCONDV( KMIN )
             RCONDV( KMIN ) = RCONDV( I )
             RCONDV( I ) = VRMIN
-  220    CONTINUE
+         } // 220
 
          // Compare condition numbers for eigenvectors
          // taking their condition numbers into account
@@ -378,7 +378,7 @@
                VMAX = ONE
             }
             RESULT( 10 ) = MAX( RESULT( 10 ), VMAX )
-  230    CONTINUE
+         } // 230
 
          // Compare condition numbers for eigenvalues
          // taking their condition numbers into account
@@ -409,8 +409,8 @@
                VMAX = ONE
             }
             RESULT( 11 ) = MAX( RESULT( 11 ), VMAX )
-  240    CONTINUE
-  250    CONTINUE
+         } // 240
+         } // 250
 
       }
 

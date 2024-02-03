@@ -81,7 +81,7 @@
                   ztrsv(UPLO, 'Conjugate transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                   zlacgv(N-K, A( K, K+1 ), LDA );
                }
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute inv(L)*A*inv(L**H)
@@ -102,7 +102,7 @@
                   zaxpy(N-K, CT, B( K+1, K ), 1, A( K+1, K ), 1 );
                   ztrsv(UPLO, 'No transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K+1, K ), 1 );
                }
-   20       CONTINUE
+            } // 20
          }
       } else {
          if ( UPPER ) {
@@ -122,7 +122,7 @@
                zaxpy(K-1, CT, B( 1, K ), 1, A( 1, K ), 1 );
                zdscal(K-1, BKK, A( 1, K ), 1 );
                A( K, K ) = AKK*BKK**2
-   30       CONTINUE
+            } // 30
          } else {
 
             // Compute L**H *A*L
@@ -144,7 +144,7 @@
                zdscal(K-1, BKK, A( K, 1 ), LDA );
                zlacgv(K-1, A( K, 1 ), LDA );
                A( K, K ) = AKK*BKK**2
-   40       CONTINUE
+            } // 40
          }
       }
       RETURN

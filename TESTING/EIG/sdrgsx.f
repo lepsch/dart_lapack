@@ -235,7 +235,7 @@
                      if ( ILABAD ) {
                         WRITE( NOUT, FMT = 9996 )J, MPLUSN, PRTYPE
                      }
-   10             CONTINUE
+                  } // 10
                   RESULT( 6 ) = TEMP1
                   NTEST = NTEST + 2
 
@@ -309,32 +309,32 @@
                            WRITE( NOUT, FMT = 9990 )MPLUSN, PRTYPE, WEIGHT, M, J, RESULT( J )
                         }
                      }
-   20             CONTINUE
+                  } // 20
 
-   30          CONTINUE
-   40       CONTINUE
-   50    CONTINUE
-   60 CONTINUE
+               } // 30
+            } // 40
+         } // 50
+      } // 60
 
       GO TO 150
 
-   70 CONTINUE
+      } // 70
 
       // Read in data from file to check accuracy of condition estimation
       // Read input data until N=0
 
       NPTKNT = 0
 
-   80 CONTINUE
+      } // 80
       READ( NIN, FMT = *, END = 140 )MPLUSN
       IF( MPLUSN.EQ.0 ) GO TO 140
       READ( NIN, FMT = *, END = 140 )N
       for (I = 1; I <= MPLUSN; I++) { // 90
          READ( NIN, FMT = * )( AI( I, J ), J = 1, MPLUSN )
-   90 CONTINUE
+      } // 90
       for (I = 1; I <= MPLUSN; I++) { // 100
          READ( NIN, FMT = * )( BI( I, J ), J = 1, MPLUSN )
-  100 CONTINUE
+      } // 100
       READ( NIN, FMT = * )PLTRU, DIFTRU
 
       NPTKNT = NPTKNT + 1
@@ -424,7 +424,7 @@
          if ( ILABAD ) {
             WRITE( NOUT, FMT = 9996 )J, MPLUSN, NPTKNT
          }
-  110 CONTINUE
+      } // 110
       RESULT( 6 ) = TEMP1
 
       // Test (7) (if sorting worked)  <--------- need to be checked.
@@ -493,13 +493,13 @@
             }
          }
 
-  120 CONTINUE
+      } // 120
 
-  130 CONTINUE
+      } // 130
       GO TO 80
-  140 CONTINUE
+      } // 140
 
-  150 CONTINUE
+      } // 150
 
       // Summary
 

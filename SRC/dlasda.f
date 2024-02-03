@@ -121,7 +121,7 @@
          }
          for (J = 1; J <= NL; J++) { // 10
             IWORK( IDXQI+J ) = J
-   10    CONTINUE
+         } // 10
          if ( ( I.EQ.ND ) .AND. ( SQRE.EQ.0 ) ) {
             SQREI = 0
          } else {
@@ -148,8 +148,8 @@
          }
          for (J = 1; J <= NR; J++) { // 20
             IWORK( IDXQI+J ) = J
-   20    CONTINUE
-   30 CONTINUE
+         } // 20
+      } // 30
 
       // Now conquer each subproblem bottom-up.
 
@@ -193,8 +193,8 @@
             if ( INFO.NE.0 ) {
                RETURN
             }
-   40    CONTINUE
-   50 CONTINUE
+         } // 40
+      } // 50
 
       RETURN
 

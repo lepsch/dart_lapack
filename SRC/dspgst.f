@@ -67,7 +67,7 @@
                dtpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL DSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
                dscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-DDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
-   10       CONTINUE
+            } // 10
          } else {
 
             // Compute inv(L)*A*inv(L**T)
@@ -93,7 +93,7 @@
                   dtpsv(UPLO, 'No transpose', 'Non-unit', N-K, BP( K1K1 ), AP( KK+1 ), 1 );
                }
                KK = K1K1
-   20       CONTINUE
+            } // 20
          }
       } else {
          if ( UPPER ) {
@@ -118,7 +118,7 @@
                daxpy(K-1, CT, BP( K1 ), 1, AP( K1 ), 1 );
                dscal(K-1, BKK, AP( K1 ), 1 );
                AP( KK ) = AKK*BKK**2
-   30       CONTINUE
+            } // 30
          } else {
 
             // Compute L**T *A*L
@@ -137,7 +137,7 @@
                dscal(N-J, BJJ, AP( JJ+1 ), 1 );
                dspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL DTPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
-   40       CONTINUE
+            } // 40
          }
       }
       RETURN

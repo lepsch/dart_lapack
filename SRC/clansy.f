@@ -47,15 +47,15 @@
                for (I = 1; I <= J; I++) { // 10
                   SUM = ABS( A( I, J ) )
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   10          CONTINUE
-   20       CONTINUE
+               } // 10
+            } // 20
          } else {
             for (J = 1; J <= N; J++) { // 40
                for (I = J; I <= N; I++) { // 30
                   SUM = ABS( A( I, J ) )
                   IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
       } else if ( ( LSAME( NORM, 'I' ) ) .OR. ( LSAME( NORM, 'O' ) ) .OR. ( NORM.EQ.'1' ) ) {
 
@@ -69,26 +69,26 @@
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
-   50          CONTINUE
+               } // 50
                WORK( J ) = SUM + ABS( A( J, J ) )
-   60       CONTINUE
+            } // 60
             for (I = 1; I <= N; I++) { // 70
                SUM = WORK( I )
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-   70       CONTINUE
+            } // 70
          } else {
             for (I = 1; I <= N; I++) { // 80
                WORK( I ) = ZERO
-   80       CONTINUE
+            } // 80
             for (J = 1; J <= N; J++) { // 100
                SUM = WORK( J ) + ABS( A( J, J ) )
                DO 90 I = J + 1, N
                   ABSA = ABS( A( I, J ) )
                   SUM = SUM + ABSA
                   WORK( I ) = WORK( I ) + ABSA
-   90          CONTINUE
+               } // 90
                IF( VALUE .LT. SUM .OR. SISNAN( SUM ) ) VALUE = SUM
-  100       CONTINUE
+            } // 100
          }
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 
@@ -99,11 +99,11 @@
          if ( LSAME( UPLO, 'U' ) ) {
             for (J = 2; J <= N; J++) { // 110
                classq(J-1, A( 1, J ), 1, SCALE, SUM );
-  110       CONTINUE
+            } // 110
          } else {
             DO 120 J = 1, N - 1
                classq(N-J, A( J+1, J ), 1, SCALE, SUM );
-  120       CONTINUE
+            } // 120
          }
          SUM = 2*SUM
          classq(N, A, LDA+1, SCALE, SUM );

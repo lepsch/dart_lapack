@@ -65,7 +65,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -83,7 +83,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -108,7 +108,7 @@
                EX = E( I )*X( I+1, J )
                WORK( N+I ) = BI - CX - DX - EX
                WORK( I ) = ABS( BI ) + ABS( CX ) + ABS( DX ) + ABS( EX )
-   30       CONTINUE
+            } // 30
             BI = B( N, J )
             CX = E( N-1 )*X( N-1, J )
             DX = D( N )*X( N, J )
@@ -132,7 +132,7 @@
             } else {
                S = MAX( S, ( ABS( WORK( N+I ) )+SAFE1 ) / ( WORK( I )+SAFE1 ) )
             }
-   40    CONTINUE
+         } // 40
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -176,7 +176,7 @@
             } else {
                WORK( I ) = ABS( WORK( N+I ) ) + NZ*EPS*WORK( I ) + SAFE1
             }
-   50    CONTINUE
+         } // 50
          IX = ISAMAX( N, WORK, 1 )
          FERR( J ) = WORK( IX )
 
@@ -194,14 +194,14 @@
          WORK( 1 ) = ONE
          for (I = 2; I <= N; I++) { // 60
             WORK( I ) = ONE + WORK( I-1 )*ABS( EF( I-1 ) )
-   60    CONTINUE
+         } // 60
 
          // Solve D * M(L)**T * x = b.
 
          WORK( N ) = WORK( N ) / DF( N )
          DO 70 I = N - 1, 1, -1
             WORK( I ) = WORK( I ) / DF( I ) + WORK( I+1 )*ABS( EF( I ) )
-   70    CONTINUE
+         } // 70
 
          // Compute norm(inv(A)) = max(x(i)), 1<=i<=n.
 
@@ -213,10 +213,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 80
             LSTRES = MAX( LSTRES, ABS( X( I, J ) ) )
-   80    CONTINUE
+         } // 80
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-   90 CONTINUE
+      } // 90
 
       RETURN
 

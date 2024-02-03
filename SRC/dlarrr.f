@@ -79,8 +79,8 @@
          IF(.NOT.YESREL) GOTO 11
          TMP = TMP2
          OFFDIG = OFFDIG2
- 10   CONTINUE
- 11   CONTINUE
+      } // 10
+      } // 11
 
       if ( YESREL ) {
          INFO = 0

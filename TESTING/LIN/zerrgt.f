@@ -51,7 +51,7 @@
          E( I ) = 2.D0
          DL( I ) = 3.D0
          DU( I ) = 4.D0
-   10 CONTINUE
+      } // 10
       ANORM = 1.0D0
       OK = .TRUE.
 

@@ -72,7 +72,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -145,22 +145,22 @@
                         IOFF = ( IZERO-1 )*IZERO / 2
                         DO 20 I = 1, IZERO - 1
                            A( IOFF+I ) = ZERO
-   20                   CONTINUE
+                        } // 20
                         IOFF = IOFF + IZERO
                         for (I = IZERO; I <= N; I++) { // 30
                            A( IOFF ) = ZERO
                            IOFF = IOFF + I
-   30                   CONTINUE
+                        } // 30
                      } else {
                         IOFF = IZERO
                         DO 40 I = 1, IZERO - 1
                            A( IOFF ) = ZERO
                            IOFF = IOFF + N - I
-   40                   CONTINUE
+                        } // 40
                         IOFF = IOFF - IZERO
                         for (I = IZERO; I <= N; I++) { // 50
                            A( IOFF+I ) = ZERO
-   50                   CONTINUE
+                        } // 50
                      }
                   } else {
                      IOFF = 0
@@ -172,9 +172,9 @@
                            I2 = MIN( J, IZERO )
                            for (I = 1; I <= I2; I++) { // 60
                               A( IOFF+I ) = ZERO
-   60                      CONTINUE
+                           } // 60
                            IOFF = IOFF + J
-   70                   CONTINUE
+                        } // 70
                      } else {
 
                         // Set the last IZERO rows and columns to zero.
@@ -183,9 +183,9 @@
                            I1 = MAX( J, IZERO )
                            for (I = I1; I <= N; I++) { // 80
                               A( IOFF+I ) = ZERO
-   80                      CONTINUE
+                           } // 80
                            IOFF = IOFF + N - J
-   90                   CONTINUE
+                        } // 90
                      }
                   }
                } else {
@@ -204,7 +204,7 @@
 
                K = IZERO
                if ( K.GT.0 ) {
-  100             CONTINUE
+                  } // 100
                   if ( IWORK( K ).LT.0 ) {
                      if ( IWORK( K ).NE.-K ) {
                         K = -IWORK( K )
@@ -255,7 +255,7 @@
                      IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K )
                      NFAIL = NFAIL + 1
                   }
-  110          CONTINUE
+               } // 110
                NRUN = NRUN + NT
 
                // Do only the condition estimate if INFO is not 0.
@@ -310,14 +310,14 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-  120             CONTINUE
+                  } // 120
                   NRUN = NRUN + 5
-  130          CONTINUE
+               } // 130
 
 *+    TEST 8
                // Get an estimate of RCOND = 1/CNDNUM.
 
-  140          CONTINUE
+               } // 140
                ANORM = DLANSP( '1', UPLO, N, A, RWORK )
                SRNAMT = 'DSPCON'
                dspcon(UPLO, N, AFAC, IWORK, ANORM, RCOND, WORK, IWORK( N+1 ), INFO );
@@ -335,9 +335,9 @@
                   NFAIL = NFAIL + 1
                }
                NRUN = NRUN + 1
-  150       CONTINUE
-  160    CONTINUE
-  170 CONTINUE
+            } // 150
+         } // 160
+      } // 170
 
       // Print a summary of the results.
 

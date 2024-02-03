@@ -94,15 +94,15 @@
                WORK( I*2-1 ) = CS
                WORK( I*2 ) = SN
             }
-   10    CONTINUE
+         } // 10
          if ( NRHS.GT.1 ) {
             for (I = 1; I <= NRHS; I++) { // 30
                DO 20 J = 1, N - 1
                   CS = WORK( J*2-1 )
                   SN = WORK( J*2 )
                   drot(1, B( J, I ), 1, B( J+1, I ), 1, CS, SN );
-   20          CONTINUE
-   30       CONTINUE
+               } // 20
+            } // 30
          }
       }
 
@@ -136,7 +136,7 @@
                dlascl('G', 0, 0, D( I ), ONE, 1, NRHS, B( I, 1 ), LDB, INFO );
                RANK = RANK + 1
             }
-   40    CONTINUE
+         } // 40
          dgemm('T', 'N', N, NRHS, N, ONE, WORK, N, B, LDB, ZERO, WORK( NWORK ), N );
          dlacpy('A', N, NRHS, WORK( NWORK ), N, B, LDB );
 
@@ -184,7 +184,7 @@
          if ( ABS( D( I ) ).LT.EPS ) {
             D( I ) = SIGN( EPS, D( I ) )
          }
-   50 CONTINUE
+      } // 50
 
       for (I = 1; I <= NM1; I++) { // 60
          if ( ( ABS( E( I ) ).LT.EPS ) .OR. ( I.EQ.NM1 ) ) {
@@ -251,7 +251,7 @@
             }
             ST = I + 1
          }
-   60 CONTINUE
+      } // 60
 
       // Apply the singular values and treat the tiny ones as zero.
 
@@ -269,7 +269,7 @@
             dlascl('G', 0, 0, D( I ), ONE, 1, NRHS, WORK( BX+I-1 ), N, INFO );
          }
          D( I ) = ABS( D( I ) )
-   70 CONTINUE
+      } // 70
 
       // Now apply back the right singular vectors.
 
@@ -289,7 +289,7 @@
                RETURN
             }
          }
-   80 CONTINUE
+      } // 80
 
       // Unscale and sort the singular values.
 

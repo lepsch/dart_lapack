@@ -73,7 +73,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -143,11 +143,11 @@
                   if ( LSAME( UPLO, 'U' ) ) {
                      for (J = 1; J <= N; J++) { // 20
                         dtbsv(UPLO, 'No transpose', DIAG, J, KD, AB, LDAB, AINV( ( J-1 )*LDA+1 ), 1 );
-   20                CONTINUE
+                     } // 20
                   } else {
                      for (J = 1; J <= N; J++) { // 30
                         dtbsv(UPLO, 'No transpose', DIAG, N-J+1, KD, AB( ( J-1 )*LDAB+1 ), LDAB, AINV( ( J-1 )*LDA+J ), 1 );
-   30                CONTINUE
+                     } // 30
                   }
 
                   // Compute the 1-norm condition number of A.
@@ -228,10 +228,10 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   40                   CONTINUE
+                        } // 40
                         NRUN = NRUN + 5
-   50                CONTINUE
-   60             CONTINUE
+                     } // 50
+                  } // 60
 
 *+    TEST 6
                      // Get an estimate of RCOND = 1/CNDNUM.
@@ -261,9 +261,9 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
-   70             CONTINUE
-   80          CONTINUE
-   90       CONTINUE
+                  } // 70
+               } // 80
+            } // 90
 
             // Use pathological test matrices to test DLATBS.
 
@@ -326,11 +326,11 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 2
-  100             CONTINUE
-  110          CONTINUE
-  120       CONTINUE
-  130    CONTINUE
-  140 CONTINUE
+                  } // 100
+               } // 110
+            } // 120
+         } // 130
+      } // 140
 
       // Print a summary of the results.
 

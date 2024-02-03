@@ -85,10 +85,10 @@
                           TEMP = X(J)
                           DO 10 I = 1,J - 1
                               X(I) = X(I) + TEMP*A(I,J)
-   10                     CONTINUE
+                          } // 10
                           IF (NOUNIT) X(J) = X(J)*A(J,J)
                       }
-   20             CONTINUE
+                  } // 20
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 40
@@ -98,11 +98,11 @@
                           DO 30 I = 1,J - 1
                               X(IX) = X(IX) + TEMP*A(I,J)
                               IX = IX + INCX
-   30                     CONTINUE
+                          } // 30
                           IF (NOUNIT) X(JX) = X(JX)*A(J,J)
                       }
                       JX = JX + INCX
-   40             CONTINUE
+                  } // 40
               }
           } else {
               if (INCX.EQ.1) {
@@ -111,10 +111,10 @@
                           TEMP = X(J)
                           DO 50 I = N,J + 1,-1
                               X(I) = X(I) + TEMP*A(I,J)
-   50                     CONTINUE
+                          } // 50
                           IF (NOUNIT) X(J) = X(J)*A(J,J)
                       }
-   60             CONTINUE
+                  } // 60
               } else {
                   KX = KX + (N-1)*INCX
                   JX = KX
@@ -125,11 +125,11 @@
                           DO 70 I = N,J + 1,-1
                               X(IX) = X(IX) + TEMP*A(I,J)
                               IX = IX - INCX
-   70                     CONTINUE
+                          } // 70
                           IF (NOUNIT) X(JX) = X(JX)*A(J,J)
                       }
                       JX = JX - INCX
-   80             CONTINUE
+                  } // 80
               }
           }
       } else {
@@ -144,15 +144,15 @@
                           IF (NOUNIT) TEMP = TEMP*A(J,J)
                           DO 90 I = J - 1,1,-1
                               TEMP = TEMP + A(I,J)*X(I)
-   90                     CONTINUE
+                          } // 90
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
                           DO 100 I = J - 1,1,-1
                               TEMP = TEMP + DCONJG(A(I,J))*X(I)
-  100                     CONTINUE
+                          } // 100
                       }
                       X(J) = TEMP
-  110             CONTINUE
+                  } // 110
               } else {
                   JX = KX + (N-1)*INCX
                   DO 140 J = N,1,-1
@@ -163,17 +163,17 @@
                           DO 120 I = J - 1,1,-1
                               IX = IX - INCX
                               TEMP = TEMP + A(I,J)*X(IX)
-  120                     CONTINUE
+                          } // 120
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
                           DO 130 I = J - 1,1,-1
                               IX = IX - INCX
                               TEMP = TEMP + DCONJG(A(I,J))*X(IX)
-  130                     CONTINUE
+                          } // 130
                       }
                       X(JX) = TEMP
                       JX = JX - INCX
-  140             CONTINUE
+                  } // 140
               }
           } else {
               if (INCX.EQ.1) {
@@ -183,15 +183,15 @@
                           IF (NOUNIT) TEMP = TEMP*A(J,J)
                           DO 150 I = J + 1,N
                               TEMP = TEMP + A(I,J)*X(I)
-  150                     CONTINUE
+                          } // 150
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
                           DO 160 I = J + 1,N
                               TEMP = TEMP + DCONJG(A(I,J))*X(I)
-  160                     CONTINUE
+                          } // 160
                       }
                       X(J) = TEMP
-  170             CONTINUE
+                  } // 170
               } else {
                   JX = KX
                   for (J = 1; J <= N; J++) { // 200
@@ -202,17 +202,17 @@
                           DO 180 I = J + 1,N
                               IX = IX + INCX
                               TEMP = TEMP + A(I,J)*X(IX)
-  180                     CONTINUE
+                          } // 180
                       } else {
                           IF (NOUNIT) TEMP = TEMP*DCONJG(A(J,J))
                           DO 190 I = J + 1,N
                               IX = IX + INCX
                               TEMP = TEMP + DCONJG(A(I,J))*X(IX)
-  190                     CONTINUE
+                          } // 190
                       }
                       X(JX) = TEMP
                       JX = JX + INCX
-  200             CONTINUE
+                  } // 200
               }
           }
       }

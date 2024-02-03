@@ -68,7 +68,7 @@
       for (J = 1; J <= NSIZES; J++) { // 10
          NMAX = MAX( NMAX, NN( J ) )
          IF( NN( J ).LT.0 ) BADNN = .TRUE.
-   10 CONTINUE
+      } // 10
 
       if ( NSIZES.LT.0 ) {
          INFO = -1
@@ -149,7 +149,7 @@
 
             for (J = 1; J <= 4; J++) { // 20
                IOLDSD( J ) = ISEED( J )
-   20       CONTINUE
+            } // 20
 
             // Generate test matrices A and B
 
@@ -211,14 +211,14 @@
                      for (JR = JC; JR <= N; JR++) { // 30
                         Q( JR, JC ) = ZLARND( 3, ISEED )
                         Z( JR, JC ) = ZLARND( 3, ISEED )
-   30                CONTINUE
+                     } // 30
                      zlarfg(N+1-JC, Q( JC, JC ), Q( JC+1, JC ), 1, WORK( JC ) );
                      WORK( 2*N+JC ) = SIGN( ONE, DBLE( Q( JC, JC ) ) )
                      Q( JC, JC ) = CONE
                      zlarfg(N+1-JC, Z( JC, JC ), Z( JC+1, JC ), 1, WORK( N+JC ) );
                      WORK( 3*N+JC ) = SIGN( ONE, DBLE( Z( JC, JC ) ) )
                      Z( JC, JC ) = CONE
-   40             CONTINUE
+                  } // 40
                   CTEMP = ZLARND( 3, ISEED )
                   Q( N, N ) = CONE
                   WORK( N ) = CZERO
@@ -233,8 +233,8 @@
                   for (JC = 1; JC <= N; JC++) { // 60
                      for (JR = 1; JR <= N; JR++) { // 50
                         A( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )* DCONJG( WORK( 3*N+JC ) )* B( JR, JC )
-   50                CONTINUE
-   60             CONTINUE
+                     } // 50
+                  } // 60
                   CALL ZUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL ZUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL ZUNM2R( 'L', 'N', N, N, N-1, Q, LDQ, WORK, B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90                   CALL ZUNM2R( 'R', 'C', N, N, N-1, Z, LDQ, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IERR )                   IF( IERR.NE.0 ) GO TO 90
                }
             } else {
@@ -244,11 +244,11 @@
                for (JC = 1; JC <= N; JC++) { // 80
                   for (JR = 1; JR <= N; JR++) { // 70
                      A( JR, JC ) = RMAGN( KAMAGN( JTYPE ) )* ZLARND( 4, ISEED )                      B( JR, JC ) = RMAGN( KBMAGN( JTYPE ) )* ZLARND( 4, ISEED )
-   70             CONTINUE
-   80          CONTINUE
+                  } // 70
+               } // 80
             }
 
-   90       CONTINUE
+            } // 90
 
             if ( IERR.NE.0 ) {
                WRITE( NOUNIT, FMT = 9999 )'Generator', IERR, N, JTYPE, IOLDSD
@@ -256,11 +256,11 @@
                RETURN
             }
 
-  100       CONTINUE
+            } // 100
 
             for (I = 1; I <= 7; I++) { // 110
                RESULT( I ) = -ONE
-  110       CONTINUE
+            } // 110
 
             // Call XLAENV to set the parameters used in ZLAQZ0
 
@@ -310,7 +310,7 @@
 
             for (J = 1; J <= N; J++) { // 120
                IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 5 ) = ULPINV
-  120       CONTINUE
+            } // 120
 
             // Do test (6): Compute eigenvalues and left eigenvectors,
             // and test them
@@ -327,13 +327,13 @@
 
             for (J = 1; J <= N; J++) { // 130
                IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 6 ) = ULPINV
-  130       CONTINUE
+            } // 130
 
             for (J = 1; J <= N; J++) { // 150
                for (JC = 1; JC <= N; JC++) { // 140
                   IF( Q( J, JC ).NE.QE( J, JC ) ) RESULT( 6 ) = ULPINV
-  140          CONTINUE
-  150       CONTINUE
+               } // 140
+            } // 150
 
             // Do test (7): Compute eigenvalues and right eigenvectors,
             // and test them
@@ -350,17 +350,17 @@
 
             for (J = 1; J <= N; J++) { // 160
                IF( ALPHA( J ).NE.ALPHA1( J ) .OR. BETA( J ).NE. BETA1( J ) )RESULT( 7 ) = ULPINV
-  160       CONTINUE
+            } // 160
 
             for (J = 1; J <= N; J++) { // 180
                for (JC = 1; JC <= N; JC++) { // 170
                   IF( Z( J, JC ).NE.QE( J, JC ) ) RESULT( 7 ) = ULPINV
-  170          CONTINUE
-  180       CONTINUE
+               } // 170
+            } // 180
 
             // End of Loop -- Check for RESULT(j) > THRESH
 
-  190       CONTINUE
+            } // 190
 
             NTESTT = NTESTT + 7
 
@@ -393,10 +393,10 @@
                      WRITE( NOUNIT, FMT = 9991 )N, JTYPE, IOLDSD, JR, RESULT( JR )
                   }
                }
-  200       CONTINUE
+            } // 200
 
-  210    CONTINUE
-  220 CONTINUE
+         } // 210
+      } // 220
 
       // Summary
 

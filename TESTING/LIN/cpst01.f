@@ -66,7 +66,7 @@
             RESID = ONE / EPS
             RETURN
          }
-  100 CONTINUE
+      } // 100
 
       // Compute the product U'*U, overwriting U.
 
@@ -76,8 +76,8 @@
             DO 120 J = RANK + 1, N
                DO 110 I = RANK + 1, J
                   AFAC( I, J ) = CZERO
-  110          CONTINUE
-  120       CONTINUE
+               } // 110
+            } // 120
          }
 
          DO 130 K = N, 1, -1
@@ -91,7 +91,7 @@
 
             ctrmv('Upper', 'Conjugate', 'Non-unit', K-1, AFAC, LDAFAC, AFAC( 1, K ), 1 );
 
-  130    CONTINUE
+         } // 130
 
       // Compute the product L*L', overwriting L.
 
@@ -101,8 +101,8 @@
             DO 150 J = RANK + 1, N
                for (I = J; I <= N; I++) { // 140
                   AFAC( I, J ) = CZERO
-  140          CONTINUE
-  150       CONTINUE
+               } // 140
+            } // 150
          }
 
          DO 160 K = N, 1, -1
@@ -115,7 +115,7 @@
 
             TC = AFAC( K, K )
             cscal(N-K+1, TC, AFAC( K, K ), 1 );
-  160    CONTINUE
+         } // 160
 
       }
 
@@ -132,8 +132,8 @@
                      PERM( PIV( I ), PIV( J ) ) = CONJG( AFAC( J, I ) )
                   }
                }
-  170       CONTINUE
-  180    CONTINUE
+            } // 170
+         } // 180
 
 
       } else {
@@ -147,8 +147,8 @@
                      PERM( PIV( I ), PIV( J ) ) = CONJG( AFAC( J, I ) )
                   }
                }
-  190       CONTINUE
-  200    CONTINUE
+            } // 190
+         } // 200
 
       }
 
@@ -158,16 +158,16 @@
          for (J = 1; J <= N; J++) { // 220
             DO 210 I = 1, J - 1
                PERM( I, J ) = PERM( I, J ) - A( I, J )
-  210       CONTINUE
+            } // 210
             PERM( J, J ) = PERM( J, J ) - REAL( A( J, J ) )
-  220    CONTINUE
+         } // 220
       } else {
          for (J = 1; J <= N; J++) { // 240
             PERM( J, J ) = PERM( J, J ) - REAL( A( J, J ) )
             DO 230 I = J + 1, N
                PERM( I, J ) = PERM( I, J ) - A( I, J )
-  230       CONTINUE
-  240    CONTINUE
+            } // 230
+         } // 240
       }
 
       // Compute norm( P*L*L'P - A ) / ( N * norm(A) * EPS ), or

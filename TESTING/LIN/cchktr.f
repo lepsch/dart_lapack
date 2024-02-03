@@ -75,7 +75,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -224,10 +224,10 @@
                               IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALAHD( NOUT, PATH )                               WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K )
                               NFAIL = NFAIL + 1
                            }
-   20                   CONTINUE
+                        } // 20
                         NRUN = NRUN + 5
-   30                CONTINUE
-   40             CONTINUE
+                     } // 30
+                  } // 40
 
 *+    TEST 7
                         // Get an estimate of RCOND = 1/CNDNUM.
@@ -256,10 +256,10 @@
                         NFAIL = NFAIL + 1
                      }
                      NRUN = NRUN + 1
-   50             CONTINUE
-   60          CONTINUE
-   70       CONTINUE
-   80    CONTINUE
+                  } // 50
+               } // 60
+            } // 70
+         } // 80
 
          // Use pathological test matrices to test CLATRS.
 
@@ -343,10 +343,10 @@
                      NFAIL = NFAIL + 1
                   }
                   NRUN = NRUN + 3
-   90          CONTINUE
-  100       CONTINUE
-  110    CONTINUE
-  120 CONTINUE
+               } // 90
+            } // 100
+         } // 110
+      } // 120
 
       // Print a summary of the results.
 

@@ -78,7 +78,7 @@
             for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
-   10       CONTINUE
+            } // 10
             if ( RCMIN.LE.ZERO ) {
                INFO = -11
             } else if ( N.GT.0 ) {
@@ -93,7 +93,7 @@
             for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
-   20       CONTINUE
+            } // 20
             if ( RCMIN.LE.ZERO ) {
                INFO = -12
             } else if ( N.GT.0 ) {
@@ -138,15 +138,15 @@
             for (J = 1; J <= NRHS; J++) { // 40
                for (I = 1; I <= N; I++) { // 30
                   B( I, J ) = R( I )*B( I, J )
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
          }
       } else if ( COLEQU ) {
          for (J = 1; J <= NRHS; J++) { // 60
             for (I = 1; I <= N; I++) { // 50
                B( I, J ) = C( I )*B( I, J )
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
       }
 
       if ( NOFACT .OR. EQUIL ) {
@@ -213,21 +213,21 @@
             for (J = 1; J <= NRHS; J++) { // 80
                for (I = 1; I <= N; I++) { // 70
                   X( I, J ) = C( I )*X( I, J )
-   70          CONTINUE
-   80       CONTINUE
+               } // 70
+            } // 80
             for (J = 1; J <= NRHS; J++) { // 90
                FERR( J ) = FERR( J ) / COLCND
-   90       CONTINUE
+            } // 90
          }
       } else if ( ROWEQU ) {
          for (J = 1; J <= NRHS; J++) { // 110
             for (I = 1; I <= N; I++) { // 100
                X( I, J ) = R( I )*X( I, J )
-  100       CONTINUE
-  110    CONTINUE
+            } // 100
+         } // 110
          for (J = 1; J <= NRHS; J++) { // 120
             FERR( J ) = FERR( J ) / ROWCND
-  120    CONTINUE
+         } // 120
       }
 
       // Set INFO = N+1 if the matrix is singular to working precision.

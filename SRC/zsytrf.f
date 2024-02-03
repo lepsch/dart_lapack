@@ -85,7 +85,7 @@
          // KB is either NB or NB-1, or K for the last block
 
          K = N
-   10    CONTINUE
+         } // 10
 
          // If K < 1, exit from loop
 
@@ -123,7 +123,7 @@
          // KB is either NB or NB-1, or N-K+1 for the last block
 
          K = 1
-   20    CONTINUE
+         } // 20
 
          // If K > N, exit from loop
 
@@ -155,7 +155,7 @@
             } else {
                IPIV( J ) = IPIV( J ) - K + 1
             }
-   30    CONTINUE
+         } // 30
 
          // Increase K and return to the start of the main loop
 
@@ -164,7 +164,7 @@
 
       }
 
-   40 CONTINUE
+      } // 40
       WORK( 1 ) = LWKOPT
       RETURN
 

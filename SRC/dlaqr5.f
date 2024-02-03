@@ -66,7 +66,7 @@
             SI( I+1 ) = SI( I+2 )
             SI( I+2 ) = SWAP
          }
-   10 CONTINUE
+      } // 10
 
       // ==== NSHFTS is supposed to be even, but if it is odd,
       // .    then simply reduce it by one.  The shuffle above
@@ -173,7 +173,7 @@
                   REFSUM = H( J, K+1 ) + V( 2, M22 )*H( J, K+2 )
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
-   30          CONTINUE
+               } // 30
 
                // ==== Perform update from left within
                // .    computational window. ====
@@ -191,7 +191,7 @@
                   REFSUM = H( K+1, J ) + V( 2, M22 )*H( K+2, J )
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
-   40          CONTINUE
+               } // 40
 
                // ==== The following convergence test requires that
                // .    the tradition small-compared-to-nearby-diagonals
@@ -229,7 +229,7 @@
                      REFSUM = U( J, KMS+1 ) + V( 2, M22 )*U( J, KMS+2 )
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2
-  50                 CONTINUE
+                     } // 50
                } else if ( WANTZ ) {
                   T1 = V( 1, M22 )
                   T2 = T1*V( 2, M22 )
@@ -237,7 +237,7 @@
                      REFSUM = Z( J, K+1 )+V( 2, M22 )*Z( J, K+2 )
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM*T1
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*T2
-  60              CONTINUE
+                  } // 60
                }
             }
 
@@ -339,7 +339,7 @@
                   H( J, K+1 ) = H( J, K+1 ) - REFSUM*T1
                   H( J, K+2 ) = H( J, K+2 ) - REFSUM*T2
                   H( J, K+3 ) = H( J, K+3 ) - REFSUM*T3
-   70          CONTINUE
+               } // 70
 
                // ==== Perform update from left for subsequent
                // .    column. ====
@@ -376,7 +376,7 @@
                      }
                   }
                }
-   80       CONTINUE
+            } // 80
 
             // ==== Multiply H by reflections from the left ====
 
@@ -398,8 +398,8 @@
                   H( K+1, J ) = H( K+1, J ) - REFSUM*T1
                   H( K+2, J ) = H( K+2, J ) - REFSUM*T2
                   H( K+3, J ) = H( K+3, J ) - REFSUM*T3
-   90          CONTINUE
-  100       CONTINUE
+               } // 90
+            } // 100
 
             // ==== Accumulate orthogonal transformations. ====
 
@@ -423,8 +423,8 @@
                      U( J, KMS+1 ) = U( J, KMS+1 ) - REFSUM*T1
                      U( J, KMS+2 ) = U( J, KMS+2 ) - REFSUM*T2
                      U( J, KMS+3 ) = U( J, KMS+3 ) - REFSUM*T3
-  110             CONTINUE
-  120          CONTINUE
+                  } // 110
+               } // 120
             } else if ( WANTZ ) {
 
                // ==== U is not accumulated, so update Z
@@ -441,13 +441,13 @@
                      Z( J, K+1 ) = Z( J, K+1 ) - REFSUM*T1
                      Z( J, K+2 ) = Z( J, K+2 ) - REFSUM*T2
                      Z( J, K+3 ) = Z( J, K+3 ) - REFSUM*T3
-  130             CONTINUE
-  140          CONTINUE
+                  } // 130
+               } // 140
             }
 
             // ==== End of near-the-diagonal bulge chase. ====
 
-  145    CONTINUE
+         } // 145
 
          // ==== Use U (if accumulated) to update far-from-diagonal
          // .    entries in H.  If required, use U to update Z as
@@ -470,7 +470,7 @@
                JLEN = MIN( NH, JBOT-JCOL+1 )
                dgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
                dlacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
-  150       CONTINUE
+            } // 150
 
             // ==== Vertical multiply ====
 
@@ -478,7 +478,7 @@
                JLEN = MIN( NV, MAX( KTOP, INCOL )-JROW )
                dgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                dlacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
-  160       CONTINUE
+            } // 160
 
             // ==== Z multiply (also vertical) ====
 
@@ -487,10 +487,10 @@
                   JLEN = MIN( NV, IHIZ-JROW+1 )
                   dgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                   dlacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );
-  170          CONTINUE
+               } // 170
             }
          }
-  180 CONTINUE
+      } // 180
 
       // ==== End of DLAQR5 ====
 

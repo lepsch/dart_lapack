@@ -60,7 +60,7 @@
             zlarf('Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAU( I ) ), A( I, I+1 ), LDA, WORK );
             A( I, I ) = ALPHA
          }
-   10 CONTINUE
+      } // 10
       RETURN
 
       // End of ZGEQR2P

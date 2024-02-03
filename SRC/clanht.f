@@ -47,7 +47,7 @@
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
             SUM = ABS( E( I ) )
             IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
-   10    CONTINUE
+         } // 10
       } else if ( LSAME( NORM, 'O' ) .OR. NORM.EQ.'1' .OR. LSAME( NORM, 'I' ) ) {
 
          // Find norm1(A).
@@ -61,7 +61,7 @@
             DO 20 I = 2, N - 1
                SUM = ABS( D( I ) )+ABS( E( I ) )+ABS( E( I-1 ) )
                IF( ANORM .LT. SUM .OR. SISNAN( SUM ) ) ANORM = SUM
-   20       CONTINUE
+            } // 20
          }
       } else if ( ( LSAME( NORM, 'F' ) ) .OR. ( LSAME( NORM, 'E' ) ) ) {
 

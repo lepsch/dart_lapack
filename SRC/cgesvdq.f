@@ -316,7 +316,7 @@
                     xerbla('CGESVDQ', -INFO );
                     RETURN
                 }
- 1904       CONTINUE
+            } // 1904
             DO 1952 p = 1, M - 1
             q = ISAMAX( M-p+1, RWORK(p), 1 ) + p - 1
             IWORK(N+p) = q
@@ -325,7 +325,7 @@
                RWORK(p) = RWORK(q)
                RWORK(q) = RTMP
             }
- 1952       CONTINUE
+            } // 1952
 
             if ( RWORK(1) .EQ. ZERO ) {
                // Quick return: A is the M x N zero matrix.
@@ -340,11 +340,11 @@
                }
                for (p = 1; p <= N; p++) { // 5001
                    IWORK(p) = p
- 5001          CONTINUE
+               } // 5001
                if ( ROWPRM ) {
                    DO 5002 p = N + 1, N + M - 1
                        IWORK(p) = p - N
- 5002              CONTINUE
+                   } // 5002
                }
                IF ( CONDA ) RWORK(1) = -1
                RWORK(2) = -1
@@ -388,7 +388,7 @@
       for (p = 1; p <= N; p++) { // 1963
          // .. all columns are free columns
          IWORK(p) = 0
- 1963 CONTINUE
+      } // 1963
       cgeqp3(M, N, A, LDA, IWORK, CWORK, CWORK(N+1), LCWORK-N, RWORK, IERR );
 
 *    If the user requested accuracy level allows truncation in the
@@ -411,8 +411,8 @@
          for (p = 2; p <= N; p++) { // 3001
             IF ( ABS(A(p,p)) .LT. (RTMP*ABS(A(1,1))) ) GO TO 3002
                NR = NR + 1
- 3001    CONTINUE
- 3002    CONTINUE
+         } // 3001
+         } // 3002
 
       ELSEIF ( ACCLM ) THEN
          // .. similarly as above, only slightly more gentle (less aggressive).
@@ -425,8 +425,8 @@
          for (p = 2; p <= N; p++) { // 3401
             IF ( ( ABS(A(p,p)) .LT. (EPSLN*ABS(A(p-1,p-1))) ) .OR. ( ABS(A(p,p)) .LT. SFMIN ) ) GO TO 3402
             NR = NR + 1
- 3401    CONTINUE
- 3402    CONTINUE
+         } // 3401
+         } // 3402
 
       } else {
          // .. RRQR not authorized to determine numerical rank except in the
@@ -437,8 +437,8 @@
          for (p = 2; p <= N; p++) { // 3501
             IF ( ABS(A(p,p)) .EQ. ZERO ) GO TO 3502
             NR = NR + 1
- 3501    CONTINUE
- 3502    CONTINUE
+         } // 3501
+         } // 3502
 
          if ( CONDA ) {
             // Estimate the scaled condition number of A. Use the fact that it is
@@ -453,7 +453,7 @@
                for (p = 1; p <= NR; p++) { // 3053
                   RTMP = SCNRM2( p, V(1,p), 1 )
                   csscal(p, ONE/RTMP, V(1,p), 1 );
- 3053          CONTINUE
+               } // 3053
                if ( .NOT. ( LSVEC .OR. RSVEC ) ) {
                    cpocon('U', NR, V, LDV, ONE, RTMP, CWORK, RWORK, IERR );
                } else {
@@ -489,8 +489,8 @@
                DO 1147 q = p + 1, N
                   A(q,p) = CONJG(A(p,q))
                   IF ( q .LE. NR ) A(p,q) = CZERO
- 1147          CONTINUE
- 1146       CONTINUE
+               } // 1147
+            } // 1146
 
             cgesvd('N', 'N', N, NR, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
@@ -513,8 +513,8 @@
             for (p = 1; p <= NR; p++) { // 1192
                for (q = p; q <= N; q++) { // 1193
                   U(q,p) = CONJG(A(p,q))
- 1193          CONTINUE
- 1192       CONTINUE
+               } // 1193
+            } // 1192
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU )
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
@@ -527,8 +527,8 @@
                       CTMP   = CONJG(U(q,p))
                       U(q,p) = CONJG(U(p,q))
                       U(p,q) = CTMP
- 1120              CONTINUE
- 1119          CONTINUE
+                   } // 1120
+               } // 1119
 
          } else {
              // .. apply CGESVD to R
@@ -569,8 +569,8 @@
             for (p = 1; p <= NR; p++) { // 1165
                for (q = p; q <= N; q++) { // 1166
                   V(q,p) = CONJG(A(p,q))
- 1166          CONTINUE
- 1165       CONTINUE
+               } // 1166
+            } // 1165
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
@@ -583,15 +583,15 @@
                       CTMP   = CONJG(V(q,p))
                       V(q,p) = CONJG(V(p,q))
                       V(p,q) = CTMP
- 1122              CONTINUE
- 1121          CONTINUE
+                   } // 1122
+               } // 1121
 
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1103
                       DO 1104 q = NR + 1, N
                           V(p,q) = CONJG(V(q,p))
- 1104                 CONTINUE
- 1103              CONTINUE
+                      } // 1104
+                   } // 1103
                }
                clapmt(.FALSE., NR, N, V, LDV, IWORK );
             } else {
@@ -609,8 +609,8 @@
                       CTMP   = CONJG(V(q,p))
                       V(q,p) = CONJG(V(p,q))
                       V(p,q) = CTMP
- 1124              CONTINUE
- 1123           CONTINUE
+                   } // 1124
+                } // 1123
                 clapmt(.FALSE., N, N, V, LDV, IWORK );
             }
 
@@ -653,8 +653,8 @@
             for (p = 1; p <= NR; p++) { // 1168
                for (q = p; q <= N; q++) { // 1169
                   V(q,p) = CONJG(A(p,q))
- 1169          CONTINUE
- 1168       CONTINUE
+               } // 1169
+            } // 1168
             IF ( NR .GT. 1 ) CALL CLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV )
 
             // .. the left singular vectors of R**H overwrite [V], the NR right
@@ -668,14 +668,14 @@
                      CTMP   = CONJG(V(q,p))
                      V(q,p) = CONJG(V(p,q))
                      V(p,q) = CTMP
- 1116             CONTINUE
- 1115          CONTINUE
+                  } // 1116
+               } // 1115
                if ( NR .LT. N ) {
                    for (p = 1; p <= NR; p++) { // 1101
                       DO 1102 q = NR+1, N
                          V(p,q) = CONJG(V(q,p))
- 1102                 CONTINUE
- 1101              CONTINUE
+                      } // 1102
+                   } // 1101
                }
                clapmt(.FALSE., NR, N, V, LDV, IWORK );
 
@@ -685,8 +685,8 @@
                       CTMP   = CONJG(U(q,p))
                       U(q,p) = CONJG(U(p,q))
                       U(p,q) = CTMP
- 1118              CONTINUE
- 1117           CONTINUE
+                   } // 1118
+                } // 1117
 
                 if ( ( NR .LT. M ) .AND. .NOT.(WNTUF)) {
                   claset('A', M-NR,NR, CZERO,CZERO, U(NR+1,1), LDU);
@@ -710,8 +710,8 @@
                    for (p = 1; p <= NR; p++) { // 1198
                       for (q = p; q <= N; q++) { // 1199
                          V(q,p) = CONJG(A(p,q))
- 1199                 CONTINUE
- 1198              CONTINUE
+                      } // 1199
+                   } // 1198
                    IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV)
 
                    claset('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
@@ -723,8 +723,8 @@
                          CTMP   = CONJG(V(q,p))
                          V(q,p) = CONJG(V(p,q))
                          V(p,q) = CTMP
- 1114                 CONTINUE
- 1113              CONTINUE
+                      } // 1114
+                   } // 1113
                    clapmt(.FALSE., N, N, V, LDV, IWORK );
                // .. assemble the left singular vector matrix U of dimensions
                // (M x N1), i.e. (M x N) or (M x M).
@@ -735,8 +735,8 @@
                          CTMP   = CONJG(U(q,p))
                          U(q,p) = CONJG(U(p,q))
                          U(p,q) = CTMP
- 1112                 CONTINUE
- 1111              CONTINUE
+                      } // 1112
+                   } // 1111
 
                    if ( ( N .LT. M ) .AND. .NOT.(WNTUF)) {
                       claset('A',M-N,N,CZERO,CZERO,U(N+1,1),LDU);
@@ -751,14 +751,14 @@
                    for (p = 1; p <= NR; p++) { // 1196
                       for (q = p; q <= N; q++) { // 1197
                          U(q,NR+p) = CONJG(A(p,q))
- 1197                 CONTINUE
- 1196              CONTINUE
+                      } // 1197
+                   } // 1196
                    IF ( NR .GT. 1 ) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU)                    CALL CGEQRF( N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR )
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = CONJG(U(p,NR+q))
- 1144                  CONTINUE
- 1143              CONTINUE
+                       } // 1144
+                   } // 1143
                   claset('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
                   cgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V,LDV, CWORK(N+NR+1),LCWORK-N-NR,RWORK, INFO );
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
@@ -870,8 +870,8 @@
       DO 4001 q = p, 1, -1
           IF ( S(q) .GT. ZERO ) GO TO 4002
           NR = NR - 1
- 4001 CONTINUE
- 4002 CONTINUE
+      } // 4001
+      } // 4002
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.

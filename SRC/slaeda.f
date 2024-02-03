@@ -66,12 +66,12 @@
       BSIZ2 = INT( HALF+SQRT( REAL( QPTR( CURR+2 )-QPTR( CURR+1 ) ) ) )
       DO 10 K = 1, MID - BSIZ1 - 1
          Z( K ) = ZERO
-   10 CONTINUE
+      } // 10
       scopy(BSIZ1, Q( QPTR( CURR )+BSIZ1-1 ), BSIZ1, Z( MID-BSIZ1 ), 1 );
       scopy(BSIZ2, Q( QPTR( CURR+1 ) ), BSIZ2, Z( MID ), 1 );
       DO 20 K = MID + BSIZ2, N
          Z( K ) = ZERO
-   20 CONTINUE
+      } // 20
 
       // Loop through remaining levels 1 -> CURLVL applying the Givens
       // rotations and permutation and then multiplying the center matrices
@@ -88,18 +88,18 @@
 
          DO 30 I = GIVPTR( CURR ), GIVPTR( CURR+1 ) - 1
             srot(1, Z( ZPTR1+GIVCOL( 1, I )-1 ), 1, Z( ZPTR1+GIVCOL( 2, I )-1 ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) );
-   30    CONTINUE
+         } // 30
          DO 40 I = GIVPTR( CURR+1 ), GIVPTR( CURR+2 ) - 1
             srot(1, Z( MID-1+GIVCOL( 1, I ) ), 1, Z( MID-1+GIVCOL( 2, I ) ), 1, GIVNUM( 1, I ), GIVNUM( 2, I ) );
-   40    CONTINUE
+         } // 40
          PSIZ1 = PRMPTR( CURR+1 ) - PRMPTR( CURR )
          PSIZ2 = PRMPTR( CURR+2 ) - PRMPTR( CURR+1 )
          DO 50 I = 0, PSIZ1 - 1
             ZTEMP( I+1 ) = Z( ZPTR1+PERM( PRMPTR( CURR )+I )-1 )
-   50    CONTINUE
+         } // 50
          DO 60 I = 0, PSIZ2 - 1
             ZTEMP( PSIZ1+I+1 ) = Z( MID+PERM( PRMPTR( CURR+1 )+I )-1 )
-   60    CONTINUE
+         } // 60
 
          // Multiply Blocks at CURR and CURR+1
 
@@ -119,7 +119,7 @@
          scopy(PSIZ2-BSIZ2, ZTEMP( PSIZ1+BSIZ2+1 ), 1, Z( MID+BSIZ2 ), 1 );
 
          PTR = PTR + 2**( TLVLS-K )
-   70 CONTINUE
+      } // 70
 
       RETURN
 

@@ -54,11 +54,11 @@
       for (J = 1; J <= N; J++) { // 20
          DO 10 I = J + 1, N
             A( I, J ) = ZERO
-   10    CONTINUE
-   20 CONTINUE
+         } // 10
+      } // 20
       for (I = 1; I <= N; I++) { // 30
          A( I, I ) = D( I )
-   30 CONTINUE
+      } // 30
 
       // Generate lower triangle of symmetric matrix
 
@@ -93,7 +93,7 @@
          // apply the transformation as a rank-2 update to A(i:n,i:n)
 
          ssyr2('Lower', N-I+1, -ONE, WORK, 1, WORK( N+1 ), 1, A( I, I ), LDA );
-   40 CONTINUE
+      } // 40
 
       // Reduce number of subdiagonals to K
 
@@ -134,16 +134,16 @@
          A( K+I, I ) = -WA
          DO 50 J = K + I + 1, N
             A( J, I ) = ZERO
-   50    CONTINUE
-   60 CONTINUE
+         } // 50
+      } // 60
 
       // Store full symmetric matrix
 
       for (J = 1; J <= N; J++) { // 80
          DO 70 I = J + 1, N
             A( J, I ) = A( I, J )
-   70    CONTINUE
-   80 CONTINUE
+         } // 70
+      } // 80
       RETURN
 
       // End of SLAGSY

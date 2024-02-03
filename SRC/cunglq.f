@@ -104,8 +104,8 @@
          for (J = 1; J <= KK; J++) { // 20
             DO 10 I = KK + 1, M
                A( I, J ) = ZERO
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
       } else {
          KK = 0
       }
@@ -141,9 +141,9 @@
             DO 40 J = 1, I - 1
                DO 30 L = I, I + IB - 1
                   A( L, J ) = ZERO
-   30          CONTINUE
-   40       CONTINUE
-   50    CONTINUE
+               } // 30
+            } // 40
+         } // 50
       }
 
       WORK( 1 ) = SROUNDUP_LWORK(IWS)

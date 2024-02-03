@@ -75,7 +75,7 @@
          DO 10 J = 1, NRHS, NB
             JB = MIN( NRHS-J+1, NB )
             zptts2(IUPLO, N, JB, D, E, B( 1, J ), LDB );
-   10    CONTINUE
+         } // 10
       }
 
       RETURN

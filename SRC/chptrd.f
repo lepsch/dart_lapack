@@ -96,7 +96,7 @@
             D( I+1 ) = REAL( AP( I1+I ) )
             TAU( I ) = TAUI
             I1 = I1 - I
-   10    CONTINUE
+         } // 10
          D( 1 ) = REAL( AP( 1 ) )
       } else {
 
@@ -140,7 +140,7 @@
             D( I ) = REAL( AP( II ) )
             TAU( I ) = TAUI
             II = I1I1
-   20    CONTINUE
+         } // 20
          D( N ) = REAL( AP( II ) )
       }
 

@@ -114,7 +114,7 @@
                         WRITE( NOUT, FMT = 9998 )M, P, N, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
                      }
-   10             CONTINUE
+                  } // 10
                   NRUN = NRUN + NT
 
                   // Test DGGQRF
@@ -158,13 +158,13 @@
                         WRITE( NOUT, FMT = 9997 )N, M, P, IMAT, I, RESULT( I )
                         NFAIL = NFAIL + 1
                      }
-   20             CONTINUE
+                  } // 20
                   NRUN = NRUN + NT
 
-   30          CONTINUE
-   40       CONTINUE
-   50    CONTINUE
-   60 CONTINUE
+               } // 30
+            } // 40
+         } // 50
+      } // 60
 
       // Print a summary of the results.
 

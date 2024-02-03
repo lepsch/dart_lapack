@@ -114,7 +114,7 @@
          }
          zlarz(SIDE, MI, NI, L, A( I, JA ), LDA, TAUI, C( IC, JC ), LDC, WORK );
 
-   10 CONTINUE
+      } // 10
 
       RETURN
 

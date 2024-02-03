@@ -76,7 +76,7 @@
 
             K = 1
             KC = 1
-   10       CONTINUE
+            } // 10
             IF( K.GT.N ) GO TO 30
 
             // 1 x 1 pivot block
@@ -120,7 +120,7 @@
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
-   20             CONTINUE
+                  } // 20
                }
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
@@ -140,7 +140,7 @@
                K = K + 2
             }
             GO TO 10
-   30       CONTINUE
+            } // 30
 
          // Compute  B := L*B
          // where L = P(1)*inv(L(1))* ... *P(m)*inv(L(m)) .
@@ -151,7 +151,7 @@
 
             K = N
             KC = N*( N+1 ) / 2 + 1
-   40       CONTINUE
+            } // 40
             IF( K.LT.1 ) GO TO 60
             KC = KC - ( N-K+1 )
 
@@ -200,7 +200,7 @@
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
-   50             CONTINUE
+                  } // 50
                }
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
@@ -221,7 +221,7 @@
                K = K - 2
             }
             GO TO 40
-   60       CONTINUE
+            } // 60
          }
 *-------------------------------------------------
 
@@ -298,13 +298,13 @@
                      T2 = B( K, J )
                      B( K-1, J ) = D11*T1 + D12*T2
                      B( K, J ) = D21*T1 + D22*T2
-   80             CONTINUE
+                  } // 80
                }
                KC = KCNEXT
                K = K - 2
             }
             GO TO 70
-   90       CONTINUE
+            } // 90
 
          // Form  B := L^H*B
          // where L  = P(1)*inv(L(1))* ... *P(m)*inv(L(m))
@@ -316,7 +316,7 @@
 
             K = 1
             KC = 1
-  100       CONTINUE
+            } // 100
             IF( K.GT.N ) GO TO 120
 
             // 1 x 1 pivot block
@@ -373,13 +373,13 @@
                      T2 = B( K+1, J )
                      B( K, J ) = D11*T1 + D12*T2
                      B( K+1, J ) = D21*T1 + D22*T2
-  110             CONTINUE
+                  } // 110
                }
                KC = KCNEXT + ( N-K )
                K = K + 2
             }
             GO TO 100
-  120       CONTINUE
+            } // 120
          }
 
       }

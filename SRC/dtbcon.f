@@ -96,7 +96,7 @@
             KASE1 = 2
          }
          KASE = 0
-   10    CONTINUE
+         } // 10
          dlacn2(N, WORK( N+1 ), WORK, IWORK, AINVNM, KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.KASE1 ) {
@@ -128,7 +128,7 @@
          IF( AINVNM.NE.ZERO ) RCOND = ( ONE / ANORM ) / AINVNM
       }
 
-   20 CONTINUE
+      } // 20
       RETURN
 
       // End of DTBCON

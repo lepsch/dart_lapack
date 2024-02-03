@@ -82,7 +82,7 @@
             } else {
                TAUP( I ) = ZERO
             }
-   10    CONTINUE
+         } // 10
       } else {
 
          // Reduce to lower bidiagonal form
@@ -120,7 +120,7 @@
             } else {
                TAUQ( I ) = ZERO
             }
-   20    CONTINUE
+         } // 20
       }
       RETURN
 

@@ -80,12 +80,12 @@
               for (I = 1; I <= N; I++) { // 100
                   LK = MIN( KD+1, I )
                   zcopy(LK, A( I-LK+1, I ), 1,  AB( KD+1-LK+1, I ), 1 );
-  100         CONTINUE
+              } // 100
           } else {
               for (I = 1; I <= N; I++) { // 110
                   LK = MIN( KD+1, N-I+1 )
                   zcopy(LK, A( I, I ), 1, AB( 1, I ), 1 );
-  110         CONTINUE
+              } // 110
           ENDIF
           WORK( 1 ) = 1
           RETURN
@@ -132,7 +132,7 @@
              DO 20 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
                 zcopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
-   20        CONTINUE
+             } // 20
 
              zlaset('Lower', PK, PK, ZERO, ONE,  A( I, I+KD ), LDA );
 
@@ -155,14 +155,14 @@
              // an update of the form:  A := A - V'*W - W'*V
 
              zher2k(UPLO, 'Conjugate', PN, PK, -ONE, A( I, I+KD ), LDA, WORK( WPOS ), LDW, RONE, A( I+KD, I+KD ), LDA );
-   10     CONTINUE
+          } // 10
 
          // Copy the upper band to AB which is the band storage matrix
 
          DO 30 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
             zcopy(LK, A( J, J ), LDA, AB( KD+1, J ), LDAB-1 );
-   30    CONTINUE
+         } // 30
 
       } else {
 
@@ -181,7 +181,7 @@
              DO 50 J = I, I+PK-1
                 LK = MIN( KD, N-J ) + 1
                 zcopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
-   50        CONTINUE
+             } // 50
 
              zlaset('Upper', PK, PK, ZERO, ONE,  A( I+KD, I ), LDA );
 
@@ -211,14 +211,14 @@
                  // CALL ZCOPY( LK, AB( 1, J ), 1, A( J, J ), 1 )
 *   45        CONTINUE
              // ==================================================================
-   40     CONTINUE
+          } // 40
 
          // Copy the lower band to AB which is the band storage matrix
 
          DO 60 J = N-KD+1, N
             LK = MIN(KD, N-J) + 1
             zcopy(LK, A( J, J ), 1, AB( 1, J ), 1 );
-   60    CONTINUE
+         } // 60
 
       }
 

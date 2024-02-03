@@ -141,10 +141,10 @@
       if ( KD.EQ.0 ) {
           for (I = 1; I <= N; I++) { // 30
               D( I ) = ( AB( ABDPOS, I ) )
-   30     CONTINUE
+          } // 30
           DO 40 I = 1, N-1
               E( I ) = RZERO
-   40     CONTINUE
+          } // 40
 
           HOUS( 1 ) = 1
           WORK( 1 ) = 1
@@ -164,16 +164,16 @@
       if ( KD.EQ.1 ) {
           for (I = 1; I <= N; I++) { // 50
               D( I ) = ( AB( ABDPOS, I ) )
-   50     CONTINUE
+          } // 50
 
           if ( UPPER ) {
               DO 60 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I+1 ) )
-   60         CONTINUE
+              } // 60
           } else {
               DO 70 I = 1, N-1
                  E( I ) = ( AB( ABOFDPOS, I ) )
-   70         CONTINUE
+              } // 70
           ENDIF
 
           HOUS( 1 ) = 1
@@ -266,11 +266,11 @@
                               STT = STT + 1
                               EXIT
                           ENDIF
-  140                 CONTINUE
-  130             CONTINUE
-  120         CONTINUE
-  110     CONTINUE
-  100 CONTINUE
+                      } // 140
+                  } // 130
+              } // 120
+          } // 110
+      } // 100
 
 #if defined(_OPENMP)
 !$OMP END MASTER
@@ -282,7 +282,7 @@
 
       for (I = 1; I <= N; I++) { // 150
           D( I ) = ( WORK( DPOS+(I-1)*LDA ) )
-  150 CONTINUE
+      } // 150
 
       // Copy the off diagonal from A to E. Note that E is REAL thus only
       // the Real part is needed, the imaginary part should be zero.
@@ -290,11 +290,11 @@
       if ( UPPER ) {
           DO 160 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+I*LDA ) )
-  160     CONTINUE
+          } // 160
       } else {
           DO 170 I = 1, N-1
              E( I ) = ( WORK( OFDPOS+(I-1)*LDA ) )
-  170     CONTINUE
+          } // 170
       ENDIF
 
       WORK( 1 ) = LWMIN

@@ -123,13 +123,13 @@
                if ( SCALOC.NE.ONE ) {
                   for (J = 1; J <= N; J++) { // 10
                      zdscal(M, SCALOC, C( 1, J ), 1 );
-   10             CONTINUE
+                  } // 10
                   SCALE = SCALE*SCALOC
                }
                C( K, L ) = X11
 
-   20       CONTINUE
-   30    CONTINUE
+            } // 20
+         } // 30
 
       } else if ( .NOT.NOTRNA .AND. NOTRNB ) {
 
@@ -170,13 +170,13 @@
                if ( SCALOC.NE.ONE ) {
                   for (J = 1; J <= N; J++) { // 40
                      zdscal(M, SCALOC, C( 1, J ), 1 );
-   40             CONTINUE
+                  } // 40
                   SCALE = SCALE*SCALOC
                }
                C( K, L ) = X11
 
-   50       CONTINUE
-   60    CONTINUE
+            } // 50
+         } // 60
 
       } else if ( .NOT.NOTRNA .AND. .NOT.NOTRNB ) {
 
@@ -220,13 +220,13 @@
                if ( SCALOC.NE.ONE ) {
                   for (J = 1; J <= N; J++) { // 70
                      zdscal(M, SCALOC, C( 1, J ), 1 );
-   70             CONTINUE
+                  } // 70
                   SCALE = SCALE*SCALOC
                }
                C( K, L ) = X11
 
-   80       CONTINUE
-   90    CONTINUE
+            } // 80
+         } // 90
 
       } else if ( NOTRNA .AND. .NOT.NOTRNB ) {
 
@@ -266,13 +266,13 @@
                if ( SCALOC.NE.ONE ) {
                   for (J = 1; J <= N; J++) { // 100
                      zdscal(M, SCALOC, C( 1, J ), 1 );
-  100             CONTINUE
+                  } // 100
                   SCALE = SCALE*SCALOC
                }
                C( K, L ) = X11
 
-  110       CONTINUE
-  120    CONTINUE
+            } // 110
+         } // 120
 
       }
 

@@ -69,7 +69,7 @@
          } else {
             JPVT( I ) = I
          }
-   10 CONTINUE
+      } // 10
       ITEMP = ITEMP - 1
 
       // Compute the QR factorization and update remaining columns
@@ -90,7 +90,7 @@
          DO 20 I = ITEMP + 1, N
             WORK( I ) = SNRM2( M-ITEMP, A( ITEMP+1, I ), 1 )
             WORK( N+I ) = WORK( I )
-   20    CONTINUE
+         } // 20
 
          // Compute factorization
 
@@ -150,9 +150,9 @@
                      WORK( J ) = WORK( J )*SQRT( TEMP )
                   }
                }
-   30       CONTINUE
+            } // 30
 
-   40    CONTINUE
+         } // 40
       }
       RETURN
 

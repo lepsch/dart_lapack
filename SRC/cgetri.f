@@ -91,12 +91,12 @@
             DO 10 I = J + 1, N
                WORK( I ) = A( I, J )
                A( I, J ) = ZERO
-   10       CONTINUE
+            } // 10
 
             // Compute current column of inv(A).
 
             IF( J.LT.N ) CALL CGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 )
-   20    CONTINUE
+         } // 20
       } else {
 
          // Use blocked code.
@@ -112,14 +112,14 @@
                DO 30 I = JJ + 1, N
                   WORK( I+( JJ-J )*LDWORK ) = A( I, JJ )
                   A( I, JJ ) = ZERO
-   30          CONTINUE
-   40       CONTINUE
+               } // 30
+            } // 40
 
             // Compute current block column of inv(A).
 
             IF( J+JB.LE.N ) CALL CGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA )
             ctrsm('Right', 'Lower', 'No transpose', 'Unit', N, JB, ONE, WORK( J ), LDWORK, A( 1, J ), LDA );
-   50    CONTINUE
+         } // 50
       }
 
       // Apply column interchanges.
@@ -127,7 +127,7 @@
       DO 60 J = N - 1, 1, -1
          JP = IPIV( J )
          IF( JP.NE.J ) CALL CSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 )
-   60 CONTINUE
+      } // 60
 
       WORK( 1 ) = SROUNDUP_LWORK( IWS )
       RETURN

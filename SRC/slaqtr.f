@@ -65,12 +65,12 @@
       WORK( 1 ) = ZERO
       for (J = 2; J <= N; J++) { // 10
          WORK( J ) = SASUM( J-1, T( 1, J ), 1 )
-   10 CONTINUE
+      } // 10
 
       if ( .NOT.LREAL ) {
          for (I = 2; I <= N; I++) { // 20
             WORK( I ) = WORK( I ) + ABS( B( I ) )
-   20    CONTINUE
+         } // 20
       }
 
       N2 = 2*N
@@ -192,7 +192,7 @@
 
                }
 
-   30       CONTINUE
+            } // 30
 
          } else {
 
@@ -281,7 +281,7 @@
                   XMAX = MAX( ABS( X( J1 ) ), ABS( X( J2 ) ), XMAX )
 
                }
-   40       CONTINUE
+            } // 40
          }
 
       } else {
@@ -357,7 +357,7 @@
                      XMAX = ZERO
                      DO 50 K = 1, J1 - 1
                         XMAX = MAX( XMAX, ABS( X( K ) )+ ABS( X( K+N ) ) )
-   50                CONTINUE
+                     } // 50
                   }
 
                } else {
@@ -405,11 +405,11 @@
                      XMAX = ZERO
                      DO 60 K = 1, J1 - 1
                         XMAX = MAX( ABS( X( K ) )+ABS( X( K+N ) ), XMAX )
-   60                CONTINUE
+                     } // 60
                   }
 
                }
-   70       CONTINUE
+            } // 70
 
          } else {
 
@@ -518,7 +518,7 @@
 
                }
 
-   80       CONTINUE
+            } // 80
 
          }
 

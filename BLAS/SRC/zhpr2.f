@@ -90,13 +90,13 @@
                       DO 10 I = 1,J - 1
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
-   10                 CONTINUE
+                      } // 10
                       AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(J)*TEMP1+Y(J)*TEMP2)
                   } else {
                       AP(KK+J-1) = DBLE(AP(KK+J-1))
                   }
                   KK = KK + J
-   20         CONTINUE
+              } // 20
           } else {
               for (J = 1; J <= N; J++) { // 40
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -108,7 +108,7 @@
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
                           IX = IX + INCX
                           IY = IY + INCY
-   30                 CONTINUE
+                      } // 30
                       AP(KK+J-1) = DBLE(AP(KK+J-1)) + DBLE(X(JX)*TEMP1+Y(JY)*TEMP2)
                   } else {
                       AP(KK+J-1) = DBLE(AP(KK+J-1))
@@ -116,7 +116,7 @@
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + J
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -132,12 +132,12 @@
                       DO 50 I = J + 1,N
                           AP(K) = AP(K) + X(I)*TEMP1 + Y(I)*TEMP2
                           K = K + 1
-   50                 CONTINUE
+                      } // 50
                   } else {
                       AP(KK) = DBLE(AP(KK))
                   }
                   KK = KK + N - J + 1
-   60         CONTINUE
+              } // 60
           } else {
               for (J = 1; J <= N; J++) { // 80
                   if ((X(JX).NE.ZERO) .OR. (Y(JY).NE.ZERO)) {
@@ -150,14 +150,14 @@
                           IX = IX + INCX
                           IY = IY + INCY
                           AP(K) = AP(K) + X(IX)*TEMP1 + Y(IY)*TEMP2
-   70                 CONTINUE
+                      } // 70
                   } else {
                       AP(KK) = DBLE(AP(KK))
                   }
                   JX = JX + INCX
                   JY = JY + INCY
                   KK = KK + N - J + 1
-   80         CONTINUE
+              } // 80
           }
       }
 

@@ -88,7 +88,7 @@
             for (J = 1; J <= N; J++) { // 10
                RCMIN = MIN( RCMIN, R( J ) )
                RCMAX = MAX( RCMAX, R( J ) )
- 10         CONTINUE
+            } // 10
             if ( RCMIN.LE.ZERO ) {
                INFO = -11
             } else if ( N.GT.0 ) {
@@ -103,7 +103,7 @@
             for (J = 1; J <= N; J++) { // 20
                RCMIN = MIN( RCMIN, C( J ) )
                RCMAX = MAX( RCMAX, C( J ) )
- 20         CONTINUE
+            } // 20
             if ( RCMIN.LE.ZERO ) {
                INFO = -12
             } else if ( N.GT.0 ) {

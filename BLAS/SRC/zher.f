@@ -77,12 +77,12 @@
                       TEMP = ALPHA*DCONJG(X(J))
                       DO 10 I = 1,J - 1
                           A(I,J) = A(I,J) + X(I)*TEMP
-   10                 CONTINUE
+                      } // 10
                       A(J,J) = DBLE(A(J,J)) + DBLE(X(J)*TEMP)
                   } else {
                       A(J,J) = DBLE(A(J,J))
                   }
-   20         CONTINUE
+              } // 20
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 40
@@ -92,13 +92,13 @@
                       DO 30 I = 1,J - 1
                           A(I,J) = A(I,J) + X(IX)*TEMP
                           IX = IX + INCX
-   30                 CONTINUE
+                      } // 30
                       A(J,J) = DBLE(A(J,J)) + DBLE(X(JX)*TEMP)
                   } else {
                       A(J,J) = DBLE(A(J,J))
                   }
                   JX = JX + INCX
-   40         CONTINUE
+              } // 40
           }
       } else {
 
@@ -111,11 +111,11 @@
                       A(J,J) = DBLE(A(J,J)) + DBLE(TEMP*X(J))
                       DO 50 I = J + 1,N
                           A(I,J) = A(I,J) + X(I)*TEMP
-   50                 CONTINUE
+                      } // 50
                   } else {
                       A(J,J) = DBLE(A(J,J))
                   }
-   60         CONTINUE
+              } // 60
           } else {
               JX = KX
               for (J = 1; J <= N; J++) { // 80
@@ -126,12 +126,12 @@
                       DO 70 I = J + 1,N
                           IX = IX + INCX
                           A(I,J) = A(I,J) + X(IX)*TEMP
-   70                 CONTINUE
+                      } // 70
                   } else {
                       A(J,J) = DBLE(A(J,J))
                   }
                   JX = JX + INCX
-   80         CONTINUE
+              } // 80
           }
       }
 

@@ -44,7 +44,7 @@
                RMIN = X
                ZSLECT = SELVAL( I )
             }
-   10    CONTINUE
+         } // 10
       }
       RETURN
 

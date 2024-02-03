@@ -69,7 +69,7 @@
       NERRS = 0
       for (I = 1; I <= 4; I++) { // 10
          ISEED( I ) = ISEEDY( I )
-   10 CONTINUE
+      } // 10
 
       // Test the error exits
 
@@ -171,7 +171,7 @@
                      A( 2*N-2+I ) = ZERO
                      A( N-1+I ) = ZERO
                      A( I ) = ZERO
-   20             CONTINUE
+                  } // 20
                   A( 3*N-2 ) = ZERO
                   A( 2*N-1 ) = ZERO
                }
@@ -211,11 +211,11 @@
                   for (I = 1; I <= N; I++) { // 40
                      for (J = 1; J <= N; J++) { // 30
                         X( J ) = ZERO
-   30                CONTINUE
+                     } // 30
                      X( I ) = ONE
                      cgttrs('No transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
-   40             CONTINUE
+                  } // 40
 
                   // Compute the 1-norm condition number of A.
 
@@ -232,11 +232,11 @@
                   for (I = 1; I <= N; I++) { // 60
                      for (J = 1; J <= N; J++) { // 50
                         X( J ) = ZERO
-   50                CONTINUE
+                     } // 50
                      X( I ) = ONE
                      cgttrs('Conjugate transpose', N, 1, AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, X, LDA, INFO );
                      AINVNM = MAX( AINVNM, SCASUM( N, X, 1 ) )
-   60             CONTINUE
+                  } // 60
 
                   // Compute the infinity-norm condition number of A.
 
@@ -261,7 +261,7 @@
                   for (J = 1; J <= NRHS; J++) { // 70
                      clarnv(2, ISEED, N, XACT( IX ) );
                      IX = IX + LDA
-   70             CONTINUE
+                  } // 70
 
                   // Set the right hand side.
 
@@ -304,7 +304,7 @@
                            IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                            WRITE( NOUT, FMT = 9999 )'CGTSV ', N, IMAT, K, RESULT( K )
                            NFAIL = NFAIL + 1
                         }
-   80                CONTINUE
+                     } // 80
                      NRUN = NRUN + NT - 1
                   }
 
@@ -316,7 +316,7 @@
 
                      DO 90 I = 1, 3*N - 2
                         AF( I ) = ZERO
-   90                CONTINUE
+                     } // 90
                   }
                   claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
 
@@ -367,7 +367,7 @@
                         IF( NFAIL.EQ.0 .AND. NERRS.EQ.0 ) CALL ALADHD( NOUT, PATH )                         WRITE( NOUT, FMT = 9998 )'CGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K )
                         NFAIL = NFAIL + 1
                      }
-  100             CONTINUE
+                  } // 100
 
                   // Check the reciprocal of the condition number.
 
@@ -378,10 +378,10 @@
                   }
                   NRUN = NRUN + NT - K1 + 2
 
-  110          CONTINUE
-  120       CONTINUE
-  130    CONTINUE
-  140 CONTINUE
+               } // 110
+            } // 120
+         } // 130
+      } // 140
 
       // Print a summary of the results.
 

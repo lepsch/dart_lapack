@@ -81,7 +81,7 @@
          for (J = 1; J <= NRHS; J++) { // 10
             FERR( J ) = ZERO
             BERR( J ) = ZERO
-   10    CONTINUE
+         } // 10
          RETURN
       }
 
@@ -107,7 +107,7 @@
 
          COUNT = 1
          LSTRES = THREE
-   20    CONTINUE
+         } // 20
 
          // Loop until stopping criterion is satisfied.
 
@@ -127,7 +127,7 @@
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DU( 1 ) )*CABS1( X( 2, J ) )
                DO 30 I = 2, N - 1
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DL( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DU( I ) )*CABS1( X( I+1, J ) )
-   30          CONTINUE
+               } // 30
                RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DL( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
             }
          } else {
@@ -137,7 +137,7 @@
                RWORK( 1 ) = CABS1( B( 1, J ) ) + CABS1( D( 1 ) )*CABS1( X( 1, J ) ) + CABS1( DL( 1 ) )*CABS1( X( 2, J ) )
                DO 40 I = 2, N - 1
                   RWORK( I ) = CABS1( B( I, J ) ) + CABS1( DU( I-1 ) )*CABS1( X( I-1, J ) ) + CABS1( D( I ) )*CABS1( X( I, J ) ) + CABS1( DL( I ) )*CABS1( X( I+1, J ) )
-   40          CONTINUE
+               } // 40
                RWORK( N ) = CABS1( B( N, J ) ) + CABS1( DU( N-1 ) )*CABS1( X( N-1, J ) ) + CABS1( D( N ) )*CABS1( X( N, J ) )
             }
          }
@@ -158,7 +158,7 @@
             } else {
                S = MAX( S, ( CABS1( WORK( I ) )+SAFE1 ) / ( RWORK( I )+SAFE1 ) )
             }
-   50    CONTINUE
+         } // 50
          BERR( J ) = S
 
          // Test stopping criterion. Continue iterating if
@@ -206,10 +206,10 @@
             } else {
                RWORK( I ) = CABS1( WORK( I ) ) + NZ*EPS*RWORK( I ) + SAFE1
             }
-   60    CONTINUE
+         } // 60
 
          KASE = 0
-   70    CONTINUE
+         } // 70
          zlacn2(N, WORK( N+1 ), WORK, FERR( J ), KASE, ISAVE );
          if ( KASE.NE.0 ) {
             if ( KASE.EQ.1 ) {
@@ -219,14 +219,14 @@
                zgttrs(TRANST, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
                for (I = 1; I <= N; I++) { // 80
                   WORK( I ) = RWORK( I )*WORK( I )
-   80          CONTINUE
+               } // 80
             } else {
 
                // Multiply by inv(op(A))*diag(W).
 
                for (I = 1; I <= N; I++) { // 90
                   WORK( I ) = RWORK( I )*WORK( I )
-   90          CONTINUE
+               } // 90
                zgttrs(TRANSN, N, 1, DLF, DF, DUF, DU2, IPIV, WORK, N, INFO );
             }
             GO TO 70
@@ -237,10 +237,10 @@
          LSTRES = ZERO
          for (I = 1; I <= N; I++) { // 100
             LSTRES = MAX( LSTRES, CABS1( X( I, J ) ) )
-  100    CONTINUE
+         } // 100
          IF( LSTRES.NE.ZERO ) FERR( J ) = FERR( J ) / LSTRES
 
-  110 CONTINUE
+      } // 110
 
       RETURN
 

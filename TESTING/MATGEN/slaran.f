@@ -27,7 +27,7 @@
       // INTRINSIC MOD, REAL
       // ..
       // .. Executable Statements ..
-  10  CONTINUE
+      } // 10
 
       // multiply the seed by the multiplier modulo 2**48
 

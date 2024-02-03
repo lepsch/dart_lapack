@@ -319,7 +319,7 @@
 
                for (J = 1; J <= N; J++) { // 10
                   BWORK( J ) = .FALSE.
-   10          CONTINUE
+               } // 10
                if ( MM.EQ.1 ) {
                   BWORK( I ) = .TRUE.
                } else if ( MM.EQ.2 ) {
@@ -343,7 +343,7 @@
 
                dtgsna(SENSE, 'S', BWORK, N, A, LDA, B, LDB, WORK( 1 ), N, WORK( IWRK ), N, RCONDE( I ), RCONDV( I ), MM, M, WORK( IWRK1 ), LWORK-IWRK1+1, IWORK, IERR );
 
-   20       CONTINUE
+            } // 20
          }
       }
 
@@ -359,25 +359,25 @@
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 30
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) ) )
-   30          CONTINUE
+               } // 30
             } else {
                for (JR = 1; JR <= N; JR++) { // 40
                   TEMP = MAX( TEMP, ABS( VL( JR, JC ) )+ ABS( VL( JR, JC+1 ) ) )
-   40          CONTINUE
+               } // 40
             }
             IF( TEMP.LT.SMLNUM ) GO TO 70
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 50
                   VL( JR, JC ) = VL( JR, JC )*TEMP
-   50          CONTINUE
+               } // 50
             } else {
                for (JR = 1; JR <= N; JR++) { // 60
                   VL( JR, JC ) = VL( JR, JC )*TEMP
                   VL( JR, JC+1 ) = VL( JR, JC+1 )*TEMP
-   60          CONTINUE
+               } // 60
             }
-   70    CONTINUE
+         } // 70
       }
       if ( ILVR ) {
          dggbak(BALANC, 'R', N, ILO, IHI, LSCALE, RSCALE, N, VR, LDVR, IERR );
@@ -387,30 +387,30 @@
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 80
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) ) )
-   80          CONTINUE
+               } // 80
             } else {
                for (JR = 1; JR <= N; JR++) { // 90
                   TEMP = MAX( TEMP, ABS( VR( JR, JC ) )+ ABS( VR( JR, JC+1 ) ) )
-   90          CONTINUE
+               } // 90
             }
             IF( TEMP.LT.SMLNUM ) GO TO 120
             TEMP = ONE / TEMP
             if ( ALPHAI( JC ).EQ.ZERO ) {
                for (JR = 1; JR <= N; JR++) { // 100
                   VR( JR, JC ) = VR( JR, JC )*TEMP
-  100          CONTINUE
+               } // 100
             } else {
                for (JR = 1; JR <= N; JR++) { // 110
                   VR( JR, JC ) = VR( JR, JC )*TEMP
                   VR( JR, JC+1 ) = VR( JR, JC+1 )*TEMP
-  110          CONTINUE
+               } // 110
             }
-  120    CONTINUE
+         } // 120
       }
 
       // Undo scaling if necessary
 
-  130 CONTINUE
+      } // 130
 
       if ( ILASCL ) {
          dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );

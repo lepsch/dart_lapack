@@ -143,8 +143,8 @@
 
                IF( WANTQ ) CALL SROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ )
 
-   10       CONTINUE
-   20    CONTINUE
+            } // 10
+         } // 20
 
          if ( .NOT.UPPER ) {
 
@@ -160,21 +160,21 @@
                scopy(L-I+1, B( I, N-L+I ), LDB, WORK( L+1 ), 1 );
                slapll(L-I+1, WORK, 1, WORK( L+1 ), 1, SSMIN );
                ERROR = MAX( ERROR, SSMIN )
-   30       CONTINUE
+            } // 30
 
             IF( ABS( ERROR ).LE.MIN( TOLA, TOLB ) ) GO TO 50
          }
 
          // End of cycle loop
 
-   40 CONTINUE
+      } // 40
 
       // The algorithm has not converged after MAXIT cycles.
 
       INFO = 1
       GO TO 100
 
-   50 CONTINUE
+      } // 50
 
       // If ERROR <= MIN(TOLA,TOLB), then the algorithm has converged.
       // Compute the generalized singular value pairs (ALPHA, BETA), and
@@ -183,7 +183,7 @@
       for (I = 1; I <= K; I++) { // 60
          ALPHA( I ) = ONE
          BETA( I ) = ZERO
-   60 CONTINUE
+      } // 60
 
       DO 70 I = 1, MIN( L, M-K )
 
@@ -216,23 +216,23 @@
 
          }
 
-   70 CONTINUE
+      } // 70
 
       // Post-assignment
 
       DO 80 I = M + 1, K + L
          ALPHA( I ) = ZERO
          BETA( I ) = ONE
-   80 CONTINUE
+      } // 80
 
       if ( K+L.LT.N ) {
          DO 90 I = K + L + 1, N
             ALPHA( I ) = ZERO
             BETA( I ) = ZERO
-   90    CONTINUE
+         } // 90
       }
 
-  100 CONTINUE
+      } // 100
       NCYCLE = KCYCLE
       RETURN
 
