@@ -96,7 +96,7 @@
             if ( IPIV(I) .GT. 0 ) {
               S = REAL( ONE ) / REAL( A( I, I ) )
               csscal(NRHS, S, B( I, 1 ), LDB );
-            ELSEIF ( I .GT. 1) THEN
+            } else if ( I .GT. 1) {
                if ( IPIV(I-1) .EQ. IPIV(I) ) {
                   AKM1K = WORK(I)
                   AKM1 = A( I-1, I-1 ) / AKM1K

@@ -25,7 +25,7 @@
       // Quick test for the common case where one corner is non-zero.
       if ( M.EQ.0 ) {
          ILASLR = M
-      ELSEIF( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) THEN
+      } else if ( A(M, 1).NE.ZERO .OR. A(M, N).NE.ZERO ) {
          ILASLR = M
       } else {
       // Scan up each column tracking the last zero row seen.

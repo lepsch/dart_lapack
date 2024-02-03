@@ -128,7 +128,7 @@
          if ( WEND.LT.WBEGIN ) {
             IBEGIN = IEND + 1
             GO TO 170
-         ELSEIF( (WEND.LT.DOL).OR.(WBEGIN.GT.DOU) ) THEN
+         } else if ( (WEND.LT.DOL).OR.(WBEGIN.GT.DOU) ) {
             IBEGIN = IEND + 1
             WBEGIN = WEND + 1
             GO TO 170
@@ -237,7 +237,7 @@
                      if (WBEGIN+OLDFST-1.LT.DOL) {
                         // Get representation from the left end of Z array
                         J = DOL - 1
-                     ELSEIF(WBEGIN+OLDFST-1.GT.DOU) THEN
+                     } else if (WBEGIN+OLDFST-1.GT.DOU) {
                         // Get representation from the right end of Z array
                         J = DOU
                      } else {
@@ -325,7 +325,7 @@
                      if (WBEGIN+NEWFST-1.LT.DOL) {
                         // Store representation at the left end of Z array
                         NEWFTT = DOL - 1
-                     ELSEIF(WBEGIN+NEWFST-1.GT.DOU) THEN
+                     } else if (WBEGIN+NEWFST-1.GT.DOU) {
                         // Store representation at the right end of Z array
                         NEWFTT = DOU
                      } else {
@@ -517,7 +517,7 @@
                      if (ITER .EQ. 0) {
                         BSTRES = RESID
                         BSTW = LAMBDA
-                     ELSEIF(RESID.LT.BSTRES) THEN
+                     } else if (RESID.LT.BSTRES) {
                         BSTRES = RESID
                         BSTW = LAMBDA
                      }
@@ -582,9 +582,9 @@
                               // compute eigenvector and stop
                            USEDBS = .TRUE.
                            GOTO 120
-                        ELSEIF( ITER.LT.MAXITR ) THEN
+                        } else if ( ITER.LT.MAXITR ) {
                            GOTO 120
-                        ELSEIF( ITER.EQ.MAXITR ) THEN
+                        } else if ( ITER.EQ.MAXITR ) {
                            NEEDBS = .TRUE.
                            GOTO 120
                         } else {

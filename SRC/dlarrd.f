@@ -188,11 +188,11 @@
             RETURN
          }
 
-      ELSEIF( IRANGE.EQ.VALRNG ) THEN
+      } else if ( IRANGE.EQ.VALRNG ) {
          WL = VL
          WU = VU
 
-      ELSEIF( IRANGE.EQ.ALLRNG ) THEN
+      } else if ( IRANGE.EQ.ALLRNG ) {
          WL = GL
          WU = GU
       }

@@ -362,7 +362,7 @@
          WRITE( NOUT, FMT = 9983 )'ISHFTS: ', ISHFTS( 1 )
          WRITE( NOUT, FMT = 9983 )'IACC22: ', IACC22( 1 )
 
-      ELSEIF( DGS .OR. DGX .OR. DGV .OR.  DXV ) THEN
+      } else if ( DGS .OR. DGX .OR. DGV .OR.  DXV ) {
 
          // For the nonsymmetric generalized driver routines, only one set
          // of parameters is allowed.

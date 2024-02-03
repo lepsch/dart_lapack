@@ -271,7 +271,7 @@
 
       } // 100
       if (SHIFT.EQ.SLEFT) {
-      ELSEIF (SHIFT.EQ.SRIGHT) THEN
+      } else if (SHIFT.EQ.SRIGHT) {
          // store new L and D back into DPLUS, LPLUS
          scopy(N, WORK, 1, DPLUS, 1 );
          scopy(N-1, WORK(N+1), 1, LPLUS, 1 );

@@ -158,7 +158,7 @@
             stest1(SB,DBTRUE(K),DBTRUE(K),SFAC);
             stest1(SC,DC1(K),DC1(K),SFAC);
             stest1(SS,DS1(K),DS1(K),SFAC);
-         ELSEIF (ICASE.EQ.11) THEN
+         } else if (ICASE.EQ.11) {
             // .. SROTMG ..
             for (I = 1; I <= 4; I++) {
                DTEMP(I)= DAB(I,K)
@@ -386,7 +386,7 @@
                } // 80
                stest(LENX,SX,STX,SSIZE2(1,1),1.0E0);
                stest(LENY,SY,STY,SSIZE2(1,1),1.0E0);
-            ELSEIF (ICASE.EQ.12) THEN
+            } else if (ICASE.EQ.12) {
                // .. SROTM ..
                KNI=KN+4*(KI-1)
                for (KPAR = 1; KPAR <= 4; KPAR++) {
@@ -412,7 +412,7 @@
                   stest(LENX,SX,STX,SSIZE,SFAC);
                   stest(LENY,SY,STY,STY,SFAC);
                END DO
-            ELSEIF (ICASE.EQ.13) THEN
+            } else if (ICASE.EQ.13) {
                // .. SDSROT ..
                stest1(SDSDOT(N,.1,SX,INCX,SY,INCY), ST7B(KN,KI),SSIZE3(KN),SFAC);
             } else {

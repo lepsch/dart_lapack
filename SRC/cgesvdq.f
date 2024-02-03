@@ -414,7 +414,7 @@
          } // 3001
          } // 3002
 
-      ELSEIF ( ACCLM ) THEN
+      } else if ( ACCLM ) {
          // .. similarly as above, only slightly more gentle (less aggressive).
          // Sudden drop on the diagonal of R is used as the criterion for being
          // close-to-rank-deficient. The threshold is set to EPSLN=SLAMCH('E').

@@ -303,10 +303,10 @@
          if (MB.EQ.1) {
             SIGMA = GL
             SGNDEF = ONE
-         ELSEIF( CNT1 - INDL .GE. INDU - CNT2 ) THEN
+         } else if ( CNT1 - INDL .GE. INDU - CNT2 ) {
             if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MAX(ISLEFT,GL)
-            ELSEIF( USEDQD ) THEN
+            } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get pos def matrix
                // for dqds
                SIGMA = ISLEFT
@@ -319,7 +319,7 @@
          } else {
             if ( ( IRANGE.EQ.ALLRNG ) .AND. (.NOT.FORCEB) ) {
                SIGMA = MIN(ISRGHT,GU)
-            ELSEIF( USEDQD ) THEN
+            } else if ( USEDQD ) {
                // use Gerschgorin bound as shift to get neg def matrix
                // for dqds
                SIGMA = ISRGHT

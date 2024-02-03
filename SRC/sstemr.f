@@ -76,7 +76,7 @@
          // It is either given by the user or computed in SLARRE.
          WL = VL
          WU = VU
-      ELSEIF( INDEIG ) THEN
+      } else if ( INDEIG ) {
          // We do not reference IL, IU in the cases RANGE = 'V','A'
          IIL = IL
          IIU = IU
