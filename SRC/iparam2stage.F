@@ -16,7 +16,7 @@
 *     ..
 *     .. Local Scalars ..
       int                I, IC, IZ, KD, IB, LHOUS, LWORK, NTHREADS, FACTOPTNB, QROPTNB, LQOPTNB
-      LOGICAL            RPREC, CPREC
+      bool               RPREC, CPREC;
       String             PREC*1, ALGO*3, STAG*5, SUBNAM*12, VECT*1;
 *     ..
 *     .. Intrinsic Functions ..
@@ -24,7 +24,7 @@
 *     ..
 *     .. External Functions ..
       int                ILAENV
-      LOGICAL            LSAME
+      bool               LSAME;
       EXTERNAL           ILAENV, LSAME
 *     ..
 *     .. Executable Statements ..

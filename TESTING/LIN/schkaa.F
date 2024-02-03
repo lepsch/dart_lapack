@@ -21,7 +21,7 @@
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTCHK, TSTDRV, TSTERR
+      bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
@@ -31,7 +31,7 @@
       REAL               EPS, S1, S2, THREQ, THRESH
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MATMAX )
+      bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX )
 *     ..
 *     .. Allocatable Arrays ..
@@ -41,7 +41,7 @@
       REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       REAL               SECOND, SLAMCH
       EXTERNAL           LSAME, LSAMEN, SECOND, SLAMCH
 *     ..
@@ -49,7 +49,7 @@
       EXTERNAL           ALAREQ, SCHKEQ, SCHKGB, SCHKGE, SCHKGT, SCHKLQ, SCHKORHR_COL, SCHKPB, SCHKPO, SCHKPS, SCHKPP, SCHKPT, SCHKQ3, SCHKQP3RK, SCHKQL, SCHKQR, SCHKRQ, SCHKSP, SCHKSY, SCHKSY_ROOK, SCHKSY_RK, SCHKSY_AA, SCHKTB, SCHKTP, SCHKTR, SCHKTZ, SDRVGB, SDRVGE, SDRVGT, SDRVLS, SDRVPB, SDRVPO, SDRVPP, SDRVPT, SDRVSP, SDRVSY, SDRVSY_ROOK, SDRVSY_RK, SDRVSY_AA, ILAVER, SCHKLQTP, SCHKQRT, SCHKQRTP, SCHKLQT, SCHKTSQR
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

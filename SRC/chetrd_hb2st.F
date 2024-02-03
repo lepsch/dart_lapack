@@ -28,7 +28,7 @@
       PARAMETER          ( RZERO = 0.0E+0, ZERO = ( 0.0E+0, 0.0E+0 ), ONE  = ( 1.0E+0, 0.0E+0 ) )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            LQUERY, WANTQ, UPPER, AFTERS1
+      bool               LQUERY, WANTQ, UPPER, AFTERS1;
       int                I, M, K, IB, SWEEPID, MYID, SHIFT, STT, ST, ED, STIND, EDIND, BLKLASTIND, COLPT, THED, STEPERCOL, GRSIZ, THGRSIZ, THGRNB, THGRID, NBTILES, TTYPE, TID, NTHREADS, ABDPOS, ABOFDPOS, DPOS, OFDPOS, AWPOS, INDA, INDW, APOS, SIZEA, LDA, INDV, INDTAU, SICEV, SIZETAU, LDV, LHMIN, LWMIN
       REAL               ABSTMP
       COMPLEX            TMP
@@ -40,7 +40,7 @@
       INTRINSIC          MIN, MAX, CEILING, REAL
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME
+      bool               LSAME;
       int                ILAENV2STAGE
       REAL               SROUNDUP_LWORK
       EXTERNAL           LSAME, ILAENV2STAGE, SROUNDUP_LWORK

@@ -21,7 +21,7 @@
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTCHK, TSTDRV, TSTERR
+      bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
@@ -31,7 +31,7 @@
       DOUBLE PRECISION   EPS, S1, S2, THREQ, THRESH
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MATMAX )
+      bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX )
 *     ..
 *     .. Allocatable Arrays ..
@@ -41,7 +41,7 @@
       COMPLEX*16, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       DOUBLE PRECISION   DLAMCH, DSECND
       EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND
 *     ..
@@ -49,7 +49,7 @@
       EXTERNAL           ALAREQ, ZCHKEQ, ZCHKGB, ZCHKGE, ZCHKGT, ZCHKHE, ZCHKHE_ROOK, ZCHKHE_RK, ZCHKHE_AA, ZCHKHP, ZCHKLQ, ZCHKUNHR_COL, ZCHKPB, ZCHKPO, ZCHKPS, ZCHKPP, ZCHKPT, ZCHKQ3, ZCHKQP3RK, ZCHKQL, ZCHKQR, ZCHKRQ, ZCHKSP, ZCHKSY, ZCHKSY_ROOK, ZCHKSY_RK, ZCHKSY_AA, ZCHKTB, ZCHKTP, ZCHKTR, ZCHKTZ, ZDRVGB, ZDRVGE, ZDRVGT, ZDRVHE, ZDRVHE_ROOK, ZDRVHE_RK, ZDRVHE_AA, ZDRVHE_AA_2STAGE, ZDRVHP, ZDRVLS, ZDRVPB, ZDRVPO, ZDRVPP, ZDRVPT, ZDRVSP, ZDRVSY, ZDRVSY_ROOK, ZDRVSY_RK, ZDRVSY_AA, ZDRVSY_AA_2STAGE, ILAVER, ZCHKQRT, ZCHKQRTP, ZCHKLQT, ZCHKLQTP, ZCHKTSQR
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

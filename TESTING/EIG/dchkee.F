@@ -29,7 +29,7 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CSD, DBB, DGG, DSB, FATAL, GLM, GQR, GSV, LSE, NEP, DBK, DBL, SEP, DES, DEV, DGK, DGL, DGS, DGV, DGX, DSX, SVD, DVX, DXV, TSTCHK, TSTDIF, TSTDRV, TSTERR
+      bool               CSD, DBB, DGG, DSB, FATAL, GLM, GQR, GSV, LSE, NEP, DBK, DBL, SEP, DES, DEV, DGK, DGL, DGS, DGV, DGX, DSX, SVD, DVX, DXV, TSTCHK, TSTDIF, TSTDRV, TSTERR;
       String             C1;
       String             C3, PATH;
       String             VNAME;
@@ -40,7 +40,7 @@
       DOUBLE PRECISION   EPS, S1, S2, THRESH, THRSHN
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MAXT ), LOGWRK( NMAX )
+      bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN )
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       DOUBLE PRECISION   D( NMAX, 12 ), RESULT( 500 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX )
 *     ..
@@ -50,7 +50,7 @@
       DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, C
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       DOUBLE PRECISION   DLAMCH, DSECND
       EXTERNAL           LSAMEN, DLAMCH, DSECND
 *     ..
@@ -61,12 +61,12 @@
       INTRINSIC          LEN, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       int                IPARMS( 100 )
       DOUBLE PRECISION   SELWI( 20 ), SELWR( 20 )
 *     ..

@@ -29,7 +29,7 @@
       PARAMETER          ( NIN = 5, NOUT = 6 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            CBB, CBK, CBL, CES, CEV, CGG, CGK, CGL, CGS, CGV, CGX, CHB, CSD, CSX, CVX, CXV, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR
+      bool               CBB, CBK, CBL, CES, CEV, CGG, CGK, CGL, CGS, CGV, CGX, CHB, CSD, CSX, CVX, CXV, FATAL, GLM, GQR, GSV, LSE, NEP, SEP, SVD, TSTCHK, TSTDIF, TSTDRV, TSTERR;
       String             C1;
       String             C3, PATH;
       String             VNAME;
@@ -40,7 +40,7 @@
       REAL               EPS, S1, S2, THRESH, THRSHN
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MAXT ), LOGWRK( NMAX )
+      bool               DOTYPE( MAXT ), LOGWRK( NMAX );
       int                IOLDSD( 4 ), ISEED( 4 ), IWORK( LIWORK ), KVAL( MAXIN ), MVAL( MAXIN ), MXBVAL( MAXIN ), NBCOL( MAXIN ), NBMIN( MAXIN ), NBVAL( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), PVAL( MAXIN )
       int                INMIN( MAXIN ), INWIN( MAXIN ), INIBL( MAXIN ), ISHFTS( MAXIN ), IACC22( MAXIN )       REAL               ALPHA( NMAX ), BETA( NMAX ), DR( NMAX, 12 ), RESULT( 500 )       COMPLEX            DC( NMAX, 6 ), TAUA( NMAX ), TAUB( NMAX ), X( 5*NMAX )
 *     ..
@@ -51,7 +51,7 @@
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, C
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAMEN
+      bool               LSAMEN;
       REAL               SECOND, SLAMCH
       EXTERNAL           LSAMEN, SECOND, SLAMCH
 *     ..
@@ -62,12 +62,12 @@
       INTRINSIC          LEN, MIN
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, MAXB, NPROC, NSHIFT, NUNIT, SELDIM, SELOPT
 *     ..
 *     .. Arrays in Common ..
-      LOGICAL            SELVAL( 20 )
+      bool               SELVAL( 20 );
       int                IPARMS( 100 )
       REAL               SELWI( 20 ), SELWR( 20 )
 *     ..

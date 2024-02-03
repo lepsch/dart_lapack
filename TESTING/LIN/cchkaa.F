@@ -21,7 +21,7 @@
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTCHK, TSTDRV, TSTERR
+      bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
@@ -31,7 +31,7 @@
       REAL               EPS, S1, S2, THREQ, THRESH
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MATMAX )
+      bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX )
 *     ..
 *     .. Allocatable Arrays ..
@@ -41,7 +41,7 @@
       COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       REAL               SECOND, SLAMCH
       EXTERNAL           LSAME, LSAMEN, SECOND, SLAMCH
 *     ..
@@ -49,7 +49,7 @@
       EXTERNAL           ALAREQ, CCHKEQ, CCHKGB, CCHKGE, CCHKGT, CCHKHE, CCHKHE_ROOK, CCHKHE_RK, CCHKHE_AA, CCHKHP, CCHKLQ, CCHKUNHR_COL, CCHKPB, CCHKPO, CCHKPS, CCHKPP, CCHKPT, CCHKQ3, CCHKQP3RK, CCHKQL, CCHKQR, CCHKRQ, CCHKSP, CCHKSY, CCHKSY_ROOK, CCHKSY_RK, CCHKSY_AA, CCHKTB, CCHKTP, CCHKTR, CCHKTZ, CDRVGB, CDRVGE, CDRVGT, CDRVHE, CDRVHE_ROOK, CDRVHE_RK, CDRVHE_AA, CDRVHP, CDRVLS, CDRVPB, CDRVPO, CDRVPP, CDRVPT, CDRVSP, CDRVSY, CDRVSY_ROOK, CDRVSY_RK, CDRVSY_AA, ILAVER, CCHKQRT, CCHKQRTP
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..

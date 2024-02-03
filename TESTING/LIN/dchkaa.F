@@ -21,7 +21,7 @@
       PARAMETER          ( KDMAX = NMAX+( NMAX+1 ) / 4 )
 *     ..
 *     .. Local Scalars ..
-      LOGICAL            FATAL, TSTCHK, TSTDRV, TSTERR
+      bool               FATAL, TSTCHK, TSTDRV, TSTERR;
       String             C1;
       String             C2;
       String             PATH;
@@ -31,7 +31,7 @@
       DOUBLE PRECISION   EPS, S1, S2, THREQ, THRESH
 *     ..
 *     .. Local Arrays ..
-      LOGICAL            DOTYPE( MATMAX )
+      bool               DOTYPE( MATMAX );
       int                IWORK( 25*NMAX ), MVAL( MAXIN ), NBVAL( MAXIN ), NBVAL2( MAXIN ), NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ), RANKVAL( MAXIN ), PIV( NMAX )
 *     ..
 *     .. Allocatable Arrays ..
@@ -41,7 +41,7 @@
       DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
 *     ..
 *     .. External Functions ..
-      LOGICAL            LSAME, LSAMEN
+      bool               LSAME, LSAMEN;
       DOUBLE PRECISION   DLAMCH, DSECND
       EXTERNAL           LSAME, LSAMEN, DLAMCH, DSECND
 *     ..
@@ -49,7 +49,7 @@
       EXTERNAL           ALAREQ, DCHKEQ, DCHKGB, DCHKGE, DCHKGT, DCHKLQ, DCHKORHR_COL, DCHKPB, DCHKPO, DCHKPS, DCHKPP, DCHKPT, DCHKQ3, DCHKQP3RK, DCHKQL, DCHKQR, DCHKRQ, DCHKSP, DCHKSY, DCHKSY_ROOK, DCHKSY_RK, DCHKSY_AA, DCHKTB, DCHKTP, DCHKTR, DCHKTZ, DDRVGB, DDRVGE, DDRVGT, DDRVLS, DDRVPB, DDRVPO, DDRVPP, DDRVPT, DDRVSP, DDRVSY, DDRVSY_ROOK, DDRVSY_RK, DDRVSY_AA, ILAVER, DCHKLQTP, DCHKQRT, DCHKQRTP, DCHKLQT,DCHKTSQR
 *     ..
 *     .. Scalars in Common ..
-      LOGICAL            LERR, OK
+      bool               LERR, OK;
       String             SRNAMT;
       int                INFOT, NUNIT
 *     ..
