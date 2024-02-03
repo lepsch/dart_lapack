@@ -135,7 +135,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) slascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -148,7 +148,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) slascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
       // (Workspace: need 6*N)
@@ -189,7 +189,7 @@
 
       // Initialize VR
 
-      if (ILVR) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
+      if (ILVR) slaset( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)

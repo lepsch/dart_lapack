@@ -122,8 +122,8 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) slaset( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) slaset( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Machine Constants
 
@@ -289,7 +289,7 @@
                      TEMP = T( JCH, JCH+1 );
                      slartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO;
-                     if (JCH < ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     if (JCH < ILASTM-1) srot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      srot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH );
                      slartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
@@ -534,11 +534,11 @@
             srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL );
             srot(ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILAST < ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL );
-            IF( IFRSTM < ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
+            if (ILAST < ILASTM) srot( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL );
+            IF( IFRSTM < ILAST-1 ) srot( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILQ) CALL SROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
-            IF( ILZ ) CALL SROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
+            if (ILQ) srot( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
+            IF( ILZ ) srot( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
             T( ILAST-1, ILAST-1 ) = B11;
             T( ILAST-1, ILAST ) = ZERO;

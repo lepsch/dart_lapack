@@ -78,7 +78,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRTR( PATH, NOUT );
+      if (TSTERR) derrtr( PATH, NOUT );
       INFOT = 0;
       xlaenv(2, 2 );
 
@@ -131,7 +131,7 @@
 
                   // Check error code from DTRTRI.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DTRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DTRTRI', INFO, 0, UPLO // DIAG, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the infinity-norm condition number of A.
 
@@ -152,7 +152,7 @@
                   // Print the test ratio if it is >= THRESH.
 
                   if ( RESULT( 1 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9999 )UPLO, DIAG, N, NB, IMAT, 1, RESULT( 1 );
                      NFAIL = NFAIL + 1;
                   }
@@ -192,7 +192,7 @@
 
                         // Check error code from DTRTRS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'DTRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'DTRTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 
@@ -214,7 +214,7 @@
 
                         // Check error code from DTRRFS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'DTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'DTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                         dtrt05(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -224,7 +224,7 @@
 
                         for (K = 2; K <= 6; K++) { // 20
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9998 )UPLO, TRANS, DIAG, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -249,14 +249,14 @@
 
                         // Check error code from DTRCON.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DTRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DTRCON', INFO, 0, NORM // UPLO // DIAG, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dtrt06(RCOND, RCONDC, UPLO, DIAG, N, A, LDA, RWORK, RESULT( 7 ) );
 
                      // Print the test ratio if it is >= THRESH.
 
                      if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9997 )NORM, UPLO, N, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1;
                      }
@@ -299,7 +299,7 @@
 
                   // Check error code from DLATRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DLATRS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -311,7 +311,7 @@
 
                   // Check error code from DLATRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DLATRS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE, RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RESULT( 9 ) );
 
@@ -326,7 +326,7 @@
 
                   // Check error code from DLATRS3.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DLATRS3', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 1 ), RWORK, ONE, B( 1 ), LDA, X, LDA, WORK, RESULT( 10 ) );
                   dscal(N, BIGNUM, X, 1 );
                   dtrt03(UPLO, TRANS, DIAG, N, 1, A, LDA, SCALE3( 2 ), RWORK, ONE, B( N+1 ), LDA, X, LDA, WORK, RES );
@@ -336,17 +336,17 @@
                   // the threshold.
 
                   if ( RESULT( 8 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9996 )'DLATRS', UPLO, TRANS, DIAG, 'N', N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1;
                   }
                   if ( RESULT( 9 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9996 )'DLATRS', UPLO, TRANS, DIAG, 'Y', N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1;
                   }
                   if ( RESULT( 10 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9996 )'DLATRS3', UPLO, TRANS, DIAG, 'N', N, IMAT, 10, RESULT( 10 );
                      NFAIL = NFAIL + 1;
                   }

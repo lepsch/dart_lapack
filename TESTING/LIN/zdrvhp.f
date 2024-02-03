@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRVX( PATH, NOUT );
+      if (TSTERR) zerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -310,7 +310,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )'ZHPSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -321,7 +321,7 @@
 
                   // --- Test ZHPSVX ---
 
-                  if (IFACT == 2 && NPP > 0) CALL ZLASET( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP );
+                  if (IFACT == 2 && NPP > 0) zlaset( 'Full', NPP, 1, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, NPP );
                   zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -392,7 +392,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )'ZHPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }

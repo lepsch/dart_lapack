@@ -86,12 +86,12 @@
 
       // Initialize Q and Z if desired.
 
-      if (INITQ) CALL DLASET( 'All', N, N, ZERO, ONE, Q, LDQ );
-      IF( INITZ ) CALL DLASET( 'All', N, N, ZERO, ONE, Z, LDZ );
+      if (INITQ) dlaset( 'All', N, N, ZERO, ONE, Q, LDQ );
+      IF( INITZ ) dlaset( 'All', N, N, ZERO, ONE, Z, LDZ );
 
       // Zero out lower triangle of B.
 
-      if (N > 1) CALL DLASET( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
+      if (N > 1) dlaset( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
 
       // Quick return if possible
 
@@ -572,7 +572,7 @@
          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
-      if (JCOL < IHI) CALL DGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
+      if (JCOL < IHI) dgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
       WORK( 1 ) = DBLE( LWKOPT );
 

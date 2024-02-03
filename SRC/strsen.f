@@ -149,7 +149,7 @@
 
                IERR = 0;
                KK = K;
-               if (K != KS) CALL STREXC( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
+               if (K != KS) strexc( COMPQ, N, T, LDT, Q, LDQ, KK, KS, WORK, IERR );
                if ( IERR == 1 || IERR == 2 ) {
 
                   // Blocks too close to swap: exit.

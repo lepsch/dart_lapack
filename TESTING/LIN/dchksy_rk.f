@@ -87,7 +87,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRSY( PATH, NOUT );
+      if (TSTERR) derrsy( PATH, NOUT );
       INFOT = 0;
 
       // Set the minimum block size for which the block routine should
@@ -262,7 +262,7 @@
 
                   // Check error code from DSYTRF_RK and handle error.
 
-                  if (INFO != K) CALL ALAERH( PATH, 'DSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) alaerh( PATH, 'DSYTRF_RK', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
@@ -297,7 +297,7 @@
 
                      // Check error code from DSYTRI_3 and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DSYTRI_3', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -311,7 +311,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -490,7 +490,7 @@
 
                   for (K = 3; K <= 4; K++) { // 200
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -529,7 +529,7 @@
 
                      // Check error code from DSYTRS_3 and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DSYTRS_3', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -547,7 +547,7 @@
 
                      for (K = 5; K <= 6; K++) { // 210
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -568,7 +568,7 @@
 
                   // Check error code from DSYCON_3 and handle error.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DSYCON_3', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare to values of RCOND
 
@@ -578,7 +578,7 @@
                   // the threshold.
 
                   if ( RESULT( 7 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9997 ) UPLO, N, IMAT, 7, RESULT( 7 );
                      NFAIL = NFAIL + 1;
                   }

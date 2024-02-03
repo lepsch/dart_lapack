@@ -75,8 +75,8 @@
 
       // Initialize Q and P**H to the unit matrix, if needed
 
-      if (WANTQ) CALL ZLASET( 'Full', M, M, CZERO, CONE, Q, LDQ );
-      IF( WANTPT ) CALL ZLASET( 'Full', N, N, CZERO, CONE, PT, LDPT );
+      if (WANTQ) zlaset( 'Full', M, M, CZERO, CONE, Q, LDQ );
+      IF( WANTPT ) zlaset( 'Full', N, N, CZERO, CONE, PT, LDPT );
 
       // Quick return if possible.
 
@@ -126,7 +126,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been created below the band
 
-               if (NR > 0) CALL ZLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 );
+               if (NR > 0) zlargv( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, RWORK( J1 ), KB1 );
 
                // apply plane rotations from the left
 
@@ -136,7 +136,7 @@
                   } else {
                      NRT = NR;
                   }
-                  if (NRT > 0) CALL ZLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 );
+                  if (NRT > 0) zlartv( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, RWORK( J1 ), WORK( J1 ), KB1 );
                } // 10
 
                if ( ML > ML0 ) {
@@ -147,7 +147,7 @@
 
                      zlartg(AB( KU+ML-1, I ), AB( KU+ML, I ), RWORK( I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA;
-                     if (I < N) CALL ZROT( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
+                     if (I < N) zrot( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, RWORK( I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1;
                   J1 = J1 - KB1;
@@ -191,7 +191,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been generated above the band
 
-               if (NR > 0) CALL ZLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 );
+               if (NR > 0) zlargv( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, RWORK( J1+KUN ), KB1 );
 
                // apply plane rotations from the right
 
@@ -201,7 +201,7 @@
                   } else {
                      NRT = NR;
                   }
-                  if (NRT > 0) CALL ZLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
+                  if (NRT > 0) zlartv( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, RWORK( J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
                if ( ML == ML0 && MU > MU0 ) {
@@ -268,8 +268,8 @@
                AB( 2, I ) = RS*AB( 1, I+1 );
                AB( 1, I+1 ) = RC*AB( 1, I+1 );
             }
-            if (WANTQ) CALL ZROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) );
-            IF( WANTC ) CALL ZROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
+            if (WANTQ) zrot( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, DCONJG( RS ) );
+            IF( WANTC ) zrot( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
       } else {
 
@@ -289,7 +289,7 @@
                   RB = -DCONJG( RS )*AB( KU, I );
                   AB( KU, I ) = RC*AB( KU, I );
                }
-               if (WANTPT) CALL ZROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, DCONJG( RS ) );
+               if (WANTPT) zrot( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, DCONJG( RS ) );
             } // 110
          }
       }
@@ -306,8 +306,8 @@
          } else {
             T = CONE;
          }
-         if (WANTQ) CALL ZSCAL( M, T, Q( 1, I ), 1 );
-         IF( WANTC ) CALL ZSCAL( NCC, DCONJG( T ), C( I, 1 ), LDC );
+         if (WANTQ) zscal( M, T, Q( 1, I ), 1 );
+         IF( WANTC ) zscal( NCC, DCONJG( T ), C( I, 1 ), LDC );
          if ( I < MINMN ) {
             if ( KU == 0 && KL == 0 ) {
                E( I ) = ZERO;
@@ -325,7 +325,7 @@
                } else {
                   T = CONE;
                }
-               if (WANTPT) CALL ZSCAL( N, T, PT( I+1, 1 ), LDPT );
+               if (WANTPT) zscal( N, T, PT( I+1, 1 ), LDPT );
                T = AB( KU+1, I+1 )*DCONJG( T );
             }
          }

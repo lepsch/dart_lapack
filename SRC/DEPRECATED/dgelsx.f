@@ -162,7 +162,7 @@
 
       // [R11,R12] = [ T11, 0 ] * Y
 
-      if (RANK < N) CALL DTZRQF( RANK, N, A, LDA, WORK( MN+1 ), INFO );
+      if (RANK < N) dtzrqf( RANK, N, A, LDA, WORK( MN+1 ), INFO );
 
       // Details of Householder rotations stored in WORK(MN+1:2*MN)
 

@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRVX( PATH, NOUT );
+      if (TSTERR) serrvx( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -149,7 +149,7 @@
                   IX = ISAMAX( N, D, 1 );
                   DMAX = D( IX );
                   sscal(N, ANORM / DMAX, D, 1 );
-                  if (N > 1) CALL SSCAL( N-1, ANORM / DMAX, E, 1 );
+                  if (N > 1) sscal( N-1, ANORM / DMAX, E, 1 );
 
                } else if ( IZERO > 0 ) {
 
@@ -235,7 +235,7 @@
                   ANORM = SLANST( '1', N, D, E );
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) scopy( N-1, E, 1, E( N+1 ), 1 );
 
                   // Factor the matrix A.
 
@@ -268,7 +268,7 @@
                   // --- Test SPTSV --
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) scopy( N-1, E, 1, E( N+1 ), 1 );
                   slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
@@ -278,7 +278,7 @@
 
                   // Check error code from SPTSV .
 
-                  if (INFO != IZERO) CALL ALAERH( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'SPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0;
                   if ( IZERO == 0 ) {
 
@@ -303,7 +303,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )'SPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -334,7 +334,7 @@
 
                // Check the error code from SPTSVX.
 
-               if (INFO != IZERO) CALL ALAERH( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != IZERO) alaerh( PATH, 'SPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 
@@ -372,7 +372,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9998 )'SPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }

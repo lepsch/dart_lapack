@@ -161,7 +161,7 @@
          SCALEA = true;
          CSCALE = BIGNUM;
       }
-      if (SCALEA) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
+      if (SCALEA) slascl( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Balance the matrix and compute ABNRM
 
@@ -324,7 +324,7 @@
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), max( N-INFO, 1 ), IERR );
          slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), max( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
-            if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
+            if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) slascl( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
          } else {
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
             slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );

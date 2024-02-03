@@ -165,7 +165,7 @@
 
       // Test the error exit of:
 
-      if (TSTERR) CALL ZERRRFP( NOUT );
+      if (TSTERR) zerrrfp( NOUT );
 
 // Test the routines: zpftrf, zpftri, zpftrs (as in ZDRVPO).
 // This also tests the routines: ztfsm, ztftri, ztfttr, ztrttf.

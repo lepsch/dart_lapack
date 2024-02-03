@@ -66,7 +66,7 @@
             A( I, I ) = ONE;
             zlarf('Left', M-I+1, N-I, A( I, I ), 1, TAU( I ), A( I, I+1 ), LDA, WORK );
          }
-         if (I < M) CALL ZSCAL( M-I, -TAU( I ), A( I+1, I ), 1 );
+         if (I < M) zscal( M-I, -TAU( I ), A( I+1, I ), 1 );
          A( I, I ) = ONE - TAU( I );
 
          // Set A(1:i-1,i) to zero

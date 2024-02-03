@@ -184,7 +184,7 @@
 
                   if ( INFO != IZERO ) {
 
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      NERRS = NERRS + 1;
 
                      if ( INFO != IZERO && IZERO != 0 ) {

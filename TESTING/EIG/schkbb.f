@@ -294,7 +294,7 @@
 
                for (JR = 1; JR <= NTEST; JR++) { // 130
                   if ( RESULT( JR ) >= THRESH ) {
-                     if (NERRS == 0) CALL SLAHD2( NOUNIT, 'SBB' );
+                     if (NERRS == 0) slahd2( NOUNIT, 'SBB' );
                      NERRS = NERRS + 1;
                      WRITE( NOUNIT, FMT = 9998 )M, N, K, IOLDSD, JTYPE, JR, RESULT( JR );
                   }

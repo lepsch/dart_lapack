@@ -104,7 +104,7 @@
          // Copy the details of V, and form V.
 
          zlaset('Full', P, P, CZERO, CZERO, V, LDV );
-         if (P > 1) CALL ZLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
+         if (P > 1) zlacpy( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
          zung2r(P, P, min( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
@@ -115,7 +115,7 @@
             B( I, J ) = CZERO;
          } // 30
       } // 40
-      if (P > L) CALL ZLASET( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
+      if (P > L) zlaset( 'Full', P-L, N, CZERO, CZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
 
@@ -181,7 +181,7 @@
          // Copy the details of U, and form U
 
          zlaset('Full', M, M, CZERO, CZERO, U, LDU );
-         if (M > 1) CALL ZLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
+         if (M > 1) zlacpy( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
          zung2r(M, M, min( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
@@ -200,7 +200,7 @@
             A( I, J ) = CZERO;
          } // 90
       } // 100
-      if (M > K) CALL ZLASET( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
+      if (M > K) zlaset( 'Full', M-K, N-L, CZERO, CZERO, A( K+1, 1 ), LDA );
 
       if ( N-L > K ) {
 

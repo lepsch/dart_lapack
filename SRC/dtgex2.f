@@ -168,8 +168,8 @@
 
          // Accumulate transformations into Q and Z if requested.
 
-         if (WANTZ) CALL DROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
-         IF( WANTQ ) CALL DROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
+         if (WANTZ) drot( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         IF( WANTQ ) drot( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
 
          // Exit with INFO = 0 if swap was successfully performed.
 

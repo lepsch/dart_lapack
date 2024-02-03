@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRSY( PATH, NOUT );
+      if (TSTERR) serrsy( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of N in NVAL
@@ -218,7 +218,7 @@
 
                // Check error code from SSPTRF.
 
-               if (INFO != K) CALL ALAERH( PATH, 'SSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != K) alaerh( PATH, 'SSPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                if ( INFO != 0 ) {
                   TRFCON = true;
                } else {
@@ -241,7 +241,7 @@
 
                // Check error code from SSPTRI.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SSPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   sppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2;
@@ -252,7 +252,7 @@
 
                for (K = 1; K <= NT; K++) { // 110
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
@@ -281,7 +281,7 @@
 
                // Check error code from SSPTRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SSPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   sppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -299,7 +299,7 @@
 
                // Check error code from SSPRFS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SSPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   sppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -309,7 +309,7 @@
 
                   for (K = 3; K <= 7; K++) { // 120
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -327,14 +327,14 @@
 
                // Check error code from SSPCON.
 
-               if (INFO != 0) CALL ALAERH( PATH, 'SSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) alaerh( PATH, 'SSPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC );
 
                // Print the test ratio if it is >= THRESH.
 
                if ( RESULT( 8 ) >= THRESH ) {
-                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1;
                }

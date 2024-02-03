@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRGT( PATH, NOUT );
+      if (TSTERR) cerrgt( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -206,7 +206,7 @@
             }
 
             scopy(N, D, 1, D( N+1 ), 1 );
-            if (N > 1) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 );
+            if (N > 1) ccopy( N-1, E, 1, E( N+1 ), 1 );
 
 // +    TEST 1
             // Factor A as L*D*L' and compute the ratio
@@ -231,7 +231,7 @@
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 1 ) >= THRESH ) {
-               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 );
                NFAIL = NFAIL + 1;
             }
@@ -286,7 +286,7 @@
 
                // Check error code from CPTTRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CPTTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cptt02(UPLO, N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -304,7 +304,7 @@
 
                // Check error code from CPTRFS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CPTRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   cptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -314,7 +314,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -334,14 +334,14 @@
 
             // Check error code from CPTCON.
 
-            if (INFO != 0) CALL ALAERH( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != 0) alaerh( PATH, 'CPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = SGET06( RCOND, RCONDC );
 
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 7 ) >= THRESH ) {
-               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 );
                NFAIL = NFAIL + 1;
             }

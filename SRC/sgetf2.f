@@ -68,7 +68,7 @@
 
             // Apply the interchange to columns 1:N.
 
-            if (JP != J) CALL SSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
+            if (JP != J) sswap( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
 
             // Compute elements J+1:M of J-th column.
 

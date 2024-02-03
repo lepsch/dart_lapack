@@ -74,7 +74,7 @@
 
       // Initialize Q to the unit matrix, if needed
 
-      if (INITQ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      if (INITQ) claset( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Wherever possible, plane rotations are generated and applied in
       // vector operations of length NR over the index set J1:J2:KD1.
@@ -151,7 +151,7 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  if (NR > 0) CALL CLAR2V( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                  if (NR > 0) clar2v( NR, AB( KD1, J1-1 ), AB( KD1, J1 ), AB( KD, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the left
 
@@ -168,7 +168,7 @@
                            } else {
                               NRT = NR;
                            }
-                           if (NRT > 0) CALL CLARTV( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                           if (NRT > 0) clartv( NRT, AB( KD-L, J1+L ), INCA, AB( KD-L+1, J1+L ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 30
                      } else {
                         J1END = J1 + KD1*( NR-2 );
@@ -179,7 +179,7 @@
                         }
                         LEND = min( KDM1, N-J2 );
                         LAST = J1END + KD1;
-                        if (LEND > 0) CALL CROT( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
+                        if (LEND > 0) crot( LEND, AB( KD-1, LAST+1 ), INCX, AB( KD, LAST+1 ), INCX, D( LAST ), WORK( LAST ) );
                      }
                   }
 
@@ -334,7 +334,7 @@
                   // apply plane rotations from both sides to diagonal
                   // blocks
 
-                  if (NR > 0) CALL CLAR2V( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                  if (NR > 0) clar2v( NR, AB( 1, J1-1 ), AB( 1, J1 ), AB( 2, J1-1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
 
                   // apply plane rotations from the right
 
@@ -351,7 +351,7 @@
                            } else {
                               NRT = NR;
                            }
-                           if (NRT > 0) CALL CLARTV( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
+                           if (NRT > 0) clartv( NRT, AB( L+2, J1-1 ), INCA, AB( L+1, J1 ), INCA, D( J1 ), WORK( J1 ), KD1 );
                         } // 150
                      } else {
                         J1END = J1 + KD1*( NR-2 );
@@ -362,7 +362,7 @@
                         }
                         LEND = min( KDM1, N-J2 );
                         LAST = J1END + KD1;
-                        if (LEND > 0) CALL CROT( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
+                        if (LEND > 0) crot( LEND, AB( 3, LAST-1 ), 1, AB( 2, LAST ), 1, D( LAST ), WORK( LAST ) );
                      }
                   }
 

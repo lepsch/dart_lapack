@@ -57,17 +57,17 @@
 
       zlaset('Full', N, N, CROGUE, CROGUE, Q, LDA );
       if ( M <= N ) {
-         if (M > 0 && M < N) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) zlacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
+         IF( M > 1 ) zlacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N > 1) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) zlacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
       zungrq(N, N, min( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
       zlaset('Full', P, P, CROGUE, CROGUE, Z, LDB );
-      if (P > 1) CALL ZLACPY( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB );
+      if (P > 1) zlacpy( 'Lower', P-1, N, BF( 2, 1 ), LDB, Z( 2, 1 ), LDB );
       zungqr(P, P, min( P, N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R

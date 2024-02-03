@@ -85,7 +85,7 @@
             K = 1;
             DO WHILE ( K <= N );
                KP = IPIV( K );
-               if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1;
             }
 
@@ -119,7 +119,7 @@
             K = N;
             DO WHILE ( K >= 1 );
                KP = IPIV( K );
-               if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1;
             }
          }
@@ -137,7 +137,7 @@
             K = 1;
             DO WHILE ( K <= N );
                KP = IPIV( K );
-               if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K + 1;
             }
 
@@ -170,7 +170,7 @@
             K = N;
             DO WHILE ( K >= 1 );
                KP = IPIV( K );
-               if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+               if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                K = K - 1;
             }
          }

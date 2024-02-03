@@ -394,7 +394,7 @@
 
                   // Check error code from CGEQP3RK.
 
-                  if (INFO < 0) CALL ALAERH( PATH, 'CGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO < 0) alaerh( PATH, 'CGEQP3RK', INFO, 0, ' ', M, N, NX, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( KFACT == MINMN ) {
 
@@ -416,7 +416,7 @@
 
                      for (T = 1; T <= 1; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }
@@ -448,7 +448,7 @@
 
                   for (T = 2; T <= 3; T++) {
                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                         NFAIL = NFAIL + 1;
                      }
@@ -484,7 +484,7 @@
 
                      for (T = 4; T <= 4; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }
@@ -525,7 +525,7 @@
 
                      for (T = 5; T <= 5; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 ) 'CGEQP3RK', M, N, NRHS, KMAX, ABSTOL, RELTOL, NB, NX, IMAT, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }

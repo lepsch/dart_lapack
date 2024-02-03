@@ -172,7 +172,7 @@
          // of the active submatrix.
 
          RNGVX = 'I';
-         if (WANTZ) CALL SLASET( 'F', N*2, N+1, ZERO, ZERO, Z, LDZ );
+         if (WANTZ) slaset( 'F', N*2, N+1, ZERO, ZERO, Z, LDZ );
       } else if ( VALSV ) {
 
          // Find singular values in a half-open interval. We aim
@@ -189,7 +189,7 @@
          if ( NS == 0 ) {
             return;
          } else {
-            if (WANTZ) CALL SLASET( 'F', N*2, NS, ZERO, ZERO, Z, LDZ );
+            if (WANTZ) slaset( 'F', N*2, NS, ZERO, ZERO, Z, LDZ );
          }
       } else if ( INDSV ) {
 
@@ -220,7 +220,7 @@
 
          if (VLTGK == VUTGK) VLTGK = VLTGK - TOL;
 
-         if (WANTZ) CALL SLASET( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ);
+         if (WANTZ) slaset( 'F', N*2, IU-IL+1, ZERO, ZERO, Z, LDZ);
       }
 
       // Initialize variables and pointers for S, Z, and WORK.
@@ -475,7 +475,7 @@
          if ( K != NS+1-I ) {
             S( K ) = S( NS+1-I );
             S( NS+1-I ) = SMIN;
-            if (WANTZ) CALL SSWAP( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 );
+            if (WANTZ) sswap( N*2, Z( 1,K ), 1, Z( 1,NS+1-I ), 1 );
          }
       }
 

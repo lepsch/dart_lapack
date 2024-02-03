@@ -376,8 +376,8 @@
       // Quick return for zero M x N matrix
 // #:)
       if ( AAPP == ZERO ) {
-         if (LSVEC) CALL CLASET( 'G', M, N1, CZERO, CONE, U, LDU );
-         if (RSVEC) CALL CLASET( 'G', N, N,  CZERO, CONE, V, LDV );
+         if (LSVEC) claset( 'G', M, N1, CZERO, CONE, U, LDU );
+         if (RSVEC) claset( 'G', N, N,  CZERO, CONE, V, LDV );
          RWORK(1) = ONE;
          RWORK(2) = ONE;
          if (ERREST) RWORK(3) = ONE;
@@ -974,7 +974,7 @@
 
          cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
-         if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
+         if (ROWPIV) claswp( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / SCNRM2( M, U(1,p), 1 );
@@ -1068,7 +1068,7 @@
                   } // 3959
                }
 
-               if (NR != N) CALL CLACPY( 'A', N, NR, V, LDV, CWORK(2*N+1), N );
+               if (NR != N) clacpy( 'A', N, NR, V, LDV, CWORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive
@@ -1272,7 +1272,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / SCNRM2( N, V(1,q), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,q), 1 );
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1293,13 +1293,13 @@
             TEMP1 = sqrt(REAL(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( M, XSC, U(1,p), 1 );
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
 
-            if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
+            if (ROWPIV) claswp( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          } else {
 
@@ -1337,7 +1337,7 @@
             TEMP1 = sqrt(REAL(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / SCNRM2( N, V(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,p), 1 );
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1353,10 +1353,10 @@
             TEMP1 = sqrt(REAL(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / SCNRM2( M, U(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( M, XSC, U(1,p), 1 );
             } // 6973
 
-            if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
+            if (ROWPIV) claswp( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
          }
 
@@ -1437,7 +1437,7 @@
                   V(p,q) = CWORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / SCNRM2( N, V(1,q), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL CSSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) csscal( N, XSC, V(1,q), 1 );
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.
@@ -1453,7 +1453,7 @@
 
          cunmqr('L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LWORK-N, IERR );
 
-            if (ROWPIV) CALL CLASWP( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
+            if (ROWPIV) claswp( N1, U, LDU, 1, M-1, IWORK(IWOFF+1), -1 );
 
 
          }

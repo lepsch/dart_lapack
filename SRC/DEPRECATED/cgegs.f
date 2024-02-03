@@ -198,7 +198,7 @@
          }
       }
 
-      if (ILVSR) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
+      if (ILVSR) claset( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 

@@ -150,7 +150,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) dlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -163,7 +163,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) dlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Workspace: need 6*N + 2*N space for storing balancing factors)
@@ -200,7 +200,7 @@
 
       // Initialize VSR
 
-      if (ILVSR) CALL DLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
+      if (ILVSR) dlaset( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -235,7 +235,7 @@
             dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
             dlascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
-         if (ILBSCL) CALL DLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+         if (ILBSCL) dlascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -251,9 +251,9 @@
       // Apply back-permutation to VSL and VSR
       // (Workspace: none needed)
 
-      if (ILVSL) CALL DGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
+      if (ILVSL) dggbak( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
 
-      if (ILVSR) CALL DGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
+      if (ILVSR) dggbak( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Check if unscaling would cause over/underflow, if so, rescale
       // (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of

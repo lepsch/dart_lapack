@@ -274,7 +274,7 @@
 
                // Multiply by [-c -s;  conjg(s) -c] on the right.
 
-               if (J > 1) CALL CROT( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S );
+               if (J > 1) crot( J-1, AP( JCNEXT ), 1, AP( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -292,7 +292,7 @@
 
                // Multiply by [ c -s;  conjg(s) c] on the right.
 
-               if (N > J+1) CALL CROT( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C, -S );
+               if (N > J+1) crot( N-J-1, AP( JCNEXT+1 ), 1, AP( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -conjg(s) -c] on the left.
 
@@ -333,7 +333,7 @@
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 190
-               if (J < N) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) );
+               if (J < N) clarnv( 4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = CLARND( 5, ISEED )*TWO;
                JC = JC + N - J + 1;
             } // 190
@@ -579,7 +579,7 @@
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 400
-               if (J < N) CALL CLARNV( 4, ISEED, N-J, AP( JC+1 ) );
+               if (J < N) clarnv( 4, ISEED, N-J, AP( JC+1 ) );
                AP( JC ) = ZERO;
                JC = JC + N - J + 1;
             } // 400

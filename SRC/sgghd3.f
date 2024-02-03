@@ -87,12 +87,12 @@
 
       // Initialize Q and Z if desired.
 
-      if (INITQ) CALL SLASET( 'All', N, N, ZERO, ONE, Q, LDQ );
-      IF( INITZ ) CALL SLASET( 'All', N, N, ZERO, ONE, Z, LDZ );
+      if (INITQ) slaset( 'All', N, N, ZERO, ONE, Q, LDQ );
+      IF( INITZ ) slaset( 'All', N, N, ZERO, ONE, Z, LDZ );
 
       // Zero out lower triangle of B.
 
-      if (N > 1) CALL SLASET( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
+      if (N > 1) slaset( 'Lower', N-1, N-1, ZERO, ZERO, B(2, 1), LDB );
 
       // Quick return if possible
 
@@ -573,7 +573,7 @@
          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
-      if (JCOL < IHI) CALL SGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
+      if (JCOL < IHI) sgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 

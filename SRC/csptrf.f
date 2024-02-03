@@ -337,7 +337,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP < N) CALL CSWAP( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
+               if (KP < N) cswap( N-KP, AP( KNC+KP-KK+1 ), 1, AP( KPC+1 ), 1 );
                KX = KNC + KP - KK;
                for (J = KK + 1; J <= KP - 1; J++) { // 80
                   KX = KX + N - J + 1;

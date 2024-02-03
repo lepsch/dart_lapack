@@ -72,7 +72,7 @@
 
       // Initialize X to the unit matrix, if needed
 
-      if (WANTX) CALL DLASET( 'Full', N, N, ZERO, ONE, X, LDX );
+      if (WANTX) dlaset( 'Full', N, N, ZERO, ONE, X, LDX );
 
       // Set M to the splitting point m. It must be the same value as is
       // used in DPBSTF. The chosen value allows the arrays WORK and RWORK
@@ -196,7 +196,7 @@
                // post-multiply X by inv(S(i))
 
                dscal(N-M, ONE / BII, X( M+1, I ), 1 );
-               if (KBT > 0) CALL DGER( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX );
+               if (KBT > 0) dger( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KB1-KBT, I ), 1, X( M+1, I-KBT ), LDX );
             }
 
             // store a(i,i1) in RA1 for use in next loop over K
@@ -249,7 +249,7 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT > 0) CALL DLARGV( NRT, AB( 1, J2T ), INCA, WORK( J2T-M ), KA1, WORK( N+J2T-M ), KA1 );
+            if (NRT > 0) dlargv( NRT, AB( 1, J2T ), INCA, WORK( J2T-M ), KA1, WORK( N+J2T-M ), KA1 );
             if ( NR > 0 ) {
 
                // apply rotations in 1st set from the right
@@ -269,7 +269,7 @@
 
             DO 110 L = KA - 1, KB - K + 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
             } // 110
 
             if ( WANTX ) {
@@ -303,7 +303,7 @@
 
             DO 140 L = KB - K, 1, -1;
                NRT = ( N-J2+KA+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, WORK( N+J2-KA ), WORK( J2-KA ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, WORK( N+J2-KA ), WORK( J2-KA ), KA1 );
             } // 140
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
@@ -352,7 +352,7 @@
 
             DO 190 L = KA - 1, KB - K + 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
             } // 190
 
             if ( WANTX ) {
@@ -372,7 +372,7 @@
 
             DO 220 L = KB - K, 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
             } // 220
          } // 230
 
@@ -417,7 +417,7 @@
                // post-multiply X by inv(S(i))
 
                dscal(N-M, ONE / BII, X( M+1, I ), 1 );
-               if (KBT > 0) CALL DGER( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX );
+               if (KBT > 0) dger( N-M, KBT, -ONE, X( M+1, I ), 1, BB( KBT+1, I-KBT ), LDBB-1, X( M+1, I-KBT ), LDX );
             }
 
             // store a(i1,i) in RA1 for use in next loop over K
@@ -470,7 +470,7 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT > 0) CALL DLARGV( NRT, AB( KA1, J2T-KA ), INCA, WORK( J2T-M ), KA1, WORK( N+J2T-M ), KA1 );
+            if (NRT > 0) dlargv( NRT, AB( KA1, J2T-KA ), INCA, WORK( J2T-M ), KA1, WORK( N+J2T-M ), KA1 );
             if ( NR > 0 ) {
 
                // apply rotations in 1st set from the left
@@ -490,7 +490,7 @@
 
             DO 340 L = KA - 1, KB - K + 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
             } // 340
 
             if ( WANTX ) {
@@ -524,7 +524,7 @@
 
             DO 370 L = KB - K, 1, -1;
                NRT = ( N-J2+KA+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, WORK( N+J2-KA ), WORK( J2-KA ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, WORK( N+J2-KA ), WORK( J2-KA ), KA1 );
             } // 370
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
@@ -573,7 +573,7 @@
 
             DO 420 L = KA - 1, KB - K + 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2 ), WORK( J2 ), KA1 );
             } // 420
 
             if ( WANTX ) {
@@ -593,7 +593,7 @@
 
             DO 450 L = KB - K, 1, -1;
                NRT = ( N-J2+L ) / KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, WORK( N+J2-M ), WORK( J2-M ), KA1 );
             } // 450
          } // 460
 
@@ -687,7 +687,7 @@
                // post-multiply X by inv(S(i))
 
                dscal(NX, ONE / BII, X( 1, I ), 1 );
-               if (KBT > 0) CALL DGER( NX, KBT, -ONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX );
+               if (KBT > 0) dger( NX, KBT, -ONE, X( 1, I ), 1, BB( KB, I+1 ), LDBB-1, X( 1, I+1 ), LDX );
             }
 
             // store a(i1,i) in RA1 for use in next loop over K
@@ -739,7 +739,7 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT > 0) CALL DLARGV( NRT, AB( 1, J1+KA ), INCA, WORK( J1 ), KA1, WORK( N+J1 ), KA1 );
+            if (NRT > 0) dlargv( NRT, AB( 1, J1+KA ), INCA, WORK( J1 ), KA1, WORK( N+J1 ), KA1 );
             if ( NR > 0 ) {
 
                // apply rotations in 1st set from the left
@@ -760,7 +760,7 @@
             DO 590 L = KA - 1, KB - K + 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
             } // 590
 
             if ( WANTX ) {
@@ -795,7 +795,7 @@
             DO 620 L = KB - K, 1, -1;
                NRT = ( J2+KA+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, WORK( N+M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, WORK( N+M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 620
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
@@ -845,7 +845,7 @@
             DO 670 L = KA - 1, KB - K + 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
             } // 670
 
             if ( WANTX ) {
@@ -866,7 +866,7 @@
             DO 700 L = KB - K, 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
             } // 700
          } // 710
 
@@ -911,7 +911,7 @@
                // post-multiply X by inv(S(i))
 
                dscal(NX, ONE / BII, X( 1, I ), 1 );
-               if (KBT > 0) CALL DGER( NX, KBT, -ONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX );
+               if (KBT > 0) dger( NX, KBT, -ONE, X( 1, I ), 1, BB( 2, I ), 1, X( 1, I+1 ), LDX );
             }
 
             // store a(i,i1) in RA1 for use in next loop over K
@@ -963,7 +963,7 @@
             // generate rotations in 1st set to annihilate elements which
             // have been created outside the band
 
-            if (NRT > 0) CALL DLARGV( NRT, AB( KA1, J1 ), INCA, WORK( J1 ), KA1, WORK( N+J1 ), KA1 );
+            if (NRT > 0) dlargv( NRT, AB( KA1, J1 ), INCA, WORK( J1 ), KA1, WORK( N+J1 ), KA1 );
             if ( NR > 0 ) {
 
                // apply rotations in 1st set from the right
@@ -984,7 +984,7 @@
             DO 820 L = KA - 1, KB - K + 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
             } // 820
 
             if ( WANTX ) {
@@ -1019,7 +1019,7 @@
             DO 850 L = KB - K, 1, -1;
                NRT = ( J2+KA+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, WORK( N+M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, WORK( N+M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 850
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
@@ -1069,7 +1069,7 @@
             DO 900 L = KA - 1, KB - K + 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
             } // 900
 
             if ( WANTX ) {
@@ -1090,7 +1090,7 @@
             DO 930 L = KB - K, 1, -1;
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
-               if (NRT > 0) CALL DLARTV( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
+               if (NRT > 0) dlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, WORK( N+J1T ), WORK( J1T ), KA1 );
             } // 930
          } // 940
 

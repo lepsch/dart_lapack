@@ -129,7 +129,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRQRT( PATH, NOUT );
+      if (TSTERR) serrqrt( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of M in MVAL.
@@ -158,7 +158,7 @@
 
                   for (T = 1; T <= NTESTS; T++) {
                      if ( RESULT( T ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )M, N, NB, T, RESULT( T );
                         NFAIL = NFAIL + 1;
                      }

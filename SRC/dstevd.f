@@ -121,7 +121,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if (ISCALE == 1) CALL DSCAL( N, ONE / SIGMA, D, 1 );
+      if (ISCALE == 1) dscal( N, ONE / SIGMA, D, 1 );
 
       WORK( 1 ) = LWMIN;
       IWORK( 1 ) = LIWMIN;

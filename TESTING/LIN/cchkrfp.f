@@ -165,7 +165,7 @@
 
       // Test the error exit of:
 
-      if (TSTERR) CALL CERRRFP( NOUT );
+      if (TSTERR) cerrrfp( NOUT );
 
 // Test the routines: cpftrf, cpftri, cpftrs (as in CDRVPO).
 // This also tests the routines: ctfsm, ctftri, ctfttr, ctrttf.

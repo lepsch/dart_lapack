@@ -178,7 +178,7 @@
                if( CABS1( T( J, J ) ) > CABS1( T( IFST, IFST ) ) ) IFST = J;
             } // 20
             ILST = I;
-            if (IFST != ILST) CALL CTREXC( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
+            if (IFST != ILST) ctrexc( 'V', JW, T, LDT, V, LDV, IFST, ILST, INFO );
          } // 30
       }
 
@@ -220,7 +220,7 @@
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS > 1 && S != ZERO) CALL CUNMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS > 1 && S != ZERO) cunmhr( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

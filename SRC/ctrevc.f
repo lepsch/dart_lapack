@@ -162,7 +162,7 @@
                   VR( K, IS ) = CMZERO;
                } // 60
             } else {
-               if (KI > 1) CALL CGEMV( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
+               if (KI > 1) cgemv( 'N', N, KI-1, CMONE, VR, LDVR, WORK( 1 ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = ICAMAX( N, VR( 1, KI ), 1 );
                REMAX = ONE / CABS1( VR( II, KI ) );
@@ -225,7 +225,7 @@
                   VL( K, IS ) = CMZERO;
                } // 110
             } else {
-               if (KI < N) CALL CGEMV( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
+               if (KI < N) cgemv( 'N', N, N-KI, CMONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
 
                II = ICAMAX( N, VL( 1, KI ), 1 );
                REMAX = ONE / CABS1( VL( II, KI ) );

@@ -163,7 +163,7 @@
          SCALEA = true;
          CSCALE = BIGNUM;
       }
-      if (SCALEA) CALL ZLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
+      if (SCALEA) zlascl( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Balance the matrix and compute ABNRM
 
@@ -321,7 +321,7 @@
       if ( SCALEA ) {
          zlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, W( INFO+1 ), max( N-INFO, 1 ), IERR );
          if ( INFO == 0 ) {
-            if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
+            if( ( WNTSNV || WNTSNB ) && ICOND == 0 ) dlascl( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR );
          } else {
             zlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, W, N, IERR );
          }

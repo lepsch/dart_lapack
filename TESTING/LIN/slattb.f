@@ -218,7 +218,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = min( N-J+1, KD+1 );
-               if (LENJ > 0) CALL SLARNV( 2, ISEED, LENJ, AB( 1, J ) );
+               if (LENJ > 0) slarnv( 2, ISEED, LENJ, AB( 1, J ) );
                AB( 1, J ) = SIGN( TWO, AB( 1, J ) );
             } // 130
          }
@@ -251,7 +251,7 @@
             for (J = 1; J <= N; J++) { // 150
                LENJ = min( N-J+1, KD+1 );
                slarnv(2, ISEED, LENJ, AB( 1, J ) );
-               if (LENJ > 1) CALL SSCAL( LENJ-1, TSCAL, AB( 2, J ), 1 );
+               if (LENJ > 1) sscal( LENJ-1, TSCAL, AB( 2, J ), 1 );
                AB( 1, J ) = SIGN( ONE, AB( 1, J ) );
             } // 150
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 );
@@ -461,7 +461,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 380
                LENJ = min( N-J, KD );
-               if (LENJ > 0) CALL SLARNV( 2, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) slarnv( 2, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = REAL( J );
             } // 380
          }

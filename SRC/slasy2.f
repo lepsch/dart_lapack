@@ -234,7 +234,7 @@
             BTMP( I ) = BTMP( IPSV );
             BTMP( IPSV ) = TEMP;
          }
-         if (JPSV != I) CALL SSWAP( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
+         if (JPSV != I) sswap( 4, T16( 1, JPSV ), 1, T16( 1, I ), 1 );
          JPIV( I ) = JPSV;
          if ( ABS( T16( I, I ) ) < SMIN ) {
             INFO = 1;

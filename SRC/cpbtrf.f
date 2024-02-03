@@ -152,7 +152,7 @@
 
                      // Update A23
 
-                     if (I2 > 0) CALL CGEMM( 'Conjugate transpose', 'No transpose', I2, I3, IB, -CONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, CONE, AB( 1+IB, I+KD ), LDAB-1 );
+                     if (I2 > 0) cgemm( 'Conjugate transpose', 'No transpose', I2, I3, IB, -CONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, CONE, AB( 1+IB, I+KD ), LDAB-1 );
 
                      // Update A33
 
@@ -240,7 +240,7 @@
 
                      // Update A32
 
-                     if (I2 > 0) CALL CGEMM( 'No transpose', 'Conjugate transpose', I3, I2, IB, -CONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, CONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
+                     if (I2 > 0) cgemm( 'No transpose', 'Conjugate transpose', I3, I2, IB, -CONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, CONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
 
                      // Update A33
 

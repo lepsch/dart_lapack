@@ -428,7 +428,7 @@
                                            // x(j) * A(j+1:min(j+kd,n),j)
 
                   JLEN = min( KD, N-J );
-                  if (JLEN > 0) CALL ZAXPY( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
+                  if (JLEN > 0) zaxpy( JLEN, -X( J )*TSCAL, AB( 2, J ), 1, X( J+1 ), 1 );
                   I = J + IZAMAX( N-J, X( J+1 ), 1 );
                   XMAX = CABS1( X( I ) );
                }

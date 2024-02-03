@@ -125,7 +125,7 @@
 
       // Scale the right hand-side.
 
-      if (RCEQU) CALL CLASCL2( N, NRHS, S, B, LDB );
+      if (RCEQU) clascl2( N, NRHS, S, B, LDB );
 
       if ( NOFACT || EQUIL ) {
 

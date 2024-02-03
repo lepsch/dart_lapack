@@ -58,10 +58,10 @@
 
       claset('Full', M, M, ROGUE, ROGUE, Q, LDA );
       if ( M >= N ) {
-         if (N < M && N > 0) CALL CLACPY( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA );
-         IF( N > 1 ) CALL CLACPY( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
+         if (N < M && N > 0) clacpy( 'Full', M-N, N, AF, LDA, Q( 1, M-N+1 ), LDA );
+         IF( N > 1 ) clacpy( 'Upper', N-1, N-1, AF( M-N+1, 2 ), LDA, Q( M-N+1, M-N+2 ), LDA );
       } else {
-         if (M > 1) CALL CLACPY( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
+         if (M > 1) clacpy( 'Upper', M-1, M-1, AF( 1, N-M+2 ), LDA, Q( 1, 2 ), LDA );
       }
 
       // Generate the m-by-m matrix Q
@@ -73,10 +73,10 @@
 
       claset('Full', M, N, CMPLX( ZERO ), CMPLX( ZERO ), L, LDA );
       if ( M >= N ) {
-         if (N > 0) CALL CLACPY( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA );
+         if (N > 0) clacpy( 'Lower', N, N, AF( M-N+1, 1 ), LDA, L( M-N+1, 1 ), LDA );
       } else {
-         if (N > M && M > 0) CALL CLACPY( 'Full', M, N-M, AF, LDA, L, LDA );
-         IF( M > 0 ) CALL CLACPY( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
+         if (N > M && M > 0) clacpy( 'Full', M, N-M, AF, LDA, L, LDA );
+         IF( M > 0 ) clacpy( 'Lower', M, M, AF( 1, N-M+1 ), LDA, L( 1, N-M+1 ), LDA );
       }
 
       // Compute L - Q'*A

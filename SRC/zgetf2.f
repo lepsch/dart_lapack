@@ -68,11 +68,11 @@
 
             // Apply the interchange to columns 1:N.
 
-            if (JP != J) CALL ZSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
+            if (JP != J) zswap( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
 
             // Compute elements J+1:M of J-th column.
 
-            if (J < M) CALL ZRSCL( M-J, A( J, J ), A( J+1, J ), 1 );
+            if (J < M) zrscl( M-J, A( J, J ), A( J+1, J ), 1 );
 
          } else if ( INFO == 0 ) {
 

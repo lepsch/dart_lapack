@@ -112,12 +112,12 @@
          } else {
             TAUI = TAU( I );
          }
-         if (I < NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
+         if (I < NQ) clacgv( NQ-I, A( I, I+1 ), LDA );
          AII = A( I, I );
          A( I, I ) = ONE;
          clarf(SIDE, MI, NI, A( I, I ), LDA, TAUI, C( IC, JC ), LDC, WORK );
          A( I, I ) = AII;
-         if (I < NQ) CALL CLACGV( NQ-I, A( I, I+1 ), LDA );
+         if (I < NQ) clacgv( NQ-I, A( I, I+1 ), LDA );
       } // 10
       return;
       }

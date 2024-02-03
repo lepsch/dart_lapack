@@ -182,7 +182,7 @@
                   // which needs to be updated.
 
                   JM = min( JU, J+JB-1 );
-                  if (JM > JJ) CALL SGER( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
+                  if (JM > JJ) sger( KM, JM-JJ, -ONE, AB( KV+2, JJ ), 1, AB( KV, JJ+1 ), LDAB-1, AB( KV+1, JJ+1 ), LDAB-1 );
                } else {
 
                   // If pivot is zero, set INFO to the index of the pivot
@@ -194,7 +194,7 @@
                // Copy current column of A31 into the work array WORK31
 
                NW = min( JJ-J+1, I3 );
-               if (NW > 0) CALL SCOPY( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
+               if (NW > 0) scopy( NW, AB( KV+KL+1-JJ+J, JJ ), 1, WORK31( 1, JJ-J+1 ), 1 );
             } // 80
             if ( J+JB <= N ) {
 
@@ -325,7 +325,7 @@
                // Copy the current column of A31 back into place
 
                NW = min( I3, JJ-J+1 );
-               if (NW > 0) CALL SCOPY( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
+               if (NW > 0) scopy( NW, WORK31( 1, JJ-J+1 ), 1, AB( KV+KL+1-JJ+J, JJ ), 1 );
             } // 170
          } // 180
       }

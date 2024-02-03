@@ -72,7 +72,7 @@
 
       // Initialize A to the identity matrix if desired
 
-      if( LSAME( INIT, 'I' ) ) CALL DLASET( 'Full', M, N, ZERO, ONE, A, LDA );
+      if( LSAME( INIT, 'I' ) ) dlaset( 'Full', M, N, ZERO, ONE, A, LDA );
 
       // If no rotation possible, multiply by random +/-1
 

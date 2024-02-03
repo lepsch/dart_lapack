@@ -110,12 +110,12 @@
 
          // ==== copy eigenvalues isolated by CGEBAL ====
 
-         if (ILO > 1) CALL CCOPY( ILO-1, H, LDH+1, W, 1 );
-         IF( IHI < N ) CALL CCOPY( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
+         if (ILO > 1) ccopy( ILO-1, H, LDH+1, W, 1 );
+         IF( IHI < N ) ccopy( N-IHI, H( IHI+1, IHI+1 ), LDH+1, W( IHI+1 ), 1 );
 
          // ==== Initialize Z, if requested ====
 
-         if (INITZ) CALL CLASET( 'A', N, N, ZERO, ONE, Z, LDZ );
+         if (INITZ) claset( 'A', N, N, ZERO, ONE, Z, LDZ );
 
          // ==== Quick return if possible ====
 
@@ -170,7 +170,7 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         if( ( WANTT || INFO != 0 ) && N > 2 ) CALL CLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
+         if( ( WANTT || INFO != 0 ) && N > 2 ) claset( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

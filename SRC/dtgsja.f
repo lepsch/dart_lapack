@@ -82,9 +82,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL DLASET( 'Full', M, M, ZERO, ONE, U, LDU );
-      if( INITV ) CALL DLASET( 'Full', P, P, ZERO, ONE, V, LDV );
-      IF( INITQ ) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      if (INITU) dlaset( 'Full', M, M, ZERO, ONE, U, LDU );
+      if( INITV ) dlaset( 'Full', P, P, ZERO, ONE, V, LDV );
+      IF( INITQ ) dlaset( 'Full', N, N, ZERO, ONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -117,7 +117,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
-               if (K+J <= M) CALL DROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
+               if (K+J <= M) drot( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
 
                // Update I-th and J-th rows of matrix B: V**T *B
 
@@ -140,11 +140,11 @@
 
                // Update orthogonal matrices U, V, Q, if desired.
 
-               if (WANTU && K+J <= M) CALL DROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) drot( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
-               if (WANTV) CALL DROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
+               if (WANTV) drot( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
-               if (WANTQ) CALL DROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
+               if (WANTQ) drot( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
 
             } // 10
          } // 20
@@ -200,7 +200,7 @@
 
             if ( GAMMA < ZERO ) {
                dscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
-               if (WANTV) CALL DSCAL( P, -ONE, V( 1, I ), 1 );
+               if (WANTV) dscal( P, -ONE, V( 1, I ), 1 );
             }
 
             dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );

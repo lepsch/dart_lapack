@@ -129,7 +129,7 @@
 
                A( PVT, PVT ) = A( J, J );
                dswap(J-1, A( 1, J ), 1, A( 1, PVT ), 1 );
-               if (PVT < N) CALL DSWAP( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
+               if (PVT < N) dswap( N-PVT, A( J, PVT+1 ), LDA, A( PVT, PVT+1 ), LDA );
                dswap(PVT-J-1, A( J, J+1 ), LDA, A( J+1, PVT ), 1 );
 
                // Swap dot products and PIV
@@ -189,7 +189,7 @@
 
                A( PVT, PVT ) = A( J, J );
                dswap(J-1, A( J, 1 ), LDA, A( PVT, 1 ), LDA );
-               if (PVT < N) CALL DSWAP( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
+               if (PVT < N) dswap( N-PVT, A( PVT+1, J ), 1, A( PVT+1, PVT ), 1 );
                dswap(PVT-J-1, A( J+1, J ), 1, A( PVT, J+1 ), LDA );
 
                // Swap dot products and PIV

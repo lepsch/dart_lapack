@@ -192,7 +192,7 @@
 
       // If M < N make sure certain entries of B are zero.
 
-      if (M < N) CALL SLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
+      if (M < N) slaset( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

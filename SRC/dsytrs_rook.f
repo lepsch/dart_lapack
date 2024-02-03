@@ -81,7 +81,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
@@ -99,10 +99,10 @@
             // Interchange rows K and -IPIV(K) THEN K-1 and -IPIV(K-1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K-1 );
-            if (KP != K-1) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K-1) dswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
@@ -149,12 +149,12 @@
             // Multiply by inv(U**T(K)), where U(K) is the transformation
             // stored in column K of A.
 
-            if (K > 1) CALL DGEMV( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+            if (K > 1) dgemv( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
 
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K + 1;
          } else {
 
@@ -171,10 +171,10 @@
             // Interchange rows K and -IPIV(K) THEN K+1 and -IPIV(K+1).
 
             KP = -IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K+1 );
-            if (KP != K+1) CALL DSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K+1) dswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             K = K + 2;
          }
@@ -205,12 +205,12 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            if (K < N) CALL DGER( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+            if (K < N) dger( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -223,10 +223,10 @@
             // Interchange rows K and -IPIV(K) THEN K+1 and -IPIV(K+1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K+1 );
-            if (KP != K+1) CALL DSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K+1) dswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
@@ -273,12 +273,12 @@
             // Multiply by inv(L**T(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            if (K < N) CALL DGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+            if (K < N) dgemv( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
 
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K - 1;
          } else {
 
@@ -295,10 +295,10 @@
             // Interchange rows K and -IPIV(K) THEN K-1 and -IPIV(K-1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL DSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) dswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K-1 );
-            if (KP != K-1) CALL DSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K-1) dswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             K = K - 2;
          }

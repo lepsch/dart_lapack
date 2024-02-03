@@ -56,7 +56,7 @@
 
       // Set B(m+1:n,:) to zero
 
-      if (M < N) CALL ZLASET( 'Full', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
+      if (M < N) zlaset( 'Full', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
 
       // B := Q' * B
 

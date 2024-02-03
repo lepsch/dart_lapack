@@ -54,17 +54,17 @@
 
       slaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
       if ( M <= N ) {
-         if (M > 0 && M < N) CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) slacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
+         IF( M > 1 ) slacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N > 1) CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) slacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
       sorgrq(N, N, min( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
       slaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
-      if (P > 1) CALL SLACPY( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
+      if (P > 1) slacpy( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
       sorgqr(P, P, min( P,N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R

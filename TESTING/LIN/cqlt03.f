@@ -66,8 +66,8 @@
       // Copy the last k columns of the factorization to the array Q
 
       claset('Full', M, M, ROGUE, ROGUE, Q, LDA );
-      if (K > 0 && M > K) CALL CLACPY( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA );
-      IF( K > 1 ) CALL CLACPY( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
+      if (K > 0 && M > K) clacpy( 'Full', M-K, K, AF( 1, N-K+1 ), LDA, Q( 1, M-K+1 ), LDA );
+      IF( K > 1 ) clacpy( 'Upper', K-1, K-1, AF( M-K+1, N-K+2 ), LDA, Q( M-K+1, M-K+2 ), LDA );
 
       // Generate the m-by-m matrix Q
 
@@ -107,7 +107,7 @@
             // Apply Q or Q' to C
 
             SRNAMT = 'CUNMQL';
-            if (K > 0) CALL CUNMQL( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
+            if (K > 0) cunmql( SIDE, TRANS, MC, NC, K, AF( 1, N-K+1 ), LDA, TAU( MINMN-K+1 ), CC, LDA, WORK, LWORK, INFO );
 
             // Form explicit product and subtract
 

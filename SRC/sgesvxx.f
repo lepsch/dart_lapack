@@ -157,9 +157,9 @@
       // Scale the right-hand side.
 
       if ( NOTRAN ) {
-         if (ROWEQU) CALL SLASCL2( N, NRHS, R, B, LDB );
+         if (ROWEQU) slascl2( N, NRHS, R, B, LDB );
       } else {
-         if (COLEQU) CALL SLASCL2( N, NRHS, C, B, LDB );
+         if (COLEQU) slascl2( N, NRHS, C, B, LDB );
       }
 
       if ( NOFACT || EQUIL ) {

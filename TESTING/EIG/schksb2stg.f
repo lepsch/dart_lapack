@@ -292,7 +292,7 @@
                // SSYTRD_SB2ST
 
                scopy(N, SD, 1, D1, 1 );
-               if (N > 0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) scopy( N-1, SE, 1, WORK, 1 );
 
                ssteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -321,7 +321,7 @@
                // Compute D2 from the SSYTRD_SB2ST Upper case
 
                scopy(N, SD, 1, D2, 1 );
-               if (N > 0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) scopy( N-1, SE, 1, WORK, 1 );
 
                ssteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -387,7 +387,7 @@
                // Compute D3 from the 2-stage Upper case
 
                scopy(N, SD, 1, D3, 1 );
-               if (N > 0) CALL SCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) scopy( N-1, SE, 1, WORK, 1 );
 
                ssteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {

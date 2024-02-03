@@ -108,7 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) );
             SMINU = SMINU + ABS( RHS( I ) );
          } // 30
-         if (SPLUS > SMINU) CALL ZCOPY( N, WORK, 1, RHS, 1 );
+         if (SPLUS > SMINU) zcopy( N, WORK, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -137,7 +137,7 @@
       zaxpy(N, -CONE, XM, 1, RHS, 1 );
       zgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       zgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      if( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) CALL ZCOPY( N, XP, 1, RHS, 1 );
+      if( DZASUM( N, XP, 1 ) > DZASUM( N, RHS, 1 ) ) zcopy( N, XP, 1, RHS, 1 );
 
       // Compute the sum of squares
 

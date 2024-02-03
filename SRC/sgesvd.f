@@ -486,7 +486,7 @@
 
                // If right singular vectors desired in VT, copy them there
 
-               if (WNTVAS) CALL SLACPY( 'F', N, N, A, LDA, VT, LDVT );
+               if (WNTVAS) slacpy( 'F', N, N, A, LDA, VT, LDVT );
 
             } else if ( WNTUO && WNTVN ) {
 
@@ -637,7 +637,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) slaset( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -698,7 +698,7 @@
                   // Copy R to VT, zeroing out below it
 
                   slacpy('U', N, N, A, LDA, VT, LDVT );
-                  if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                  if (N > 1) slaset( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
 
                   // Generate Q in A
                   // (Workspace: need 2*N, prefer N+N*NB)
@@ -1093,7 +1093,7 @@
                      // Copy R to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) slaset( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU;
                      ITAUQ = IE + N;
                      ITAUP = ITAUQ + N;
@@ -1502,7 +1502,7 @@
                      // Copy R from A to VT, zeroing out below it
 
                      slacpy('U', N, N, A, LDA, VT, LDVT );
-                     if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
+                     if (N > 1) slaset( 'L', N-1, N-1, ZERO, ZERO, VT( 2, 1 ), LDVT );
                      IE = ITAU;
                      ITAUQ = IE + N;
                      ITAUP = ITAUQ + N;
@@ -1675,7 +1675,7 @@
 
                // If left singular vectors desired in U, copy them there
 
-               if (WNTUAS) CALL SLACPY( 'F', M, M, A, LDA, U, LDU );
+               if (WNTUAS) slacpy( 'F', M, M, A, LDA, U, LDU );
 
             } else if ( WNTVO && WNTUN ) {
 
@@ -2835,10 +2835,10 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         if( INFO != 0 && ANRM > BIGNUM ) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
-         if( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         IF( INFO != 0 && ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if (ANRM > BIGNUM) slascl( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         if( INFO != 0 && ANRM > BIGNUM ) slascl( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
+         if( ANRM < SMLNUM ) slascl( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         IF( INFO != 0 && ANRM < SMLNUM ) slascl( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, WORK( 2 ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

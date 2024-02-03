@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRVX( PATH, NOUT );
+      if (TSTERR) cerrvx( PATH, NOUT );
       INFOT = 0;
       KDVAL( 1 ) = 0;
 
@@ -347,7 +347,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                  WRITE( NOUT, FMT = 9999 )'CPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1;
                               }
@@ -358,7 +358,7 @@
 
                         // --- Test CPBSVX ---
 
-                        if ( !PREFAC) CALL CLASET( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
+                        if ( !PREFAC) claset( 'Full', KD+1, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDAB );
                         claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                         if ( IEQUED > 1 && N > 0 ) {
 
@@ -424,7 +424,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K );
                               } else {

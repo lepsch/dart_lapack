@@ -274,7 +274,7 @@
 // #:) Quick return for zero matrix
 
       if ( AAPP == ZERO ) {
-         if (LSVEC) CALL ZLASET( 'G', M, N, CZERO, CONE, A, LDA );
+         if (LSVEC) zlaset( 'G', M, N, CZERO, CONE, A, LDA );
          RWORK( 1 ) = ONE;
          RWORK( 2 ) = ZERO;
          RWORK( 3 ) = ZERO;
@@ -287,7 +287,7 @@
 // #:) Quick return for one-column matrix
 
       if ( N == 1 ) {
-         if (LSVEC) CALL ZLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
+         if (LSVEC) zlascl( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          RWORK( 1 ) = ONE / SKL;
          if ( SVA( 1 ) >= SFMIN ) {
             RWORK( 2 ) = ONE;
@@ -459,7 +459,7 @@
                   q = IDAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-                     if (RSVEC) CALL ZSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+                     if (RSVEC) zswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p );
                      SVA( p ) = SVA( q );
                      SVA( q ) = TEMP1;
@@ -900,7 +900,7 @@
             SVA( p ) = SVA( q );
             SVA( q ) = TEMP1;
             zswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) CALL ZSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+            if (RSVEC) zswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
          if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1;

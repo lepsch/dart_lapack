@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRPO( PATH, NOUT );
+      if (TSTERR) serrpo( PATH, NOUT );
       INFOT = 0;
       xlaenv(2, 2 );
 
@@ -197,7 +197,7 @@
 
                   // Check error code from SPOTRI.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   spot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -206,7 +206,7 @@
 
                   for (K = 1; K <= 2; K++) { // 60
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -233,7 +233,7 @@
 
                   // Check error code from SPOTRS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      spot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -251,7 +251,7 @@
 
                   // Check error code from SPORFS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                      spot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -261,7 +261,7 @@
 
                      for (K = 3; K <= 7; K++) { // 70
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -278,14 +278,14 @@
 
                   // Check error code from SPOCON.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   RESULT( 8 ) = SGET06( RCOND, RCONDC );
 
                   // Print the test ratio if it is >= THRESH.
 
                   if ( RESULT( 8 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1;
                   }

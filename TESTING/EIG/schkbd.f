@@ -354,7 +354,7 @@
             // B := U * S1 * VT, and compute Z = U' * Y.
 
             scopy(MNMIN, BD, 1, S1, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK, 1 );
             slacpy(' ', M, NRHS, Y, LDX, Z, LDX );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT );
@@ -378,7 +378,7 @@
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
             scopy(MNMIN, BD, 1, S2, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK, 1 );
 
             sbdsqr(UPLO, MNMIN, 0, 0, 0, S2, WORK, VT, LDPT, U, LDPT, Z, LDX, WORK( MNMIN+1 ), IINFO );
 
@@ -447,7 +447,7 @@
 
             if ( !BIDIAG ) {
                scopy(MNMIN, BD, 1, S2, 1 );
-               if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
+               if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK, 1 );
 
                sbdsqr(UPLO, MNMIN, N, M, NRHS, S2, WORK, PT, LDPT, Q, LDQ, Y, LDX, WORK( MNMIN+1 ), IINFO );
 
@@ -466,7 +466,7 @@
             // B := U * S1 * VT
 
             scopy(MNMIN, BD, 1, S1, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK, 1 );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, U, LDPT );
             slaset('Full', MNMIN, MNMIN, ZERO, ONE, VT, LDPT );
 
@@ -489,7 +489,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, S2, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK, 1 );
 
             sbdsdc(UPLO, 'N', MNMIN, S2, WORK, DUM, 1, DUM, 1, DUM, IDUM, WORK( MNMIN+1 ), IWORK, IINFO );
 
@@ -557,7 +557,7 @@
             MNMIN2 = max( 1,MNMIN*2 );
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'A', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, 0, 0, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO);
 
@@ -594,7 +594,7 @@
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'A', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, 0, 0, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -664,7 +664,7 @@
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'I', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, IL, IU, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO);
 
@@ -693,7 +693,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'I', MNMIN, WORK( IWBD ), WORK( IWBE ), ZERO, ZERO, IL, IU, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -763,7 +763,7 @@
             }
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'V', 'V', MNMIN, WORK( IWBD ), WORK( IWBE ), VL, VU, 0, 0, NS1, S1, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -792,7 +792,7 @@
             // bidiagonal matrix B;  U and VT should not be modified.
 
             scopy(MNMIN, BD, 1, WORK( IWBD ), 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, WORK( IWBE ), 1 );
 
             sbdsvdx(UPLO, 'N', 'V', MNMIN, WORK( IWBD ), WORK( IWBE ), VL, VU, 0, 0, NS2, S2, WORK( IWBZ ), MNMIN2, WORK( IWWORK ), IWORK, IINFO );
 
@@ -842,7 +842,7 @@
 
             for (J = 1; J <= 34; J++) { // 280
                if ( RESULT( J ) >= THRESH ) {
-                  if (NFAIL == 0) CALL SLAHD2( NOUT, PATH );
+                  if (NFAIL == 0) slahd2( NOUT, PATH );
                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1;
                }

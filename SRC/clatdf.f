@@ -108,7 +108,7 @@
             SPLUS = SPLUS + ABS( WORK( I ) );
             SMINU = SMINU + ABS( RHS( I ) );
          } // 30
-         if (SPLUS > SMINU) CALL CCOPY( N, WORK, 1, RHS, 1 );
+         if (SPLUS > SMINU) ccopy( N, WORK, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -137,7 +137,7 @@
       caxpy(N, -CONE, XM, 1, RHS, 1 );
       cgesc2(N, Z, LDZ, RHS, IPIV, JPIV, SCALE );
       cgesc2(N, Z, LDZ, XP, IPIV, JPIV, SCALE );
-      if( SCASUM( N, XP, 1 ) > SCASUM( N, RHS, 1 ) ) CALL CCOPY( N, XP, 1, RHS, 1 );
+      if( SCASUM( N, XP, 1 ) > SCASUM( N, RHS, 1 ) ) ccopy( N, XP, 1, RHS, 1 );
 
       // Compute the sum of squares
 

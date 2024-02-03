@@ -61,7 +61,7 @@
          // Compute the L*D*L**T (or U**T*D*U) factorization of A.
 
          scopy(N, D, 1, DF, 1 );
-         if (N > 1) CALL SCOPY( N-1, E, 1, EF, 1 );
+         if (N > 1) scopy( N-1, E, 1, EF, 1 );
          spttrf(N, DF, EF, INFO );
 
          // Return if INFO is non-zero.

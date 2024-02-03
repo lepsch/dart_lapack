@@ -171,7 +171,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -184,7 +184,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute and/or balance the matrix pair (A,B)
       // (Real Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
@@ -236,7 +236,7 @@
          zungqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
-      if (ILVR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR );
+      if (ILVR) zlaset( 'Full', N, N, CZERO, CONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -372,9 +372,9 @@
 
       } // 90
 
-      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
+      if (ILASCL) zlascl( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
 
-      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+      if (ILBSCL) zlascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK( 1 ) = MAXWRK;
       return;

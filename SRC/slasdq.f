@@ -98,7 +98,7 @@
 
          // Update singular vectors if desired.
 
-         if (NCVT > 0) CALL SLASR( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT );
+         if (NCVT > 0) slasr( 'L', 'V', 'F', NP1, NCVT, WORK( 1 ), WORK( NP1 ), VT, LDVT );
       }
 
       // If matrix lower bidiagonal, rotate to be upper bidiagonal
@@ -172,9 +172,9 @@
 
             D( ISUB ) = D( I );
             D( I ) = SMIN;
-            if (NCVT > 0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT );
-            if( NRU > 0 ) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 );
-            IF( NCC > 0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
+            if (NCVT > 0) sswap( NCVT, VT( ISUB, 1 ), LDVT, VT( I, 1 ), LDVT );
+            if( NRU > 0 ) sswap( NRU, U( 1, ISUB ), 1, U( 1, I ), 1 );
+            IF( NCC > 0 ) sswap( NCC, C( ISUB, 1 ), LDC, C( I, 1 ), LDC );
          }
       } // 40
 

@@ -274,7 +274,7 @@
 // #:) Quick return for zero matrix
 
       if ( AAPP == ZERO ) {
-         if (LSVEC) CALL CLASET( 'G', M, N, CZERO, CONE, A, LDA );
+         if (LSVEC) claset( 'G', M, N, CZERO, CONE, A, LDA );
          RWORK( 1 ) = ONE;
          RWORK( 2 ) = ZERO;
          RWORK( 3 ) = ZERO;
@@ -287,7 +287,7 @@
 // #:) Quick return for one-column matrix
 
       if ( N == 1 ) {
-         if (LSVEC) CALL CLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
+         if (LSVEC) clascl( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          RWORK( 1 ) = ONE / SKL;
          if ( SVA( 1 ) >= SFMIN ) {
             RWORK( 2 ) = ONE;
@@ -460,7 +460,7 @@
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      cswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-                     if (RSVEC) CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+                     if (RSVEC) cswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p );
                      SVA( p ) = SVA( q );
                      SVA( q ) = TEMP1;
@@ -899,7 +899,7 @@
             SVA( p ) = SVA( q );
             SVA( q ) = TEMP1;
             cswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+            if (RSVEC) cswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
          if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1;

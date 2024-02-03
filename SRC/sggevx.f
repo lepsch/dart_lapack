@@ -166,7 +166,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) slascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -179,7 +179,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) slascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute and/or balance the matrix pair (A,B)
       // (Workspace: need 6*N if BALANC = 'S' or 'B', 1 otherwise)
@@ -231,7 +231,7 @@
          sorgqr(IROWS, IROWS, IROWS, VL( ILO, ILO ), LDVL, WORK( ITAU ), WORK( IWRK ), LWORK+1-IWRK, IERR );
       }
 
-      if (ILVR) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
+      if (ILVR) slaset( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)

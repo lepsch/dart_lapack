@@ -268,7 +268,7 @@
 
             // Zero out below R
 
-            if (N > 1) CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
+            if (N > 1) dlaset( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
          }
 
          IE = 1;

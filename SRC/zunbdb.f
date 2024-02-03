@@ -184,7 +184,7 @@
                zlarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
-            if (I < Q) CALL ZLACGV( Q-I, X11(I,I+1), LDX11 );
+            if (I < Q) zlacgv( Q-I, X11(I,I+1), LDX11 );
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
 
          }
@@ -205,7 +205,7 @@
             if ( P > I ) {
                zlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            if (M-P-Q >= 1) CALL ZLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
+            if (M-P-Q >= 1) zlarf( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
             zlacgv(M-Q-I+1, X12(I,I), LDX12 );
 
@@ -304,7 +304,7 @@
             if ( P > I ) {
                zlarf('L', M-Q-I+1, P-I, X12(I,I), 1, DCONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
             }
-            if (M-P-Q >= 1) CALL ZLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, DCONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
+            if (M-P-Q >= 1) zlarf( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, DCONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
 
          }
 

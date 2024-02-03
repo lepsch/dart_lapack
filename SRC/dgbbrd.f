@@ -71,8 +71,8 @@
 
       // Initialize Q and P**T to the unit matrix, if needed
 
-      if (WANTQ) CALL DLASET( 'Full', M, M, ZERO, ONE, Q, LDQ );
-      IF( WANTPT ) CALL DLASET( 'Full', N, N, ZERO, ONE, PT, LDPT );
+      if (WANTQ) dlaset( 'Full', M, M, ZERO, ONE, Q, LDQ );
+      IF( WANTPT ) dlaset( 'Full', N, N, ZERO, ONE, PT, LDPT );
 
       // Quick return if possible.
 
@@ -123,7 +123,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been created below the band
 
-               if (NR > 0) CALL DLARGV( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, WORK( MN+J1 ), KB1 );
+               if (NR > 0) dlargv( NR, AB( KLU1, J1-KLM-1 ), INCA, WORK( J1 ), KB1, WORK( MN+J1 ), KB1 );
 
                // apply plane rotations from the left
 
@@ -133,7 +133,7 @@
                   } else {
                      NRT = NR;
                   }
-                  if (NRT > 0) CALL DLARTV( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 );
+                  if (NRT > 0) dlartv( NRT, AB( KLU1-L, J1-KLM+L-1 ), INCA, AB( KLU1-L+1, J1-KLM+L-1 ), INCA, WORK( MN+J1 ), WORK( J1 ), KB1 );
                } // 10
 
                if ( ML > ML0 ) {
@@ -144,7 +144,7 @@
 
                      dlartg(AB( KU+ML-1, I ), AB( KU+ML, I ), WORK( MN+I+ML-1 ), WORK( I+ML-1 ), RA );
                      AB( KU+ML-1, I ) = RA;
-                     if (I < N) CALL DROT( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
+                     if (I < N) drot( min( KU+ML-2, N-I ), AB( KU+ML-2, I+1 ), LDAB-1, AB( KU+ML-1, I+1 ), LDAB-1, WORK( MN+I+ML-1 ), WORK( I+ML-1 ) );
                   }
                   NR = NR + 1;
                   J1 = J1 - KB1;
@@ -188,7 +188,7 @@
                // generate plane rotations to annihilate nonzero elements
                // which have been generated above the band
 
-               if (NR > 0) CALL DLARGV( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, WORK( MN+J1+KUN ), KB1 );
+               if (NR > 0) dlargv( NR, AB( 1, J1+KUN-1 ), INCA, WORK( J1+KUN ), KB1, WORK( MN+J1+KUN ), KB1 );
 
                // apply plane rotations from the right
 
@@ -198,7 +198,7 @@
                   } else {
                      NRT = NR;
                   }
-                  if (NRT > 0) CALL DLARTV( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 );
+                  if (NRT > 0) dlartv( NRT, AB( L+1, J1+KUN-1 ), INCA, AB( L, J1+KUN ), INCA, WORK( MN+J1+KUN ), WORK( J1+KUN ), KB1 );
                } // 50
 
                if ( ML == ML0 && MU > MU0 ) {
@@ -265,8 +265,8 @@
                E( I ) = RS*AB( 1, I+1 );
                AB( 1, I+1 ) = RC*AB( 1, I+1 );
             }
-            if (WANTQ) CALL DROT( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS );
-            IF( WANTC ) CALL DROT( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
+            if (WANTQ) drot( M, Q( 1, I ), 1, Q( 1, I+1 ), 1, RC, RS );
+            IF( WANTC ) drot( NCC, C( I, 1 ), LDC, C( I+1, 1 ), LDC, RC, RS );
          } // 100
          if (M <= N) D( M ) = AB( 1, M );
       } else if ( KU > 0 ) {
@@ -287,7 +287,7 @@
                   RB = -RS*AB( KU, I );
                   E( I-1 ) = RC*AB( KU, I );
                }
-               if (WANTPT) CALL DROT( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS );
+               if (WANTPT) drot( N, PT( I, 1 ), LDPT, PT( M+1, 1 ), LDPT, RC, RS );
             } // 110
          } else {
 

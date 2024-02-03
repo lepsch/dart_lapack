@@ -51,7 +51,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRQRTP( PATH, NOUT );
+      if (TSTERR) serrqrtp( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of M
@@ -84,7 +84,7 @@
 
                      for (T = 1; T <= NTESTS; T++) {
                         if ( RESULT( T ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )M, N, NB, L, T, RESULT( T );
                            NFAIL = NFAIL + 1;
                         }

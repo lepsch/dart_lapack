@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRVX( PATH, NOUT );
+      if (TSTERR) derrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -296,7 +296,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )'DSYSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -307,7 +307,7 @@
 
                   // --- Test DSYSVX ---
 
-                  if (IFACT == 2) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
+                  if (IFACT == 2) dlaset( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                   dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -378,7 +378,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )'DSYSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -389,7 +389,7 @@
 
                   // Restore the matrices A and B.
 
-                  if (IFACT == 2) CALL DLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
+                  if (IFACT == 2) dlaset( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                   dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number
@@ -462,7 +462,7 @@
 
                   for (K = K1; K <= 6; K++) { // 85
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )'DSYSVXX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }

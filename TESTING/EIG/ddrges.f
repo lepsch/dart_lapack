@@ -191,7 +191,7 @@
 
                if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, A, LDA );
+                  if (IN != N) dlaset( 'Full', N, N, ZERO, ZERO, A, LDA );
                } else {
                   IN = N;
                }
@@ -203,7 +203,7 @@
 
                if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) CALL DLASET( 'Full', N, N, ZERO, ZERO, B, LDA );
+                  if (IN != N) dlaset( 'Full', N, N, ZERO, ZERO, B, LDA );
                } else {
                   IN = N;
                }

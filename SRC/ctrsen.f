@@ -113,7 +113,7 @@
 
             // Swap the K-th eigenvalue to position KS.
 
-            if (K != KS) CALL CTREXC( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR );
+            if (K != KS) ctrexc( COMPQ, N, T, LDT, Q, LDQ, K, KS, IERR );
          }
       } // 20
 

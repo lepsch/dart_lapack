@@ -1742,10 +1742,10 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         if( INFO != 0 && ANRM > BIGNUM ) CALL DLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
-         if( ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
-         IF( INFO != 0 && ANRM < SMLNUM ) CALL DLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if (ANRM > BIGNUM) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         if( INFO != 0 && ANRM > BIGNUM ) dlascl( 'G', 0, 0, BIGNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
+         if( ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, IERR );
+         IF( INFO != 0 && ANRM < SMLNUM ) dlascl( 'G', 0, 0, SMLNUM, ANRM, MINMN-1, 1, RWORK( IE ), MINMN, IERR );
       }
 
       // Return optimal workspace in WORK(1)

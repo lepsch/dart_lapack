@@ -135,8 +135,8 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPQ == 3) zlaset( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) zlaset( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Machine Constants
 
@@ -164,7 +164,7 @@
             } else {
                zscal(1, SIGNBC, H( J, J ), 1 );
             }
-            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
          } else {
             T( J, J ) = CZERO;
          }
@@ -295,7 +295,7 @@
                      CTEMP = T( JCH, JCH+1 );
                      zlartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO;
-                     if (JCH < ILASTM-1) CALL ZROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     if (JCH < ILASTM-1) zrot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      zrot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
                      CTEMP = H( JCH+1, JCH );
                      zlartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
@@ -345,7 +345,7 @@
             } else {
                zscal(1, SIGNBC, H( ILAST, ILAST ), 1 );
             }
-            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, ILAST ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, ILAST ), 1 );
          } else {
             T( ILAST, ILAST ) = CZERO;
          }
@@ -523,7 +523,7 @@
             } else {
                zscal(1, SIGNBC, H( J, J ), 1 );
             }
-            if (ILZ) CALL ZSCAL( N, SIGNBC, Z( 1, J ), 1 );
+            if (ILZ) zscal( N, SIGNBC, Z( 1, J ), 1 );
          } else {
             T( J, J ) = CZERO;
          }

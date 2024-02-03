@@ -211,7 +211,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
+                     if (SCALE != ONE) dscal( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J+N ) = X( 1, 1 );
 
                      // Update right-hand side
@@ -238,7 +238,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+N ), 1 );
+                     if (SCALE != ONE) dscal( KI, SCALE, WORK( 1+N ), 1 );
                      WORK( J-1+N ) = X( 1, 1 );
                      WORK( J+N ) = X( 2, 1 );
 
@@ -262,7 +262,7 @@
                      VR( K, IS ) = ZERO;
                   } // 70
                } else {
-                  if (KI > 1) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
+                  if (KI > 1) dgemv( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI+N ), VR( 1, KI ), 1 );
 
                   II = IDAMAX( N, VR( 1, KI ), 1 );
                   REMAX = ONE / ABS( VR( II, KI ) );
@@ -508,7 +508,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
+                     if (SCALE != ONE) dscal( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 );
                      VMAX = max( ABS( WORK( J+N ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
@@ -540,7 +540,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+N ), 1 );
+                     if (SCALE != ONE) dscal( N-KI+1, SCALE, WORK( KI+N ), 1 );
                      WORK( J+N ) = X( 1, 1 );
                      WORK( J+1+N ) = X( 2, 1 );
 
@@ -565,7 +565,7 @@
 
                } else {
 
-                  if (KI < N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 );
+                  if (KI < N) dgemv( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 );
 
                   II = IDAMAX( N, VL( 1, KI ), 1 );
                   REMAX = ONE / ABS( VL( II, KI ) );

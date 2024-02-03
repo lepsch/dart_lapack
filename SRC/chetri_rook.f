@@ -141,7 +141,7 @@
             KP = IPIV( K );
             if ( KP != K ) {
 
-               if (KP > 1) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) cswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 40
                   TEMP = CONJG( A( J, K ) );
@@ -165,7 +165,7 @@
             KP = -IPIV( K );
             if ( KP != K ) {
 
-               if (KP > 1) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) cswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 50
                   TEMP = CONJG( A( J, K ) );
@@ -190,7 +190,7 @@
             KP = -IPIV( K );
             if ( KP != K ) {
 
-               if (KP > 1) CALL CSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) cswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
 
                for (J = KP + 1; J <= K - 1; J++) { // 60
                   TEMP = CONJG( A( J, K ) );
@@ -273,7 +273,7 @@
             KP = IPIV( K );
             if ( KP != K ) {
 
-               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) cswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 90
                   TEMP = CONJG( A( J, K ) );
@@ -297,7 +297,7 @@
             KP = -IPIV( K );
             if ( KP != K ) {
 
-               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) cswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 100
                   TEMP = CONJG( A( J, K ) );
@@ -322,7 +322,7 @@
             KP = -IPIV( K );
             if ( KP != K ) {
 
-               if (KP < N) CALL CSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) cswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
 
                for (J = K + 1; J <= KP - 1; J++) { // 110
                   TEMP = CONJG( A( J, K ) );

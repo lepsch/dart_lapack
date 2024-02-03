@@ -94,8 +94,8 @@
 
       // Initialize Q and Z if desired.
 
-      if (ICOMPQ == 3) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) slaset( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) slaset( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Quick return if possible
 

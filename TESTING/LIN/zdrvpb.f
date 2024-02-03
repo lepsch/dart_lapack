@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRVX( PATH, NOUT );
+      if (TSTERR) zerrvx( PATH, NOUT );
       INFOT = 0;
       KDVAL( 1 ) = 0;
 
@@ -347,7 +347,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                  WRITE( NOUT, FMT = 9999 )'ZPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1;
                               }
@@ -358,7 +358,7 @@
 
                         // --- Test ZPBSVX ---
 
-                        if ( !PREFAC) CALL ZLASET( 'Full', KD+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDAB );
+                        if ( !PREFAC) zlaset( 'Full', KD+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDAB );
                         zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                         if ( IEQUED > 1 && N > 0 ) {
 
@@ -424,7 +424,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K );
                               } else {

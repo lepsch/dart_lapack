@@ -81,7 +81,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRVX( PATH, NOUT );
+      if (TSTERR) zerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -286,7 +286,7 @@
 
                         // Check error code from ZGESV .
 
-                        if (INFO != IZERO) CALL ALAERH( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) alaerh( PATH, 'ZGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -311,7 +311,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'ZGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -321,7 +321,7 @@
 
                      // --- Test ZGESVX ---
 
-                     if ( !PREFAC) CALL ZLASET( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
+                     if ( !PREFAC) zlaset( 'Full', N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -339,7 +339,7 @@
 
                      // Check the error code from ZGESVX.
 
-                     if (INFO != IZERO) CALL ALAERH( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'ZGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from ZGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
@@ -412,7 +412,7 @@
                      if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K );
                               } else {
@@ -424,7 +424,7 @@
                         NRUN = NRUN + NTESTS - K1 + 1;
                      } else {
                         if( RESULT( 1 ) >= THRESH && !PREFAC ) {
-                           if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                           if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 );
                            } else {
@@ -434,7 +434,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 6 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 );
                            } else {
@@ -444,7 +444,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 7 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 );
                            } else {

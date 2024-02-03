@@ -79,12 +79,12 @@
 
          // Swap rows
 
-         if (IPV != I) CALL SSWAP( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA );
+         if (IPV != I) sswap( N, A( IPV, 1 ), LDA, A( I, 1 ), LDA );
          IPIV( I ) = IPV;
 
          // Swap columns
 
-         if (JPV != I) CALL SSWAP( N, A( 1, JPV ), 1, A( 1, I ), 1 );
+         if (JPV != I) sswap( N, A( 1, JPV ), 1, A( 1, I ), 1 );
          JPIV( I ) = JPV;
 
          // Check for singularity

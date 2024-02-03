@@ -214,7 +214,7 @@
 
          // Test the error exits
 
-         if (TSTERR) CALL DERRAB( NOUT );
+         if (TSTERR) derrab( NOUT );
 
          if ( TSTDRV ) {
             ddrvab(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT );
@@ -230,7 +230,7 @@
          alareq('DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
 
-         if (TSTERR) CALL DERRAC( NOUT );
+         if (TSTERR) derrac( NOUT );
 
 
          if ( TSTDRV ) {

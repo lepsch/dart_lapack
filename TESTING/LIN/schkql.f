@@ -68,7 +68,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRQL( PATH, NOUT );
+      if (TSTERR) serrql( PATH, NOUT );
       INFOT = 0;
       xlaenv(2, 2 );
 
@@ -178,7 +178,7 @@
 
                            // Check error code from SGEQLS.
 
-                           if (INFO != 0) CALL ALAERH( PATH, 'SGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != 0) alaerh( PATH, 'SGEQLS', INFO, 0, ' ', M, N, NRHS, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                            sget02('No transpose', M, N, NRHS, A, LDA, X( M-N+1 ), LDA, B, LDA, RWORK, RESULT( 7 ) );
                            NT = NT + 1;
@@ -190,7 +190,7 @@
 
                      for (I = 1; I <= NT; I++) { // 20
                         if ( RESULT( I ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )M, N, K, NB, NX, IMAT, I, RESULT( I );
                            NFAIL = NFAIL + 1;
                         }

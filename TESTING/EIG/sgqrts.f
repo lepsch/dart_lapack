@@ -60,10 +60,10 @@
 
       slaset('Full', P, P, ROGUE, ROGUE, Z, LDB );
       if ( N <= P ) {
-         if (N > 0 && N < P) CALL SLACPY( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB );
-         IF( N > 1 ) CALL SLACPY( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
+         if (N > 0 && N < P) slacpy( 'Full', N, P-N, BF, LDB, Z( P-N+1, 1 ), LDB );
+         IF( N > 1 ) slacpy( 'Lower', N-1, N-1, BF( 2, P-N+1 ), LDB, Z( P-N+2, P-N+1 ), LDB );
       } else {
-         if (P > 1) CALL SLACPY( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
+         if (P > 1) slacpy( 'Lower', P-1, P-1, BF( N-P+2, 1 ), LDB, Z( 2, 1 ), LDB );
       }
       sorgrq(P, P, min( N, P ), Z, LDB, TAUB, WORK, LWORK, INFO );
 

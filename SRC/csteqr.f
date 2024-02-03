@@ -86,7 +86,7 @@
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
 
-      if (ICOMPZ == 2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPZ == 2) claset( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       NMAXIT = N*MAXIT;
       JTOT = 0;

@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRGE( PATH, NOUT );
+      if (TSTERR) derrge( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 110
@@ -127,7 +127,7 @@
                   // Generate a matrix with elements from [-1,1].
 
                   dlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM != ONE) CALL DSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) dscal( N+2*M, ANORM, A, 1 );
                } else if ( IZERO > 0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -186,7 +186,7 @@
 
             // Check error code from DGTTRF.
 
-            if (INFO != IZERO) CALL ALAERH( PATH, 'DGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != IZERO) alaerh( PATH, 'DGTTRF', INFO, IZERO, ' ', N, N, 1, 1, -1, IMAT, NFAIL, NERRS, NOUT );
             TRFCON = INFO != 0;
 
             dgtt01(N, A, A( M+1 ), A( N+M+1 ), AF, AF( M+1 ), AF( N+M+1 ), AF( N+2*M+1 ), IWORK, WORK, LDA, RWORK, RESULT( 1 ) );
@@ -194,7 +194,7 @@
             // Print the test ratio if it is >= THRESH.
 
             if ( RESULT( 1 ) >= THRESH ) {
-               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 );
                NFAIL = NFAIL + 1;
             }
@@ -250,14 +250,14 @@
 
                // Check error code from DGTCON.
 
-               if (INFO != 0) CALL ALAERH( PATH, 'DGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) alaerh( PATH, 'DGTCON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 7 ) = DGET06( RCOND, RCONDC );
 
                // Print the test ratio if it is >= THRESH.
 
                if ( RESULT( 7 ) >= THRESH ) {
-                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                   WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 7, RESULT( 7 );
                   NFAIL = NFAIL + 1;
                }
@@ -300,7 +300,7 @@
 
                   // Check error code from DGTTRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DGTTRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   dgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -318,7 +318,7 @@
 
                   // Check error code from DGTRFS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'DGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'DGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                   dgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -328,7 +328,7 @@
 
                   for (K = 2; K <= 6; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }

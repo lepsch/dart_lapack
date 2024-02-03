@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRVX( PATH, NOUT );
+      if (TSTERR) serrvx( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of N in NVAL
@@ -287,7 +287,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'SPPSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -298,7 +298,7 @@
 
                      // --- Test SPPSVX ---
 
-                     if ( !PREFAC && NPP > 0) CALL SLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
+                     if ( !PREFAC && NPP > 0) slaset( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
                      slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -364,7 +364,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SPPSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {

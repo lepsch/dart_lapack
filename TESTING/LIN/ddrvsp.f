@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRVX( PATH, NOUT );
+      if (TSTERR) derrvx( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of N in NVAL
@@ -295,7 +295,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )'DSPSV ', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -306,7 +306,7 @@
 
                   // --- Test DSPSVX ---
 
-                  if (IFACT == 2 && NPP > 0) CALL DLASET( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
+                  if (IFACT == 2 && NPP > 0) dlaset( 'Full', NPP, 1, ZERO, ZERO, AFAC, NPP );
                   dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
 
                   // Solve the system and compute the condition number and
@@ -377,7 +377,7 @@
 
                   for (K = K1; K <= 6; K++) { // 140
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )'DSPSVX', FACT, UPLO, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }

@@ -206,7 +206,7 @@
          if ( UPPER ) {
             if ( N > 3 ) {
                dcopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
-               if (N > 4) CALL DCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
+               if (N > 4) dcopy( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 100
                A( 1, J ) = Y;
@@ -216,7 +216,7 @@
          } else {
             if ( N > 3 ) {
                dcopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
-               if (N > 4) CALL DCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
+               if (N > 4) dcopy( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 110
                A( J, 1 ) = Y;
@@ -235,11 +235,11 @@
 
                // Multiply by [ c  s; -s  c] on the left.
 
-               if (N > J+1) CALL DROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
+               if (N > J+1) drot( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               if (J > 1) CALL DROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
+               if (J > 1) drot( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -253,11 +253,11 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               if (N > J+1) CALL DROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
+               if (N > J+1) drot( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
-               if (J > 1) CALL DROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
+               if (J > 1) drot( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
 
                // Negate A(J+1,J).
 
@@ -313,7 +313,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 170
                dlarnv(2, ISEED, N-J+1, A( J, J ) );
-               if (N > J) CALL DSCAL( N-J, TSCAL, A( J+1, J ), 1 );
+               if (N > J) dscal( N-J, TSCAL, A( J+1, J ), 1 );
                A( J, J ) = SIGN( ONE, A( J, J ) );
             } // 170
             A( 1, 1 ) = SMLNUM*A( 1, 1 );
@@ -500,7 +500,7 @@
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
-               if (J < N) CALL DLARNV( 2, ISEED, N-J, A( J+1, J ) );
+               if (J < N) dlarnv( 2, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZERO;
             } // 370
          }

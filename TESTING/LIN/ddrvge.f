@@ -80,7 +80,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRVX( PATH, NOUT );
+      if (TSTERR) derrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -285,7 +285,7 @@
 
                         // Check error code from DGESV .
 
-                        if (INFO != IZERO) CALL ALAERH( PATH, 'DGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) alaerh( PATH, 'DGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -310,7 +310,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'DGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -320,7 +320,7 @@
 
                      // --- Test DGESVX ---
 
-                     if ( !PREFAC) CALL DLASET( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
+                     if ( !PREFAC) dlaset( 'Full', N, N, ZERO, ZERO, AFAC, LDA );
                      dlaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -338,7 +338,7 @@
 
                      // Check the error code from DGESVX.
 
-                     if (INFO != IZERO) CALL ALAERH( PATH, 'DGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'DGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare WORK(1) from DGESVX with the computed
                      // reciprocal pivot growth factor RPVGRW
@@ -411,7 +411,7 @@
                      if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K );
                               } else {
@@ -423,7 +423,7 @@
                         NRUN = NRUN + NTESTS - K1 + 1;
                      } else {
                         if( RESULT( 1 ) >= THRESH && !PREFAC ) {
-                           if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                           if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 );
                            } else {
@@ -433,7 +433,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 6 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 );
                            } else {
@@ -443,7 +443,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 7 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'DGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 );
                            } else {

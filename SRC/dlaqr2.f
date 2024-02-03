@@ -305,7 +305,7 @@
          // ==== Accumulate orthogonal matrix in order update
          // .    H and Z, if requested.  ====
 
-         if (NS > 1 && S != ZERO) CALL DORMHR( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
+         if (NS > 1 && S != ZERO) dormhr( 'R', 'N', JW, NS, 1, NS, T, LDT, WORK, V, LDV, WORK( JW+1 ), LWORK-JW, INFO );
 
          // ==== Update vertical slab in H ====
 

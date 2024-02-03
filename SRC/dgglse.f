@@ -139,7 +139,7 @@
 
       if ( M < N ) {
          NR = M + P - N;
-         if (NR > 0) CALL DGEMV( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 );
+         if (NR > 0) dgemv( 'No transpose', NR, N-M, -ONE, A( N-P+1, M+1 ), LDA, D( NR+1 ), 1, ONE, C( N-P+1 ), 1 );
       } else {
          NR = P;
       }

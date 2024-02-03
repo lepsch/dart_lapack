@@ -315,7 +315,7 @@
             // 2-stage
 
             dcopy(N, SD, 1, D1, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
             dsteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
@@ -344,7 +344,7 @@
             // Compute D2 from the 2-stage Upper case
 
             dcopy(N, SD, 1, D2, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
             dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
@@ -371,7 +371,7 @@
             // Compute D3 from the 2-stage Upper case
 
             dcopy(N, SD, 1, D3, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
             dsteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
             if ( IINFO != 0 ) {
@@ -499,7 +499,7 @@
             // Compute D1 and Z
 
             dcopy(N, SD, 1, D1, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
             dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 9;
@@ -518,7 +518,7 @@
             // Compute D2
 
             dcopy(N, SD, 1, D2, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
             NTEST = 11;
             dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
@@ -536,7 +536,7 @@
             // Compute D3 (using PWK method)
 
             dcopy(N, SD, 1, D3, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
             NTEST = 12;
             dsterf(N, D3, WORK, IINFO );
@@ -595,7 +595,7 @@
                // Compute D4 and Z4
 
                dcopy(N, SD, 1, D4, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
                dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                NTEST = 14;
@@ -618,7 +618,7 @@
                // Compute D5
 
                dcopy(N, SD, 1, D5, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                NTEST = 16;
                dpteqr('N', N, D5, WORK, Z, LDU, WORK( N+1 ), IINFO );
@@ -831,7 +831,7 @@
             // Compute D1 and Z
 
             dcopy(N, SD, 1, D1, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
             dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 22;
@@ -856,7 +856,7 @@
             // Compute D1 and Z
 
             dcopy(N, SD, 1, D1, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
             dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 24;
@@ -881,7 +881,7 @@
             // Compute D2
 
             dcopy(N, SD, 1, D2, 1 );
-            if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+            if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
             dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
             NTEST = 26;
@@ -995,7 +995,7 @@
             // Compute D1 and Z
 
                dcopy(N, SD, 1, D5, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
                dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                if ( SRANGE ) {
@@ -1028,7 +1028,7 @@
             // Compute D2
 
                   dcopy(N, SD, 1, D5, 1 );
-                  if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+                  if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                   NTEST = 31;
                   dstemr('N', 'I', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1060,7 +1060,7 @@
             // Compute D1 and Z
 
                   dcopy(N, SD, 1, D5, 1 );
-                  if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+                  if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
                   dlaset('Full', N, N, ZERO, ONE, Z, LDU );
 
                   NTEST = 32;
@@ -1102,7 +1102,7 @@
             // Compute D2
 
                   dcopy(N, SD, 1, D5, 1 );
-                  if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+                  if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                   NTEST = 34;
                   dstemr('N', 'V', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );
@@ -1142,7 +1142,7 @@
             // Compute D1 and Z
 
                dcopy(N, SD, 1, D5, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                NTEST = 35;
 
@@ -1167,7 +1167,7 @@
             // Compute D2
 
                dcopy(N, SD, 1, D5, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                NTEST = 37;
                dstemr('N', 'A', N, D5, WORK, VL, VU, IL, IU, M, D2, Z, LDU, N, IWORK( 1 ), TRYRAC, WORK( N+1 ), LWORK-N, IWORK( 2*N+1 ), LIWORK-2*N, IINFO );

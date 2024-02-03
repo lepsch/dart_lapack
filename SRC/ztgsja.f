@@ -86,9 +86,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL ZLASET( 'Full', M, M, CZERO, CONE, U, LDU );
-      if( INITV ) CALL ZLASET( 'Full', P, P, CZERO, CONE, V, LDV );
-      IF( INITQ ) CALL ZLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      if (INITU) zlaset( 'Full', M, M, CZERO, CONE, U, LDU );
+      if( INITV ) zlaset( 'Full', P, P, CZERO, CONE, V, LDV );
+      IF( INITQ ) zlaset( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -121,7 +121,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 
-               if (K+J <= M) CALL ZROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, DCONJG( SNU ) );
+               if (K+J <= M) zrot( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, DCONJG( SNU ) );
 
                // Update I-th and J-th rows of matrix B: V**H *B
 
@@ -151,11 +151,11 @@
 
                // Update unitary matrices U, V, Q, if desired.
 
-               if (WANTU && K+J <= M) CALL ZROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) zrot( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
-               if (WANTV) CALL ZROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
+               if (WANTV) zrot( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
-               if (WANTQ) CALL ZROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
+               if (WANTQ) zrot( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
 
             } // 10
          } // 20
@@ -209,7 +209,7 @@
 
             if ( GAMMA < ZERO ) {
                zdscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
-               if (WANTV) CALL ZDSCAL( P, -ONE, V( 1, I ), 1 );
+               if (WANTV) zdscal( P, -ONE, V( 1, I ), 1 );
             }
 
             dlartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );

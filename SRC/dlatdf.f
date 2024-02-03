@@ -106,7 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) );
             SMINU = SMINU + ABS( RHS( I ) );
          } // 30
-         if (SPLUS > SMINU) CALL DCOPY( N, XP, 1, RHS, 1 );
+         if (SPLUS > SMINU) dcopy( N, XP, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -133,7 +133,7 @@
          daxpy(N, -ONE, XM, 1, RHS, 1 );
          dgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          dgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         if( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) CALL DCOPY( N, XP, 1, RHS, 1 );
+         if( DASUM( N, XP, 1 ) > DASUM( N, RHS, 1 ) ) dcopy( N, XP, 1, RHS, 1 );
 
          // Compute the sum of squares
 

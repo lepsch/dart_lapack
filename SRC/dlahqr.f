@@ -253,7 +253,7 @@
             // submatrix. NR is the order of G.
 
             NR = min( 3, I-K+1 );
-            if (K > M) CALL DCOPY( NR, H( K, K-1 ), 1, V, 1 );
+            if (K > M) dcopy( NR, H( K, K-1 ), 1, V, 1 );
             dlarfg(NR, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
                H( K, K-1 ) = V( 1 );
@@ -364,7 +364,7 @@
 
             // Apply the transformation to the rest of H.
 
-            if (I2 > I) CALL DROT( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN );
+            if (I2 > I) drot( I2-I, H( I-1, I+1 ), LDH, H( I, I+1 ), LDH, CS, SN );
             drot(I-I1-1, H( I1, I-1 ), 1, H( I1, I ), 1, CS, SN );
          }
          if ( WANTZ ) {

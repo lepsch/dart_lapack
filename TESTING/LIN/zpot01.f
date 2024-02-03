@@ -89,7 +89,7 @@
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
 
-            if (K+1 <= N) CALL ZHER( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
+            if (K+1 <= N) zher( 'Lower', N-K, ONE, AFAC( K+1, K ), 1, AFAC( K+1, K+1 ), LDAFAC );
 
             // Scale column K by the diagonal element.
 

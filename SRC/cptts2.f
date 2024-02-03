@@ -28,7 +28,7 @@
       // Quick return if possible
 
       if ( N <= 1 ) {
-         if (N == 1) CALL CSSCAL( NRHS, 1. / D( 1 ), B, LDB );
+         if (N == 1) csscal( NRHS, 1. / D( 1 ), B, LDB );
          return;
       }
 

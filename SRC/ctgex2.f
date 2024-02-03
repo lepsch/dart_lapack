@@ -154,8 +154,8 @@
 
       // Accumulate transformations into Q and Z if requested.
 
-      if (WANTZ) CALL CROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, CONJG( SZ ) );
-      IF( WANTQ ) CALL CROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, CONJG( SQ ) );
+      if (WANTZ) crot( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, CZ, CONJG( SZ ) );
+      IF( WANTQ ) crot( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, CQ, CONJG( SQ ) );
 
       // Exit with INFO = 0 if swap was successfully performed.
 

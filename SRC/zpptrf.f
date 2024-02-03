@@ -65,7 +65,7 @@
 
             // Compute elements 1:J-1 of column J.
 
-            if (J > 1) CALL ZTPSV( 'Upper', 'Conjugate transpose', 'Non-unit', J-1, AP, AP( JC ), 1 );
+            if (J > 1) ztpsv( 'Upper', 'Conjugate transpose', 'Non-unit', J-1, AP, AP( JC ), 1 );
 
             // Compute U(J,J) and test for non-positive-definiteness.
 

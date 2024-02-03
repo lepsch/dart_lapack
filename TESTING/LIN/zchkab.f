@@ -214,7 +214,7 @@
 
          // Test the error exits
 
-         if (TSTERR) CALL ZERRAB( NOUT );
+         if (TSTERR) zerrab( NOUT );
 
          if ( TSTDRV ) {
             zdrvab(DOTYPE, NM, MVAL, NNS, NSVAL, THRESH, LDA, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), WORK, RWORK, SWORK, IWORK, NOUT );
@@ -229,7 +229,7 @@
          NTYPES = 9;
          alareq('DPO', NMATS, DOTYPE, NTYPES, NIN, NOUT );
 
-         if (TSTERR) CALL ZERRAC( NOUT );
+         if (TSTERR) zerrac( NOUT );
 
 
          if ( TSTDRV ) {

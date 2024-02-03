@@ -157,8 +157,8 @@
       // Quick return for zero M x N matrix
 // #:)
       if ( AAPP == ZERO ) {
-         if (LSVEC) CALL DLASET( 'G', M, N1, ZERO, ONE, U, LDU );
-         if (RSVEC) CALL DLASET( 'G', N, N,  ZERO, ONE, V, LDV );
+         if (LSVEC) dlaset( 'G', M, N1, ZERO, ONE, U, LDU );
+         if (RSVEC) dlaset( 'G', N, N,  ZERO, ONE, V, LDV );
          WORK(1) = ONE;
          WORK(2) = ONE;
          if (ERREST) WORK(3) = ONE;
@@ -707,7 +707,7 @@
 
          dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
-         if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
+         if (ROWPIV) dlaswp( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          for (p = 1; p <= N1; p++) { // 1974
             XSC = ONE / DNRM2( M, U(1,p), 1 );
@@ -798,7 +798,7 @@
                   } // 3959
                }
 
-               if (NR != N) CALL DLACPY( 'A', N, NR, V, LDV, WORK(2*N+1), N );
+               if (NR != N) dlacpy( 'A', N, NR, V, LDV, WORK(2*N+1), N );
                // .. save ...
 
             // .. this transposed copy should be better than naive
@@ -999,7 +999,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p);
                } // 973
                XSC = ONE / DNRM2( N, V(1,q), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
             } // 1972
             // At this moment, V contains the right singular vectors of A.
             // Next, assemble the left singular vector matrix U (M x N).
@@ -1020,13 +1020,13 @@
             TEMP1 = DSQRT(DBLE(M)) * EPSLN;
             for (p = 1; p <= NR; p++) { // 1973
                XSC = ONE / DNRM2( M, U(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
             } // 1973
 
             // If the initial QRF is computed with row pivoting, the left
             // singular vectors must be adjusted.
 
-            if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
+            if (ROWPIV) dlaswp( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          } else {
 
@@ -1062,7 +1062,7 @@
             TEMP1 = DSQRT(DBLE(N))*EPSLN;
             for (p = 1; p <= N; p++) { // 6971
                XSC = ONE / DNRM2( N, V(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,p), 1 );
             } // 6971
 
             // Assemble the left singular vector matrix U (M x N).
@@ -1078,10 +1078,10 @@
             TEMP1 = DSQRT(DBLE(M))*EPSLN;
             for (p = 1; p <= N1; p++) { // 6973
                XSC = ONE / DNRM2( M, U(1,p), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL DSCAL( M, XSC, U(1,p), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( M, XSC, U(1,p), 1 );
             } // 6973
 
-            if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
+            if (ROWPIV) dlaswp( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
          }
 
@@ -1157,7 +1157,7 @@
                   V(p,q) = WORK(2*N+N*NR+NR+p);
                } // 8973
                XSC = ONE / DNRM2( N, V(1,q), 1 );
-               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) CALL DSCAL( N, XSC, V(1,q), 1 );
+               if ( (XSC < (ONE-TEMP1)) || (XSC > (ONE+TEMP1)) ) dscal( N, XSC, V(1,q), 1 );
             } // 7972
 
             // At this moment, V contains the right singular vectors of A.
@@ -1173,7 +1173,7 @@
 
          dormqr('Left', 'No Tr', M, N1, N, A, LDA, WORK, U, LDU, WORK(N+1), LWORK-N, IERR );
 
-            if (ROWPIV) CALL DLASWP( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
+            if (ROWPIV) dlaswp( N1, U, LDU, 1, M-1, IWORK(2*N+1), -1 );
 
 
          }

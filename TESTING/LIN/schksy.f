@@ -75,7 +75,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRSY( PATH, NOUT );
+      if (TSTERR) serrsy( PATH, NOUT );
       INFOT = 0;
 
       // Set the minimum block size for which the block routine should
@@ -250,7 +250,7 @@
 
                   // Check error code from SSYTRF and handle error.
 
-                  if (INFO != K) CALL ALAERH( PATH, 'SSYTRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) alaerh( PATH, 'SSYTRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
@@ -280,7 +280,7 @@
 
                      // Check error code from SSYTRI2 and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SSYTRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SSYTRI2', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -294,7 +294,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -333,7 +333,7 @@
 
                      // Check error code from SSYTRS and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SSYTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SSYTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -356,7 +356,7 @@
 
                      // Check error code from SSYTRS2 and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SSYTRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SSYTRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -377,7 +377,7 @@
 
                      // Check error code from SSYRFS and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'SSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'SSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
                      spot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
@@ -387,7 +387,7 @@
 
                      for (K = 3; K <= 8; K++) { // 120
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -408,7 +408,7 @@
 
                   // Check error code from SSYCON and handle error.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'SSYCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'SSYCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   // Compute the test ratio to compare to values of RCOND
 
@@ -418,7 +418,7 @@
                   // the threshold.
 
                   if ( RESULT( 9 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1;
                   }

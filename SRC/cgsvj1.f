@@ -399,7 +399,7 @@
             D( p ) = D( q );
             D( q ) = AAPQ;
             cswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) CALL CSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+            if (RSVEC) cswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
       } // 5991
 

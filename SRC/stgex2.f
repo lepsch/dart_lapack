@@ -168,8 +168,8 @@
 
          // Accumulate transformations into Q and Z if requested.
 
-         if (WANTZ) CALL SROT( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
-         IF( WANTQ ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
+         if (WANTZ) srot( N, Z( 1, J1 ), 1, Z( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         IF( WANTQ ) srot( N, Q( 1, J1 ), 1, Q( 1, J1+1 ), 1, LI( 1, 1 ), LI( 2, 1 ) );
 
          // Exit with INFO = 0 if swap was successfully performed.
 

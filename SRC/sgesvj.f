@@ -266,7 +266,7 @@
 // #:) Quick return for zero matrix
 
       if ( AAPP == ZERO ) {
-         if (LSVEC) CALL SLASET( 'G', M, N, ZERO, ONE, A, LDA );
+         if (LSVEC) slaset( 'G', M, N, ZERO, ONE, A, LDA );
          WORK( 1 ) = ONE;
          WORK( 2 ) = ZERO;
          WORK( 3 ) = ZERO;
@@ -279,7 +279,7 @@
 // #:) Quick return for one-column matrix
 
       if ( N == 1 ) {
-         if (LSVEC) CALL SLASCL( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
+         if (LSVEC) slascl( 'G', 0, 0, SVA( 1 ), SKL, M, 1, A( 1, 1 ), LDA, IERR );
          WORK( 1 ) = ONE / SKL;
          if ( SVA( 1 ) >= SFMIN ) {
             WORK( 2 ) = ONE;
@@ -458,7 +458,7 @@
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-                     if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+                     if (RSVEC) sswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p );
                      SVA( p ) = SVA( q );
                      SVA( q ) = TEMP1;
@@ -986,7 +986,7 @@
             WORK( p ) = WORK( q );
             WORK( q ) = TEMP1;
             sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+            if (RSVEC) sswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
          if ( SVA( p ) != ZERO ) {
             N4 = N4 + 1;

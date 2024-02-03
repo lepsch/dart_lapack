@@ -60,7 +60,7 @@
 
             // Apply H(i)**H to A(i:m,i+1:n) from the left
 
-            if (I < N) CALL ZLARF( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAUQ( I ) ), A( I, I+1 ), LDA, WORK );
+            if (I < N) zlarf( 'Left', M-I+1, N-I, A( I, I ), 1, DCONJG( TAUQ( I ) ), A( I, I+1 ), LDA, WORK );
             A( I, I ) = D( I );
 
             if ( I < N ) {
@@ -99,7 +99,7 @@
 
             // Apply G(i) to A(i+1:m,i:n) from the right
 
-            if (I < M) CALL ZLARF( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
+            if (I < M) zlarf( 'Right', M-I, N-I+1, A( I, I ), LDA, TAUP( I ), A( I+1, I ), LDA, WORK );
             zlacgv(N-I+1, A( I, I ), LDA );
             A( I, I ) = D( I );
 

@@ -130,7 +130,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      if (MU > 0 && NU > 0) CALL DGERQ2( MU, NU, A, LDA, TAU, WORK, IINFO );
+      if (MU > 0 && NU > 0) dgerq2( MU, NU, A, LDA, TAU, WORK, IINFO );
 
       WORK( 1 ) = IWS;
       return;

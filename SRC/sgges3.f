@@ -161,7 +161,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL SLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) slascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -174,7 +174,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) slascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
 
@@ -207,7 +207,7 @@
 
       // Initialize VSR
 
-      if (ILVSR) CALL SLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
+      if (ILVSR) slaset( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 
@@ -239,7 +239,7 @@
             slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
             slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
-         if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+         if (ILBSCL) slascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -254,9 +254,9 @@
 
       // Apply back-permutation to VSL and VSR
 
-      if (ILVSL) CALL SGGBAK( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
+      if (ILVSL) sggbak( 'P', 'L', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSL, LDVSL, IERR );
 
-      if (ILVSR) CALL SGGBAK( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
+      if (ILVSR) sggbak( 'P', 'R', N, ILO, IHI, WORK( ILEFT ), WORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Check if unscaling would cause over/underflow, if so, rescale
       // (ALPHAR(I),ALPHAI(I),BETA(I)) so BETA(I) is on the order of

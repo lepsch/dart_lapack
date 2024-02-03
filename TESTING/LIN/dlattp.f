@@ -272,7 +272,7 @@
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               if (J > 1) CALL DROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
+               if (J > 1) drot( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -289,7 +289,7 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               if (N > J+1) CALL DROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
+               if (N > J+1) drot( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
@@ -576,7 +576,7 @@
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 400
-               if (J < N) CALL DLARNV( 2, ISEED, N-J, A( JC+1 ) );
+               if (J < N) dlarnv( 2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = ZERO;
                JC = JC + N - J + 1;
             } // 400

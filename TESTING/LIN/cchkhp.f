@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRSY( PATH, NOUT );
+      if (TSTERR) cerrsy( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of N in NVAL
@@ -227,7 +227,7 @@
 
                // Check error code from CHPTRF.
 
-               if (INFO != K) CALL ALAERH( PATH, 'CHPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != K) alaerh( PATH, 'CHPTRF', INFO, K, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
                if ( INFO != 0 ) {
                   TRFCON = true;
                } else {
@@ -250,7 +250,7 @@
 
                // Check error code from CHPTRI.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CHPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CHPTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   cppt03(UPLO, N, A, AINV, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
                   NT = 2;
@@ -261,7 +261,7 @@
 
                for (K = 1; K <= NT; K++) { // 110
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
@@ -291,7 +291,7 @@
 
                // Check error code from CHPTRS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CHPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CHPTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                   cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -309,7 +309,7 @@
 
                // Check error code from CHPRFS.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CHPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CHPRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                   cppt05(UPLO, N, NRHS, A, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -319,7 +319,7 @@
 
                   for (K = 3; K <= 7; K++) { // 120
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -337,14 +337,14 @@
 
                // Check error code from CHPCON.
 
-               if (INFO != 0) CALL ALAERH( PATH, 'CHPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) alaerh( PATH, 'CHPCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                RESULT( 8 ) = SGET06( RCOND, RCONDC );
 
                // Print the test ratio if it is >= THRESH.
 
                if ( RESULT( 8 ) >= THRESH ) {
-                  if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                   WRITE( NOUT, FMT = 9999 )UPLO, N, IMAT, 8, RESULT( 8 );
                   NFAIL = NFAIL + 1;
                }

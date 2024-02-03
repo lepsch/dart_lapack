@@ -82,7 +82,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in column K of A.
@@ -101,10 +101,10 @@
             // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K-1);
-            if (KP != K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K-1) cswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(U(K)), where U(K) is the transformation
             // stored in columns K-1 and K of A.
@@ -158,7 +158,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K + 1;
          } else {
 
@@ -180,10 +180,10 @@
             // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K+1 );
-            if (KP != K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K+1) cswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             K = K + 2;
          }
@@ -214,12 +214,12 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in column K of A.
 
-            if (K < N) CALL CGERU( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+            if (K < N) cgeru( N-K, NRHS, -ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
 
             // Multiply by the inverse of the diagonal block.
 
@@ -233,10 +233,10 @@
             // Interchange rows K and -IPIV(K), then K+1 and -IPIV(K+1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K+1 );
-            if (KP != K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K+1) cswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
             // Multiply by inv(L(K)), where L(K) is the transformation
             // stored in columns K and K+1 of A.
@@ -292,7 +292,7 @@
             // Interchange rows K and IPIV(K).
 
             KP = IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K = K - 1;
          } else {
 
@@ -314,10 +314,10 @@
             // Interchange rows K and -IPIV(K), then K-1 and -IPIV(K-1)
 
             KP = -IPIV( K );
-            if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
             KP = -IPIV( K-1 );
-            if (KP != K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K-1) cswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
             K = K - 2;
          }

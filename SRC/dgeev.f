@@ -144,7 +144,7 @@
          SCALEA = true;
          CSCALE = BIGNUM;
       }
-      if (SCALEA) CALL DLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
+      if (SCALEA) dlascl( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Balance the matrix
       // (Workspace: need N)

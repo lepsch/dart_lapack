@@ -157,7 +157,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -170,7 +170,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
 
@@ -207,7 +207,7 @@
 
       // Initialize VR
 
-      if (ILVR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VR, LDVR );
+      if (ILVR) zlaset( 'Full', N, N, CZERO, CONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 
@@ -296,9 +296,9 @@
 
       } // 70
 
-      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
+      if (ILASCL) zlascl( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
 
-      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+      if (ILBSCL) zlascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK( 1 ) = DCMPLX( LWKOPT );
       return;

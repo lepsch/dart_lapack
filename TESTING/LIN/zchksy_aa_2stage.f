@@ -81,7 +81,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRSY( PATH, NOUT );
+      if (TSTERR) zerrsy( PATH, NOUT );
       INFOT = 0;
 
       // Set the minimum block size for which the block routine should
@@ -283,7 +283,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -334,7 +334,7 @@
 
                         for (K = 2; K <= 2; K++) { // 120
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }

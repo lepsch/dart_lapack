@@ -746,7 +746,7 @@
          NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRHS( 'DHSEQR', NOUT );
+         if (TSTERR) derrhs( 'DHSEQR', NOUT );
          for (I = 1; I <= NPARMS; I++) { // 270
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -877,8 +877,8 @@
 
          // Test the error exits
 
-         if (TSTERR && TSTCHK) CALL DERRBD( 'DBD', NOUT );
-         IF( TSTERR && TSTDRV ) CALL DERRED( 'DBD', NOUT );
+         if (TSTERR && TSTCHK) derrbd( 'DBD', NOUT );
+         IF( TSTERR && TSTDRV ) derred( 'DBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I );
@@ -895,7 +895,7 @@
                dchkbd(NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, IWORK, NOUT, INFO );
                if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCHKBD', INFO;
             }
-            if (TSTDRV) CALL DDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, IWORK, NOUT, INFO );
+            if (TSTDRV) ddrvbd( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, IWORK, NOUT, INFO );
          } // 330
 
       } else if ( LSAMEN( 3, C3, 'DEV' ) ) {
@@ -910,7 +910,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRED( C3, NOUT );
+            if (TSTERR) derred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrvev(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, IWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DGEEV', INFO;
@@ -930,7 +930,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRED( C3, NOUT );
+            if (TSTERR) derred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrves(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, IWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DGEES', INFO;
@@ -950,7 +950,7 @@
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRED( C3, NOUT );
+            if (TSTERR) derred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrvvx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), D( 1, 10 ), D( 1, 11 ), D( 1, 12 ), RESULT, WORK, LWORK, IWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DGEEVX', INFO;
@@ -970,7 +970,7 @@
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRED( C3, NOUT );
+            if (TSTERR) derred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrvsx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, IWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DGEESX', INFO;
@@ -995,7 +995,7 @@
          NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
-         if (TSTCHK && TSTERR) CALL DERRGG( C3, NOUT );
+         if (TSTCHK && TSTERR) derrgg( C3, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 350
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -1030,7 +1030,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRGG( C3, NOUT );
+            if (TSTERR) derrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrges(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), WORK, LWORK, RESULT, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DDRGES', INFO;
@@ -1056,7 +1056,7 @@
          if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRGG( C3, NOUT );
+            if (TSTERR) derrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             xlaenv(5, 2 );
             ddrgsx(NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), C( 1, 1 ), NCMAX*NCMAX, A( 1, 12 ), WORK, LWORK, IWORK, LIWORK, LOGWRK, INFO );
@@ -1077,7 +1077,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRGG( C3, NOUT );
+            if (TSTERR) derrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrgev(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), WORK, LWORK, RESULT, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DDRGEV', INFO;
@@ -1102,7 +1102,7 @@
          if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL DERRGG( C3, NOUT );
+            if (TSTERR) derrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             ddrgvx(NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), D( 1, 7 ), D( 1, 8 ), D( 1, 9 ), WORK, LWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO );
 
@@ -1120,7 +1120,7 @@
          MAXTYP = 15;
          NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
-         if (TSTERR) CALL DERRST( 'DSB', NOUT );
+         if (TSTERR) derrst( 'DSB', NOUT );
           // CALL DCHKSB( NN, NVAL, NK, KVAL, MAXTYP, DOTYPE, ISEED, THRESH,
       // $                NOUT, A( 1, 1 ), NMAX, D( 1, 1 ), D( 1, 2 ),
       // $                A( 1, 2 ), NMAX, WORK, LWORK, RESULT, INFO )
@@ -1156,7 +1156,7 @@
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'GLM', NOUT );
+         if (TSTERR) derrgg( 'GLM', NOUT );
          dckglm(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCKGLM', INFO;
 
@@ -1167,7 +1167,7 @@
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'GQR', NOUT );
+         if (TSTERR) derrgg( 'GQR', NOUT );
          dckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCKGQR', INFO;
 
@@ -1178,7 +1178,7 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL DERRGG( 'GSV', NOUT );
+         if (TSTERR) derrgg( 'GSV', NOUT );
          dckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCKGSV', INFO;
 
@@ -1189,7 +1189,7 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL DERRGG( 'CSD', NOUT );
+         if (TSTERR) derrgg( 'CSD', NOUT );
          dckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCKCSD', INFO;
 
@@ -1200,7 +1200,7 @@
          // --------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'LSE', NOUT );
+         if (TSTERR) derrgg( 'LSE', NOUT );
          dcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'DCKLSE', INFO;
 

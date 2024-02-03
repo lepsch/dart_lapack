@@ -67,7 +67,7 @@
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) + ...
                          // C( m-l+1:m, 1:n )**H * V( 1:k, 1:l )**T
 
-         if (L > 0) CALL CGEMM( 'Transpose', 'Conjugate transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK );
+         if (L > 0) cgemm( 'Transpose', 'Conjugate transpose', N, K, L, ONE, C( M-L+1, 1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
          // W( 1:n, 1:k ) = W( 1:n, 1:k ) * T**T  or  W( 1:m, 1:k ) * T
 
@@ -84,7 +84,7 @@
          // C( m-l+1:m, 1:n ) = C( m-l+1:m, 1:n ) - ...
                              // V( 1:k, 1:l )**H * W( 1:n, 1:k )**H
 
-         if (L > 0) CALL CGEMM( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
+         if (L > 0) cgemm( 'Transpose', 'Transpose', L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, C( M-L+1, 1 ), LDC );
 
       } else if ( LSAME( SIDE, 'R' ) ) {
 
@@ -99,7 +99,7 @@
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) + ...
                          // C( 1:m, n-l+1:n ) * V( 1:k, 1:l )**H
 
-         if (L > 0) CALL CGEMM( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK );
+         if (L > 0) cgemm( 'No transpose', 'Transpose', M, K, L, ONE, C( 1, N-L+1 ), LDC, V, LDV, ONE, WORK, LDWORK );
 
          // W( 1:m, 1:k ) = W( 1:m, 1:k ) * conjg( T )  or
                          // W( 1:m, 1:k ) * T**H
@@ -126,7 +126,7 @@
          for (J = 1; J <= L; J++) { // 90
             clacgv(K, V( 1, J ), 1 );
          } // 90
-         if (L > 0) CALL CGEMM( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC );
+         if (L > 0) cgemm( 'No transpose', 'No transpose', M, L, K, -ONE, WORK, LDWORK, V, LDV, ONE, C( 1, N-L+1 ), LDC );
          for (J = 1; J <= L; J++) { // 100
             clacgv(K, V( 1, J ), 1 );
          } // 100

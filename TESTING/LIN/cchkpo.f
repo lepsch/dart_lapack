@@ -76,7 +76,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRPO( PATH, NOUT );
+      if (TSTERR) cerrpo( PATH, NOUT );
       INFOT = 0;
 
       // Do for each value of N in NVAL
@@ -201,7 +201,7 @@
 
                   // Check error code from CPOTRI.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CPOTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   cpot03(UPLO, N, A, LDA, AINV, LDA, WORK, LDA, RWORK, RCONDC, RESULT( 2 ) );
 
@@ -210,7 +210,7 @@
 
                   for (K = 1; K <= 2; K++) { // 60
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -237,7 +237,7 @@
 
                   // Check error code from CPOTRS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'CPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'CPOTRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                      cpot02(UPLO, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -255,7 +255,7 @@
 
                   // Check error code from CPORFS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'CPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'CPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                      cpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -265,7 +265,7 @@
 
                      for (K = 3; K <= 7; K++) { // 70
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -282,14 +282,14 @@
 
                   // Check error code from CPOCON.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'CPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'CPOCON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   RESULT( 8 ) = SGET06( RCOND, RCONDC );
 
                   // Print the test ratio if it is >= THRESH.
 
                   if ( RESULT( 8 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 8, RESULT( 8 );
                      NFAIL = NFAIL + 1;
                   }

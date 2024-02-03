@@ -163,7 +163,7 @@
 
       // Test the error exit of:
 
-      if (TSTERR) CALL SERRRFP( NOUT );
+      if (TSTERR) serrrfp( NOUT );
 
       // Test the routines: spftrf, spftri, spftrs (as in SDRVPO).
       // This also tests the routines: stfsm, stftri, stfttr, strttf.

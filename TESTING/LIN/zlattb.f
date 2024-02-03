@@ -221,7 +221,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 130
                LENJ = min( N-J, KD );
-               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) zlarnv( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED )*TWO;
             } // 130
          }
@@ -274,14 +274,14 @@
          if ( UPPER ) {
             for (J = 1; J <= N; J++) { // 160
                LENJ = min( J-1, KD );
-               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
+               if (LENJ > 0) zlarnv( 4, ISEED, LENJ, AB( KD+2-LENJ, J ) );
                AB( KD+1, J ) = ZLARND( 5, ISEED );
             } // 160
             AB( KD+1, N ) = SMLNUM*AB( KD+1, N );
          } else {
             for (J = 1; J <= N; J++) { // 170
                LENJ = min( N-J, KD );
-               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) zlarnv( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = ZLARND( 5, ISEED );
             } // 170
             AB( 1, 1 ) = SMLNUM*AB( 1, 1 );
@@ -463,7 +463,7 @@
          } else {
             for (J = 1; J <= N; J++) { // 370
                LENJ = min( N-J, KD );
-               if (LENJ > 0) CALL ZLARNV( 4, ISEED, LENJ, AB( 2, J ) );
+               if (LENJ > 0) zlarnv( 4, ISEED, LENJ, AB( 2, J ) );
                AB( 1, J ) = DBLE( J );
             } // 370
          }

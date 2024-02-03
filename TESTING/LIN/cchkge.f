@@ -78,7 +78,7 @@
       // Test the error exits
 
       xlaenv(1, 1 );
-      if (TSTERR) CALL CERRGE( PATH, NOUT );
+      if (TSTERR) cerrge( PATH, NOUT );
       INFOT = 0;
       xlaenv(2, 2 );
 
@@ -165,7 +165,7 @@
 
                   // Check error code from CGETRF.
 
-                  if (INFO != IZERO) CALL ALAERH( PATH, 'CGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'CGETRF', INFO, IZERO, ' ', M, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                   TRFCON = false;
 
 // +    TEST 1
@@ -188,7 +188,7 @@
 
                      // Check error code from CGETRI.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'CGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'CGETRI', INFO, 0, ' ', N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for the matrix times its
                      // inverse.  Also compute the 1-norm condition number
@@ -223,7 +223,7 @@
 
                   for (K = 1; K <= NT; K++) { // 30
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )M, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -262,7 +262,7 @@
 
                         // Check error code from CGETRS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'CGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'CGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                         cget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
@@ -281,7 +281,7 @@
 
                         // Check error code from CGERFS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'CGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'CGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
                         cget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, true , RWORK( NRHS+1 ), RESULT( 6 ) );
@@ -291,7 +291,7 @@
 
                         for (K = 3; K <= 7; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9998 )TRANS, N, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -319,7 +319,7 @@
 
                         // Check error code from CGECON.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'CGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'CGECON', INFO, 0, NORM, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                         // This line is needed on a Sun SPARCstation.
 
@@ -331,7 +331,7 @@
                      // the threshold.
 
                      if ( RESULT( 8 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9997 )NORM, N, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1;
                      }

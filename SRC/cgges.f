@@ -150,7 +150,7 @@
          ILASCL = true;
       }
 
-      if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) clascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -164,7 +164,7 @@
          ILBSCL = true;
       }
 
-      if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) clascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Real Workspace: need 6*N)
@@ -201,7 +201,7 @@
 
       // Initialize VSR
 
-      if (ILVSR) CALL CLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
+      if (ILVSR) claset( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
       // (Workspace: none needed)
@@ -234,8 +234,8 @@
 
          // Undo scaling on eigenvalues before selecting
 
-         if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
-         IF( ILBSCL ) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
+         if (ILASCL) clascl( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
+         IF( ILBSCL ) clascl( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -251,8 +251,8 @@
       // Apply back-permutation to VSL and VSR
       // (Workspace: none needed)
 
-      if (ILVSL) CALL CGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
-      IF( ILVSR ) CALL CGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
+      if (ILVSL) cggbak( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
+      IF( ILVSR ) cggbak( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Undo scaling
 

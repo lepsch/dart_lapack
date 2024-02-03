@@ -57,10 +57,10 @@
 
       slaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
       if ( M <= N ) {
-         if (M > 0 && M < N) CALL SLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) CALL SLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) slacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
+         IF( M > 1 ) slacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N > 1) CALL SLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) slacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
 
       // Generate the n-by-n matrix Q
@@ -72,10 +72,10 @@
 
       slaset('Full', M, N, ZERO, ZERO, R, LDA );
       if ( M <= N ) {
-         if (M > 0) CALL SLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
+         if (M > 0) slacpy( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
       } else {
-         if (M > N && N > 0) CALL SLACPY( 'Full', M-N, N, AF, LDA, R, LDA );
-         IF( N > 0 ) CALL SLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
+         if (M > N && N > 0) slacpy( 'Full', M-N, N, AF, LDA, R, LDA );
+         IF( N > 0 ) slacpy( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
       }
 
       // Compute R - A*Q'

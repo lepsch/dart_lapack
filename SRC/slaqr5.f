@@ -114,7 +114,7 @@
          }
 
          NDCOL = INCOL + KDU;
-         if (ACCUM) CALL SLASET( 'ALL', KDU, KDU, ZERO, ONE, U, LDU );
+         if (ACCUM) slaset( 'ALL', KDU, KDU, ZERO, ONE, U, LDU );
 
          // ==== Near-the-diagonal bulge chase.  The following loop
          // .    performs the near-the-diagonal part of a small bulge

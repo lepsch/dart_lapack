@@ -265,7 +265,7 @@
 
             // Zero out below R
 
-            if (N > 1) CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
+            if (N > 1) slaset( 'L', N-1, N-1, ZERO, ZERO, A( 2, 1 ), LDA );
          }
 
          IE = 1;

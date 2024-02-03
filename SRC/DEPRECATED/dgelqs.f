@@ -56,7 +56,7 @@
 
       // Set B(m+1:n,:) to zero
 
-      if (M < N) CALL DLASET( 'Full', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
+      if (M < N) dlaset( 'Full', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
 
       // B := Q' * B
 

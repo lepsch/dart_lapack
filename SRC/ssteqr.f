@@ -83,7 +83,7 @@
       // Compute the eigenvalues and eigenvectors of the tridiagonal
       // matrix.
 
-      if (ICOMPZ == 2) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPZ == 2) slaset( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       NMAXIT = N*MAXIT;
       JTOT = 0;

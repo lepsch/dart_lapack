@@ -317,7 +317,7 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP < N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) cswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                cswap(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK );
                A( KK, KK ) = A( KP, KP );

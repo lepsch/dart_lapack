@@ -191,8 +191,8 @@
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 
-               if (P > 1) CALL DSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
-               IF( P < (K-1) ) CALL DSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               if (P > 1) dswap( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               IF( P < (K-1) ) dswap( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K );
                A( K, K ) = A( P, P );
                A( P, P ) = T;
@@ -206,8 +206,8 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               if (KP > 1) CALL DSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
-               IF( ( KK > 1 ) && ( KP < (KK-1) ) ) CALL DSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               if (KP > 1) dswap( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               IF( ( KK > 1 ) && ( KP < (KK-1) ) ) dswap( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK );
                A( KK, KK ) = A( KP, KP );
                A( KP, KP ) = T;
@@ -447,8 +447,8 @@
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 
-               if (P < N) CALL DSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
-               IF( P > (K+1) ) CALL DSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
+               if (P < N) dswap( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               IF( P > (K+1) ) dswap( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K );
                A( K, K ) = A( P, P );
                A( P, P ) = T;
@@ -462,8 +462,8 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP < N) CALL DSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
-               IF( ( KK < N ) && ( KP > (KK+1) ) ) CALL DSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               if (KP < N) dswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               IF( ( KK < N ) && ( KP > (KK+1) ) ) dswap( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK );
                A( KK, KK ) = A( KP, KP );
                A( KP, KP ) = T;

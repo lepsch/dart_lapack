@@ -120,7 +120,7 @@
          ISCALE = 1;
          SIGMA = RMAX / ANRM;
       }
-      if (ISCALE == 1) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) slascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call SSYTRD to reduce symmetric matrix to tridiagonal form.
 
@@ -148,7 +148,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if (ISCALE == 1) CALL SSCAL( N, ONE / SIGMA, W, 1 );
+      if (ISCALE == 1) sscal( N, ONE / SIGMA, W, 1 );
 
       WORK( 1 ) = SROUNDUP_LWORK( LOPT );
       IWORK( 1 ) = LIOPT;

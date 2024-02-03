@@ -198,7 +198,7 @@
          }
       }
 
-      if (ILVSR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
+      if (ILVSR) zlaset( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 

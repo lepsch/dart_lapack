@@ -232,7 +232,7 @@
             // submatrix A(k-1:n,k-1:n)
 
             KPC = NPP - ( N-KP+1 )*( N-KP+2 ) / 2 + 1;
-            if (KP < N) CALL ZSWAP( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 );
+            if (KP < N) zswap( N-KP, AP( KC+KP-K+1 ), 1, AP( KPC+1 ), 1 );
             KX = KC + KP - K;
             for (J = K + 1; J <= KP - 1; J++) { // 70
                KX = KX + N - J + 1;

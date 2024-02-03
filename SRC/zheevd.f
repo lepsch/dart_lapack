@@ -130,7 +130,7 @@
          ISCALE = 1;
          SIGMA = RMAX / ANRM;
       }
-      if (ISCALE == 1) CALL ZLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) zlascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call ZHETRD to reduce Hermitian matrix to tridiagonal form.
 

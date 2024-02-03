@@ -610,15 +610,15 @@
             THETA(MINI) = THETA(I);
             THETA(I) = THETAMIN;
             if ( COLMAJOR ) {
-               if (WANTU1) CALL DSWAP( P, U1(1,I), 1, U1(1,MINI), 1 );
-               if( WANTU2 ) CALL DSWAP( M-P, U2(1,I), 1, U2(1,MINI), 1 );
-               if( WANTV1T ) CALL DSWAP( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T );
-               IF( WANTV2T ) CALL DSWAP( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T );
+               if (WANTU1) dswap( P, U1(1,I), 1, U1(1,MINI), 1 );
+               if( WANTU2 ) dswap( M-P, U2(1,I), 1, U2(1,MINI), 1 );
+               if( WANTV1T ) dswap( Q, V1T(I,1), LDV1T, V1T(MINI,1), LDV1T );
+               IF( WANTV2T ) dswap( M-Q, V2T(I,1), LDV2T, V2T(MINI,1), LDV2T );
             } else {
-               if (WANTU1) CALL DSWAP( P, U1(I,1), LDU1, U1(MINI,1), LDU1 );
-               if( WANTU2 ) CALL DSWAP( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 );
-               if( WANTV1T ) CALL DSWAP( Q, V1T(1,I), 1, V1T(1,MINI), 1 );
-               IF( WANTV2T ) CALL DSWAP( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 );
+               if (WANTU1) dswap( P, U1(I,1), LDU1, U1(MINI,1), LDU1 );
+               if( WANTU2 ) dswap( M-P, U2(I,1), LDU2, U2(MINI,1), LDU2 );
+               if( WANTV1T ) dswap( Q, V1T(1,I), 1, V1T(1,MINI), 1 );
+               IF( WANTV2T ) dswap( M-Q, V2T(1,I), 1, V2T(1,MINI), 1 );
             }
          }
 

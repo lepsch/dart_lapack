@@ -175,7 +175,7 @@
                // Q and Z accordingly (if requested):
 
                KK = K;
-               if (K != KS) CALL STGEXC( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR );
+               if (K != KS) stgexc( WANTQ, WANTZ, N, A, LDA, B, LDB, Q, LDQ, Z, LDZ, KK, KS, WORK, LWORK, IERR );
 
                if ( IERR > 0 ) {
 

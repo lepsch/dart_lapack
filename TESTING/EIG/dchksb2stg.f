@@ -292,7 +292,7 @@
                // DSYTRD_SB2ST
 
                dcopy(N, SD, 1, D1, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D1, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -321,7 +321,7 @@
                // Compute D2 from the DSYTRD_SB2ST Upper case
 
                dcopy(N, SD, 1, D2, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D2, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {
@@ -387,7 +387,7 @@
                // Compute D3 from the 2-stage Upper case
 
                dcopy(N, SD, 1, D3, 1 );
-               if (N > 0) CALL DCOPY( N-1, SE, 1, WORK, 1 );
+               if (N > 0) dcopy( N-1, SE, 1, WORK, 1 );
 
                dsteqr('N', N, D3, WORK, WORK( N+1 ), LDU, WORK( N+1 ), IINFO );
                if ( IINFO != 0 ) {

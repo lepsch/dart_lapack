@@ -70,7 +70,7 @@
          if (ICOMPZ > 0) Z( 1, 1 ) = CONE;
          return;
       }
-      if (ICOMPZ == 2) CALL CLASET( 'Full', N, N, CZERO, CONE, Z, LDZ );
+      if (ICOMPZ == 2) claset( 'Full', N, N, CZERO, CONE, Z, LDZ );
 
       // Call SPTTRF to factor the matrix.
 

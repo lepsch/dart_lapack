@@ -57,17 +57,17 @@
 
       claset('Full', N, N, CROGUE, CROGUE, Q, LDA );
       if ( M <= N ) {
-         if (M > 0 && M < N) CALL CLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) CALL CLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) clacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
+         IF( M > 1 ) clacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N > 1) CALL CLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) clacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
       cungrq(N, N, min( M, N ), Q, LDA, TAUA, WORK, LWORK, INFO );
 
       // Generate the P-by-P matrix Z
 
       claset('Full', P, P, CROGUE, CROGUE, Z, LDB );
-      if (P > 1) CALL CLACPY( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
+      if (P > 1) clacpy( 'Lower', P-1, N, BF( 2,1 ), LDB, Z( 2,1 ), LDB );
       cungqr(P, P, min( P,N ), Z, LDB, TAUB, WORK, LWORK, INFO );
 
       // Copy R

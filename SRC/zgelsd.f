@@ -196,7 +196,7 @@
 
       // If M < N make sure B(M+1:N,:) = 0
 
-      if (M < N) CALL ZLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
+      if (M < N) zlaset( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

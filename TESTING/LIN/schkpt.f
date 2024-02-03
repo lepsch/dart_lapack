@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRGT( PATH, NOUT );
+      if (TSTERR) serrgt( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 110
@@ -203,7 +203,7 @@
             }
 
             scopy(N, D, 1, D( N+1 ), 1 );
-            if (N > 1) CALL SCOPY( N-1, E, 1, E( N+1 ), 1 );
+            if (N > 1) scopy( N-1, E, 1, E( N+1 ), 1 );
 
 // +    TEST 1
             // Factor A as L*D*L' and compute the ratio
@@ -228,7 +228,7 @@
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 1 ) >= THRESH ) {
-               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 1, RESULT( 1 );
                NFAIL = NFAIL + 1;
             }
@@ -277,7 +277,7 @@
 
             // Check error code from SPTTRS.
 
-               if (INFO != 0) CALL ALAERH( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) alaerh( PATH, 'SPTTRS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
                sptt02(N, NRHS, D, E, X, LDA, WORK, LDA, RESULT( 2 ) );
@@ -295,7 +295,7 @@
 
             // Check error code from SPTRFS.
 
-               if (INFO != 0) CALL ALAERH( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != 0) alaerh( PATH, 'SPTRFS', INFO, 0, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
                sptt05(N, NRHS, D, E, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
@@ -305,7 +305,7 @@
 
                for (K = 2; K <= 6; K++) { // 70
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9998 )N, NRHS, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }
@@ -323,14 +323,14 @@
 
             // Check error code from SPTCON.
 
-            if (INFO != 0) CALL ALAERH( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+            if (INFO != 0) alaerh( PATH, 'SPTCON', INFO, 0, ' ', N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
             RESULT( 7 ) = SGET06( RCOND, RCONDC );
 
             // Print the test ratio if greater than or equal to THRESH.
 
             if ( RESULT( 7 ) >= THRESH ) {
-               if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+               if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                WRITE( NOUT, FMT = 9999 )N, IMAT, 7, RESULT( 7 );
                NFAIL = NFAIL + 1;
             }

@@ -41,7 +41,7 @@
 
       // Test error exits if TSTERR is true;
 
-      if (TSTERR) CALL ZERREC( PATH, NOUT );
+      if (TSTERR) zerrec( PATH, NOUT );
 
       OK = true;
       zget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );

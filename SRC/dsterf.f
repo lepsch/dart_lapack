@@ -280,8 +280,8 @@
       // Undo scaling if necessary
 
       } // 150
-      if (ISCALE == 1) CALL DLASCL( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
-      IF( ISCALE == 2 ) CALL DLASCL( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+      if (ISCALE == 1) dlascl( 'G', 0, 0, SSFMAX, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
+      IF( ISCALE == 2 ) dlascl( 'G', 0, 0, SSFMIN, ANORM, LENDSV-LSV+1, 1, D( LSV ), N, INFO );
 
       // Check for no convergence to an eigenvalue after a total
       // of N*MAXIT iterations.

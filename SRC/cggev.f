@@ -146,7 +146,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) clascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -159,7 +159,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) clascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
       // (Real Workspace: need 6*N)
@@ -200,7 +200,7 @@
 
       // Initialize VR
 
-      if (ILVR) CALL CLASET( 'Full', N, N, CZERO, CONE, VR, LDVR );
+      if (ILVR) claset( 'Full', N, N, CZERO, CONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 
@@ -294,9 +294,9 @@
 
       } // 70
 
-      if (ILASCL) CALL CLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
+      if (ILASCL) clascl( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHA, N, IERR );
 
-      if (ILBSCL) CALL CLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
+      if (ILBSCL) clascl( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 
       WORK( 1 ) = SROUNDUP_LWORK(LWKOPT);
       return;

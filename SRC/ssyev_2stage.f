@@ -107,7 +107,7 @@
          ISCALE = 1;
          SIGMA = RMAX / ANRM;
       }
-      if (ISCALE == 1) CALL SLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) slascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call SSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 

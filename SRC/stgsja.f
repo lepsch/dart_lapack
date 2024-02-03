@@ -82,9 +82,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL SLASET( 'Full', M, M, ZERO, ONE, U, LDU );
-      if( INITV ) CALL SLASET( 'Full', P, P, ZERO, ONE, V, LDV );
-      IF( INITQ ) CALL SLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      if (INITU) slaset( 'Full', M, M, ZERO, ONE, U, LDU );
+      if( INITV ) slaset( 'Full', P, P, ZERO, ONE, V, LDV );
+      IF( INITQ ) slaset( 'Full', N, N, ZERO, ONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -117,7 +117,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**T *A
 
-               if (K+J <= M) CALL SROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
+               if (K+J <= M) srot( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, SNU );
 
                // Update I-th and J-th rows of matrix B: V**T *B
 
@@ -140,11 +140,11 @@
 
                // Update orthogonal matrices U, V, Q, if desired.
 
-               if (WANTU && K+J <= M) CALL SROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) srot( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
-               if (WANTV) CALL SROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
+               if (WANTV) srot( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
-               if (WANTQ) CALL SROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
+               if (WANTQ) srot( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
 
             } // 10
          } // 20
@@ -200,7 +200,7 @@
 
             if ( GAMMA < ZERO ) {
                sscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
-               if (WANTV) CALL SSCAL( P, -ONE, V( 1, I ), 1 );
+               if (WANTV) sscal( P, -ONE, V( 1, I ), 1 );
             }
 
             slartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );

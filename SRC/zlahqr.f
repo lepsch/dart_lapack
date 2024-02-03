@@ -255,7 +255,7 @@
             // V(2) is always real before the call to ZLARFG, and hence
             // after the call T2 ( = T1*V(2) ) is also real.
 
-            if (K > M) CALL ZCOPY( 2, H( K, K-1 ), 1, V, 1 );
+            if (K > M) zcopy( 2, H( K, K-1 ), 1, V, 1 );
             zlarfg(2, V( 1 ), V( 2 ), 1, T1 );
             if ( K > M ) {
                H( K, K-1 ) = V( 1 );
@@ -306,7 +306,7 @@
                if (M+2 <= I) H( M+2, M+1 ) = H( M+2, M+1 )*TEMP;
                for (J = M; J <= I; J++) { // 110
                   if ( J != M+1 ) {
-                     if (I2 > J) CALL ZSCAL( I2-J, TEMP, H( J, J+1 ), LDH );
+                     if (I2 > J) zscal( I2-J, TEMP, H( J, J+1 ), LDH );
                      zscal(J-I1, DCONJG( TEMP ), H( I1, J ), 1 );
                      if ( WANTZ ) {
                         zscal(NZ, DCONJG( TEMP ), Z( ILOZ, J ), 1 );
@@ -323,7 +323,7 @@
             RTEMP = ABS( TEMP );
             H( I, I-1 ) = RTEMP;
             TEMP = TEMP / RTEMP;
-            if (I2 > I) CALL ZSCAL( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH );
+            if (I2 > I) zscal( I2-I, DCONJG( TEMP ), H( I, I+1 ), LDH );
             zscal(I-I1, TEMP, H( I1, I ), 1 );
             if ( WANTZ ) {
                zscal(NZ, TEMP, Z( ILOZ, I ), 1 );

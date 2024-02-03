@@ -138,7 +138,7 @@
 
             KP = IPIV( K );
             if ( KP != K ) {
-               if (KP > 1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) zswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K );
                A( K, K ) = A( KP, KP );
@@ -151,7 +151,7 @@
 
             KP = -IPIV( K );
             if ( KP != K ) {
-               if (KP > 1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) zswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
 
                TEMP = A( K, K );
@@ -165,7 +165,7 @@
             K = K + 1;
             KP = -IPIV( K );
             if ( KP != K ) {
-               if (KP > 1) CALL ZSWAP( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
+               if (KP > 1) zswap( KP-1, A( 1, K ), 1, A( 1, KP ), 1 );
                zswap(K-KP-1, A( KP+1, K ), 1, A( KP, KP+1 ), LDA );
                TEMP = A( K, K );
                A( K, K ) = A( KP, KP );
@@ -239,7 +239,7 @@
 
             KP = IPIV( K );
             if ( KP != K ) {
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K );
                A( K, K ) = A( KP, KP );
@@ -252,7 +252,7 @@
 
             KP = -IPIV( K );
             if ( KP != K ) {
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
 
                TEMP = A( K, K );
@@ -266,7 +266,7 @@
             K = K - 1;
             KP = -IPIV( K );
             if ( KP != K ) {
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
                zswap(KP-K-1, A( K+1, K ), 1, A( KP, K+1 ), LDA );
                TEMP = A( K, K );
                A( K, K ) = A( KP, KP );

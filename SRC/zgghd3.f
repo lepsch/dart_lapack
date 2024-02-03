@@ -87,12 +87,12 @@
 
       // Initialize Q and Z if desired.
 
-      if (INITQ) CALL ZLASET( 'All', N, N, CZERO, CONE, Q, LDQ );
-      IF( INITZ ) CALL ZLASET( 'All', N, N, CZERO, CONE, Z, LDZ );
+      if (INITQ) zlaset( 'All', N, N, CZERO, CONE, Q, LDQ );
+      IF( INITZ ) zlaset( 'All', N, N, CZERO, CONE, Z, LDZ );
 
       // Zero out lower triangle of B.
 
-      if (N > 1) CALL ZLASET( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB );
+      if (N > 1) zlaset( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB );
 
       // Quick return if possible
 
@@ -569,7 +569,7 @@
          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
-      if (JCOL < IHI) CALL ZGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
+      if (JCOL < IHI) zgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
       WORK( 1 ) = DCMPLX( LWKOPT );
 

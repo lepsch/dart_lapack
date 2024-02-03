@@ -225,7 +225,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P > 1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               if (P > 1) zswap( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) );
@@ -242,7 +242,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K < N) CALL ZSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
+               if (K < N) zswap( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
 
             }
 
@@ -251,7 +251,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP > 1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) zswap( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) );
@@ -277,7 +277,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K < N) CALL ZSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) zswap( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
 
             } else {
                // (*) Make sure that diagonal element of pivot is real
@@ -563,7 +563,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P < N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               if (P < N) zswap( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = DCONJG( A( J, K ) );
@@ -580,7 +580,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K > 1) CALL ZSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               if (K > 1) zswap( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
 
             }
 
@@ -589,7 +589,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) zswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = DCONJG( A( J, KK ) );
@@ -615,7 +615,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K > 1) CALL ZSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               if (K > 1) zswap( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
 
             } else {
                // (*) Make sure that diagonal element of pivot is real

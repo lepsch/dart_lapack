@@ -183,7 +183,7 @@
 
       // [R11,R12] = [ T11, 0 ] * Y
 
-      if (RANK < N) CALL ZTZRZF( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO );
+      if (RANK < N) ztzrzf( RANK, N, A, LDA, WORK( MN+1 ), WORK( 2*MN+1 ), LWORK-2*MN, INFO );
 
       // complex workspace: 2*MN.
       // Details of Householder rotations stored in WORK(MN+1:2*MN)

@@ -266,7 +266,7 @@
 
                      // Check error code from SPFTRI.
 
-                     if (INFO != 0) CALL ALAERH( 'SPO', 'SPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( 'SPO', 'SPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      spot03(UPLO, N, A, LDA, AINV, LDA, S_TEMP_SPOT03, LDA, S_WORK_SPOT03, RCONDC, RESULT( 2 ) );
 
@@ -284,7 +284,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'SPF' );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, 'SPF' );
                            WRITE( NOUT, FMT = 9999 )'SPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }

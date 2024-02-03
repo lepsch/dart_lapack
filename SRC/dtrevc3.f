@@ -254,7 +254,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
+                     if (SCALE != ONE) dscal( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 );
 
                      // Update right-hand side
@@ -281,7 +281,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( KI, SCALE, WORK( 1+IV*N ), 1 );
+                     if (SCALE != ONE) dscal( KI, SCALE, WORK( 1+IV*N ), 1 );
                      WORK( J-1+IV*N ) = X( 1, 1 );
                      WORK( J  +IV*N ) = X( 2, 1 );
 
@@ -310,7 +310,7 @@
                } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  if (KI > 1) CALL DGEMV( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 );
+                  if (KI > 1) dgemv( 'N', N, KI-1, ONE, VR, LDVR, WORK( 1 + IV*N ), 1, WORK( KI + IV*N ), VR( 1, KI ), 1 );
 
                   II = IDAMAX( N, VR( 1, KI ), 1 );
                   REMAX = ONE / ABS( VR( II, KI ) );
@@ -636,7 +636,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
+                     if (SCALE != ONE) dscal( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J+IV*N ) = X( 1, 1 );
                      VMAX = max( ABS( WORK( J+IV*N ) ), VMAX );
                      VCRIT = BIGNUM / VMAX;
@@ -668,7 +668,7 @@
 
                      // Scale if necessary
 
-                     if (SCALE != ONE) CALL DSCAL( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
+                     if (SCALE != ONE) dscal( N-KI+1, SCALE, WORK( KI+IV*N ), 1 );
                      WORK( J  +IV*N ) = X( 1, 1 );
                      WORK( J+1+IV*N ) = X( 2, 1 );
 
@@ -696,7 +696,7 @@
                } else if ( NB == 1 ) {
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
-                  if (KI < N) CALL DGEMV( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
+                  if (KI < N) dgemv( 'N', N, N-KI, ONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, WORK( KI   + IV*N ), VL( 1, KI ), 1 );
 
                   II = IDAMAX( N, VL( 1, KI ), 1 );
                   REMAX = ONE / ABS( VL( II, KI ) );

@@ -164,7 +164,7 @@
 
       // Test the error exit of:
 
-      if (TSTERR) CALL DERRRFP( NOUT );
+      if (TSTERR) derrrfp( NOUT );
 
       // Test the routines: dpftrf, dpftri, dpftrs (as in DDRVPO).
       // This also tests the routines: dtfsm, dtftri, dtfttr, dtrttf.

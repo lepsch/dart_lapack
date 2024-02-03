@@ -356,7 +356,7 @@
             // B := U * S1 * VT, and compute Z = U' * Y.
 
             scopy(MNMIN, BD, 1, S1, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, RWORK, 1 );
             clacpy(' ', M, NRHS, Y, LDX, Z, LDX );
             claset('Full', MNMIN, MNMIN, CZERO, CONE, U, LDPT );
             claset('Full', MNMIN, MNMIN, CZERO, CONE, VT, LDPT );
@@ -380,7 +380,7 @@
             // bidiagonal matrix B;  U, VT, and Z should not be modified.
 
             scopy(MNMIN, BD, 1, S2, 1 );
-            if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+            if (MNMIN > 0) scopy( MNMIN-1, BE, 1, RWORK, 1 );
 
             cbdsqr(UPLO, MNMIN, 0, 0, 0, S2, RWORK, VT, LDPT, U, LDPT, Z, LDX, RWORK( MNMIN+1 ), IINFO );
 
@@ -449,7 +449,7 @@
 
             if ( !BIDIAG ) {
                scopy(MNMIN, BD, 1, S2, 1 );
-               if (MNMIN > 0) CALL SCOPY( MNMIN-1, BE, 1, RWORK, 1 );
+               if (MNMIN > 0) scopy( MNMIN-1, BE, 1, RWORK, 1 );
 
                cbdsqr(UPLO, MNMIN, N, M, NRHS, S2, RWORK, PT, LDPT, Q, LDQ, Y, LDX, RWORK( MNMIN+1 ), IINFO );
 
@@ -469,7 +469,7 @@
             } // 150
             for (J = 1; J <= 14; J++) { // 160
                if ( RESULT( J ) >= THRESH ) {
-                  if (NFAIL == 0) CALL SLAHD2( NOUT, PATH );
+                  if (NFAIL == 0) slahd2( NOUT, PATH );
                   WRITE( NOUT, FMT = 9999 )M, N, JTYPE, IOLDSD, J, RESULT( J );
                   NFAIL = NFAIL + 1;
                }

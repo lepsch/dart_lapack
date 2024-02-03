@@ -160,7 +160,7 @@
          ILASCL = true;
       }
 
-      if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -174,7 +174,7 @@
          ILBSCL = true;
       }
 
-      if (ILBSCL) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrix to make it more nearly triangular
 
@@ -207,7 +207,7 @@
 
       // Initialize VSR
 
-      if (ILVSR) CALL ZLASET( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
+      if (ILVSR) zlaset( 'Full', N, N, CZERO, CONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 
@@ -236,8 +236,8 @@
 
          // Undo scaling on eigenvalues before selecting
 
-         if (ILASCL) CALL ZLASCL( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
-         IF( ILBSCL ) CALL ZLASCL( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
+         if (ILASCL) zlascl( 'G', 0, 0, ANRM, ANRMTO, N, 1, ALPHA, N, IERR );
+         IF( ILBSCL ) zlascl( 'G', 0, 0, BNRM, BNRMTO, N, 1, BETA, N, IERR );
 
          // Select eigenvalues
 
@@ -252,8 +252,8 @@
 
       // Apply back-permutation to VSL and VSR
 
-      if (ILVSL) CALL ZGGBAK( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
-      IF( ILVSR ) CALL ZGGBAK( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
+      if (ILVSL) zggbak( 'P', 'L', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSL, LDVSL, IERR );
+      IF( ILVSR ) zggbak( 'P', 'R', N, ILO, IHI, RWORK( ILEFT ), RWORK( IRIGHT ), N, VSR, LDVSR, IERR );
 
       // Undo scaling
 

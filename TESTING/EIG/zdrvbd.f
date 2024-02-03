@@ -206,7 +206,7 @@
 
                // Factorize A
 
-               if (IWSPC > 1) CALL ZLACPY( 'F', M, N, ASAV, LDA, A, LDA );
+               if (IWSPC > 1) zlacpy( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'ZGESVD';
                zgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {

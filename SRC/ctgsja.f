@@ -86,9 +86,9 @@
 
       // Initialize U, V and Q, if necessary
 
-      if (INITU) CALL CLASET( 'Full', M, M, CZERO, CONE, U, LDU );
-      if( INITV ) CALL CLASET( 'Full', P, P, CZERO, CONE, V, LDV );
-      IF( INITQ ) CALL CLASET( 'Full', N, N, CZERO, CONE, Q, LDQ );
+      if (INITU) claset( 'Full', M, M, CZERO, CONE, U, LDU );
+      if( INITV ) claset( 'Full', P, P, CZERO, CONE, V, LDV );
+      IF( INITQ ) claset( 'Full', N, N, CZERO, CONE, Q, LDQ );
 
       // Loop until convergence
 
@@ -121,7 +121,7 @@
 
                // Update (K+I)-th and (K+J)-th rows of matrix A: U**H *A
 
-               if (K+J <= M) CALL CROT( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) );
+               if (K+J <= M) crot( L, A( K+J, N-L+1 ), LDA, A( K+I, N-L+1 ), LDA, CSU, CONJG( SNU ) );
 
                // Update I-th and J-th rows of matrix B: V**H *B
 
@@ -151,11 +151,11 @@
 
                // Update unitary matrices U, V, Q, if desired.
 
-               if (WANTU && K+J <= M) CALL CROT( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
+               if (WANTU && K+J <= M) crot( M, U( 1, K+J ), 1, U( 1, K+I ), 1, CSU, SNU );
 
-               if (WANTV) CALL CROT( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
+               if (WANTV) crot( P, V( 1, J ), 1, V( 1, I ), 1, CSV, SNV );
 
-               if (WANTQ) CALL CROT( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
+               if (WANTQ) crot( N, Q( 1, N-L+J ), 1, Q( 1, N-L+I ), 1, CSQ, SNQ );
 
             } // 10
          } // 20
@@ -209,7 +209,7 @@
 
             if ( GAMMA < ZERO ) {
                csscal(L-I+1, -ONE, B( I, N-L+I ), LDB );
-               if (WANTV) CALL CSSCAL( P, -ONE, V( 1, I ), 1 );
+               if (WANTV) csscal( P, -ONE, V( 1, I ), 1 );
             }
 
             slartg(ABS( GAMMA ), ONE, BETA( K+I ), ALPHA( K+I ), RWK );

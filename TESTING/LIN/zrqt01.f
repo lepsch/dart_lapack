@@ -58,10 +58,10 @@
 
       zlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
       if ( M <= N ) {
-         if (M > 0 && M < N) CALL ZLACPY( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
-         IF( M > 1 ) CALL ZLACPY( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
+         if (M > 0 && M < N) zlacpy( 'Full', M, N-M, AF, LDA, Q( N-M+1, 1 ), LDA );
+         IF( M > 1 ) zlacpy( 'Lower', M-1, M-1, AF( 2, N-M+1 ), LDA, Q( N-M+2, N-M+1 ), LDA );
       } else {
-         if (N > 1) CALL ZLACPY( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
+         if (N > 1) zlacpy( 'Lower', N-1, N-1, AF( M-N+2, 1 ), LDA, Q( 2, 1 ), LDA );
       }
 
       // Generate the n-by-n matrix Q
@@ -73,10 +73,10 @@
 
       zlaset('Full', M, N, DCMPLX( ZERO ), DCMPLX( ZERO ), R, LDA );
       if ( M <= N ) {
-         if (M > 0) CALL ZLACPY( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
+         if (M > 0) zlacpy( 'Upper', M, M, AF( 1, N-M+1 ), LDA, R( 1, N-M+1 ), LDA );
       } else {
-         if (M > N && N > 0) CALL ZLACPY( 'Full', M-N, N, AF, LDA, R, LDA );
-         IF( N > 0 ) CALL ZLACPY( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
+         if (M > N && N > 0) zlacpy( 'Full', M-N, N, AF, LDA, R, LDA );
+         IF( N > 0 ) zlacpy( 'Upper', N, N, AF( M-N+1, 1 ), LDA, R( M-N+1, 1 ), LDA );
       }
 
       // Compute R - A*Q'

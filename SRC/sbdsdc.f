@@ -275,7 +275,7 @@
       // If B is lower bidiagonal, update U by those Givens rotations
       // which rotated B to be upper bidiagonal
 
-      if( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) CALL SLASR( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
+      if( ( IUPLO == 2 ) && ( ICOMPQ == 2 ) ) slasr( 'L', 'V', 'B', N, N, WORK( 1 ), WORK( N ), U, LDU );
 
       return;
       }

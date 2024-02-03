@@ -407,7 +407,7 @@
                   I1 = (I-1)*NB + 1;
                   I2 = min( I*NB, N ) + 1;
                   SCAL = SCALE( RHS ) / WORK( I+KK*LDS );
-                  if (SCAL != ONE) CALL SSCAL( I2-I1, SCAL, X( I1, RHS ), 1 );
+                  if (SCAL != ONE) sscal( I2-I1, SCAL, X( I1, RHS ), 1 );
                }
             }
          }

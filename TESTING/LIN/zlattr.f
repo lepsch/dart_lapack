@@ -208,7 +208,7 @@
          if ( UPPER ) {
             if ( N > 3 ) {
                zcopy(N-3, WORK, 1, A( 2, 3 ), LDA+1 );
-               if (N > 4) CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
+               if (N > 4) zcopy( N-4, WORK( N+1 ), 1, A( 2, 4 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 100
                A( 1, J ) = Y;
@@ -218,7 +218,7 @@
          } else {
             if ( N > 3 ) {
                zcopy(N-3, WORK, 1, A( 3, 2 ), LDA+1 );
-               if (N > 4) CALL ZCOPY( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
+               if (N > 4) zcopy( N-4, WORK( N+1 ), 1, A( 4, 2 ), LDA+1 );
             }
             for (J = 2; J <= N - 1; J++) { // 110
                A( J, 1 ) = Y;
@@ -237,11 +237,11 @@
 
                // Multiply by [ c  s; -conjg(s)  c] on the left.
 
-               if (N > J+1) CALL ZROT( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
+               if (N > J+1) zrot( N-J-1, A( J, J+2 ), LDA, A( J+1, J+2 ), LDA, C, S );
 
                // Multiply by [-c -s;  conjg(s) -c] on the right.
 
-               if (J > 1) CALL ZROT( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
+               if (J > 1) zrot( J-1, A( 1, J+1 ), 1, A( 1, J ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -256,11 +256,11 @@
 
                // Multiply by [ c -s;  conjg(s) c] on the right.
 
-               if (N > J+1) CALL ZROT( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
+               if (N > J+1) zrot( N-J-1, A( J+2, J+1 ), 1, A( J+2, J ), 1, C, -S );
 
                // Multiply by [-c  s; -conjg(s) -c] on the left.
 
-               if (J > 1) CALL ZROT( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
+               if (J > 1) zrot( J-1, A( J, 1 ), LDA, A( J+1, 1 ), LDA, -C, S );
 
                // Negate A(J+1,J).
 
@@ -285,7 +285,7 @@
             } // 140
          } else {
             for (J = 1; J <= N; J++) { // 150
-               if (J < N) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) );
+               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZLARND( 5, ISEED )*TWO;
             } // 150
          }
@@ -339,7 +339,7 @@
             A( N, N ) = SMLNUM*A( N, N );
          } else {
             for (J = 1; J <= N; J++) { // 190
-               if (J < N) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) );
+               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZLARND( 5, ISEED );
             } // 190
             A( 1, 1 ) = SMLNUM*A( 1, 1 );
@@ -442,7 +442,7 @@
             } // 300
          } else {
             for (J = 1; J <= N; J++) { // 310
-               if (J < N) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) );
+               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
                if ( J != IY ) {
                   A( J, J ) = ZLARND( 5, ISEED )*TWO;
                } else {
@@ -505,7 +505,7 @@
             } // 360
          } else {
             for (J = 1; J <= N; J++) { // 370
-               if (J < N) CALL ZLARNV( 4, ISEED, N-J, A( J+1, J ) );
+               if (J < N) zlarnv( 4, ISEED, N-J, A( J+1, J ) );
                A( J, J ) = ZERO;
             } // 370
          }

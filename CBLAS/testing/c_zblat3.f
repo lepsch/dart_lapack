@@ -508,7 +508,7 @@
 
                            // Call the subroutine.
 
-                           if (TRACE) CALL ZPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
+                           if (TRACE) zprcn1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
                            if (REWI) REWIND NTRA;
                            czgemm(IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
@@ -781,7 +781,7 @@
 
                         // Call the subroutine.
 
-                        if (TRACE) CALL ZPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
+                        if (TRACE) zprcn2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
                         if (REWI) REWIND NTRA;
                         if ( CONJ ) {
                            czhemm(IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
@@ -1051,11 +1051,11 @@
                            // Call the subroutine.
 
                            if ( SNAME( 10: 11 ) == 'mm' ) {
-                              if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+                              if (TRACE) zprcn3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
                               if (REWI) REWIND NTRA;
                               cztrmm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 10: 11 ) == 'sm' ) {
-                              if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+                              if (TRACE) zprcn3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
                               if (REWI) REWIND NTRA;
                               cztrsm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
@@ -1159,7 +1159,7 @@
 
       } // 150
       WRITE( NOUT, FMT = 9996 )SNAME;
-      if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
+      if (TRACE) zprcn3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
 
       } // 160
       return;
@@ -1363,11 +1363,11 @@
                         // Call the subroutine.
 
                         if ( CONJ ) {
-                           if (TRACE) CALL ZPRCN6( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC);
+                           if (TRACE) zprcn6( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC);
                            if (REWI) REWIND NTRA;
                            czherk(IORDER, UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC );
                         } else {
-                           if (TRACE) CALL ZPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
+                           if (TRACE) zprcn4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
                            if (REWI) REWIND NTRA;
                            czsyrk(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
                         }
@@ -1723,11 +1723,11 @@
                         // Call the subroutine.
 
                         if ( CONJ ) {
-                           if (TRACE) CALL ZPRCN7( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC);
+                           if (TRACE) zprcn7( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC);
                            if (REWI) REWIND NTRA;
                            czher2k(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC );
                         } else {
-                           if (TRACE) CALL ZPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
+                           if (TRACE) zprcn5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
                            if (REWI) REWIND NTRA;
                            czsyr2k(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         }

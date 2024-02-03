@@ -266,7 +266,7 @@
 
                      // Check error code from DPFTRI.
 
-                     if (INFO != 0) CALL ALAERH( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( 'DPO', 'DPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dpot03(UPLO, N, A, LDA, AINV, LDA, D_TEMP_DPOT03, LDA, D_WORK_DPOT03, RCONDC, RESULT( 2 ) );
 
@@ -284,7 +284,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'DPF' );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, 'DPF' );
                            WRITE( NOUT, FMT = 9999 )'DPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }

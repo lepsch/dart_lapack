@@ -78,7 +78,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRVX( PATH, NOUT );
+      if (TSTERR) serrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -293,7 +293,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'SPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -304,7 +304,7 @@
 
                      // --- Test SPOSVX ---
 
-                     if ( !PREFAC) CALL SLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
+                     if ( !PREFAC) slaset( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                      slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -370,7 +370,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {
@@ -387,7 +387,7 @@
 
                      slacpy('Full', N, N, ASAV, LDA, A, LDA );
                      slacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      if ( !PREFAC) CALL SLASET( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
+                      if ( !PREFAC) slaset( UPLO, N, N, ZERO, ZERO, AFAC, LDA );
                      slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -455,7 +455,7 @@
 
                      for (K = K1; K <= 6; K++) { // 85
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'SPOSVXX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {

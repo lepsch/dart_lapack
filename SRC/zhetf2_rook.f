@@ -213,7 +213,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P > 1) CALL ZSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               if (P > 1) zswap( P-1, A( 1, K ), 1, A( 1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = P + 1; J <= K - 1; J++) { // 14
                   T = DCONJG( A( J, K ) );
@@ -233,7 +233,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP > 1) CALL ZSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) zswap( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KP + 1; J <= KK - 1; J++) { // 15
                   T = DCONJG( A( J, KK ) );
@@ -514,7 +514,7 @@
 
             if ( ( KSTEP == 2 ) && ( P != K ) ) {
                // (1) Swap columnar parts
-               if (P < N) CALL ZSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               if (P < N) zswap( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = K + 1; J <= P - 1; J++) { // 44
                   T = DCONJG( A( J, K ) );
@@ -534,7 +534,7 @@
 
             if ( KP != KK ) {
                // (1) Swap columnar parts
-               if (KP < N) CALL ZSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) zswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
                // (2) Swap and conjugate middle parts
                for (J = KK + 1; J <= KP - 1; J++) { // 45
                   T = DCONJG( A( J, KK ) );

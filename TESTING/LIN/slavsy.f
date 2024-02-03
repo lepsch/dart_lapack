@@ -85,7 +85,7 @@
 
                // Multiply by the diagonal element if forming U * D.
 
-               if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) sscal( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
@@ -98,7 +98,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 1;
             } else {
@@ -132,7 +132,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 2;
             }
@@ -159,7 +159,7 @@
 
                // Multiply by the diagonal element if forming L * D.
 
-               if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) sscal( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
@@ -173,7 +173,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1;
 
@@ -209,7 +209,7 @@
                   // K-th step of the factorization.
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 2;
             }
@@ -243,13 +243,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   sgemv('Transpose', K-1, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
                }
-               if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) sscal( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K - 1;
 
             // 2 x 2 pivot block.
@@ -260,7 +260,7 @@
                   // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K-1) CALL SSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K-1) sswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
 
@@ -307,13 +307,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL SSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) sswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   sgemv('Transpose', N-K, NRHS, ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
                }
-               if (NOUNIT) CALL SSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) sscal( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K + 1;
 
             // 2 x 2 pivot block.
@@ -324,7 +324,7 @@
                // Interchange if P(K) != I.
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K+1) CALL SSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K+1) sswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

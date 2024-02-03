@@ -88,7 +88,7 @@
             // Subtract the corresponding column of A.
 
             JUA = min( JU, KU );
-            if (JUA+JL+1 > 0) CALL DAXPY( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
+            if (JUA+JL+1 > 0) daxpy( JUA+JL+1, -ONE, A( KU+1-JUA, J ), 1, WORK( JU+1-JUA ), 1 );
 
             // Compute the 1-norm of the column.
 

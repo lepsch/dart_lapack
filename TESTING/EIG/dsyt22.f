@@ -83,7 +83,7 @@
 
       // Compute  U**T U - I
 
-      if (ITYPE == 1) CALL DORT01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
+      if (ITYPE == 1) dort01( 'Columns', N, M, U, LDU, WORK, 2*N*N, RESULT( 2 ) );
 
       return;
       }

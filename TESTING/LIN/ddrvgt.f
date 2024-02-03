@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRVX( PATH, NOUT );
+      if (TSTERR) derrvx( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
@@ -127,7 +127,7 @@
                   // Generate a matrix with elements from [-1,1].
 
                   dlarnv(2, ISEED, N+2*M, A );
-                  if (ANORM != ONE) CALL DSCAL( N+2*M, ANORM, A, 1 );
+                  if (ANORM != ONE) dscal( N+2*M, ANORM, A, 1 );
                } else if ( IZERO > 0 ) {
 
                   // Reuse the last matrix by copying back the zeroed out
@@ -281,7 +281,7 @@
 
                      // Check error code from DGTSV .
 
-                     if (INFO != IZERO) CALL ALAERH( PATH, 'DGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'DGTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                      NT = 1;
                      if ( IZERO == 0 ) {
 
@@ -301,7 +301,7 @@
 
                      for (K = 2; K <= NT; K++) { // 80
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )'DGTSV ', N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -329,7 +329,7 @@
 
                   // Check the error code from DGTSVX.
 
-                  if (INFO != IZERO) CALL ALAERH( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'DGTSVX', INFO, IZERO, FACT // TRANS, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                   if ( IFACT >= 2 ) {
 
@@ -365,7 +365,7 @@
 
                   for (K = K1; K <= NT; K++) { // 100
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -375,7 +375,7 @@
 
                   RESULT( 6 ) = DGET06( RCOND, RCONDC );
                   if ( RESULT( 6 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9998 )'DGTSVX', FACT, TRANS, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }

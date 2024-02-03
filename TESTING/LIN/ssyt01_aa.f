@@ -83,11 +83,11 @@
 
       DO J = N, 1, -1;
          I = IPIV( J );
-         if (I != J) CALL SSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
+         if (I != J) sswap( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
       }
       DO J = N, 1, -1;
          I = IPIV( J );
-         if (I != J) CALL SSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
+         if (I != J) sswap( N, C( 1, J ), 1, C( 1, I ), 1 );
       }
 
 

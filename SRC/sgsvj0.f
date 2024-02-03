@@ -147,7 +147,7 @@
                   q = ISAMAX( N-p+1, SVA( p ), 1 ) + p - 1;
                   if ( p != q ) {
                      sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-                     if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+                     if (RSVEC) sswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
                      TEMP1 = SVA( p );
                      SVA( p ) = SVA( q );
                      SVA( q ) = TEMP1;
@@ -665,7 +665,7 @@
             D( p ) = D( q );
             D( q ) = TEMP1;
             sswap(M, A( 1, p ), 1, A( 1, q ), 1 );
-            if (RSVEC) CALL SSWAP( MVL, V( 1, p ), 1, V( 1, q ), 1 );
+            if (RSVEC) sswap( MVL, V( 1, p ), 1, V( 1, q ), 1 );
          }
       } // 5991
 

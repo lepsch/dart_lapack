@@ -127,7 +127,7 @@
          // Copy the details of V, and form V.
 
          dlaset('Full', P, P, ZERO, ZERO, V, LDV );
-         if (P > 1) CALL DLACPY( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
+         if (P > 1) dlacpy( 'Lower', P-1, N, B( 2, 1 ), LDB, V( 2, 1 ), LDV );
          dorg2r(P, P, min( P, N ), V, LDV, TAU, WORK, INFO );
       }
 
@@ -138,7 +138,7 @@
             B( I, J ) = ZERO;
          } // 30
       } // 40
-      if (P > L) CALL DLASET( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
+      if (P > L) dlaset( 'Full', P-L, N, ZERO, ZERO, B( L+1, 1 ), LDB );
 
       if ( WANTQ ) {
 
@@ -205,7 +205,7 @@
          // Copy the details of U, and form U
 
          dlaset('Full', M, M, ZERO, ZERO, U, LDU );
-         if (M > 1) CALL DLACPY( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
+         if (M > 1) dlacpy( 'Lower', M-1, N-L, A( 2, 1 ), LDA, U( 2, 1 ), LDU );
          dorg2r(M, M, min( M, N-L ), U, LDU, TAU, WORK, INFO );
       }
 
@@ -224,7 +224,7 @@
             A( I, J ) = ZERO;
          } // 90
       } // 100
-      if (M > K) CALL DLASET( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
+      if (M > K) dlaset( 'Full', M-K, N-L, ZERO, ZERO, A( K+1, 1 ), LDA );
 
       if ( N-L > K ) {
 

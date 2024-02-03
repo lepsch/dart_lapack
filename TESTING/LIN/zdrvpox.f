@@ -79,7 +79,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRVX( PATH, NOUT );
+      if (TSTERR) zerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -298,7 +298,7 @@
 
                         for (K = 1; K <= NT; K++) { // 60
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'ZPOSV ', UPLO, N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -309,7 +309,7 @@
 
                      // --- Test ZPOSVX ---
 
-                     if ( !PREFAC) CALL ZLASET( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
+                     if ( !PREFAC) zlaset( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -375,7 +375,7 @@
 
                      for (K = K1; K <= 6; K++) { // 80
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZPOSVX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {
@@ -392,7 +392,7 @@
 
                      zlacpy('Full', N, N, ASAV, LDA, A, LDA );
                      zlacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      if ( !PREFAC) CALL ZLASET( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
+                      if ( !PREFAC) zlaset( UPLO, N, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFAC, LDA );
                      zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -460,7 +460,7 @@
 
                      for (K = K1; K <= 6; K++) { // 85
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'ZPOSVXX', FACT, UPLO, N, EQUED, IMAT, K, RESULT( K );
                            } else {

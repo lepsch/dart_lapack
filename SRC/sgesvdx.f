@@ -490,8 +490,8 @@
       // Undo scaling if necessary
 
       if ( ISCL == 1 ) {
-         if (ANRM > BIGNUM) CALL SLASCL( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
-         IF( ANRM < SMLNUM ) CALL SLASCL( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
+         if (ANRM > BIGNUM) slascl( 'G', 0, 0, BIGNUM, ANRM, MINMN, 1, S, MINMN, INFO );
+         IF( ANRM < SMLNUM ) slascl( 'G', 0, 0, SMLNUM, ANRM, MINMN, 1, S, MINMN, INFO );
       }
 
       // Return optimal workspace in WORK(1)

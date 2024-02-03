@@ -86,7 +86,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRVX( PATH, NOUT );
+      if (TSTERR) cerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for which the block
@@ -330,7 +330,7 @@
 
                      for (K = 1; K <= NT; K++) { // 110
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9999 )'CSYSV_RK', UPLO, N, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }

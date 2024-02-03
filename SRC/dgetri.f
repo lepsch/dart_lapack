@@ -95,7 +95,7 @@
 
             // Compute current column of inv(A).
 
-            if (J < N) CALL DGEMV( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 );
+            if (J < N) dgemv( 'No transpose', N, N-J, -ONE, A( 1, J+1 ), LDA, WORK( J+1 ), 1, ONE, A( 1, J ), 1 );
          } // 20
       } else {
 
@@ -117,7 +117,7 @@
 
             // Compute current block column of inv(A).
 
-            if (J+JB <= N) CALL DGEMM( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA );
+            if (J+JB <= N) dgemm( 'No transpose', 'No transpose', N, JB, N-J-JB+1, -ONE, A( 1, J+JB ), LDA, WORK( J+JB ), LDWORK, ONE, A( 1, J ), LDA );
             dtrsm('Right', 'Lower', 'No transpose', 'Unit', N, JB, ONE, WORK( J ), LDWORK, A( 1, J ), LDA );
          } // 50
       }
@@ -126,7 +126,7 @@
 
       DO 60 J = N - 1, 1, -1;
          JP = IPIV( J );
-         if (JP != J) CALL DSWAP( N, A( 1, J ), 1, A( 1, JP ), 1 );
+         if (JP != J) dswap( N, A( 1, J ), 1, A( 1, JP ), 1 );
       } // 60
 
       WORK( 1 ) = IWS;

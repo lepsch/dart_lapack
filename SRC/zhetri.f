@@ -221,7 +221,7 @@
             // Interchange rows and columns K and KP in the trailing
             // submatrix A(k-1:n,k-1:n)
 
-            if (KP < N) CALL ZSWAP( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
+            if (KP < N) zswap( N-KP, A( KP+1, K ), 1, A( KP+1, KP ), 1 );
             for (J = K + 1; J <= KP - 1; J++) { // 70
                TEMP = DCONJG( A( J, K ) );
                A( J, K ) = DCONJG( A( KP, J ) );

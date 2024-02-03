@@ -66,7 +66,7 @@
          for (J = 1; J <= N; J++) { // 10
             JC = JJ + 1;
             JJ = JJ + J;
-            if (J > 1) CALL CHPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
+            if (J > 1) chpr( 'Upper', J-1, ONE, AP( JC ), 1, AP );
             AJJ = REAL( AP( JJ ) );
             csscal(J, AJJ, AP( JC ), 1 );
          } // 10
@@ -79,7 +79,7 @@
          for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1;
             AP( JJ ) = REAL( CDOTC( N-J+1, AP( JJ ), 1, AP( JJ ), 1 ) );
-            if (J < N) CALL CTPMV( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
+            if (J < N) ctpmv( 'Lower', 'Conjugate transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
             JJ = JJN;
          } // 20
       }

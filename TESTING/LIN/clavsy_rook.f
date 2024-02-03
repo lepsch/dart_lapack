@@ -85,7 +85,7 @@
 
                // Multiply by the diagonal element if forming U * D.
 
-               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) cscal( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(U(K))  if K > 1.
 
@@ -98,7 +98,7 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 1;
             } else {
@@ -135,12 +135,12 @@
                   // Swap the first of pair with IMAXth
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
                   KP = ABS( IPIV( K+1 ) );
-                  if (KP != K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K+1) cswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K + 2;
             }
@@ -167,7 +167,7 @@
 
                // Multiply by the diagonal element if forming L * D.
 
-               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) cscal( NRHS, A( K, K ), B( K, 1 ), LDB );
 
                // Multiply by  P(K) * inv(L(K))  if K < N.
 
@@ -181,7 +181,7 @@
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
 
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 1;
 
@@ -219,12 +219,12 @@
                   // Swap the second of pair with IMAXth
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // NOW swap the first of pair with Pth
 
                   KP = ABS( IPIV( K-1 ) );
-                  if (KP != K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K-1) cswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
                }
                K = K - 2;
             }
@@ -257,13 +257,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   cgemv('Transpose', K-1, NRHS, CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
                }
-               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) cscal( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K - 1;
 
             // 2 x 2 pivot block.
@@ -274,12 +274,12 @@
                   // Swap the second of pair with Pth
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the first of pair with IMAX(r)th
 
                   KP = ABS( IPIV( K-1 ) );
-                  if (KP != K-1) CALL CSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K-1) cswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformations
 
@@ -326,13 +326,13 @@
                   // Interchange if P(K) != I.
 
                   KP = IPIV( K );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 
                   cgemv('Transpose', N-K, NRHS, CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
                }
-               if (NOUNIT) CALL CSCAL( NRHS, A( K, K ), B( K, 1 ), LDB );
+               if (NOUNIT) cscal( NRHS, A( K, K ), B( K, 1 ), LDB );
                K = K + 1;
 
             // 2 x 2 pivot block.
@@ -343,12 +343,12 @@
                   // Swap the first of pair with Pth
 
                   KP = ABS( IPIV( K ) );
-                  if (KP != K) CALL CSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Now swap the second of pair with IMAX(r)th
 
                   KP = ABS( IPIV( K+1 ) );
-                  if (KP != K+1) CALL CSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+                  if (KP != K+1) cswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
 
                   // Apply the transformation
 

@@ -62,11 +62,11 @@
 
             // Apply the interchange to columns 1:N.
 
-            if (JP != J) CALL CSWAP( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
+            if (JP != J) cswap( N, A( J, 1 ), LDA, A( JP, 1 ), LDA );
 
             // Compute elements J+1:M of J-th column.
 
-            if (J < M) CALL CRSCL( M-J, A( J, J ), A( J+1, J ), 1 );
+            if (J < M) crscl( M-J, A( J, J ), A( J+1, J ), 1 );
 
          } else if ( INFO == 0 ) {
 

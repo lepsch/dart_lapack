@@ -189,7 +189,7 @@
          // Use unblocked code to factor the last or only block.
 
 
-         if (J <= MINMN) CALL CLAQP2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) );
+         if (J <= MINMN) claqp2( M, N-J+1, J-1, A( 1, J ), LDA, JPVT( J ), TAU( J ), RWORK( J ), RWORK( N+J ), WORK( 1 ) );
 
       }
 

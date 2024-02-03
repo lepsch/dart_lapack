@@ -118,8 +118,8 @@
 
          // Update singular vectors if desired
 
-         if (NRU > 0) CALL SLASR( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU );
-         IF( NCC > 0 ) CALL SLASR( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC );
+         if (NRU > 0) slasr( 'R', 'V', 'F', NRU, N, WORK( 1 ), WORK( N ), U, LDU );
+         IF( NCC > 0 ) slasr( 'L', 'V', 'F', N, NCC, WORK( 1 ), WORK( N ), C, LDC );
       }
 
       // Compute singular values to relative accuracy TOL
@@ -231,9 +231,9 @@
 
          // Compute singular vectors, if desired
 
-         if (NCVT > 0) CALL SROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR );
-         if( NRU > 0 ) CALL SROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL );
-         IF( NCC > 0 ) CALL SROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL );
+         if (NCVT > 0) srot( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR );
+         if( NRU > 0 ) srot( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL );
+         IF( NCC > 0 ) srot( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL );
          M = M - 2;
          GO TO 60;
       }
@@ -370,9 +370,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL SLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL SLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL SLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
+            if (NCVT > 0) slasr( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) slasr( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) slasr( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -400,9 +400,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL SLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
+            if (NCVT > 0) slasr( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) slasr( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) slasr( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -443,9 +443,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL SLASR( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL SLASR( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL SLASR( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
+            if (NCVT > 0) slasr( 'L', 'V', 'F', M-LL+1, NCVT, WORK( 1 ), WORK( N ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) slasr( 'R', 'V', 'F', NRU, M-LL+1, WORK( NM12+1 ), WORK( NM13+1 ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) slasr( 'L', 'V', 'F', M-LL+1, NCC, WORK( NM12+1 ), WORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -486,9 +486,9 @@
 
             // Update singular vectors if desired
 
-            if (NCVT > 0) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL SLASR( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL SLASR( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
+            if (NCVT > 0) slasr( 'L', 'V', 'B', M-LL+1, NCVT, WORK( NM12+1 ), WORK( NM13+1 ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) slasr( 'R', 'V', 'B', NRU, M-LL+1, WORK( 1 ), WORK( N ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) slasr( 'L', 'V', 'B', M-LL+1, NCC, WORK( 1 ), WORK( N ), C( LL, 1 ), LDC );
          }
       }
 
@@ -505,7 +505,7 @@
 
             // Change sign of singular vectors, if desired
 
-            if (NCVT > 0) CALL SSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT );
+            if (NCVT > 0) sscal( NCVT, NEGONE, VT( I, 1 ), LDVT );
          }
       } // 170
 
@@ -530,9 +530,9 @@
 
             D( ISUB ) = D( N+1-I );
             D( N+1-I ) = SMIN;
-            if (NCVT > 0) CALL SSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
-            if (NRU > 0) CALL SSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 );
-            IF( NCC > 0 ) CALL SSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );
+            if (NCVT > 0) sswap( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
+            if (NRU > 0) sswap( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 );
+            IF( NCC > 0 ) sswap( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );
          }
       } // 190
       GO TO 220;

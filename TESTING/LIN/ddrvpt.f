@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRVX( PATH, NOUT );
+      if (TSTERR) derrvx( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -149,7 +149,7 @@
                   IX = IDAMAX( N, D, 1 );
                   DMAX = D( IX );
                   dscal(N, ANORM / DMAX, D, 1 );
-                  if (N > 1) CALL DSCAL( N-1, ANORM / DMAX, E, 1 );
+                  if (N > 1) dscal( N-1, ANORM / DMAX, E, 1 );
 
                } else if ( IZERO > 0 ) {
 
@@ -235,7 +235,7 @@
                   ANORM = DLANST( '1', N, D, E );
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) dcopy( N-1, E, 1, E( N+1 ), 1 );
 
                   // Factor the matrix A.
 
@@ -268,7 +268,7 @@
                   // --- Test DPTSV --
 
                   dcopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL DCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) dcopy( N-1, E, 1, E( N+1 ), 1 );
                   dlacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
@@ -278,7 +278,7 @@
 
                   // Check error code from DPTSV .
 
-                  if (INFO != IZERO) CALL ALAERH( PATH, 'DPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'DPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0;
                   if ( IZERO == 0 ) {
 
@@ -303,7 +303,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )'DPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -334,7 +334,7 @@
 
                // Check the error code from DPTSVX.
 
-               if (INFO != IZERO) CALL ALAERH( PATH, 'DPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != IZERO) alaerh( PATH, 'DPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 
@@ -372,7 +372,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9998 )'DPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }

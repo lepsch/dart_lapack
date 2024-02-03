@@ -132,7 +132,7 @@
          SCALEA = true;
          CSCALE = BIGNUM;
       }
-      if (SCALEA) CALL SLASCL( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
+      if (SCALEA) slascl( 'G', 0, 0, ANRM, CSCALE, N, N, A, LDA, IERR );
 
       // Permute the matrix to make it more nearly triangular
       // (Workspace: need N)
@@ -228,8 +228,8 @@
                   } else if ( A( I+1, I ) != ZERO && A( I, I+1 ) == ZERO ) {
                      WI( I ) = ZERO;
                      WI( I+1 ) = ZERO;
-                     if (I > 1) CALL SSWAP( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 );
-                     IF( N > I+1 ) CALL SSWAP( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
+                     if (I > 1) sswap( I-1, A( 1, I ), 1, A( 1, I+1 ), 1 );
+                     IF( N > I+1 ) sswap( N-I-1, A( I, I+2 ), LDA, A( I+1, I+2 ), LDA );
                      if ( WANTVS ) {
                         sswap(N, VS( 1, I ), 1, VS( 1, I+1 ), 1 );
                      }

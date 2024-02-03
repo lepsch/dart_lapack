@@ -747,7 +747,7 @@
          NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRHS( 'ZHSEQR', NOUT );
+         if (TSTERR) zerrhs( 'ZHSEQR', NOUT );
          for (I = 1; I <= NPARMS; I++) { // 270
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -879,8 +879,8 @@
          // Test the error exits
 
          xlaenv(1, 1 );
-         if (TSTERR && TSTCHK) CALL ZERRBD( 'ZBD', NOUT );
-         IF( TSTERR && TSTDRV ) CALL ZERRED( 'ZBD', NOUT );
+         if (TSTERR && TSTCHK) zerrbd( 'ZBD', NOUT );
+         IF( TSTERR && TSTDRV ) zerred( 'ZBD', NOUT );
 
          for (I = 1; I <= NPARMS; I++) { // 330
             NRHS = NSVAL( I );
@@ -897,7 +897,7 @@
                zchkbd(NN, MVAL, NVAL, MAXTYP, DOTYPE, NRHS, ISEED, THRESH, A( 1, 1 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), A( 1, 2 ), NMAX, A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), NMAX, A( 1, 7 ), A( 1, 8 ), WORK, LWORK, RWORK, NOUT, INFO );
                if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCHKBD', INFO;
             }
-            if (TSTDRV) CALL ZDRVBD( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO );
+            if (TSTDRV) zdrvbd( NN, MVAL, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, A( 1, 1 ), NMAX, A( 1, 2 ), NMAX, A( 1, 3 ), NMAX, A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), WORK, LWORK, RWORK, IWORK, NOUT, INFO );
          } // 330
 
       } else if ( LSAMEN( 3, C3, 'ZEV' ) ) {
@@ -912,7 +912,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRED( C3, NOUT );
+            if (TSTERR) zerred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvev(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEV', INFO;
@@ -932,7 +932,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRED( C3, NOUT );
+            if (TSTERR) zerred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrves(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 4 ), NMAX, RESULT, WORK, LWORK, RWORK, IWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEES', INFO;
@@ -952,7 +952,7 @@
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRED( C3, NOUT );
+            if (TSTERR) zerred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvvx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 3 ), NMAX, A( 1, 4 ), NMAX, A( 1, 5 ), NMAX, DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), DR( 1, 7 ), DR( 1, 8 ), RESULT, WORK, LWORK, RWORK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEEVX', INFO;
@@ -972,7 +972,7 @@
          if ( NTYPES < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRED( C3, NOUT );
+            if (TSTERR) zerred( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrvsx(NN, NVAL, NTYPES, DOTYPE, ISEED, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), A( 1, 4 ), NMAX, A( 1, 5 ), RESULT, WORK, LWORK, RWORK, LOGWRK, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZGEESX', INFO;
@@ -997,7 +997,7 @@
          NTYPES = min( MAXTYP, NTYPES );
          alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
          xlaenv(1,1);
-         if (TSTCHK && TSTERR) CALL ZERRGG( C3, NOUT );
+         if (TSTCHK && TSTERR) zerrgg( C3, NOUT );
          for (I = 1; I <= NPARMS; I++) { // 350
             xlaenv(1, NBVAL( I ) );
             xlaenv(2, NBMIN( I ) );
@@ -1032,7 +1032,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRGG( C3, NOUT );
+            if (TSTERR) zerrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrges(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), DC( 1, 1 ), DC( 1, 2 ), WORK, LWORK, RWORK, RESULT, LOGWRK, INFO );
 
@@ -1059,7 +1059,7 @@
          if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRGG( C3, NOUT );
+            if (TSTERR) zerrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             xlaenv(5, 2 );
             zdrgsx(NN, NCMAX, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), DC( 1, 1 ), DC( 1, 2 ), C, NCMAX*NCMAX, S, WORK, LWORK, RWORK, IWORK, LIWORK, LOGWRK, INFO );
@@ -1080,7 +1080,7 @@
          if ( NTYPES <= 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRGG( C3, NOUT );
+            if (TSTERR) zerrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrgev(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 7 ), NMAX, A( 1, 8 ), A( 1, 9 ), NMAX, DC( 1, 1 ), DC( 1, 2 ), DC( 1, 3 ), DC( 1, 4 ), WORK, LWORK, RWORK, RESULT, INFO );
             if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZDRGEV', INFO;
@@ -1106,7 +1106,7 @@
          if ( NN < 0 ) {
             WRITE( NOUT, FMT = 9990 )C3;
          } else {
-            if (TSTERR) CALL ZERRGG( C3, NOUT );
+            if (TSTERR) zerrgg( C3, NOUT );
             alareq(C3, NTYPES, DOTYPE, MAXTYP, NIN, NOUT );
             zdrgvx(NN, THRESH, NIN, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 5 ), A( 1, 6 ), IWORK( 1 ), IWORK( 2 ), DR( 1, 1 ), DR( 1, 2 ), DR( 1, 3 ), DR( 1, 4 ), DR( 1, 5 ), DR( 1, 6 ), WORK, LWORK, RWORK, IWORK( 3 ), LIWORK-2, RESULT, LOGWRK, INFO );
 
@@ -1171,7 +1171,7 @@
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'GLM', NOUT );
+         if (TSTERR) zerrgg( 'GLM', NOUT );
          zckglm(NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGLM', INFO;
 
@@ -1182,7 +1182,7 @@
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'GQR', NOUT );
+         if (TSTERR) zerrgg( 'GQR', NOUT );
          zckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGQR', INFO;
 
@@ -1193,7 +1193,7 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL ZERRGG( 'GSV', NOUT );
+         if (TSTERR) zerrgg( 'GSV', NOUT );
          zckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKGSV', INFO;
 
@@ -1204,7 +1204,7 @@
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL ZERRGG( 'CSD', NOUT );
+         if (TSTERR) zerrgg( 'CSD', NOUT );
          zckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKCSD', INFO;
 
@@ -1215,7 +1215,7 @@
          // --------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'LSE', NOUT );
+         if (TSTERR) zerrgg( 'LSE', NOUT );
          zcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO != 0) WRITE( NOUT, FMT = 9980 )'ZCKLSE', INFO;
       } else {

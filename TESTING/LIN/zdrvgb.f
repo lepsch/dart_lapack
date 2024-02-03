@@ -81,7 +81,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRVX( PATH, NOUT );
+      if (TSTERR) zerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -142,7 +142,7 @@
                LDA = KL + KU + 1;
                LDAFB = 2*KL + KU + 1;
                if ( LDA*N > LA || LDAFB*N > LAFB ) {
-                  if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                  if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                   if ( LDA*N > LA ) {
                      WRITE( NOUT, FMT = 9999 )LA, N, KL, KU, N*( KL+KU+1 );
                      NERRS = NERRS + 1;
@@ -345,7 +345,7 @@
 
                               // Check error code from ZGBSV .
 
-                              if (INFO != IZERO) CALL ALAERH( PATH, 'ZGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != IZERO) alaerh( PATH, 'ZGBSV ', INFO, IZERO, ' ', N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               // Reconstruct matrix from factors and
                               // compute residual.
@@ -372,7 +372,7 @@
 
                               for (K = 1; K <= NT; K++) { // 50
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9997 )'ZGBSV ', N, KL, KU, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -382,7 +382,7 @@
 
                            // --- Test ZGBSVX ---
 
-                           if ( !PREFAC) CALL ZLASET( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
+                           if ( !PREFAC) zlaset( 'Full', 2*KL+KU+1, N, DCMPLX( ZERO ), DCMPLX( ZERO ), AFB, LDAFB );
                            zlaset('Full', N, NRHS, DCMPLX( ZERO ), DCMPLX( ZERO ), X, LDB );
                            if ( IEQUED > 1 && N > 0 ) {
 
@@ -400,7 +400,7 @@
 
                            // Check the error code from ZGBSVX.
 
-                           if (INFO != IZERO) CALL ALAERH( PATH, 'ZGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != IZERO) alaerh( PATH, 'ZGBSVX', INFO, IZERO, FACT // TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
                            // Compare RWORK(2*NRHS+1) from ZGBSVX with the
                            // computed reciprocal pivot growth RPVGRW
 
@@ -478,7 +478,7 @@
                            if ( !TRFCON ) {
                               for (K = K1; K <= NTESTS; K++) { // 80
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                     if ( PREFAC ) {
                                        WRITE( NOUT, FMT = 9995 ) 'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, K, RESULT( K );
                                     } else {
@@ -490,7 +490,7 @@
                               NRUN = NRUN + NTESTS - K1 + 1;
                            } else {
                               if( RESULT( 1 ) >= THRESH && !PREFAC ) {
-                                 if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                                 if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 1, RESULT( 1 );
                                  } else {
@@ -500,7 +500,7 @@
                                  NRUN = NRUN + 1;
                               }
                               if ( RESULT( 6 ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 6, RESULT( 6 );
                                  } else {
@@ -510,7 +510,7 @@
                                  NRUN = NRUN + 1;
                               }
                               if ( RESULT( 7 ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                  if ( PREFAC ) {
                                     WRITE( NOUT, FMT = 9995 )'ZGBSVX', FACT, TRANS, N, KL, KU, EQUED, IMAT, 7, RESULT( 7 );
                                  } else {

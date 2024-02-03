@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRVX( PATH, NOUT );
+      if (TSTERR) serrvx( PATH, NOUT );
       INFOT = 0;
       KDVAL( 1 ) = 0;
 
@@ -339,7 +339,7 @@
 
                            for (K = 1; K <= NT; K++) { // 30
                               if ( RESULT( K ) >= THRESH ) {
-                                 if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                                 if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                                  WRITE( NOUT, FMT = 9999 )'SPBSV ', UPLO, N, KD, IMAT, K, RESULT( K );
                                  NFAIL = NFAIL + 1;
                               }
@@ -350,7 +350,7 @@
 
                         // --- Test SPBSVX ---
 
-                        if ( !PREFAC) CALL SLASET( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB );
+                        if ( !PREFAC) slaset( 'Full', KD+1, N, ZERO, ZERO, AFAC, LDAB );
                         slaset('Full', N, NRHS, ZERO, ZERO, X, LDA );
                         if ( IEQUED > 1 && N > 0 ) {
 
@@ -416,7 +416,7 @@
 
                         for (K = K1; K <= 6; K++) { // 50
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'SPBSVX', FACT, UPLO, N, KD, EQUED, IMAT, K, RESULT( K );
                               } else {

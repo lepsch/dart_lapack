@@ -24,7 +24,7 @@
       // Quick return if possible
 
       if ( N <= 1 ) {
-         if (N == 1) CALL SSCAL( NRHS, 1. / D( 1 ), B, LDB );
+         if (N == 1) sscal( NRHS, 1. / D( 1 ), B, LDB );
          return;
       }
 

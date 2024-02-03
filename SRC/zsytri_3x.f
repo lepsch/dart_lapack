@@ -260,8 +260,8 @@
          for (I = 1; I <= N; I++) {
              IP = ABS( IPIV( I ) );
              if ( IP != I ) {
-                if (I < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
-                if (I > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
+                if (I < IP) zsyswapr( UPLO, N, A, LDA, I ,IP );
+                if (I > IP) zsyswapr( UPLO, N, A, LDA, IP ,I );
              }
          }
 
@@ -444,8 +444,8 @@
          DO I = N, 1, -1;
              IP = ABS( IPIV( I ) );
              if ( IP != I ) {
-                if (I < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
-                if (I > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
+                if (I < IP) zsyswapr( UPLO, N, A, LDA, I ,IP );
+                if (I > IP) zsyswapr( UPLO, N, A, LDA, IP ,I );
              }
          }
 

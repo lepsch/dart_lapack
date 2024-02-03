@@ -57,7 +57,7 @@
       // Copy details of Q
 
       zlaset('Full', N, N, ROGUE, ROGUE, Q, LDA );
-      if (N > 1) CALL ZLACPY( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
+      if (N > 1) zlacpy( 'Upper', M, N-1, AF( 1, 2 ), LDA, Q( 1, 2 ), LDA );
 
       // Generate the n-by-n matrix Q
 

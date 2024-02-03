@@ -74,13 +74,13 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K );
-            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            if( KP == -IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
+            if( KP == -IPIV( K-1 ) ) zswap( NRHS, B( K-1, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-2;
          }
         }
@@ -126,13 +126,13 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K );
-            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            if( K < N && KP == -IPIV( K+1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if( K < N && KP == -IPIV( K+1 ) ) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+2;
          }
         }
@@ -148,13 +148,13 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K );
-            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K and -IPIV(K+1).
             KP = -IPIV( K+1 );
-            if( KP == -IPIV( K ) ) CALL ZSWAP( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
+            if( KP == -IPIV( K ) ) zswap( NRHS, B( K+1, 1 ), LDB, B( KP, 1 ), LDB );
             K=K+2;
          }
         }
@@ -198,13 +198,13 @@
             // 1 x 1 diagonal block
             // Interchange rows K and IPIV(K).
             KP = IPIV( K );
-            if (KP != K) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if (KP != K) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-1;
          } else {
             // 2 x 2 diagonal block
             // Interchange rows K-1 and -IPIV(K).
             KP = -IPIV( K );
-            if( K > 1 && KP == -IPIV( K-1 ) ) CALL ZSWAP( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
+            if( K > 1 && KP == -IPIV( K-1 ) ) zswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             K=K-2;
          }
         }

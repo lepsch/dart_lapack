@@ -73,7 +73,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRVX( PATH, NOUT );
+      if (TSTERR) cerrvx( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 120
@@ -150,7 +150,7 @@
                   IX = ISAMAX( N, D, 1 );
                   DMAX = D( IX );
                   sscal(N, ANORM / DMAX, D, 1 );
-                  if (N > 1) CALL CSSCAL( N-1, ANORM / DMAX, E, 1 );
+                  if (N > 1) csscal( N-1, ANORM / DMAX, E, 1 );
 
                } else if ( IZERO > 0 ) {
 
@@ -236,7 +236,7 @@
                   ANORM = CLANHT( '1', N, D, E );
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) ccopy( N-1, E, 1, E( N+1 ), 1 );
 
                   // Factor the matrix A.
 
@@ -269,7 +269,7 @@
                   // --- Test CPTSV --
 
                   scopy(N, D, 1, D( N+1 ), 1 );
-                  if (N > 1) CALL CCOPY( N-1, E, 1, E( N+1 ), 1 );
+                  if (N > 1) ccopy( N-1, E, 1, E( N+1 ), 1 );
                   clacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                   // Factor A as L*D*L' and solve the system A*X = B.
@@ -279,7 +279,7 @@
 
                   // Check error code from CPTSV .
 
-                  if (INFO != IZERO) CALL ALAERH( PATH, 'CPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != IZERO) alaerh( PATH, 'CPTSV ', INFO, IZERO, ' ', N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                   NT = 0;
                   if ( IZERO == 0 ) {
 
@@ -304,7 +304,7 @@
 
                   for (K = 1; K <= NT; K++) { // 70
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )'CPTSV ', N, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -335,7 +335,7 @@
 
                // Check the error code from CPTSVX.
 
-               if (INFO != IZERO) CALL ALAERH( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+               if (INFO != IZERO) alaerh( PATH, 'CPTSVX', INFO, IZERO, FACT, N, N, 1, 1, NRHS, IMAT, NFAIL, NERRS, NOUT );
                if ( IZERO == 0 ) {
                   if ( IFACT == 2 ) {
 
@@ -373,7 +373,7 @@
 
                for (K = K1; K <= 6; K++) { // 90
                   if ( RESULT( K ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9998 )'CPTSVX', FACT, N, IMAT, K, RESULT( K );
                      NFAIL = NFAIL + 1;
                   }

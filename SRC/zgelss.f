@@ -262,7 +262,7 @@
 
             // Zero out below R
 
-            if (N > 1) CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
+            if (N > 1) zlaset( 'L', N-1, N-1, CZERO, CZERO, A( 2, 1 ), LDA );
          }
 
          IE = 1;

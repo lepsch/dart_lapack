@@ -81,7 +81,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL CERRVX( PATH, NOUT );
+      if (TSTERR) cerrvx( PATH, NOUT );
       INFOT = 0;
 
       // Set the block size and minimum block size for testing.
@@ -284,7 +284,7 @@
 
                         // Check error code from CGESV .
 
-                        if (INFO != IZERO) CALL ALAERH( PATH, 'CGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) alaerh( PATH, 'CGESV ', INFO, IZERO, ' ', N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         // Reconstruct matrix from factors and compute
                         // residual.
@@ -309,7 +309,7 @@
 
                         for (K = 1; K <= NT; K++) { // 30
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )'CGESV ', N, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -319,7 +319,7 @@
 
                      // --- Test CGESVX ---
 
-                     if ( !PREFAC) CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
+                     if ( !PREFAC) claset( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -337,7 +337,7 @@
 
                      // Check the error code from CGESVX.
 
-                     if (INFO != IZERO) CALL ALAERH( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != IZERO) alaerh( PATH, 'CGESVX', INFO, IZERO, FACT // TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compare RWORK(2*NRHS+1) from CGESVX with the
                      // computed reciprocal pivot growth factor RPVGRW
@@ -410,7 +410,7 @@
                      if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K );
                               } else {
@@ -422,7 +422,7 @@
                         NRUN = NRUN + 7 - K1;
                      } else {
                         if( RESULT( 1 ) >= THRESH && !PREFAC ) {
-                           if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                           if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 );
                            } else {
@@ -432,7 +432,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 6 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 );
                            } else {
@@ -442,7 +442,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 7 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 );
                            } else {
@@ -461,7 +461,7 @@
 
                      clacpy('Full', N, N, ASAV, LDA, A, LDA );
                      clacpy('Full', N, NRHS, BSAV, LDA, B, LDA );
-                      if ( !PREFAC) CALL CLASET( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
+                      if ( !PREFAC) claset( 'Full', N, N, CMPLX( ZERO ), CMPLX( ZERO ), AFAC, LDA );
                      claset('Full', N, NRHS, CMPLX( ZERO ), CMPLX( ZERO ), X, LDA );
                      if ( IEQUED > 1 && N > 0 ) {
 
@@ -543,7 +543,7 @@
                      if ( !TRFCON ) {
                         for (K = K1; K <= NTESTS; K++) { // 45
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                               if ( PREFAC ) {
                                  WRITE( NOUT, FMT = 9997 )'CGESVXX', FACT, TRANS, N, EQUED, IMAT, K, RESULT( K );
                               } else {
@@ -555,7 +555,7 @@
                         NRUN = NRUN + 7 - K1;
                      } else {
                         if( RESULT( 1 ) >= THRESH && !PREFAC ) {
-                           if( NFAIL == 0 && NERRS == 0 ) CALL ALADHD( NOUT, PATH );
+                           if( NFAIL == 0 && NERRS == 0 ) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVXX', FACT, TRANS, N, EQUED, IMAT, 1, RESULT( 1 );
                            } else {
@@ -565,7 +565,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 6 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVXX', FACT, TRANS, N, EQUED, IMAT, 6, RESULT( 6 );
                            } else {
@@ -575,7 +575,7 @@
                            NRUN = NRUN + 1;
                         }
                         if ( RESULT( 7 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, PATH );
                            if ( PREFAC ) {
                               WRITE( NOUT, FMT = 9997 )'CGESVXX', FACT, TRANS, N, EQUED, IMAT, 7, RESULT( 7 );
                            } else {

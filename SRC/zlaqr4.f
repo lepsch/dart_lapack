@@ -84,7 +84,7 @@
          // ==== Tiny matrices must use ZLAHQR. ====
 
          LWKOPT = 1;
-         if (LWORK != -1) CALL ZLAHQR( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO );
+         if (LWORK != -1) zlahqr( WANTT, WANTZ, N, ILO, IHI, H, LDH, W, ILOZ, IHIZ, Z, LDZ, INFO );
       } else {
 
          // ==== Use small bulge multi-shift QR with aggressive early

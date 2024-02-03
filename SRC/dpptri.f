@@ -64,7 +64,7 @@
          for (J = 1; J <= N; J++) { // 10
             JC = JJ + 1;
             JJ = JJ + J;
-            if (J > 1) CALL DSPR( 'Upper', J-1, ONE, AP( JC ), 1, AP );
+            if (J > 1) dspr( 'Upper', J-1, ONE, AP( JC ), 1, AP );
             AJJ = AP( JJ );
             dscal(J, AJJ, AP( JC ), 1 );
          } // 10
@@ -77,7 +77,7 @@
          for (J = 1; J <= N; J++) { // 20
             JJN = JJ + N - J + 1;
             AP( JJ ) = DDOT( N-J+1, AP( JJ ), 1, AP( JJ ), 1 );
-            if (J < N) CALL DTPMV( 'Lower', 'Transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
+            if (J < N) dtpmv( 'Lower', 'Transpose', 'Non-unit', N-J, AP( JJN ), AP( JJ+1 ), 1 );
             JJ = JJN;
          } // 20
       }

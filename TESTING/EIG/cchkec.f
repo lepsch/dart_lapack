@@ -41,7 +41,7 @@
 
       // Test error exits if TSTERR is true;
 
-      if (TSTERR) CALL CERREC( PATH, NOUT );
+      if (TSTERR) cerrec( PATH, NOUT );
 
       OK = true;
       cget35(RTRSYL( 1 ), LTRSYL, NTRSYL, KTRSYL, NIN );

@@ -121,7 +121,7 @@
 
       // Use unblocked code to factor the last or only block.
 
-      if (I <= K) CALL ZGEQR2P( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
+      if (I <= K) zgeqr2p( M-I+1, N-I+1, A( I, I ), LDA, TAU( I ), WORK, IINFO );
 
       WORK( 1 ) = IWS;
       return;

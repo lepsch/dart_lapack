@@ -74,7 +74,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRGE( PATH, NOUT );
+      if (TSTERR) derrge( PATH, NOUT );
       INFOT = 0;
       xlaenv(2, 2 );
 
@@ -142,7 +142,7 @@
                   LDA = KL + KU + 1;
                   LDAFAC = 2*KL + KU + 1;
                   if ( ( LDA*N ) > LA || ( LDAFAC*N ) > LAFAC ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      if ( N*( KL+KU+1 ) > LA ) {
                         WRITE( NOUT, FMT = 9999 )LA, M, N, KL, KU, N*( KL+KU+1 );
                         NERRS = NERRS + 1;
@@ -243,13 +243,13 @@
 
                         // Compute the LU factorization of the band matrix.
 
-                        if (M > 0 && N > 0) CALL DLACPY( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
+                        if (M > 0 && N > 0) dlacpy( 'Full', KL+KU+1, N, A, LDA, AFAC( KL+1 ), LDAFAC );
                         SRNAMT = 'DGBTRF';
                         dgbtrf(M, N, KL, KU, AFAC, LDAFAC, IWORK, INFO );
 
                         // Check error code from DGBTRF.
 
-                        if (INFO != IZERO) CALL ALAERH( PATH, 'DGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != IZERO) alaerh( PATH, 'DGBTRF', INFO, IZERO, ' ', M, N, KL, KU, NB, IMAT, NFAIL, NERRS, NOUT );
                         TRFCON = false;
 
 // +    TEST 1
@@ -262,7 +262,7 @@
                         // did not pass the threshold.
 
                         if ( RESULT( 1 ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9997 )M, N, KL, KU, NB, IMAT, 1, RESULT( 1 );
                            NFAIL = NFAIL + 1;
                         }
@@ -344,7 +344,7 @@
 
                               // Check error code from DGBTRS.
 
-                              if (INFO != 0) CALL ALAERH( PATH, 'DGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) alaerh( PATH, 'DGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                               dlacpy('Full', N, NRHS, B, LDB, WORK, LDB );
                               dgbt02(TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
@@ -364,13 +364,13 @@
 
                               // Check error code from DGBRFS.
 
-                              if (INFO != 0) CALL ALAERH( PATH, 'DGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) alaerh( PATH, 'DGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                               dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) );
                               dgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -398,7 +398,7 @@
 
                               // Check error code from DGBCON.
 
-                           if (INFO != 0) CALL ALAERH( PATH, 'DGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
+                           if (INFO != 0) alaerh( PATH, 'DGBCON', INFO, 0, NORM, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
                            RESULT( 7 ) = DGET06( RCOND, RCONDC );
 
@@ -406,7 +406,7 @@
                            // not pass the threshold.
 
                            if ( RESULT( 7 ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9995 )NORM, N, KL, KU, IMAT, 7, RESULT( 7 );
                               NFAIL = NFAIL + 1;
                            }

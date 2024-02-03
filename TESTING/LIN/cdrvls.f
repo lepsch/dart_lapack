@@ -87,11 +87,11 @@
       // Test the error exits
 
       xlaenv(9, SMLSIZ );
-      if (TSTERR) CALL CERRLS( PATH, NOUT );
+      if (TSTERR) cerrls( PATH, NOUT );
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH );
+      if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) alahd( NOUT, PATH );
       INFOT = 0;
 
       // Compute maximal workspace needed for all routines
@@ -259,14 +259,14 @@
                               SRNAMT = 'CGELS ';
                               cgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
-                              if (INFO != 0) CALL ALAERH( PATH, 'CGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) alaerh( PATH, 'CGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 1: Check correctness of results
                               // for CGELS, compute the residual:
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS > 0 && NRHS > 0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) clacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
@@ -289,7 +289,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -349,14 +349,14 @@
                               SRNAMT = 'CGELST';
                               cgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
 
-                              if (INFO != 0) CALL ALAERH( PATH, 'CGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                              if (INFO != 0) alaerh( PATH, 'CGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                               // Test 3: Check correctness of results
                               // for CGELST, compute the residual:
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS > 0 && NRHS > 0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) clacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
@@ -379,7 +379,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9999 )TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -450,7 +450,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS > 0 && NRHS > 0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 if (NROWS > 0 && NRHS > 0) clacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                                  cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
@@ -475,7 +475,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ) >= THRESH ) {
-                                       if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                       if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                        WRITE( NOUT, FMT = 9997 )TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                           NFAIL = NFAIL + 1;
                                     }
@@ -561,7 +561,7 @@
                         SRNAMT = 'CGELSS';
                         cgelss(M, N, NRHS, A, LDA, B, LDB, S, RCOND, CRANK, WORK, LWORK, RWORK, INFO );
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'CGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'CGELSS', INFO, 0, ' ', M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
 
                         // workspace used: 3*min(m,n) +
                                         // max(2*min(m,n),nrhs,max(m,n))
@@ -633,7 +633,7 @@
 
                         for (K = 7; K <= 18; K++) { // 80
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }

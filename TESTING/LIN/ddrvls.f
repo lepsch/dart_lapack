@@ -83,11 +83,11 @@
 
       xlaenv(2, 2 );
       xlaenv(9, SMLSIZ );
-      if (TSTERR) CALL DERRLS( PATH, NOUT );
+      if (TSTERR) derrls( PATH, NOUT );
 
       // Print the header if NM = 0 or NN = 0 and THRESH = 0.
 
-      if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) CALL ALAHD( NOUT, PATH );
+      if( ( NM == 0 || NN == 0 ) && THRESH == ZERO ) alahd( NOUT, PATH );
       INFOT = 0;
       xlaenv(2, 2 );
       xlaenv(9, SMLSIZ );
@@ -254,7 +254,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) dlacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
@@ -279,7 +279,7 @@
 
                               for (K = 1; K <= 2; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -343,7 +343,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              if (NROWS > 0 && NRHS > 0) dlacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                               dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
@@ -368,7 +368,7 @@
 
                               for (K = 3; K <= 4; K++) {
                                  if ( RESULT( K ) >= THRESH ) {
-                                    if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                    if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                     WRITE( NOUT, FMT = 9999 ) TRANS, M, N, NRHS, NB, ITYPE, K, RESULT( K );
                                     NFAIL = NFAIL + 1;
                                  }
@@ -439,7 +439,7 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS > 0 && NRHS > 0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 if (NROWS > 0 && NRHS > 0) dlacpy( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
                                  dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
@@ -464,7 +464,7 @@
 
                                  for (K = 5; K <= 6; K++) {
                                     if ( RESULT( K ) >= THRESH ) {
-                                       if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                                       if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                                        WRITE( NOUT, FMT = 9997 ) TRANS, M, N, NRHS, MB, NB, ITYPE, K, RESULT( K );
                                        NFAIL = NFAIL + 1;
                                     }
@@ -622,7 +622,7 @@
 
                         for (K = 7; K <= 18; K++) { // 90
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9998 )M, N, NRHS, NB, ITYPE, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }

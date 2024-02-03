@@ -78,7 +78,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL ZERRHE( PATH, NOUT );
+      if (TSTERR) zerrhe( PATH, NOUT );
       INFOT = 0;
 
       // Set the minimum block size for which the block routine should
@@ -251,7 +251,7 @@
 
                   // Check error code from ZHETRF and handle error.
 
-                  if (INFO != K) CALL ALAERH( PATH, 'ZHETRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != K) alaerh( PATH, 'ZHETRF', INFO, K, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
 
                   // Set the condition estimate flag if the INFO is not 0.
 
@@ -278,7 +278,7 @@
 
                      // Check error code from ZHETRI and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'ZHETRI', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'ZHETRI', INFO, -1, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      // Compute the residual for a symmetric matrix times
                      // its inverse.
@@ -292,7 +292,7 @@
 
                   for (K = 1; K <= NT; K++) { // 110
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )UPLO, N, NB, IMAT, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
@@ -331,7 +331,7 @@
 
                      // Check error code from ZHETRS and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'ZHETRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'ZHETRS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -354,7 +354,7 @@
 
                      // Check error code from ZHETRS2 and handle error.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'ZHETRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'ZHETRS2', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
 
@@ -375,7 +375,7 @@
 
                      // Check error code from ZHERFS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'ZHERFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'ZHERFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                      zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
                      zpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
@@ -385,7 +385,7 @@
 
                      for (K = 3; K <= 8; K++) { // 120
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                           if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                            WRITE( NOUT, FMT = 9998 )UPLO, N, NRHS, IMAT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }
@@ -406,7 +406,7 @@
 
                   // Check error code from ZHECON and handle error.
 
-                  if (INFO != 0) CALL ALAERH( PATH, 'ZHECON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                  if (INFO != 0) alaerh( PATH, 'ZHECON', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                   RESULT( 9 ) = DGET06( RCOND, RCONDC );
 
@@ -414,7 +414,7 @@
                   // the threshold.
 
                   if ( RESULT( 9 ) >= THRESH ) {
-                     if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                     if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                      WRITE( NOUT, FMT = 9997 )UPLO, N, IMAT, 9, RESULT( 9 );
                      NFAIL = NFAIL + 1;
                   }

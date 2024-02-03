@@ -210,8 +210,8 @@
                // Interchange rows and column K and P in the leading
                // submatrix A(1:k,1:k) if we have a 2-by-2 pivot
 
-               if (P > 1) CALL CSWAP( P-1, A( 1, K ), 1, A( 1, P ), 1 );
-               IF( P < (K-1) ) CALL CSWAP( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
+               if (P > 1) cswap( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               IF( P < (K-1) ) cswap( K-P-1, A( P+1, K ), 1, A( P, P+1 ), LDA );
                T = A( K, K );
                A( K, K ) = A( P, P );
                A( P, P ) = T;
@@ -219,7 +219,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K < N) CALL CSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
+               if (K < N) cswap( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
 
             }
 
@@ -231,8 +231,8 @@
                // Interchange rows and columns KK and KP in the leading
                // submatrix A(1:k,1:k)
 
-               if (KP > 1) CALL CSWAP( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
-               IF( ( KK > 1 ) && ( KP < (KK-1) ) ) CALL CSWAP( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
+               if (KP > 1) cswap( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               IF( ( KK > 1 ) && ( KP < (KK-1) ) ) cswap( KK-KP-1, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                T = A( KK, KK );
                A( KK, KK ) = A( KP, KP );
                A( KP, KP ) = T;
@@ -245,7 +245,7 @@
                // Convert upper triangle of A into U form by applying
                // the interchanges in columns k+1:N.
 
-               if (K < N) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) cswap( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
 
             }
 
@@ -505,8 +505,8 @@
                // Interchange rows and column K and P in the trailing
                // submatrix A(k:n,k:n) if we have a 2-by-2 pivot
 
-               if (P < N) CALL CSWAP( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
-               IF( P > (K+1) ) CALL CSWAP( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
+               if (P < N) cswap( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               IF( P > (K+1) ) cswap( P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                T = A( K, K );
                A( K, K ) = A( P, P );
                A( P, P ) = T;
@@ -514,7 +514,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K > 1) CALL CSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               if (K > 1) cswap( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
 
             }
 
@@ -526,8 +526,8 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP < N) CALL CSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
-               IF( ( KK < N ) && ( KP > (KK+1) ) ) CALL CSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               if (KP < N) cswap( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               IF( ( KK < N ) && ( KP > (KK+1) ) ) cswap( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK );
                A( KK, KK ) = A( KP, KP );
                A( KP, KP ) = T;
@@ -540,7 +540,7 @@
                // Convert lower triangle of A into L form by applying
                // the interchanges in columns 1:k-1.
 
-               if (K > 1) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               if (K > 1) cswap( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
 
             }
 

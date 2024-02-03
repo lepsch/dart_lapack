@@ -89,12 +89,12 @@
 
       // Initialize Q and Z if desired.
 
-      if (INITQ) CALL CLASET( 'All', N, N, CZERO, CONE, Q, LDQ );
-      IF( INITZ ) CALL CLASET( 'All', N, N, CZERO, CONE, Z, LDZ );
+      if (INITQ) claset( 'All', N, N, CZERO, CONE, Q, LDQ );
+      IF( INITZ ) claset( 'All', N, N, CZERO, CONE, Z, LDZ );
 
       // Zero out lower triangle of B.
 
-      if (N > 1) CALL CLASET( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB );
+      if (N > 1) claset( 'Lower', N-1, N-1, CZERO, CZERO, B(2, 1), LDB );
 
       // Quick return if possible
 
@@ -571,7 +571,7 @@
          IF ( WANTZ ) COMPZ2 = 'V';
       }
 
-      if (JCOL < IHI) CALL CGGHRD( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
+      if (JCOL < IHI) cgghrd( COMPQ2, COMPZ2, N, JCOL, IHI, A, LDA, B, LDB, Q, LDQ, Z, LDZ, IERR );
 
       WORK( 1 ) = SROUNDUP_LWORK( LWKOPT );
 

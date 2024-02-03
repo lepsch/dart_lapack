@@ -329,9 +329,9 @@
                // Quick return: A is the M x N zero matrix.
                NUMRANK = 0;
                dlaset('G', N, 1, ZERO, ZERO, S, N );
-               if (WNTUS) CALL ZLASET('G', M, N, CZERO, CONE, U, LDU);
-               if (WNTUA) CALL ZLASET('G', M, M, CZERO, CONE, U, LDU);
-               if (WNTVA) CALL ZLASET('G', N, N, CZERO, CONE, V, LDV);
+               if (WNTUS) zlaset('G', M, N, CZERO, CONE, U, LDU);
+               if (WNTUA) zlaset('G', M, M, CZERO, CONE, U, LDU);
+               if (WNTVA) zlaset('G', N, N, CZERO, CONE, V, LDV);
                if ( WNTUF ) {
                    zlaset('G', N, 1, CZERO, CZERO, CWORK, N );
                    zlaset('G', M, N, CZERO, CONE, U, LDU );
@@ -496,7 +496,7 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR > 1) CALL ZLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA );
+            if (NR > 1) zlaset( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA );
             zgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          }
@@ -514,7 +514,7 @@
                   U(q,p) = CONJG(A(p,q));
                } // 1193
             } // 1192
-            if (NR > 1) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, U(1,2), LDU );
             // .. the left singular vectors not computed, the NR right singular
             // vectors overwrite [U](1:NR,1:NR) as conjugate transposed. These
             // will be pre-multiplied by Q to build the left singular vectors of A.
@@ -533,7 +533,7 @@
              // .. apply ZGESVD to R
              // .. copy R into [U] and overwrite [U] with the left singular vectors
              zlacpy('U', NR, N, A, LDA, U, LDU );
-             if (NR > 1) CALL ZLASET( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU );
+             if (NR > 1) zlaset( 'L', NR-1, NR-1, CZERO, CZERO, U(2,1), LDU );
              // .. the right singular vectors not computed, the NR left singular
              // vectors overwrite [U](1:NR,1:NR)
                 zgesvd('O', 'N', NR, N, U, LDU, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -555,8 +555,8 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if ( !WNTUF) CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
-         if (ROWPRM && !WNTUF) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
+         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       } else if ( RSVEC && ( !LSVEC ) ) {
 // .......................................................................
@@ -570,7 +570,7 @@
                   V(q,p) = CONJG(A(p,q));
                } // 1166
             } // 1165
-            if (NR > 1) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
             // .. the left singular vectors of R**H overwrite V, the right singular
             // vectors not computed
             if ( WNTVR || ( NR == N ) ) {
@@ -617,7 +617,7 @@
              // .. aply ZGESVD to R
              // .. copy R into V and overwrite V with the right singular vectors
              zlacpy('U', NR, N, A, LDA, V, LDV );
-             if (NR > 1) CALL ZLASET( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV );
+             if (NR > 1) zlaset( 'L', NR-1, NR-1, CZERO, CZERO, V(2,1), LDV );
              // .. the right singular vectors overwrite V, the NR left singular
              // vectors stored in U(1:NR,1:NR)
              if ( WNTVR || ( NR == N ) ) {
@@ -654,7 +654,7 @@
                   V(q,p) = CONJG(A(p,q));
                } // 1169
             } // 1168
-            if (NR > 1) CALL ZLASET( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
+            if (NR > 1) zlaset( 'U', NR-1,NR-1, CZERO,CZERO, V(1,2), LDV );
 
             // .. the left singular vectors of R**H overwrite [V], the NR right
             // singular vectors of R**H stored in [U](1:NR,1:NR) as conjugate
@@ -711,7 +711,7 @@
                          V(q,p) = CONJG(A(p,q));
                       } // 1199
                    } // 1198
-                   if (NR > 1) CALL ZLASET('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV);
+                   if (NR > 1) zlaset('U',NR-1,NR-1, CZERO,CZERO, V(1,2),LDV);
 
                    zlaset('A',N,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                    zgesvd('O', 'A', N, N, V, LDV, S, V, LDV, U, LDU, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -752,7 +752,7 @@
                          U(q,NR+p) = CONJG(A(p,q));
                       } // 1197
                    } // 1196
-                   if (NR > 1) CALL ZLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU);
+                   if (NR > 1) zlaset('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU);
                    zgeqrf(N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
@@ -785,7 +785,7 @@
              if ( WNTVR || ( NR == N ) ) {
                  // .. copy R into [V] and overwrite V with the right singular vectors
                  zlacpy('U', NR, N, A, LDA, V, LDV );
-                if (NR > 1) CALL ZLASET( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV );
+                if (NR > 1) zlaset( 'L', NR-1,NR-1, CZERO,CZERO, V(2,1), LDV );
                 // .. the right singular vectors of R overwrite [V], the NR left
                 // singular vectors of R stored in [U](1:NR,1:NR)
                 zgesvd('S', 'O', NR, N, V, LDV, S, U, LDU, V, LDV, CWORK(N+1), LCWORK-N, RWORK, INFO );
@@ -813,7 +813,7 @@
                OPTRATIO = 2;
                if ( OPTRATIO * NR > N ) {
                   zlacpy('U', NR, N, A, LDA, V, LDV );
-                  if (NR > 1) CALL ZLASET('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV);
+                  if (NR > 1) zlaset('L', NR-1,NR-1, CZERO,CZERO, V(2,1),LDV);
                // .. the right singular vectors of R overwrite [V], the NR left
                   // singular vectors of R stored in [U](1:NR,1:NR)
                   zlaset('A', N-NR,N, CZERO,CZERO, V(NR+1,1),LDV);
@@ -833,10 +833,10 @@
                   }
                } else {
                   zlacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  if (NR > 1) CALL ZLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU);
+                  if (NR > 1) zlaset('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU);
                   zgelqf(NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                   zlacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  if (NR > 1) CALL ZLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
+                  if (NR > 1) zlaset('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
                   zgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO );
                   zlaset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
                   zlaset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
@@ -860,8 +860,8 @@
             // The Q matrix from the first QRF is built into the left singular
             // vectors matrix U.
 
-         if ( !WNTUF) CALL ZUNMQR( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
-         if (ROWPRM && !WNTUF) CALL ZLASWP( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
+         if ( !WNTUF) zunmqr( 'L', 'N', M, N1, N, A, LDA, CWORK, U, LDU, CWORK(N+1), LCWORK-N, IERR );
+         if (ROWPRM && !WNTUF) zlaswp( N1, U, LDU, 1, M-1, IWORK(N+1), -1 );
 
       // ... end of the "full SVD" branch
       }
@@ -877,10 +877,10 @@
 
       // .. if numerical rank deficiency is detected, the truncated
       // singular values are set to zero.
-      if (NR < N) CALL DLASET( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
+      if (NR < N) dlaset( 'G', N-NR,1, ZERO,ZERO, S(NR+1), N );
       // .. undo scaling; this may cause overflow in the largest singular
       // values.
-      if (ASCALED) CALL DLASCL( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
+      if (ASCALED) dlascl( 'G',0,0, ONE,sqrt(DBLE(M)), NR,1, S, N, IERR );
       if (CONDA) RWORK(1) = SCONDA;
       RWORK(2) = p - NR;
       // .. p-NR is the number of singular values that are computed as

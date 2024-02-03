@@ -125,7 +125,7 @@
 
       // Scale the right-hand side.
 
-      if (RCEQU) CALL DLASCL2( N, NRHS, S, B, LDB );
+      if (RCEQU) dlascl2( N, NRHS, S, B, LDB );
 
       if ( NOFACT || EQUIL ) {
 

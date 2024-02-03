@@ -198,7 +198,7 @@
          }
       }
 
-      if (ILVSR) CALL DLASET( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
+      if (ILVSR) dlaset( 'Full', N, N, ZERO, ONE, VSR, LDVSR );
 
       // Reduce to generalized Hessenberg form
 

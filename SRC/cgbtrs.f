@@ -81,7 +81,7 @@
             for (J = 1; J <= N - 1; J++) { // 10
                LM = min( KL, N-J );
                L = IPIV( J );
-               if (L != J) CALL CSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) cswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
                cgeru(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
             } // 10
          }
@@ -111,7 +111,7 @@
                LM = min( KL, N-J );
                cgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J );
-               if (L != J) CALL CSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) cswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 40
          }
 
@@ -135,7 +135,7 @@
                cgemv('Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                clacgv(NRHS, B( J, 1 ), LDB );
                L = IPIV( J );
-               if (L != J) CALL CSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               if (L != J) cswap( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
             } // 60
          }
       }

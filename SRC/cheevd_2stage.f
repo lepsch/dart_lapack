@@ -128,7 +128,7 @@
          ISCALE = 1;
          SIGMA = RMAX / ANRM;
       }
-      if (ISCALE == 1) CALL CLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) clascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call CHETRD_2STAGE to reduce Hermitian matrix to tridiagonal form.
 

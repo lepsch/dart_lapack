@@ -271,7 +271,7 @@
 
                      // Check error code from ZPFTRI.
 
-                     if (INFO != 0) CALL ALAERH( 'ZPO', 'ZPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( 'ZPO', 'ZPFTRI', INFO, 0, UPLO, N, N, -1, -1, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      zpot03(UPLO, N, A, LDA, AINV, LDA, Z_WORK_ZPOT03, LDA, D_WORK_ZPOT03, RCONDC, RESULT( 2 ) );
 
@@ -290,7 +290,7 @@
 
                      for (K = 1; K <= NT; K++) { // 60
                         if ( RESULT( K ) >= THRESH ) {
-                           if (NFAIL == 0 && NERRS == 0) CALL ALADHD( NOUT, 'ZPF' );
+                           if (NFAIL == 0 && NERRS == 0) aladhd( NOUT, 'ZPF' );
                            WRITE( NOUT, FMT = 9999 )'ZPFSV ', UPLO, N, IIT, K, RESULT( K );
                            NFAIL = NFAIL + 1;
                         }

@@ -119,7 +119,7 @@
 
          // ==== Initialize Z, if requested ====
 
-         if (INITZ) CALL SLASET( 'A', N, N, ZERO, ONE, Z, LDZ );
+         if (INITZ) slaset( 'A', N, N, ZERO, ONE, Z, LDZ );
 
          // ==== Quick return if possible ====
 
@@ -175,7 +175,7 @@
 
          // ==== Clear out the trash, if necessary. ====
 
-         if( ( WANTT || INFO != 0 ) && N > 2 ) CALL SLASET( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
+         if( ( WANTT || INFO != 0 ) && N > 2 ) slaset( 'L', N-2, N-2, ZERO, ZERO, H( 3, 1 ), LDH );
 
          // ==== Ensure reported workspace size is backward-compatible with
          // .    previous LAPACK versions. ====

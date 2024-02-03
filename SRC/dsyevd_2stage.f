@@ -119,7 +119,7 @@
          ISCALE = 1;
          SIGMA = RMAX / ANRM;
       }
-      if (ISCALE == 1) CALL DLASCL( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
+      if (ISCALE == 1) dlascl( UPLO, 0, 0, ONE, SIGMA, N, N, A, LDA, INFO );
 
       // Call DSYTRD_2STAGE to reduce symmetric matrix to tridiagonal form.
 
@@ -151,7 +151,7 @@
 
       // If matrix was scaled, then rescale eigenvalues appropriately.
 
-      if (ISCALE == 1) CALL DSCAL( N, ONE / SIGMA, W, 1 );
+      if (ISCALE == 1) dscal( N, ONE / SIGMA, W, 1 );
 
       WORK( 1 )  = LWMIN;
       IWORK( 1 ) = LIWMIN;

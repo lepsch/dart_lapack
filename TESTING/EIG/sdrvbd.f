@@ -194,7 +194,7 @@
                LSWORK = max( LSWORK, 1 );
                if (IWS == 4) LSWORK = LWORK;
 
-               if (IWS > 1) CALL SLACPY( 'F', M, N, ASAV, LDA, A, LDA );
+               if (IWS > 1) slacpy( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'SGESVD';
                sgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, IINFO );
                if ( IINFO != 0 ) {

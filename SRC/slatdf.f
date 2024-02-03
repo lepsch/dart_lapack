@@ -106,7 +106,7 @@
             SPLUS = SPLUS + ABS( XP( I ) );
             SMINU = SMINU + ABS( RHS( I ) );
          } // 30
-         if (SPLUS > SMINU) CALL SCOPY( N, XP, 1, RHS, 1 );
+         if (SPLUS > SMINU) scopy( N, XP, 1, RHS, 1 );
 
          // Apply the permutations JPIV to the computed solution (RHS)
 
@@ -133,7 +133,7 @@
          saxpy(N, -ONE, XM, 1, RHS, 1 );
          sgesc2(N, Z, LDZ, RHS, IPIV, JPIV, TEMP );
          sgesc2(N, Z, LDZ, XP, IPIV, JPIV, TEMP );
-         if( SASUM( N, XP, 1 ) > SASUM( N, RHS, 1 ) ) CALL SCOPY( N, XP, 1, RHS, 1 );
+         if( SASUM( N, XP, 1 ) > SASUM( N, RHS, 1 ) ) scopy( N, XP, 1, RHS, 1 );
 
          // Compute the sum of squares
 

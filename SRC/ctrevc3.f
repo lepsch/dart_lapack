@@ -200,7 +200,7 @@
             } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               if (KI > 1) CALL CGEMV( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
+               if (KI > 1) cgemv( 'N', N, KI-1, CONE, VR, LDVR, WORK( 1 + IV*N ), 1, CMPLX( SCALE ), VR( 1, KI ), 1 );
 
                II = ICAMAX( N, VR( 1, KI ), 1 );
                REMAX = ONE / CABS1( VR( II, KI ) );
@@ -302,7 +302,7 @@
             } else if ( NB == 1 ) {
                // ------------------------------
                // version 1: back-transform each vector with GEMV, Q*x.
-               if (KI < N) CALL CGEMV( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
+               if (KI < N) cgemv( 'N', N, N-KI, CONE, VL( 1, KI+1 ), LDVL, WORK( KI+1 + IV*N ), 1, CMPLX( SCALE ), VL( 1, KI ), 1 );
 
                II = ICAMAX( N, VL( 1, KI ), 1 );
                REMAX = ONE / CABS1( VL( II, KI ) );

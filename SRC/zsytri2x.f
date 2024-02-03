@@ -251,13 +251,13 @@
             DO WHILE ( I <= N );
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I);
-                 if (I < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
-                 if (I > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I < IP) zsyswapr( UPLO, N, A, LDA, I ,IP );
+                 if (I > IP) zsyswapr( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I);
                  I=I+1;
-                 if ( (I-1) < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I-1 ,IP );
-                 IF ( (I-1) > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I-1 );
+                 if ( (I-1) < IP) zsyswapr( UPLO, N, A, LDA, I-1 ,IP );
+                 IF ( (I-1) > IP) zsyswapr( UPLO, N, A, LDA, IP ,I-1 );
               }
                I=I+1;
             }
@@ -424,12 +424,12 @@
             DO WHILE ( I >= 1 );
                if ( IPIV(I) > 0 ) {
                   IP=IPIV(I);
-                 if (I < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP  );
-                 if (I > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I < IP) zsyswapr( UPLO, N, A, LDA, I ,IP  );
+                 if (I > IP) zsyswapr( UPLO, N, A, LDA, IP ,I );
                } else {
                  IP=-IPIV(I);
-                 if (I < IP) CALL ZSYSWAPR( UPLO, N, A, LDA, I ,IP );
-                 if (I > IP) CALL ZSYSWAPR( UPLO, N, A, LDA, IP ,I );
+                 if (I < IP) zsyswapr( UPLO, N, A, LDA, I ,IP );
+                 if (I > IP) zsyswapr( UPLO, N, A, LDA, IP ,I );
                  I=I-1;
                }
                I=I-1;

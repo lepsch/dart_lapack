@@ -122,8 +122,8 @@
 
       // Initialize Q and Z
 
-      if (ICOMPQ == 3) CALL DLASET( 'Full', N, N, ZERO, ONE, Q, LDQ );
-      IF( ICOMPZ == 3 ) CALL DLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPQ == 3) dlaset( 'Full', N, N, ZERO, ONE, Q, LDQ );
+      IF( ICOMPZ == 3 ) dlaset( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Machine Constants
 
@@ -289,7 +289,7 @@
                      TEMP = T( JCH, JCH+1 );
                      dlartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO;
-                     if (JCH < ILASTM-1) CALL DROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     if (JCH < ILASTM-1) drot( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
                      drot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL DROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH );
                      dlartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
@@ -534,11 +534,11 @@
             drot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL );
             drot(ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILAST < ILASTM) CALL DROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL );
-            IF( IFRSTM < ILAST-1 ) CALL DROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
+            if (ILAST < ILASTM) drot( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL );
+            IF( IFRSTM < ILAST-1 ) drot( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 
-            if (ILQ) CALL DROT( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
-            IF( ILZ ) CALL DROT( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
+            if (ILQ) drot( N, Q( 1, ILAST-1 ), 1, Q( 1, ILAST ), 1, CL, SL );
+            IF( ILZ ) drot( N, Z( 1, ILAST-1 ), 1, Z( 1, ILAST ), 1, CR, SR );
 
             T( ILAST-1, ILAST-1 ) = B11;
             T( ILAST-1, ILAST ) = ZERO;

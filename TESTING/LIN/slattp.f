@@ -272,7 +272,7 @@
 
                // Multiply by [-c -s;  s -c] on the right.
 
-               if (J > 1) CALL SROT( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
+               if (J > 1) srot( J-1, A( JCNEXT ), 1, A( JC ), 1, -C, -S );
 
                // Negate A(J,J+1).
 
@@ -289,7 +289,7 @@
 
                // Multiply by [ c -s;  s  c] on the right.
 
-               if (N > J+1) CALL SROT( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
+               if (N > J+1) srot( N-J-1, A( JCNEXT+1 ), 1, A( JC+2 ), 1, C, -S );
 
                // Multiply by [-c  s; -s -c] on the left.
 
@@ -576,7 +576,7 @@
          } else {
             JC = 1;
             for (J = 1; J <= N; J++) { // 400
-               if (J < N) CALL SLARNV( 2, ISEED, N-J, A( JC+1 ) );
+               if (J < N) slarnv( 2, ISEED, N-J, A( JC+1 ) );
                A( JC ) = ZERO;
                JC = JC + N - J + 1;
             } // 400

@@ -194,7 +194,7 @@
 
       // If M < N make sure certain entries of B are zero.
 
-      if (M < N) CALL DLASET( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
+      if (M < N) dlaset( 'F', N-M, NRHS, ZERO, ZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

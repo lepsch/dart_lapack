@@ -208,7 +208,7 @@
          }
       }
 
-      if (ILVR) CALL SLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
+      if (ILVR) slaset( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 

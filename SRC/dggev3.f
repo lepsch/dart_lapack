@@ -147,7 +147,7 @@
          ANRMTO = BIGNUM;
          ILASCL = true;
       }
-      if (ILASCL) CALL DLASCL( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
+      if (ILASCL) dlascl( 'G', 0, 0, ANRM, ANRMTO, N, N, A, LDA, IERR );
 
       // Scale B if max element outside range [SMLNUM,BIGNUM]
 
@@ -160,7 +160,7 @@
          BNRMTO = BIGNUM;
          ILBSCL = true;
       }
-      if (ILBSCL) CALL DLASCL( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
+      if (ILBSCL) dlascl( 'G', 0, 0, BNRM, BNRMTO, N, N, B, LDB, IERR );
 
       // Permute the matrices A, B to isolate eigenvalues if possible
 
@@ -197,7 +197,7 @@
 
       // Initialize VR
 
-      if (ILVR) CALL DLASET( 'Full', N, N, ZERO, ONE, VR, LDVR );
+      if (ILVR) dlaset( 'Full', N, N, ZERO, ONE, VR, LDVR );
 
       // Reduce to generalized Hessenberg form
 

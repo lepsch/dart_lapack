@@ -88,11 +88,11 @@
 
       DO J = N, 1, -1;
          I = IPIV( J );
-         if (I != J) CALL CSWAP( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
+         if (I != J) cswap( N, C( J, 1 ), LDC, C( I, 1 ), LDC );
       }
       DO J = N, 1, -1;
          I = IPIV( J );
-         if (I != J) CALL CSWAP( N, C( 1, J ), 1, C( 1, I ), 1 );
+         if (I != J) cswap( N, C( 1, J ), 1, C( 1, I ), 1 );
       }
 
 

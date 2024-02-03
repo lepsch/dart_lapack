@@ -67,7 +67,7 @@
 
             // Compute the rest of column K.
 
-            if (KLEN > 0) CALL STRMV( 'Upper', 'Transpose', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 );
+            if (KLEN > 0) strmv( 'Upper', 'Transpose', 'Non-unit', KLEN, AFAC( KD+1, K-KLEN ), LDAFAC-1, AFAC( KC, K ), 1 );
 
          } // 10
 
@@ -80,7 +80,7 @@
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
 
-            if (KLEN > 0) CALL SSYR( 'Lower', KLEN, ONE, AFAC( 2, K ), 1, AFAC( 1, K+1 ), LDAFAC-1 );
+            if (KLEN > 0) ssyr( 'Lower', KLEN, ONE, AFAC( 2, K ), 1, AFAC( 1, K+1 ), LDAFAC-1 );
 
             // Scale column K by the diagonal element.
 

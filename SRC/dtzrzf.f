@@ -142,7 +142,7 @@
 
       // Use unblocked code to factor the last or only block
 
-      if (MU > 0) CALL DLATRZ( MU, N, N-M, A, LDA, TAU, WORK );
+      if (MU > 0) dlatrz( MU, N, N-M, A, LDA, TAU, WORK );
 
       WORK( 1 ) = LWKOPT;
 

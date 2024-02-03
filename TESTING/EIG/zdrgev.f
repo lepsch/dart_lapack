@@ -186,7 +186,7 @@
 
                if ( ABS( KATYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) CALL ZLASET( 'Full', N, N, CZERO, CZERO, A, LDA );
+                  if (IN != N) zlaset( 'Full', N, N, CZERO, CZERO, A, LDA );
                } else {
                   IN = N;
                }
@@ -198,7 +198,7 @@
 
                if ( ABS( KBTYPE( JTYPE ) ) == 3 ) {
                   IN = 2*( ( N-1 ) / 2 ) + 1;
-                  if (IN != N) CALL ZLASET( 'Full', N, N, CZERO, CZERO, B, LDA );
+                  if (IN != N) zlaset( 'Full', N, N, CZERO, CZERO, B, LDA );
                } else {
                   IN = N;
                }

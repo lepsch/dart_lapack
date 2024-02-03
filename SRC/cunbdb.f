@@ -184,7 +184,7 @@
                clarf('R', M-P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(I+1,I), LDX22, WORK );
             }
 
-            if (I < Q) CALL CLACGV( Q-I, X11(I,I+1), LDX11 );
+            if (I < Q) clacgv( Q-I, X11(I,I+1), LDX11 );
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
 
          }
@@ -205,7 +205,7 @@
             if ( P > I ) {
                clarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
             }
-            if (M-P-Q >= 1) CALL CLARF( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
+            if (M-P-Q >= 1) clarf( 'R', M-P-Q, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X22(Q+1,I), LDX22, WORK );
 
             clacgv(M-Q-I+1, X12(I,I), LDX12 );
 
@@ -304,7 +304,7 @@
             if ( P > I ) {
                clarf('L', M-Q-I+1, P-I, X12(I,I), 1, CONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
             }
-            if (M-P-Q >= 1) CALL CLARF( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
+            if (M-P-Q >= 1) clarf( 'L', M-Q-I+1, M-P-Q, X12(I,I), 1, CONJG(TAUQ2(I)), X22(I,Q+1), LDX22, WORK );
 
          }
 

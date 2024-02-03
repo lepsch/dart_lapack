@@ -206,7 +206,7 @@
 
                // Factorize A
 
-               if (IWSPC > 1) CALL CLACPY( 'F', M, N, ASAV, LDA, A, LDA );
+               if (IWSPC > 1) clacpy( 'F', M, N, ASAV, LDA, A, LDA );
                SRNAMT = 'CGESVD';
                cgesvd('A', 'A', M, N, A, LDA, SSAV, USAV, LDU, VTSAV, LDVT, WORK, LSWORK, RWORK, IINFO );
                if ( IINFO != 0 ) {

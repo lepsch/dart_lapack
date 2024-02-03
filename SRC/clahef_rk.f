@@ -88,7 +88,7 @@
 
          // Copy column K of A to column KW of W and update it
 
-         if (K > 1) CALL CCOPY( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
+         if (K > 1) ccopy( K-1, A( 1, K ), 1, W( 1, KW ), 1 );
          W( K, KW ) = REAL( A( K, K ) );
          if ( K < N ) {
             cgemv('No transpose', K, N-K, -CONE, A( 1, K+1 ), LDA, W( K, KW+1 ), LDW, CONE, W( 1, KW ), 1 );
@@ -118,7 +118,7 @@
             if (INFO == 0) INFO = K;
             KP = K;
             A( K, K ) = REAL( W( K, KW ) );
-            if (K > 1) CALL CCOPY( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
+            if (K > 1) ccopy( K-1, W( 1, KW ), 1, A( 1, K ), 1 );
 
             // Set E( K ) to zero
 
@@ -152,7 +152,7 @@
 
                   // Copy column IMAX to column KW-1 of W and update it
 
-                  if (IMAX > 1) CALL CCOPY( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
+                  if (IMAX > 1) ccopy( IMAX-1, A( 1, IMAX ), 1, W( 1, KW-1 ), 1 );
                   W( IMAX, KW-1 ) = REAL( A( IMAX, IMAX ) );
 
                   ccopy(K-IMAX, A( IMAX, IMAX+1 ), LDA, W( IMAX+1, KW-1 ), 1 );
@@ -261,14 +261,14 @@
                A( P, P ) = REAL( A( K, K ) );
                ccopy(K-1-P, A( P+1, K ), 1, A( P, P+1 ), LDA );
                clacgv(K-1-P, A( P, P+1 ), LDA );
-               if (P > 1) CALL CCOPY( P-1, A( 1, K ), 1, A( 1, P ), 1 );
+               if (P > 1) ccopy( P-1, A( 1, K ), 1, A( 1, P ), 1 );
 
                // Interchange rows K and P in the last K+1 to N columns of A
                // (columns K and K-1 of A for 2-by-2 pivot will be
                // later overwritten). Interchange rows K and P
                // in last KKW to NB columns of W.
 
-               if (K < N) CALL CSWAP( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
+               if (K < N) cswap( N-K, A( K, K+1 ), LDA, A( P, K+1 ), LDA );
                cswap(N-KK+1, W( K, KKW ), LDW, W( P, KKW ), LDW );
             }
 
@@ -285,14 +285,14 @@
                A( KP, KP ) = REAL( A( KK, KK ) );
                ccopy(KK-1-KP, A( KP+1, KK ), 1, A( KP, KP+1 ), LDA );
                clacgv(KK-1-KP, A( KP, KP+1 ), LDA );
-               if (KP > 1) CALL CCOPY( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
+               if (KP > 1) ccopy( KP-1, A( 1, KK ), 1, A( 1, KP ), 1 );
 
                // Interchange rows KK and KP in last K+1 to N columns of A
                // (columns K (or K and K-1 for 2-by-2 pivot) of A will be
                // later overwritten). Interchange rows KK and KP
                // in last KKW to NB columns of W.
 
-               if (K < N) CALL CSWAP( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
+               if (K < N) cswap( N-K, A( KK, K+1 ), LDA, A( KP, K+1 ), LDA );
                cswap(N-KK+1, W( KK, KKW ), LDW, W( KP, KKW ), LDW );
             }
 
@@ -478,7 +478,7 @@
 
             // Update the rectangular superdiagonal block
 
-            if (J >= 2) CALL CGEMM( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
+            if (J >= 2) cgemm( 'No transpose', 'Transpose', J-1, JB, N-K, -CONE, A( 1, K+1 ), LDA, W( J, KW+1 ), LDW, CONE, A( 1, J ), LDA );
          } // 50
 
          // Set KB to the number of columns factorized
@@ -510,7 +510,7 @@
          // Copy column K of A to column K of W and update column K of W
 
          W( K, K ) = REAL( A( K, K ) );
-         if (K < N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
+         if (K < N) ccopy( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
          if ( K > 1 ) {
             cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
             W( K, K ) = REAL( W( K, K ) );
@@ -539,7 +539,7 @@
             if (INFO == 0) INFO = K;
             KP = K;
             A( K, K ) = REAL( W( K, K ) );
-            if (K < N) CALL CCOPY( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
+            if (K < N) ccopy( N-K, W( K+1, K ), 1, A( K+1, K ), 1 );
 
             // Set E( K ) to zero
 
@@ -578,7 +578,7 @@
                   clacgv(IMAX-K, W( K, K+1 ), 1 );
                   W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) );
 
-                  if (IMAX < N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
+                  if (IMAX < N) ccopy( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
 
                   if ( K > 1 ) {
                      cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
@@ -679,14 +679,14 @@
                A( P, P ) = REAL( A( K, K ) );
                ccopy(P-K-1, A( K+1, K ), 1, A( P, K+1 ), LDA );
                clacgv(P-K-1, A( P, K+1 ), LDA );
-               if (P < N) CALL CCOPY( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
+               if (P < N) ccopy( N-P, A( P+1, K ), 1, A( P+1, P ), 1 );
 
                // Interchange rows K and P in first K-1 columns of A
                // (columns K and K+1 of A for 2-by-2 pivot will be
                // later overwritten). Interchange rows K and P
                // in first KK columns of W.
 
-               if (K > 1) CALL CSWAP( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
+               if (K > 1) cswap( K-1, A( K, 1 ), LDA, A( P, 1 ), LDA );
                cswap(KK, W( K, 1 ), LDW, W( P, 1 ), LDW );
             }
 
@@ -703,14 +703,14 @@
                A( KP, KP ) = REAL( A( KK, KK ) );
                ccopy(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                clacgv(KP-KK-1, A( KP, KK+1 ), LDA );
-               if (KP < N) CALL CCOPY( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               if (KP < N) ccopy( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
 
                // Interchange rows KK and KP in first K-1 columns of A
                // (column K (or K and K+1 for 2-by-2 pivot) of A will be
                // later overwritten). Interchange rows KK and KP
                // in first KK columns of W.
 
-               if (K > 1) CALL CSWAP( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
+               if (K > 1) cswap( K-1, A( KK, 1 ), LDA, A( KP, 1 ), LDA );
                cswap(KK, W( KK, 1 ), LDW, W( KP, 1 ), LDW );
             }
 
@@ -896,7 +896,7 @@
 
             // Update the rectangular subdiagonal block
 
-            if (J+JB <= N) CALL CGEMM( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA );
+            if (J+JB <= N) cgemm( 'No transpose', 'Transpose', N-J-JB+1, JB, K-1, -CONE, A( J+JB, 1 ), LDA, W( J, 1 ), LDW, CONE, A( J+JB, J ), LDA );
          } // 110
 
          // Set KB to the number of columns factorized

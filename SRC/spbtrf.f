@@ -150,7 +150,7 @@
 
                      // Update A23
 
-                     if (I2 > 0) CALL SGEMM( 'Transpose', 'No Transpose', I2, I3, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, ONE, AB( 1+IB, I+KD ), LDAB-1 );
+                     if (I2 > 0) sgemm( 'Transpose', 'No Transpose', I2, I3, IB, -ONE, AB( KD+1-IB, I+IB ), LDAB-1, WORK, LDWORK, ONE, AB( 1+IB, I+KD ), LDAB-1 );
 
                      // Update A33
 
@@ -238,7 +238,7 @@
 
                      // Update A32
 
-                     if (I2 > 0) CALL SGEMM( 'No transpose', 'Transpose', I3, I2, IB, -ONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, ONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
+                     if (I2 > 0) sgemm( 'No transpose', 'Transpose', I3, I2, IB, -ONE, WORK, LDWORK, AB( 1+IB, I ), LDAB-1, ONE, AB( 1+KD-IB, I+IB ), LDAB-1 );
 
                      // Update A33
 

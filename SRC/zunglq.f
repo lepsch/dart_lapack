@@ -111,7 +111,7 @@
 
       // Use unblocked code for the last or only block.
 
-      if (KK < M) CALL ZUNGL2( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
+      if (KK < M) zungl2( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
 
       if ( KK > 0 ) {
 

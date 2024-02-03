@@ -111,7 +111,7 @@
 
       // Use unblocked code for the last or only block.
 
-      if (KK < N) CALL ZUNG2R( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
+      if (KK < N) zung2r( M-KK, N-KK, K-KK, A( KK+1, KK+1 ), LDA, TAU( KK+1 ), WORK, IINFO );
 
       if ( KK > 0 ) {
 

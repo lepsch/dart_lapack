@@ -69,7 +69,7 @@
          if (ICOMPZ > 0) Z( 1, 1 ) = ONE;
          return;
       }
-      if (ICOMPZ == 2) CALL SLASET( 'Full', N, N, ZERO, ONE, Z, LDZ );
+      if (ICOMPZ == 2) slaset( 'Full', N, N, ZERO, ONE, Z, LDZ );
 
       // Call SPTTRF to factor the matrix.
 

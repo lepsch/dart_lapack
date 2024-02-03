@@ -119,8 +119,8 @@
 
          // Update singular vectors if desired
 
-         if (NRU > 0) CALL ZLASR( 'R', 'V', 'F', NRU, N, RWORK( 1 ), RWORK( N ), U, LDU );
-         IF( NCC > 0 ) CALL ZLASR( 'L', 'V', 'F', N, NCC, RWORK( 1 ), RWORK( N ), C, LDC );
+         if (NRU > 0) zlasr( 'R', 'V', 'F', NRU, N, RWORK( 1 ), RWORK( N ), U, LDU );
+         IF( NCC > 0 ) zlasr( 'L', 'V', 'F', N, NCC, RWORK( 1 ), RWORK( N ), C, LDC );
       }
 
       // Compute singular values to relative accuracy TOL
@@ -231,9 +231,9 @@
 
          // Compute singular vectors, if desired
 
-         if (NCVT > 0) CALL ZDROT( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR );
-         if( NRU > 0 ) CALL ZDROT( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL );
-         IF( NCC > 0 ) CALL ZDROT( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL );
+         if (NCVT > 0) zdrot( NCVT, VT( M-1, 1 ), LDVT, VT( M, 1 ), LDVT, COSR, SINR );
+         if( NRU > 0 ) zdrot( NRU, U( 1, M-1 ), 1, U( 1, M ), 1, COSL, SINL );
+         IF( NCC > 0 ) zdrot( NCC, C( M-1, 1 ), LDC, C( M, 1 ), LDC, COSL, SINL );
          M = M - 2;
          GO TO 60;
       }
@@ -370,9 +370,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL ZLASR( 'L', 'V', 'F', M-LL+1, NCVT, RWORK( 1 ), RWORK( N ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL ZLASR( 'R', 'V', 'F', NRU, M-LL+1, RWORK( NM12+1 ), RWORK( NM13+1 ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL ZLASR( 'L', 'V', 'F', M-LL+1, NCC, RWORK( NM12+1 ), RWORK( NM13+1 ), C( LL, 1 ), LDC );
+            if (NCVT > 0) zlasr( 'L', 'V', 'F', M-LL+1, NCVT, RWORK( 1 ), RWORK( N ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) zlasr( 'R', 'V', 'F', NRU, M-LL+1, RWORK( NM12+1 ), RWORK( NM13+1 ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) zlasr( 'L', 'V', 'F', M-LL+1, NCC, RWORK( NM12+1 ), RWORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -400,9 +400,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL ZLASR( 'L', 'V', 'B', M-LL+1, NCVT, RWORK( NM12+1 ), RWORK( NM13+1 ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL ZLASR( 'R', 'V', 'B', NRU, M-LL+1, RWORK( 1 ), RWORK( N ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL ZLASR( 'L', 'V', 'B', M-LL+1, NCC, RWORK( 1 ), RWORK( N ), C( LL, 1 ), LDC );
+            if (NCVT > 0) zlasr( 'L', 'V', 'B', M-LL+1, NCVT, RWORK( NM12+1 ), RWORK( NM13+1 ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) zlasr( 'R', 'V', 'B', NRU, M-LL+1, RWORK( 1 ), RWORK( N ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) zlasr( 'L', 'V', 'B', M-LL+1, NCC, RWORK( 1 ), RWORK( N ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -443,9 +443,9 @@
 
             // Update singular vectors
 
-            if (NCVT > 0) CALL ZLASR( 'L', 'V', 'F', M-LL+1, NCVT, RWORK( 1 ), RWORK( N ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL ZLASR( 'R', 'V', 'F', NRU, M-LL+1, RWORK( NM12+1 ), RWORK( NM13+1 ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL ZLASR( 'L', 'V', 'F', M-LL+1, NCC, RWORK( NM12+1 ), RWORK( NM13+1 ), C( LL, 1 ), LDC );
+            if (NCVT > 0) zlasr( 'L', 'V', 'F', M-LL+1, NCVT, RWORK( 1 ), RWORK( N ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) zlasr( 'R', 'V', 'F', NRU, M-LL+1, RWORK( NM12+1 ), RWORK( NM13+1 ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) zlasr( 'L', 'V', 'F', M-LL+1, NCC, RWORK( NM12+1 ), RWORK( NM13+1 ), C( LL, 1 ), LDC );
 
             // Test convergence
 
@@ -486,9 +486,9 @@
 
             // Update singular vectors if desired
 
-            if (NCVT > 0) CALL ZLASR( 'L', 'V', 'B', M-LL+1, NCVT, RWORK( NM12+1 ), RWORK( NM13+1 ), VT( LL, 1 ), LDVT );
-            if( NRU > 0 ) CALL ZLASR( 'R', 'V', 'B', NRU, M-LL+1, RWORK( 1 ), RWORK( N ), U( 1, LL ), LDU );
-            IF( NCC > 0 ) CALL ZLASR( 'L', 'V', 'B', M-LL+1, NCC, RWORK( 1 ), RWORK( N ), C( LL, 1 ), LDC );
+            if (NCVT > 0) zlasr( 'L', 'V', 'B', M-LL+1, NCVT, RWORK( NM12+1 ), RWORK( NM13+1 ), VT( LL, 1 ), LDVT );
+            if( NRU > 0 ) zlasr( 'R', 'V', 'B', NRU, M-LL+1, RWORK( 1 ), RWORK( N ), U( 1, LL ), LDU );
+            IF( NCC > 0 ) zlasr( 'L', 'V', 'B', M-LL+1, NCC, RWORK( 1 ), RWORK( N ), C( LL, 1 ), LDC );
          }
       }
 
@@ -505,7 +505,7 @@
 
             // Change sign of singular vectors, if desired
 
-            if (NCVT > 0) CALL ZDSCAL( NCVT, NEGONE, VT( I, 1 ), LDVT );
+            if (NCVT > 0) zdscal( NCVT, NEGONE, VT( I, 1 ), LDVT );
          }
       } // 170
 
@@ -530,9 +530,9 @@
 
             D( ISUB ) = D( N+1-I );
             D( N+1-I ) = SMIN;
-            if (NCVT > 0) CALL ZSWAP( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
-            if (NRU > 0) CALL ZSWAP( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 );
-            IF( NCC > 0 ) CALL ZSWAP( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );
+            if (NCVT > 0) zswap( NCVT, VT( ISUB, 1 ), LDVT, VT( N+1-I, 1 ), LDVT );
+            if (NRU > 0) zswap( NRU, U( 1, ISUB ), 1, U( 1, N+1-I ), 1 );
+            IF( NCC > 0 ) zswap( NCC, C( ISUB, 1 ), LDC, C( N+1-I, 1 ), LDC );
          }
       } // 190
       GO TO 220;

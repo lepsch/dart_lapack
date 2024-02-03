@@ -196,7 +196,7 @@
 
       // If M < N make sure B(M+1:N,:) = 0
 
-      if (M < N) CALL CLASET( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
+      if (M < N) claset( 'F', N-M, NRHS, CZERO, CZERO, B( M+1, 1 ), LDB );
 
       // Overdetermined case.
 

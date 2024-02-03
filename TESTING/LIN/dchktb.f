@@ -77,7 +77,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL DERRTR( PATH, NOUT );
+      if (TSTERR) derrtr( PATH, NOUT );
       INFOT = 0;
 
       for (IN = 1; IN <= NN; IN++) { // 140
@@ -198,7 +198,7 @@
 
                      // Check error code from DTBTRS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'DTBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'DTBTRS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         dtbt02(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, X, LDA, B, LDA, WORK, RESULT( 1 ) );
 
@@ -216,7 +216,7 @@
 
                      // Check error code from DTBRFS.
 
-                        if (INFO != 0) CALL ALAERH( PATH, 'DTBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
+                        if (INFO != 0) alaerh( PATH, 'DTBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
                         dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         dtbt05(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
@@ -226,7 +226,7 @@
 
                         for (K = 1; K <= 5; K++) { // 40
                            if ( RESULT( K ) >= THRESH ) {
-                              if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                              if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                               WRITE( NOUT, FMT = 9999 )UPLO, TRANS, DIAG, N, KD, NRHS, IMAT, K, RESULT( K );
                               NFAIL = NFAIL + 1;
                            }
@@ -251,7 +251,7 @@
 
                      // Check error code from DTBCON.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DTBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DTBCON', INFO, 0, NORM // UPLO // DIAG, N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dtbt06(RCOND, RCONDC, UPLO, DIAG, N, KD, AB, LDAB, RWORK, RESULT( 6 ) );
 
@@ -259,7 +259,7 @@
                      // the threshold.
 
                      if ( RESULT( 6 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9998 ) 'DTBCON', NORM, UPLO, DIAG, N, KD, IMAT, 6, RESULT( 6 );
                         NFAIL = NFAIL + 1;
                      }
@@ -301,7 +301,7 @@
 
                      // Check error code from DLATBS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DLATBS', INFO, 0, UPLO // TRANS // DIAG // 'N', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dtbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 7 ) );
 
@@ -313,7 +313,7 @@
 
                      // Check error code from DLATBS.
 
-                     if (INFO != 0) CALL ALAERH( PATH, 'DLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
+                     if (INFO != 0) alaerh( PATH, 'DLATBS', INFO, 0, UPLO // TRANS // DIAG // 'Y', N, N, KD, KD, -1, IMAT, NFAIL, NERRS, NOUT );
 
                      dtbt03(UPLO, TRANS, DIAG, N, KD, 1, AB, LDAB, SCALE, RWORK, ONE, B, LDA, X, LDA, WORK, RESULT( 8 ) );
 
@@ -321,12 +321,12 @@
                      // the threshold.
 
                      if ( RESULT( 7 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'N', N, KD, IMAT, 7, RESULT( 7 );
                         NFAIL = NFAIL + 1;
                      }
                      if ( RESULT( 8 ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9997 )'DLATBS', UPLO, TRANS, DIAG, 'Y', N, KD, IMAT, 8, RESULT( 8 );
                         NFAIL = NFAIL + 1;
                      }

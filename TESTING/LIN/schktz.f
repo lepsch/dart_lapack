@@ -72,7 +72,7 @@
 
       // Test the error exits
 
-      if (TSTERR) CALL SERRTZ( PATH, NOUT );
+      if (TSTERR) serrtz( PATH, NOUT );
       INFOT = 0;
 
       for (IM = 1; IM <= NM; IM++) { // 70
@@ -145,7 +145,7 @@
 
                   for (K = 1; K <= NTESTS; K++) { // 40
                      if ( RESULT( K ) >= THRESH ) {
-                        if (NFAIL == 0 && NERRS == 0) CALL ALAHD( NOUT, PATH );
+                        if (NFAIL == 0 && NERRS == 0) alahd( NOUT, PATH );
                         WRITE( NOUT, FMT = 9999 )M, N, IMODE, K, RESULT( K );
                         NFAIL = NFAIL + 1;
                      }
