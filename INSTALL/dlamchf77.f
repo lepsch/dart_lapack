@@ -1,7 +1,7 @@
 // > \ingroup lamch
 
 // =====================================================================
-      double           FUNCTION DLAMCH( CMACH );
+      double dlamch(CMACH ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -561,7 +561,7 @@
 // >
 // > \ingroup lamc3
 // >
-      double           FUNCTION DLAMC3( A, B );
+      double dlamc3(A, B ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..

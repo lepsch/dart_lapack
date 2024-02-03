@@ -1,4 +1,4 @@
-      bool    FUNCTION DLAISNAN( DIN1, DIN2 );
+      bool dlaisnan(DIN1, DIN2 ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      REAL FUNCTION CLA_HERPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK );
+      REAL cla_herpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

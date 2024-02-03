@@ -1,4 +1,4 @@
-      double           FUNCTION DLARND( IDIST, ISEED );
+      double dlarnd(IDIST, ISEED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

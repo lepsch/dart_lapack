@@ -358,7 +358,7 @@
 
       return;
       }
-      REAL             FUNCTION SDIFF(SA,SB);
+      REAL sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 

@@ -1,4 +1,4 @@
-      bool    FUNCTION LSAME(CA,CB);
+      bool lsame(CA,CB) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      REAL             FUNCTION CQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK );
+      REAL cqrt12(M, N, A, LDA, S, WORK, LWORK, RWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANHE( NORM, UPLO, N, A, LDA, WORK );
+      REAL clanhe(NORM, UPLO, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

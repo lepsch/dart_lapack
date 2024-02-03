@@ -1,4 +1,4 @@
-      double           FUNCTION DASUM(N,DX,INCX);
+      double dasum(N,DX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

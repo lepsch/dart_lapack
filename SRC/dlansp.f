@@ -1,4 +1,4 @@
-      double           FUNCTION DLANSP( NORM, UPLO, N, AP, WORK );
+      double dlansp(NORM, UPLO, N, AP, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

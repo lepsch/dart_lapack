@@ -1,4 +1,4 @@
-      double           FUNCTION DLAPY3( X, Y, Z );
+      double dlapy3(X, Y, Z ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

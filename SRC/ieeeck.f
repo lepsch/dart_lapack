@@ -1,4 +1,4 @@
-      int              FUNCTION IEEECK( ISPEC, ZERO, ONE );
+      int ieeeck(ISPEC, ZERO, ONE ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double           FUNCTION ZLANGE( NORM, M, N, A, LDA, WORK );
+      double zlange(NORM, M, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -123,7 +123,7 @@
 
 // > \ingroup ladiv
 
-      double           FUNCTION DLADIV2( A, B, C, D, R, T );
+      double dladiv2(A, B, C, D, R, T ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

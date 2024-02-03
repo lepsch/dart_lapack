@@ -1,4 +1,4 @@
-      REAL             FUNCTION CRZT02( M, N, AF, LDA, TAU, WORK, LWORK );
+      REAL crzt02(M, N, AF, LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

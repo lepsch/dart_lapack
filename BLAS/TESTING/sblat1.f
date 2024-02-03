@@ -682,7 +682,7 @@
       // End of STEST1
 
       }
-      REAL             FUNCTION SDIFF(SA,SB);
+      REAL sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 
@@ -918,7 +918,7 @@
    98 FORMAT( 1X, A6, ': N=', I6,', INCX=', I4, ', IV=', I2, ', IW=', I2, ', test=', E15.8 );
       return;
       CONTAINS;
-      REAL FUNCTION SXVALS(XX,K);
+      REAL sxvals(XX,K) {
       // .. Scalar Arguments ..
       REAL              XX;
       int               K;

@@ -1,4 +1,4 @@
-      double           FUNCTION ZRZT02( M, N, AF, LDA, TAU, WORK, LWORK );
+      double zrzt02(M, N, AF, LDA, TAU, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

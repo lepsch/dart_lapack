@@ -1,4 +1,4 @@
-      double           FUNCTION DLA_GBRPVGRW( N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB );
+      double dla_gbrpvgrw(N, KL, KU, NCOLS, AB, LDAB, AFB, LDAFB ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double           FUNCTION ZLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, C, CAPPLY, INFO, WORK, RWORK );
+      double zla_porcond_c(UPLO, N, A, LDA, AF, LDAF, C, CAPPLY, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

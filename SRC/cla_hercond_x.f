@@ -1,4 +1,4 @@
-      REAL FUNCTION CLA_HERCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK );
+      REAL cla_hercond_x(UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

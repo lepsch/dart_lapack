@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLANST( NORM, N, D, E );
+      REAL slanst(NORM, N, D, E ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

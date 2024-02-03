@@ -1,4 +1,4 @@
-      REAL FUNCTION CLA_PORCOND_C( UPLO, N, A, LDA, AF, LDAF, C, CAPPLY, INFO, WORK, RWORK );
+      REAL cla_porcond_c(UPLO, N, A, LDA, AF, LDAF, C, CAPPLY, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

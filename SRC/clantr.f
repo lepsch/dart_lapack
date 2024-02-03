@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANTR( NORM, UPLO, DIAG, M, N, A, LDA, WORK );
+      REAL clantr(NORM, UPLO, DIAG, M, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

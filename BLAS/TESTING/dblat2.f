@@ -2528,7 +2528,7 @@
       // End of DMVCH
 
       }
-      bool    FUNCTION LDE( RI, RJ, LR );
+      bool lde(RI, RJ, LR ) {
 
 // Tests if two arrays are identical.
 
@@ -2557,7 +2557,7 @@
       // End of LDE
 
       }
-      bool    FUNCTION LDERES( TYPE, UPLO, M, N, AA, AS, LDA );
+      bool lderes(TYPE, UPLO, M, N, AA, AS, LDA ) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2613,7 +2613,7 @@
       // End of LDERES
 
       }
-      double           FUNCTION DBEG( RESET );
+      double dbeg(RESET ) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2659,7 +2659,7 @@
       // End of DBEG
 
       }
-      double           FUNCTION DDIFF( X, Y );
+      double ddiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 

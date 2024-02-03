@@ -1,4 +1,4 @@
-      bool             FUNCTION ZLCTSX( ALPHA, BETA );
+      bool zlctsx(ALPHA, BETA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

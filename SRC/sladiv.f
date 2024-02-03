@@ -123,7 +123,7 @@
 
 // > \ingroup ladiv
 
-      REAL FUNCTION SLADIV2( A, B, C, D, R, T );
+      REAL sladiv2(A, B, C, D, R, T ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

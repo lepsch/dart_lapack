@@ -1,4 +1,4 @@
-      REAL FUNCTION SLANSF( NORM, TRANSR, UPLO, N, A, WORK );
+      REAL slansf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

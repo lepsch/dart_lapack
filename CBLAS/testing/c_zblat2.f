@@ -2222,7 +2222,7 @@
       // End of ZMVCH.
 
       }
-      bool    FUNCTION LZE( RI, RJ, LR );
+      bool lze(RI, RJ, LR ) {
 
 // Tests if two arrays are identical.
 
@@ -2251,7 +2251,7 @@
       // End of LZE.
 
       }
-      bool    FUNCTION LZERES( TYPE, UPLO, M, N, AA, AS, LDA );
+      bool lzeres(TYPE, UPLO, M, N, AA, AS, LDA ) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2360,7 +2360,7 @@
       // End of ZBEG.
 
       }
-      double           FUNCTION DDIFF( X, Y );
+      double ddiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 2 Blas.
 

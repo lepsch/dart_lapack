@@ -1,4 +1,4 @@
-      REAL             FUNCTION SGET06( RCOND, RCONDC );
+      REAL sget06(RCOND, RCONDC ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

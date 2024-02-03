@@ -1,4 +1,4 @@
-      double           FUNCTION DLANTB( NORM, UPLO, DIAG, N, K, AB, LDAB, WORK );
+      double dlantb(NORM, UPLO, DIAG, N, K, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

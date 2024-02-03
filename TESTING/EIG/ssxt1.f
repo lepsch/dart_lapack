@@ -1,4 +1,4 @@
-      REAL             FUNCTION SSXT1( IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL );
+      REAL ssxt1(IJOB, D1, N1, D2, N2, ABSTOL, ULP, UNFL ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

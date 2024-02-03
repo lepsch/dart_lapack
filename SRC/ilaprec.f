@@ -1,4 +1,4 @@
-      int     FUNCTION ILAPREC( PREC );
+      int ilaprec(PREC ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

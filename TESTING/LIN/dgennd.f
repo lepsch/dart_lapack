@@ -1,4 +1,4 @@
-      bool    FUNCTION DGENND (M, N, A, LDA);
+      bool dgennd(M, N, A, LDA) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      int     FUNCTION ILASLR( M, N, A, LDA );
+      int ilaslr(M, N, A, LDA ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double           FUNCTION ZQRT12( M, N, A, LDA, S, WORK, LWORK, RWORK );
+      double zqrt12(M, N, A, LDA, S, WORK, LWORK, RWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

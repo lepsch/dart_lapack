@@ -1,4 +1,4 @@
-      double           FUNCTION DLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
+      double dlangb(NORM, N, KL, KU, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

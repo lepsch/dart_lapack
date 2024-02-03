@@ -1,4 +1,4 @@
-      REAL             FUNCTION SCSUM1( N, CX, INCX );
+      REAL scsum1(N, CX, INCX ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      double           FUNCTION ZLA_SYRPVGRW( UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK );
+      double zla_syrpvgrw(UPLO, N, INFO, A, LDA, AF, LDAF, IPIV, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

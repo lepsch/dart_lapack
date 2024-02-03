@@ -1,4 +1,4 @@
-      double           FUNCTION DZASUM(N,ZX,INCX);
+      double dzasum(N,ZX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

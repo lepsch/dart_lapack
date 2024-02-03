@@ -1,4 +1,4 @@
-      double           FUNCTION DLA_PORCOND( UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK );
+      double dla_porcond(UPLO, N, A, LDA, AF, LDAF, CMODE, C, INFO, WORK, IWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

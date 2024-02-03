@@ -1,4 +1,4 @@
-      int     FUNCTION IZMAX1( N, ZX, INCX );
+      int izmax1(N, ZX, INCX ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

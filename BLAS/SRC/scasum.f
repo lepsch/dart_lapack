@@ -1,4 +1,4 @@
-      REAL FUNCTION SCASUM(N,CX,INCX);
+      REAL scasum(N,CX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      bool             FUNCTION ZSLECT( Z );
+      bool zslect(Z ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

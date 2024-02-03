@@ -2235,7 +2235,7 @@
       // End of CMMCH.
 
       }
-      bool    FUNCTION LCE( RI, RJ, LR );
+      bool lce(RI, RJ, LR ) {
 
 // Tests if two arrays are identical.
 
@@ -2266,7 +2266,7 @@
       // End of LCE.
 
       }
-      bool    FUNCTION LCERES( TYPE, UPLO, M, N, AA, AS, LDA );
+      bool lceres(TYPE, UPLO, M, N, AA, AS, LDA ) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2325,7 +2325,7 @@
       // End of LCERES.
 
       }
-      COMPLEX FUNCTION CBEG( RESET );
+      COMPLEX cbeg(RESET ) {
 
 // Generates complex numbers as pairs of random numbers uniformly
 // distributed between -0.5 and 0.5.
@@ -2379,7 +2379,7 @@
       // End of CBEG.
 
       }
-      REAL FUNCTION SDIFF( X, Y );
+      REAL sdiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

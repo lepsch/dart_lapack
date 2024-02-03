@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLAPY2( X, Y );
+      REAL slapy2(X, Y ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

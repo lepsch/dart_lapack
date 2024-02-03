@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANHB( NORM, UPLO, N, K, AB, LDAB, WORK );
+      REAL clanhb(NORM, UPLO, N, K, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

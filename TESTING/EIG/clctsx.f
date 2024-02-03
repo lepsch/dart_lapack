@@ -1,4 +1,4 @@
-      bool             FUNCTION CLCTSX( ALPHA, BETA );
+      bool clctsx(ALPHA, BETA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

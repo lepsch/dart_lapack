@@ -1,4 +1,4 @@
-      double           FUNCTION DLARMM( ANORM, BNORM, CNORM );
+      double dlarmm(ANORM, BNORM, CNORM ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       double             ANORM, BNORM, CNORM;

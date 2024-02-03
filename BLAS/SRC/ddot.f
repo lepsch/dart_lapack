@@ -1,4 +1,4 @@
-      double           FUNCTION DDOT(N,DX,INCX,DY,INCY);
+      double ddot(N,DX,INCX,DY,INCY) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

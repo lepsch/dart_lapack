@@ -1,4 +1,4 @@
-      bool             FUNCTION SLCTES( ZR, ZI, D );
+      bool slctes(ZR, ZI, D ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

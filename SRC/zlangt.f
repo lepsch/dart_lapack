@@ -1,4 +1,4 @@
-      double           FUNCTION ZLANGT( NORM, N, DL, D, DU );
+      double zlangt(NORM, N, DL, D, DU ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

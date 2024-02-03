@@ -1,4 +1,4 @@
-      bool    FUNCTION SLAISNAN( SIN1, SIN2 );
+      bool slaisnan(SIN1, SIN2 ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

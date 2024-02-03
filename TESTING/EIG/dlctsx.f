@@ -1,4 +1,4 @@
-      bool             FUNCTION DLCTSX( AR, AI, BETA );
+      bool dlctsx(AR, AI, BETA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

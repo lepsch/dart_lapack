@@ -1,4 +1,4 @@
-      double           FUNCTION DGET06( RCOND, RCONDC );
+      double dget06(RCOND, RCONDC ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

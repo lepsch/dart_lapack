@@ -524,7 +524,7 @@
 
       return;
       }
-      double           FUNCTION SDIFF(SA,SB);
+      double sdiff(SA,SB) {
       // ********************************* SDIFF **************************
       // COMPUTES DIFFERENCE OF TWO NUMBERS.  C. L. LAWSON, JPL 1974 FEB 15
 

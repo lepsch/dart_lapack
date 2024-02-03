@@ -1,4 +1,4 @@
-      int     FUNCTION ILATRANS( TRANS );
+      int ilatrans(TRANS ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

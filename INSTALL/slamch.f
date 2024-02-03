@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLAMCH( CMACH );
+      REAL slamch(CMACH ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -100,7 +100,7 @@
 // > \endverbatim
 // >
 
-      REAL             FUNCTION SLAMC3( A, B );
+      REAL slamc3(A, B ) {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..

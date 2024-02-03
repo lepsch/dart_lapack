@@ -1,4 +1,4 @@
-      REAL             FUNCTION CQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
+      REAL cqpt01(M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

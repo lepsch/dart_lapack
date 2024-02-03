@@ -1,4 +1,4 @@
-      double           FUNCTION ZLANHF( NORM, TRANSR, UPLO, N, A, WORK );
+      double zlanhf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

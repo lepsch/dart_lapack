@@ -1,4 +1,4 @@
-      REAL FUNCTION SASUM(N,SX,INCX);
+      REAL sasum(N,SX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      int              FUNCTION ILAENV( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
+      int ilaenv(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -97,7 +97,7 @@
       // End of ILAENV
 
       }
-      int     FUNCTION ILAENV2STAGE( ISPEC, NAME, OPTS, N1, N2, N3, N4 );
+      int ilaenv2stage(ISPEC, NAME, OPTS, N1, N2, N3, N4 ) {
       // .. Scalar Arguments ..
       List<String>       NAME, OPTS;
       int                ISPEC, N1, N2, N3, N4;
@@ -145,7 +145,7 @@
       // End of ILAENV2STAGE
 
       }
-      int     FUNCTION IPARMQ( ISPEC, NAME, OPTS, N, ILO, IHI, LWORK );
+      int iparmq(ISPEC, NAME, OPTS, N, ILO, IHI, LWORK ) {
 
       int                INMIN, INWIN, INIBL, ISHFTS, IACC22;
       const              INMIN = 12, INWIN = 13, INIBL = 14, ISHFTS = 15, IACC22 = 16 ;

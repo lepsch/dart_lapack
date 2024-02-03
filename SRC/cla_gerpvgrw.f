@@ -1,4 +1,4 @@
-      REAL FUNCTION CLA_GERPVGRW( N, NCOLS, A, LDA, AF, LDAF );
+      REAL cla_gerpvgrw(N, NCOLS, A, LDA, AF, LDAF ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

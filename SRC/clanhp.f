@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANHP( NORM, UPLO, N, AP, WORK );
+      REAL clanhp(NORM, UPLO, N, AP, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

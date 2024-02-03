@@ -1,4 +1,4 @@
-      REAL FUNCTION SCABS1(Z);
+      REAL scabs1(Z) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

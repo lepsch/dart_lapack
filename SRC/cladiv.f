@@ -1,4 +1,4 @@
-      COMPLEX FUNCTION CLADIV( X, Y );
+      COMPLEX cladiv(X, Y ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

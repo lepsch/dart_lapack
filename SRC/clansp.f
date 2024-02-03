@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANSP( NORM, UPLO, N, AP, WORK );
+      REAL clansp(NORM, UPLO, N, AP, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

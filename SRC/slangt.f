@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLANGT( NORM, N, DL, D, DU );
+      REAL slangt(NORM, N, DL, D, DU ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

@@ -1,4 +1,4 @@
-      bool    FUNCTION DISNAN( DIN );
+      bool disnan(DIN ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

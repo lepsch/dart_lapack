@@ -1,4 +1,4 @@
-      REAL             FUNCTION CLANGB( NORM, N, KL, KU, AB, LDAB, WORK );
+      REAL clangb(NORM, N, KL, KU, AB, LDAB, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

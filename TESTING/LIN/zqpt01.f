@@ -1,4 +1,4 @@
-      double           FUNCTION ZQPT01( M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK );
+      double zqpt01(M, N, K, A, AF, LDA, TAU, JPVT, WORK, LWORK ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

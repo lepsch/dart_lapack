@@ -1,4 +1,4 @@
-      double           FUNCTION ZLA_SYRCOND_X( UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK );
+      double zla_syrcond_x(UPLO, N, A, LDA, AF, LDAF, IPIV, X, INFO, WORK, RWORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

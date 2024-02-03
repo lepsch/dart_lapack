@@ -1,4 +1,4 @@
-      int     FUNCTION ICAMAX(N,CX,INCX);
+      int icamax(N,CX,INCX) {
 
 // -- Reference BLAS level1 routine --
 // -- Reference BLAS is a software package provided by Univ. of Tennessee,    --

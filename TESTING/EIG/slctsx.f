@@ -1,4 +1,4 @@
-      bool             FUNCTION SLCTSX( AR, AI, BETA );
+      bool slctsx(AR, AI, BETA ) {
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

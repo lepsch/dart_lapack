@@ -1,4 +1,4 @@
-      REAL             FUNCTION SLARND( IDIST, ISEED );
+      REAL slarnd(IDIST, ISEED ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

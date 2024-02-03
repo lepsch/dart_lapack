@@ -1,4 +1,4 @@
-      int     FUNCTION IPARAM2STAGE( ISPEC, NAME, OPTS, NI, NBI, IBI, NXI );
+      int iparam2stage(ISPEC, NAME, OPTS, NI, NBI, IBI, NXI ) {
 // #if defined(_OPENMP)
       use omp_lib;
 // #endif

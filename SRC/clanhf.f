@@ -1,4 +1,4 @@
-      REAL FUNCTION CLANHF( NORM, TRANSR, UPLO, N, A, WORK );
+      REAL clanhf(NORM, TRANSR, UPLO, N, A, WORK ) {
 
 // -- LAPACK computational routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

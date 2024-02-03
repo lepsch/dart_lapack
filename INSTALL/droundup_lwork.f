@@ -1,4 +1,4 @@
-      double           FUNCTION DROUNDUP_LWORK( LWORK );
+      double droundup_lwork(LWORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

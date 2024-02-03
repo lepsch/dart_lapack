@@ -1,4 +1,4 @@
-      double           FUNCTION DLANHS( NORM, N, A, LDA, WORK );
+      double dlanhs(NORM, N, A, LDA, WORK ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

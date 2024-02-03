@@ -1,4 +1,4 @@
-      bool             FUNCTION LSAMEN( N, CA, CB );
+      bool lsamen(N, CA, CB ) {
 
 // -- LAPACK auxiliary routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --

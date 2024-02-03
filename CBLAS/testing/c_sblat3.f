@@ -1992,7 +1992,7 @@
       // End of SMMCH.
 
       }
-      bool    FUNCTION LSE( RI, RJ, LR );
+      bool lse(RI, RJ, LR ) {
 
 // Tests if two arrays are identical.
 
@@ -2023,7 +2023,7 @@
       // End of LSE.
 
       }
-      bool    FUNCTION LSERES( TYPE, UPLO, M, N, AA, AS, LDA );
+      bool lseres(TYPE, UPLO, M, N, AA, AS, LDA ) {
 
 // Tests if selected elements in two arrays are equal.
 
@@ -2082,7 +2082,7 @@
       // End of LSERES.
 
       }
-      REAL FUNCTION SBEG( RESET );
+      REAL sbeg(RESET ) {
 
 // Generates random numbers uniformly distributed between -0.5 and 0.5.
 
@@ -2128,7 +2128,7 @@
       // End of SBEG.
 
       }
-      REAL FUNCTION SDIFF( X, Y );
+      REAL sdiff(X, Y ) {
 
 // Auxiliary routine for test program for Level 3 Blas.
 

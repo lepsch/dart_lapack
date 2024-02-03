@@ -1,4 +1,4 @@
-      REAL FUNCTION SLARMM( ANORM, BNORM, CNORM );
+      REAL slarmm(ANORM, BNORM, CNORM ) {
       // IMPLICIT NONE
       // .. Scalar Arguments ..
       REAL               ANORM, BNORM, CNORM;

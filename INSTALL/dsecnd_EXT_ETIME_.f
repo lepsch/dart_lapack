@@ -1,4 +1,4 @@
-      double           FUNCTION DSECND( );
+      double dsecnd() {
 
 // -- LAPACK auxiliary routine --
       // Univ. of Tennessee, Univ. of California Berkeley and NAG Ltd..
