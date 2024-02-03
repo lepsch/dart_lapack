@@ -237,7 +237,8 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     clacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL CPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
+                     clacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB );
+                     cpbt01(UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
 
                      // Print the test ratio if it is .GE. THRESH.
 
@@ -285,7 +286,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'CPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        cpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                      // Check solution from generated exact solution.
@@ -302,7 +304,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'CPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL CPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                        cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                        cpbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

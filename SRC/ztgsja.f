@@ -213,7 +213,8 @@
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
                zdscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               zdscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL ZCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
+               zdscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB );
+               zcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {

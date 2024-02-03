@@ -425,7 +425,8 @@
          // Copy column K of A to column K of W and update it
 
          W( K, K ) = REAL( A( K, K ) )
-         if (K.LT.N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 )          CALL CGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
+         if (K.LT.N) CALL CCOPY( N-K, A( K+1, K ), 1, W( K+1, K ), 1 );
+         cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( K, 1 ), LDW, CONE, W( K, K ), 1 );
          W( K, K ) = REAL( W( K, K ) )
 
          // Determine rows and columns to be interchanged and whether
@@ -473,7 +474,8 @@
                ccopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
                clacgv(IMAX-K, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = REAL( A( IMAX, IMAX ) )
-               if (IMAX.LT.N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 )                CALL CGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
+               if (IMAX.LT.N) CALL CCOPY( N-IMAX, A( IMAX+1, IMAX ), 1, W( IMAX+1, K+1 ), 1 );
+               cgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
                W( IMAX, K+1 ) = REAL( W( IMAX, K+1 ) )
 
                // JMAX is the column-index of the largest off-diagonal

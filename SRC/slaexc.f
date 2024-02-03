@@ -244,7 +244,8 @@
 
             // Standardize new 2-by-2 block T11
 
-            slanv2(T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN )             CALL SROT( N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN );
+            slanv2(T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN );
+            srot(N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN );
             srot(J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN );
             if (WANTQ) CALL SROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN );
          }

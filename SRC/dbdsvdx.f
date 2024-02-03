@@ -385,7 +385,8 @@
                         }
                         CALL DSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
-                              ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
+                              ZJTJI = -DDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
+                              daxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                            }
                            NRMU = DNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
                            dscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
@@ -399,7 +400,8 @@
                         }
                         CALL DSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
-                              ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL DAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
+                              ZJTJI = -DDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
+                              daxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                            }
                            NRMV = DNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
                            dscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );

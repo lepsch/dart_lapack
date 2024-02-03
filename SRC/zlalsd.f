@@ -305,7 +305,9 @@
 
                // This is a small subproblem and is solved by DLASDQ.
 
-               dlaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL DLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL DLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
+               dlaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N );
+               dlaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N );
+               dlasdq('U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }

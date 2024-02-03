@@ -116,7 +116,8 @@
 
                // Multiply bottom part of C by Q12.
 
-               zlacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK )                CALL ZTRMM( 'Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               zlacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK );
+               ztrmm('Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11.
 
@@ -124,7 +125,8 @@
 
                // Multiply top part of C by Q21.
 
-               zlacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK )                CALL ZTRMM( 'Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
+               zlacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK );
+               ztrmm('Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22.
 
@@ -141,7 +143,8 @@
 
                // Multiply bottom part of C by Q21**H.
 
-               zlacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK )                CALL ZTRMM( 'Left', 'Upper', 'Conjugate', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               zlacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK );
+               ztrmm('Left', 'Upper', 'Conjugate', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11**H.
 
@@ -149,7 +152,8 @@
 
                // Multiply top part of C by Q12**H.
 
-               zlacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK )                CALL ZTRMM( 'Left', 'Lower', 'Conjugate', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
+               zlacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK );
+               ztrmm('Left', 'Lower', 'Conjugate', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22**H.
 
@@ -168,7 +172,8 @@
 
                // Multiply right part of C by Q21.
 
-               zlacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK )                CALL ZTRMM( 'Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               zlacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK );
+               ztrmm('Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11.
 
@@ -176,7 +181,8 @@
 
                // Multiply left part of C by Q12.
 
-               zlacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK )                CALL ZTRMM( 'Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
+               zlacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK );
+               ztrmm('Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22.
 
@@ -193,7 +199,8 @@
 
                // Multiply right part of C by Q12**H.
 
-               zlacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK )                CALL ZTRMM( 'Right', 'Lower', 'Conjugate', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               zlacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK );
+               ztrmm('Right', 'Lower', 'Conjugate', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11**H.
 
@@ -201,7 +208,8 @@
 
                // Multiply left part of C by Q21**H.
 
-               zlacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK )                CALL ZTRMM( 'Right', 'Upper', 'Conjugate', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
+               zlacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK );
+               ztrmm('Right', 'Upper', 'Conjugate', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22**H.
 

@@ -117,7 +117,8 @@
 
                // Multiply bottom part of C by Q12.
 
-               slacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK )                CALL STRMM( 'Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               slacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK );
+               strmm('Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11.
 
@@ -125,7 +126,8 @@
 
                // Multiply top part of C by Q21.
 
-               slacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK )                CALL STRMM( 'Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
+               slacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK );
+               strmm('Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22.
 
@@ -142,7 +144,8 @@
 
                // Multiply bottom part of C by Q21**T.
 
-               slacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK )                CALL STRMM( 'Left', 'Upper', 'Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               slacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK );
+               strmm('Left', 'Upper', 'Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11**T.
 
@@ -150,7 +153,8 @@
 
                // Multiply top part of C by Q12**T.
 
-               slacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK )                CALL STRMM( 'Left', 'Lower', 'Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
+               slacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK );
+               strmm('Left', 'Lower', 'Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22**T.
 
@@ -169,7 +173,8 @@
 
                // Multiply right part of C by Q21.
 
-               slacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK )                CALL STRMM( 'Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               slacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK );
+               strmm('Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11.
 
@@ -177,7 +182,8 @@
 
                // Multiply left part of C by Q12.
 
-               slacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK )                CALL STRMM( 'Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
+               slacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK );
+               strmm('Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22.
 
@@ -194,7 +200,8 @@
 
                // Multiply right part of C by Q12**T.
 
-               slacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK )                CALL STRMM( 'Right', 'Lower', 'Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               slacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK );
+               strmm('Right', 'Lower', 'Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11**T.
 
@@ -202,7 +209,8 @@
 
                // Multiply left part of C by Q21**T.
 
-               slacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK )                CALL STRMM( 'Right', 'Upper', 'Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
+               slacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK );
+               strmm('Right', 'Upper', 'Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22**T.
 

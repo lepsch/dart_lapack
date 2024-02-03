@@ -181,7 +181,9 @@
             A( K, KWTOP-1 ) = TEMP
             A( K+1, KWTOP-1 ) = ZERO
             K2 = MAX( KWTOP, K-1 )
-            drot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 )             CALL DROT( IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 )             CALL DROT( JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 );
+            drot(IHI-K2+1, A( K, K2 ), LDA, A( K+1, K2 ), LDA, C1, S1 );
+            drot(IHI-( K-1 )+1, B( K, K-1 ), LDB, B( K+1, K-1 ), LDB, C1, S1 );
+            drot(JW, QC( 1, K-KWTOP+1 ), 1, QC( 1, K+1-KWTOP+1 ), 1, C1, S1 );
          }
 
          // Chase bulges down
@@ -206,12 +208,16 @@
                   dlartg(B( K2+1, K2+1 ), B( K2+1, K2 ), C1, S1, TEMP );
                   B( K2+1, K2+1 ) = TEMP
                   B( K2+1, K2 ) = ZERO
-                  drot(K2+2-ISTARTM+1, A( ISTARTM, K2+1 ), 1, A( ISTARTM, K2 ), 1, C1, S1 )                   CALL DROT( K2-ISTARTM+1, B( ISTARTM, K2+1 ), 1, B( ISTARTM, K2 ), 1, C1, S1 )                   CALL DROT( JW, ZC( 1, K2+1-KWTOP+1 ), 1, ZC( 1, K2-KWTOP+1 ), 1, C1, S1 );
+                  drot(K2+2-ISTARTM+1, A( ISTARTM, K2+1 ), 1, A( ISTARTM, K2 ), 1, C1, S1 );
+                  drot(K2-ISTARTM+1, B( ISTARTM, K2+1 ), 1, B( ISTARTM, K2 ), 1, C1, S1 );
+                  drot(JW, ZC( 1, K2+1-KWTOP+1 ), 1, ZC( 1, K2-KWTOP+1 ), 1, C1, S1 );
 
                   dlartg(A( K2+1, K2 ), A( K2+2, K2 ), C1, S1, TEMP );
                   A( K2+1, K2 ) = TEMP
                   A( K2+2, K2 ) = ZERO
-                  drot(ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 )                   CALL DROT( ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 )                   CALL DROT( JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 );
+                  drot(ISTOPM-K2, A( K2+1, K2+1 ), LDA, A( K2+2, K2+1 ), LDA, C1, S1 );
+                  drot(ISTOPM-K2, B( K2+1, K2+1 ), LDB, B( K2+2, K2+1 ), LDB, C1, S1 );
+                  drot(JW, QC( 1, K2+1-KWTOP+1 ), 1, QC( 1, K2+2-KWTOP+1 ), 1, C1, S1 );
 
                }
 
@@ -219,7 +225,9 @@
                dlartg(B( KWBOT, KWBOT ), B( KWBOT, KWBOT-1 ), C1, S1, TEMP );
                B( KWBOT, KWBOT ) = TEMP
                B( KWBOT, KWBOT-1 ) = ZERO
-               drot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL DROT( KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 )                CALL DROT( JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 );
+               drot(KWBOT-ISTARTM, B( ISTARTM, KWBOT ), 1, B( ISTARTM, KWBOT-1 ), 1, C1, S1 );
+               drot(KWBOT-ISTARTM+1, A( ISTARTM, KWBOT ), 1, A( ISTARTM, KWBOT-1 ), 1, C1, S1 );
+               drot(JW, ZC( 1, KWBOT-KWTOP+1 ), 1, ZC( 1, KWBOT-1-KWTOP+1 ), 1, C1, S1 );
 
                K = K-1
             }
@@ -237,7 +245,10 @@
       }
 
       if ( ISTOPM-IHI > 0 ) {
-         dgemm('T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, ZERO, WORK, JW )          CALL DLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA )          CALL DGEMM( 'T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, ZERO, WORK, JW )          CALL DLACPY( 'ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB );
+         dgemm('T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, A( KWTOP, IHI+1 ), LDA, ZERO, WORK, JW );
+         dlacpy('ALL', JW, ISTOPM-IHI, WORK, JW, A( KWTOP, IHI+1 ), LDA );
+         dgemm('T', 'N', JW, ISTOPM-IHI, JW, ONE, QC, LDQC, B( KWTOP, IHI+1 ), LDB, ZERO, WORK, JW );
+         dlacpy('ALL', JW, ISTOPM-IHI, WORK, JW, B( KWTOP, IHI+1 ), LDB );
       }
       if ( ILQ ) {
          dgemm('N', 'N', N, JW, JW, ONE, Q( 1, KWTOP ), LDQ, QC, LDQC, ZERO, WORK, N );
@@ -245,7 +256,9 @@
       }
 
       if ( KWTOP-1-ISTARTM+1 > 0 ) {
-         dgemm('N', 'N', KWTOP-ISTARTM, JW, JW, ONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM )          CALL DLACPY( 'ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA )          CALL DGEMM( 'N', 'N', KWTOP-ISTARTM, JW, JW, ONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM );
+         dgemm('N', 'N', KWTOP-ISTARTM, JW, JW, ONE, A( ISTARTM, KWTOP ), LDA, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM );
+         dlacpy('ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, A( ISTARTM, KWTOP ), LDA );
+         dgemm('N', 'N', KWTOP-ISTARTM, JW, JW, ONE, B( ISTARTM, KWTOP ), LDB, ZC, LDZC, ZERO, WORK, KWTOP-ISTARTM );
          dlacpy('ALL', KWTOP-ISTARTM, JW, WORK, KWTOP-ISTARTM, B( ISTARTM, KWTOP ), LDB );
       }
       if ( ILZ ) {

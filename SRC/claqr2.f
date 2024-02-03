@@ -192,7 +192,9 @@
 
             claset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            clarf('L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL CLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
+            clarf('L', NS, JW, WORK, 1, CONJG( TAU ), T, LDT, WORK( JW+1 ) );
+            clarf('R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) );
+            clarf('R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
             cgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
@@ -226,7 +228,8 @@
          if ( WANTT ) {
             DO 70 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL CLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
+               cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
+               clacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 70
          }
 
@@ -235,7 +238,8 @@
          if ( WANTZ ) {
             DO 80 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL CLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
+               cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
+               clacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 80
          }
       }

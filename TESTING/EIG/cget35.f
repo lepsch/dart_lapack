@@ -118,7 +118,8 @@
                                  RMUL = CONE / RMUL
                               }
                            }
-                           cgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL CGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
+                           cgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
+                           cgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = CLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                            if ( RES.GT.RMAX ) {

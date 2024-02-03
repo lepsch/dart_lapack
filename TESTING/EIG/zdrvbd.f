@@ -174,7 +174,8 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL ZLATMS( M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP;
+               zlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUNIT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -216,7 +217,8 @@
 
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 1 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
+                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 2 ) );
+                  zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = 0
                for (I = 1; I <= MNMIN - 1; I++) { // 70
@@ -303,7 +305,8 @@
 
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 8 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
+                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 9 ) );
+                  zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = 0
                for (I = 1; I <= MNMIN - 1; I++) { // 110
@@ -399,7 +402,8 @@
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 36 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
+                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 37 ) );
+                     zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
@@ -448,7 +452,8 @@
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 15 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
+                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 16 ) );
+                     zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 131
@@ -496,7 +501,8 @@
 
                   zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 19 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) )                      CALL ZUNT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
+                     zunt01('Columns', M, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 20 ) );
+                     zunt01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 134
@@ -527,7 +533,8 @@
                RESULT( 25 ) = ZERO
                zbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RWORK, RESULT( 23 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) )                   CALL ZUNT01( 'Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
+                  zunt01('Columns', MNMIN, M, USAV, LDU, WORK, LWORK, RWORK, RESULT( 24 ) );
+                  zunt01('Rows', MNMIN, N, VTSAV, LDVT, WORK, LWORK, RWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 140
@@ -615,7 +622,8 @@
                RESULT( 32 ) = ZERO
                zbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  zunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) )                   CALL ZUNT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
+                  zunt01('Columns', M, NSI, U, LDU, WORK, LWORK, RWORK, RESULT( 31 ) );
+                  zunt01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 32 ) );
                }
 
                // Do tests 11--13
@@ -652,7 +660,8 @@
                RESULT( 35 ) = ZERO
                zbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  zunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) )                   CALL ZUNT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
+                  zunt01('Columns', M, NSV, U, LDU, WORK, LWORK, RWORK, RESULT( 34 ) );
+                  zunt01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RWORK, RESULT( 35 ) );
                }
 
                // End of Loop -- Check for RESULT(j) > THRESH

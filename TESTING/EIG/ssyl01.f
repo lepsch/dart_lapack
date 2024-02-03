@@ -137,7 +137,8 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
-                        sgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, C, MAXM )                         CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, C, MAXM );
+                        sgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE*RMUL, C, MAXM );
+                        sgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, C, MAXM );
                         RES1 = SLANGE( 'M', M, N, C, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )                         IF( RES.GT.THRESH ) NFAIL( 1 ) = NFAIL( 1 ) + 1                         IF( RES.GT.RMAX( 1 ) ) RMAX( 1 ) = RES
 
@@ -152,7 +153,8 @@
                               RMUL = ONE / MAX( XNRM, TNRM )
                            }
                         }
-                        sgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM )                         CALL SGEMM( 'N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
+                        sgemm(TRANA, 'N', M, N, M, RMUL, A, MAXM, X, MAXM, -SCALE3*RMUL, CC, MAXM );
+                        sgemm('N', TRANB, M, N, N, REAL( ISGN )*RMUL, X, MAXM, B, MAXN, ONE, CC, MAXM );
                         RES1 = SLANGE( 'M', M, N, CC, MAXM, DUM )
                         RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                         // Verify that TRSYL3 only flushes if TRSYL flushes (but

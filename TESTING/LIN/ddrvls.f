@@ -234,7 +234,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 dlarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 dlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
                               dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                               dlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -242,7 +243,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 dlacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 dlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'DGELS '
                               dgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -252,7 +254,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for DGELS.
@@ -319,7 +322,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 dlarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 dlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
                               dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                               dlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -327,7 +331,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 dlacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 dlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'DGELST'
                               dgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -337,7 +342,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for DGELST.
@@ -411,7 +417,8 @@
                                  // Set up a consistent rhs
 
                                  if ( NCOLS.GT.0 ) {
-                                    dlarnv(2, ISEED, NCOLS*NRHS, WORK )                                     CALL DSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                    dlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                    dscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                                  }
                                  dgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                                  dlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -419,7 +426,8 @@
                                  // Solve LS or overdetermined system
 
                                  if ( M.GT.0 .AND. N.GT.0 ) {
-                                    dlacpy('Full', M, N, COPYA, LDA, A, LDA )                                     CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                    dlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                    dlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                  SRNAMT = 'DGETSLS'
                                  dgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'DGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -429,7 +437,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL DQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL DLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 dqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for DGETSLS.
@@ -509,7 +518,8 @@
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
 
-                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL DQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
+                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        dqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
@@ -549,7 +559,8 @@
 
                         // Test 12:  Compute error in solution
 
-                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL DQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) );
+                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        dqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) );
 
                         // Test 13:  Check norm of r'*A
 
@@ -590,7 +601,8 @@
 
                         // Test 16:  Compute error in solution
 
-                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL DQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) );
+                        dlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        dqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) );
 
                         // Test 17:  Check norm of r'*A
 

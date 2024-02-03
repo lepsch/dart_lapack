@@ -94,10 +94,12 @@
       if (ANORM.EQ.ZERO) GO TO 10;
       if ( ANORM.GT.SSFMAX ) {
          ISCALE = 1
-         slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
+         slascl('G', 0, 0, ANORM, SSFMAX, LEND-L+1, 1, D( L ), N, INFO );
+         slascl('G', 0, 0, ANORM, SSFMAX, LEND-L, 1, E( L ), N, INFO );
       } else if ( ANORM.LT.SSFMIN ) {
          ISCALE = 2
-         slascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO )          CALL SLASCL( 'G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
+         slascl('G', 0, 0, ANORM, SSFMIN, LEND-L+1, 1, D( L ), N, INFO );
+         slascl('G', 0, 0, ANORM, SSFMIN, LEND-L, 1, E( L ), N, INFO );
       }
 
       for (I = L; I <= LEND - 1; I++) { // 40

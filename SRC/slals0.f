@@ -131,7 +131,8 @@
                } // 40
                WORK( 1 ) = NEGONE
                TEMP = SNRM2( K, WORK, 1 )
-               sgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL SLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
+               sgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB );
+               slascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
             } // 50
          }
 

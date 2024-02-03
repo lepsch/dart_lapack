@@ -510,7 +510,8 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
-                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
+                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
+                                 dlascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
                               }
                            } else {
@@ -518,7 +519,8 @@
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
-                                 dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
+                                 dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
+                                 dlascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
                               }
                            }
@@ -548,7 +550,8 @@
 
                                     T = HALF / THETA
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q )
-                                    FASTR( 4 ) = -T*WORK( q ) / WORK( p )                                     CALL DROTM( M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR )
+                                    FASTR( 4 ) = -T*WORK( q ) / WORK( p );
+                                    drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                     SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, DABS( T ) )
 
@@ -574,34 +577,43 @@
                                           WORK( q ) = WORK( q )*CS
                                           drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                        } else {
-                                          daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                           CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                          daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                          daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           WORK( p ) = WORK( p )*CS
                                           WORK( q ) = WORK( q ) / CS
                                           if ( RSVEC ) {
-                                             daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                              CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                             daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                             daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                           }
                                        }
                                     } else {
                                        if ( WORK( q ).GE.ONE ) {
-                                          daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                           CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                          daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                          daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           WORK( p ) = WORK( p ) / CS
                                           WORK( q ) = WORK( q )*CS
                                           if ( RSVEC ) {
-                                             daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                              CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                             daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                             daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
                                        } else {
-                                          IF( WORK( p ).GE.WORK( q ) ) THEN                                              CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                              CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
+                                          IF( WORK( p ).GE.WORK( q ) ) THEN;
+                                             daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                             daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS
                                              WORK( q ) = WORK( q ) / CS
                                              if ( RSVEC ) {
-                                                daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                                 CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                                daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                                daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                              }
                                           } else {
-                                             daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                              CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                             daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                             daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              WORK( p ) = WORK( p ) / CS
                                              WORK( q ) = WORK( q )*CS
                                              if ( RSVEC ) {
-                                                daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                                 CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                                daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                                daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                              }
                                           }
                                        }
@@ -610,10 +622,12 @@
 
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
-                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR );
+                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
+                                 dlascl('G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR );
                                  dlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                  TEMP1 = -AAPQ*WORK( p ) / WORK( q )
-                                 daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 )                                  CALL DLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
+                                 daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
+                                 dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) );
                                  MXSINJ = MAX( MXSINJ, SFMIN )
                               }
             // END IF ROTOK THEN ... ELSE
@@ -714,7 +728,8 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
-                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
+                                 dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
+                                 dlascl('G', 0, 0, AAPP, WORK( p ), M, 1, WORK( N+1 ), LDA, IERR );
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, q ), 1 )*WORK( q ) / AAQQ
                               }
                            } else {
@@ -726,7 +741,8 @@
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( DDOT( M, A( 1, p ), 1, A( 1, q ), 1 )*WORK( p )*WORK( q ) / AAQQ ) / AAPP
                               } else {
-                                 dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 )                                  CALL DLASCL( 'G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
+                                 dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
+                                 dlascl('G', 0, 0, AAQQ, WORK( q ), M, 1, WORK( N+1 ), LDA, IERR );
                                  AAPQ = DDOT( M, WORK( N+1 ), 1, A( 1, p ), 1 )*WORK( p ) / AAPP
                               }
                            }
@@ -751,7 +767,8 @@
                                  if ( DABS( THETA ).GT.BIGTHETA ) {
                                     T = HALF / THETA
                                     FASTR( 3 ) = T*WORK( p ) / WORK( q )
-                                    FASTR( 4 ) = -T*WORK( q ) / WORK( p )                                     CALL DROTM( M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR )
+                                    FASTR( 4 ) = -T*WORK( q ) / WORK( p );
+                                    drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                     IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                     SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE+T*APOAQ*AAPQ ) )                                     AAPP = AAPP*DSQRT( MAX( ZERO, ONE-T*AQOAP*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, DABS( T ) )
                                  } else {
@@ -777,34 +794,43 @@
                                           WORK( q ) = WORK( q )*CS
                                           drotm(M, A( 1, p ), 1, A( 1, q ), 1, FASTR )                                           IF( RSVEC )CALL DROTM( MVL, V( 1, p ), 1, V( 1, q ), 1, FASTR );
                                        } else {
-                                          daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                           CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                          daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                          daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                           if ( RSVEC ) {
-                                             daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                              CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                             daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                             daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                           }
                                           WORK( p ) = WORK( p )*CS
                                           WORK( q ) = WORK( q ) / CS
                                        }
                                     } else {
                                        if ( WORK( q ).GE.ONE ) {
-                                          daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                           CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                          daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                          daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                           if ( RSVEC ) {
-                                             daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                              CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                             daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                             daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                           }
                                           WORK( p ) = WORK( p ) / CS
                                           WORK( q ) = WORK( q )*CS
                                        } else {
-                                          IF( WORK( p ).GE.WORK( q ) ) THEN                                              CALL DAXPY( M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 )                                              CALL DAXPY( M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )
+                                          IF( WORK( p ).GE.WORK( q ) ) THEN;
+                                             daxpy(M, -T*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                             daxpy(M, CS*SN*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
                                              WORK( p ) = WORK( p )*CS
                                              WORK( q ) = WORK( q ) / CS
                                              if ( RSVEC ) {
-                                                daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 )                                                 CALL DAXPY( MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                                daxpy(MVL, -T*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                                daxpy(MVL, CS*SN*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
                                              }
                                           } else {
-                                             daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 )                                              CALL DAXPY( M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
+                                             daxpy(M, T*APOAQ, A( 1, p ), 1, A( 1, q ), 1 );
+                                             daxpy(M, -CS*SN*AQOAP, A( 1, q ), 1, A( 1, p ), 1 );
                                              WORK( p ) = WORK( p ) / CS
                                              WORK( q ) = WORK( q )*CS
                                              if ( RSVEC ) {
-                                                daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 )                                                 CALL DAXPY( MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
+                                                daxpy(MVL, T*APOAQ, V( 1, p ), 1, V( 1, q ), 1 );
+                                                daxpy(MVL, -CS*SN*AQOAP, V( 1, q ), 1, V( 1, p ), 1 );
                                              }
                                           }
                                        }
@@ -813,15 +839,21 @@
 
                               } else {
                                  if ( AAPP.GT.AAQQ ) {
-                                    dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 )                                     CALL DLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR )                                     CALL DLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
+                                    dcopy(M, A( 1, p ), 1, WORK( N+1 ), 1 );
+                                    dlascl('G', 0, 0, AAPP, ONE, M, 1, WORK( N+1 ), LDA, IERR );
+                                    dlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
                                     TEMP1 = -AAPQ*WORK( p ) / WORK( q )
-                                    daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 )                                     CALL DLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
+                                    daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, q ), 1 );
+                                    dlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
                                     SVA( q ) = AAQQ*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                  } else {
-                                    dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 )                                     CALL DLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK( N+1 ), LDA, IERR )                                     CALL DLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
+                                    dcopy(M, A( 1, q ), 1, WORK( N+1 ), 1 );
+                                    dlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK( N+1 ), LDA, IERR );
+                                    dlascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
                                     TEMP1 = -AAPQ*WORK( q ) / WORK( p )
-                                    daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, p ), 1 )                                     CALL DLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
+                                    daxpy(M, TEMP1, WORK( N+1 ), 1, A( 1, p ), 1 );
+                                    dlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
                                     SVA( p ) = AAPP*DSQRT( MAX( ZERO, ONE-AAPQ*AAPQ ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                  }

@@ -71,7 +71,8 @@
 
                AP( JJ ) = REAL( AP( JJ ) )
                BJJ = REAL( BP( JJ ) )
-               ctpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 )                CALL CHPMV( UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
+               ctpsv(UPLO, 'Conjugate transpose', 'Non-unit', J, BP, AP( J1 ), 1 );
+               chpmv(UPLO, J-1, -CONE, AP, BP( J1 ), 1, CONE, AP( J1 ), 1 );
                csscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-CDOTC( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
             } // 10
@@ -142,7 +143,8 @@
                BJJ = REAL( BP( JJ ) )
                AP( JJ ) = AJJ*BJJ + CDOTC( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
                csscal(N-J, BJJ, AP( JJ+1 ), 1 );
-               chpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 )                CALL CTPMV( UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
+               chpmv(UPLO, N-J, CONE, AP( J1J1 ), BP( JJ+1 ), 1, CONE, AP( JJ+1 ), 1 );
+               ctpmv(UPLO, 'Conjugate transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
             } // 40
          }

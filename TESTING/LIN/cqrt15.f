@@ -129,12 +129,16 @@
 
                // matrix scaled up
 
-               clascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
+               clascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
+               slascl('General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO );
+               clascl('General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               clascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL SLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL CLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
+               clascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
+               slascl('General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO );
+               clascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('CQRT15', 1 );
                RETURN

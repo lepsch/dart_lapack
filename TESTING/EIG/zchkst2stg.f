@@ -309,7 +309,8 @@
 
             // Do tests 1 and 2
 
-            zhet21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) )             CALL ZHET21( 3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) );
+            zhet21(2, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 1 ) );
+            zhet21(3, 'Upper', N, 1, A, LDA, SD, SE, U, LDU, V, LDU, TAU, WORK, RWORK, RESULT( 2 ) );
 
             // Compute D1 the eigenvalues resulting from the tridiagonal
             // form using the standard 1-stage algorithm and use it as a
@@ -453,7 +454,8 @@
 
             // Do tests 5 and 6
 
-            zhpt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) )             CALL ZHPT21( 3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) );
+            zhpt21(2, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 5 ) );
+            zhpt21(3, 'Upper', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 6 ) );
 
             // Store the lower triangle of A in AP
 
@@ -496,7 +498,8 @@
                }
             }
 
-            zhpt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) )             CALL ZHPT21( 3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) );
+            zhpt21(2, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 7 ) );
+            zhpt21(3, 'Lower', N, 1, AP, SD, SE, U, LDU, VP, TAU, WORK, RWORK, RESULT( 8 ) );
 
             // Call ZSTEQR to compute D1, D2, and Z, do tests.
 

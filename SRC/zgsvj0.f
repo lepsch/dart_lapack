@@ -222,14 +222,16 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
-                                 CALL ZCOPY( M, A( 1, p ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )                                  AAPQ = ZDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
+                                 zcopy(M, A( 1, p ), 1, WORK, 1 );
+                                 CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR )                                  AAPQ = ZDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
-                                 zcopy(M, A( 1, q ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
+                                 zcopy(M, A( 1, q ), 1, WORK, 1 );
+                                 zlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
                                  AAPQ = ZDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
                               }
                            }
@@ -290,8 +292,11 @@
 
                                  } else {
                // .. have to use modified Gram-Schmidt like transformation
-                                 zcopy(M, A( 1, p ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
-                                 zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                  CALL ZAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                  CALL ZLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) );
+                                 zcopy(M, A( 1, p ), 1, WORK, 1 );
+                                 zlascl('G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
+                                 zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
+                                 zaxpy(M, -AAPQ, WORK, 1, A( 1, q ), 1 );
+                                 zlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) );
                                  MXSINJ = MAX( MXSINJ, SFMIN )
                               }
             // END IF ROTOK THEN ... ELSE
@@ -394,7 +399,8 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
-                                 zcopy(M, A( 1, p ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
+                                 zcopy(M, A( 1, p ), 1, WORK, 1 );
+                                 zlascl('G', 0, 0, AAPP, ONE, M, 1, WORK, LDA, IERR );
                                  AAPQ = ZDOTC( M, WORK, 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
@@ -406,7 +412,8 @@
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( ZDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               } else {
-                                 zcopy(M, A( 1, q ), 1, WORK, 1 )                                  CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
+                                 zcopy(M, A( 1, q ), 1, WORK, 1 );
+                                 zlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK, LDA, IERR );
                                  AAPQ = ZDOTC( M, A( 1, p ), 1, WORK, 1 ) / AAPP
                               }
                            }
@@ -462,11 +469,19 @@
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
                                if ( AAPP.GT.AAQQ ) {
-                                    zcopy(M, A( 1, p ), 1, WORK, 1 )                                     CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR )                                     CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL ZAXPY( M, -AAPQ, WORK, 1, A( 1, q ), 1 )                                     CALL ZLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
+                                    zcopy(M, A( 1, p ), 1, WORK, 1 );
+                                    zlascl('G', 0, 0, AAPP, ONE, M, 1, WORK,LDA, IERR );
+                                    zlascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
+                                    zaxpy(M, -AAPQ, WORK, 1, A( 1, q ), 1 );
+                                    zlascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                } else {
-                                   zcopy(M, A( 1, q ), 1, WORK, 1 )                                     CALL ZLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, WORK,LDA, IERR )                                     CALL ZLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR )                                     CALL ZAXPY( M, -CONJG(AAPQ), WORK, 1, A( 1, p ), 1 )                                     CALL ZLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
+                                   zcopy(M, A( 1, q ), 1, WORK, 1 );
+                                    zlascl('G', 0, 0, AAQQ, ONE, M, 1, WORK,LDA, IERR );
+                                    zlascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
+                                    zaxpy(M, -CONJG(AAPQ), WORK, 1, A( 1, p ), 1 );
+                                    zlascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
                                     SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                }

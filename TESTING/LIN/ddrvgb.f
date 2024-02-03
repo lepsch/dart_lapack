@@ -336,7 +336,8 @@
                               // Compute the LU factorization of the matrix
                               // and solve the system.
 
-                              dlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL DLACPY( 'Full', N, NRHS, B, LDB, X, LDB );
+                              dlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB );
+                              dlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'DGBSV '
                               dgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
@@ -355,7 +356,8 @@
                                  // Compute residual of the computed
                                  // solution.
 
-                                 dlacpy('Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL DGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                                 dlacpy('Full', N, NRHS, B, LDB, WORK, LDB );
+                                 dgbt02('No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                                  // Check solution from generated exact
                                  // solution.
@@ -439,12 +441,14 @@
 
                               // Compute residual of the computed solution.
 
-                              dlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL DGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                              dlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB );
+                              dgbt02(TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL DGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                                 dget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN.EQ.1 ) {
                                     ROLDC = ROLDO

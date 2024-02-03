@@ -95,7 +95,9 @@
                WORK( I, J ) = B( M-L+I, J )
             }
          }
-         dtrmm('L', 'U', 'T', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK )          CALL DGEMM( 'T', 'N', L, N, M-L, ONE, V, LDV, B, LDB, ONE, WORK, LDWORK )          CALL DGEMM( 'T', 'N', K-L, N, M, ONE, V( 1, KP ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
+         dtrmm('L', 'U', 'T', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
+         dgemm('T', 'N', L, N, M-L, ONE, V, LDV, B, LDB, ONE, WORK, LDWORK );
+         dgemm('T', 'N', K-L, N, M, ONE, V( 1, KP ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
@@ -111,7 +113,9 @@
             }
          }
 
-         dgemm('N', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL DGEMM( 'N', 'N', L, N, K-L, -ONE, V( MP, KP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ),  LDB )          CALL DTRMM( 'L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
+         dgemm('N', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB );
+         dgemm('N', 'N', L, N, K-L, -ONE, V( MP, KP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ),  LDB );
+         dtrmm('L', 'U', 'N', 'N', L, N, ONE, V( MP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
@@ -144,7 +148,9 @@
                WORK( I, J ) = B( I, N-L+J )
             }
          }
-         dtrmm('R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK )          CALL DGEMM( 'N', 'N', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL DGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V( 1, KP ), LDV, ZERO, WORK( 1, KP ), LDWORK );
+         dtrmm('R', 'U', 'N', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
+         dgemm('N', 'N', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK );
+         dgemm('N', 'N', M, K-L, N, ONE, B, LDB, V( 1, KP ), LDV, ZERO, WORK( 1, KP ), LDWORK );
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
@@ -160,7 +166,9 @@
             }
          }
 
-         dgemm('N', 'T', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL DGEMM( 'N', 'T', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( NP, KP ), LDV, ONE, B( 1, NP ), LDB )          CALL DTRMM( 'R', 'U', 'T', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
+         dgemm('N', 'T', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB );
+         dgemm('N', 'T', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( NP, KP ), LDV, ONE, B( 1, NP ), LDB );
+         dtrmm('R', 'U', 'T', 'N', M, L, ONE, V( NP, 1 ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
@@ -195,7 +203,9 @@
             }
          }
 
-         dtrmm('L', 'L', 'T', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK )          CALL DGEMM( 'T', 'N', L, N, M-L, ONE, V( MP, KP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL DGEMM( 'T', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
+         dtrmm('L', 'L', 'T', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK );
+         dgemm('T', 'N', L, N, M-L, ONE, V( MP, KP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK );
+         dgemm('T', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
@@ -211,7 +221,9 @@
             }
          }
 
-         dgemm('N', 'N', M-L, N, K, -ONE, V( MP, 1 ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL DGEMM( 'N', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B,  LDB )          CALL DTRMM( 'L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK );
+         dgemm('N', 'N', M-L, N, K, -ONE, V( MP, 1 ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB );
+         dgemm('N', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B,  LDB );
+         dtrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, KP ), LDV, WORK( KP, 1 ), LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
@@ -244,7 +256,9 @@
                WORK( I, K-L+J ) = B( I, J )
             }
          }
-         dtrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK )          CALL DGEMM( 'N', 'N', M, L, N-L, ONE, B( 1, NP ), LDB, V( NP, KP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL DGEMM( 'N', 'N', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
+         dtrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'N', M, L, N-L, ONE, B( 1, NP ), LDB, V( NP, KP ), LDV, ONE, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'N', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
@@ -260,7 +274,9 @@
             }
          }
 
-         dgemm('N', 'T', M, N-L, K, -ONE, WORK, LDWORK, V( NP, 1 ), LDV, ONE, B( 1, NP ), LDB )          CALL DGEMM( 'N', 'T', M, L, K-L, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL DTRMM( 'R', 'L', 'T', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'T', M, N-L, K, -ONE, WORK, LDWORK, V( NP, 1 ), LDV, ONE, B( 1, NP ), LDB );
+         dgemm('N', 'T', M, L, K-L, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB );
+         dtrmm('R', 'L', 'T', 'N', M, L, ONE, V( 1, KP ), LDV, WORK( 1, KP ), LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )
@@ -293,7 +309,9 @@
                WORK( I, J ) = B( M-L+I, J )
             }
          }
-         dtrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDB )          CALL DGEMM( 'N', 'N', L, N, M-L, ONE, V, LDV,B, LDB, ONE, WORK, LDWORK )          CALL DGEMM( 'N', 'N', K-L, N, M, ONE, V( KP, 1 ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
+         dtrmm('L', 'L', 'N', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDB );
+         dgemm('N', 'N', L, N, M-L, ONE, V, LDV,B, LDB, ONE, WORK, LDWORK );
+         dgemm('N', 'N', K-L, N, M, ONE, V( KP, 1 ), LDV, B, LDB, ZERO, WORK( KP, 1 ), LDWORK );
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
@@ -309,7 +327,9 @@
             }
          }
 
-         dgemm('T', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL DGEMM( 'T', 'N', L, N, K-L, -ONE, V( KP, MP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ), LDB )          CALL DTRMM( 'L', 'L', 'T', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK );
+         dgemm('T', 'N', M-L, N, K, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB );
+         dgemm('T', 'N', L, N, K-L, -ONE, V( KP, MP ), LDV, WORK( KP, 1 ), LDWORK, ONE, B( MP, 1 ), LDB );
+         dtrmm('L', 'L', 'T', 'N', L, N, ONE, V( 1, MP ), LDV, WORK, LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
                B( M-L+I, J ) = B( M-L+I, J ) - WORK( I, J )
@@ -341,7 +361,9 @@
                WORK( I, J ) = B( I, N-L+J )
             }
          }
-         dtrmm('R', 'L', 'T', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK )          CALL DGEMM( 'N', 'T', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK )          CALL DGEMM( 'N', 'T', M, K-L, N, ONE, B, LDB, V( KP, 1 ), LDV, ZERO, WORK( 1, KP ), LDWORK );
+         dtrmm('R', 'L', 'T', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
+         dgemm('N', 'T', M, L, N-L, ONE, B, LDB, V, LDV, ONE, WORK, LDWORK );
+         dgemm('N', 'T', M, K-L, N, ONE, B, LDB, V( KP, 1 ), LDV, ZERO, WORK( 1, KP ), LDWORK );
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
@@ -357,7 +379,9 @@
             }
          }
 
-         dgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL DGEMM( 'N', 'N', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( KP, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL DTRMM( 'R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
+         dgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB );
+         dgemm('N', 'N', M, L, K-L, -ONE, WORK( 1, KP ), LDWORK, V( KP, NP ), LDV, ONE, B( 1, NP ), LDB );
+         dtrmm('R', 'L', 'N', 'N', M, L, ONE, V( 1, NP ), LDV, WORK, LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
                B( I, N-L+J ) = B( I, N-L+J ) - WORK( I, J )
@@ -390,7 +414,9 @@
                WORK( K-L+I, J ) = B( I, J )
             }
          }
-         dtrmm('L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK )          CALL DGEMM( 'N', 'N', L, N, M-L, ONE, V( KP, MP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK )          CALL DGEMM( 'N', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
+         dtrmm('L', 'U', 'N', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
+         dgemm('N', 'N', L, N, M-L, ONE, V( KP, MP ), LDV, B( MP, 1 ), LDB, ONE, WORK( KP, 1 ), LDWORK );
+         dgemm('N', 'N', K-L, N, M, ONE, V, LDV, B, LDB, ZERO, WORK, LDWORK );
 
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= K; I++) {
@@ -406,7 +432,9 @@
             }
          }
 
-         dgemm('T', 'N', M-L, N, K, -ONE, V( 1, MP ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB )          CALL DGEMM( 'T', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB )          CALL DTRMM( 'L', 'U', 'T', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
+         dgemm('T', 'N', M-L, N, K, -ONE, V( 1, MP ), LDV, WORK, LDWORK, ONE, B( MP, 1 ), LDB );
+         dgemm('T', 'N', L, N, K-L, -ONE, V, LDV, WORK, LDWORK, ONE, B, LDB );
+         dtrmm('L', 'U', 'T', 'N', L, N, ONE, V( KP, 1 ), LDV, WORK( KP, 1 ), LDWORK );
          for (J = 1; J <= N; J++) {
             for (I = 1; I <= L; I++) {
                B( I, J ) = B( I, J ) - WORK( K-L+I, J )
@@ -438,7 +466,9 @@
                WORK( I, K-L+J ) = B( I, J )
             }
          }
-         dtrmm('R', 'U', 'T', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK )          CALL DGEMM( 'N', 'T', M, L, N-L, ONE, B( 1, NP ), LDB, V( KP, NP ), LDV, ONE, WORK( 1, KP ), LDWORK )          CALL DGEMM( 'N', 'T', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
+         dtrmm('R', 'U', 'T', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'T', M, L, N-L, ONE, B( 1, NP ), LDB, V( KP, NP ), LDV, ONE, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'T', M, K-L, N, ONE, B, LDB, V, LDV, ZERO, WORK, LDWORK );
 
          for (J = 1; J <= K; J++) {
             for (I = 1; I <= M; I++) {
@@ -454,7 +484,9 @@
             }
          }
 
-         dgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V( 1, NP ), LDV, ONE, B( 1, NP ), LDB )          CALL DGEMM( 'N', 'N', M, L, K-L , -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB )          CALL DTRMM( 'R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
+         dgemm('N', 'N', M, N-L, K, -ONE, WORK, LDWORK, V( 1, NP ), LDV, ONE, B( 1, NP ), LDB );
+         dgemm('N', 'N', M, L, K-L , -ONE, WORK, LDWORK, V, LDV, ONE, B, LDB );
+         dtrmm('R', 'U', 'N', 'N', M, L, ONE, V( KP, 1 ), LDV, WORK( 1, KP ), LDWORK );
          for (J = 1; J <= L; J++) {
             for (I = 1; I <= M; I++) {
                B( I, J ) = B( I, J ) - WORK( I, K-L+J )

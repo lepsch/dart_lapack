@@ -105,7 +105,8 @@
          VLI = VL + NLF - 1
          SQREI = 1
          if ( ICOMPQ.EQ.0 ) {
-            slaset('A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO );
+            slaset('A', NLP1, NLP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP );
+            slasdq('U', SQREI, NL, NLP1, NRU, NCC, D( NLF ), E( NLF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NL, WORK( NWORK2 ), NL, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + NL*SMLSZP
             scopy(NLP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 );
             scopy(NLP1, WORK( ITEMP ), 1, WORK( VLI ), 1 );
@@ -132,7 +133,8 @@
          VLI = VLI + NLP1
          NRP1 = NR + SQREI
          if ( ICOMPQ.EQ.0 ) {
-            slaset('A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP )             CALL SLASDQ( 'U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO );
+            slaset('A', NRP1, NRP1, ZERO, ONE, WORK( NWORK1 ), SMLSZP );
+            slasdq('U', SQREI, NR, NRP1, NRU, NCC, D( NRF ), E( NRF ), WORK( NWORK1 ), SMLSZP, WORK( NWORK2 ), NR, WORK( NWORK2 ), NR, WORK( NWORK2 ), INFO );
             ITEMP = NWORK1 + ( NRP1-1 )*SMLSZP
             scopy(NRP1, WORK( NWORK1 ), 1, WORK( VFI ), 1 );
             scopy(NRP1, WORK( ITEMP ), 1, WORK( VLI ), 1 );

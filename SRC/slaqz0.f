@@ -243,7 +243,8 @@
                   slartg(B( K2-1, K2 ), B( K2-1, K2-1 ), C1, S1, TEMP );
                   B( K2-1, K2 ) = TEMP
                   B( K2-1, K2-1 ) = ZERO
-                   srot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 )                   CALL SROT( MIN( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
+                   srot(K2-2-ISTARTM+1, B( ISTARTM, K2 ), 1, B( ISTARTM, K2-1 ), 1, C1, S1 );
+                  srot(MIN( K2+1, ISTOP )-ISTARTM+1, A( ISTARTM, K2 ), 1, A( ISTARTM, K2-1 ), 1, C1, S1 );
                   if ( ILZ ) {
                      srot(N, Z( 1, K2 ), 1, Z( 1, K2-1 ), 1, C1, S1 );
                   }
@@ -252,7 +253,8 @@
                      slartg(A( K2, K2-1 ), A( K2+1, K2-1 ), C1, S1, TEMP );
                      A( K2, K2-1 ) = TEMP
                      A( K2+1, K2-1 ) = ZERO
-                      srot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 )                      CALL SROT( ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
+                      srot(ISTOPM-K2+1, A( K2, K2 ), LDA, A( K2+1, K2 ), LDA, C1, S1 );
+                     srot(ISTOPM-K2+1, B( K2, K2 ), LDB, B( K2+1, K2 ), LDB, C1, S1 );
                      if ( ILQ ) {
                         srot(N, Q( 1, K2 ), 1, Q( 1, K2+1 ), 1, C1, S1 );
                      }
@@ -264,7 +266,8 @@
                   slartg(A( ISTART2, ISTART2 ), A( ISTART2+1, ISTART2 ), C1, S1, TEMP );
                   A( ISTART2, ISTART2 ) = TEMP
                   A( ISTART2+1, ISTART2 ) = ZERO
-                   srot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 )                   CALL SROT( ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
+                   srot(ISTOPM-( ISTART2+1 )+1, A( ISTART2, ISTART2+1 ), LDA, A( ISTART2+1, ISTART2+1 ), LDA, C1, S1 );
+                  srot(ISTOPM-( ISTART2+1 )+1, B( ISTART2, ISTART2+1 ), LDB, B( ISTART2+1, ISTART2+1 ), LDB, C1, S1 );
                   if ( ILQ ) {
                      srot(N, Q( 1, ISTART2 ), 1, Q( 1, ISTART2+1 ), 1, C1, S1 );
                   }

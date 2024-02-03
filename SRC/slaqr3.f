@@ -300,7 +300,9 @@
 
             slaset('L', JW-2, JW-2, ZERO, ZERO, T( 3, 1 ), LDT );
 
-            slarf('L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) )             CALL SLARF( 'R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
+            slarf('L', NS, JW, WORK, 1, TAU, T, LDT, WORK( JW+1 ) );
+            slarf('R', NS, NS, WORK, 1, TAU, T, LDT, WORK( JW+1 ) );
+            slarf('R', JW, NS, WORK, 1, TAU, V, LDV, WORK( JW+1 ) );
 
             sgehrd(JW, 1, NS, T, LDT, WORK, WORK( JW+1 ), LWORK-JW, INFO );
          }
@@ -334,7 +336,8 @@
          if ( WANTT ) {
             DO 80 KCOL = KBOT + 1, N, NH
                KLN = MIN( NH, N-KCOL+1 )
-               sgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT )                CALL SLACPY( 'A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
+               sgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
+               slacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
             } // 80
          }
 
@@ -343,7 +346,8 @@
          if ( WANTZ ) {
             DO 90 KROW = ILOZ, IHIZ, NV
                KLN = MIN( NV, IHIZ-KROW+1 )
-               sgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV )                CALL SLACPY( 'A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
+               sgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
+               slacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );
             } // 90
          }
       }

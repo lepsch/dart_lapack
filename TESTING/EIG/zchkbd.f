@@ -316,7 +316,8 @@
                // Generate Q
 
                MQ = M
-               if (NRHS.LE.0) MQ = MNMIN                CALL ZUNGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
+               if (NRHS.LE.0) MQ = MNMIN;
+               zungbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from ZUNGBR.
 
@@ -346,7 +347,9 @@
                     // 2:  Check the orthogonality of Q
                     // 3:  Check the orthogonality of PT
 
-               zbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) )                CALL ZUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL ZUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) );
+               zbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) );
+               zunt01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
+               zunt01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) );
             }
 
             // Use ZBDSQR to form the SVD of the bidiagonal matrix B:
@@ -399,7 +402,10 @@
                  // 6:  Check the orthogonality of U
                  // 7:  Check the orthogonality of VT
 
-            zbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) )             CALL ZBDT02( MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) )             CALL ZUNT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) )             CALL ZUNT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
+            zbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) );
+            zbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) );
+            zunt01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) );
+            zunt01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
@@ -451,7 +457,10 @@
                     // 13:  Check the orthogonality of Q*U
                     // 14:  Check the orthogonality of VT*PT
 
-               zbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) )                CALL ZBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) )                CALL ZUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) )                CALL ZUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) );
+               zbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) );
+               zbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) );
+               zunt01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) );
+               zunt01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) );
             }
 
             // End of Loop -- Check for RESULT(j) > THRESH

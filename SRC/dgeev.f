@@ -81,7 +81,8 @@
             MAXWRK = 2*N + N*ILAENV( 1, 'DGEHRD', ' ', N, 1, N, 0 )
             if ( WANTVL ) {
                MINWRK = 4*N
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VL, LDVL, WORK, -1, INFO );
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
                dtrevc3('L', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
@@ -90,7 +91,8 @@
                MAXWRK = MAX( MAXWRK, 4*N )
             } else if ( WANTVR ) {
                MINWRK = 4*N
-               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) )                CALL DHSEQR( 'S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO )
+               MAXWRK = MAX( MAXWRK, 2*N + ( N - 1 )*ILAENV( 1, 'DORGHR', ' ', N, 1, N, -1 ) );
+               dhseqr('S', 'V', N, 1, N, A, LDA, WR, WI, VR, LDVR, WORK, -1, INFO );
                HSWORK = INT( WORK(1) )
                MAXWRK = MAX( MAXWRK, N + 1, N + HSWORK )
                dtrevc3('R', 'B', SELECT, N, A, LDA, VL, LDVL, VR, LDVR, N, NOUT, WORK, -1, IERR );
@@ -285,9 +287,11 @@
 
       } // 50
       if ( SCALEA ) {
-         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         dlascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.GT.0 ) {
-            dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL DLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
+            dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
+            dlascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
          }
       }
 

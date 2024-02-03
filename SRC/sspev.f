@@ -103,7 +103,8 @@
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N
-         sopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
+         sopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
+         ssteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

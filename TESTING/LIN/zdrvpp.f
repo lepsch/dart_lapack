@@ -283,7 +283,8 @@
 
                         // Compute residual of the computed solution.
 
-                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        zppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
@@ -342,11 +343,13 @@
 
                         // Compute residual of the computed solution.
 
-                        zlacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL ZPPT02( UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                        zlacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                        zppt02(UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            zget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }

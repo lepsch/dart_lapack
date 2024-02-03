@@ -776,7 +776,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
+                     zlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in A
                      // (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -911,7 +912,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
+                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (CWorkspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
@@ -1060,7 +1062,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
+                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (CWorkspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -1205,7 +1208,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
+                     zlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in U
                      // (CWorkspace: need N*N+N+M, prefer N*N+N+M*NB)
@@ -1352,7 +1356,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
+                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1505,7 +1510,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
+                     zlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('L', N-1, N-1, CZERO, CZERO, WORK( IU+1 ), LDWRKU );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + N
@@ -1639,7 +1645,8 @@
                // (RWorkspace: 0)
 
                zlacpy('L', M, N, A, LDA, U, LDU );
-               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M                CALL ZUNGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M;
+               zungbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -2069,7 +2076,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     zlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in A
                      // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2206,7 +2214,8 @@
 
                      // Copy L to WORK(IU), zeroing out below it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (CWorkspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
@@ -2353,7 +2362,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (CWorkspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2498,7 +2508,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     zlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in VT
                      // (CWorkspace: need M*M+M+N, prefer M*M+M+N*NB)
@@ -2644,7 +2655,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2795,7 +2807,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL ZLASET( 'U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     zlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     zlaset('U', M-1, M-1, CZERO, CZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = 1
                      ITAUQ = ITAU
                      ITAUP = ITAUQ + M
@@ -2938,7 +2951,8 @@
                // (RWorkspace: 0)
 
                zlacpy('U', M, N, A, LDA, VT, LDVT );
-               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M                CALL ZUNGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M;
+               zungbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 

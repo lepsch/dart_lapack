@@ -301,7 +301,8 @@
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   }
-                  dtrmv('Lower', 'Transpose', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL DGEMV( 'Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
+                  dtrmv('Lower', 'Transpose', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 );
+                  dgemv('Transpose', LEN, NBLST-LEN, ONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                   PPW = PW
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
                      A( I, J+1 ) = WORK( PPW )
@@ -334,7 +335,10 @@
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      }
-                     dtrmv('Upper', 'Transpose', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL DTRMV( 'Lower', 'Transpose', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL DGEMV( 'Transpose', NNB, LEN, ONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, ONE, WORK( PW ), 1 )                      CALL DGEMV( 'Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
+                     dtrmv('Upper', 'Transpose', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 );
+                     dtrmv('Lower', 'Transpose', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 );
+                     dgemv('Transpose', NNB, LEN, ONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, ONE, WORK( PW ), 1 );
+                     dgemv('Transpose', LEN, NNB, ONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, ONE, WORK( PW+LEN ), 1 );
                      PPW = PW
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
                         A( I, J+1 ) = WORK( PPW )
@@ -469,7 +473,8 @@
                }
             } else {
 
-               dlaset('Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, A( JCOL + 2, JCOL ), LDA )                CALL DLASET( 'Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, B( JCOL + 2, JCOL ), LDB );
+               dlaset('Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, A( JCOL + 2, JCOL ), LDA );
+               dlaset('Lower', IHI - JCOL - 1, NNB, ZERO, ZERO, B( JCOL + 2, JCOL ), LDB );
             }
 
             // Apply accumulated orthogonal matrices to A and B.

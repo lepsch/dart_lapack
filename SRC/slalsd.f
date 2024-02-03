@@ -230,7 +230,8 @@
 
                // This is a small subproblem and is solved by SLASDQ.
 
-               slaset('A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO );
+               slaset('A', NSIZE, NSIZE, ZERO, ONE, WORK( VT+ST1 ), N );
+               slasdq('U', 0, NSIZE, NSIZE, 0, NRHS, D( ST ), E( ST ), WORK( VT+ST1 ), N, WORK( NWORK ), N, B( ST, 1 ), LDB, WORK( NWORK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }

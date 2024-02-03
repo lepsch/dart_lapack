@@ -168,7 +168,8 @@
                         // The interchange affects columns J to JJ-1 of A31
                         // which are stored in the work array WORK31
 
-                        cswap(JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK )                         CALL CSWAP( J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 );
+                        cswap(JJ-J, AB( KV+1+JJ-J, J ), LDAB-1, WORK31( JP+JJ-J-KL, 1 ), LDWORK );
+                        cswap(J+JB-JJ, AB( KV+1, JJ ), LDAB-1, AB( KV+JP, JJ ), LDAB-1 );
                      }
                   }
 

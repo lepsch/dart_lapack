@@ -207,7 +207,8 @@
          I = N1 + 1
          IJB = 0
          slacpy('Full', N1, N2, A( 1, I ), LDA, WORK, N1 );
-         slacpy('Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 )          CALL STGSYL( 'N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
+         slacpy('Full', N1, N2, B( 1, I ), LDB, WORK( N1*N2+1 ), N1 );
+         stgsyl('N', IJB, N1, N2, A, LDA, A( I, I ), LDA, WORK, N1, B, LDB, B( I, I ), LDB, WORK( N1*N2+1 ), N1, DSCALE, DIF( 1 ), WORK( N1*N2*2+1 ), LWORK-2*N1*N2, IWORK, IERR );
 
          // Estimate the reciprocal of norms of "projections" onto left
          // and right eigenspaces.

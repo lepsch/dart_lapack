@@ -244,7 +244,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 zlarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 zlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 zdscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
                               zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -252,7 +253,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 zlacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 zlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'ZGELS '
                               zgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
@@ -264,7 +266,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for ZGELS.
@@ -330,7 +333,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 zlarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL ZDSCAL( NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
+                                 zlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 zdscal(NCOLS*NRHS, ONE / DBLE( NCOLS ), WORK, 1 );
                               }
                               zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -338,7 +342,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 zlacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 zlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'ZGELST'
                               zgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
@@ -350,7 +355,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for ZGELST.
@@ -422,7 +428,8 @@
                                  // Set up a consistent rhs
 
                                  if ( NCOLS.GT.0 ) {
-                                    zlarnv(2, ISEED, NCOLS*NRHS, WORK )                                     CALL ZSCAL( NCOLS*NRHS, CONE / DBLE( NCOLS ), WORK, 1 );
+                                    zlarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                    zscal(NCOLS*NRHS, CONE / DBLE( NCOLS ), WORK, 1 );
                                  }
                                  zgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                                  zlacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -430,7 +437,8 @@
                                  // Solve LS or overdetermined system
 
                                  if ( M.GT.0 .AND. N.GT.0 ) {
-                                    zlacpy('Full', M, N, COPYA, LDA, A, LDA )                                     CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                    zlacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                    zlacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                  SRNAMT = 'ZGETSLS '
                                  zgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'ZGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -440,7 +448,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL ZQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL ZLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 zqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for ZGETSLS.
@@ -522,7 +531,8 @@
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
 
-                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) );
+                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        zqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
@@ -564,7 +574,8 @@
 
                         // Test 12:  Compute error in solution
 
-                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 12 ) );
+                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        zqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 12 ) );
 
                         // Test 13:  Check norm of r'*A
 
@@ -601,7 +612,8 @@
 
                         // Test 16:  Compute error in solution
 
-                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL ZQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 16 ) );
+                        zlacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        zqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 16 ) );
 
                         // Test 17:  Check norm of r'*A
 

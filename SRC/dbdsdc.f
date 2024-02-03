@@ -136,7 +136,9 @@
          } else if ( ICOMPQ.EQ.1 ) {
             IU = 1
             IVT = IU + N
-            dlaset('A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N )             CALL DLASET( 'A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N )             CALL DLASDQ( 'U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO );
+            dlaset('A', N, N, ZERO, ONE, Q( IU+( QSTART-1 )*N ), N );
+            dlaset('A', N, N, ZERO, ONE, Q( IVT+( QSTART-1 )*N ), N );
+            dlasdq('U', 0, N, N, N, 0, D, E, Q( IVT+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, Q( IU+( QSTART-1 )*N ), N, WORK( WSTART ), INFO );
          }
          GO TO 40
       }

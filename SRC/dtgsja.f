@@ -205,7 +205,8 @@
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
                dscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               dscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL DCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
+               dscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB );
+               dcopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {

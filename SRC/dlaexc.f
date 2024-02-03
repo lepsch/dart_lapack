@@ -244,7 +244,8 @@
 
             // Standardize new 2-by-2 block T11
 
-            dlanv2(T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN )             CALL DROT( N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN );
+            dlanv2(T( J1, J1 ), T( J1, J2 ), T( J2, J1 ), T( J2, J2 ), WR1, WI1, WR2, WI2, CS, SN );
+            drot(N-J1-1, T( J1, J1+2 ), LDT, T( J2, J1+2 ), LDT, CS, SN );
             drot(J1-1, T( 1, J1 ), 1, T( 1, J2 ), 1, CS, SN );
             if (WANTQ) CALL DROT( N, Q( 1, J1 ), 1, Q( 1, J2 ), 1, CS, SN );
          }

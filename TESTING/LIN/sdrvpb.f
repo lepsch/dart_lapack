@@ -304,7 +304,8 @@
                            // Compute the L*L' or U'*U factorization of the
                            // matrix and solve the system.
 
-                           slacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB )                            CALL SLACPY( 'Full', N, NRHS, B, LDA, X, LDA );
+                           slacpy('Full', KD+1, N, A, LDAB, AFAC, LDAB );
+                           slacpy('Full', N, NRHS, B, LDA, X, LDA );
 
                            SRNAMT = 'SPBSV '
                            spbsv(UPLO, N, KD, NRHS, AFAC, LDAB, X, LDA, INFO );
@@ -325,7 +326,8 @@
 
                            // Compute residual of the computed solution.
 
-                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                           spbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
@@ -384,11 +386,13 @@
 
                            // Compute residual of the computed solution.
 
-                           slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                            CALL SPBT02( UPLO, N, KD, NRHS, ASAV, LDAB, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                           slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                           spbt02(UPLO, N, KD, NRHS, ASAV, LDAB, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
-                           IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                               CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                           IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                              sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                            } else {
                               sget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                            }

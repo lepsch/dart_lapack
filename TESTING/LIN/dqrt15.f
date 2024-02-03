@@ -126,12 +126,16 @@
 
                // matrix scaled up
 
-               dlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
+               dlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
+               dlascl('General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO );
+               dlascl('General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               dlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
+               dlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
+               dlascl('General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO );
+               dlascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('DQRT15', 1 );
                RETURN

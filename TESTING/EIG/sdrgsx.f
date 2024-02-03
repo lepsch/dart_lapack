@@ -139,7 +139,8 @@
                   FS = .TRUE.
                   K = 0
 
-                  slaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA )                   CALL SLASET( 'Full', MPLUSN, MPLUSN, ZERO, ZERO, BI, LDA );
+                  slaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, AI, LDA );
+                  slaset('Full', MPLUSN, MPLUSN, ZERO, ZERO, BI, LDA );
 
                   slatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
@@ -172,11 +173,15 @@
 
                   // Compute the norm(A, B)
 
-                  slacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL SLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = SLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK );
+                  slacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
+                  slacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = SLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, WORK );
 
                   // Do tests (1) to (4)
 
-                  sget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) )                   CALL SGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) )                   CALL SGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
+                  sget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 1 ) );
+                  sget51(1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RESULT( 2 ) );
+                  sget51(3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RESULT( 3 ) );
+                  sget51(3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RESULT( 4 ) );
                   NTEST = 4
 
                   // Do tests (5) and (6): check Schur form of A and

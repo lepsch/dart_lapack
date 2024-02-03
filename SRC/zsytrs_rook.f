@@ -108,7 +108,8 @@
             // stored in columns K-1 and K of A.
 
             if ( K.GT.2 ) {
-               zgeru(K-2, NRHS,-CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                CALL ZGERU( K-2, NRHS,-CONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
+               zgeru(K-2, NRHS,-CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+               zgeru(K-2, NRHS,-CONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -163,7 +164,8 @@
             // stored in columns K and K+1 of A.
 
             if ( K.GT.1 ) {
-               zgemv('Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB )                CALL ZGEMV( 'Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K+1 ), 1, CONE, B( K+1, 1 ), LDB );
+               zgemv('Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K ), 1, CONE, B( K, 1 ), LDB );
+               zgemv('Transpose', K-1, NRHS, -CONE, B, LDB, A( 1, K+1 ), 1, CONE, B( K+1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K+1 and -IPIV(K+1).
@@ -230,7 +232,8 @@
             // stored in columns K and K+1 of A.
 
             if ( K.LT.N-1 ) {
-               zgeru(N-K-1, NRHS,-CONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL ZGERU( N-K-1, NRHS,-CONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
+               zgeru(N-K-1, NRHS,-CONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB );
+               zgeru(N-K-1, NRHS,-CONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -285,7 +288,8 @@
             // stored in columns K-1 and K of A.
 
             if ( K.LT.N ) {
-               zgemv('Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB )                CALL ZGEMV( 'Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, CONE, B( K-1, 1 ), LDB );
+               zgemv('Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, CONE, B( K, 1 ), LDB );
+               zgemv('Transpose', N-K, NRHS, -CONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, CONE, B( K-1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K-1 and -IPIV(K-1)

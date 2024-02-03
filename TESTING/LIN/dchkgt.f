@@ -319,7 +319,8 @@
 
                   if (INFO.NE.0) CALL ALAERH( PATH, 'DGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                  dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL DGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                  dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                  dgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.

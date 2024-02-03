@@ -335,7 +335,8 @@
                               // Compute the LU factorization of the matrix
                               // and solve the system.
 
-                              slacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL SLACPY( 'Full', N, NRHS, B, LDB, X, LDB );
+                              slacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB );
+                              slacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'SGBSV '
                               sgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
@@ -354,7 +355,8 @@
                                  // Compute residual of the computed
                                  // solution.
 
-                                 slacpy('Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL SGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                                 slacpy('Full', N, NRHS, B, LDB, WORK, LDB );
+                                 sgbt02('No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                                  // Check solution from generated exact
                                  // solution.
@@ -438,12 +440,14 @@
 
                               // Compute residual of the computed solution.
 
-                              slacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL SGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                              slacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB );
+                              sgbt02(TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL SGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                                 sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN.EQ.1 ) {
                                     ROLDC = ROLDO
@@ -573,11 +577,13 @@
 
                         // Compute residual of the computed solution.
 
-                        slacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                         CALL SGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                        slacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB );
+                        sgbt02(TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL SGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO

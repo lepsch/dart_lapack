@@ -114,7 +114,8 @@
 
          // apply reflection to A(k+i:n,i+1:k+i-1) from the left
 
-         dgemv('Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 )          CALL DGER( N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
+         dgemv('Transpose', N-K-I+1, K-1, ONE, A( K+I, I+1 ), LDA, A( K+I, I ), 1, ZERO, WORK, 1 );
+         dger(N-K-I+1, K-1, -TAU, A( K+I, I ), 1, WORK, 1, A( K+I, I+1 ), LDA );
 
          // apply reflection to A(k+i:n,k+i:n) from the left and the right
 

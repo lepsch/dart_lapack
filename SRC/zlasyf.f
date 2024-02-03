@@ -384,7 +384,8 @@
                // Copy column IMAX to column K+1 of W and update it
 
                zcopy(IMAX-K, A( IMAX, K ), LDA, W( K, K+1 ), 1 );
-               zcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 )                CALL ZGEMV( 'No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
+               zcopy(N-IMAX+1, A( IMAX, IMAX ), 1, W( IMAX, K+1 ), 1 );
+               zgemv('No transpose', N-K+1, K-1, -CONE, A( K, 1 ), LDA, W( IMAX, 1 ), LDW, CONE, W( K, K+1 ), 1 );
 
                // JMAX is the column-index of the largest off-diagonal
                // element in row IMAX, and ROWMAX is its absolute value

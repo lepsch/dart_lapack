@@ -76,7 +76,9 @@
                   CT = -HALF*AKK
                   zlacgv(N-K, A( K, K+1 ), LDA );
                   zlacgv(N-K, B( K, K+1 ), LDB );
-                  zaxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL ZHER2( UPLO, N-K, -CONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL ZAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  zaxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  zher2(UPLO, N-K, -CONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA );
+                  zaxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
                   zlacgv(N-K, B( K, K+1 ), LDB );
                   ztrsv(UPLO, 'Conjugate transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                   zlacgv(N-K, A( K, K+1 ), LDA );

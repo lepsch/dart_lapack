@@ -78,7 +78,8 @@
             if ( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
             } else if ( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) {
-               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL CLARTG( -CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R );
+               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
+               clartg(-CMPLX( UA11R ), CONJG( UA12 ), CSQ, SNQ, R );
             } else {
                clartg(-CMPLX( VB11R ), CONJG( VB12 ), CSQ, SNQ, R );
             }

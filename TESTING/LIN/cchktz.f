@@ -114,7 +114,8 @@
                      } // 30
                   } else {
                      clatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
-                     cgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL CLASET( 'Lower', M-1, N, CMPLX( ZERO ), CMPLX( ZERO ), A( 2 ), LDA );
+                     cgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO );
+                     claset('Lower', M-1, N, CMPLX( ZERO ), CMPLX( ZERO ), A( 2 ), LDA );
                      slaord('Decreasing', MNMIN, S, 1 );
                   }
 

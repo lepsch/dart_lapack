@@ -320,7 +320,8 @@
 
                      DO J = 1, NB_GEN, 1
                         IND_OUT = ( NB_ZERO+J-1 )*LDA + 1
-                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1                         CALL CSWAP( M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 )
+                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1;
+                        cswap(M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 );
                         }
 
                   }
@@ -375,7 +376,8 @@
                   // for the routine.
 
                   clacpy('All', M, N, COPYA, LDA, A, LDA );
-                  clacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL CLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA );
+                  clacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA );
+                  clacpy('All', M, NRHS, COPYB, LDA, B,  LDA );
                   icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
                   ABSTOL = -1.0

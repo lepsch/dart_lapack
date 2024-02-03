@@ -270,7 +270,8 @@
                      CTEMP = H( JCH, JCH )
                      zlartg(CTEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = CZERO
-                     zrot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL ZROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
+                     zrot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
+                     zrot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = .FALSE.
                      if ( ABS1( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
@@ -293,11 +294,13 @@
                      CTEMP = T( JCH, JCH+1 )
                      zlartg(CTEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = CZERO
-                     if (JCH.LT.ILASTM-1) CALL ZROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL ZROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
+                     if (JCH.LT.ILASTM-1) CALL ZROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     zrot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL ZROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, DCONJG( S ) );
                      CTEMP = H( JCH+1, JCH )
                      zlartg(CTEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = CZERO
-                     zrot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL ZROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL ZROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
+                     zrot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S );
+                     zrot(JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL ZROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
                   } // 30
                   GO TO 50
                }
@@ -325,7 +328,8 @@
          CTEMP = H( ILAST, ILAST )
          zlartg(CTEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = CZERO
-         zrot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL ZROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL ZROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
+         zrot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S );
+         zrot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL ZROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHA and BETA
 

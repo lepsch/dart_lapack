@@ -218,7 +218,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'DTBRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )                         CALL DTBT05( UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
+                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
+                        dtbt05(UPLO, TRANS, DIAG, N, KD, NRHS, AB, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 4 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

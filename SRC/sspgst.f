@@ -64,7 +64,8 @@
                // Compute the j-th column of the upper triangle of A
 
                BJJ = BP( JJ )
-               stpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 )                CALL SSPMV( UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
+               stpsv(UPLO, 'Transpose', 'Nonunit', J, BP, AP( J1 ), 1 );
+               sspmv(UPLO, J-1, -ONE, AP, BP( J1 ), 1, ONE, AP( J1 ), 1 );
                sscal(J-1, ONE / BJJ, AP( J1 ), 1 );
                AP( JJ ) = ( AP( JJ )-SDOT( J-1, AP( J1 ), 1, BP( J1 ), 1 ) ) / BJJ
             } // 10
@@ -135,7 +136,8 @@
                BJJ = BP( JJ )
                AP( JJ ) = AJJ*BJJ + SDOT( N-J, AP( JJ+1 ), 1, BP( JJ+1 ), 1 )
                sscal(N-J, BJJ, AP( JJ+1 ), 1 );
-               sspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 )                CALL STPMV( UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
+               sspmv(UPLO, N-J, ONE, AP( J1J1 ), BP( JJ+1 ), 1, ONE, AP( JJ+1 ), 1 );
+               stpmv(UPLO, 'Transpose', 'Non-unit', N-J+1, BP( JJ ), AP( JJ ), 1 );
                JJ = J1J1
             } // 40
          }

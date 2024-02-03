@@ -120,7 +120,8 @@
             CTEMP = A( JROW-1, JCOL )
             zlartg(CTEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
             A( JROW, JCOL ) = CZERO
-            zrot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL ZROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL ZROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, DCONJG( S ) );
+            zrot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
+            zrot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL ZROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, DCONJG( S ) );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 

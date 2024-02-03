@@ -91,7 +91,8 @@
             S = SIN( THETA(I) )
             PHANTOM(1) = ONE
             PHANTOM(P+1) = ONE
-            dlarf('L', P, Q, PHANTOM(1), 1, TAUP1(1), X11, LDX11, WORK(ILARF) )             CALL DLARF( 'L', M-P, Q, PHANTOM(P+1), 1, TAUP2(1), X21, LDX21, WORK(ILARF) );
+            dlarf('L', P, Q, PHANTOM(1), 1, TAUP1(1), X11, LDX11, WORK(ILARF) );
+            dlarf('L', M-P, Q, PHANTOM(P+1), 1, TAUP2(1), X21, LDX21, WORK(ILARF) );
          } else {
             dorbdb5(P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
             dscal(P-I+1, NEGONE, X11(I,I-1), 1 );
@@ -102,14 +103,16 @@
             S = SIN( THETA(I) )
             X11(I,I-1) = ONE
             X21(I,I-1) = ONE
-            dlarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, TAUP1(I), X11(I,I), LDX11, WORK(ILARF) )             CALL DLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, TAUP2(I), X21(I,I), LDX21, WORK(ILARF) );
+            dlarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, TAUP1(I), X11(I,I), LDX11, WORK(ILARF) );
+            dlarf('L', M-P-I+1, Q-I+1, X21(I,I-1), 1, TAUP2(I), X21(I,I), LDX21, WORK(ILARF) );
          }
 
          drot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
          dlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = X21(I,I)
          X21(I,I) = ONE
-         dlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         dlarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
+         dlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          if ( I .LT. M-Q ) {
             S = SQRT( DNRM2( P-I, X11(I+1,I), 1 )**2 + DNRM2( M-P-I, X21(I+1,I), 1 )**2 )
             PHI(I) = ATAN2( S, C )
@@ -122,7 +125,8 @@
       for (I = M - Q + 1; I <= P; I++) {
          dlarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
-         dlarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL DLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
+         dlarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
+         dlarf('R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
       }
 
       // Reduce the bottom-right portion of X21 to [ 0 I ]

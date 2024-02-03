@@ -336,7 +336,8 @@
 
       if ( N.GT.K ) {
          scopy(N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 );
-         slacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL SLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );
+         slacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU );
+         slacpy('A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );
       }
 
       // Copy CTOT into COLTYP for referencing in SLASD3.

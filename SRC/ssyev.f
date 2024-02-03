@@ -118,7 +118,8 @@
       if ( .NOT.WANTZ ) {
          ssterf(N, W, WORK( INDE ), INFO );
       } else {
-         sorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL SSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
+         sorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
+         ssteqr(JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

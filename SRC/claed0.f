@@ -133,7 +133,8 @@
             MATSIZ = IWORK( I+1 ) - IWORK( I )
          }
          LL = IQ - 1 + IWORK( IQPTR+CURR )
-         ssteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO )          CALL CLACRM( QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) );
+         ssteqr('I', MATSIZ, D( SUBMAT ), E( SUBMAT ), RWORK( LL ), MATSIZ, RWORK, INFO );
+         clacrm(QSIZ, MATSIZ, Q( 1, SUBMAT ), LDQ, RWORK( LL ), MATSIZ, QSTORE( 1, SUBMAT ), LDQS, RWORK( IWREM ) );
          IWORK( IQPTR+CURR+1 ) = IWORK( IQPTR+CURR ) + MATSIZ**2
          CURR = CURR + 1
          if ( INFO.GT.0 ) {

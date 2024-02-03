@@ -345,7 +345,8 @@
 
                               if (INFO.NE.0) CALL ALAERH( PATH, 'SGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
-                              slacpy('Full', N, NRHS, B, LDB, WORK, LDB )                               CALL SGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                              slacpy('Full', N, NRHS, B, LDB, WORK, LDB );
+                              sgbt02(TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
 *+    TEST 3:
                               // Check solution from generated exact
@@ -364,7 +365,8 @@
 
                               if (INFO.NE.0) CALL ALAERH( PATH, 'SGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                              sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL SGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                              sget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) );
+                              sgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
                               for (K = 2; K <= 6; K++) { // 60
                                  if ( RESULT( K ).GE.THRESH ) {
                                     if (NFAIL.EQ.0 .AND. NERRS.EQ.0) CALL ALAHD( NOUT, PATH )                                     WRITE( NOUT, FMT = 9996 )TRANS, N, KL, KU, NRHS, IMAT, K, RESULT( K );

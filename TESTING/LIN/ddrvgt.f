@@ -287,7 +287,8 @@
 
                         // Check residual of computed solution.
 
-                        dlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
+                        dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        dgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 

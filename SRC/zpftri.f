@@ -98,7 +98,8 @@
                // T1 -> a(0), T2 -> a(n), S -> a(N1)
 
                zlauum('L', N1, A( 0 ), N, INFO );
-               zherk('L', 'C', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL ZTRMM( 'L', 'U', 'N', 'N', N2, N1, CONE, A( N ), N, A( N1 ), N );
+               zherk('L', 'C', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N );
+               ztrmm('L', 'U', 'N', 'N', N2, N1, CONE, A( N ), N, A( N1 ), N );
                zlauum('U', N2, A( N ), N, INFO );
 
             } else {
@@ -108,7 +109,8 @@
                // T1 -> a(N2), T2 -> a(N1), S -> a(0)
 
                zlauum('L', N1, A( N2 ), N, INFO );
-               zherk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N )                CALL ZTRMM( 'R', 'U', 'C', 'N', N1, N2, CONE, A( N1 ), N, A( 0 ), N );
+               zherk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N );
+               ztrmm('R', 'U', 'C', 'N', N1, N2, CONE, A( N1 ), N, A( 0 ), N );
                zlauum('U', N2, A( N1 ), N, INFO );
 
             }
@@ -123,7 +125,8 @@
                // T1 -> a(0), T2 -> a(1), S -> a(0+N1*N1)
 
                zlauum('U', N1, A( 0 ), N1, INFO );
-               zherk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL ZTRMM( 'R', 'L', 'N', 'N', N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
+               zherk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 );
+               ztrmm('R', 'L', 'N', 'N', N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
                zlauum('L', N2, A( 1 ), N1, INFO );
 
             } else {
@@ -132,7 +135,8 @@
                // T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
 
                zlauum('U', N1, A( N2*N2 ), N2, INFO );
-               zherk('U', 'C', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 )                CALL ZTRMM( 'L', 'L', 'C', 'N', N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
+               zherk('U', 'C', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 );
+               ztrmm('L', 'L', 'C', 'N', N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
                zlauum('L', N2, A( N1*N2 ), N2, INFO );
 
             }
@@ -154,7 +158,8 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                zlauum('L', K, A( 1 ), N+1, INFO );
-               zherk('L', 'C', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL ZTRMM( 'L', 'U', 'N', 'N', K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
+               zherk('L', 'C', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 );
+               ztrmm('L', 'U', 'N', 'N', K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
                zlauum('U', K, A( 0 ), N+1, INFO );
 
             } else {
@@ -164,7 +169,8 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                zlauum('L', K, A( K+1 ), N+1, INFO );
-               zherk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 )                CALL ZTRMM( 'R', 'U', 'C', 'N', K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
+               zherk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 );
+               ztrmm('R', 'U', 'C', 'N', K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
                zlauum('U', K, A( K ), N+1, INFO );
 
             }
@@ -180,7 +186,8 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                zlauum('U', K, A( K ), K, INFO );
-               zherk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL ZTRMM( 'R', 'L', 'N', 'N', K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
+               zherk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K );
+               ztrmm('R', 'L', 'N', 'N', K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
                zlauum('L', K, A( 0 ), K, INFO );
 
             } else {
@@ -190,7 +197,8 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                zlauum('U', K, A( K*( K+1 ) ), K, INFO );
-               zherk('U', 'C', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K )                CALL ZTRMM( 'L', 'L', 'C', 'N', K, K, CONE, A( K*K ), K, A( 0 ), K );
+               zherk('U', 'C', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K );
+               ztrmm('L', 'L', 'C', 'N', K, K, CONE, A( K*K ), K, A( 0 ), K );
                zlauum('L', K, A( K*K ), K, INFO );
 
             }

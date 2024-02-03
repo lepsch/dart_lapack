@@ -113,7 +113,8 @@
                      } // 30
                   } else {
                      slatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
-                     sgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL SLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
+                     sgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO );
+                     slaset('Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
                      slaord('Decreasing', MNMIN, S, 1 );
                   }
 

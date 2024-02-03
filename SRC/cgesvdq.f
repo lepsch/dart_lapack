@@ -498,7 +498,8 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR .GT. 1) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA )             CALL CGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
+            if (NR .GT. 1) CALL CLASET( 'L', NR-1,NR-1, CZERO,CZERO, A(2,1), LDA );
+            cgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, CWORK, LCWORK, RWORK, INFO );
 
          }
 
@@ -753,7 +754,8 @@
                          U(q,NR+p) = CONJG(A(p,q))
                       } // 1197
                    } // 1196
-                   if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU)                    CALL CGEQRF( N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
+                   if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,U(1,NR+2),LDU);
+                   cgeqrf(N, NR, U(1,NR+1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = CONJG(U(p,NR+q))
@@ -833,9 +835,11 @@
                   }
                } else {
                   clacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  if (NR .GT. 1) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU)                   CALL CGELQF( NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
+                  if (NR .GT. 1) CALL CLASET('L',NR-1,NR-1,CZERO,CZERO,U(NR+2,1),LDU);
+                  cgelqf(NR, N, U(NR+1,1), LDU, CWORK(N+1), CWORK(N+NR+1), LCWORK-N-NR, IERR );
                   clacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV)                   CALL CGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO );
+                  if (NR .GT. 1) CALL CLASET('U',NR-1,NR-1,CZERO,CZERO,V(1,2),LDV);
+                  cgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, CWORK(N+NR+1), LCWORK-N-NR, RWORK, INFO );
                   claset('A',N-NR,NR,CZERO,CZERO,V(NR+1,1),LDV);
                   claset('A',NR,N-NR,CZERO,CZERO,V(1,NR+1),LDV);
                   claset('A',N-NR,N-NR,CZERO,CONE,V(NR+1,NR+1),LDV);

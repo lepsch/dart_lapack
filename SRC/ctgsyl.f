@@ -224,16 +224,20 @@
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
-                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 80
                      for (K = JS; K <= JE; K++) { // 90
-                        cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        cscal(IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 90
                      for (K = JS; K <= JE; K++) { // 100
-                        cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
+                        cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 );
+                        cscal(M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                      } // 100
                      for (K = JE + 1; K <= N; K++) { // 110
-                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 110
                      SCALE = SCALE*SCALOC
                   }
@@ -241,10 +245,12 @@
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
                   if ( I.GT.1 ) {
-                     cgemm('N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL CGEMM( 'N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), F( 1, JS ), LDF );
+                     cgemm('N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( 1, JS ), LDC );
+                     cgemm('N', 'N', IS-1, NB, MB, CMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     cgemm('N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, CMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL CGEMM( 'N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, CMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
+                     cgemm('N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, CMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC );
+                     cgemm('N', 'N', MB, N-JE, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, CMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
                } // 120
             } // 130
@@ -290,16 +296,20 @@
                if (LINFO.GT.0) INFO = LINFO;
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
-                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 160
                   for (K = JS; K <= JE; K++) { // 170
-                     cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     cscal(IS-1, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     cscal(IS-1, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 170
                   for (K = JS; K <= JE; K++) { // 180
-                     cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL CSCAL( M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
+                     cscal(M-IE, CMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 );
+                     cscal(M-IE, CMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                   } // 180
                   for (K = JE + 1; K <= N; K++) { // 190
-                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 190
                   SCALE = SCALE*SCALOC
                }
@@ -307,10 +317,12 @@
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
                if ( J.GT.P+2 ) {
-                  cgemm('N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL CGEMM( 'N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
+                  cgemm('N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
+                  cgemm('N', 'C', MB, JS-1, NB, CMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, CMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }
                if ( I.LT.P ) {
-                  cgemm('C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL CGEMM( 'C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
+                  cgemm('C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
+                  cgemm('C', 'N', M-IE, NB, MB, CMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, CMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }
             } // 200
          } // 210

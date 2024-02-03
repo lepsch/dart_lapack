@@ -189,7 +189,8 @@
 
       if ( ILVSL ) {
          slaset('Full', N, N, ZERO, ONE, VSL, LDVSL );
-         slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL )          CALL SORGQR( IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
+         slacpy('L', IROWS-1, IROWS-1, B( ILO+1, ILO ), LDB, VSL( ILO+1, ILO ), LDVSL );
+         sorgqr(IROWS, IROWS, IROWS, VSL( ILO, ILO ), LDVSL, WORK( ITAU ), WORK( IWORK ), LWORK+1-IWORK, IINFO );
          if (IINFO.GE.0) LWKOPT = MAX( LWKOPT, INT( WORK( IWORK ) )+IWORK-1 );
          if ( IINFO.NE.0 ) {
             INFO = N + 4

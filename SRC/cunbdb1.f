@@ -104,7 +104,8 @@
          S = SIN( THETA(I) )
          X11(I,I) = ONE
          X21(I,I) = ONE
-         clarf('L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )          CALL CLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
+         clarf('L', P-I+1, Q-I, X11(I,I), 1, CONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
+         clarf('L', M-P-I+1, Q-I, X21(I,I), 1, CONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
          if ( I .LT. Q ) {
             csrot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
@@ -112,7 +113,8 @@
             clarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = REAL( X21(I,I+1) )
             X21(I,I+1) = ONE
-            clarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL CLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
+            clarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
+            clarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             clacgv(Q-I, X21(I,I+1), LDX21 );
             C = SQRT( SCNRM2( P-I, X11(I+1,I+1), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
             PHI(I) = ATAN2( S, C )

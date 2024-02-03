@@ -183,10 +183,12 @@
 
                   if ( I.GT.1 ) {
                      ALPHA = -RHS( 1 )
-                     saxpy(IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 )                      CALL SAXPY( IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 );
+                     saxpy(IS-1, ALPHA, A( 1, IS ), 1, C( 1, JS ), 1 );
+                     saxpy(IS-1, ALPHA, D( 1, IS ), 1, F( 1, JS ), 1 );
                   }
                   if ( J.LT.Q ) {
-                     saxpy(N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
+                     saxpy(N-JE, RHS( 2 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
+                     saxpy(N-JE, RHS( 2 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.1 ) .AND. ( NB.EQ.2 ) ) {
@@ -249,10 +251,14 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     sger(IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC )                      CALL SGER( IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF );
+                     sger(IS-1, NB, -ONE, A( 1, IS ), 1, RHS( 1 ), 1, C( 1, JS ), LDC );
+                     sger(IS-1, NB, -ONE, D( 1, IS ), 1, RHS( 1 ), 1, F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     saxpy(N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF )                      CALL SAXPY( N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SAXPY( N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF );
+                     saxpy(N-JE, RHS( 3 ), B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
+                     saxpy(N-JE, RHS( 3 ), E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
+                     saxpy(N-JE, RHS( 4 ), B( JSP1, JE+1 ), LDB, C( IS, JE+1 ), LDC );
+                     saxpy(N-JE, RHS( 4 ), E( JSP1, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
@@ -314,10 +320,12 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     sgemv('N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 )                      CALL SGEMV( 'N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 );
+                     sgemv('N', IS-1, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), 1, ONE, C( 1, JS ), 1 );
+                     sgemv('N', IS-1, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), 1, ONE, F( 1, JS ), 1 );
                   }
                   if ( J.LT.Q ) {
-                     sger(MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC )                      CALL SGER( MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
+                     sger(MB, N-JE, ONE, RHS( 3 ), 1, B( JS, JE+1 ), LDB, C( IS, JE+1 ), LDC );
+                     sger(MB, N-JE, ONE, RHS( 3 ), 1, E( JS, JE+1 ), LDE, F( IS, JE+1 ), LDF );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
@@ -405,11 +413,13 @@
                   // equation.
 
                   if ( I.GT.1 ) {
-                     sgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC )                      CALL SGEMM( 'N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF );
+                     sgemm('N', 'N', IS-1, NB, MB, -ONE, A( 1, IS ), LDA, RHS( 1 ), MB, ONE, C( 1, JS ), LDC );
+                     sgemm('N', 'N', IS-1, NB, MB, -ONE, D( 1, IS ), LDD, RHS( 1 ), MB, ONE, F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
                      K = MB*NB + 1
-                     sgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC )                      CALL SGEMM( 'N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
+                     sgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, B( JS, JE+1 ), LDB, ONE, C( IS, JE+1 ), LDC );
+                     sgemm('N', 'N', MB, N-JE, NB, ONE, RHS( K ), MB, E( JS, JE+1 ), LDE, ONE, F( IS, JE+1 ), LDF );
                   }
 
                }
@@ -542,10 +552,14 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     saxpy(JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SAXPY( JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF );
+                     saxpy(JS-1, RHS( 1 ), B( 1, JS ), 1, F( IS, 1 ), LDF );
+                     saxpy(JS-1, RHS( 2 ), B( 1, JSP1 ), 1, F( IS, 1 ), LDF );
+                     saxpy(JS-1, RHS( 3 ), E( 1, JS ), 1, F( IS, 1 ), LDF );
+                     saxpy(JS-1, RHS( 4 ), E( 1, JSP1 ), 1, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     sger(M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC )                      CALL SGER( M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
+                     sger(M-IE, NB, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, C( IE+1, JS ), LDC );
+                     sger(M-IE, NB, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, C( IE+1, JS ), LDC );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.1 ) ) {
@@ -604,10 +618,12 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     sger(MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF )                      CALL SGER( MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF );
+                     sger(MB, JS-1, ONE, RHS( 1 ), 1, B( 1, JS ), 1, F( IS, 1 ), LDF );
+                     sger(MB, JS-1, ONE, RHS( 3 ), 1, E( 1, JS ), 1, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     sgemv('T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 )                      CALL SGEMV( 'T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
+                     sgemv('T', MB, M-IE, -ONE, A( IS, IE+1 ), LDA, RHS( 1 ), 1, ONE, C( IE+1, JS ), 1 );
+                     sgemv('T', MB, M-IE, -ONE, D( IS, IE+1 ), LDD, RHS( 3 ), 1, ONE, C( IE+1, JS ), 1 );
                   }
 
                } else if ( ( MB.EQ.2 ) .AND. ( NB.EQ.2 ) ) {
@@ -693,10 +709,12 @@
                   // equation.
 
                   if ( J.GT.P+2 ) {
-                     sgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF )                      CALL SGEMM( 'N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
+                     sgemm('N', 'T', MB, JS-1, NB, ONE, C( IS, JS ), LDC, B( 1, JS ), LDB, ONE, F( IS, 1 ), LDF );
+                     sgemm('N', 'T', MB, JS-1, NB, ONE, F( IS, JS ), LDF, E( 1, JS ), LDE, ONE, F( IS, 1 ), LDF );
                   }
                   if ( I.LT.P ) {
-                     sgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC )                      CALL SGEMM( 'T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
+                     sgemm('T', 'N', M-IE, NB, MB, -ONE, A( IS, IE+1 ), LDA, C( IS, JS ), LDC, ONE, C( IE+1, JS ), LDC );
+                     sgemm('T', 'N', M-IE, NB, MB, -ONE, D( IS, IE+1 ), LDD, F( IS, JS ), LDF, ONE, C( IE+1, JS ), LDC );
                   }
 
                }

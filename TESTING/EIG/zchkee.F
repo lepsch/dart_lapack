@@ -762,7 +762,8 @@ void main() {
                   ISEED( K ) = IOLDSD( K )
                } // 260
             }
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL ZCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO )
+            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
+            zchkhs(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO );
             if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCHKHS', INFO;
          } // 270
 
@@ -1168,7 +1169,8 @@ void main() {
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'GLM', NOUT )          CALL ZCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL ZERRGG( 'GLM', NOUT );
+         zckglm(NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCKGLM', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
@@ -1178,7 +1180,8 @@ void main() {
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'GQR', NOUT )          CALL ZCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL ZERRGG( 'GQR', NOUT );
+         zckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCKGQR', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
@@ -1188,7 +1191,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL ZERRGG( 'GSV', NOUT )          CALL ZCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL ZERRGG( 'GSV', NOUT );
+         zckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCKGSV', INFO;
 
       } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
@@ -1198,7 +1202,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL ZERRGG( 'CSD', NOUT )          CALL ZCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL ZERRGG( 'CSD', NOUT );
+         zckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCKCSD', INFO;
 
       } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
@@ -1208,7 +1213,8 @@ void main() {
          // --------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL ZERRGG( 'LSE', NOUT )          CALL ZCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL ZERRGG( 'LSE', NOUT );
+         zcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'ZCKLSE', INFO;
       } else {
          WRITE( NOUT, FMT = * )

@@ -230,7 +230,8 @@
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             }
-            slacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL SORGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
+            slacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T );
+            sorglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
@@ -313,7 +314,8 @@
                U2(1,J) = ZERO
                U2(J,1) = ZERO
             }
-            slacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
+            slacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
+            sorgqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             slacpy('U', M-P, Q, X21, LDX21, V1T, LDV1T );
@@ -359,17 +361,21 @@
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
             }
-            slacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL SORGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
+            slacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
+            sorgqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
             }
-            slacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL SORGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
+            slacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
+            sorgqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             slacpy('U', M-Q, Q, X21, LDX21, V1T, LDV1T );
-            slacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL SLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL SORGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
+            slacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T );
+            slacpy('U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T );
+            sorglq(Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.

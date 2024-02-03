@@ -97,7 +97,8 @@
                // T1 -> a(0), T2 -> a(n), S -> a(N1)
 
                slauum('L', N1, A( 0 ), N, INFO );
-               ssyrk('L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL STRMM( 'L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N );
+               ssyrk('L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N );
+               strmm('L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N );
                slauum('U', N2, A( N ), N, INFO );
 
             } else {
@@ -107,7 +108,8 @@
                // T1 -> a(N2), T2 -> a(N1), S -> a(0)
 
                slauum('L', N1, A( N2 ), N, INFO );
-               ssyrk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N )                CALL STRMM( 'R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N, A( 0 ), N );
+               ssyrk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N );
+               strmm('R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N, A( 0 ), N );
                slauum('U', N2, A( N1 ), N, INFO );
 
             }
@@ -122,7 +124,8 @@
                // T1 -> a(0), T2 -> a(1), S -> a(0+N1*N1)
 
                slauum('U', N1, A( 0 ), N1, INFO );
-               ssyrk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL STRMM( 'R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 );
+               ssyrk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 );
+               strmm('R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 );
                slauum('L', N2, A( 1 ), N1, INFO );
 
             } else {
@@ -131,7 +134,8 @@
                // T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
 
                slauum('U', N1, A( N2*N2 ), N2, INFO );
-               ssyrk('U', 'T', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 )                CALL STRMM( 'L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ), N2, A( 0 ), N2 );
+               ssyrk('U', 'T', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 );
+               strmm('L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ), N2, A( 0 ), N2 );
                slauum('L', N2, A( N1*N2 ), N2, INFO );
 
             }
@@ -153,7 +157,8 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                slauum('L', K, A( 1 ), N+1, INFO );
-               ssyrk('L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL STRMM( 'L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 );
+               ssyrk('L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 );
+               strmm('L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 );
                slauum('U', K, A( 0 ), N+1, INFO );
 
             } else {
@@ -163,7 +168,8 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                slauum('L', K, A( K+1 ), N+1, INFO );
-               ssyrk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 )                CALL STRMM( 'R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1, A( 0 ), N+1 );
+               ssyrk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 );
+               strmm('R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1, A( 0 ), N+1 );
                slauum('U', K, A( K ), N+1, INFO );
 
             }
@@ -179,7 +185,8 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                slauum('U', K, A( K ), K, INFO );
-               ssyrk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL STRMM( 'R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K );
+               ssyrk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K );
+               strmm('R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K );
                slauum('L', K, A( 0 ), K, INFO );
 
             } else {
@@ -189,7 +196,8 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                slauum('U', K, A( K*( K+1 ) ), K, INFO );
-               ssyrk('U', 'T', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K )                CALL STRMM( 'L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K, A( 0 ), K );
+               ssyrk('U', 'T', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K );
+               strmm('L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K, A( 0 ), K );
                slauum('L', K, A( K*K ), K, INFO );
 
             }

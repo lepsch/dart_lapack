@@ -277,7 +277,8 @@
 
                      // Compute residual of the computed solution.
 
-                     zlacpy('Full', N, NRHS, B, LDA, Z_WORK_ZPOT02, LDA )                      CALL ZPOT02( UPLO, N, NRHS, A, LDA, X, LDA, Z_WORK_ZPOT02, LDA, D_WORK_ZPOT02, RESULT( 3 ) );
+                     zlacpy('Full', N, NRHS, B, LDA, Z_WORK_ZPOT02, LDA );
+                     zpot02(UPLO, N, NRHS, A, LDA, X, LDA, Z_WORK_ZPOT02, LDA, D_WORK_ZPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
 

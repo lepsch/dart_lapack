@@ -119,7 +119,8 @@
             TEMP = A( JROW-1, JCOL )
             slartg(TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
             A( JROW, JCOL ) = ZERO
-            srot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL SROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL SROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
+            srot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
+            srot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL SROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 

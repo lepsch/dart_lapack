@@ -416,7 +416,8 @@ void main() {
                            // Call the subroutine.
 
                            if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL SGEMM( TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           sgemm(TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                            // Check if error-exit was taken incorrectly.
 
@@ -646,7 +647,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC;
-                        if (REWI) REWIND NTRA                         CALL SSYMM( SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        ssymm(SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -873,10 +875,12 @@ void main() {
 
                            if ( SNAME( 4: 5 ).EQ.'MM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
-                              if (REWI) REWIND NTRA                               CALL STRMM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              strmm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
-                              if (REWI) REWIND NTRA                               CALL STRSM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              strsm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1114,7 +1118,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC;
-                        if (REWI) REWIND NTRA                         CALL SSYRK( UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        ssyrk(UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -1367,7 +1372,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC;
-                        if (REWI) REWIND NTRA                         CALL SSYR2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        ssyr2k(UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 

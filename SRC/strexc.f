@@ -156,7 +156,8 @@
 
                   // 2 by 2 Block did split
 
-                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO );
+                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO );
+                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE+1, 1, 1, WORK, INFO );
                   HERE = HERE + 2
                }
             }
@@ -230,7 +231,8 @@
 
                   // 2 by 2 Block did split
 
-                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO )                   CALL SLAEXC( WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO );
+                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE, 1, 1, WORK, INFO );
+                  slaexc(WANTQ, N, T, LDT, Q, LDQ, HERE-1, 1, 1, WORK, INFO );
                   HERE = HERE - 2
                }
             }

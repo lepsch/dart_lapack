@@ -76,7 +76,9 @@
                   CT = -HALF*AKK
                   clacgv(N-K, A( K, K+1 ), LDA );
                   clacgv(N-K, B( K, K+1 ), LDB );
-                  caxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL CHER2( UPLO, N-K, -CONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL CAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  caxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  cher2(UPLO, N-K, -CONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA );
+                  caxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
                   clacgv(N-K, B( K, K+1 ), LDB );
                   ctrsv(UPLO, 'Conjugate transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                   clacgv(N-K, A( K, K+1 ), LDA );

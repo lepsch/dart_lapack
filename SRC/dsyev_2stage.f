@@ -128,7 +128,8 @@
          // Not available in this release, and argument checking should not
          // let it getting here
          RETURN
-         dorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
+         dorgtr(UPLO, N, A, LDA, WORK( INDTAU ), WORK( INDWRK ), LLWORK, IINFO );
+         dsteqr(JOBZ, N, W, WORK( INDE ), A, LDA, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

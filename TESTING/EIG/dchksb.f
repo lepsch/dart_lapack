@@ -235,7 +235,8 @@
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
-                  if (N.GT.1) K = MAX( 1, K )                   CALL DLATMS( N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
+                  if (N.GT.1) K = MAX( 1, K );
+                  dlatms(N, N, 'S', ISEED, 'P', WORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK( N+1 ), IINFO );
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      if ( TEMP1.GT.HALF ) {

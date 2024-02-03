@@ -71,7 +71,10 @@
                if ( K.LT.N ) {
                   sscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK
-                  saxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL SSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL SAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL STRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
+                  saxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  ssyr2(UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA );
+                  saxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  strsv(UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                }
             } // 10
          } else {

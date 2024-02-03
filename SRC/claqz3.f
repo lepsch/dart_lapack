@@ -88,7 +88,8 @@
          }
 
          clartg(TEMP2, TEMP3, C, S, TEMP );
-         crot(NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C, S )          CALL CROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C, S );
+         crot(NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C, S );
+         crot(NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C, S );
          crot(NS+1, QC( 1, 1 ), 1, QC( 1, 2 ), 1, C, CONJG( S ) );
 
          // Chase the shift down
@@ -106,7 +107,10 @@
       SHEIGHT = NS+1
       SWIDTH = ISTOPM-( ILO+NS )+1
       if ( SWIDTH > 0 ) {
-         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( ILO, ILO+NS ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( ILO, ILO+NS ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB );
+         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( ILO, ILO+NS ), LDA, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA );
+         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( ILO, ILO+NS ), LDB, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB );
       }
       if ( ILQ ) {
         cgemm('N', 'N', N, SHEIGHT, SHEIGHT, CONE, Q( 1, ILO ), LDQ, QC, LDQC, CZERO, WORK, N );
@@ -118,7 +122,9 @@
       SHEIGHT = ILO-1-ISTARTM+1
       SWIDTH = NS
       if ( SHEIGHT > 0 ) {
-         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
+         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA );
+         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
          clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, ILO ), LDB );
       }
       if ( ILZ ) {
@@ -161,7 +167,9 @@
          SHEIGHT = NS+NP
          SWIDTH = ISTOPM-( K+NS+NP )+1
          if ( SWIDTH > 0 ) {
-            cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA )             CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, CZERO, WORK, SHEIGHT );
+            cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, CZERO, WORK, SHEIGHT );
+            clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA );
+            cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, CZERO, WORK, SHEIGHT );
             clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( K+1, K+NS+NP ), LDB );
          }
          if ( ILQ ) {
@@ -174,7 +182,9 @@
          SHEIGHT = K-ISTARTM+1
          SWIDTH = NBLOCK
          if ( SHEIGHT > 0 ) {
-            cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, K ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )             CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA )             CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, K ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
+            cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, K ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT );
+            clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA );
+            cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, K ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
             clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, K ), LDB );
          }
          if ( ILZ ) {
@@ -212,7 +222,10 @@
       SHEIGHT = NS
       SWIDTH = ISTOPM-( IHI+1 )+1
       if ( SWIDTH > 0 ) {
-         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA )          CALL CGEMM( 'C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB );
+         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA );
+         cgemm('C', 'N', SHEIGHT, SWIDTH, SHEIGHT, CONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB );
       }
       if ( ILQ ) {
          cgemm('N', 'N', N, NS, NS, CONE, Q( 1, IHI-NS+1 ), LDQ, QC, LDQC, CZERO, WORK, N );
@@ -224,7 +237,9 @@
       SHEIGHT = IHI-NS-ISTARTM+1
       SWIDTH = NS+1
       if ( SHEIGHT > 0 ) {
-         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT )          CALL CLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA )          CALL CGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
+         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, CZERO, WORK, SHEIGHT );
+         clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA );
+         cgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, CONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, CZERO, WORK, SHEIGHT );
          clacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, IHI-NS ), LDB );
       }
       if ( ILZ ) {

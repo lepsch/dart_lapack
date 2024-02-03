@@ -767,7 +767,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need N*N + 2*N, prefer N*N + N + N*NB)
@@ -891,7 +892,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*N*N + 2*N, prefer 2*N*N + N + N*NB)
@@ -1026,7 +1028,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need N*N + 2*N, prefer N*N + N + N*NB)
@@ -1158,7 +1161,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     dlacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in U
                      // (Workspace: need N*N + N + M, prefer N*N + N + M*NB)
@@ -1293,7 +1297,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1433,7 +1438,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     dlacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1554,7 +1560,8 @@
                // (Workspace: need 3*N + NCU, prefer 3*N + NCU*NB)
 
                dlacpy('L', M, N, A, LDA, U, LDU );
-               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M                CALL DORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M;
+               dorgbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -1951,7 +1958,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need M*M + 2*M, prefer M*M + M + M*NB)
@@ -2077,7 +2085,8 @@
 
                      // Copy L to WORK(IU), zeroing out below it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*M*M + 2*M, prefer 2*M*M + M + M*NB)
@@ -2210,7 +2219,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need M*M + 2*M, prefer M*M + M + M*NB)
@@ -2342,7 +2352,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     dlacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in VT
                      // (Workspace: need M*M + M + N, prefer M*M + M + N*NB)
@@ -2476,7 +2487,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2614,7 +2626,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL DLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     dlacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     dlaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2743,7 +2756,8 @@
                // (Workspace: need 3*M + NRVT, prefer 3*M + NRVT*NB)
 
                dlacpy('U', M, N, A, LDA, VT, LDVT );
-               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M                CALL DORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M;
+               dorgbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 

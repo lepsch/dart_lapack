@@ -83,7 +83,8 @@
                // Now form  a( k ) := a( k ) - conjg(tau)*w
                // and       B      := B      - conjg(tau)*w*z( k )**H.
 
-               caxpy(K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL CGERC( K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
+               caxpy(K-1, -CONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 );
+               cgerc(K-1, N-M, -CONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
          } // 20
       }

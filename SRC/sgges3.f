@@ -236,7 +236,8 @@
          // Undo scaling on eigenvalues before SELCTGing
 
          if ( ILASCL ) {
-            slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR )             CALL SLASCL( 'G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
+            slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAR, N, IERR );
+            slascl('G', 0, 0, ANRMTO, ANRM, N, 1, ALPHAI, N, IERR );
          }
          if (ILBSCL) CALL SLASCL( 'G', 0, 0, BNRMTO, BNRM, N, 1, BETA, N, IERR );
 

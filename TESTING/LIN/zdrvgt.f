@@ -288,7 +288,8 @@
 
                         // Check residual of computed solution.
 
-                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        zgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 

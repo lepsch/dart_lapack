@@ -507,7 +507,8 @@
                // CWorkspace: prefer N*N [U] + N*N [R] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU );
+               cunmbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by the right singular vectors of R
@@ -672,7 +673,8 @@
                // CWorkspace: prefer N*N [U] + 2*N [tauq, taup] + N*NB [work]
                // RWorkspace: need   0
 
-               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                CALL CUNMBR( 'Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU );
+               cunmbr('Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Copy real matrix RWORK(IRVT) to complex matrix VT
                // Overwrite VT by right singular vectors of R
@@ -785,7 +787,8 @@
                NRWORK = IRVT
                DO 20 I = 1, M, LDWRKU
                   CHUNK = MIN( M-I+1, LDWRKU )
-                  clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) )                   CALL CLACPY( 'F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
+                  clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
+                  clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
                } // 20
 
             } else if ( WNTQS ) {
@@ -956,7 +959,9 @@
                   // CWorkspace: prefer 2*N [tauq, taup] + M*N [U] + N*NB [work]
                   // RWorkspace: need   N [e] + N*N [RU]
 
-                  claset('F', M, N, CZERO, CZERO, WORK( IU ), LDWRKU )                   CALL CLACP2( 'F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU )                   CALL CUNMBR( 'Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
+                  claset('F', M, N, CZERO, CZERO, WORK( IU ), LDWRKU );
+                  clacp2('F', N, N, RWORK( IRU ), N, WORK( IU ), LDWRKU );
+                  cunmbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK-NWORK+1, IERR );
                   clacpy('F', M, N, WORK( IU ), LDWRKU, A, LDA );
                } else {
 
@@ -1186,7 +1191,8 @@
                // CWorkspace: prefer M*M [VT] + M*M [L] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT );
+               cunmbr('P', 'R', 'C', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply right singular vectors of L in WORK(IL) by Q
                // in A, storing result in WORK(IL) and copying to A
@@ -1351,7 +1357,8 @@
                // CWorkspace: prefer M*M [VT] + 2*M [tauq, taup] + M*NB [work]
                // RWorkspace: need   0
 
-               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                CALL CUNMBR( 'P', 'R', 'C', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
+               clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT );
+               cunmbr('P', 'R', 'C', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by
                // Q in VT, storing result in A
@@ -1458,7 +1465,8 @@
                NRWORK = IRU
                DO 50 I = 1, N, CHUNK
                   BLK = MIN( N-I+1, CHUNK )
-                  clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) )                   CALL CLACPY( 'F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
+                  clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
+                  clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
                } // 50
             } else if ( WNTQS ) {
 
@@ -1630,7 +1638,8 @@
                   // CWorkspace: prefer 2*M [tauq, taup] + M*N [VT] + M*NB [work]
                   // RWorkspace: need   M [e] + M*M [RVT]
 
-                  clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT )                   CALL CUNMBR( 'P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
+                  clacp2('F', M, M, RWORK( IRVT ), M, WORK( IVT ), LDWKVT );
+                  cunmbr('P', 'R', 'C', M, N, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK-NWORK+1, IERR );
                   clacpy('F', M, N, WORK( IVT ), LDWKVT, A, LDA );
                } else {
 

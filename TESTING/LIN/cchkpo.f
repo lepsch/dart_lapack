@@ -256,7 +256,8 @@
 
                      if (INFO.NE.0) CALL ALAERH( PATH, 'CPORFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                     cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                      CALL CPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
+                     cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
+                     cpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 6 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

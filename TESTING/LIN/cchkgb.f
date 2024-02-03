@@ -345,7 +345,8 @@
 
                               if (INFO.NE.0) CALL ALAERH( PATH, 'CGBTRS', INFO, 0, TRANS, N, N, KL, KU, -1, IMAT, NFAIL, NERRS, NOUT );
 
-                              clacpy('Full', N, NRHS, B, LDB, WORK, LDB )                               CALL CGBT02( TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                              clacpy('Full', N, NRHS, B, LDB, WORK, LDB );
+                              cgbt02(TRANS, M, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
 *+    TEST 3:
                               // Check solution from generated exact
@@ -364,7 +365,8 @@
 
                               if (INFO.NE.0) CALL ALAERH( PATH, 'CGBRFS', INFO, 0, TRANS, N, N, KL, KU, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                              cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) )                               CALL CGBT05( TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                              cget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 4 ) );
+                              cgbt05(TRANS, N, KL, KU, NRHS, A, LDA, B, LDB, X, LDB, XACT, LDB, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                               // Print information about the tests that did
                               // not pass the threshold.

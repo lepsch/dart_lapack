@@ -196,7 +196,8 @@
             if (JBLK.EQ.1) GO TO 90             IF( ABS( XJ-XJM ).GT.ORTOL ) GPIND = J;
             if ( GPIND.NE.J ) {
                for (I = GPIND; I <= J - 1; I++) { // 80
-                  CTR = -SDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 )                   CALL SAXPY( BLKSIZ, CTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 )
+                  CTR = -SDOT( BLKSIZ, WORK( INDRV1+1 ), 1, Z( B1, I ), 1 );
+                  saxpy(BLKSIZ, CTR, Z( B1, I ), 1, WORK( INDRV1+1 ), 1 );
                } // 80
             }
 

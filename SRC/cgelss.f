@@ -411,7 +411,8 @@
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               cgemm('C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M )                CALL CLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
+               cgemm('C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M );
+               clacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
          } else if ( NRHS.EQ.1 ) {
             cgemv('C', M, M, CONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, CZERO, WORK( IWORK ), 1 );

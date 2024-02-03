@@ -149,7 +149,8 @@
                   FS = .TRUE.
                   K = 0
 
-                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA )                   CALL ZLASET( 'Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA );
+                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, AI, LDA );
+                  zlaset('Full', MPLUSN, MPLUSN, CZERO, CZERO, BI, LDA );
 
                   zlatm5(PRTYPE, M, N, AI, LDA, AI( M+1, M+1 ), LDA, AI( 1, M+1 ), LDA, BI, LDA, BI( M+1, M+1 ), LDA, BI( 1, M+1 ), LDA, Q, LDA, Z, LDA, WEIGHT, QBA, QBB );
 
@@ -182,12 +183,16 @@
 
                   // Compute the norm(A, B)
 
-                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN )                   CALL ZLACPY( 'Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
+                  zlacpy('Full', MPLUSN, MPLUSN, AI, LDA, WORK, MPLUSN );
+                  zlacpy('Full', MPLUSN, MPLUSN, BI, LDA, WORK( MPLUSN*MPLUSN+1 ), MPLUSN )                   ABNRM = ZLANGE( 'Fro', MPLUSN, 2*MPLUSN, WORK, MPLUSN, RWORK );
 
                   // Do tests (1) to (4)
 
                   RESULT( 2 ) = ZERO
-                  zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) )                   CALL ZGET51( 1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) )                   CALL ZGET51( 3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
+                  zget51(1, MPLUSN, A, LDA, AI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 1 ) );
+                  zget51(1, MPLUSN, B, LDA, BI, LDA, Q, LDA, Z, LDA, WORK, RWORK, RESULT( 2 ) );
+                  zget51(3, MPLUSN, B, LDA, BI, LDA, Q, LDA, Q, LDA, WORK, RWORK, RESULT( 3 ) );
+                  zget51(3, MPLUSN, B, LDA, BI, LDA, Z, LDA, Z, LDA, WORK, RWORK, RESULT( 4 ) );
                   NTEST = 4
 
                   // Do tests (5) and (6): check Schur form of A and

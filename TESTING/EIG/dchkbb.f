@@ -279,7 +279,10 @@
                     // 3:  Check the orthogonality of P
                     // 4:  Check the computation of Q' * C
 
-               dbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) )                CALL DORT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL DORT01( 'Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) )                CALL DBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) );
+               dbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) );
+               dort01('Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
+               dort01('Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) );
+               dbdt02(M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

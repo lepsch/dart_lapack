@@ -164,7 +164,8 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL DLATMS( M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP;
+               dlatms(M, N, 'U', ISEED, 'N', S, 4, DBLE( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -204,7 +205,8 @@
 
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) );
+                  dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 50
@@ -289,7 +291,8 @@
 
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) );
+                  dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 90
@@ -385,7 +388,8 @@
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) );
+                     dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
@@ -433,7 +437,8 @@
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) );
+                     dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
@@ -480,7 +485,8 @@
 
                   dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
+                     dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) );
+                     dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 150
@@ -508,7 +514,8 @@
                RESULT( 25 ) = ZERO
                dbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL DORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
+                  dort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) );
+                  dort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 160
@@ -592,7 +599,9 @@
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
-               dbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )                CALL DORT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) )                CALL DORT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
+               dbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
+               dort01('Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) );
+               dort01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
 
                // Do tests 33--35: DGESVDX( 'V', 'V', 'V' )
 
@@ -625,7 +634,9 @@
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
-               dbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )                CALL DORT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) )                CALL DORT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );
+               dbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
+               dort01('Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) );
+               dort01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

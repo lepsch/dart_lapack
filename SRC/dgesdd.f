@@ -467,7 +467,8 @@
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U] + N    [work]
                // Workspace: prefer N*N [R] + 3*N [e, tauq, taup] + N*N [U] + N*NB [work]
 
-               dormbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), N, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUQ ), WORK( IU ), N, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', N, N, N, WORK( IR ), LDWRKR, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply Q in A by left singular vectors of R in
                // WORK(IU), storing result in WORK(IR) and copying to A
@@ -596,7 +597,8 @@
                // Workspace: need   N*N [U] + 3*N [e, tauq, taup] + N    [work]
                // Workspace: prefer N*N [U] + 3*N [e, tauq, taup] + N*NB [work]
 
-               dormbr('Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', N, N, N, A, LDA, WORK( ITAUQ ), WORK( IU ), LDWRKU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply Q in U by left singular vectors of R in
                // WORK(IU), storing result in A
@@ -723,7 +725,8 @@
                // Workspace: need   3*N [e, tauq, taup] + N    [work]
                // Workspace: prefer 3*N [e, tauq, taup] + N*NB [work]
 
-               dormbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, N, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', N, N, N, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             } else if ( WNTQA ) {
 
                // Path 5a (M >= N, JOBZ='A')
@@ -746,7 +749,8 @@
                // Workspace: need   3*N [e, tauq, taup] + M    [work]
                // Workspace: prefer 3*N [e, tauq, taup] + M*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             }
 
          }
@@ -854,7 +858,8 @@
                // Workspace: need   M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer M*M [VT] + M*M [L] + 3*M [e, tauq, taup] + M*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), M, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), WORK( IVT ), M, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by Q
                // in A, storing result in WORK(IL) and copying to A
@@ -864,7 +869,8 @@
 
                DO 30 I = 1, N, CHUNK
                   BLK = MIN( N - I + 1, CHUNK )
-                  dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL )                   CALL DLACPY( 'F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
+                  dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL );
+                  dlacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
                } // 30
 
             } else if ( WNTQS ) {
@@ -920,7 +926,8 @@
                // Workspace: need   M*M [L] + 3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer M*M [L] + 3*M [e, tauq, taup] + M*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', M, M, M, WORK( IL ), LDWRKL, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IL) by
                // Q in A, storing result in VT
@@ -982,7 +989,8 @@
                // Workspace: need   M*M [VT] + 3*M [e, tauq, taup]+ M    [work]
                // Workspace: prefer M*M [VT] + 3*M [e, tauq, taup]+ M*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, M, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', M, M, M, A, LDA, WORK( ITAUP ), WORK( IVT ), LDWKVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
 
                // Multiply right singular vectors of L in WORK(IVT) by
                // Q in VT, storing result in A
@@ -1106,7 +1114,8 @@
                // Workspace: need   3*M [e, tauq, taup] + M    [work]
                // Workspace: prefer 3*M [e, tauq, taup] + M*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', M, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             } else if ( WNTQA ) {
 
                // Path 5ta (N > M, JOBZ='A')
@@ -1129,7 +1138,8 @@
                // Workspace: need   3*M [e, tauq, taup] + N    [work]
                // Workspace: prefer 3*M [e, tauq, taup] + N*NB [work]
 
-               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR )                CALL DORMBR( 'P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('Q', 'L', 'N', M, M, N, A, LDA, WORK( ITAUQ ), U, LDU, WORK( NWORK ), LWORK - NWORK + 1, IERR );
+               dormbr('P', 'R', 'T', N, N, M, A, LDA, WORK( ITAUP ), VT, LDVT, WORK( NWORK ), LWORK - NWORK + 1, IERR );
             }
 
          }

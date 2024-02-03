@@ -287,7 +287,8 @@
 
                         // Check residual of computed solution.
 
-                        slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL SGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
+                        slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        sgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 

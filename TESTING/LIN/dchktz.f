@@ -113,7 +113,8 @@
                      } // 30
                   } else {
                      dlatms(M, N, 'Uniform', ISEED, 'Nonsymmetric', S, IMODE, ONE / EPS, ONE, M, N, 'No packing', A, LDA, WORK, INFO );
-                     dgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO )                      CALL DLASET( 'Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
+                     dgeqr2(M, N, A, LDA, WORK, WORK( MNMIN+1 ), INFO );
+                     dlaset('Lower', M-1, N, ZERO, ZERO, A( 2 ), LDA );
                      dlaord('Decreasing', MNMIN, S, 1 );
                   }
 

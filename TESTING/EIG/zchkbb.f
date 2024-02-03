@@ -282,7 +282,10 @@
                     // 3:  Check the orthogonality of P
                     // 4:  Check the computation of Q' * C
 
-               zbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) )                CALL ZUNT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL ZUNT01( 'Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) )                CALL ZBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) );
+               zbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) );
+               zunt01('Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
+               zunt01('Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) );
+               zbdt02(M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

@@ -119,7 +119,8 @@
             TEMP = A( JROW-1, JCOL )
             dlartg(TEMP, A( JROW, JCOL ), C, S, A( JROW-1, JCOL ) );
             A( JROW, JCOL ) = ZERO
-            drot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S )             CALL DROT( N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
+            drot(N-JCOL, A( JROW-1, JCOL+1 ), LDA, A( JROW, JCOL+1 ), LDA, C, S );
+            drot(N+2-JROW, B( JROW-1, JROW-1 ), LDB, B( JROW, JROW-1 ), LDB, C, S )             IF( ILQ ) CALL DROT( N, Q( 1, JROW-1 ), 1, Q( 1, JROW ), 1, C, S );
 
             // Step 2: rotate columns JROW, JROW-1 to kill B(JROW,JROW-1)
 

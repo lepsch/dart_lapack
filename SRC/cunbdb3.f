@@ -104,7 +104,8 @@
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = REAL( X21(I,I) )
          X21(I,I) = ONE
-         clarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         clarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
+         clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X21(I,I), LDX21 );
          C = SQRT( SCNRM2( P-I+1, X11(I,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
          THETA(I) = ATAN2( S, C )

@@ -498,7 +498,8 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR .GT. 1) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA )             CALL DGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
+            if (NR .GT. 1) CALL DLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA );
+            dgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
 
          }
 
@@ -745,7 +746,8 @@
                          U(q,NR+p) = A(p,q)
                       } // 1197
                    } // 1196
-                   if (NR .GT. 1) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU)                    CALL DGEQRF( N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
+                   if (NR .GT. 1) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);
+                   dgeqrf(N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = U(p,NR+q)
@@ -825,9 +827,11 @@
                   }
                } else {
                   dlacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  if (NR .GT. 1) CALL DLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)                   CALL DGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
+                  if (NR .GT. 1) CALL DLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU);
+                  dgelqf(NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                   dlacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  if (NR .GT. 1) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)                   CALL DGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO );
+                  if (NR .GT. 1) CALL DLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
+                  dgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO );
                   dlaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
                   dlaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                   dlaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);

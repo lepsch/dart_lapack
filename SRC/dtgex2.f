@@ -109,13 +109,15 @@
          dlartg(F, G, IR( 1, 2 ), IR( 1, 1 ), DDUM );
          IR( 2, 1 ) = -IR( 1, 2 )
          IR( 2, 2 ) = IR( 1, 1 )
-         drot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          CALL DROT( 2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         drot(2, S( 1, 1 ), 1, S( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         drot(2, T( 1, 1 ), 1, T( 1, 2 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
          if ( SA.GE.SB ) {
             dlartg(S( 1, 1 ), S( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM );
          } else {
             dlartg(T( 1, 1 ), T( 2, 1 ), LI( 1, 1 ), LI( 2, 1 ), DDUM );
          }
-         drot(2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) )          CALL DROT( 2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
+         drot(2, S( 1, 1 ), LDST, S( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
+         drot(2, T( 1, 1 ), LDST, T( 2, 1 ), LDST, LI( 1, 1 ), LI( 2, 1 ) );
          LI( 2, 2 ) = LI( 1, 1 )
          LI( 1, 2 ) = -LI( 2, 1 )
 
@@ -131,13 +133,17 @@
                 // and
                 // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
-            dlacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M )             CALL DGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M )             CALL DGEMM( 'N', 'T', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
+            dlacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M );
+            dgemm('N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M );
+            dgemm('N', 'T', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
             DSCALE = ZERO
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SA = DSCALE*SQRT( DSUM )
 
-            dlacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M )             CALL DGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M )             CALL DGEMM( 'N', 'T', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
+            dlacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M );
+            dgemm('N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M );
+            dgemm('N', 'T', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
             DSCALE = ZERO
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
@@ -149,7 +155,10 @@
          // Update (A(J1:J1+M-1, M+J1:N), B(J1:J1+M-1, M+J1:N)) and
                 // (A(1:J1-1, J1:J1+M), B(1:J1-1, J1:J1+M)).
 
-         drot(J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          CALL DROT( J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) )          CALL DROT( N-J1+1, A( J1, J1 ), LDA, A( J1+1, J1 ), LDA, LI( 1, 1 ), LI( 2, 1 ) )          CALL DROT( N-J1+1, B( J1, J1 ), LDB, B( J1+1, J1 ), LDB, LI( 1, 1 ), LI( 2, 1 ) );
+         drot(J1+1, A( 1, J1 ), 1, A( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         drot(J1+1, B( 1, J1 ), 1, B( 1, J1+1 ), 1, IR( 1, 1 ), IR( 2, 1 ) );
+         drot(N-J1+1, A( J1, J1 ), LDA, A( J1+1, J1 ), LDA, LI( 1, 1 ), LI( 2, 1 ) );
+         drot(N-J1+1, B( J1, J1 ), LDB, B( J1+1, J1 ), LDB, LI( 1, 1 ), LI( 2, 1 ) );
 
          // Set  N1-by-N2 (2,1) - blocks to ZERO.
 
@@ -175,7 +184,8 @@
          // for R and L. Solutions in LI and IR.
 
          dlacpy('Full', N1, N2, T( 1, N1+1 ), LDST, LI, LDST );
-         dlacpy('Full', N1, N2, S( 1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST )          CALL DTGSY2( 'N', 0, N1, N2, S, LDST, S( N1+1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST, T, LDST, T( N1+1, N1+1 ), LDST, LI, LDST, SCALE, DSUM, DSCALE, IWORK, IDUM, LINFO );
+         dlacpy('Full', N1, N2, S( 1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST );
+         dtgsy2('N', 0, N1, N2, S, LDST, S( N1+1, N1+1 ), LDST, IR( N2+1, N1+1 ), LDST, T, LDST, T( N1+1, N1+1 ), LDST, LI, LDST, SCALE, DSUM, DSCALE, IWORK, IDUM, LINFO );
          if (LINFO.NE.0) GO TO 70;
 
          // Compute orthogonal matrix QL:
@@ -211,7 +221,10 @@
 
          // Perform the swapping tentatively:
 
-         dgemm('T', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M )          CALL DGEMM( 'N', 'T', M, M, M, ONE, WORK, M, IR, LDST, ZERO, S, LDST )          CALL DGEMM( 'T', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M )          CALL DGEMM( 'N', 'T', M, M, M, ONE, WORK, M, IR, LDST, ZERO, T, LDST );
+         dgemm('T', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M );
+         dgemm('N', 'T', M, M, M, ONE, WORK, M, IR, LDST, ZERO, S, LDST );
+         dgemm('T', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M );
+         dgemm('N', 'T', M, M, M, ONE, WORK, M, IR, LDST, ZERO, T, LDST );
          dlacpy('F', M, M, S, LDST, SCPY, LDST );
          dlacpy('F', M, M, T, LDST, TCPY, LDST );
          dlacpy('F', M, M, IR, LDST, IRCOP, LDST );
@@ -221,7 +234,9 @@
          // Apply transformation (from left) to A-part, giving S.
 
          dgerq2(M, M, T, LDST, TAUR, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70          CALL DORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70          CALL DORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
+         if (LINFO.NE.0) GO TO 70;
+         CALL DORMR2( 'R', 'T', M, M, M, T, LDST, TAUR, S, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
+         CALL DORMR2( 'L', 'N', M, M, M, T, LDST, TAUR, IR, LDST, WORK, LINFO )          IF( LINFO.NE.0 ) GO TO 70;
 
          // Compute F-norm(S21) in BRQA21. (T21 is 0.)
 
@@ -236,7 +251,9 @@
          // Apply transformation (from right) to A-part, giving S.
 
          dgeqr2(M, M, TCPY, LDST, TAUL, WORK, LINFO );
-         if (LINFO.NE.0) GO TO 70          CALL DORM2R( 'L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO )          CALL DORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO.NE.0 ) GO TO 70;
+         if (LINFO.NE.0) GO TO 70;
+         dorm2r('L', 'T', M, M, M, TCPY, LDST, TAUL, SCPY, LDST, WORK, INFO );
+         CALL DORM2R( 'R', 'N', M, M, M, TCPY, LDST, TAUL, LICOP, LDST, WORK, INFO )          IF( LINFO.NE.0 ) GO TO 70;
 
          // Compute F-norm(S21) in BQRA21. (T21 is 0.)
 
@@ -271,13 +288,17 @@
                 // and
                 // F-norm((B-QL**H*T*QR)) <= O(EPS*F-norm((B)))
 
-            dlacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M )             CALL DGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M )             CALL DGEMM( 'N', 'N', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
+            dlacpy('Full', M, M, A( J1, J1 ), LDA, WORK( M*M+1 ), M );
+            dgemm('N', 'N', M, M, M, ONE, LI, LDST, S, LDST, ZERO, WORK, M );
+            dgemm('N', 'N', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
             DSCALE = ZERO
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
             SA = DSCALE*SQRT( DSUM )
 
-            dlacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M )             CALL DGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M )             CALL DGEMM( 'N', 'N', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
+            dlacpy('Full', M, M, B( J1, J1 ), LDB, WORK( M*M+1 ), M );
+            dgemm('N', 'N', M, M, M, ONE, LI, LDST, T, LDST, ZERO, WORK, M );
+            dgemm('N', 'N', M, M, M, -ONE, WORK, M, IR, LDST, ONE, WORK( M*M+1 ), M );
             DSCALE = ZERO
             DSUM = ONE
             dlassq(M*M, WORK( M*M+1 ), 1, DSCALE, DSUM );
@@ -321,7 +342,11 @@
             T( M, M ) = T( N2+1, N2+1 )
             T( M-1, M ) = -T( M, M-1 )
          }
-         dgemm('T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 )          CALL DLACPY( 'Full', N2, N1, WORK( M*M+1 ), N2, A( J1, J1+N2 ), LDA )          CALL DGEMM( 'T', 'N', N2, N1, N2, ONE, WORK, M, B( J1, J1+N2 ), LDB, ZERO, WORK( M*M+1 ), N2 )          CALL DLACPY( 'Full', N2, N1, WORK( M*M+1 ), N2, B( J1, J1+N2 ), LDB )          CALL DGEMM( 'N', 'N', M, M, M, ONE, LI, LDST, WORK, M, ZERO, WORK( M*M+1 ), M );
+         dgemm('T', 'N', N2, N1, N2, ONE, WORK, M, A( J1, J1+N2 ), LDA, ZERO, WORK( M*M+1 ), N2 );
+         dlacpy('Full', N2, N1, WORK( M*M+1 ), N2, A( J1, J1+N2 ), LDA );
+         dgemm('T', 'N', N2, N1, N2, ONE, WORK, M, B( J1, J1+N2 ), LDB, ZERO, WORK( M*M+1 ), N2 );
+         dlacpy('Full', N2, N1, WORK( M*M+1 ), N2, B( J1, J1+N2 ), LDB );
+         dgemm('N', 'N', M, M, M, ONE, LI, LDST, WORK, M, ZERO, WORK( M*M+1 ), M );
          dlacpy('Full', M, M, WORK( M*M+1 ), M, LI, LDST );
          dgemm('N', 'N', N2, N1, N1, ONE, A( J1, J1+N2 ), LDA, T( N2+1, N2+1 ), LDST, ZERO, WORK, N2 );
          dlacpy('Full', N2, N1, WORK, N2, A( J1, J1+N2 ), LDA );

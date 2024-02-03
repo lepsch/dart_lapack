@@ -71,7 +71,10 @@
                if ( K.LT.N ) {
                   dscal(N-K, ONE / BKK, A( K, K+1 ), LDA );
                   CT = -HALF*AKK
-                  daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DSYR2( UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA )                   CALL DAXPY( N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA )                   CALL DTRSV( UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
+                  daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  dsyr2(UPLO, N-K, -ONE, A( K, K+1 ), LDA, B( K, K+1 ), LDB, A( K+1, K+1 ), LDA );
+                  daxpy(N-K, CT, B( K, K+1 ), LDB, A( K, K+1 ), LDA );
+                  dtrsv(UPLO, 'Transpose', 'Non-unit', N-K, B( K+1, K+1 ), LDB, A( K, K+1 ), LDA );
                }
             } // 10
          } else {

@@ -108,7 +108,8 @@
             // stored in columns K-1 and K of A.
 
             if ( K.GT.2 ) {
-               sger(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                CALL SGER( K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
+               sger(K-2, NRHS, -ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+               sger(K-2, NRHS, -ONE, A( 1, K-1 ), 1, B( K-1, 1 ), LDB, B( 1, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -163,7 +164,8 @@
             // stored in columns K and K+1 of A.
 
             if ( K.GT.1 ) {
-               sgemv('Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                CALL SGEMV( 'Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
+               sgemv('Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+               sgemv('Transpose', K-1, NRHS, -ONE, B, LDB, A( 1, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K+1 and -IPIV(K+1).
@@ -230,7 +232,8 @@
             // stored in columns K and K+1 of A.
 
             if ( K.LT.N-1 ) {
-               sger(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB )                CALL SGER( N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
+               sger(N-K-1, NRHS, -ONE, A( K+2, K ), 1, B( K, 1 ), LDB, B( K+2, 1 ), LDB );
+               sger(N-K-1, NRHS, -ONE, A( K+2, K+1 ), 1, B( K+1, 1 ), LDB, B( K+2, 1 ), LDB );
             }
 
             // Multiply by the inverse of the diagonal block.
@@ -285,7 +288,8 @@
             // stored in columns K-1 and K of A.
 
             if ( K.LT.N ) {
-               sgemv('Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB )                CALL SGEMV( 'Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
+               sgemv('Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K ), 1, ONE, B( K, 1 ), LDB );
+               sgemv('Transpose', N-K, NRHS, -ONE, B( K+1, 1 ), LDB, A( K+1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
             }
 
             // Interchange rows K and -IPIV(K) THEN K-1 and -IPIV(K-1)

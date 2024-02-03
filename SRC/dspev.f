@@ -103,7 +103,8 @@
          dsterf(N, W, WORK( INDE ), INFO );
       } else {
          INDWRK = INDTAU + N
-         dopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO )          CALL DSTEQR( JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
+         dopgtr(UPLO, N, AP, WORK( INDTAU ), Z, LDZ, WORK( INDWRK ), IINFO );
+         dsteqr(JOBZ, N, W, WORK( INDE ), Z, LDZ, WORK( INDTAU ), INFO );
       }
 
       // If matrix was scaled, then rescale eigenvalues appropriately.

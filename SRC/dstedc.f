@@ -187,7 +187,8 @@
                // Scale.
 
                ORGNRM = DLANST( 'M', M, D( START ), E( START ) )
-               dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL DLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
+               dlascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
+               dlascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
                if ( ICOMPZ.EQ.1 ) {
                   STRTRW = 1
@@ -211,7 +212,9 @@
                   // the length of D, we must solve the sub-problem in a
                   // workspace and then multiply back into Z.
 
-                  dsteqr('I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO )                   CALL DLACPY( 'A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N )                   CALL DGEMM( 'N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ );
+                  dsteqr('I', M, D( START ), E( START ), WORK, M, WORK( M*M+1 ), INFO );
+                  dlacpy('A', N, M, Z( 1, START ), LDZ, WORK( STOREZ ), N );
+                  dgemm('N', 'N', N, M, M, ONE, WORK( STOREZ ), N, WORK, M, ZERO, Z( 1, START ), LDZ );
                } else if ( ICOMPZ.EQ.2 ) {
                   dsteqr('I', M, D( START ), E( START ), Z( START, START ), LDZ, WORK, INFO );
                } else {

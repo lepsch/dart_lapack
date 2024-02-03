@@ -163,7 +163,8 @@
 
                // Complex eigenvalue pair.
 
-               RNRM = SLAPY2( SNRM2( N, VR( 1, KS ), 1 ), SNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = SLAPY2( SNRM2( N, VL( 1, KS ), 1 ), SNRM2( N, VL( 1, KS+1 ), 1 ) )                CALL SGEMV( 'N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 )
+               RNRM = SLAPY2( SNRM2( N, VR( 1, KS ), 1 ), SNRM2( N, VR( 1, KS+1 ), 1 ) )                LNRM = SLAPY2( SNRM2( N, VL( 1, KS ), 1 ), SNRM2( N, VL( 1, KS+1 ), 1 ) );
+               sgemv('N', N, N, ONE, A, LDA, VR( 1, KS ), 1, ZERO, WORK, 1 );
                TMPRR = SDOT( N, WORK, 1, VL( 1, KS ), 1 )
                TMPRI = SDOT( N, WORK, 1, VL( 1, KS+1 ), 1 )
                sgemv('N', N, N, ONE, A, LDA, VR( 1, KS+1 ), 1, ZERO, WORK, 1 );

@@ -193,7 +193,8 @@
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
             slacpy('U', P, M-Q, X12, LDX12, V2T, LDV2T );
-            slacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T )             CALL SORGLQ( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO );
+            slacpy('U', M-P-Q, M-P-Q, X22(Q+1,P+1), LDX22, V2T(P+1,P+1), LDV2T );
+            sorglq(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGLQ), LORGLQWORK, INFO );
          }
       } else {
          if ( WANTU1 .AND. P .GT. 0 ) {
@@ -215,7 +216,8 @@
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
             slacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
-            slacpy('L', M-P-Q, M-P-Q, X22(P+1,Q+1), LDX22, V2T(P+1,P+1), LDV2T )             CALL SORGQR( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
+            slacpy('L', M-P-Q, M-P-Q, X22(P+1,Q+1), LDX22, V2T(P+1,P+1), LDV2T );
+            sorgqr(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
          }
       }
 

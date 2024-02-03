@@ -164,7 +164,8 @@
 
                // (Scaled) random matrix
 
-               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP                CALL SLATMS( M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
+               if (JTYPE.EQ.3) ANORM = ONE                IF( JTYPE.EQ.4 ) ANORM = UNFL / ULP                IF( JTYPE.EQ.5 ) ANORM = OVFL*ULP;
+               slatms(M, N, 'U', ISEED, 'N', S, 4, REAL( MNMIN ), ANORM, M-1, N-1, 'N', A, LDA, WORK, IINFO );
                if ( IINFO.NE.0 ) {
                   WRITE( NOUT, FMT = 9996 )'Generator', IINFO, M, N, JTYPE, IOLDSD
                   INFO = ABS( IINFO )
@@ -204,7 +205,8 @@
 
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 1 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
+                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 2 ) );
+                  sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 3 ) );
                }
                RESULT( 4 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 50
@@ -289,7 +291,8 @@
 
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 8 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
+                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 9 ) );
+                  sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 10 ) );
                }
                RESULT( 11 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 90
@@ -385,7 +388,8 @@
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 36 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
+                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 37 ) );
+                     sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 38 ) );
                   }
                   RESULT( 39 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 199
@@ -433,7 +437,8 @@
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 15 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
+                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 16 ) );
+                     sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 17 ) );
                   }
                   RESULT( 18 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 120
@@ -480,7 +485,8 @@
 
                   sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 19 ) );
                   if ( M.NE.0 .AND. N.NE.0 ) {
-                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) )                      CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
+                     sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 20 ) );
+                     sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 21 ) );
                   }
                   RESULT( 22 ) = ZERO
                   for (I = 1; I <= MNMIN - 1; I++) { // 150
@@ -508,7 +514,8 @@
                RESULT( 25 ) = ZERO
                sbdt01(M, N, 0, ASAV, LDA, USAV, LDU, SSAV, E, VTSAV, LDVT, WORK, RESULT( 23 ) );
                if ( M.NE.0 .AND. N.NE.0 ) {
-                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) )                   CALL SORT01( 'Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
+                  sort01('Columns', M, M, USAV, LDU, WORK, LWORK, RESULT( 24 ) );
+                  sort01('Rows', N, N, VTSAV, LDVT, WORK, LWORK, RESULT( 25 ) );
                }
                RESULT( 26 ) = ZERO
                for (I = 1; I <= MNMIN - 1; I++) { // 160
@@ -592,7 +599,9 @@
                RESULT( 30 ) = ZERO
                RESULT( 31 ) = ZERO
                RESULT( 32 ) = ZERO
-               sbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) )                CALL SORT01( 'Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) )                CALL SORT01( 'Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
+               sbdt05(M, N, ASAV, LDA, S, NSI, U, LDU, VT, LDVT, WORK, RESULT( 30 ) );
+               sort01('Columns', M, NSI, U, LDU, WORK, LWORK, RESULT( 31 ) );
+               sort01('Rows', NSI, N, VT, LDVT, WORK, LWORK, RESULT( 32 ) );
 
                // Do tests 33--35: SGESVDX( 'V', 'V', 'V' )
 
@@ -625,7 +634,9 @@
                RESULT( 33 ) = ZERO
                RESULT( 34 ) = ZERO
                RESULT( 35 ) = ZERO
-               sbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) )                CALL SORT01( 'Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) )                CALL SORT01( 'Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );
+               sbdt05(M, N, ASAV, LDA, S, NSV, U, LDU, VT, LDVT, WORK, RESULT( 33 ) );
+               sort01('Columns', M, NSV, U, LDU, WORK, LWORK, RESULT( 34 ) );
+               sort01('Rows', NSV, N, VT, LDVT, WORK, LWORK, RESULT( 35 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

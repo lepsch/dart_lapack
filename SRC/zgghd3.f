@@ -298,7 +298,8 @@
                      WORK( PPW ) = A( I, J+1 )
                      PPW = PPW + 1
                   }
-                  ztrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 )                   CALL ZGEMV( 'Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
+                  ztrmv('Lower', 'Conjugate', 'Non-unit', NBLST-LEN, WORK( LEN*NBLST + 1 ), NBLST, WORK( PW+LEN ), 1 );
+                  zgemv('Conjugate', LEN, NBLST-LEN, CONE, WORK( (LEN+1)*NBLST - LEN + 1 ), NBLST, A( JROW+NBLST-LEN, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                   PPW = PW
                   for (I = JROW; I <= JROW+NBLST-1; I++) {
                      A( I, J+1 ) = WORK( PPW )
@@ -331,7 +332,10 @@
                         WORK( PPW ) = A( I, J+1 )
                         PPW = PPW + 1
                      }
-                     ztrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 )                      CALL ZTRMV( 'Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 )                      CALL ZGEMV( 'Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 )                      CALL ZGEMV( 'Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
+                     ztrmv('Upper', 'Conjugate', 'Non-unit', LEN, WORK( PPWO + NNB ), 2*NNB, WORK( PW ), 1 );
+                     ztrmv('Lower', 'Conjugate', 'Non-unit', NNB, WORK( PPWO + 2*LEN*NNB ), 2*NNB, WORK( PW + LEN ), 1 );
+                     zgemv('Conjugate', NNB, LEN, CONE, WORK( PPWO ), 2*NNB, A( JROW, J+1 ), 1, CONE, WORK( PW ), 1 );
+                     zgemv('Conjugate', LEN, NNB, CONE, WORK( PPWO + 2*LEN*NNB + NNB ), 2*NNB, A( JROW+NNB, J+1 ), 1, CONE, WORK( PW+LEN ), 1 );
                      PPW = PW
                      for (I = JROW; I <= JROW+LEN+NNB-1; I++) {
                         A( I, J+1 ) = WORK( PPW )
@@ -466,7 +470,8 @@
                }
             } else {
 
-               zlaset('Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA )                CALL ZLASET( 'Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB );
+               zlaset('Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, A( JCOL + 2, JCOL ), LDA );
+               zlaset('Lower', IHI - JCOL - 1, NNB, CZERO, CZERO, B( JCOL + 2, JCOL ), LDB );
             }
 
             // Apply accumulated unitary matrices to A and B.

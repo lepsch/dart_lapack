@@ -287,7 +287,8 @@
 
                      // Update right-hand side
 
-                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+IV*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 );
+                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+IV*N ), 1 );
+                     saxpy(J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+IV*N ), 1 );
                   }
                } // 60
 
@@ -395,7 +396,8 @@
 
                      // Update the right-hand side
 
-                     saxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 )                      CALL SAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
+                     saxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N ), 1 );
+                     saxpy(J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
 
                   } else {
 
@@ -431,7 +433,10 @@
 
                      // Update the right-hand side
 
-                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N   ), 1 )                      CALL SAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+(IV  )*N ), 1 )                      CALL SAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
+                     saxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+(IV-1)*N   ), 1 );
+                     saxpy(J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+(IV-1)*N   ), 1 );
+                     saxpy(J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+(IV  )*N ), 1 );
+                     saxpy(J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+(IV  )*N ), 1 );
                   }
                } // 90
 
@@ -460,7 +465,8 @@
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.GT.2 ) {
-                     sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1)                      CALL SGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 );
+                     sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1    + (IV-1)*N ), 1, WORK( KI-1 + (IV-1)*N ), VR(1,KI-1), 1);
+                     sgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1  + (IV)*N ), 1, WORK( KI + (IV)*N ), VR( 1, KI ), 1 );
                   } else {
                      sscal(N, WORK(KI-1+(IV-1)*N), VR(1,KI-1), 1);
                      sscal(N, WORK(KI  +(IV  )*N), VR(1,KI  ), 1);
@@ -835,7 +841,8 @@
                if ( .NOT.OVER ) {
                   // ------------------------------
                   // no back-transform: copy x to VL and normalize.
-                  scopy(N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 )                   CALL SCOPY( N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 );
+                  scopy(N-KI+1, WORK( KI + (IV  )*N ), 1, VL( KI, IS   ), 1 );
+                  scopy(N-KI+1, WORK( KI + (IV+1)*N ), 1, VL( KI, IS+1 ), 1 );
 
                   EMAX = ZERO
                   for (K = KI; K <= N; K++) { // 220
@@ -854,7 +861,8 @@
                   // ------------------------------
                   // version 1: back-transform each vector with GEMV, Q*x.
                   if ( KI.LT.N-1 ) {
-                     sgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 )                      CALL SGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 );
+                     sgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV)*N ), 1, WORK( KI   + (IV)*N ), VL( 1, KI ), 1 );
+                     sgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2 + (IV+1)*N ), 1, WORK( KI+1 + (IV+1)*N ), VL( 1, KI+1 ), 1 );
                   } else {
                      sscal(N, WORK(KI+  (IV  )*N), VL(1, KI  ), 1);
                      sscal(N, WORK(KI+1+(IV+1)*N), VL(1, KI+1), 1);

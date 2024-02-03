@@ -161,7 +161,8 @@
 
                   clacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  claset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL CLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH );
+                  claset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
+                  claqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL CLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

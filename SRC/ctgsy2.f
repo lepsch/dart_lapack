@@ -110,7 +110,8 @@
                   cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= N; K++) { // 10
-                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 10
                      SCALE = SCALE*SCALOC
                   }
@@ -131,7 +132,8 @@
                   caxpy(I-1, ALPHA, D( 1, I ), 1, F( 1, J ), 1 );
                }
                if ( J.LT.N ) {
-                  caxpy(N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC )                   CALL CAXPY( N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF );
+                  caxpy(N-J, RHS( 2 ), B( J, J+1 ), LDB, C( I, J+1 ), LDC );
+                  caxpy(N-J, RHS( 2 ), E( J, J+1 ), LDE, F( I, J+1 ), LDF );
                }
 
             } // 20
@@ -168,7 +170,8 @@
                cgesc2(LDZ, Z, LDZ, RHS, IPIV, JPIV, SCALOC );
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= N; K++) { // 40
-                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL CSCAL( M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     cscal(M, CMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 40
                   SCALE = SCALE*SCALOC
                }

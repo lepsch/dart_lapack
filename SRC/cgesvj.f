@@ -401,7 +401,9 @@
       // [+ + x 0]   actually work on [x 0]              [x 0]
       // [+ + x x]                    [x x].             [x x]
 
-            cgsvj0(JOBV, M-N34, N-N34, A( N34+1, N34+1 ), LDA, CWORK( N34+1 ), SVA( N34+1 ), MVL, V( N34*q+1, N34+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR )              CALL CGSVJ0( JOBV, M-N2, N34-N2, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR )              CALL CGSVJ1( JOBV, M-N2, N-N2, N4, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 1, CWORK( N+1 ), LWORK-N, IERR );
+            cgsvj0(JOBV, M-N34, N-N34, A( N34+1, N34+1 ), LDA, CWORK( N34+1 ), SVA( N34+1 ), MVL, V( N34*q+1, N34+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR );
+             cgsvj0(JOBV, M-N2, N34-N2, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 2, CWORK( N+1 ), LWORK-N, IERR );
+             cgsvj1(JOBV, M-N2, N-N2, N4, A( N2+1, N2+1 ), LDA, CWORK( N2+1 ), SVA( N2+1 ), MVL, V( N2*q+1, N2+1 ), LDV, EPSLN, SFMIN, TOL, 1, CWORK( N+1 ), LWORK-N, IERR );
 
             cgsvj0(JOBV, M-N4, N2-N4, A( N4+1, N4+1 ), LDA, CWORK( N4+1 ), SVA( N4+1 ), MVL, V( N4*q+1, N4+1 ), LDV, EPSLN, SFMIN, TOL, 1, CWORK( N+1 ), LWORK-N, IERR );
 
@@ -510,14 +512,16 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
-                                 CALL CCOPY( M, A( 1, p ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR )                                  AAPQ = CDOTC( M, CWORK(N+1), 1, A( 1, q ), 1 ) / AAQQ
+                                 ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
+                                 CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR )                                  AAPQ = CDOTC( M, CWORK(N+1), 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
                               ROTOK = AAPP.LE.( AAQQ / SMALL )
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAPP ) / AAQQ
                               } else {
-                                 ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1), LDA, IERR );
+                                 ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
+                                 clascl('G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1), LDA, IERR );
                                  AAPQ = CDOTC( M, A(1, p ), 1, CWORK(N+1), 1 ) / AAPP
                               }
                            }
@@ -578,8 +582,11 @@
 
                                  } else {
                // .. have to use modified Gram-Schmidt like transformation
-                                 ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR );
-                                 clascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                  CALL CAXPY( M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 )                                  CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) );
+                                 ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
+                                 clascl('G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR );
+                                 clascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
+                                 caxpy(M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 );
+                                 clascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR )                                  SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) );
                                  MXSINJ = MAX( MXSINJ, SFMIN )
                               }
             // END IF ROTOK THEN ... ELSE
@@ -682,7 +689,8 @@
                               if ( AAPP.LT.( BIG / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / AAQQ ) / AAPP
                               } else {
-                                 ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR );
+                                 ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
+                                 clascl('G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1), LDA, IERR );
                                  AAPQ = CDOTC( M, CWORK(N+1), 1, A( 1, q ), 1 ) / AAQQ
                               }
                            } else {
@@ -694,7 +702,8 @@
                               if ( AAPP.GT.( SMALL / AAQQ ) ) {
                                  AAPQ = ( CDOTC( M, A( 1, p ), 1, A( 1, q ), 1 ) / MAX(AAQQ,AAPP) ) / MIN(AAQQ,AAPP)
                               } else {
-                                 ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 )                                  CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1), LDA, IERR );
+                                 ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
+                                 clascl('G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1), LDA, IERR );
                                  AAPQ = CDOTC( M, A( 1, p ), 1, CWORK(N+1),  1 ) / AAPP
                               }
                            }
@@ -750,11 +759,19 @@
                               } else {
                // .. have to use modified Gram-Schmidt like transformation
                                if ( AAPP.GT.AAQQ ) {
-                                    ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1),LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR )                                     CALL CAXPY( M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
+                                    ccopy(M, A( 1, p ), 1, CWORK(N+1), 1 );
+                                    clascl('G', 0, 0, AAPP, ONE, M, 1, CWORK(N+1),LDA, IERR );
+                                    clascl('G', 0, 0, AAQQ, ONE, M, 1, A( 1, q ), LDA, IERR );
+                                    caxpy(M, -AAPQ, CWORK(N+1), 1, A( 1, q ), 1 );
+                                    clascl('G', 0, 0, ONE, AAQQ, M, 1, A( 1, q ), LDA, IERR );
                                     SVA( q ) = AAQQ*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                } else {
-                                   ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 )                                     CALL CLASCL( 'G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1),LDA, IERR )                                     CALL CLASCL( 'G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR )                                     CALL CAXPY( M, -CONJG(AAPQ), CWORK(N+1), 1, A( 1, p ), 1 )                                     CALL CLASCL( 'G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
+                                   ccopy(M, A( 1, q ), 1, CWORK(N+1), 1 );
+                                    clascl('G', 0, 0, AAQQ, ONE, M, 1, CWORK(N+1),LDA, IERR );
+                                    clascl('G', 0, 0, AAPP, ONE, M, 1, A( 1, p ), LDA, IERR );
+                                    caxpy(M, -CONJG(AAPQ), CWORK(N+1), 1, A( 1, p ), 1 );
+                                    clascl('G', 0, 0, ONE, AAPP, M, 1, A( 1, p ), LDA, IERR );
                                     SVA( p ) = AAPP*SQRT( MAX( ZERO, ONE-AAPQ1*AAPQ1 ) )
                                     MXSINJ = MAX( MXSINJ, SFMIN )
                                }

@@ -120,7 +120,9 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
-                  zhpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL ZAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
+                  zhpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
+                  zaxpy(N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 );
+                  zhpr2('L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
 
                   VP( JP+J+1 ) = VSAVE
                }
@@ -141,7 +143,9 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
-                  zhpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL ZAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL ZHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
+                  zhpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*ZDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
+                  zaxpy(J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 );
+                  zhpr2('U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )

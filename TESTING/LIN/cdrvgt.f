@@ -288,7 +288,8 @@
 
                         // Check residual of computed solution.
 
-                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CGTT02( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        cgtt02(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), X, LDA, WORK, LDA, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 

@@ -305,7 +305,9 @@
 
                // This is a small subproblem and is solved by SLASDQ.
 
-               slaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N )                CALL SLASET( 'A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N )                CALL SLASDQ( 'U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
+               slaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( VT+ST1 ), N );
+               slaset('A', NSIZE, NSIZE, ZERO, ONE, RWORK( U+ST1 ), N );
+               slasdq('U', 0, NSIZE, NSIZE, NSIZE, 0, D( ST ), E( ST ), RWORK( VT+ST1 ), N, RWORK( U+ST1 ), N, RWORK( NRWORK ), 1, RWORK( NRWORK ), INFO );
                if ( INFO.NE.0 ) {
                   RETURN
                }

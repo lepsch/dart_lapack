@@ -83,7 +83,8 @@
                // Now form  a( k ) := a( k ) - conjg(tau)*w
                // and       B      := B      - conjg(tau)*w*z( k )**H.
 
-               zaxpy(K-1, -DCONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 )                CALL ZGERC( K-1, N-M, -DCONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
+               zaxpy(K-1, -DCONJG( TAU( K ) ), TAU, 1, A( 1, K ), 1 );
+               zgerc(K-1, N-M, -DCONJG( TAU( K ) ), TAU, 1, A( K, M1 ), LDA, A( 1, M1 ), LDA );
             }
          } // 20
       }

@@ -115,7 +115,9 @@
                if ( TAU( J ).NE.ZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = ONE
-                  dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL DAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
+                  dspmv('L', N-J, ONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
+                  daxpy(N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 );
+                  dspr2('L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
                   VP( JP+J+1 ) = VSAVE
                }
                WORK( JP+J ) = D( J )
@@ -135,7 +137,9 @@
                if ( TAU( J ).NE.ZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = ONE
-                  dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL DAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL DSPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
+                  dspmv('U', J, ONE, WORK, VP( JP1+1 ), 1, ZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*DDOT( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
+                  daxpy(J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 );
+                  dspr2('U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )

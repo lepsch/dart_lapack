@@ -379,7 +379,8 @@
 
                      if (INFO.NE.0) CALL ALAERH( PATH, 'DSYRFS', INFO, 0, UPLO, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) )                      CALL DPOT05( UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
+                     dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 6 ) );
+                     dpot05(UPLO, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 7 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

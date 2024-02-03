@@ -126,7 +126,8 @@
 
                   // Apply the transformations.
 
-                  zgeru(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL ZGERU( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
+                  zgeru(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+                  zgeru(K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -201,7 +202,8 @@
 
                   // Apply the transformation.
 
-                  zgeru(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL ZGERU( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
+                  zgeru(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+                  zgeru(N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.

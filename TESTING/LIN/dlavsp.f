@@ -129,7 +129,8 @@
 
                   // Apply the transformations.
 
-                  dger(K-1, NRHS, ONE, A( KC ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL DGER( K-1, NRHS, ONE, A( KCNEXT ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
+                  dger(K-1, NRHS, ONE, A( KC ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+                  dger(K-1, NRHS, ONE, A( KCNEXT ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if P(K) != I.
 
@@ -209,7 +210,8 @@
 
                   // Apply the transformation.
 
-                  dger(N-K, NRHS, ONE, A( KC+1 ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL DGER( N-K, NRHS, ONE, A( KCNEXT+2 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
+                  dger(N-K, NRHS, ONE, A( KC+1 ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+                  dger(N-K, NRHS, ONE, A( KCNEXT+2 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -274,7 +276,8 @@
 
                   // Apply the transformations
 
-                  dgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB )                   CALL DGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( KCNEXT ), 1, ONE, B( K-1, 1 ), LDB );
+                  dgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( KC ), 1, ONE, B( K, 1 ), LDB );
+                  dgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( KCNEXT ), 1, ONE, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -341,7 +344,8 @@
 
                   // Apply the transformation
 
-                  dgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( KCNEXT+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL DGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( KC+2 ), 1, ONE, B( K, 1 ), LDB );
+                  dgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( KCNEXT+1 ), 1, ONE, B( K+1, 1 ), LDB );
+                  dgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( KC+2 ), 1, ONE, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

@@ -91,7 +91,9 @@
               // T1 -> a(0), T2 -> a(n), S -> a(n1)
 
                spotrf('L', N1, A( 0 ), N, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'R', 'L', 'T', 'N', N2, N1, ONE, A( 0 ), N, A( N1 ), N )                CALL SSYRK( 'U', 'N', N2, N1, -ONE, A( N1 ), N, ONE, A( N ), N );
+               if (INFO.GT.0) RETURN;
+               strsm('R', 'L', 'T', 'N', N2, N1, ONE, A( 0 ), N, A( N1 ), N );
+               ssyrk('U', 'N', N2, N1, -ONE, A( N1 ), N, ONE, A( N ), N );
                spotrf('U', N2, A( N ), N, INFO );
                if (INFO.GT.0) INFO = INFO + N1;
 
@@ -102,7 +104,9 @@
               // T1 -> a(n2), T2 -> a(n1), S -> a(0)
 
                spotrf('L', N1, A( N2 ), N, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'L', 'L', 'N', 'N', N1, N2, ONE, A( N2 ), N, A( 0 ), N )                CALL SSYRK( 'U', 'T', N2, N1, -ONE, A( 0 ), N, ONE, A( N1 ), N );
+               if (INFO.GT.0) RETURN;
+               strsm('L', 'L', 'N', 'N', N1, N2, ONE, A( N2 ), N, A( 0 ), N );
+               ssyrk('U', 'T', N2, N1, -ONE, A( 0 ), N, ONE, A( N1 ), N );
                spotrf('U', N2, A( N1 ), N, INFO );
                if (INFO.GT.0) INFO = INFO + N1;
 
@@ -119,7 +123,9 @@
                // T1 -> a(0+0) , T2 -> a(1+0) , S -> a(0+n1*n1); lda=n1
 
                spotrf('U', N1, A( 0 ), N1, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'L', 'U', 'T', 'N', N1, N2, ONE, A( 0 ), N1, A( N1*N1 ), N1 )                CALL SSYRK( 'L', 'T', N2, N1, -ONE, A( N1*N1 ), N1, ONE, A( 1 ), N1 );
+               if (INFO.GT.0) RETURN;
+               strsm('L', 'U', 'T', 'N', N1, N2, ONE, A( 0 ), N1, A( N1*N1 ), N1 );
+               ssyrk('L', 'T', N2, N1, -ONE, A( N1*N1 ), N1, ONE, A( 1 ), N1 );
                spotrf('L', N2, A( 1 ), N1, INFO );
                if (INFO.GT.0) INFO = INFO + N1;
 
@@ -130,7 +136,9 @@
                // T1 -> a(n2*n2), T2 -> a(n1*n2), S -> a(0); lda = n2
 
                spotrf('U', N1, A( N2*N2 ), N2, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'R', 'U', 'N', 'N', N2, N1, ONE, A( N2*N2 ), N2, A( 0 ), N2 )                CALL SSYRK( 'L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE, A( N1*N2 ), N2 );
+               if (INFO.GT.0) RETURN;
+               strsm('R', 'U', 'N', 'N', N2, N1, ONE, A( N2*N2 ), N2, A( 0 ), N2 );
+               ssyrk('L', 'N', N2, N1, -ONE, A( 0 ), N2, ONE, A( N1*N2 ), N2 );
                spotrf('L', N2, A( N1*N2 ), N2, INFO );
                if (INFO.GT.0) INFO = INFO + N1;
 
@@ -153,7 +161,9 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                spotrf('L', K, A( 1 ), N+1, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'R', 'L', 'T', 'N', K, K, ONE, A( 1 ), N+1, A( K+1 ), N+1 )                CALL SSYRK( 'U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE, A( 0 ), N+1 );
+               if (INFO.GT.0) RETURN;
+               strsm('R', 'L', 'T', 'N', K, K, ONE, A( 1 ), N+1, A( K+1 ), N+1 );
+               ssyrk('U', 'N', K, K, -ONE, A( K+1 ), N+1, ONE, A( 0 ), N+1 );
                spotrf('U', K, A( 0 ), N+1, INFO );
                if (INFO.GT.0) INFO = INFO + K;
 
@@ -164,7 +174,9 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                spotrf('L', K, A( K+1 ), N+1, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'L', 'L', 'N', 'N', K, K, ONE, A( K+1 ), N+1, A( 0 ), N+1 )                CALL SSYRK( 'U', 'T', K, K, -ONE, A( 0 ), N+1, ONE, A( K ), N+1 );
+               if (INFO.GT.0) RETURN;
+               strsm('L', 'L', 'N', 'N', K, K, ONE, A( K+1 ), N+1, A( 0 ), N+1 );
+               ssyrk('U', 'T', K, K, -ONE, A( 0 ), N+1, ONE, A( K ), N+1 );
                spotrf('U', K, A( K ), N+1, INFO );
                if (INFO.GT.0) INFO = INFO + K;
 
@@ -181,7 +193,9 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                spotrf('U', K, A( 0+K ), K, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'L', 'U', 'T', 'N', K, K, ONE, A( K ), N1, A( K*( K+1 ) ), K )                CALL SSYRK( 'L', 'T', K, K, -ONE, A( K*( K+1 ) ), K, ONE, A( 0 ), K );
+               if (INFO.GT.0) RETURN;
+               strsm('L', 'U', 'T', 'N', K, K, ONE, A( K ), N1, A( K*( K+1 ) ), K );
+               ssyrk('L', 'T', K, K, -ONE, A( K*( K+1 ) ), K, ONE, A( 0 ), K );
                spotrf('L', K, A( 0 ), K, INFO );
                if (INFO.GT.0) INFO = INFO + K;
 
@@ -192,7 +206,9 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                spotrf('U', K, A( K*( K+1 ) ), K, INFO );
-               if (INFO.GT.0) RETURN                CALL STRSM( 'R', 'U', 'N', 'N', K, K, ONE, A( K*( K+1 ) ), K, A( 0 ), K )                CALL SSYRK( 'L', 'N', K, K, -ONE, A( 0 ), K, ONE, A( K*K ), K );
+               if (INFO.GT.0) RETURN;
+               strsm('R', 'U', 'N', 'N', K, K, ONE, A( K*( K+1 ) ), K, A( 0 ), K );
+               ssyrk('L', 'N', K, K, -ONE, A( 0 ), K, ONE, A( K*K ), K );
                spotrf('L', K, A( K*K ), K, INFO );
                if (INFO.GT.0) INFO = INFO + K;
 

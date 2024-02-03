@@ -237,7 +237,8 @@
                      // Reconstruct matrix from factors and compute
                      // residual.
 
-                     zlacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB )                      CALL ZPBT01( UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
+                     zlacpy('Full', KD+1, N, AFAC, LDAB, AINV, LDAB );
+                     zpbt01(UPLO, N, KD, A, LDAB, AINV, LDAB, RWORK, RESULT( 1 ) );
 
                      // Print the test ratio if it is .GE. THRESH.
 
@@ -285,7 +286,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBTRS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZPBT02( UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        zpbt02(UPLO, N, KD, NRHS, A, LDAB, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
 *+    TEST 3
                      // Check solution from generated exact solution.
@@ -302,7 +304,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'ZPBRFS', INFO, 0, UPLO, N, N, KD, KD, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZPBT05( UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                        zpbt05(UPLO, N, KD, NRHS, A, LDAB, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

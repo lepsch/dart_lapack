@@ -102,7 +102,10 @@
          TEMP = V( 2 )
          dlartg(TEMP, V( 3 ), C1, S1, V( 2 ) );
          dlartg(V( 1 ), V( 2 ), C2, S2, TEMP );
-          drot(NS, A( ILO+1, ILO ), LDA, A( ILO+2, ILO ), LDA, C1, S1 )          CALL DROT( NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C2, S2 )          CALL DROT( NS, B( ILO+1, ILO ), LDB, B( ILO+2, ILO ), LDB, C1, S1 )          CALL DROT( NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C2, S2 );
+          drot(NS, A( ILO+1, ILO ), LDA, A( ILO+2, ILO ), LDA, C1, S1 );
+         drot(NS, A( ILO, ILO ), LDA, A( ILO+1, ILO ), LDA, C2, S2 );
+         drot(NS, B( ILO+1, ILO ), LDB, B( ILO+2, ILO ), LDB, C1, S1 );
+         drot(NS, B( ILO, ILO ), LDB, B( ILO+1, ILO ), LDB, C2, S2 );
          drot(NS+1, QC( 1, 2 ), 1, QC( 1, 3 ), 1, C1, S1 );
          drot(NS+1, QC( 1, 1 ), 1, QC( 1, 2 ), 1, C2, S2 );
 
@@ -121,7 +124,10 @@
       SHEIGHT = NS+1
       SWIDTH = ISTOPM-( ILO+NS )+1
       if ( SWIDTH > 0 ) {
-         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( ILO, ILO+NS ), LDA, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA )          CALL DGEMM( 'T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( ILO, ILO+NS ), LDB, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB );
+         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( ILO, ILO+NS ), LDA, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ILO, ILO+NS ), LDA );
+         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( ILO, ILO+NS ), LDB, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ILO, ILO+NS ), LDB );
       }
       if ( ILQ ) {
          dgemm('N', 'N', N, SHEIGHT, SHEIGHT, ONE, Q( 1, ILO ), LDQ, QC, LDQC, ZERO, WORK, N );
@@ -133,7 +139,10 @@
       SHEIGHT = ILO-1-ISTARTM+1
       SWIDTH = NS
       if ( SHEIGHT > 0 ) {
-         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA )          CALL DGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, ILO ), LDB );
+         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, ILO ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, ILO ), LDA );
+         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, ILO ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, ILO ), LDB );
       }
       if ( ILZ ) {
          dgemm('N', 'N', N, SWIDTH, SWIDTH, ONE, Z( 1, ILO ), LDZ, ZC, LDZC, ZERO, WORK, N );
@@ -175,7 +184,9 @@
          SHEIGHT = NS+NP
          SWIDTH = ISTOPM-( K+NS+NP )+1
          if ( SWIDTH > 0 ) {
-            dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, ZERO, WORK, SHEIGHT )             CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA )             CALL DGEMM( 'T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, ZERO, WORK, SHEIGHT );
+            dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( K+1, K+NS+NP ), LDA, ZERO, WORK, SHEIGHT );
+            dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( K+1, K+NS+NP ), LDA );
+            dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( K+1, K+NS+NP ), LDB, ZERO, WORK, SHEIGHT );
             dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( K+1, K+NS+NP ), LDB );
          }
          if ( ILQ ) {
@@ -188,7 +199,9 @@
          SHEIGHT = K-ISTARTM+1
          SWIDTH = NBLOCK
          if ( SHEIGHT > 0 ) {
-            dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, K ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT )             CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA )             CALL DGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, K ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT );
+            dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, K ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
+            dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, K ), LDA );
+            dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, K ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT );
             dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, K ), LDB );
          }
          if ( ILZ ) {
@@ -226,7 +239,10 @@
       SHEIGHT = NS
       SWIDTH = ISTOPM-( IHI+1 )+1
       if ( SWIDTH > 0 ) {
-         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA )          CALL DGEMM( 'T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB );
+         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, A( IHI-NS+1, IHI+1 ), LDA, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( IHI-NS+1, IHI+1 ), LDA );
+         dgemm('T', 'N', SHEIGHT, SWIDTH, SHEIGHT, ONE, QC, LDQC, B( IHI-NS+1, IHI+1 ), LDB, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( IHI-NS+1, IHI+1 ), LDB );
       }
       if ( ILQ ) {
          dgemm('N', 'N', N, NS, NS, ONE, Q( 1, IHI-NS+1 ), LDQ, QC, LDQC, ZERO, WORK, N );
@@ -238,7 +254,10 @@
       SHEIGHT = IHI-NS-ISTARTM+1
       SWIDTH = NS+1
       if ( SHEIGHT > 0 ) {
-         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA )          CALL DGEMM( 'N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT )          CALL DLACPY( 'ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, IHI-NS ), LDB );
+         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, A( ISTARTM, IHI-NS ), LDA, ZC, LDZC, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, A( ISTARTM, IHI-NS ), LDA );
+         dgemm('N', 'N', SHEIGHT, SWIDTH, SWIDTH, ONE, B( ISTARTM, IHI-NS ), LDB, ZC, LDZC, ZERO, WORK, SHEIGHT );
+         dlacpy('ALL', SHEIGHT, SWIDTH, WORK, SHEIGHT, B( ISTARTM, IHI-NS ), LDB );
       }
       if ( ILZ ) {
          dgemm('N', 'N', N, NS+1, NS+1, ONE, Z( 1, IHI-NS ), LDZ, ZC, LDZC, ZERO, WORK, N );

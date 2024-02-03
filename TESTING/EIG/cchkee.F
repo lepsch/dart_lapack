@@ -762,7 +762,8 @@ void main() {
                   ISEED( K ) = IOLDSD( K )
                } // 260
             }
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL CCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO )
+            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
+            cchkhs(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), DC( 1, 1 ), DC( 1, 2 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), DC( 1, 3 ), WORK, LWORK, RWORK, IWORK, LOGWRK, RESULT, INFO );
             if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCHKHS', INFO;
          } // 270
 
@@ -1170,7 +1171,8 @@ void main() {
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL CERRGG( 'GLM', NOUT )          CALL CCKGLM( NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL CERRGG( 'GLM', NOUT );
+         cckglm(NN, NVAL, MVAL, PVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGLM', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
@@ -1180,7 +1182,8 @@ void main() {
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL CERRGG( 'GQR', NOUT )          CALL CCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL CERRGG( 'GQR', NOUT );
+         cckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGQR', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
@@ -1190,7 +1193,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL CERRGG( 'GSV', NOUT )          CALL CCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL CERRGG( 'GSV', NOUT );
+         cckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), ALPHA, BETA, B( 1, 4 ), IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKGSV', INFO;
 
       } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
@@ -1200,7 +1204,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL CERRGG( 'CSD', NOUT )          CALL CCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL CERRGG( 'CSD', NOUT );
+         cckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), RWORK, IWORK, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKCSD', INFO;
 
       } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
@@ -1210,7 +1215,8 @@ void main() {
          // --------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL CERRGG( 'LSE', NOUT )          CALL CCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL CERRGG( 'LSE', NOUT );
+         ccklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, DR( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'CCKLSE', INFO;
       } else {
          WRITE( NOUT, FMT = * )

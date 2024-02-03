@@ -272,7 +272,8 @@
 
                      // Compute residual of the computed solution.
 
-                     dlacpy('Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA )                      CALL DPOT02( UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) );
+                     dlacpy('Full', N, NRHS, B, LDA, D_TEMP_DPOT02, LDA );
+                     dpot02(UPLO, N, NRHS, A, LDA, X, LDA, D_TEMP_DPOT02, LDA, D_WORK_DPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
                       dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );

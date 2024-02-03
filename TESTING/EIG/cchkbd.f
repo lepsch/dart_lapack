@@ -316,7 +316,8 @@
                // Generate Q
 
                MQ = M
-               if (NRHS.LE.0) MQ = MNMIN                CALL CUNGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
+               if (NRHS.LE.0) MQ = MNMIN;
+               cungbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from CUNGBR.
 
@@ -346,7 +347,9 @@
                     // 2:  Check the orthogonality of Q
                     // 3:  Check the orthogonality of PT
 
-               cbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) );
+               cbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RWORK, RESULT( 1 ) );
+               cunt01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
+               cunt01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 3 ) );
             }
 
             // Use CBDSQR to form the SVD of the bidiagonal matrix B:
@@ -399,7 +402,10 @@
                  // 6:  Check the orthogonality of U
                  // 7:  Check the orthogonality of VT
 
-            cbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) )             CALL CBDT02( MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) )             CALL CUNT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) )             CALL CUNT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
+            cbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) );
+            cbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RWORK, RESULT( 5 ) );
+            cunt01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RWORK, RESULT( 6 ) );
+            cunt01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
@@ -451,7 +457,10 @@
                     // 13:  Check the orthogonality of Q*U
                     // 14:  Check the orthogonality of VT*PT
 
-               cbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) )                CALL CBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) )                CALL CUNT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) )                CALL CUNT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) );
+               cbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RWORK, RESULT( 11 ) );
+               cbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RWORK, RESULT( 12 ) );
+               cunt01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RWORK, RESULT( 13 ) );
+               cunt01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RWORK, RESULT( 14 ) );
             }
 
             // End of Loop -- Check for RESULT(j) > THRESH

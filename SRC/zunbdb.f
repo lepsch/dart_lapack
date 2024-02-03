@@ -111,12 +111,14 @@
             if ( I .EQ. 1 ) {
                zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), 1 );
             } else {
-               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), 1 )                CALL ZAXPY( P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I,I-1), 1, X11(I,I), 1 );
+               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), 1 );
+               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I,I-1), 1, X11(I,I), 1 );
             }
             if ( I .EQ. 1 ) {
                zscal(M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), 1 );
             } else {
-               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), 1 )                CALL ZAXPY( M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I,I-1), 1, X21(I,I), 1 );
+               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), 1 );
+               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I,I-1), 1, X21(I,I), 1 );
             }
 
             THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), 1 ), DZNRM2( P-I+1, X11(I,I), 1 ) )
@@ -135,16 +137,20 @@
             X21(I,I) = ONE
 
             if ( Q .GT. I ) {
-               zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK )                CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK );
+               zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK );
+               zlarf('L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK );
             }
             if ( M-Q+1 .GT. I ) {
-               zlarf('L', P-I+1, M-Q-I+1, X11(I,I), 1, DCONJG(TAUP1(I)), X12(I,I), LDX12, WORK )                CALL ZLARF( 'L', M-P-I+1, M-Q-I+1, X21(I,I), 1, DCONJG(TAUP2(I)), X22(I,I), LDX22, WORK );
+               zlarf('L', P-I+1, M-Q-I+1, X11(I,I), 1, DCONJG(TAUP1(I)), X12(I,I), LDX12, WORK );
+               zlarf('L', M-P-I+1, M-Q-I+1, X21(I,I), 1, DCONJG(TAUP2(I)), X22(I,I), LDX22, WORK );
             }
 
             if ( I .LT. Q ) {
-               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I,I+1), LDX11 )                CALL ZAXPY( Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
+               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I,I+1), LDX11 );
+               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), LDX12 )             CALL ZAXPY( M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), LDX12 );
+            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), LDX22, X12(I,I), LDX12 );
 
             if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I,I+1), LDX11 ), DZNRM2( M-Q-I+1, X12(I,I), LDX12 ) );
 
@@ -168,7 +174,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               zlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL ZLARF( 'R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
+               zlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
+               zlarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             if ( P .GT. I ) {
                zlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -227,12 +234,14 @@
             if ( I .EQ. 1 ) {
                zscal(P-I+1, DCMPLX( Z1, 0.0D0 ), X11(I,I), LDX11 );
             } else {
-               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), LDX11 )                CALL ZAXPY( P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I-1,I), LDX12, X11(I,I), LDX11 );
+               zscal(P-I+1, DCMPLX( Z1*COS(PHI(I-1)), 0.0D0 ), X11(I,I), LDX11 );
+               zaxpy(P-I+1, DCMPLX( -Z1*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X12(I-1,I), LDX12, X11(I,I), LDX11 );
             }
             if ( I .EQ. 1 ) {
                zscal(M-P-I+1, DCMPLX( Z2, 0.0D0 ), X21(I,I), LDX21 );
             } else {
-               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), LDX21 )                CALL ZAXPY( M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 );
+               zscal(M-P-I+1, DCMPLX( Z2*COS(PHI(I-1)), 0.0D0 ), X21(I,I), LDX21 );
+               zaxpy(M-P-I+1, DCMPLX( -Z2*Z3*Z4*SIN(PHI(I-1)), 0.0D0 ), X22(I-1,I), LDX22, X21(I,I), LDX21 );
             }
 
             THETA(I) = ATAN2( DZNRM2( M-P-I+1, X21(I,I), LDX21 ), DZNRM2( P-I+1, X11(I,I), LDX11 ) )
@@ -249,15 +258,20 @@
             }
             X21(I,I) = ONE
 
-            zlarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK )             CALL ZLARF( 'R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK )             CALL ZLARF( 'R', Q-I, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X21(I+1,I), LDX21, WORK )             CALL ZLARF( 'R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK );
+            zlarf('R', Q-I, P-I+1, X11(I,I), LDX11, TAUP1(I), X11(I+1,I), LDX11, WORK );
+            zlarf('R', M-Q-I+1, P-I+1, X11(I,I), LDX11, TAUP1(I), X12(I,I), LDX12, WORK );
+            zlarf('R', Q-I, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X21(I+1,I), LDX21, WORK );
+            zlarf('R', M-Q-I+1, M-P-I+1, X21(I,I), LDX21, TAUP2(I), X22(I,I), LDX22, WORK );
 
             zlacgv(P-I+1, X11(I,I), LDX11 );
             zlacgv(M-P-I+1, X21(I,I), LDX21 );
 
             if ( I .LT. Q ) {
-               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I+1,I), 1 )                CALL ZAXPY( Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I+1,I), 1, X11(I+1,I), 1 );
+               zscal(Q-I, DCMPLX( -Z1*Z3*SIN(THETA(I)), 0.0D0 ), X11(I+1,I), 1 );
+               zaxpy(Q-I, DCMPLX( Z2*Z3*COS(THETA(I)), 0.0D0 ), X21(I+1,I), 1, X11(I+1,I), 1 );
             }
-            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), 1 )             CALL ZAXPY( M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), 1, X12(I,I), 1 );
+            zscal(M-Q-I+1, DCMPLX( -Z1*Z4*SIN(THETA(I)), 0.0D0 ), X12(I,I), 1 );
+            zaxpy(M-Q-I+1, DCMPLX( Z2*Z4*COS(THETA(I)), 0.0D0 ), X22(I,I), 1, X12(I,I), 1 );
 
             if (I .LT. Q) PHI(I) = ATAN2( DZNRM2( Q-I, X11(I+1,I), 1 ), DZNRM2( M-Q-I+1, X12(I,I), 1 ) );
 
@@ -269,7 +283,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               zlarf('L', Q-I, P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X11(I+1,I+1), LDX11, WORK )                CALL ZLARF( 'L', Q-I, M-P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X21(I+1,I+1), LDX21, WORK );
+               zlarf('L', Q-I, P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X11(I+1,I+1), LDX11, WORK );
+               zlarf('L', Q-I, M-P-I, X11(I+1,I), 1, DCONJG(TAUQ1(I)), X21(I+1,I+1), LDX21, WORK );
             }
             zlarf('L', M-Q-I+1, P-I, X12(I,I), 1, DCONJG(TAUQ2(I)), X12(I,I+1), LDX12, WORK );
             if ( M-P .GT. I ) {
@@ -297,7 +312,8 @@
 
          for (I = 1; I <= M - P - Q; I++) {
 
-            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(P+I,Q+I), 1 )             CALL ZLARFGP( M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
+            zscal(M-P-Q-I+1, DCMPLX( Z2*Z4, 0.0D0 ), X22(P+I,Q+I), 1 );
+            zlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
             X22(P+I,Q+I) = ONE
 
             if ( M-P-Q .NE. I ) {

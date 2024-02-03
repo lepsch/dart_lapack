@@ -78,7 +78,8 @@
             if ( ( ABS( UA11R )+ABS1( UA12 ) ).EQ.ZERO ) {
                zlartg(-DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R );
             } else if ( ( ABS( VB11R )+ABS1( VB12 ) ).EQ.ZERO ) {
-               zlartg(-DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN                CALL ZLARTG( -DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R );
+               zlartg(-DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R )             ELSE IF( AUA12 / ( ABS( UA11R )+ABS1( UA12 ) ).LE.AVB12 / ( ABS( VB11R )+ABS1( VB12 ) ) ) THEN;
+               zlartg(-DCMPLX( UA11R ), DCONJG( UA12 ), CSQ, SNQ, R );
             } else {
                zlartg(-DCMPLX( VB11R ), DCONJG( VB12 ), CSQ, SNQ, R );
             }
@@ -107,7 +108,8 @@
             if ( ( ABS1( UA21 )+ABS1( UA22 ) ).EQ.ZERO ) {
                zlartg(-DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R );
             } else if ( ( ABS1( VB21 )+ABS( VB22 ) ).EQ.ZERO ) {
-               zlartg(-DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN                CALL ZLARTG( -DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R );
+               zlartg(-DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R )             ELSE IF( AUA22 / ( ABS1( UA21 )+ABS1( UA22 ) ).LE.AVB22 / ( ABS1( VB21 )+ABS1( VB22 ) ) ) THEN;
+               zlartg(-DCONJG( UA21 ), DCONJG( UA22 ), CSQ, SNQ, R );
             } else {
                zlartg(-DCONJG( VB21 ), DCONJG( VB22 ), CSQ, SNQ, R );
             }

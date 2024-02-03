@@ -321,11 +321,13 @@
 
       } // 50
       if ( SCALEA ) {
-         slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR )          CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WR( INFO+1 ), MAX( N-INFO, 1 ), IERR );
+         slascl('G', 0, 0, CSCALE, ANRM, N-INFO, 1, WI( INFO+1 ), MAX( N-INFO, 1 ), IERR );
          if ( INFO.EQ.0 ) {
             IF( ( WNTSNV .OR. WNTSNB ) .AND. ICOND.EQ.0 ) CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, N, 1, RCONDV, N, IERR )
          } else {
-            slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR )             CALL SLASCL( 'G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
+            slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WR, N, IERR );
+            slascl('G', 0, 0, CSCALE, ANRM, ILO-1, 1, WI, N, IERR );
          }
       }
 

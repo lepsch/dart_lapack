@@ -129,12 +129,16 @@
 
                // matrix scaled up
 
-               zlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
+               zlascl('General', 0, 0, NORMA, BIGNUM, M, N, A, LDA, INFO );
+               dlascl('General', 0, 0, NORMA, BIGNUM, MN, 1, S, MN, INFO );
+               zlascl('General', 0, 0, NORMA, BIGNUM, M, NRHS, B, LDB, INFO );
             } else if ( SCALE.EQ.3 ) {
 
                // matrix scaled down
 
-               zlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO )                CALL DLASCL( 'General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO )                CALL ZLASCL( 'General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
+               zlascl('General', 0, 0, NORMA, SMLNUM, M, N, A, LDA, INFO );
+               dlascl('General', 0, 0, NORMA, SMLNUM, MN, 1, S, MN, INFO );
+               zlascl('General', 0, 0, NORMA, SMLNUM, M, NRHS, B, LDB, INFO );
             } else {
                xerbla('ZQRT15', 1 );
                RETURN

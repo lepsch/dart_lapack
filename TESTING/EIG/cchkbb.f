@@ -282,7 +282,10 @@
                     // 3:  Check the orthogonality of P
                     // 4:  Check the computation of Q' * C
 
-               cbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) )                CALL CUNT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) )                CALL CUNT01( 'Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) )                CALL CBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) );
+               cbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RWORK, RESULT( 1 ) );
+               cunt01('Columns', M, M, Q, LDQ, WORK, LWORK, RWORK, RESULT( 2 ) );
+               cunt01('Rows', N, N, P, LDP, WORK, LWORK, RWORK, RESULT( 3 ) );
+               cbdt02(M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RWORK, RESULT( 4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

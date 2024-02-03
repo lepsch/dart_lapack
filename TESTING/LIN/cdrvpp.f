@@ -283,7 +283,8 @@
 
                         // Compute residual of the computed solution.
 
-                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL CPPT02( UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                        clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        cppt02(UPLO, N, NRHS, A, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
@@ -342,11 +343,13 @@
 
                         // Compute residual of the computed solution.
 
-                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CPPT02( UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                        cppt02(UPLO, N, NRHS, ASAV, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            cget04(N, NRHS, X, LDA, XACT, LDA, ROLDC, RESULT( 3 ) );
                         }

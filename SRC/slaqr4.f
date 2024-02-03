@@ -310,7 +310,8 @@
                   if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     slacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL SLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
+                     slacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
+                     slahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, WR( KS ), WI( KS ), 1, 1, ZDUM, 1, INF );
                      KS = KS + INF
 
                      // ==== In case of a rare QR failure use

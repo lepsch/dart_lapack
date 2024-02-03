@@ -308,7 +308,8 @@
                // Interchange rows and columns KK and KP in the trailing
                // submatrix A(k:n,k:n)
 
-               if (KP.LT.N) CALL SSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 )                CALL SSWAP( KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
+               if (KP.LT.N) CALL SSWAP( N-KP, A( KP+1, KK ), 1, A( KP+1, KP ), 1 );
+               sswap(KP-KK-1, A( KK+1, KK ), 1, A( KP, KK+1 ), LDA );
                T = A( KK, KK )
                A( KK, KK ) = A( KP, KP )
                A( KP, KP ) = T

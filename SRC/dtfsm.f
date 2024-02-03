@@ -123,7 +123,9 @@
                      if ( M.EQ.1 ) {
                         dtrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A, M, B, LDB );
                      } else {
-                        dtrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB )                         CALL DGEMM( 'N', 'N', M2, N, M1, -ONE, A( M1 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                         CALL DTRSM( 'L', 'U', 'T', DIAG, M2, N, ONE, A( M ), M, B( M1, 0 ), LDB );
+                        dtrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB );
+                        dgemm('N', 'N', M2, N, M1, -ONE, A( M1 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB );
+                        dtrsm('L', 'U', 'T', DIAG, M2, N, ONE, A( M ), M, B( M1, 0 ), LDB );
                      }
 
                   } else {
@@ -134,7 +136,9 @@
                      if ( M.EQ.1 ) {
                         dtrsm('L', 'L', 'T', DIAG, M1, N, ALPHA, A( 0 ), M, B, LDB );
                      } else {
-                        dtrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB )                         CALL DGEMM( 'T', 'N', M1, N, M2, -ONE, A( M1 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                         CALL DTRSM( 'L', 'L', 'T', DIAG, M1, N, ONE, A( 0 ), M, B, LDB );
+                        dtrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M ), M, B( M1, 0 ), LDB );
+                        dgemm('T', 'N', M1, N, M2, -ONE, A( M1 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB );
+                        dtrsm('L', 'L', 'T', DIAG, M1, N, ONE, A( 0 ), M, B, LDB );
                      }
 
                   }
@@ -148,14 +152,18 @@
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     dtrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( M2 ), M, B, LDB )                      CALL DGEMM( 'T', 'N', M2, N, M1, -ONE, A( 0 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL DTRSM( 'L', 'U', 'T', DIAG, M2, N, ONE, A( M1 ), M, B( M1, 0 ), LDB );
+                     dtrsm('L', 'L', 'N', DIAG, M1, N, ALPHA, A( M2 ), M, B, LDB );
+                     dgemm('T', 'N', M2, N, M1, -ONE, A( 0 ), M, B, LDB, ALPHA, B( M1, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, M2, N, ONE, A( M1 ), M, B( M1, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'T'
 
-                     dtrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB )                      CALL DGEMM( 'N', 'N', M1, N, M2, -ONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL DTRSM( 'L', 'L', 'T', DIAG, M1, N, ONE, A( M2 ), M, B, LDB );
+                     dtrsm('L', 'U', 'N', DIAG, M2, N, ALPHA, A( M1 ), M, B( M1, 0 ), LDB );
+                     dgemm('N', 'N', M1, N, M2, -ONE, A( 0 ), M, B( M1, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, M1, N, ONE, A( M2 ), M, B, LDB );
 
                   }
 
@@ -177,7 +185,8 @@
                      if ( M.EQ.1 ) {
                         dtrsm('L', 'U', 'T', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
-                        dtrsm('L', 'U', 'T', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB )                         CALL DGEMM( 'T', 'N', M2, N, M1, -ONE, A( M1*M1 ), M1, B, LDB, ALPHA, B( M1, 0 ), LDB );
+                        dtrsm('L', 'U', 'T', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
+                        dgemm('T', 'N', M2, N, M1, -ONE, A( M1*M1 ), M1, B, LDB, ALPHA, B( M1, 0 ), LDB );
                         dtrsm('L', 'L', 'N', DIAG, M2, N, ONE, A( 1 ), M1, B( M1, 0 ), LDB );
                      }
 
@@ -189,7 +198,8 @@
                      if ( M.EQ.1 ) {
                         dtrsm('L', 'U', 'N', DIAG, M1, N, ALPHA, A( 0 ), M1, B, LDB );
                      } else {
-                        dtrsm('L', 'L', 'T', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB )                         CALL DGEMM( 'N', 'N', M1, N, M2, -ONE, A( M1*M1 ), M1, B( M1, 0 ), LDB, ALPHA, B, LDB );
+                        dtrsm('L', 'L', 'T', DIAG, M2, N, ALPHA, A( 1 ), M1, B( M1, 0 ), LDB );
+                        dgemm('N', 'N', M1, N, M2, -ONE, A( M1*M1 ), M1, B( M1, 0 ), LDB, ALPHA, B, LDB );
                         dtrsm('L', 'U', 'N', DIAG, M1, N, ONE, A( 0 ), M1, B, LDB );
                      }
 
@@ -204,14 +214,18 @@
                      // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     dtrsm('L', 'U', 'T', DIAG, M1, N, ALPHA, A( M2*M2 ), M2, B, LDB )                      CALL DGEMM( 'N', 'N', M2, N, M1, -ONE, A( 0 ), M2, B, LDB, ALPHA, B( M1, 0 ), LDB )                      CALL DTRSM( 'L', 'L', 'N', DIAG, M2, N, ONE, A( M1*M2 ), M2, B( M1, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, M1, N, ALPHA, A( M2*M2 ), M2, B, LDB );
+                     dgemm('N', 'N', M2, N, M1, -ONE, A( 0 ), M2, B, LDB, ALPHA, B( M1, 0 ), LDB );
+                     dtrsm('L', 'L', 'N', DIAG, M2, N, ONE, A( M1*M2 ), M2, B( M1, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is odd, TRANSR = 'T', UPLO = 'U', and
                      // TRANS = 'T'
 
-                     dtrsm('L', 'L', 'T', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB )                      CALL DGEMM( 'T', 'N', M1, N, M2, -ONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB )                      CALL DTRSM( 'L', 'U', 'N', DIAG, M1, N, ONE, A( M2*M2 ), M2, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, M2, N, ALPHA, A( M1*M2 ), M2, B( M1, 0 ), LDB );
+                     dgemm('T', 'N', M1, N, M2, -ONE, A( 0 ), M2, B( M1, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'U', 'N', DIAG, M1, N, ONE, A( M2*M2 ), M2, B, LDB );
 
                   }
 
@@ -236,14 +250,18 @@
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     dtrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( 1 ), M+1, B, LDB )                      CALL DGEMM( 'N', 'N', K, N, K, -ONE, A( K+1 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL DTRSM( 'L', 'U', 'T', DIAG, K, N, ONE, A( 0 ), M+1, B( K, 0 ), LDB );
+                     dtrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( 1 ), M+1, B, LDB );
+                     dgemm('N', 'N', K, N, K, -ONE, A( K+1 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, K, N, ONE, A( 0 ), M+1, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'T'
 
-                     dtrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB )                      CALL DGEMM( 'T', 'N', K, N, K, -ONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL DTRSM( 'L', 'L', 'T', DIAG, K, N, ONE, A( 1 ), M+1, B, LDB );
+                     dtrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( 0 ), M+1, B( K, 0 ), LDB );
+                     dgemm('T', 'N', K, N, K, -ONE, A( K+1 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, K, N, ONE, A( 1 ), M+1, B, LDB );
 
                   }
 
@@ -256,13 +274,17 @@
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     dtrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( K+1 ), M+1, B, LDB )                      CALL DGEMM( 'T', 'N', K, N, K, -ONE, A( 0 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL DTRSM( 'L', 'U', 'T', DIAG, K, N, ONE, A( K ), M+1, B( K, 0 ), LDB );
+                     dtrsm('L', 'L', 'N', DIAG, K, N, ALPHA, A( K+1 ), M+1, B, LDB );
+                     dgemm('T', 'N', K, N, K, -ONE, A( 0 ), M+1, B, LDB, ALPHA, B( K, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, K, N, ONE, A( K ), M+1, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'T'
-                     dtrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB )                      CALL DGEMM( 'N', 'N', K, N, K, -ONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL DTRSM( 'L', 'L', 'T', DIAG, K, N, ONE, A( K+1 ), M+1, B, LDB );
+                     dtrsm('L', 'U', 'N', DIAG, K, N, ALPHA, A( K ), M+1, B( K, 0 ), LDB );
+                     dgemm('N', 'N', K, N, K, -ONE, A( 0 ), M+1, B( K, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, K, N, ONE, A( K+1 ), M+1, B, LDB );
 
                   }
 
@@ -281,7 +303,8 @@
                      // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     dtrsm('L', 'U', 'T', DIAG, K, N, ALPHA, A( K ), K, B, LDB )                      CALL DGEMM( 'T', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B, LDB, ALPHA, B( K, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, K, N, ALPHA, A( K ), K, B, LDB );
+                     dgemm('T', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B, LDB, ALPHA, B( K, 0 ), LDB );
                      dtrsm('L', 'L', 'N', DIAG, K, N, ONE, A( 0 ), K, B( K, 0 ), LDB );
 
                   } else {
@@ -289,7 +312,8 @@
                      // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'L',
                      // and TRANS = 'T'
 
-                     dtrsm('L', 'L', 'T', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB )                      CALL DGEMM( 'N', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, K, N, ALPHA, A( 0 ), K, B( K, 0 ), LDB );
+                     dgemm('N', 'N', K, N, K, -ONE, A( K*( K+1 ) ), K, B( K, 0 ), LDB, ALPHA, B, LDB );
                      dtrsm('L', 'U', 'N', DIAG, K, N, ONE, A( K ), K, B, LDB );
 
                   }
@@ -303,14 +327,18 @@
                      // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     dtrsm('L', 'U', 'T', DIAG, K, N, ALPHA, A( K*( K+1 ) ), K, B, LDB )                      CALL DGEMM( 'N', 'N', K, N, K, -ONE, A( 0 ), K, B, LDB, ALPHA, B( K, 0 ), LDB )                      CALL DTRSM( 'L', 'L', 'N', DIAG, K, N, ONE, A( K*K ), K, B( K, 0 ), LDB );
+                     dtrsm('L', 'U', 'T', DIAG, K, N, ALPHA, A( K*( K+1 ) ), K, B, LDB );
+                     dgemm('N', 'N', K, N, K, -ONE, A( 0 ), K, B, LDB, ALPHA, B( K, 0 ), LDB );
+                     dtrsm('L', 'L', 'N', DIAG, K, N, ONE, A( K*K ), K, B( K, 0 ), LDB );
 
                   } else {
 
                      // SIDE  ='L', N is even, TRANSR = 'T', UPLO = 'U',
                      // and TRANS = 'T'
 
-                     dtrsm('L', 'L', 'T', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB )                      CALL DGEMM( 'T', 'N', K, N, K, -ONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB )                      CALL DTRSM( 'L', 'U', 'N', DIAG, K, N, ONE, A( K*( K+1 ) ), K, B, LDB );
+                     dtrsm('L', 'L', 'T', DIAG, K, N, ALPHA, A( K*K ), K, B( K, 0 ), LDB );
+                     dgemm('T', 'N', K, N, K, -ONE, A( 0 ), K, B( K, 0 ), LDB, ALPHA, B, LDB );
+                     dtrsm('L', 'U', 'N', DIAG, K, N, ONE, A( K*( K+1 ) ), K, B, LDB );
 
                   }
 
@@ -359,7 +387,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     dtrsm('R', 'U', 'T', DIAG, M, N2, ALPHA, A( N ), N, B( 0, N1 ), LDB )                      CALL DGEMM( 'N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1 ), N, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'U', 'T', DIAG, M, N2, ALPHA, A( N ), N, B( 0, N1 ), LDB );
+                     dgemm('N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1 ), N, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'L', 'N', DIAG, M, N1, ONE, A( 0 ), N, B( 0, 0 ), LDB );
 
                   } else {
@@ -367,7 +396,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'L', and
                      // TRANS = 'T'
 
-                     dtrsm('R', 'L', 'T', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB );
+                     dtrsm('R', 'L', 'T', DIAG, M, N1, ALPHA, A( 0 ), N, B( 0, 0 ), LDB );
+                     dgemm('N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1 ), N, ALPHA, B( 0, N1 ), LDB );
                      dtrsm('R', 'U', 'N', DIAG, M, N2, ONE, A( N ), N, B( 0, N1 ), LDB );
 
                   }
@@ -381,7 +411,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     dtrsm('R', 'L', 'T', DIAG, M, N1, ALPHA, A( N2 ), N, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N, ALPHA, B( 0, N1 ), LDB );
+                     dtrsm('R', 'L', 'T', DIAG, M, N1, ALPHA, A( N2 ), N, B( 0, 0 ), LDB );
+                     dgemm('N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N, ALPHA, B( 0, N1 ), LDB );
                      dtrsm('R', 'U', 'N', DIAG, M, N2, ONE, A( N1 ), N, B( 0, N1 ), LDB );
 
                   } else {
@@ -389,7 +420,9 @@
                      // SIDE  ='R', N is odd, TRANSR = 'N', UPLO = 'U', and
                      // TRANS = 'T'
 
-                     dtrsm('R', 'U', 'T', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB )                      CALL DGEMM( 'N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB )                      CALL DTRSM( 'R', 'L', 'N', DIAG, M, N1, ONE, A( N2 ), N, B( 0, 0 ), LDB );
+                     dtrsm('R', 'U', 'T', DIAG, M, N2, ALPHA, A( N1 ), N, B( 0, N1 ), LDB );
+                     dgemm('N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'L', 'N', DIAG, M, N1, ONE, A( N2 ), N, B( 0, 0 ), LDB );
 
                   }
 
@@ -408,7 +441,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
                      // TRANS = 'N'
 
-                     dtrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( 1 ), N1, B( 0, N1 ), LDB )                      CALL DGEMM( 'N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( 1 ), N1, B( 0, N1 ), LDB );
+                     dgemm('N', 'T', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'U', 'T', DIAG, M, N1, ONE, A( 0 ), N1, B( 0, 0 ), LDB );
 
                   } else {
@@ -416,7 +450,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'L', and
                      // TRANS = 'T'
 
-                     dtrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB );
+                     dtrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( 0 ), N1, B( 0, 0 ), LDB );
+                     dgemm('N', 'N', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( N1*N1 ), N1, ALPHA, B( 0, N1 ), LDB );
                      dtrsm('R', 'L', 'T', DIAG, M, N2, ONE, A( 1 ), N1, B( 0, N1 ), LDB );
 
                   }
@@ -430,7 +465,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
                      // TRANS = 'N'
 
-                     dtrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( N2*N2 ), N2, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N2, ALPHA, B( 0, N1 ), LDB );
+                     dtrsm('R', 'U', 'N', DIAG, M, N1, ALPHA, A( N2*N2 ), N2, B( 0, 0 ), LDB );
+                     dgemm('N', 'T', M, N2, N1, -ONE, B( 0, 0 ), LDB, A( 0 ), N2, ALPHA, B( 0, N1 ), LDB );
                      dtrsm('R', 'L', 'T', DIAG, M, N2, ONE, A( N1*N2 ), N2, B( 0, N1 ), LDB );
 
                   } else {
@@ -438,7 +474,8 @@
                      // SIDE  ='R', N is odd, TRANSR = 'T', UPLO = 'U', and
                      // TRANS = 'T'
 
-                     dtrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB )                      CALL DGEMM( 'N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'L', 'N', DIAG, M, N2, ALPHA, A( N1*N2 ), N2, B( 0, N1 ), LDB );
+                     dgemm('N', 'N', M, N1, N2, -ONE, B( 0, N1 ), LDB, A( 0 ), N2, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'U', 'T', DIAG, M, N1, ONE, A( N2*N2 ), N2, B( 0, 0 ), LDB );
 
                   }
@@ -464,7 +501,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     dtrsm('R', 'U', 'T', DIAG, M, K, ALPHA, A( 0 ), N+1, B( 0, K ), LDB )                      CALL DGEMM( 'N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( K+1 ), N+1, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'U', 'T', DIAG, M, K, ALPHA, A( 0 ), N+1, B( 0, K ), LDB );
+                     dgemm('N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( K+1 ), N+1, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'L', 'N', DIAG, M, K, ONE, A( 1 ), N+1, B( 0, 0 ), LDB );
 
                   } else {
@@ -472,7 +510,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'L',
                      // and TRANS = 'T'
 
-                     dtrsm('R', 'L', 'T', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB );
+                     dtrsm('R', 'L', 'T', DIAG, M, K, ALPHA, A( 1 ), N+1, B( 0, 0 ), LDB );
+                     dgemm('N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( K+1 ), N+1, ALPHA, B( 0, K ), LDB );
                      dtrsm('R', 'U', 'N', DIAG, M, K, ONE, A( 0 ), N+1, B( 0, K ), LDB );
 
                   }
@@ -486,7 +525,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     dtrsm('R', 'L', 'T', DIAG, M, K, ALPHA, A( K+1 ), N+1, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), N+1, ALPHA, B( 0, K ), LDB );
+                     dtrsm('R', 'L', 'T', DIAG, M, K, ALPHA, A( K+1 ), N+1, B( 0, 0 ), LDB );
+                     dgemm('N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), N+1, ALPHA, B( 0, K ), LDB );
                      dtrsm('R', 'U', 'N', DIAG, M, K, ONE, A( K ), N+1, B( 0, K ), LDB );
 
                   } else {
@@ -494,7 +534,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'N', UPLO = 'U',
                      // and TRANS = 'T'
 
-                     dtrsm('R', 'U', 'T', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB )                      CALL DGEMM( 'N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'U', 'T', DIAG, M, K, ALPHA, A( K ), N+1, B( 0, K ), LDB );
+                     dgemm('N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), N+1, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'L', 'N', DIAG, M, K, ONE, A( K+1 ), N+1, B( 0, 0 ), LDB );
 
                   }
@@ -514,7 +555,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
                      // and TRANS = 'N'
 
-                     dtrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( 0 ), K, B( 0, K ), LDB )                      CALL DGEMM( 'N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( 0 ), K, B( 0, K ), LDB );
+                     dgemm('N', 'T', M, K, K, -ONE, B( 0, K ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, 0 ), LDB );
                      dtrsm('R', 'U', 'T', DIAG, M, K, ONE, A( K ), K, B( 0, 0 ), LDB );
 
                   } else {
@@ -522,7 +564,8 @@
                      // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'L',
                      // and TRANS = 'T'
 
-                     dtrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB );
+                     dtrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( K ), K, B( 0, 0 ), LDB );
+                     dgemm('N', 'N', M, K, K, -ONE, B( 0, 0 ), LDB, A( ( K+1 )*K ), K, ALPHA, B( 0, K ), LDB );
                      dtrsm('R', 'L', 'T', DIAG, M, K, ONE, A( 0 ), K, B( 0, K ), LDB );
 
                   }
@@ -536,14 +579,18 @@
                      // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
                      // and TRANS = 'N'
 
-                     dtrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( ( K+1 )*K ), K, B( 0, 0 ), LDB )                      CALL DGEMM( 'N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), K, ALPHA, B( 0, K ), LDB )                      CALL DTRSM( 'R', 'L', 'T', DIAG, M, K, ONE, A( K*K ), K, B( 0, K ), LDB );
+                     dtrsm('R', 'U', 'N', DIAG, M, K, ALPHA, A( ( K+1 )*K ), K, B( 0, 0 ), LDB );
+                     dgemm('N', 'T', M, K, K, -ONE, B( 0, 0 ), LDB, A( 0 ), K, ALPHA, B( 0, K ), LDB );
+                     dtrsm('R', 'L', 'T', DIAG, M, K, ONE, A( K*K ), K, B( 0, K ), LDB );
 
                   } else {
 
                      // SIDE  ='R', N is even, TRANSR = 'T', UPLO = 'U',
                      // and TRANS = 'T'
 
-                     dtrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB )                      CALL DGEMM( 'N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB )                      CALL DTRSM( 'R', 'U', 'T', DIAG, M, K, ONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB );
+                     dtrsm('R', 'L', 'N', DIAG, M, K, ALPHA, A( K*K ), K, B( 0, K ), LDB );
+                     dgemm('N', 'N', M, K, K, -ONE, B( 0, K ), LDB, A( 0 ), K, ALPHA, B( 0, 0 ), LDB );
+                     dtrsm('R', 'U', 'T', DIAG, M, K, ONE, A( ( K+1 )*K ), K, B( 0, 0 ), LDB );
 
                   }
 

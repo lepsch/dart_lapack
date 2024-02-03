@@ -110,7 +110,8 @@
             S = SIN( THETA(I) )
             PHANTOM(1) = ONE
             PHANTOM(P+1) = ONE
-            clarf('L', P, Q, PHANTOM(1), 1, CONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P, Q, PHANTOM(P+1), 1, CONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) );
+            clarf('L', P, Q, PHANTOM(1), 1, CONJG(TAUP1(1)), X11, LDX11, WORK(ILARF) );
+            clarf('L', M-P, Q, PHANTOM(P+1), 1, CONJG(TAUP2(1)), X21, LDX21, WORK(ILARF) );
          } else {
             cunbdb5(P-I+1, M-P-I+1, Q-I+1, X11(I,I-1), 1, X21(I,I-1), 1, X11(I,I), LDX11, X21(I,I), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );
             cscal(P-I+1, NEGONE, X11(I,I-1), 1 );
@@ -121,7 +122,8 @@
             S = SIN( THETA(I) )
             X11(I,I-1) = ONE
             X21(I,I-1) = ONE
-            clarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) )             CALL CLARF( 'L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) );
+            clarf('L', P-I+1, Q-I+1, X11(I,I-1), 1, CONJG(TAUP1(I)), X11(I,I), LDX11, WORK(ILARF) );
+            clarf('L', M-P-I+1, Q-I+1, X21(I,I-1), 1, CONJG(TAUP2(I)), X21(I,I), LDX21, WORK(ILARF) );
          }
 
          csrot(Q-I+1, X11(I,I), LDX11, X21(I,I), LDX21, S, -C );
@@ -129,7 +131,8 @@
          clarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          C = REAL( X21(I,I) )
          X21(I,I) = ONE
-         clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         clarf('R', P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
+         clarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X21(I,I), LDX21 );
          if ( I .LT. M-Q ) {
             S = SQRT( SCNRM2( P-I, X11(I+1,I), 1 )**2 + SCNRM2( M-P-I, X21(I+1,I), 1 )**2 )
@@ -144,7 +147,8 @@
          clacgv(Q-I+1, X11(I,I), LDX11 );
          clarfgp(Q-I+1, X11(I,I), X11(I,I+1), LDX11, TAUQ1(I) );
          X11(I,I) = ONE
-         clarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) )          CALL CLARF( 'R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
+         clarf('R', P-I, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X11(I+1,I), LDX11, WORK(ILARF) );
+         clarf('R', Q-P, Q-I+1, X11(I,I), LDX11, TAUQ1(I), X21(M-Q+1,I), LDX21, WORK(ILARF) );
          clacgv(Q-I+1, X11(I,I), LDX11 );
       }
 

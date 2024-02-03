@@ -234,7 +234,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 slarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
+                                 slarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 sscal(NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
                               sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                               slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -242,7 +243,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 slacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 slacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'SGELS '
                               sgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -252,7 +254,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL SQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              sqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for SGELS.
@@ -319,7 +322,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 slarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
+                                 slarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 sscal(NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
                               sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                               slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -327,7 +331,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 slacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 slacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'SGELST'
                               sgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                               IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGELST', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -337,7 +342,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL SQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              sqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for SGELST.
@@ -411,7 +417,8 @@
                                  // Set up a consistent rhs
 
                                  if ( NCOLS.GT.0 ) {
-                                    slarnv(2, ISEED, NCOLS*NRHS, WORK )                                     CALL SSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
+                                    slarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                    sscal(NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                                  }
                                  sgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, ONE, COPYA, LDA, WORK, LDWORK, ZERO, B, LDB );
                                  slacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -419,7 +426,8 @@
                                  // Solve LS or overdetermined system
 
                                  if ( M.GT.0 .AND. N.GT.0 ) {
-                                    slacpy('Full', M, N, COPYA, LDA, A, LDA )                                     CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                    slacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                    slacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                  SRNAMT = 'SGETSLS'
                                  sgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'SGETSLS', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -429,7 +437,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL SQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL SLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 sqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for SGETSLS.
@@ -509,7 +518,8 @@
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
 
-                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        sqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
@@ -549,7 +559,8 @@
 
                         // Test 12:  Compute error in solution
 
-                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) );
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        sqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 12 ) );
 
                         // Test 13:  Check norm of r'*A
 
@@ -590,7 +601,8 @@
 
                         // Test 16:  Compute error in solution
 
-                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL SQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) );
+                        slacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        sqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, WORK( M*NRHS+1 ), RESULT( 16 ) );
 
                         // Test 17:  Check norm of r'*A
 

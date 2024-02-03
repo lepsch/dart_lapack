@@ -401,7 +401,8 @@
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               sgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL SLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
+               sgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
+               slacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
          } else if ( NRHS.EQ.1 ) {
             sgemv('T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 );

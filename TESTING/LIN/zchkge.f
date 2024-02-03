@@ -262,7 +262,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'ZGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL ZGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
+                        zlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        zget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                         // Check solution from generated exact solution.
@@ -280,7 +281,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'ZGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL ZGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
+                        zget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

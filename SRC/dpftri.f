@@ -97,7 +97,8 @@
                // T1 -> a(0), T2 -> a(n), S -> a(N1)
 
                dlauum('L', N1, A( 0 ), N, INFO );
-               dsyrk('L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL DTRMM( 'L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N );
+               dsyrk('L', 'T', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N );
+               dtrmm('L', 'U', 'N', 'N', N2, N1, ONE, A( N ), N, A( N1 ), N );
                dlauum('U', N2, A( N ), N, INFO );
 
             } else {
@@ -107,7 +108,8 @@
                // T1 -> a(N2), T2 -> a(N1), S -> a(0)
 
                dlauum('L', N1, A( N2 ), N, INFO );
-               dsyrk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N )                CALL DTRMM( 'R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N, A( 0 ), N );
+               dsyrk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N );
+               dtrmm('R', 'U', 'T', 'N', N1, N2, ONE, A( N1 ), N, A( 0 ), N );
                dlauum('U', N2, A( N1 ), N, INFO );
 
             }
@@ -122,7 +124,8 @@
                // T1 -> a(0), T2 -> a(1), S -> a(0+N1*N1)
 
                dlauum('U', N1, A( 0 ), N1, INFO );
-               dsyrk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL DTRMM( 'R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 );
+               dsyrk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 );
+               dtrmm('R', 'L', 'N', 'N', N1, N2, ONE, A( 1 ), N1, A( N1*N1 ), N1 );
                dlauum('L', N2, A( 1 ), N1, INFO );
 
             } else {
@@ -131,7 +134,8 @@
                // T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
 
                dlauum('U', N1, A( N2*N2 ), N2, INFO );
-               dsyrk('U', 'T', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 )                CALL DTRMM( 'L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ), N2, A( 0 ), N2 );
+               dsyrk('U', 'T', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 );
+               dtrmm('L', 'L', 'T', 'N', N2, N1, ONE, A( N1*N2 ), N2, A( 0 ), N2 );
                dlauum('L', N2, A( N1*N2 ), N2, INFO );
 
             }
@@ -153,7 +157,8 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                dlauum('L', K, A( 1 ), N+1, INFO );
-               dsyrk('L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL DTRMM( 'L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 );
+               dsyrk('L', 'T', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 );
+               dtrmm('L', 'U', 'N', 'N', K, K, ONE, A( 0 ), N+1, A( K+1 ), N+1 );
                dlauum('U', K, A( 0 ), N+1, INFO );
 
             } else {
@@ -163,7 +168,8 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                dlauum('L', K, A( K+1 ), N+1, INFO );
-               dsyrk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 )                CALL DTRMM( 'R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1, A( 0 ), N+1 );
+               dsyrk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 );
+               dtrmm('R', 'U', 'T', 'N', K, K, ONE, A( K ), N+1, A( 0 ), N+1 );
                dlauum('U', K, A( K ), N+1, INFO );
 
             }
@@ -179,7 +185,8 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                dlauum('U', K, A( K ), K, INFO );
-               dsyrk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL DTRMM( 'R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K );
+               dsyrk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K );
+               dtrmm('R', 'L', 'N', 'N', K, K, ONE, A( 0 ), K, A( K*( K+1 ) ), K );
                dlauum('L', K, A( 0 ), K, INFO );
 
             } else {
@@ -189,7 +196,8 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                dlauum('U', K, A( K*( K+1 ) ), K, INFO );
-               dsyrk('U', 'T', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K )                CALL DTRMM( 'L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K, A( 0 ), K );
+               dsyrk('U', 'T', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K );
+               dtrmm('L', 'L', 'T', 'N', K, K, ONE, A( K*K ), K, A( 0 ), K );
                dlauum('L', K, A( K*K ), K, INFO );
 
             }

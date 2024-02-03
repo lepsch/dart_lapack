@@ -131,7 +131,8 @@
                } // 40
                WORK( 1 ) = NEGONE
                TEMP = DNRM2( K, WORK, 1 )
-               dgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB )                CALL DLASCL( 'G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
+               dgemv('T', K, NRHS, ONE, BX, LDBX, WORK, 1, ZERO, B( J, 1 ), LDB );
+               dlascl('G', 0, 0, TEMP, ONE, 1, NRHS, B( J, 1 ), LDB, INFO );
             } // 50
          }
 

@@ -147,7 +147,8 @@
             }
 
             if ( I .LT. Q ) {
-               sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 )                CALL SAXPY( Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
+               sscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 );
+               saxpy(Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
             sscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
             saxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
@@ -172,7 +173,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
+               slarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
+               slarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             if ( P .GT. I ) {
                slarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -287,7 +289,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL SLARF( 'L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
+               slarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
+               slarf('L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             slarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             if ( M-P-I .GT. 0 ) {

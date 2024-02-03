@@ -120,7 +120,9 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP+J+1 )
                   VP( JP+J+1 ) = CONE
-                  chpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 )                   CALL CAXPY( N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
+                  chpmv('L', N-J, CONE, WORK( JP1+J+1 ), VP( JP+J+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( N-J, WORK( LAP+1 ), 1, VP( JP+J+1 ), 1 );
+                  caxpy(N-J, TEMP, VP( JP+J+1 ), 1, WORK( LAP+1 ), 1 );
+                  chpr2('L', N-J, -TAU( J ), VP( JP+J+1 ), 1, WORK( LAP+1 ), 1, WORK( JP1+J+1 ) );
 
                   VP( JP+J+1 ) = VSAVE
                }
@@ -141,7 +143,9 @@
                if ( TAU( J ).NE.CZERO ) {
                   VSAVE = VP( JP1+J )
                   VP( JP1+J ) = CONE
-                  chpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 )                   CALL CAXPY( J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 )                   CALL CHPR2( 'U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
+                  chpmv('U', J, CONE, WORK, VP( JP1+1 ), 1, CZERO, WORK( LAP+1 ), 1 )                   TEMP = -HALF*TAU( J )*CDOTC( J, WORK( LAP+1 ), 1, VP( JP1+1 ), 1 );
+                  caxpy(J, TEMP, VP( JP1+1 ), 1, WORK( LAP+1 ), 1 );
+                  chpr2('U', J, -TAU( J ), VP( JP1+1 ), 1, WORK( LAP+1 ), 1, WORK );
                   VP( JP1+J ) = VSAVE
                }
                WORK( JP1+J+1 ) = D( J+1 )

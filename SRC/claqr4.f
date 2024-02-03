@@ -309,7 +309,8 @@
                   if ( KBOT-KS+1.LE.NS / 2 ) {
                      KS = KBOT - NS + 1
                      KT = N - NS + 1
-                     clacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH )                      CALL CLAHQR( .false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
+                     clacpy('A', NS, NS, H( KS, KS ), LDH, H( KT, 1 ), LDH );
+                     clahqr(.false., .false., NS, 1, NS, H( KT, 1 ), LDH, W( KS ), 1, 1, ZDUM, 1, INF );
                      KS = KS + INF
 
                      // ==== In case of a rare QR failure use

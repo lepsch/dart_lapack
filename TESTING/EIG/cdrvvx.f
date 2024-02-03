@@ -252,7 +252,9 @@
                clatmr(N, N, 'D', ISEED, 'N', WORK, 6, ONE, CONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IDUMMA, IINFO );
                if ( N.GE.4 ) {
                   claset('Full', 2, N, CZERO, CZERO, A, LDA );
-                  claset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA )                   CALL CLASET( 'Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA )                   CALL CLASET( 'Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
+                  claset('Full', N-3, 1, CZERO, CZERO, A( 3, 1 ), LDA );
+                  claset('Full', N-3, 2, CZERO, CZERO, A( 3, N-1 ), LDA );
+                  claset('Full', 1, N, CZERO, CZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {

@@ -232,7 +232,10 @@
                         A( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* A( JR, JC )                         B( JR, JC ) = WORK( 2*N+JR )*WORK( 3*N+JC )* B( JR, JC )
                      } // 60
                   } // 70
-                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100                   CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
+                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), A, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
+                  CALL DORM2R( 'L', 'N', N, N, N-1, U, LDU, WORK, B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100;
+                  CALL DORM2R( 'R', 'T', N, N, N-1, V, LDU, WORK( N+1 ), B, LDA, WORK( 2*N+1 ), IINFO )                   IF( IINFO.NE.0 ) GO TO 100
                }
             } else {
 
@@ -297,7 +300,10 @@
 
             // Do tests 1--4
 
-            dget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) )             CALL DGET51( 1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) )             CALL DGET51( 3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) );
+            dget51(1, N, A, LDA, H, LDA, U, LDU, V, LDU, WORK, RESULT( 1 ) );
+            dget51(1, N, B, LDA, T, LDA, U, LDU, V, LDU, WORK, RESULT( 2 ) );
+            dget51(3, N, B, LDA, T, LDA, U, LDU, U, LDU, WORK, RESULT( 3 ) );
+            dget51(3, N, B, LDA, T, LDA, V, LDU, V, LDU, WORK, RESULT( 4 ) );
 
             // Call DHGEQZ to compute S1, P1, S2, P2, Q, and Z, do tests.
 
@@ -345,7 +351,10 @@
 
             // Do Tests 5--8
 
-            dget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) )             CALL DGET51( 1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) )             CALL DGET51( 3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) );
+            dget51(1, N, H, LDA, S1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 5 ) );
+            dget51(1, N, T, LDA, P1, LDA, Q, LDU, Z, LDU, WORK, RESULT( 6 ) );
+            dget51(3, N, T, LDA, P1, LDA, Q, LDU, Q, LDU, WORK, RESULT( 7 ) );
+            dget51(3, N, T, LDA, P1, LDA, Z, LDU, Z, LDU, WORK, RESULT( 8 ) );
 
             // Compute the Left and Right Eigenvectors of (S1,P1)
 
@@ -483,7 +492,8 @@
 
                // Do Tests 13--14
 
-               dget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) )                CALL DGET51( 2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) );
+               dget51(2, N, S1, LDA, S2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 13 ) );
+               dget51(2, N, P1, LDA, P2, LDA, Q, LDU, Z, LDU, WORK, RESULT( 14 ) );
 
                // Do Test 15
 

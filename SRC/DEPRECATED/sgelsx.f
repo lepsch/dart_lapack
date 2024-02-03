@@ -139,7 +139,8 @@
       } // 10
       if ( RANK.LT.MN ) {
          I = RANK + 1
-         slaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 )          CALL SLAIC1( IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
+         slaic1(IMIN, RANK, WORK( ISMIN ), SMIN, A( 1, I ), A( I, I ), SMINPR, S1, C1 );
+         slaic1(IMAX, RANK, WORK( ISMAX ), SMAX, A( 1, I ), A( I, I ), SMAXPR, S2, C2 );
 
          if ( SMAXPR*RCOND.LE.SMINPR ) {
             for (I = 1; I <= RANK; I++) { // 20

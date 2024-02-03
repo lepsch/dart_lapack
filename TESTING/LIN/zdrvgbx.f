@@ -336,7 +336,8 @@
                               // Compute the LU factorization of the matrix
                               // and solve the system.
 
-                              zlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB )                               CALL ZLACPY( 'Full', N, NRHS, B, LDB, X, LDB );
+                              zlacpy('Full', KL+KU+1, N, A, LDA, AFB( KL+1 ), LDAFB );
+                              zlacpy('Full', N, NRHS, B, LDB, X, LDB );
 
                               SRNAMT = 'ZGBSV '
                               zgbsv(N, KL, KU, NRHS, AFB, LDAFB, IWORK, X, LDB, INFO );
@@ -355,7 +356,8 @@
                                  // Compute residual of the computed
                                  // solution.
 
-                                 zlacpy('Full', N, NRHS, B, LDB, WORK, LDB )                                  CALL ZGBT02( 'No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                                 zlacpy('Full', N, NRHS, B, LDB, WORK, LDB );
+                                 zgbt02('No transpose', N, N, KL, KU, NRHS, A, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                                  // Check solution from generated exact
                                  // solution.
@@ -439,12 +441,14 @@
 
                               // Compute residual of the computed solution.
 
-                              zlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                               CALL ZGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                              zlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB );
+                              zgbt02(TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                               // Check solution from generated exact
                               // solution.
 
-                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                                  CALL ZGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                              IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                                 zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                               } else {
                                  if ( ITRAN.EQ.1 ) {
                                     ROLDC = ROLDO
@@ -574,11 +578,13 @@
 
                         // Compute residual of the computed solution.
 
-                        zlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB )                         CALL ZGBT02( TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
+                        zlacpy('Full', N, NRHS, BSAV, LDB, WORK, LDB );
+                        zgbt02(TRANS, N, N, KL, KU, NRHS, ASAV, LDA, X, LDB, WORK, LDB, RWORK, RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL ZGET04( N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           zget04(N, NRHS, X, LDB, XACT, LDB, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO

@@ -137,7 +137,8 @@
 
                   // Check error code from ZPSTRF.
 
-                     IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK.EQ.N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN                         CALL ALAERH( PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT )
+                     IF( (INFO.LT.IZERO) .OR.(INFO.NE.IZERO.AND.RANK.EQ.N) .OR.(INFO.LE.IZERO.AND.RANK.LT.N) ) THEN;
+                        alaerh(PATH, 'ZPSTRF', INFO, IZERO, UPLO, N, N, -1, -1, NB, IMAT, NFAIL, NERRS, NOUT );
                         GO TO 110
                      }
 

@@ -251,7 +251,8 @@
             IE = ID + N
             ITGKZ = IE + N
             clacpy('U', N, N, A, LDA, WORK( IQRF ), N );
-            claset('L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N )             CALL CGEBRD( N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
+            claset('L', N-1, N-1, CZERO, CZERO, WORK( IQRF+1 ), N );
+            cgebrd(N, N, WORK( IQRF ), N, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + N*(N*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.
@@ -391,7 +392,8 @@
             IE = ID + M
             ITGKZ = IE + M
             clacpy('L', M, M, A, LDA, WORK( ILQF ), M );
-            claset('U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M )             CALL CGEBRD( M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
+            claset('U', M-1, M-1, CZERO, CZERO, WORK( ILQF+M ), M );
+            cgebrd(M, M, WORK( ILQF ), M, RWORK( ID ), RWORK( IE ), WORK( ITAUQ ), WORK( ITAUP ), WORK( ITEMP ), LWORK-ITEMP+1, INFO );
             ITEMPR = ITGKZ + M*(M*2+1)
 
             // Solve eigenvalue problem TGK*Z=Z*S.

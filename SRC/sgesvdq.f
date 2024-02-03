@@ -501,7 +501,8 @@
 
             // .. compute the singular values of R = [A](1:NR,1:N)
 
-            if (NR .GT. 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA )             CALL SGESVD( 'N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
+            if (NR .GT. 1) CALL SLASET( 'L', NR-1,NR-1, ZERO,ZERO, A(2,1), LDA );
+            sgesvd('N', 'N', NR, N, A, LDA, S, U, LDU, V, LDV, WORK, LWORK, INFO );
 
          }
 
@@ -748,7 +749,8 @@
                          U(q,NR+p) = A(p,q)
                       } // 1197
                    } // 1196
-                   if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU)                    CALL SGEQRF( N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
+                   if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,U(1,NR+2),LDU);
+                   sgeqrf(N, NR, U(1,NR+1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                    for (p = 1; p <= NR; p++) { // 1143
                        for (q = 1; q <= N; q++) { // 1144
                            V(q,p) = U(p,NR+q)
@@ -828,9 +830,11 @@
                   }
                } else {
                   slacpy('U', NR, N, A, LDA, U(NR+1,1), LDU );
-                  if (NR .GT. 1) CALL SLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU)                   CALL SGELQF( NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
+                  if (NR .GT. 1) CALL SLASET('L',NR-1,NR-1,ZERO,ZERO,U(NR+2,1),LDU);
+                  sgelqf(NR, N, U(NR+1,1), LDU, WORK(N+1), WORK(N+NR+1), LWORK-N-NR, IERR );
                   slacpy('L',NR,NR,U(NR+1,1),LDU,V,LDV);
-                  if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV)                   CALL SGESVD( 'S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO );
+                  if (NR .GT. 1) CALL SLASET('U',NR-1,NR-1,ZERO,ZERO,V(1,2),LDV);
+                  sgesvd('S', 'O', NR, NR, V, LDV, S, U, LDU, V, LDV, WORK(N+NR+1), LWORK-N-NR, INFO );
                   slaset('A',N-NR,NR,ZERO,ZERO,V(NR+1,1),LDV);
                   slaset('A',NR,N-NR,ZERO,ZERO,V(1,NR+1),LDV);
                   slaset('A',N-NR,N-NR,ZERO,ONE,V(NR+1,NR+1),LDV);

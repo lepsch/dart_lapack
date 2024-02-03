@@ -198,7 +198,8 @@
 
                      if (INFO.NE.0) CALL ALAERH( PATH, 'STPRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                     sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                      CALL STPT05( UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                     sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                     stpt05(UPLO, TRANS, DIAG, N, NRHS, AP, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                      // Print information about the tests that did not pass
                      // the threshold.

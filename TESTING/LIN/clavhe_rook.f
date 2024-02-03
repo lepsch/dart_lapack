@@ -126,7 +126,8 @@
 
                   // Apply the transformations.
 
-                  cgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL CGERU( K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
+                  cgeru(K-1, NRHS, CONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+                  cgeru(K-1, NRHS, CONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -209,7 +210,8 @@
 
                   // Apply the transformation.
 
-                  cgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL CGERU( N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
+                  cgeru(N-K, NRHS, CONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+                  cgeru(N-K, NRHS, CONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.

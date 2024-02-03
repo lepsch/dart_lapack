@@ -404,7 +404,8 @@
             CHUNK = ( LWORK-IWORK+1 ) / M
             DO 40 I = 1, NRHS, CHUNK
                BL = MIN( NRHS-I+1, CHUNK )
-               dgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M )                CALL DLACPY( 'G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
+               dgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
+               dlacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
             } // 40
          } else if ( NRHS.EQ.1 ) {
             dgemv('T', M, M, ONE, WORK( IL ), LDWORK, B( 1, 1 ), 1, ZERO, WORK( IWORK ), 1 );

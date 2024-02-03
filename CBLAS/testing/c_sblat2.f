@@ -555,10 +555,12 @@ void main() {
 
                               if ( FULL ) {
                                  if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CTRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
-                                 if (REWI) REWIND NTRA                                  CALL CSGEMV( IORDER, TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                                 if (REWI) REWIND NTRA;
+                                 csgemv(IORDER, TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               } else if ( BANDED ) {
                                  if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CTRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
-                                 if (REWI) REWIND NTRA                                  CALL CSGBMV( IORDER, TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                                 if (REWI) REWIND NTRA;
+                                 csgbmv(IORDER, TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               }
 
                               // Check if error-exit was taken incorrectly.
@@ -843,13 +845,16 @@ void main() {
 
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, LDA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL CSSYMV( IORDER, UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              cssymv(IORDER, UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, K, ALPHA, LDA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL CSSBMV( IORDER, UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              cssbmv(IORDER, UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, N, ALPHA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL CSSPMV( IORDER, UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              csspmv(IORDER, UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1148,24 +1153,30 @@ void main() {
                         if ( SNAME( 10: 11 ).EQ.'mv' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTRMV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstrmv(IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTBMV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstbmv(IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTPMV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstpmv(IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         } else if ( SNAME( 10: 11 ).EQ.'sv' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTRSV( IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstrsv(IORDER, UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, K, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTBSV( IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstbsv(IORDER, UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, CUPLO, CTRANS, CDIAG, N, INCX;
-                              if (REWI) REWIND NTRA                               CALL CSTPSV( IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              cstpsv(IORDER, UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         }
 
@@ -1419,7 +1430,8 @@ void main() {
                      // Call the subroutine.
 
                      if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA;
-                     if (REWI) REWIND NTRA                      CALL CSGER( IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
+                     if (REWI) REWIND NTRA;
+                     csger(IORDER, M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
 
                      // Check if error-exit was taken incorrectly.
 
@@ -1654,7 +1666,8 @@ void main() {
 
                   if ( FULL ) {
                      if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, LDA;
-                     if (REWI) REWIND NTRA                      CALL CSSYR( IORDER, UPLO, N, ALPHA, XX, INCX, AA, LDA );
+                     if (REWI) REWIND NTRA;
+                     cssyr(IORDER, UPLO, N, ALPHA, XX, INCX, AA, LDA );
                   } else if ( PACKED ) {
                      if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX;
                      if (REWI) REWIND NTRA;
@@ -1927,10 +1940,12 @@ void main() {
 
                      if ( FULL ) {
                         if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY, LDA;
-                        if (REWI) REWIND NTRA                         CALL CSSYR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
+                        if (REWI) REWIND NTRA;
+                        cssyr2(IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
                      } else if ( PACKED ) {
                         if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, CUPLO, N, ALPHA, INCX, INCY;
-                        if (REWI) REWIND NTRA                         CALL CSSPR2( IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
+                        if (REWI) REWIND NTRA;
+                        csspr2(IORDER, UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
                      }
 
                      // Check if error-exit was taken incorrectly.

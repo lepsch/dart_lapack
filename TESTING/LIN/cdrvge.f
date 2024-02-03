@@ -297,7 +297,8 @@
 
                            // Compute residual of the computed solution.
 
-                           clacpy('Full', N, NRHS, B, LDA, WORK, LDA )                            CALL CGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                           clacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                           cget02('No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
@@ -375,11 +376,13 @@
 
                         // Compute residual of the computed solution.
 
-                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL CGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                        clacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                        cget02(TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL CGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           cget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO

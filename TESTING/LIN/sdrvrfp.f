@@ -272,7 +272,8 @@
 
                      // Compute residual of the computed solution.
 
-                     slacpy('Full', N, NRHS, B, LDA, S_TEMP_SPOT02, LDA )                      CALL SPOT02( UPLO, N, NRHS, A, LDA, X, LDA, S_TEMP_SPOT02, LDA, S_WORK_SPOT02, RESULT( 3 ) );
+                     slacpy('Full', N, NRHS, B, LDA, S_TEMP_SPOT02, LDA );
+                     spot02(UPLO, N, NRHS, A, LDA, X, LDA, S_TEMP_SPOT02, LDA, S_WORK_SPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
                       sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );

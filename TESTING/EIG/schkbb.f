@@ -279,7 +279,10 @@
                     // 3:  Check the orthogonality of P
                     // 4:  Check the computation of Q' * C
 
-               sbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) )                CALL SORT01( 'Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL SORT01( 'Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) )                CALL SBDT02( M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) );
+               sbdt01(M, N, -1, A, LDA, Q, LDQ, BD, BE, P, LDP, WORK, RESULT( 1 ) );
+               sort01('Columns', M, M, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
+               sort01('Rows', N, N, P, LDP, WORK, LWORK, RESULT( 3 ) );
+               sbdt02(M, NRHS, C, LDC, CC, LDC, Q, LDQ, WORK, RESULT( 4 ) );
 
                // End of Loop -- Check for RESULT(j) > THRESH
 

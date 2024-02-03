@@ -160,7 +160,8 @@
 
                   zlacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  zlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL ZLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH );
+                  zlaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
+                  zlaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, W, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL ZLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

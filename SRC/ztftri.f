@@ -95,9 +95,11 @@
               // T1 -> a(0), T2 -> a(n), S -> a(n1)
 
                ztrtri('L', DIAG, N1, A( 0 ), N, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'R', 'L', 'N', DIAG, N2, N1, -CONE, A( 0 ), N, A( N1 ), N );
+               if (INFO.GT.0) RETURN;
+               ztrmm('R', 'L', 'N', DIAG, N2, N1, -CONE, A( 0 ), N, A( N1 ), N );
                ztrtri('U', DIAG, N2, A( N ), N, INFO );
-               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'L', 'U', 'C', DIAG, N2, N1, CONE, A( N ), N, A( N1 ), N );
+               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN;
+               ztrmm('L', 'U', 'C', DIAG, N2, N1, CONE, A( N ), N, A( N1 ), N );
 
             } else {
 
@@ -106,9 +108,11 @@
               // T1 -> a(n2), T2 -> a(n1), S -> a(0)
 
                ztrtri('L', DIAG, N1, A( N2 ), N, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'L', 'L', 'C', DIAG, N1, N2, -CONE, A( N2 ), N, A( 0 ), N );
+               if (INFO.GT.0) RETURN;
+               ztrmm('L', 'L', 'C', DIAG, N1, N2, -CONE, A( N2 ), N, A( 0 ), N );
                ztrtri('U', DIAG, N2, A( N1 ), N, INFO );
-               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'R', 'U', 'N', DIAG, N1, N2, CONE, A( N1 ), N, A( 0 ), N );
+               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN;
+               ztrmm('R', 'U', 'N', DIAG, N1, N2, CONE, A( N1 ), N, A( 0 ), N );
 
             }
 
@@ -122,9 +126,11 @@
                // T1 -> a(0), T2 -> a(1), S -> a(0+n1*n1)
 
                ztrtri('U', DIAG, N1, A( 0 ), N1, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'L', 'U', 'N', DIAG, N1, N2, -CONE, A( 0 ), N1, A( N1*N1 ), N1 );
+               if (INFO.GT.0) RETURN;
+               ztrmm('L', 'U', 'N', DIAG, N1, N2, -CONE, A( 0 ), N1, A( N1*N1 ), N1 );
                ztrtri('L', DIAG, N2, A( 1 ), N1, INFO );
-               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'R', 'L', 'C', DIAG, N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
+               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN;
+               ztrmm('R', 'L', 'C', DIAG, N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
 
             } else {
 
@@ -132,9 +138,11 @@
                // T1 -> a(0+n2*n2), T2 -> a(0+n1*n2), S -> a(0)
 
                ztrtri('U', DIAG, N1, A( N2*N2 ), N2, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'R', 'U', 'C', DIAG, N2, N1, -CONE, A( N2*N2 ), N2, A( 0 ), N2 );
+               if (INFO.GT.0) RETURN;
+               ztrmm('R', 'U', 'C', DIAG, N2, N1, -CONE, A( N2*N2 ), N2, A( 0 ), N2 );
                ztrtri('L', DIAG, N2, A( N1*N2 ), N2, INFO );
-               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'L', 'L', 'N', DIAG, N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
+               if (INFO.GT.0) INFO = INFO + N1                IF( INFO.GT.0 ) RETURN;
+               ztrmm('L', 'L', 'N', DIAG, N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
             }
 
          }
@@ -154,9 +162,11 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                ztrtri('L', DIAG, K, A( 1 ), N+1, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'R', 'L', 'N', DIAG, K, K, -CONE, A( 1 ), N+1, A( K+1 ), N+1 );
+               if (INFO.GT.0) RETURN;
+               ztrmm('R', 'L', 'N', DIAG, K, K, -CONE, A( 1 ), N+1, A( K+1 ), N+1 );
                ztrtri('U', DIAG, K, A( 0 ), N+1, INFO );
-               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'L', 'U', 'C', DIAG, K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
+               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN;
+               ztrmm('L', 'U', 'C', DIAG, K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
 
             } else {
 
@@ -165,9 +175,11 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                ztrtri('L', DIAG, K, A( K+1 ), N+1, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'L', 'L', 'C', DIAG, K, K, -CONE, A( K+1 ), N+1, A( 0 ), N+1 );
+               if (INFO.GT.0) RETURN;
+               ztrmm('L', 'L', 'C', DIAG, K, K, -CONE, A( K+1 ), N+1, A( 0 ), N+1 );
                ztrtri('U', DIAG, K, A( K ), N+1, INFO );
-               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'R', 'U', 'N', DIAG, K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
+               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN;
+               ztrmm('R', 'U', 'N', DIAG, K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
             }
          } else {
 
@@ -180,9 +192,11 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                ztrtri('U', DIAG, K, A( K ), K, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'L', 'U', 'N', DIAG, K, K, -CONE, A( K ), K, A( K*( K+1 ) ), K );
+               if (INFO.GT.0) RETURN;
+               ztrmm('L', 'U', 'N', DIAG, K, K, -CONE, A( K ), K, A( K*( K+1 ) ), K );
                ztrtri('L', DIAG, K, A( 0 ), K, INFO );
-               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'R', 'L', 'C', DIAG, K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
+               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN;
+               ztrmm('R', 'L', 'C', DIAG, K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
             } else {
 
                // SRPA for UPPER, TRANSPOSE and N is even (see paper)
@@ -190,9 +204,11 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                ztrtri('U', DIAG, K, A( K*( K+1 ) ), K, INFO );
-               if (INFO.GT.0) RETURN                CALL ZTRMM( 'R', 'U', 'C', DIAG, K, K, -CONE, A( K*( K+1 ) ), K, A( 0 ), K );
+               if (INFO.GT.0) RETURN;
+               ztrmm('R', 'U', 'C', DIAG, K, K, -CONE, A( K*( K+1 ) ), K, A( 0 ), K );
                ztrtri('L', DIAG, K, A( K*K ), K, INFO );
-               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN                CALL ZTRMM( 'L', 'L', 'N', DIAG, K, K, CONE, A( K*K ), K, A( 0 ), K );
+               if (INFO.GT.0) INFO = INFO + K                IF( INFO.GT.0 ) RETURN;
+               ztrmm('L', 'L', 'N', DIAG, K, K, CONE, A( K*K ), K, A( 0 ), K );
             }
          }
       }

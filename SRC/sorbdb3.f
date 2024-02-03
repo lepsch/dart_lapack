@@ -84,7 +84,8 @@
          slarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = X21(I,I)
          X21(I,I) = ONE
-         slarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL SLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = SQRT( SNRM2( P-I+1, X11(I,I), 1 )**2 + SNRM2( M-P-I, X21(I+1,I), 1 )**2 );
+         slarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
+         slarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) )          C = SQRT( SNRM2( P-I+1, X11(I,I), 1 )**2 + SNRM2( M-P-I, X21(I+1,I), 1 )**2 );
          THETA(I) = ATAN2( S, C )
 
          sorbdb5(P-I+1, M-P-I, Q-I, X11(I,I), 1, X21(I+1,I), 1, X11(I,I+1), LDX11, X21(I+1,I+1), LDX21, WORK(IORBDB5), LORBDB5, CHILDINFO );

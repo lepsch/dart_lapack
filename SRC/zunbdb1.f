@@ -85,7 +85,8 @@
          S = SIN( THETA(I) )
          X11(I,I) = ONE
          X21(I,I) = ONE
-         zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) )          CALL ZLARF( 'L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
+         zlarf('L', P-I+1, Q-I, X11(I,I), 1, DCONJG(TAUP1(I)), X11(I,I+1), LDX11, WORK(ILARF) );
+         zlarf('L', M-P-I+1, Q-I, X21(I,I), 1, DCONJG(TAUP2(I)), X21(I,I+1), LDX21, WORK(ILARF) );
 
          if ( I .LT. Q ) {
             zdrot(Q-I, X11(I,I+1), LDX11, X21(I,I+1), LDX21, C, S );
@@ -93,7 +94,8 @@
             zlarfgp(Q-I, X21(I,I+1), X21(I,I+2), LDX21, TAUQ1(I) );
             S = DBLE( X21(I,I+1) )
             X21(I,I+1) = ONE
-            zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) )             CALL ZLARF( 'R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
+            zlarf('R', P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X11(I+1,I+1), LDX11, WORK(ILARF) );
+            zlarf('R', M-P-I, Q-I, X21(I,I+1), LDX21, TAUQ1(I), X21(I+1,I+1), LDX21, WORK(ILARF) );
             zlacgv(Q-I, X21(I,I+1), LDX21 );
             C = SQRT( DZNRM2( P-I, X11(I+1,I+1), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I+1), 1 )**2 )
             PHI(I) = ATAN2( S, C )

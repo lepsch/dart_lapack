@@ -385,7 +385,8 @@
                         }
                         CALL SSCAL( NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 )                         IF( NRMU.NE.ONE .AND. ABS( NRMU-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
-                              ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )                               CALL SAXPY( NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 )
+                              ZJTJI = -SDOT( NRU, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
+                              saxpy(NRU, ZJTJI, Z( IROWU, ICOLZ+J ), 2, Z( IROWU, ICOLZ+I ), 2 );
                            }
                            NRMU = SNRM2( NRU, Z( IROWU, ICOLZ+I ), 2 )
                            sscal(NRU, ONE/NRMU, Z( IROWU,ICOLZ+I ), 2 );
@@ -399,7 +400,8 @@
                         }
                         CALL SSCAL( NRV, -ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 )                         IF( NRMV.NE.ONE .AND. ABS( NRMV-ORTOL )*SQRT2.GT.ONE ) THEN
                            for (J = 0; J <= I-1; J++) {
-                              ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )                               CALL SAXPY( NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 )
+                              ZJTJI = -SDOT( NRV, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
+                              saxpy(NRU, ZJTJI, Z( IROWV, ICOLZ+J ), 2, Z( IROWV, ICOLZ+I ), 2 );
                            }
                            NRMV = SNRM2( NRV, Z( IROWV, ICOLZ+I ), 2 )
                            sscal(NRV, ONE/NRMV, Z( IROWV,ICOLZ+I ), 2 );

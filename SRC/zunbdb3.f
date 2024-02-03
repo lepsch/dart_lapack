@@ -85,7 +85,8 @@
          zlarfgp(Q-I+1, X21(I,I), X21(I,I+1), LDX21, TAUQ1(I) );
          S = DBLE( X21(I,I) )
          X21(I,I) = ONE
-         zlarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) )          CALL ZLARF( 'R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
+         zlarf('R', P-I+1, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X11(I,I), LDX11, WORK(ILARF) );
+         zlarf('R', M-P-I, Q-I+1, X21(I,I), LDX21, TAUQ1(I), X21(I+1,I), LDX21, WORK(ILARF) );
          zlacgv(Q-I+1, X21(I,I), LDX21 );
          C = SQRT( DZNRM2( P-I+1, X11(I,I), 1 )**2 + DZNRM2( M-P-I, X21(I+1,I), 1 )**2 )
          THETA(I) = ATAN2( S, C )

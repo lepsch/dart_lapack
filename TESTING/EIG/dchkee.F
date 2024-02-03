@@ -761,7 +761,8 @@ void main() {
                   ISEED( K ) = IOLDSD( K )
                } // 260
             }
-            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I )             CALL DCHKHS( NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), D( 1, 7 ), WORK, LWORK, IWORK, LOGWRK, RESULT, INFO )
+            WRITE( NOUT, FMT = 9961 )C3, NBVAL( I ), NBMIN( I ), NXVAL( I ), MAX( 11, INMIN(I)), INWIN( I ), INIBL( I ), ISHFTS( I ), IACC22( I );
+            dchkhs(NN, NVAL, MAXTYP, DOTYPE, ISEED, THRESH, NOUT, A( 1, 1 ), NMAX, A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), NMAX, A( 1, 6 ), A( 1, 7 ), D( 1, 1 ), D( 1, 2 ), D( 1, 3 ), D( 1, 4 ), D( 1, 5 ), D( 1, 6 ), A( 1, 8 ), A( 1, 9 ), A( 1, 10 ), A( 1, 11 ), A( 1, 12 ), D( 1, 7 ), WORK, LWORK, IWORK, LOGWRK, RESULT, INFO );
             if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCHKHS', INFO;
          } // 270
 
@@ -1153,7 +1154,8 @@ void main() {
          // -----------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'GLM', NOUT )          CALL DCKGLM( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL DERRGG( 'GLM', NOUT );
+         dckglm(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCKGLM', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GQR' ) ) {
@@ -1163,7 +1165,8 @@ void main() {
          // ------------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'GQR', NOUT )          CALL DCKGQR( NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL DERRGG( 'GQR', NOUT );
+         dckgqr(NN, MVAL, NN, PVAL, NN, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), TAUA, B( 1, 1 ), B( 1, 2 ), B( 1, 3 ), B( 1, 4 ), B( 1, 5 ), TAUB, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCKGQR', INFO;
 
       } else if ( LSAMEN( 3, C3, 'GSV' ) ) {
@@ -1173,7 +1176,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL DERRGG( 'GSV', NOUT )          CALL DCKGSV( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL DERRGG( 'GSV', NOUT );
+         dckgsv(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), A( 1, 3 ), B( 1, 3 ), A( 1, 4 ), TAUA, TAUB, B( 1, 4 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCKGSV', INFO;
 
       } else if ( LSAMEN( 3, C3, 'CSD' ) ) {
@@ -1183,7 +1187,8 @@ void main() {
          // ----------------------------------------------
 
          xlaenv(1,1);
-         if (TSTERR) CALL DERRGG( 'CSD', NOUT )          CALL DCKCSD( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL DERRGG( 'CSD', NOUT );
+         dckcsd(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), A( 1, 3 ), A( 1, 4 ), A( 1, 5 ), A( 1, 6 ), A( 1, 7 ), IWORK, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCKCSD', INFO;
 
       } else if ( LSAMEN( 3, C3, 'LSE' ) ) {
@@ -1193,7 +1198,8 @@ void main() {
          // --------------------------------------
 
          xlaenv(1, 1 );
-         if (TSTERR) CALL DERRGG( 'LSE', NOUT )          CALL DCKLSE( NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
+         if (TSTERR) CALL DERRGG( 'LSE', NOUT );
+         dcklse(NN, MVAL, PVAL, NVAL, NTYPES, ISEED, THRESH, NMAX, A( 1, 1 ), A( 1, 2 ), B( 1, 1 ), B( 1, 2 ), X, WORK, D( 1, 1 ), NIN, NOUT, INFO );
          if (INFO.NE.0) WRITE( NOUT, FMT = 9980 )'DCKLSE', INFO;
 
       } else {

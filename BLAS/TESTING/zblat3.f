@@ -423,7 +423,8 @@ void main() {
                            // Call the subroutine.
 
                            if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL ZGEMM( TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           zgemm(TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                            // Check if error-exit was taken incorrectly.
 
@@ -893,10 +894,12 @@ void main() {
 
                            if ( SNAME( 4: 5 ).EQ.'MM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
-                              if (REWI) REWIND NTRA                               CALL ZTRMM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              ztrmm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 4: 5 ).EQ.'SM' ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB;
-                              if (REWI) REWIND NTRA                               CALL ZTRSM( SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              ztrsm(SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1157,10 +1160,12 @@ void main() {
 
                         if ( CONJ ) {
                            if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL ZHERK( UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           zherk(UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC );
                         } else {
                            if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL ZSYRK( UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           zsyrk(UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.
@@ -1447,10 +1452,12 @@ void main() {
 
                         if ( CONJ ) {
                            if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL ZHER2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           zher2k(UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC );
                         } else {
                            if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC;
-                           if (REWI) REWIND NTRA                            CALL ZSYR2K( UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           zsyr2k(UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.

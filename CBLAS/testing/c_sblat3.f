@@ -499,7 +499,8 @@ void main() {
                            // Call the subroutine.
 
                            if (TRACE) CALL SPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CSGEMM( IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           csgemm(IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                            // Check if error-exit was taken incorrectly.
 
@@ -769,7 +770,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) CALL SPRCN2(NTRA, NC, SNAME, IORDER, SIDE, UPLO, M, N, ALPHA, LDA, LDB, BETA, LDC);
-                        if (REWI) REWIND NTRA                         CALL CSSYMM( IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        cssymm(IORDER, SIDE, UPLO, M, N, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -1030,10 +1032,12 @@ void main() {
 
                            if ( SNAME( 10: 11 ).EQ.'mm' ) {
                               if (TRACE) CALL SPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
-                              if (REWI) REWIND NTRA                               CALL CSTRMM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              cstrmm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 10: 11 ).EQ.'sm' ) {
                               if (TRACE) CALL SPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
-                              if (REWI) REWIND NTRA                               CALL CSTRSM( IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              cstrsm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1317,7 +1321,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) CALL SPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
-                        if (REWI) REWIND NTRA                         CALL CSSYRK( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        cssyrk(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 
@@ -1606,7 +1611,8 @@ void main() {
                         // Call the subroutine.
 
                         if (TRACE) CALL SPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
-                        if (REWI) REWIND NTRA                         CALL CSSYR2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                        if (REWI) REWIND NTRA;
+                        cssyr2k(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                         // Check if error-exit was taken incorrectly.
 

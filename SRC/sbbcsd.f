@@ -213,7 +213,8 @@
 
             // Compute shifts for B11 and B21 and use the lesser
 
-            slas2(B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY )             CALL SLAS2( B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY );
+            slas2(B11D(IMAX-1), B11E(IMAX-1), B11D(IMAX), SIGMA11, DUMMY );
+            slas2(B21D(IMAX-1), B21E(IMAX-1), B21D(IMAX), SIGMA21, DUMMY );
 
             if ( SIGMA11 .LE. SIGMA21 ) {
                MU = SIGMA11

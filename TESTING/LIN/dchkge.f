@@ -261,7 +261,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'DGETRS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        dlacpy('Full', N, NRHS, B, LDA, WORK, LDA )                         CALL DGET02( TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
+                        dlacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                        dget02(TRANS, N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 3 ) );
 
 *+    TEST 4
                         // Check solution from generated exact solution.
@@ -279,7 +280,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'DGERFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) )                         CALL DGET07( TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
+                        dget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 5 ) );
+                        dget07(TRANS, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, .TRUE., RWORK( NRHS+1 ), RESULT( 6 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

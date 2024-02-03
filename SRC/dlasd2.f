@@ -336,7 +336,8 @@
 
       if ( N.GT.K ) {
          dcopy(N-K, DSIGMA( K+1 ), 1, D( K+1 ), 1 );
-         dlacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU )          CALL DLACPY( 'A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );
+         dlacpy('A', N, N-K, U2( 1, K+1 ), LDU2, U( 1, K+1 ), LDU );
+         dlacpy('A', N-K, M, VT2( K+1, 1 ), LDVT2, VT( K+1, 1 ), LDVT );
       }
 
       // Copy CTOT into COLTYP for referencing in DLASD3.

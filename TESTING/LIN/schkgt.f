@@ -319,7 +319,8 @@
 
                   if (INFO.NE.0) CALL ALAERH( PATH, 'SGTRFS', INFO, 0, TRANS, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                   CALL SGTT05( TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                  sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                  sgtt05(TRANS, N, NRHS, A, A( M+1 ), A( N+M+1 ), B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                   // Print information about the tests that did not pass
                   // the threshold.

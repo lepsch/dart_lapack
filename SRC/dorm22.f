@@ -116,7 +116,8 @@
 
                // Multiply bottom part of C by Q12.
 
-               dlacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK )                CALL DTRMM( 'Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               dlacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK );
+               dtrmm('Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11.
 
@@ -124,7 +125,8 @@
 
                // Multiply top part of C by Q21.
 
-               dlacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK )                CALL DTRMM( 'Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
+               dlacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK );
+               dtrmm('Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22.
 
@@ -141,7 +143,8 @@
 
                // Multiply bottom part of C by Q21**T.
 
-               dlacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK )                CALL DTRMM( 'Left', 'Upper', 'Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               dlacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK );
+               dtrmm('Left', 'Upper', 'Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11**T.
 
@@ -149,7 +152,8 @@
 
                // Multiply top part of C by Q12**T.
 
-               dlacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK )                CALL DTRMM( 'Left', 'Lower', 'Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
+               dlacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK );
+               dtrmm('Left', 'Lower', 'Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22**T.
 
@@ -168,7 +172,8 @@
 
                // Multiply right part of C by Q21.
 
-               dlacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK )                CALL DTRMM( 'Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               dlacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK );
+               dtrmm('Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11.
 
@@ -176,7 +181,8 @@
 
                // Multiply left part of C by Q12.
 
-               dlacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK )                CALL DTRMM( 'Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
+               dlacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK );
+               dtrmm('Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22.
 
@@ -193,7 +199,8 @@
 
                // Multiply right part of C by Q12**T.
 
-               dlacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK )                CALL DTRMM( 'Right', 'Lower', 'Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               dlacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK );
+               dtrmm('Right', 'Lower', 'Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11**T.
 
@@ -201,7 +208,8 @@
 
                // Multiply left part of C by Q21**T.
 
-               dlacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK )                CALL DTRMM( 'Right', 'Upper', 'Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
+               dlacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK );
+               dtrmm('Right', 'Upper', 'Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22**T.
 

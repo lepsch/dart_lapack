@@ -294,7 +294,8 @@
 
                            // Compute residual of the computed solution.
 
-                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA )                            CALL SGET02( 'No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
+                           slacpy('Full', N, NRHS, B, LDA, WORK, LDA );
+                           sget02('No transpose', N, N, NRHS, A, LDA, X, LDA, WORK, LDA, RWORK, RESULT( 2 ) );
 
                            // Check solution from generated exact solution.
 
@@ -372,11 +373,13 @@
 
                         // Compute residual of the computed solution.
 
-                        slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL SGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                        slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                        sget02(TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO
@@ -506,11 +509,13 @@
 
                         // Compute residual of the computed solution.
 
-                        slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA )                         CALL SGET02( TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
+                        slacpy('Full', N, NRHS, BSAV, LDA, WORK, LDA );
+                        sget02(TRANS, N, N, NRHS, ASAV, LDA, X, LDA, WORK, LDA, RWORK( 2*NRHS+1 ), RESULT( 2 ) );
 
                         // Check solution from generated exact solution.
 
-                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN                            CALL SGET04( N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) )
+                        IF( NOFACT .OR. ( PREFAC .AND. LSAME( EQUED, 'N' ) ) ) THEN;
+                           sget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 3 ) );
                         } else {
                            if ( ITRAN.EQ.1 ) {
                               ROLDC = ROLDO

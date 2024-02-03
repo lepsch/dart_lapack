@@ -768,7 +768,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -892,7 +893,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*N*N+2*N, prefer 2*N*N+N+N*NB)
@@ -1027,7 +1029,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need N*N+2*N, prefer N*N+N+N*NB)
@@ -1159,7 +1162,8 @@
 
                      // Copy R to WORK(IR), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
+                     slacpy('U', N, N, A, LDA, WORK( IR ), LDWRKR );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IR+1 ), LDWRKR );
 
                      // Generate Q in U
                      // (Workspace: need N*N+N+M, prefer N*N+N+M*NB)
@@ -1294,7 +1298,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1434,7 +1439,8 @@
 
                      // Copy R to WORK(IU), zeroing out below it
 
-                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
+                     slacpy('U', N, N, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('L', N-1, N-1, ZERO, ZERO, WORK( IU+1 ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + N
                      ITAUP = ITAUQ + N
@@ -1555,7 +1561,8 @@
                // (Workspace: need 3*N+NCU, prefer 3*N+NCU*NB)
 
                slacpy('L', M, N, A, LDA, U, LDU );
-               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M                CALL SORGBR( 'Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTUS) NCU = N                IF( WNTUA ) NCU = M;
+               sorgbr('Q', M, NCU, N, U, LDU, WORK( ITAUQ ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTVAS ) {
 
@@ -1952,7 +1959,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in A
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2078,7 +2086,8 @@
 
                      // Copy L to WORK(IU), zeroing out below it
 
-                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need 2*M*M+2*M, prefer 2*M*M+M+M*NB)
@@ -2211,7 +2220,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
 
                      // Generate Q in A
                      // (Workspace: need M*M+2*M, prefer M*M+M+M*NB)
@@ -2343,7 +2353,8 @@
 
                      // Copy L to WORK(IR), zeroing out above it
 
-                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
+                     slacpy('L', M, M, A, LDA, WORK( IR ), LDWRKR );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IR+LDWRKR ), LDWRKR );
 
                      // Generate Q in VT
                      // (Workspace: need M*M+M+N, prefer M*M+M+N*NB)
@@ -2477,7 +2488,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2615,7 +2627,8 @@
 
                      // Copy L to WORK(IU), zeroing out above it
 
-                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU )                      CALL SLASET( 'U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
+                     slacpy('L', M, M, A, LDA, WORK( IU ), LDWRKU );
+                     slaset('U', M-1, M-1, ZERO, ZERO, WORK( IU+LDWRKU ), LDWRKU );
                      IE = ITAU
                      ITAUQ = IE + M
                      ITAUP = ITAUQ + M
@@ -2744,7 +2757,8 @@
                // (Workspace: need 3*M+NRVT, prefer 3*M+NRVT*NB)
 
                slacpy('U', M, N, A, LDA, VT, LDVT );
-               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M                CALL SORGBR( 'P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
+               if (WNTVA) NRVT = N                IF( WNTVS ) NRVT = M;
+               sorgbr('P', NRVT, N, M, VT, LDVT, WORK( ITAUP ), WORK( IWORK ), LWORK-IWORK+1, IERR );
             }
             if ( WNTUO ) {
 

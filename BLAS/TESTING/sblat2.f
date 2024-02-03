@@ -440,10 +440,12 @@ void main() {
 
                               if ( FULL ) {
                                  if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
-                                 if (REWI) REWIND NTRA                                  CALL SGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                                 if (REWI) REWIND NTRA;
+                                 sgemv(TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               } else if ( BANDED ) {
                                  if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
-                                 if (REWI) REWIND NTRA                                  CALL SGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                                 if (REWI) REWIND NTRA;
+                                 sgbmv(TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                               }
 
                               // Check if error-exit was taken incorrectly.
@@ -538,10 +540,12 @@ void main() {
       sregr1(TRANS, M, N, LY, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY, YS );
       if ( FULL ) {
          if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, TRANS, M, N, ALPHA, LDA, INCX, BETA, INCY;
-         if (REWI) REWIND NTRA          CALL SGEMV( TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+         if (REWI) REWIND NTRA;
+         sgemv(TRANS, M, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
       } else if ( BANDED ) {
          if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, TRANS, M, N, KL, KU, ALPHA, LDA, INCX, BETA, INCY;
-         if (REWI) REWIND NTRA          CALL SGBMV( TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+         if (REWI) REWIND NTRA;
+         sgbmv(TRANS, M, N, KL, KU, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
       }
       NC = NC + 1
       if ( .NOT.LSE( YS, YY, LY ) ) {
@@ -734,13 +738,16 @@ void main() {
 
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, LDA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL SSYMV( UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              ssymv(UPLO, N, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, K, ALPHA, LDA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL SSBMV( UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              ssbmv(UPLO, N, K, ALPHA, AA, LDA, XX, INCX, BETA, YY, INCY );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, N, ALPHA, INCX, BETA, INCY;
-                              if (REWI) REWIND NTRA                               CALL SSPMV( UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
+                              if (REWI) REWIND NTRA;
+                              sspmv(UPLO, N, ALPHA, AA, XX, INCX, BETA, YY, INCY );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1016,24 +1023,30 @@ void main() {
                         if ( SNAME( 4: 5 ).EQ.'MV' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL STRMV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              strmv(UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL STBMV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              stbmv(UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX;
-                              if (REWI) REWIND NTRA                               CALL STPMV( UPLO, TRANS, DIAG, N, AA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              stpmv(UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         } else if ( SNAME( 4: 5 ).EQ.'SV' ) {
                            if ( FULL ) {
                               if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, TRANS, DIAG, N, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL STRSV( UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              strsv(UPLO, TRANS, DIAG, N, AA, LDA, XX, INCX );
                            } else if ( BANDED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, TRANS, DIAG, N, K, LDA, INCX;
-                              if (REWI) REWIND NTRA                               CALL STBSV( UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              stbsv(UPLO, TRANS, DIAG, N, K, AA, LDA, XX, INCX );
                            } else if ( PACKED ) {
                               if (TRACE) WRITE( NTRA, FMT = 9995 )NC, SNAME, UPLO, TRANS, DIAG, N, INCX;
-                              if (REWI) REWIND NTRA                               CALL STPSV( UPLO, TRANS, DIAG, N, AA, XX, INCX );
+                              if (REWI) REWIND NTRA;
+                              stpsv(UPLO, TRANS, DIAG, N, AA, XX, INCX );
                            }
                         }
 
@@ -1282,7 +1295,8 @@ void main() {
                      // Call the subroutine.
 
                      if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, M, N, ALPHA, INCX, INCY, LDA;
-                     if (REWI) REWIND NTRA                      CALL SGER( M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
+                     if (REWI) REWIND NTRA;
+                     sger(M, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
 
                      // Check if error-exit was taken incorrectly.
 
@@ -1769,10 +1783,12 @@ void main() {
 
                      if ( FULL ) {
                         if (TRACE) WRITE( NTRA, FMT = 9993 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY, LDA;
-                        if (REWI) REWIND NTRA                         CALL SSYR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
+                        if (REWI) REWIND NTRA;
+                        ssyr2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA, LDA );
                      } else if ( PACKED ) {
                         if (TRACE) WRITE( NTRA, FMT = 9994 )NC, SNAME, UPLO, N, ALPHA, INCX, INCY;
-                        if (REWI) REWIND NTRA                         CALL SSPR2( UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
+                        if (REWI) REWIND NTRA;
+                        sspr2(UPLO, N, ALPHA, XX, INCX, YY, INCY, AA );
                      }
 
                      // Check if error-exit was taken incorrectly.

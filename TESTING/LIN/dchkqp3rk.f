@@ -320,7 +320,8 @@
 
                      DO J = 1, NB_GEN, 1
                         IND_OUT = ( NB_ZERO+J-1 )*LDA + 1
-                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1                         CALL DSWAP( M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 )
+                        IND_IN = ( J_INC*(J-1)+(J_FIRST_NZ-1) )*LDA + 1;
+                        dswap(M, COPYA( IND_OUT ), 1, COPYA( IND_IN), 1 );
                         }
 
                   }
@@ -373,7 +374,8 @@
                   // for the routine.
 
                   dlacpy('All', M, N, COPYA, LDA, A, LDA );
-                  dlacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA )                   CALL DLACPY( 'All', M, NRHS, COPYB, LDA, B,  LDA );
+                  dlacpy('All', M, NRHS, COPYB, LDA, A( LDA*N + 1 ),  LDA );
+                  dlacpy('All', M, NRHS, COPYB, LDA, B,  LDA );
                   icopy(N, IWORK( 1 ), 1, IWORK( N+1 ), 1 );
 
                   ABSTOL = -1.0

@@ -116,7 +116,8 @@
 
                // Multiply bottom part of C by Q12.
 
-               clacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK )                CALL CTRMM( 'Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               clacpy('All', N1, LEN, C( N2+1, I ), LDC, WORK, LDWORK );
+               ctrmm('Left', 'Lower', 'No Transpose', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11.
 
@@ -124,7 +125,8 @@
 
                // Multiply top part of C by Q21.
 
-               clacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK )                CALL CTRMM( 'Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
+               clacpy('All', N2, LEN, C( 1, I ), LDC, WORK( N1+1 ), LDWORK );
+               ctrmm('Left', 'Upper', 'No Transpose', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK( N1+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22.
 
@@ -141,7 +143,8 @@
 
                // Multiply bottom part of C by Q21**H.
 
-               clacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK )                CALL CTRMM( 'Left', 'Upper', 'Conjugate', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               clacpy('All', N2, LEN, C( N1+1, I ), LDC, WORK, LDWORK );
+               ctrmm('Left', 'Upper', 'Conjugate', 'Non-Unit', N2, LEN, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply top part of C by Q11**H.
 
@@ -149,7 +152,8 @@
 
                // Multiply top part of C by Q12**H.
 
-               clacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK )                CALL CTRMM( 'Left', 'Lower', 'Conjugate', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
+               clacpy('All', N1, LEN, C( 1, I ), LDC, WORK( N2+1 ), LDWORK );
+               ctrmm('Left', 'Lower', 'Conjugate', 'Non-Unit', N1, LEN, ONE, Q( 1, N2+1 ), LDQ, WORK( N2+1 ), LDWORK );
 
                // Multiply bottom part of C by Q22**H.
 
@@ -168,7 +172,8 @@
 
                // Multiply right part of C by Q21.
 
-               clacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK )                CALL CTRMM( 'Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
+               clacpy('All', LEN, N2, C( I, N1+1 ), LDC, WORK, LDWORK );
+               ctrmm('Right', 'Upper', 'No Transpose', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11.
 
@@ -176,7 +181,8 @@
 
                // Multiply left part of C by Q12.
 
-               clacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK )                CALL CTRMM( 'Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
+               clacpy('All', LEN, N1, C( I, 1 ), LDC, WORK( 1 + N2*LDWORK ), LDWORK );
+               ctrmm('Right', 'Lower', 'No Transpose', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK( 1 + N2*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22.
 
@@ -193,7 +199,8 @@
 
                // Multiply right part of C by Q12**H.
 
-               clacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK )                CALL CTRMM( 'Right', 'Lower', 'Conjugate', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
+               clacpy('All', LEN, N1, C( I, N2+1 ), LDC, WORK, LDWORK );
+               ctrmm('Right', 'Lower', 'Conjugate', 'Non-Unit', LEN, N1, ONE, Q( 1, N2+1 ), LDQ, WORK, LDWORK );
 
                // Multiply left part of C by Q11**H.
 
@@ -201,7 +208,8 @@
 
                // Multiply left part of C by Q21**H.
 
-               clacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK )                CALL CTRMM( 'Right', 'Upper', 'Conjugate', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
+               clacpy('All', LEN, N2, C( I, 1 ), LDC, WORK( 1 + N1*LDWORK ), LDWORK );
+               ctrmm('Right', 'Upper', 'Conjugate', 'Non-Unit', LEN, N2, ONE, Q( N1+1, 1 ), LDQ, WORK( 1 + N1*LDWORK ), LDWORK );
 
                // Multiply right part of C by Q22**H.
 

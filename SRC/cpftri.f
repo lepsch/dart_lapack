@@ -98,7 +98,8 @@
                // T1 -> a(0), T2 -> a(n), S -> a(N1)
 
                clauum('L', N1, A( 0 ), N, INFO );
-               cherk('L', 'C', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N )                CALL CTRMM( 'L', 'U', 'N', 'N', N2, N1, CONE, A( N ), N, A( N1 ), N );
+               cherk('L', 'C', N1, N2, ONE, A( N1 ), N, ONE, A( 0 ), N );
+               ctrmm('L', 'U', 'N', 'N', N2, N1, CONE, A( N ), N, A( N1 ), N );
                clauum('U', N2, A( N ), N, INFO );
 
             } else {
@@ -108,7 +109,8 @@
                // T1 -> a(N2), T2 -> a(N1), S -> a(0)
 
                clauum('L', N1, A( N2 ), N, INFO );
-               cherk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N )                CALL CTRMM( 'R', 'U', 'C', 'N', N1, N2, CONE, A( N1 ), N, A( 0 ), N );
+               cherk('L', 'N', N1, N2, ONE, A( 0 ), N, ONE, A( N2 ), N );
+               ctrmm('R', 'U', 'C', 'N', N1, N2, CONE, A( N1 ), N, A( 0 ), N );
                clauum('U', N2, A( N1 ), N, INFO );
 
             }
@@ -123,7 +125,8 @@
                // T1 -> a(0), T2 -> a(1), S -> a(0+N1*N1)
 
                clauum('U', N1, A( 0 ), N1, INFO );
-               cherk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 )                CALL CTRMM( 'R', 'L', 'N', 'N', N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
+               cherk('U', 'N', N1, N2, ONE, A( N1*N1 ), N1, ONE, A( 0 ), N1 );
+               ctrmm('R', 'L', 'N', 'N', N1, N2, CONE, A( 1 ), N1, A( N1*N1 ), N1 );
                clauum('L', N2, A( 1 ), N1, INFO );
 
             } else {
@@ -132,7 +135,8 @@
                // T1 -> a(0+N2*N2), T2 -> a(0+N1*N2), S -> a(0)
 
                clauum('U', N1, A( N2*N2 ), N2, INFO );
-               cherk('U', 'C', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 )                CALL CTRMM( 'L', 'L', 'C', 'N', N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
+               cherk('U', 'C', N1, N2, ONE, A( 0 ), N2, ONE, A( N2*N2 ), N2 );
+               ctrmm('L', 'L', 'C', 'N', N2, N1, CONE, A( N1*N2 ), N2, A( 0 ), N2 );
                clauum('L', N2, A( N1*N2 ), N2, INFO );
 
             }
@@ -154,7 +158,8 @@
                // T1 -> a(1), T2 -> a(0), S -> a(k+1)
 
                clauum('L', K, A( 1 ), N+1, INFO );
-               cherk('L', 'C', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 )                CALL CTRMM( 'L', 'U', 'N', 'N', K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
+               cherk('L', 'C', K, K, ONE, A( K+1 ), N+1, ONE, A( 1 ), N+1 );
+               ctrmm('L', 'U', 'N', 'N', K, K, CONE, A( 0 ), N+1, A( K+1 ), N+1 );
                clauum('U', K, A( 0 ), N+1, INFO );
 
             } else {
@@ -164,7 +169,8 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0)
 
                clauum('L', K, A( K+1 ), N+1, INFO );
-               cherk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 )                CALL CTRMM( 'R', 'U', 'C', 'N', K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
+               cherk('L', 'N', K, K, ONE, A( 0 ), N+1, ONE, A( K+1 ), N+1 );
+               ctrmm('R', 'U', 'C', 'N', K, K, CONE, A( K ), N+1, A( 0 ), N+1 );
                clauum('U', K, A( K ), N+1, INFO );
 
             }
@@ -180,7 +186,8 @@
                // T1 -> a(0+k), T2 -> a(0+0), S -> a(0+k*(k+1)); lda=k
 
                clauum('U', K, A( K ), K, INFO );
-               cherk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K )                CALL CTRMM( 'R', 'L', 'N', 'N', K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
+               cherk('U', 'N', K, K, ONE, A( K*( K+1 ) ), K, ONE, A( K ), K );
+               ctrmm('R', 'L', 'N', 'N', K, K, CONE, A( 0 ), K, A( K*( K+1 ) ), K );
                clauum('L', K, A( 0 ), K, INFO );
 
             } else {
@@ -190,7 +197,8 @@
                // T1 -> a(0+k*(k+1)), T2 -> a(0+k*k), S -> a(0+0)); lda=k
 
                clauum('U', K, A( K*( K+1 ) ), K, INFO );
-               cherk('U', 'C', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K )                CALL CTRMM( 'L', 'L', 'C', 'N', K, K, CONE, A( K*K ), K, A( 0 ), K );
+               cherk('U', 'C', K, K, ONE, A( 0 ), K, ONE, A( K*( K+1 ) ), K );
+               ctrmm('L', 'L', 'C', 'N', K, K, CONE, A( K*K ), K, A( 0 ), K );
                clauum('L', K, A( K*K ), K, INFO );
 
             }

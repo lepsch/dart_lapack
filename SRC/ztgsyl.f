@@ -223,16 +223,20 @@
                   PQ = PQ + MB*NB
                   if ( SCALOC.NE.ONE ) {
                      for (K = 1; K <= JS - 1; K++) { // 80
-                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 80
                      for (K = JS; K <= JE; K++) { // 90
-                        zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        zscal(IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 90
                      for (K = JS; K <= JE; K++) { // 100
-                        zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                         CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
+                        zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 );
+                        zscal(M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                      } // 100
                      for (K = JE + 1; K <= N; K++) { // 110
-                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                         CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                        zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                        zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                      } // 110
                      SCALE = SCALE*SCALOC
                   }
@@ -240,10 +244,12 @@
                   // Substitute R(I,J) and L(I,J) into remaining equation.
 
                   if ( I.GT.1 ) {
-                     zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC )                      CALL ZGEMM( 'N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF );
+                     zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), A( 1, IS ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( 1, JS ), LDC );
+                     zgemm('N', 'N', IS-1, NB, MB, DCMPLX( -ONE, ZERO ), D( 1, IS ), LDD, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), F( 1, JS ), LDF );
                   }
                   if ( J.LT.Q ) {
-                     zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC )                      CALL ZGEMM( 'N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
+                     zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, B( JS, JE+1 ), LDB, DCMPLX( ONE, ZERO ), C( IS, JE+1 ), LDC );
+                     zgemm('N', 'N', MB, N-JE, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( JS, JE+1 ), LDE, DCMPLX( ONE, ZERO ), F( IS, JE+1 ), LDF );
                   }
                } // 120
             } // 130
@@ -289,16 +295,20 @@
                if (LINFO.GT.0) INFO = LINFO;
                if ( SCALOC.NE.ONE ) {
                   for (K = 1; K <= JS - 1; K++) { // 160
-                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 160
                   for (K = JS; K <= JE; K++) { // 170
-                     zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     zscal(IS-1, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     zscal(IS-1, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 170
                   for (K = JS; K <= JE; K++) { // 180
-                     zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 )                      CALL ZSCAL( M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
+                     zscal(M-IE, DCMPLX( SCALOC, ZERO ), C( IE+1, K ), 1 );
+                     zscal(M-IE, DCMPLX( SCALOC, ZERO ), F( IE+1, K ), 1 );
                   } // 180
                   for (K = JE + 1; K <= N; K++) { // 190
-                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 )                      CALL ZSCAL( M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
+                     zscal(M, DCMPLX( SCALOC, ZERO ), C( 1, K ), 1 );
+                     zscal(M, DCMPLX( SCALOC, ZERO ), F( 1, K ), 1 );
                   } // 190
                   SCALE = SCALE*SCALOC
                }
@@ -306,10 +316,12 @@
                // Substitute R(I,J) and L(I,J) into remaining equation.
 
                if ( J.GT.P+2 ) {
-                  zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF )                   CALL ZGEMM( 'N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
+                  zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), C( IS, JS ), LDC, B( 1, JS ), LDB, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
+                  zgemm('N', 'C', MB, JS-1, NB, DCMPLX( ONE, ZERO ), F( IS, JS ), LDF, E( 1, JS ), LDE, DCMPLX( ONE, ZERO ), F( IS, 1 ), LDF );
                }
                if ( I.LT.P ) {
-                  zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC )                   CALL ZGEMM( 'C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
+                  zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), A( IS, IE+1 ), LDA, C( IS, JS ), LDC, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
+                  zgemm('C', 'N', M-IE, NB, MB, DCMPLX( -ONE, ZERO ), D( IS, IE+1 ), LDD, F( IS, JS ), LDF, DCMPLX( ONE, ZERO ), C( IE+1, JS ), LDC );
                }
             } // 200
          } // 210

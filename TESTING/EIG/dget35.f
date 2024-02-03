@@ -117,7 +117,8 @@
                                        RMUL = ONE / MAX( XNRM, TNRM )
                                     }
                                  }
-                                 dgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 )                                  CALL DGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
+                                 dgemm(TRANA, 'N', M, N, M, RMUL, A, 6, C, 6, -SCALE*RMUL, CC, 6 );
+                                 dgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, 6, B, 6, ONE, CC, 6 );
                                  RES1 = DLANGE( 'M', M, N, CC, 6, DUM )
                                  RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( RMUL*TNRM )*EPS )*XNRM )
                                  if ( RES.GT.RMAX ) {

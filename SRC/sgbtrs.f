@@ -81,7 +81,8 @@
             for (J = 1; J <= N - 1; J++) { // 10
                LM = MIN( KL, N-J )
                L = IPIV( J )
-               if (L.NE.J) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB )                CALL SGER( LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
+               if (L.NE.J) CALL SSWAP( NRHS, B( L, 1 ), LDB, B( J, 1 ), LDB );
+               sger(LM, NRHS, -ONE, AB( KD+1, J ), 1, B( J, 1 ), LDB, B( J+1, 1 ), LDB );
             } // 10
          }
 

@@ -238,7 +238,8 @@
 
                   // Positive definite tridiagonal, eigenvalues specified.
 
-                  if (N.GT.1) K = MAX( 1, K )                   CALL ZLATMS( N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO );
+                  if (N.GT.1) K = MAX( 1, K );
+                  zlatms(N, N, 'S', ISEED, 'P', RWORK, IMODE, COND, ANORM, 1, 1, 'Q', A( K, 1 ), LDA, WORK, IINFO );
                   for (I = 2; I <= N; I++) { // 90
                      TEMP1 = ABS( A( K, I ) ) / SQRT( ABS( A( K+1, I-1 )*A( K+1, I ) ) )
                      if ( TEMP1.GT.HALF ) {

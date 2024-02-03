@@ -126,7 +126,8 @@
 
                   // Apply the transformations.
 
-                  sger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB )                   CALL SGER( K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
+                  sger(K-1, NRHS, ONE, A( 1, K ), 1, B( K, 1 ), LDB, B( 1, 1 ), LDB );
+                  sger(K-1, NRHS, ONE, A( 1, K+1 ), 1, B( K+1, 1 ), LDB, B( 1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -209,7 +210,8 @@
 
                   // Apply the transformation.
 
-                  sger(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB )                   CALL SGER( N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
+                  sger(N-K, NRHS, ONE, A( K+1, K ), 1, B( K, 1 ), LDB, B( K+1, 1 ), LDB );
+                  sger(N-K, NRHS, ONE, A( K+1, K-1 ), 1, B( K-1, 1 ), LDB, B( K+1, 1 ), LDB );
 
                   // Interchange if a permutation was applied at the
                   // K-th step of the factorization.
@@ -282,7 +284,8 @@
 
                   // Apply the transformations
 
-                  sgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB )                   CALL SGEMV( 'Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
+                  sgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K ), 1, ONE, B( K, 1 ), LDB );
+                  sgemv('Transpose', K-2, NRHS, ONE, B, LDB, A( 1, K-1 ), 1, ONE, B( K-1, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.
@@ -350,7 +353,8 @@
 
                   // Apply the transformation
 
-                  sgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB )                   CALL SGEMV( 'Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB );
+                  sgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K+1 ), 1, ONE, B( K+1, 1 ), LDB );
+                  sgemv('Transpose', N-K-1, NRHS, ONE, B( K+2, 1 ), LDB, A( K+2, K ), 1, ONE, B( K, 1 ), LDB );
                }
 
                // Multiply by the diagonal block if non-unit.

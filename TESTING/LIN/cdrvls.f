@@ -244,7 +244,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 clarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL CSSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
+                                 clarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 csscal(NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
                               cgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               clacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -252,7 +253,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 clacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 clacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'CGELS '
                               cgels(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
@@ -264,7 +266,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL CQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 1 ) );
 
                               // Test 2: Check correctness of results
                               // for CGELS.
@@ -330,7 +333,8 @@
                               // Set up a consistent rhs
 
                               if ( NCOLS.GT.0 ) {
-                                 clarnv(2, ISEED, NCOLS*NRHS, WORK )                                  CALL CSSCAL( NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
+                                 clarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                 csscal(NCOLS*NRHS, ONE / REAL( NCOLS ), WORK, 1 );
                               }
                               cgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                               clacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -338,7 +342,8 @@
                               // Solve LS or overdetermined system
 
                               if ( M.GT.0 .AND. N.GT.0 ) {
-                                 clacpy('Full', M, N, COPYA, LDA, A, LDA )                                  CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                 clacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                 clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                               }
                               SRNAMT = 'CGELST'
                               cgelst(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO );
@@ -350,7 +355,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                               CALL CQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
+                              if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                              cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, RWORK, RESULT( 3 ) );
 
                               // Test 4: Check correctness of results
                               // for CGELST.
@@ -422,7 +428,8 @@
                                  // Set up a consistent rhs
 
                                  if ( NCOLS.GT.0 ) {
-                                    clarnv(2, ISEED, NCOLS*NRHS, WORK )                                     CALL CSCAL( NCOLS*NRHS, CONE / REAL( NCOLS ), WORK, 1 );
+                                    clarnv(2, ISEED, NCOLS*NRHS, WORK );
+                                    cscal(NCOLS*NRHS, CONE / REAL( NCOLS ), WORK, 1 );
                                  }
                                  cgemm(TRANS, 'No transpose', NROWS, NRHS, NCOLS, CONE, COPYA, LDA, WORK, LDWORK, CZERO, B, LDB );
                                  clacpy('Full', NROWS, NRHS, B, LDB, COPYB, LDB );
@@ -430,7 +437,8 @@
                                  // Solve LS or overdetermined system
 
                                  if ( M.GT.0 .AND. N.GT.0 ) {
-                                    clacpy('Full', M, N, COPYA, LDA, A, LDA )                                     CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, B, LDB );
+                                    clacpy('Full', M, N, COPYA, LDA, A, LDA );
+                                    clacpy('Full', NROWS, NRHS, COPYB, LDB, B, LDB );
                                  }
                                  SRNAMT = 'CGETSLS '
                                  cgetsls(TRANS, M, N, NRHS, A, LDA, B, LDB, WORK, LWORK, INFO )                                  IF( INFO.NE.0 ) CALL ALAERH( PATH, 'CGETSLS ', INFO, 0, TRANS, M, N, NRHS, -1, NB, ITYPE, NFAIL, NERRS, NOUT );
@@ -440,7 +448,8 @@
                               // RESID = norm(B - A*X) /
                               // / ( max(m,n) * norm(A) * norm(X) * EPS )
 
-                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB )                                  CALL CQRT16( TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
+                                 if (NROWS.GT.0 .AND. NRHS.GT.0) CALL CLACPY( 'Full', NROWS, NRHS, COPYB, LDB, C, LDB );
+                                 cqrt16(TRANS, M, N, NRHS, COPYA, LDA, B, LDB, C, LDB, WORK2, RESULT( 5 ) );
 
                               // Test 6: Check correctness of results
                               // for CGETSLS.
@@ -522,7 +531,8 @@
                         // Test 8:  Compute error in solution
                                  // workspace:  M*NRHS + M
 
-                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL CQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) );
+                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        cqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 8 ) );
 
                         // Test 9:  Check norm of r'*A
                                  // workspace: NRHS*(M+N)
@@ -564,7 +574,8 @@
 
                         // Test 12:  Compute error in solution
 
-                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL CQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 12 ) );
+                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        cqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 12 ) );
 
                         // Test 13:  Check norm of r'*A
 
@@ -601,7 +612,8 @@
 
                         // Test 16:  Compute error in solution
 
-                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK )                         CALL CQRT16( 'No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 16 ) );
+                        clacpy('Full', M, NRHS, COPYB, LDB, WORK, LDWORK );
+                        cqrt16('No transpose', M, N, NRHS, COPYA, LDA, B, LDB, WORK, LDWORK, RWORK, RESULT( 16 ) );
 
                         // Test 17:  Check norm of r'*A
 

@@ -314,7 +314,8 @@
                // Generate Q
 
                MQ = M
-               if (NRHS.LE.0) MQ = MNMIN                CALL DORGBR( 'Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
+               if (NRHS.LE.0) MQ = MNMIN;
+               dorgbr('Q', M, MQ, N, Q, LDQ, WORK, WORK( 2*MNMIN+1 ), LWORK-2*MNMIN, IINFO );
 
                // Check error code from DORGBR.
 
@@ -344,7 +345,9 @@
                     // 2:  Check the orthogonality of Q
                     // 3:  Check the orthogonality of PT
 
-               dbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT( 1 ) )                CALL DORT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 2 ) )                CALL DORT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 3 ) );
+               dbdt01(M, N, 1, A, LDA, Q, LDQ, BD, BE, PT, LDPT, WORK, RESULT( 1 ) );
+               dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 2 ) );
+               dort01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 3 ) );
             }
 
             // Use DBDSQR to form the SVD of the bidiagonal matrix B:
@@ -397,7 +400,10 @@
                  // 6:  Check the orthogonality of U
                  // 7:  Check the orthogonality of VT
 
-            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) )             CALL DBDT02( MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RESULT( 5 ) )             CALL DORT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT( 6 ) )             CALL DORT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 7 ) );
+            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 4 ) );
+            dbdt02(MNMIN, NRHS, Y, LDX, Z, LDX, U, LDPT, WORK, RESULT( 5 ) );
+            dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT( 6 ) );
+            dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 7 ) );
 
             // Test 8:  Check that the singular values are sorted in
                      // non-increasing order and are non-negative
@@ -449,7 +455,10 @@
                     // 13:  Check the orthogonality of Q*U
                     // 14:  Check the orthogonality of VT*PT
 
-               dbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RESULT( 11 ) )                CALL DBDT02( M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RESULT( 12 ) )                CALL DORT01( 'Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 13 ) )                CALL DORT01( 'Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 14 ) );
+               dbdt01(M, N, 0, A, LDA, Q, LDQ, S2, DUMMA, PT, LDPT, WORK, RESULT( 11 ) );
+               dbdt02(M, NRHS, X, LDX, Y, LDX, Q, LDQ, WORK, RESULT( 12 ) );
+               dort01('Columns', M, MQ, Q, LDQ, WORK, LWORK, RESULT( 13 ) );
+               dort01('Rows', MNMIN, N, PT, LDPT, WORK, LWORK, RESULT( 14 ) );
             }
 
             // Use DBDSDC to form the SVD of the bidiagonal matrix B:
@@ -500,7 +509,9 @@
                  // 16:  Check the orthogonality of U
                  // 17:  Check the orthogonality of VT
 
-            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 15 ) )             CALL DORT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT( 16 ) )             CALL DORT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 17 ) );
+            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK, RESULT( 15 ) );
+            dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK, LWORK, RESULT( 16 ) );
+            dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK, LWORK, RESULT( 17 ) );
 
             // Test 18:  Check that the singular values are sorted in
                       // non-increasing order and are non-negative
@@ -609,7 +620,9 @@
                       // non-increasing order and are non-negative
                  // 24:  Compare DBDSVDX with and without singular vectors
 
-            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 20 ) )             CALL DORT01( 'Columns', MNMIN, MNMIN, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 21 ) )             CALL DORT01( 'Rows', MNMIN, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 22) );
+            dbdt03(UPLO, MNMIN, 1, BD, BE, U, LDPT, S1, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 20 ) );
+            dort01('Columns', MNMIN, MNMIN, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 21 ) );
+            dort01('Rows', MNMIN, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 22) );
 
             RESULT( 23 ) = ZERO
             for (I = 1; I <= MNMIN - 1; I++) { // 180
@@ -701,7 +714,9 @@
                       // non-increasing order and are non-negative
                  // 29:  Compare DBDSVDX with and without singular vectors
 
-            dbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 25 ) )             CALL DORT01( 'Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 26 ) )             CALL DORT01( 'Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 27 ) );
+            dbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 25 ) );
+            dort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 26 ) );
+            dort01('Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 27 ) );
 
             RESULT( 28 ) = ZERO
             for (I = 1; I <= NS1 - 1; I++) { // 220
@@ -797,7 +812,9 @@
                       // non-increasing order and are non-negative
                  // 34:  Compare DBDSVDX with and without singular vectors
 
-            dbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 30 ) )             CALL DORT01( 'Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 31 ) )             CALL DORT01( 'Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 32 ) );
+            dbdt04(UPLO, MNMIN, BD, BE, S1, NS1, U, LDPT, VT, LDPT, WORK( IWBS+MNMIN ), RESULT( 30 ) );
+            dort01('Columns', MNMIN, NS1, U, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 31 ) );
+            dort01('Rows', NS1, MNMIN, VT, LDPT, WORK( IWBS+MNMIN ), LWORK-MNMIN, RESULT( 32 ) );
 
             RESULT( 33 ) = ZERO
             for (I = 1; I <= NS1 - 1; I++) { // 250

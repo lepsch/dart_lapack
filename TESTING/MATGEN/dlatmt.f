@@ -478,7 +478,8 @@
                      ANGLE = TWOPI*DLARND( 1, ISEED )
                      C = COS( ANGLE )
                      S = SIN( ANGLE )
-                     dlarot(.FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP )                      CALL DLAROT( .TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, DUMMY );
+                     dlarot(.FALSE., JC.GT.K, .TRUE., IL, C, S, A( IROW-ISKEW*JC+IOFFG, JC ), ILDA, EXTRA, TEMP );
+                     dlarot(.TRUE., .TRUE., .FALSE., MIN( K, N-JC )+1, C, S, A( ( 1-ISKEW )*JC+IOFFG, JC ), ILDA, TEMP, DUMMY );
 
                      // Chase EXTRA back up the matrix
 

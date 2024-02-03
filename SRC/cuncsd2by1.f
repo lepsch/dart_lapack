@@ -254,7 +254,8 @@
                V1T(1,J) = ZERO
                V1T(J,1) = ZERO
             }
-            clacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T )             CALL CUNGLQ( Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
+            clacpy('U', Q-1, Q-1, X21(1,2), LDX21, V1T(2,2), LDV1T );
+            cunglq(Q-1, Q-1, Q-1, V1T(2,2), LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.
@@ -337,7 +338,8 @@
                U2(1,J) = ZERO
                U2(J,1) = ZERO
             }
-            clacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL CUNGQR( M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
+            clacpy('L', M-P-1, M-P-1, X21(2,1), LDX21, U2(2,2), LDU2 );
+            cungqr(M-P-1, M-P-1, M-P-1, U2(2,2), LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             clacpy('U', M-P, Q, X21, LDX21, V1T, LDV1T );
@@ -384,17 +386,21 @@
             for (J = 2; J <= P; J++) {
                U1(1,J) = ZERO
             }
-            clacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 )             CALL CUNGQR( P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
+            clacpy('L', P-1, M-Q-1, X11(2,1), LDX11, U1(2,2), LDU1 );
+            cungqr(P, P, M-Q, U1, LDU1, WORK(ITAUP1), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTU2 .AND. M-P .GT. 0 ) {
             for (J = 2; J <= M-P; J++) {
                U2(1,J) = ZERO
             }
-            clacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 )             CALL CUNGQR( M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
+            clacpy('L', M-P-1, M-Q-1, X21(2,1), LDX21, U2(2,2), LDU2 );
+            cungqr(M-P, M-P, M-Q, U2, LDU2, WORK(ITAUP2), WORK(IORGQR), LORGQR, CHILDINFO );
          }
          if ( WANTV1T .AND. Q .GT. 0 ) {
             clacpy('U', M-Q, Q, X21, LDX21, V1T, LDV1T );
-            clacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T )             CALL CLACPY( 'U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T )             CALL CUNGLQ( Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
+            clacpy('U', P-(M-Q), Q-(M-Q), X11(M-Q+1,M-Q+1), LDX11, V1T(M-Q+1,M-Q+1), LDV1T );
+            clacpy('U', -P+Q, Q-P, X21(M-Q+1,P+1), LDX21, V1T(P+1,P+1), LDV1T );
+            cunglq(Q, Q, Q, V1T, LDV1T, WORK(ITAUQ1), WORK(IORGLQ), LORGLQ, CHILDINFO );
          }
 
          // Simultaneously diagonalize X11 and X21.

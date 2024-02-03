@@ -193,7 +193,8 @@
                // Scale.
 
                ORGNRM = SLANST( 'M', M, D( START ), E( START ) )
-               slascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO )                CALL SLASCL( 'G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
+               slascl('G', 0, 0, ORGNRM, ONE, M, 1, D( START ), M, INFO );
+               slascl('G', 0, 0, ORGNRM, ONE, M-1, 1, E( START ), M-1, INFO );
 
                claed0(N, M, D( START ), E( START ), Z( 1, START ), LDZ, WORK, N, RWORK, IWORK, INFO );
                if ( INFO.GT.0 ) {
@@ -206,7 +207,8 @@
                slascl('G', 0, 0, ONE, ORGNRM, M, 1, D( START ), M, INFO );
 
             } else {
-               ssteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO )                CALL CLACRM( N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
+               ssteqr('I', M, D( START ), E( START ), RWORK, M, RWORK( M*M+1 ), INFO );
+               clacrm(N, M, Z( 1, START ), LDZ, RWORK, M, WORK, N, RWORK( M*M+1 ) );
                clacpy('A', N, M, WORK, N, Z( 1, START ), LDZ );
                if ( INFO.GT.0 ) {
                   INFO = START*( N+1 ) + FINISH

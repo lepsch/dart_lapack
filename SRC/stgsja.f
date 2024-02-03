@@ -205,7 +205,8 @@
             if ( ALPHA( K+I ).GE.BETA( K+I ) ) {
                sscal(L-I+1, ONE / ALPHA( K+I ), A( K+I, N-L+I ), LDA );
             } else {
-               sscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB )                CALL SCOPY( L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
+               sscal(L-I+1, ONE / BETA( K+I ), B( I, N-L+I ), LDB );
+               scopy(L-I+1, B( I, N-L+I ), LDB, A( K+I, N-L+I ), LDA );
             }
 
          } else {

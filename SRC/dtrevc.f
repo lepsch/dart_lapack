@@ -242,7 +242,8 @@
 
                      // Update right-hand side
 
-                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
+                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 );
+                     daxpy(J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
                   }
                } // 60
 
@@ -335,7 +336,8 @@
 
                      // Update the right-hand side
 
-                     daxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
+                     daxpy(J-1, -X( 1, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
+                     daxpy(J-1, -X( 1, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
 
                   } else {
 
@@ -371,7 +373,10 @@
 
                      // Update the right-hand side
 
-                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 )                      CALL DAXPY( J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 )                      CALL DAXPY( J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
+                     daxpy(J-2, -X( 1, 1 ), T( 1, J-1 ), 1, WORK( 1+N ), 1 );
+                     daxpy(J-2, -X( 2, 1 ), T( 1, J ), 1, WORK( 1+N ), 1 );
+                     daxpy(J-2, -X( 1, 2 ), T( 1, J-1 ), 1, WORK( 1+N2 ), 1 );
+                     daxpy(J-2, -X( 2, 2 ), T( 1, J ), 1, WORK( 1+N2 ), 1 );
                   }
                } // 90
 
@@ -398,7 +403,8 @@
                } else {
 
                   if ( KI.GT.2 ) {
-                     dgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 )                      CALL DGEMV( 'N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 );
+                     dgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N ), 1, WORK( KI-1+N ), VR( 1, KI-1 ), 1 );
+                     dgemv('N', N, KI-2, ONE, VR, LDVR, WORK( 1+N2 ), 1, WORK( KI+N2 ), VR( 1, KI ), 1 );
                   } else {
                      dscal(N, WORK( KI-1+N ), VR( 1, KI-1 ), 1 );
                      dscal(N, WORK( KI+N2 ), VR( 1, KI ), 1 );
@@ -704,7 +710,8 @@
                   } // 230
                } else {
                   if ( KI.LT.N-1 ) {
-                     dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 )                      CALL DGEMV( 'N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );
+                     dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N ), 1, WORK( KI+N ), VL( 1, KI ), 1 );
+                     dgemv('N', N, N-KI-1, ONE, VL( 1, KI+2 ), LDVL, WORK( KI+2+N2 ), 1, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );
                   } else {
                      dscal(N, WORK( KI+N ), VL( 1, KI ), 1 );
                      dscal(N, WORK( KI+1+N2 ), VL( 1, KI+1 ), 1 );

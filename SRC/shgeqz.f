@@ -264,7 +264,8 @@
                      TEMP = H( JCH, JCH )
                      slartg(TEMP, H( JCH+1, JCH ), C, S, H( JCH, JCH ) );
                      H( JCH+1, JCH ) = ZERO
-                     srot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S )                      CALL SROT( ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
+                     srot(ILASTM-JCH, H( JCH, JCH+1 ), LDH, H( JCH+1, JCH+1 ), LDH, C, S );
+                     srot(ILASTM-JCH, T( JCH, JCH+1 ), LDT, T( JCH+1, JCH+1 ), LDT, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      if (ILAZR2) H( JCH, JCH-1 ) = H( JCH, JCH-1 )*C;
                      ILAZR2 = .FALSE.
                      if ( ABS( T( JCH+1, JCH+1 ) ).GE.BTOL ) {
@@ -287,11 +288,13 @@
                      TEMP = T( JCH, JCH+1 )
                      slartg(TEMP, T( JCH+1, JCH+1 ), C, S, T( JCH, JCH+1 ) );
                      T( JCH+1, JCH+1 ) = ZERO
-                     if (JCH.LT.ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S )                      CALL SROT( ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
+                     if (JCH.LT.ILASTM-1) CALL SROT( ILASTM-JCH-1, T( JCH, JCH+2 ), LDT, T( JCH+1, JCH+2 ), LDT, C, S );
+                     srot(ILASTM-JCH+2, H( JCH, JCH-1 ), LDH, H( JCH+1, JCH-1 ), LDH, C, S )                      IF( ILQ ) CALL SROT( N, Q( 1, JCH ), 1, Q( 1, JCH+1 ), 1, C, S );
                      TEMP = H( JCH+1, JCH )
                      slartg(TEMP, H( JCH+1, JCH-1 ), C, S, H( JCH+1, JCH ) );
                      H( JCH+1, JCH-1 ) = ZERO
-                     srot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S )                      CALL SROT( JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL SROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
+                     srot(JCH+1-IFRSTM, H( IFRSTM, JCH ), 1, H( IFRSTM, JCH-1 ), 1, C, S );
+                     srot(JCH-IFRSTM, T( IFRSTM, JCH ), 1, T( IFRSTM, JCH-1 ), 1, C, S )                      IF( ILZ ) CALL SROT( N, Z( 1, JCH ), 1, Z( 1, JCH-1 ), 1, C, S );
                   } // 50
                   GO TO 70
                }
@@ -319,7 +322,8 @@
          TEMP = H( ILAST, ILAST )
          slartg(TEMP, H( ILAST, ILAST-1 ), C, S, H( ILAST, ILAST ) );
          H( ILAST, ILAST-1 ) = ZERO
-         srot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S )          CALL SROT( ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
+         srot(ILAST-IFRSTM, H( IFRSTM, ILAST ), 1, H( IFRSTM, ILAST-1 ), 1, C, S );
+         srot(ILAST-IFRSTM, T( IFRSTM, ILAST ), 1, T( IFRSTM, ILAST-1 ), 1, C, S )          IF( ILZ ) CALL SROT( N, Z( 1, ILAST ), 1, Z( 1, ILAST-1 ), 1, C, S );
 
          // H(ILAST,ILAST-1)=0 -- Standardize B, set ALPHAR, ALPHAI,
                                // and BETA
@@ -525,7 +529,8 @@
                B22 = -B22
             }
 
-            srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL )             CALL SROT( ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
+            srot(ILASTM+1-IFIRST, H( ILAST-1, ILAST-1 ), LDH, H( ILAST, ILAST-1 ), LDH, CL, SL );
+            srot(ILAST+1-IFRSTM, H( IFRSTM, ILAST-1 ), 1, H( IFRSTM, ILAST ), 1, CR, SR );
 
             if (ILAST.LT.ILASTM) CALL SROT( ILASTM-ILAST, T( ILAST-1, ILAST+1 ), LDT, T( ILAST, ILAST+1 ), LDT, CL, SL )             IF( IFRSTM.LT.ILAST-1 ) CALL SROT( IFIRST-IFRSTM, T( IFRSTM, ILAST-1 ), 1, T( IFRSTM, ILAST ), 1, CR, SR );
 

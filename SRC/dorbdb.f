@@ -147,7 +147,8 @@
             }
 
             if ( I .LT. Q ) {
-               dscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 )                CALL DAXPY( Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
+               dscal(Q-I, -Z1*Z3*SIN(THETA(I)), X11(I,I+1), LDX11 );
+               daxpy(Q-I, Z2*Z3*COS(THETA(I)), X21(I,I+1), LDX21, X11(I,I+1), LDX11 );
             }
             dscal(M-Q-I+1, -Z1*Z4*SIN(THETA(I)), X12(I,I), LDX12 );
             daxpy(M-Q-I+1, Z2*Z4*COS(THETA(I)), X22(I,I), LDX22, X12(I,I), LDX12 );
@@ -172,7 +173,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               dlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL DLARF( 'R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
+               dlarf('R', P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
+               dlarf('R', M-P-I, Q-I, X11(I,I+1), LDX11, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             if ( P .GT. I ) {
                dlarf('R', P-I, M-Q-I+1, X12(I,I), LDX12, TAUQ2(I), X12(I+1,I), LDX12, WORK );
@@ -287,7 +289,8 @@
             X12(I,I) = ONE
 
             if ( I .LT. Q ) {
-               dlarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK )                CALL DLARF( 'L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
+               dlarf('L', Q-I, P-I, X11(I+1,I), 1, TAUQ1(I), X11(I+1,I+1), LDX11, WORK );
+               dlarf('L', Q-I, M-P-I, X11(I+1,I), 1, TAUQ1(I), X21(I+1,I+1), LDX21, WORK );
             }
             dlarf('L', M-Q-I+1, P-I, X12(I,I), 1, TAUQ2(I), X12(I,I+1), LDX12, WORK );
             if ( M-P-I .GT. 0 ) {
@@ -319,7 +322,8 @@
             if ( M-P-Q .EQ. I ) {
                dlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I,Q+I), 1, TAUQ2(P+I) );
             } else {
-               dlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) )                CALL DLARF( 'L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK );
+               dlarfgp(M-P-Q-I+1, X22(P+I,Q+I), X22(P+I+1,Q+I), 1, TAUQ2(P+I) );
+               dlarf('L', M-P-Q-I+1, M-P-Q-I, X22(P+I,Q+I), 1, TAUQ2(P+I), X22(P+I,Q+I+1), LDX22, WORK );
             }
             X22(P+I,Q+I) = ONE
 

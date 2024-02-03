@@ -217,7 +217,8 @@
          }
          if ( WANTV2T .AND. M-Q .GT. 0 ) {
             dlacpy('L', M-Q, P, X12, LDX12, V2T, LDV2T );
-            dlacpy('L', M-P-Q, M-P-Q, X22(P+1,Q+1), LDX22, V2T(P+1,P+1), LDV2T )             CALL DORGQR( M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
+            dlacpy('L', M-P-Q, M-P-Q, X22(P+1,Q+1), LDX22, V2T(P+1,P+1), LDV2T );
+            dorgqr(M-Q, M-Q, M-Q, V2T, LDV2T, WORK(ITAUQ2), WORK(IORGQR), LORGQRWORK, INFO );
          }
       }
 

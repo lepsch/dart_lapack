@@ -247,7 +247,9 @@
                dlatmr(N, N, 'S', ISEED, 'N', WORK, 6, ONE, ONE, 'T', 'N', WORK( N+1 ), 1, ONE, WORK( 2*N+1 ), 1, ONE, 'N', IDUMMA, N, N, ZERO, ANORM, 'NO', A, LDA, IWORK, IINFO );
                if ( N.GE.4 ) {
                   dlaset('Full', 2, N, ZERO, ZERO, A, LDA );
-                  dlaset('Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA )                   CALL DLASET( 'Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA )                   CALL DLASET( 'Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
+                  dlaset('Full', N-3, 1, ZERO, ZERO, A( 3, 1 ), LDA );
+                  dlaset('Full', N-3, 2, ZERO, ZERO, A( 3, N-1 ), LDA );
+                  dlaset('Full', 1, N, ZERO, ZERO, A( N, 1 ), LDA );
                }
 
             } else if ( ITYPE.EQ.10 ) {

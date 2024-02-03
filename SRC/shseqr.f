@@ -167,7 +167,8 @@
 
                   slacpy('A', N, N, H, LDH, HL, NL );
                   HL( N+1, N ) = ZERO
-                  slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL )                   CALL SLAQR0( WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
+                  slaset('A', NL, NL-N, ZERO, ZERO, HL( 1, N+1 ), NL );
+                  slaqr0(WANTT, WANTZ, NL, ILO, KBOT, HL, NL, WR, WI, ILO, IHI, Z, LDZ, WORKL, NL, INFO )                   IF( WANTT .OR. INFO.NE.0 ) CALL SLACPY( 'A', N, N, HL, NL, H, LDH );
                }
             }
          }

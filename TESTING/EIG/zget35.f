@@ -118,7 +118,8 @@
                                  RMUL = CONE / RMUL
                               }
                            }
-                           zgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT )                            CALL ZGEMM( 'N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
+                           zgemm(TRANA, 'N', M, N, M, RMUL, A, LDT, C, LDT, -SCALE*RMUL, CSAV, LDT );
+                           zgemm('N', TRANB, M, N, N, DBLE( ISGN )*RMUL, C, LDT, B, LDT, CONE, CSAV, LDT );
                            RES1 = ZLANGE( 'M', M, N, CSAV, LDT, DUM )
                            RES = RES1 / MAX( SMLNUM, SMLNUM*XNRM, ( ( ABS( RMUL )*TNRM )*EPS )*XNRM )
                            if ( RES.GT.RMAX ) {

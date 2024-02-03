@@ -277,7 +277,8 @@
 
                      // Compute residual of the computed solution.
 
-                     clacpy('Full', N, NRHS, B, LDA, C_WORK_CPOT02, LDA )                      CALL CPOT02( UPLO, N, NRHS, A, LDA, X, LDA, C_WORK_CPOT02, LDA, S_WORK_CPOT02, RESULT( 3 ) );
+                     clacpy('Full', N, NRHS, B, LDA, C_WORK_CPOT02, LDA );
+                     cpot02(UPLO, N, NRHS, A, LDA, X, LDA, C_WORK_CPOT02, LDA, S_WORK_CPOT02, RESULT( 3 ) );
 
                      // Check solution from generated exact solution.
 

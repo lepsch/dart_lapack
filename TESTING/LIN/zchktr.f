@@ -214,7 +214,8 @@
 
                         if (INFO.NE.0) CALL ALAERH( PATH, 'ZTRRFS', INFO, 0, UPLO // TRANS // DIAG, N, N, -1, -1, NRHS, IMAT, NFAIL, NERRS, NOUT );
 
-                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) )                         CALL ZTRT05( UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
+                        zget04(N, NRHS, X, LDA, XACT, LDA, RCONDC, RESULT( 4 ) );
+                        ztrt05(UPLO, TRANS, DIAG, N, NRHS, A, LDA, B, LDA, X, LDA, XACT, LDA, RWORK, RWORK( NRHS+1 ), RESULT( 5 ) );
 
                         // Print information about the tests that did not
                         // pass the threshold.

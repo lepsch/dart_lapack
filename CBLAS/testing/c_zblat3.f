@@ -509,7 +509,8 @@ void main() {
                            // Call the subroutine.
 
                            if (TRACE) CALL ZPRCN1(NTRA, NC, SNAME, IORDER, TRANSA, TRANSB, M, N, K, ALPHA, LDA, LDB, BETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CZGEMM( IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           czgemm(IORDER, TRANSA, TRANSB, M, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
 
                            // Check if error-exit was taken incorrectly.
 
@@ -1051,10 +1052,12 @@ void main() {
 
                            if ( SNAME( 10: 11 ).EQ.'mm' ) {
                               if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
-                              if (REWI) REWIND NTRA                               CALL CZTRMM(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              cztrmm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            } else if ( SNAME( 10: 11 ).EQ.'sm' ) {
                               if (TRACE) CALL ZPRCN3( NTRA, NC, SNAME, IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, LDA, LDB);
-                              if (REWI) REWIND NTRA                               CALL CZTRSM(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
+                              if (REWI) REWIND NTRA;
+                              cztrsm(IORDER, SIDE, UPLO, TRANSA, DIAG, M, N, ALPHA, AA, LDA, BB, LDB );
                            }
 
                            // Check if error-exit was taken incorrectly.
@@ -1361,10 +1364,12 @@ void main() {
 
                         if ( CONJ ) {
                            if (TRACE) CALL ZPRCN6( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, RALPHA, LDA, RBETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CZHERK( IORDER, UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           czherk(IORDER, UPLO, TRANS, N, K, RALPHA, AA, LDA, RBETA, CC, LDC );
                         } else {
                            if (TRACE) CALL ZPRCN4( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, BETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CZSYRK( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           czsyrk(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.
@@ -1719,10 +1724,12 @@ void main() {
 
                         if ( CONJ ) {
                            if (TRACE) CALL ZPRCN7( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, RBETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CZHER2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           czher2k(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, RBETA, CC, LDC );
                         } else {
                            if (TRACE) CALL ZPRCN5( NTRA, NC, SNAME, IORDER, UPLO, TRANS, N, K, ALPHA, LDA, LDB, BETA, LDC);
-                           if (REWI) REWIND NTRA                            CALL CZSYR2K( IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
+                           if (REWI) REWIND NTRA;
+                           czsyr2k(IORDER, UPLO, TRANS, N, K, ALPHA, AA, LDA, BB, LDB, BETA, CC, LDC );
                         }
 
                         // Check if error-exit was taken incorrectly.
