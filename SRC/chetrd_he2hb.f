@@ -120,7 +120,7 @@
       claset("A", LDT, KD, ZERO, ZERO, WORK( TPOS ), LDT );
 
       if ( UPPER ) {
-          DO 10 I = 1, N - KD, KD;
+          for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) { // 10
              PN = N-I-KD+1;
              PK = min( N-I-KD+1, KD );
 
@@ -169,7 +169,7 @@
 
           // Reduce the lower triangle of A to lower band matrix
 
-          DO 40 I = 1, N - KD, KD;
+          for (I = 1; KD < 0 ? I >= N - KD : I <= N - KD; I += KD) { // 40
              PN = N-I-KD+1;
              PK = min( N-I-KD+1, KD );
 

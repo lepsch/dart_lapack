@@ -99,7 +99,7 @@
 
          if ( RIGHTV ) {
             if (ILO == 1) GO TO 50;
-            DO 40 I = ILO - 1, 1, -1;
+            for (I = ILO - 1; I >= 1; I--) { // 40
                K = INT( RSCALE( I ) );
                if (K == I) GO TO 40;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );
@@ -119,7 +119,7 @@
          } // 70
          if ( LEFTV ) {
             if (ILO == 1) GO TO 90;
-            DO 80 I = ILO - 1, 1, -1;
+            for (I = ILO - 1; I >= 1; I--) { // 80
                K = INT( LSCALE( I ) );
                if (K == I) GO TO 80;
                cswap(M, V( I, 1 ), LDV, V( K, 1 ), LDV );

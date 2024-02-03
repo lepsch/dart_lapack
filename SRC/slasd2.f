@@ -75,7 +75,7 @@
 
       Z1 = ALPHA*VT( NLP1, NLP1 );
       Z( 1 ) = Z1;
-      DO 10 I = NL, 1, -1;
+      for (I = NL; I >= 1; I--) { // 10
          Z( I+1 ) = ALPHA*VT( I, NLP1 );
          D( I+1 ) = D( I );
          IDXQ( I+1 ) = IDXQ( I ) + 1;

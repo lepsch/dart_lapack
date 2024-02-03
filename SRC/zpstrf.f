@@ -107,7 +107,7 @@
 
             // Compute the Cholesky factorization P**T * A * P = U**H * U
 
-            DO 160 K = 1, N, NB;
+            for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 160
 
                // Account for last block not being NB wide
 
@@ -195,7 +195,7 @@
 
          // Compute the Cholesky factorization P**T * A * P = L * L**H
 
-            DO 210 K = 1, N, NB;
+            for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 210
 
                // Account for last block not being NB wide
 

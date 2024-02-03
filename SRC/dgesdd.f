@@ -475,7 +475,7 @@
                // Workspace: need   N*N [R] + 3*N [e, tauq, taup] + N*N [U]
                // Workspace: prefer M*N [R] + 3*N [e, tauq, taup] + N*N [U]
 
-               DO 10 I = 1, M, LDWRKR;
+               for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) { // 10
                   CHUNK = min( M - I + 1, LDWRKR );
                   dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), N, ZERO, WORK( IR ), LDWRKR );
                   dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
@@ -702,7 +702,7 @@
                   // Workspace: need   3*N [e, tauq, taup] + N*N [U] + NB*N [R]
                   // Workspace: prefer 3*N [e, tauq, taup] + N*N [U] + M*N  [R]
 
-                  DO 20 I = 1, M, LDWRKR;
+                  for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) { // 20
                      CHUNK = min( M - I + 1, LDWRKR );
                      dgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, ZERO, WORK( IR ), LDWRKR );
                      dlacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
@@ -867,7 +867,7 @@
                // Workspace: prefer M*M [VT] + M*N [L]
                // At this point, L is resized as M by chunk.
 
-               DO 30 I = 1, N, CHUNK;
+               for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 30
                   BLK = min( N - I + 1, CHUNK );
                   dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), M, A( 1, I ), LDA, ZERO, WORK( IL ), LDWRKL );
                   dlacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
@@ -1092,7 +1092,7 @@
                   // Workspace: need   3*M [e, tauq, taup] + M*M [VT] + M*NB [L]
                   // Workspace: prefer 3*M [e, tauq, taup] + M*M [VT] + M*N  [L]
 
-                  DO 40 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 40
                      BLK = min( N - I + 1, CHUNK );
                      dgemm('N', 'N', M, BLK, M, ONE, WORK( IVT ), LDWKVT, A( 1, I ), LDA, ZERO, WORK( IL ), M );
                      dlacpy('F', M, BLK, WORK( IL ), M, A( 1, I ), LDA );

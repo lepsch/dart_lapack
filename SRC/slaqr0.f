@@ -184,7 +184,7 @@
 
             // ==== Locate active block ====
 
-            DO 10 K = KBOT, ILO + 1, -1;
+            for (K = KBOT; K >= ILO + 1; K--) { // 10
                if( H( K, K-1 ) == ZERO ) GO TO 20;
             } // 10
             K = ILO;
@@ -283,7 +283,7 @@
 
                if ( MOD( NDFL, KEXSH ) == 0 ) {
                   KS = KBOT - NS + 1;
-                  DO 30 I = KBOT, max( KS+1, KTOP+2 ), -2;
+                  for (I = KBOT; I >= max( KS+1, KTOP+2 ); I -= 2) { // 30
                      SS = ( H( I, I-1 ) ).abs() + ( H( I-1, I-2 ) ).abs();
                      AA = WILK1*SS + H( I, I );
                      BB = SS;
@@ -337,7 +337,7 @@
                      // .    pairs together. ====
 
                      SORTED = false;
-                     DO 50 K = KBOT, KS + 1, -1;
+                     for (K = KBOT; K >= KS + 1; K--) { // 50
                         if (SORTED) GO TO 60;
                         SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40
@@ -363,7 +363,7 @@
                   // .    already adjacent to one another. (Yes,
                   // .    they are.)  ====
 
-                  DO 70 I = KBOT, KS + 2, -2;
+                  for (I = KBOT; I >= KS + 2; I -= 2) { // 70
                      if ( WI( I ) != -WI( I-1 ) ) {
 
                         SWAP = WR( I );

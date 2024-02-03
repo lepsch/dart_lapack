@@ -88,7 +88,7 @@
          SCALE = ONE;
          SCALOC = ONE;
          for (J = 1; J <= N; J++) { // 30
-            DO 20 I = M, 1, -1;
+            for (I = M; I >= 1; I--) { // 20
 
                // Build 2 by 2 system
 
@@ -148,7 +148,7 @@
          SCALE = ONE;
          SCALOC = ONE;
          for (I = 1; I <= M; I++) { // 80
-            DO 70 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 70
 
                // Build 2 by 2 system Z**H
 

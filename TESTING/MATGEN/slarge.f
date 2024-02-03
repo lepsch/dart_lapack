@@ -49,7 +49,7 @@
 
       // pre- and post-multiply A by random orthogonal matrix
 
-      DO 10 I = N, 1, -1;
+      for (I = N; I >= 1; I--) { // 10
 
          // generate random reflection
 

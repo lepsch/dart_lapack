@@ -95,7 +95,7 @@
          RHS( N ) = RHS( N ) - ONE;
          SPLUS = ZERO;
          SMINU = ZERO;
-         DO 30 I = N, 1, -1;
+         for (I = N; I >= 1; I--) { // 30
             TEMP = ONE / Z( I, I );
             XP( I ) = XP( I )*TEMP;
             RHS( I ) = RHS( I )*TEMP;

@@ -77,14 +77,14 @@
 
       if ( LEFT && NOTRAN ) {
 
-         DO I = 1, K, MB;
+         for (I = 1; MB < 0 ? I >= K : I <= K; I += MB) { //
             IB = min( MB, K-I+1 );
             clarfb('L', 'C', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
 
       } else if ( RIGHT && TRAN ) {
 
-         DO I = 1, K, MB;
+         for (I = 1; MB < 0 ? I >= K : I <= K; I += MB) { //
             IB = min( MB, K-I+1 );
             clarfb('R', 'N', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          }
@@ -92,7 +92,7 @@
       } else if ( LEFT && TRAN ) {
 
          KF = ((K-1)/MB)*MB+1;
-         DO I = KF, 1, -MB;
+         for (I = KF; -MB < 0 ? I >= 1 : I <= 1; I += -MB) { //
             IB = min( MB, K-I+1 );
             clarfb('L', 'N', 'F', 'R', M-I+1, N, IB, V( I, I ), LDV, T( 1, I ), LDT, C( I, 1 ), LDC, WORK, LDWORK );
          }
@@ -100,7 +100,7 @@
       } else if ( RIGHT && NOTRAN ) {
 
          KF = ((K-1)/MB)*MB+1;
-         DO I = KF, 1, -MB;
+         for (I = KF; -MB < 0 ? I >= 1 : I <= 1; I += -MB) { //
             IB = min( MB, K-I+1 );
             clarfb('R', 'C', 'F', 'R', M, N-I+1, IB, V( I, I ), LDV, T( 1, I ), LDT, C( 1, I ), LDC, WORK, LDWORK );
          }

@@ -136,7 +136,7 @@
             TRANST = 'N';
          }
 
-         DO 10 I = I1, I2, I3;
+         for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 10
             IB = min( NB, K-I+1 );
 
             // Form the triangular factor of the block reflector

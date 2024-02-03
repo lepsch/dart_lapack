@@ -301,7 +301,7 @@
 
             MU = ( D( M ) ).abs();
             SMIN = MU;
-            DO 110 LLL = M - 1, LL, -1;
+            for (LLL = M - 1; LLL >= LL; LLL--) { // 110
                if ( ( E( LLL ) ).abs() <= TOL*MU ) {
                   E( LLL ) = ZERO;
                   GO TO 60;
@@ -385,7 +385,7 @@
 
             CS = ONE;
             OLDCS = ONE;
-            DO 130 I = M, LL + 1, -1;
+            for (I = M; I >= LL + 1; I--) { // 130
                dlartg(D( I )*CS, E( I-1 ), CS, SN, R );
                if (I < M) E( I ) = OLDSN*R;
                dlartg(OLDCS*R, D( I-1 )*SN, OLDCS, OLDSN, D( I ) );
@@ -458,7 +458,7 @@
 
             F = ( ( D( M ) ).abs()-SHIFT )*( SIGN( ONE, D( M ) )+SHIFT / D( M ) );
             G = E( M-1 );
-            DO 150 I = M, LL + 1, -1;
+            for (I = M; I >= LL + 1; I--) { // 150
                dlartg(F, G, COSR, SINR, R );
                if (I < M) E( I ) = R;
                F = COSR*D( I ) + SINR*E( I-1 );

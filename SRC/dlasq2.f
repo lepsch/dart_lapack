@@ -109,7 +109,7 @@
       D = ZERO;
       E = ZERO;
 
-      DO 10 K = 1, 2*( N-1 ), 2;
+      for (K = 1; K <= 2*( N-1 ); K += 2) { // 10
          if ( Z( K ) < ZERO ) {
             INFO = -( 200+K );
             xerbla('DLASQ2', 2 );
@@ -160,7 +160,7 @@
 
       // Rearrange data for locality: Z=(q1,qq1,e1,ee1,q2,qq2,e2,ee2,...).
 
-      DO 30 K = 2*N, 2, -2;
+      for (K = 2*N; K >= 2; K -= 2) { // 30
          Z( 2*K ) = ZERO;
          Z( 2*K-1 ) = Z( K );
          Z( 2*K-2 ) = ZERO;
@@ -174,7 +174,7 @@
 
       if ( CBIAS*Z( 4*I0-3 ) < Z( 4*N0-3 ) ) {
          IPN4 = 4*( I0+N0 );
-         DO 40 I4 = 4*I0, 2*( I0+N0-1 ), 4;
+         for (I4 = 4*I0; I4 <= 2*( I0+N0-1 ); I4 += 4) { // 40
             TEMP = Z( I4-3 );
             Z( I4-3 ) = Z( IPN4-I4-3 );
             Z( IPN4-I4-3 ) = TEMP;
@@ -191,7 +191,7 @@
       for (K = 1; K <= 2; K++) { // 80
 
          D = Z( 4*N0+PP-3 );
-         DO 50 I4 = 4*( N0-1 ) + PP, 4*I0 + PP, -4;
+         for (I4 = 4*( N0-1 ) + PP; I4 >= 4*I0 + PP; I4 -= 4) { // 50
             if ( Z( I4-1 ) <= TOL2*D ) {
                Z( I4-1 ) = -ZERO;
                D = Z( I4-3 );
@@ -204,7 +204,7 @@
 
          EMIN = Z( 4*I0+PP+1 );
          D = Z( 4*I0+PP-3 );
-         DO 60 I4 = 4*I0 + PP, 4*( N0-1 ) + PP, 4;
+         for (I4 = 4*I0 + PP; I4 <= 4*( N0-1 ) + PP; I4 += 4) { // 60
             Z( I4-2*PP-2 ) = D + Z( I4-1 );
             if ( Z( I4-1 ) <= TOL2*D ) {
                Z( I4-1 ) = -ZERO;
@@ -226,7 +226,7 @@
          // Now find qmax.
 
          QMAX = Z( 4*I0-PP-2 );
-         DO 70 I4 = 4*I0 - PP + 2, 4*N0 - PP - 2, 4;
+         for (I4 = 4*I0 - PP + 2; 4 < 0 ? I4 >= 4*N0 - PP - 2 : I4 <= 4*N0 - PP - 2; I4 += 4) { // 70
             QMAX = max( QMAX, Z( I4 ) );
          } // 70
 
@@ -280,7 +280,7 @@
          }
          QMIN = Z( 4*N0-3 );
          QMAX = QMIN;
-         DO 90 I4 = 4*N0, 8, -4;
+         for (I4 = 4*N0; I4 >= 8; I4 -= 4) { // 90
             if( Z( I4-5 ) <= ZERO ) GO TO 100;
             if ( QMIN >= FOUR*EMAX ) {
                QMIN = min( QMIN, Z( I4-3 ) );
@@ -299,7 +299,7 @@
             DEE = Z( 4*I0-3 );
             DEEMIN = DEE;
             KMIN = I0;
-            DO 110 I4 = 4*I0+1, 4*N0-3, 4;
+            for (I4 = 4*I0+1; 4 < 0 ? I4 >= 4*N0-3 : I4 <= 4*N0-3; I4 += 4) { // 110
                DEE = Z( I4 )*( DEE /( DEE+Z( I4-2 ) ) );
                if ( DEE <= DEEMIN ) {
                   DEEMIN = DEE;
@@ -309,7 +309,7 @@
             if ( (KMIN-I0)*2 < N0-KMIN && DEEMIN <= HALF*Z(4*N0-3) ) {
                IPN4 = 4*( I0+N0 );
                PP = 2;
-               DO 120 I4 = 4*I0, 2*( I0+N0-1 ), 4;
+               for (I4 = 4*I0; I4 <= 2*( I0+N0-1 ); I4 += 4) { // 120
                   TEMP = Z( I4-3 );
                   Z( I4-3 ) = Z( IPN4-I4-3 );
                   Z( IPN4-I4-3 ) = TEMP;
@@ -354,7 +354,7 @@
                   QMAX = Z( 4*I0-3 );
                   EMIN = Z( 4*I0-1 );
                   OLDEMN = Z( 4*I0 );
-                  DO 130 I4 = 4*I0, 4*( N0-3 ), 4;
+                  for (I4 = 4*I0; I4 <= 4*( N0-3 ); I4 += 4) { // 130
                      if ( Z( I4 ) <= TOL2*Z( I4-3 ) || Z( I4-1 ) <= TOL2*SIGMA ) {
                         Z( I4-1 ) = -SIGMA;
                         SPLT = I4 / 4;
@@ -443,7 +443,7 @@
       dlasrt('D', N, Z, IINFO );
 
       E = ZERO;
-      DO 190 K = N, 1, -1;
+      for (K = N; K >= 1; K--) { // 190
          E = E + Z( K );
       } // 190
 

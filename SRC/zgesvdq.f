@@ -869,7 +869,7 @@
       // Check whether some singular values are returned as zeros, e.g.
       // due to underflow, and update the numerical rank.
       p = NR;
-      DO 4001 q = p, 1, -1;
+      for (q = p; q >= 1; q--) { // 4001
           if ( S(q) > ZERO ) GO TO 4002;
           NR = NR - 1;
       } // 4001

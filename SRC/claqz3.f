@@ -150,7 +150,7 @@
          claset('FULL', NS+NP, NS+NP, CZERO, CONE, ZC, LDZC );
 
          // Near the diagonal shift chase
-         DO I = NS-1, 0, -1;
+         for (I = NS-1; I >= 0; I--) { //
             for (J = 0; J <= NP-1; J++) {
                // Move down the block with index k+i+j, updating
                // the (ns+np x ns+np) block:

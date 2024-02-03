@@ -30,7 +30,7 @@
       // CODE FOR INCREMENT NOT EQUAL TO 1
 
       NINCX = N*INCX;
-      DO 10 I = 1, NINCX, INCX;
+      for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { // 10
 
          // NEXT LINE MODIFIED.
 

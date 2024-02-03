@@ -56,7 +56,7 @@
       // A column at a time of the product is obtained, starting with
       // column N.
 
-      DO 10 K = N, 1, -1;
+      for (K = N; K >= 1; K--) { // 10
          if ( K > M ) {
             ctrmv('Lower', 'No transpose', 'Unit', M, AFAC, LDAFAC, AFAC( 1, K ), 1 );
          } else {

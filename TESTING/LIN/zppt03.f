@@ -110,7 +110,7 @@
 
          // Multiply by A
 
-         DO 80 J = N, 2, -1;
+         for (J = N; J >= 2; J--) { // 80
             zhpmv('Lower', N, -CONE, A, WORK( 1, J-1 ), 1, CZERO, WORK( 1, J ), 1 );
          } // 80
          zhpmv('Lower', N, -CONE, A, AINV( 1 ), 1, CZERO, WORK( 1, 1 ), 1 );

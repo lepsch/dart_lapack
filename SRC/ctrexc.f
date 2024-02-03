@@ -74,7 +74,7 @@
          M3 = -1;
       }
 
-      DO 10 K = IFST + M1, ILST + M2, M3;
+      for (K = IFST + M1; M3 < 0 ? K >= ILST + M2 : K <= ILST + M2; K += M3) { // 10
 
          // Interchange the k-th and (k+1)-th diagonal elements.
 

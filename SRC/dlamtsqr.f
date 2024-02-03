@@ -131,7 +131,7 @@
          CTR = 1;
          dgemqrt('L','T',MB , N, K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-         DO I=MB+1,II-MB+K,(MB-K);
+         for (I = MB+1; (MB-K) < 0 ? I >= II-MB+K : I <= II-MB+K; I += (MB-K)) { //
 
           // Multiply Q to the current block of C (I:I+MB,1:N)
 
@@ -182,7 +182,7 @@
          CTR = 1;
          dgemqrt('R','N', M, MB , K, NB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-         DO I=MB+1,II-MB+K,(MB-K);
+         for (I = MB+1; (MB-K) < 0 ? I >= II-MB+K : I <= II-MB+K; I += (MB-K)) { //
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 

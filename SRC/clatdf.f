@@ -97,7 +97,7 @@
          RHS( N ) = RHS( N ) - CONE;
          SPLUS = ZERO;
          SMINU = ZERO;
-         DO 30 I = N, 1, -1;
+         for (I = N; I >= 1; I--) { // 30
             TEMP = CONE / Z( I, I );
             WORK( I ) = WORK( I )*TEMP;
             RHS( I ) = RHS( I )*TEMP;

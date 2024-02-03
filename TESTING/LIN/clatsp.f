@@ -52,7 +52,7 @@
          N5 = N - 5*N5 + 1;
 
          JJ = N*( N+1 ) / 2;
-         DO 20 J = N, N5, -5;
+         for (J = N; J >= N5; J -= 5) { // 20
             A = ALPHA3*CLARND( 5, ISEED );
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
@@ -116,7 +116,7 @@
          N5 = N5*5;
 
          JJ = 1;
-         DO 30 J = 1, N5, 5;
+         for (J = 1; J <= N5; J += 5) { // 30
             A = ALPHA3*CLARND( 5, ISEED );
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;

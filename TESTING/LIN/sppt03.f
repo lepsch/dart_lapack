@@ -99,7 +99,7 @@
 
          // Multiply by A
 
-         DO 40 J = N, 2, -1;
+         for (J = N; J >= 2; J--) { // 40
             sspmv('Lower', N, -ONE, A, WORK( 1, J-1 ), 1, ZERO, WORK( 1, J ), 1 );
          } // 40
          sspmv('Lower', N, -ONE, A, AINV( 1 ), 1, ZERO, WORK( 1, 1 ), 1 );

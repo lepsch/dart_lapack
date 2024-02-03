@@ -124,7 +124,7 @@
             // K1 (K2): row index of the first (last) row of X(K,L).
 
             KNEXT = M;
-            DO 60 K = M, 1, -1;
+            for (K = M; K >= 1; K--) { // 60
                if (K > KNEXT) GO TO 60;
                if ( K == 1 ) {
                   K1 = K;
@@ -430,7 +430,7 @@
          // L1 (L2): column index of the first (last) row of X(K,L)
 
          LNEXT = N;
-         DO 190 L = N, 1, -1;
+         for (L = N; L >= 1; L--) { // 190
             if (L > LNEXT) GO TO 190;
             if ( L == 1 ) {
                L1 = L;
@@ -593,7 +593,7 @@
          // L1 (L2): column index of the first (last) row of X(K,L)
 
          LNEXT = N;
-         DO 250 L = N, 1, -1;
+         for (L = N; L >= 1; L--) { // 250
             if (L > LNEXT) GO TO 250;
             if ( L == 1 ) {
                L1 = L;
@@ -614,7 +614,7 @@
             // K1 (K2): row index of the first (last) row of X(K,L)
 
             KNEXT = M;
-            DO 240 K = M, 1, -1;
+            for (K = M; K >= 1; K--) { // 240
                if (K > KNEXT) GO TO 240;
                if ( K == 1 ) {
                   K1 = K;

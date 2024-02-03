@@ -111,7 +111,7 @@
 
       } // 30
       LM1 = L - 1;
-      DO 80 I = L, 1, -1;
+      for (I = L; I >= 1; I--) { // 80
          for (J = 1; J <= LM1; J++) { // 40
             JP1 = J + 1;
             if( A( I, J ) != CZERO || B( I, J ) != CZERO ) GO TO 50;

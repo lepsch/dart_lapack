@@ -90,7 +90,7 @@
          IC = 1;
       }
 
-      DO 10 I = I1, I2, I3;
+      for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 10
          if ( LEFT ) {
 
             // H(i) is applied to C(i:m,1:n)

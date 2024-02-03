@@ -154,7 +154,7 @@
 
                   // accumulate product of plane rotations in Q
 
-                  DO 20 J = J1, J2, KB1;
+                  for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) { // 20
                      srot(M, Q( 1, J-1 ), 1, Q( 1, J ), 1, WORK( MN+J ), WORK( J ) );
                   } // 20
                }
@@ -163,7 +163,7 @@
 
                   // apply plane rotations to C
 
-                  DO 30 J = J1, J2, KB1;
+                  for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) { // 30
                      srot(NCC, C( J-1, 1 ), LDC, C( J, 1 ), LDC, WORK( MN+J ), WORK( J ) );
                   } // 30
                }
@@ -176,7 +176,7 @@
                   J2 = J2 - KB1;
                }
 
-               DO 40 J = J1, J2, KB1;
+               for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) { // 40
 
                   // create nonzero element a(j-1,j+ku) above the band
                   // and store it in WORK(n+1:2*n)
@@ -219,7 +219,7 @@
 
                   // accumulate product of plane rotations in P**T
 
-                  DO 60 J = J1, J2, KB1;
+                  for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) { // 60
                      srot(N, PT( J+KUN-1, 1 ), LDPT, PT( J+KUN, 1 ), LDPT, WORK( MN+J+KUN ), WORK( J+KUN ) );
                   } // 60
                }
@@ -232,7 +232,7 @@
                   J2 = J2 - KB1;
                }
 
-               DO 70 J = J1, J2, KB1;
+               for (J = J1; KB1 < 0 ? J >= J2 : J <= J2; J += KB1) { // 70
 
                   // create nonzero element a(j+kl+ku,j+ku-1) below the
                   // band and store it in WORK(1:n)
@@ -280,7 +280,7 @@
             // elements in E
 
             RB = AB( KU, M+1 );
-            DO 110 I = M, 1, -1;
+            for (I = M; I >= 1; I--) { // 110
                slartg(AB( KU+1, I ), RB, RC, RS, RA );
                D( I ) = RA;
                if ( I > 1 ) {

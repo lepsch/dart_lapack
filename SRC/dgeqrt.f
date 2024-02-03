@@ -50,7 +50,7 @@
 
       // Blocked loop of length K
 
-      DO I = 1, K,  NB;
+      for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) { //
          IB = min( K-I+1, NB );
 
       // Compute the QR factorization of the current block A(I:M,I:I+IB-1)

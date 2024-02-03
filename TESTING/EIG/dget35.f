@@ -66,7 +66,7 @@
 
       for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 150
          for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 140
-            DO 130 ISGN = -1, 1, 2;
+            for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) { // 130
                for (IMA = 1; IMA <= 8; IMA++) { // 120
                   for (IMLDA1 = 1; IMLDA1 <= 3; IMLDA1++) { // 110
                      for (IMLDA2 = 1; IMLDA2 <= 3; IMLDA2++) { // 100

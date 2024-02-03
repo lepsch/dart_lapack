@@ -94,7 +94,7 @@
 
             // Process the band matrix one diagonal block at a time.
 
-            DO 70 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 70
                IB = min( NB, N-I+1 );
 
                // Factorize the diagonal block
@@ -182,7 +182,7 @@
 
             // Process the band matrix one diagonal block at a time.
 
-            DO 140 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 140
                IB = min( NB, N-I+1 );
 
                // Factorize the diagonal block

@@ -113,7 +113,7 @@
 
       for (JCOL = ILO; JCOL <= IHI - 2; JCOL++) { // 40
 
-         DO 30 JROW = IHI, JCOL + 2, -1;
+         for (JROW = IHI; JROW >= JCOL + 2; JROW--) { // 30
 
             // Step 1: rotate rows JROW-1, JROW to kill A(JROW,JCOL)
 

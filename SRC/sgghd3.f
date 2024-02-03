@@ -141,7 +141,7 @@
 
          KACC22 = ILAENV( 16, 'SGGHD3', ' ', N, ILO, IHI, -1 );
          BLK22 = KACC22 == 2;
-         DO JCOL = ILO, IHI-2, NB;
+         for (JCOL = ILO; NB < 0 ? JCOL >= IHI-2 : JCOL <= IHI-2; JCOL += NB) { //
             NNB = min( NB, IHI-JCOL-1 );
 
             // Initialize small orthogonal factors that will hold the
@@ -166,7 +166,7 @@
                // Reduce Jth column of A. Store cosines and sines in Jth
                // column of A and B, respectively.
 
-               DO I = IHI, J+2, -1;
+               for (I = IHI; I >= J+2; I--) { //
                   TEMP = A( I-1, J );
                   slartg(TEMP, A( I, J ), C, S, A( I-1, J ) );
                   A( I, J ) = C;
@@ -178,7 +178,7 @@
                PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
                LEN  = 2 + J - JCOL;
                JROW = J + N2NB*NNB + 2;
-               DO I = IHI, JROW, -1;
+               for (I = IHI; I >= JROW; I--) { //
                   C = A( I, J );
                   S = B( I, J );
                   for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
@@ -192,10 +192,10 @@
 
                PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
                J0 = JROW - NNB;
-               DO JROW = J0, J+2, -NNB;
+               for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) { //
                   PPW = PPWO;
                   LEN  = 2 + J - JCOL;
-                  DO I = JROW+NNB-1, JROW, -1;
+                  for (I = JROW+NNB-1; I >= JROW; I--) { //
                      C = A( I, J );
                      S = B( I, J );
                      for (JJ = PPW; JJ <= PPW+LEN-1; JJ++) {
@@ -221,11 +221,11 @@
                // Propagate transformations through B and replace stored
                // left sines/cosines by right sines/cosines.
 
-               DO JJ = N, J+1, -1;
+               for (JJ = N; JJ >= J+1; JJ--) { //
 
                   // Update JJth column of B.
 
-                  DO I = min( JJ+1, IHI ), J+2, -1;
+                  for (I = min( JJ+1, IHI ); I >= J+2; I--) { //
                      C = A( I, J );
                      S = B( I, J );
                      TEMP = B( I, JJ );
@@ -253,7 +253,7 @@
       // $                     A( TOP+1, J+1 ), LDA )
 
                JJ = MOD( IHI-J-1, 3 );
-               DO I = IHI-J-3, JJ+1, -3;
+               for (I = IHI-J-3; I >= JJ+1; I -= 3) { //
                   C = A( J+1+I, J );
                   S = -B( J+1+I, J );
                   C1 = A( J+2+I, J );
@@ -276,7 +276,7 @@
                }
 
                if ( JJ > 0 ) {
-                  DO I = JJ, 1, -1;
+                  for (I = JJ; I >= 1; I--) { //
                      srot(IHI-TOP, A( TOP+1, J+I+1 ), 1, A( TOP+1, J+I ), 1, A( J+1+I, J ), -B( J+1+I, J ) );
                   }
                }
@@ -326,7 +326,7 @@
 
                   PPWO = 1 + NBLST*NBLST;
                   J0 = JROW - NNB;
-                  DO JROW = J0, JCOL+1, -NNB;
+                  for (JROW = J0; -NNB < 0 ? JROW >= JCOL+1 : JROW <= JCOL+1; JROW += -NNB) { //
                      PPW = PW + LEN;
                      for (I = JROW; I <= JROW+NNB-1; I++) {
                         WORK( PPW ) = A( I, J+1 );
@@ -359,7 +359,7 @@
             slacpy('All', NBLST, COLA, WORK( PW ), NBLST, A( J, JCOL+NNB ), LDA );
             PPWO = NBLST*NBLST + 1;
             J0 = J - NNB;
-            DO J = J0, JCOL+1, -NNB;
+            for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
                if ( BLK22 ) {
 
                   // Exploit the structure of
@@ -397,7 +397,7 @@
                slacpy('All', NH, NBLST, WORK( PW ), NH, Q( TOPQ, J ), LDQ );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               DO J = J0, JCOL+1, -NNB;
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
                   if ( INITQ ) {
                      TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;
@@ -438,7 +438,7 @@
                   PPW  = ( NBLST + 1 )*( NBLST - 2 ) - J + JCOL + 1;
                   LEN  = 2 + J - JCOL;
                   JROW = J + N2NB*NNB + 2;
-                  DO I = IHI, JROW, -1;
+                  for (I = IHI; I >= JROW; I--) { //
                      C = A( I, J );
                      A( I, J ) = ZERO;
                      S = B( I, J );
@@ -454,10 +454,10 @@
 
                   PPWO = NBLST*NBLST + ( NNB+J-JCOL-1 )*2*NNB + NNB;
                   J0 = JROW - NNB;
-                  DO JROW = J0, J+2, -NNB;
+                  for (JROW = J0; -NNB < 0 ? JROW >= J+2 : JROW <= J+2; JROW += -NNB) { //
                      PPW = PPWO;
                      LEN  = 2 + J - JCOL;
-                     DO I = JROW+NNB-1, JROW, -1;
+                     for (I = JROW+NNB-1; I >= JROW; I--) { //
                         C = A( I, J );
                         A( I, J ) = ZERO;
                         S = B( I, J );
@@ -487,7 +487,7 @@
                slacpy('All', TOP, NBLST, WORK( PW ), TOP, A( 1, J ), LDA );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               DO J = J0, JCOL+1, -NNB;
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -508,7 +508,7 @@
                slacpy('All', TOP, NBLST, WORK( PW ), TOP, B( 1, J ), LDB );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               DO J = J0, JCOL+1, -NNB;
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
                   if ( BLK22 ) {
 
                      // Exploit the structure of U.
@@ -540,7 +540,7 @@
                slacpy('All', NH, NBLST, WORK( PW ), NH, Z( TOPQ, J ), LDZ );
                PPWO = NBLST*NBLST + 1;
                J0 = J - NNB;
-               DO J = J0, JCOL+1, -NNB;
+               for (J = J0; -NNB < 0 ? J >= JCOL+1 : J <= JCOL+1; J += -NNB) { //
                      if ( INITQ ) {
                      TOPQ = max( 2, J - JCOL + 1 );
                      NH  = IHI - TOPQ + 1;

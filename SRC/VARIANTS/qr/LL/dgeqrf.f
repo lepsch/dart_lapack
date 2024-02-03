@@ -142,12 +142,12 @@
 
          // Use blocked code initially
 
-         DO 10 I = 1, K - NX, NB;
+         for (I = 1; NB < 0 ? I >= K - NX : I <= K - NX; I += NB) { // 10
             IB = min( K-I+1, NB );
 
             // Update the current column using old T's
 
-            DO 20 J = 1, I - NB, NB;
+            for (J = 1; NB < 0 ? J >= I - NB : J <= I - NB; J += NB) { // 20
 
                // Apply H' to A(J:M,I:I+IB-1) from the left
 
@@ -179,7 +179,7 @@
 
          if ( I != 1 ) {
 
-             DO 30 J = 1, I - NB, NB;
+             for (J = 1; NB < 0 ? J >= I - NB : J <= I - NB; J += NB) { // 30
 
                  // Apply H' to A(J:M,I:K) from the left
 
@@ -214,7 +214,7 @@
 
           // Apply H' to A(1:M,M+1:N) from the left
 
-          DO 40 J = 1, K-NX, NB;
+          for (J = 1; NB < 0 ? J >= K-NX : J <= K-NX; J += NB) { // 40
 
                IB = min( K-J+1, NB );
                 dlarfb('Left', 'Transpose', 'Forward', 'Columnwise', M-J+1, N-M, IB, A( J, J ), LDA, WORK(J), LBWORK, A( J, M+1 ), LDA, WORK(LBWORK*NB+NT*NT+1), N-M);

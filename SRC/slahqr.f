@@ -106,7 +106,7 @@
 
          // Look for a single small subdiagonal element.
 
-         DO 30 K = I, L + 1, -1;
+         for (K = I; K >= L + 1; K--) { // 30
             if( ( H( K, K-1 ) ).abs() <= SMLNUM ) GO TO 40;
             TST = ( H( K-1, K-1 ) ).abs() + ( H( K, K ) ).abs();
             if ( TST == ZERO ) {
@@ -218,7 +218,7 @@
 
          // Look for two consecutive small subdiagonal elements.
 
-         DO 50 M = I - 2, L, -1;
+         for (M = I - 2; M >= L; M--) { // 50
             // Determine the effect of starting the double-shift QR
             // iteration at row M, and see if this would make H(M,M-1)
             // negligible.  (The following uses scaling to avoid

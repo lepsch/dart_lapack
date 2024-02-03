@@ -156,7 +156,7 @@
       // Now conquer each subproblem bottom-up.
 
       J = 2**NLVL;
-      DO 50 LVL = NLVL, 1, -1;
+      for (LVL = NLVL; LVL >= 1; LVL--) { // 50
          LVL2 = LVL*2 - 1;
 
          // Find the first node LF and last node LL on

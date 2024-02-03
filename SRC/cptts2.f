@@ -52,7 +52,7 @@
             for (I = 1; I <= N; I++) { // 20
                B( I, J ) = B( I, J ) / D( I );
             } // 20
-            DO 30 I = N - 1, 1, -1;
+            for (I = N - 1; I >= 1; I--) { // 30
                B( I, J ) = B( I, J ) - B( I+1, J )*E( I );
             } // 30
             if ( J < NRHS ) {
@@ -71,7 +71,7 @@
                // Solve D * U * x = b.
 
                B( N, J ) = B( N, J ) / D( N );
-               DO 50 I = N - 1, 1, -1;
+               for (I = N - 1; I >= 1; I--) { // 50
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I );
                } // 50
             } // 60
@@ -96,7 +96,7 @@
             for (I = 1; I <= N; I++) { // 80
                B( I, J ) = B( I, J ) / D( I );
             } // 80
-            DO 90 I = N - 1, 1, -1;
+            for (I = N - 1; I >= 1; I--) { // 90
                B( I, J ) = B( I, J ) - B( I+1, J )*CONJG( E( I ) );
             } // 90
             if ( J < NRHS ) {
@@ -115,7 +115,7 @@
                // Solve D * L**H * x = b.
 
                B( N, J ) = B( N, J ) / D( N );
-               DO 110 I = N - 1, 1, -1;
+               for (I = N - 1; I >= 1; I--) { // 110
                   B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*CONJG( E( I ) );
                } // 110
             } // 120

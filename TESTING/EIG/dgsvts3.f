@@ -158,7 +158,7 @@
       } // 110
 
       RESULT( 6 ) = ZERO;
-      DO 120 I = K + 1, min( K+L, M ) - 1;
+      for (I = K + 1; I <= min( K+L, M ) - 1; I++) { // 120
          if( WORK( I ) < WORK( I+1 ) ) RESULT( 6 ) = ULPINV;
       } // 120
 

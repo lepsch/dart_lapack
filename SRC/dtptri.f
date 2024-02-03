@@ -93,7 +93,7 @@
          // Compute inverse of lower triangular matrix.
 
          JC = N*( N+1 ) / 2;
-         DO 40 J = N, 1, -1;
+         for (J = N; J >= 1; J--) { // 40
             if ( NOUNIT ) {
                AP( JC ) = ONE / AP( JC );
                AJJ = -AP( JC );

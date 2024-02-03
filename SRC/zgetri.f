@@ -83,7 +83,7 @@
 
          // Use unblocked code.
 
-         DO 20 J = N, 1, -1;
+         for (J = N; J >= 1; J--) { // 20
 
             // Copy current column of L to WORK and replace with zeros.
 
@@ -101,7 +101,7 @@
          // Use blocked code.
 
          NN = ( ( N-1 ) / NB )*NB + 1;
-         DO 50 J = NN, 1, -NB;
+         for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) { // 50
             JB = min( NB, N-J+1 );
 
             // Copy current block column of L to WORK and replace with
@@ -123,7 +123,7 @@
 
       // Apply column interchanges.
 
-      DO 60 J = N - 1, 1, -1;
+      for (J = N - 1; J >= 1; J--) { // 60
          JP = IPIV( J );
          if (JP != J) zswap( N, A( 1, J ), 1, A( 1, JP ), 1 );
       } // 60

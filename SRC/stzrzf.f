@@ -117,7 +117,7 @@
          KI = ( ( M-NX-1 ) / NB )*NB;
          KK = min( M, KI+NB );
 
-         DO 20 I = M - KK + KI + 1, M - KK + 1, -NB;
+         for (I = M - KK + KI + 1; -NB < 0 ? I >= M - KK + 1 : I <= M - KK + 1; I += -NB) { // 20
             IB = min( M-I+1, NB );
 
             // Compute the TZ factorization of the current block

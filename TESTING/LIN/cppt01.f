@@ -81,7 +81,7 @@
 
       if ( LSAME( UPLO, 'U' ) ) {
          KC = ( N*( N-1 ) ) / 2 + 1;
-         DO 30 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 30
 
             // Compute the (K,K) element of the result.
 
@@ -111,7 +111,7 @@
 
       } else {
          KC = ( N*( N+1 ) ) / 2;
-         DO 60 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 60
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.

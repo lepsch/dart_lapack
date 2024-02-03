@@ -525,7 +525,7 @@
                // CWorkspace: prefer N*N [U] + M*N [R]
                // RWorkspace: need   0
 
-               DO 10 I = 1, M, LDWRKR;
+               for (I = 1; LDWRKR < 0 ? I >= M : I <= M; I += LDWRKR) { // 10
                   CHUNK = min( M-I+1, LDWRKR );
                   cgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IU ), LDWRKU, CZERO, WORK( IR ), LDWRKR );
                   clacpy('F', CHUNK, N, WORK( IR ), LDWRKR, A( I, 1 ), LDA );
@@ -785,7 +785,7 @@
                // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
                NRWORK = IRVT;
-               DO 20 I = 1, M, LDWRKU;
+               for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 20
                   CHUNK = min( M-I+1, LDWRKU );
                   clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                   clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -981,7 +981,7 @@
                   // RWorkspace: prefer N [e] + N*N [RU] + 2*M*N [rwork] < N + 5*N*N since M < 2*N here
 
                   NRWORK = IRVT;
-                  DO 30 I = 1, M, LDWRKU;
+                  for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 30
                      CHUNK = min( M-I+1, LDWRKU );
                      clacrm(CHUNK, N, A( I, 1 ), LDA, RWORK( IRU ), N, WORK( IU ), LDWRKU, RWORK( NRWORK ) );
                      clacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -1200,7 +1200,7 @@
                // CWorkspace: prefer M*M [VT] + M*N [L]
                // RWorkspace: need   0
 
-               DO 40 I = 1, N, CHUNK;
+               for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 40
                   BLK = min( N-I+1, CHUNK );
                   cgemm('N', 'N', M, BLK, M, CONE, WORK( IVT ), M, A( 1, I ), LDA, CZERO, WORK( IL ), LDWRKL );
                   clacpy('F', M, BLK, WORK( IL ), LDWRKL, A( 1, I ), LDA );
@@ -1463,7 +1463,7 @@
                // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
                NRWORK = IRU;
-               DO 50 I = 1, N, CHUNK;
+               for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 50
                   BLK = min( N-I+1, CHUNK );
                   clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                   clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );
@@ -1659,7 +1659,7 @@
                   // RWorkspace: prefer M [e] + M*M [RVT] + 2*M*N [rwork] < M + 5*M*M since N < 2*M here
 
                   NRWORK = IRU;
-                  DO 60 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 60
                      BLK = min( N-I+1, CHUNK );
                      clarcm(M, BLK, RWORK( IRVT ), M, A( 1, I ), LDA, WORK( IVT ), LDWKVT, RWORK( NRWORK ) );
                      clacpy('F', M, BLK, WORK( IVT ), LDWKVT, A( 1, I ), LDA );

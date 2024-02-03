@@ -67,7 +67,7 @@
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
-         DO 10 J = N, M + 1, -1;
+         for (J = N; J >= M + 1; J--) { // 10
 
             // Compute s(j,j) and test for non-positive-definiteness.
 
@@ -116,7 +116,7 @@
 
          // Factorize A(m+1:n,m+1:n) as L**H*L, and update A(1:m,1:m).
 
-         DO 30 J = N, M + 1, -1;
+         for (J = N; J >= M + 1; J--) { // 30
 
             // Compute s(j,j) and test for non-positive-definiteness.
 

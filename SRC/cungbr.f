@@ -112,7 +112,7 @@
             // column to the right, and set the first row and column of Q
             // to those of the unit matrix
 
-            DO 20 J = M, 2, -1;
+            for (J = M; J >= 2; J--) { // 20
                A( 1, J ) = ZERO;
                for (I = J + 1; I <= M; I++) { // 10
                   A( I, J ) = A( I, J-1 );
@@ -153,7 +153,7 @@
                A( I, 1 ) = ZERO;
             } // 40
             for (J = 2; J <= N; J++) { // 60
-               DO 50 I = J - 1, 2, -1;
+               for (I = J - 1; I >= 2; I--) { // 50
                   A( I, J ) = A( I-1, J );
                } // 50
                A( 1, J ) = ZERO;

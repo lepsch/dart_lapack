@@ -380,7 +380,7 @@
             for (J = 1; J <= N; J++) { // 140
                SELECT( J ) = false;
             } // 140
-            DO 150 J = 1, N, 2;
+            for (J = 1; J <= N; J += 2) { // 150
                SELECT( J ) = true;
             } // 150
             ztrevc('Right', 'All', SELECT, N, T1, LDA, CDUMMA, LDU, EVECTR, LDU, N, IN, WORK, RWORK, IINFO );

@@ -130,7 +130,7 @@
             // Multiply by inv(L**H).
 
             if ( LNOTI ) {
-               DO 30 J = N - 1, 1, -1;
+               for (J = N - 1; J >= 1; J--) { // 30
                   LM = min( KL, N-J );
                   WORK( J ) = WORK( J ) - ZDOTC( LM, AB( KD+1, J ), 1, WORK( J+1 ), 1 );
                   JP = IPIV( J );

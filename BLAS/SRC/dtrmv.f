@@ -105,10 +105,10 @@
               }
           } else {
               if (INCX == 1) {
-                  DO 60 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 60
                       if (X(J) != ZERO) {
                           TEMP = X(J);
-                          DO 50 I = N,J + 1,-1;
+                          for (I = N; I >= J + 1; I--) { // 50
                               X(I) = X(I) + TEMP*A(I,J);
                           } // 50
                           if (NOUNIT) X(J) = X(J)*A(J,J);
@@ -117,11 +117,11 @@
               } else {
                   KX = KX + (N-1)*INCX;
                   JX = KX;
-                  DO 80 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 80
                       if (X(JX) != ZERO) {
                           TEMP = X(JX);
                           IX = KX;
-                          DO 70 I = N,J + 1,-1;
+                          for (I = N; I >= J + 1; I--) { // 70
                               X(IX) = X(IX) + TEMP*A(I,J);
                               IX = IX - INCX;
                           } // 70
@@ -137,21 +137,21 @@
 
           if (LSAME(UPLO,'U')) {
               if (INCX == 1) {
-                  DO 100 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 100
                       TEMP = X(J);
                       if (NOUNIT) TEMP = TEMP*A(J,J);
-                      DO 90 I = J - 1,1,-1;
+                      for (I = J - 1; I >= 1; I--) { // 90
                           TEMP = TEMP + A(I,J)*X(I);
                       } // 90
                       X(J) = TEMP;
                   } // 100
               } else {
                   JX = KX + (N-1)*INCX;
-                  DO 120 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 120
                       TEMP = X(JX);
                       IX = JX;
                       if (NOUNIT) TEMP = TEMP*A(J,J);
-                      DO 110 I = J - 1,1,-1;
+                      for (I = J - 1; I >= 1; I--) { // 110
                           IX = IX - INCX;
                           TEMP = TEMP + A(I,J)*X(IX);
                       } // 110

@@ -31,7 +31,7 @@
             DH12 = DPARAM(4);
             DH21 = DPARAM(3);
             DH22 = DPARAM(5);
-            DO I = 1,NSTEPS,INCX;
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
                W = DX(I);
                Z = DY(I);
                DX(I) = W*DH11 + Z*DH12;
@@ -40,7 +40,7 @@
          } else if (DFLAG == ZERO) {
             DH12 = DPARAM(4);
             DH21 = DPARAM(3);
-            DO I = 1,NSTEPS,INCX;
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
                W = DX(I);
                Z = DY(I);
                DX(I) = W + Z*DH12;
@@ -49,7 +49,7 @@
          } else {
             DH11 = DPARAM(2);
             DH22 = DPARAM(5);
-            DO I = 1,NSTEPS,INCX;
+            for (I = 1; INCX < 0 ? I >= NSTEPS : I <= NSTEPS; I += INCX) { //
                W = DX(I);
                Z = DY(I);
                DX(I) = W*DH11 + Z;

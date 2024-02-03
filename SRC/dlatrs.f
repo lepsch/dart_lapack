@@ -199,7 +199,7 @@
 
             GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
-            DO 30 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 30
 
                // Exit the loop if the growth factor is too small.
 
@@ -229,7 +229,7 @@
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
             GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
-            DO 40 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 40
 
                // Exit the loop if the growth factor is too small.
 
@@ -270,7 +270,7 @@
 
             GROW = ONE / max( XBND, SMLNUM );
             XBND = GROW;
-            DO 60 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 60
 
                // Exit the loop if the growth factor is too small.
 
@@ -294,7 +294,7 @@
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
             GROW = min( ONE, ONE / max( XBND, SMLNUM ) );
-            DO 70 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 70
 
                // Exit the loop if the growth factor is too small.
 
@@ -333,7 +333,7 @@
 
             // Solve A * x = b
 
-            DO 110 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 110
 
                // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
@@ -448,7 +448,7 @@
 
             // Solve A**T * x = b
 
-            DO 160 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 160
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
                                      // k<>j

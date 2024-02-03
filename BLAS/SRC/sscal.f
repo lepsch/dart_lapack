@@ -40,7 +40,7 @@
             if (N < 5) return;
          }
          MP1 = M + 1;
-         DO I = MP1,N,5;
+         for (I = MP1; I <= N; I += 5) { //
             SX(I) = SA*SX(I);
             SX(I+1) = SA*SX(I+1);
             SX(I+2) = SA*SX(I+2);
@@ -52,7 +52,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         DO I = 1,NINCX,INCX;
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
             SX(I) = SA*SX(I);
          }
       }

@@ -61,7 +61,7 @@
          } // 20
       }
 
-      DO 40 I = K, 1, -1;
+      for (I = K; I >= 1; I--) { // 40
 
          // Apply H(i)**H to A(i:m,i:n) from the right
 

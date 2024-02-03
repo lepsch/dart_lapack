@@ -278,7 +278,7 @@
                   // Last row actually rotated is M
                   // Last column actually rotated is min( M+JKU, N )
 
-                  DO 130 JR = 1, min( M+JKU, N ) + JKL - 1;
+                  for (JR = 1; JR <= min( M+JKU, N ) + JKL - 1; JR++) { // 130
                      EXTRA = ZERO;
                      ANGLE = TWOPI*DLARND( 1, ISEED );
                      C = COS( ANGLE );
@@ -293,7 +293,7 @@
 
                      IR = JR;
                      IC = ICOL;
-                     DO 120 JCH = JR - JKL, 1, -JKL - JKU;
+                     for (JCH = JR - JKL; -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1; JCH += -JKL - JKU) { // 120
                         if ( IR < M ) {
                            dlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, C, S, DUMMY );
                         }
@@ -320,7 +320,7 @@
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
-                  DO 160 JC = 1, min( N+JKL, M ) + JKU - 1;
+                  for (JC = 1; JC <= min( N+JKL, M ) + JKU - 1; JC++) { // 160
                      EXTRA = ZERO;
                      ANGLE = TWOPI*DLARND( 1, ISEED );
                      C = COS( ANGLE );
@@ -335,7 +335,7 @@
 
                      IC = JC;
                      IR = IROW;
-                     DO 150 JCH = JC - JKU, 1, -JKL - JKU;
+                     for (JCH = JC - JKU; -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1; JCH += -JKL - JKU) { // 150
                         if ( IC < N ) {
                            dlartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, C, S, DUMMY );
                         }
@@ -370,7 +370,7 @@
                   // First column actually rotated is min( M+JKU, N )
 
                   IENDCH = min( M, N+JKL ) - 1;
-                  DO 190 JC = min( M+JKU, N ) - 1, 1 - JKL, -1;
+                  for (JC = min( M+JKU, N ) - 1; JC >= 1 - JKL; JC--) { // 190
                      EXTRA = ZERO;
                      ANGLE = TWOPI*DLARND( 1, ISEED );
                      C = COS( ANGLE );
@@ -384,7 +384,7 @@
                      // Chase "EXTRA" back down
 
                      IC = JC;
-                     DO 180 JCH = JC + JKL, IENDCH, JKL + JKU;
+                     for (JCH = JC + JKL; JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH; JCH += JKL + JKU) { // 180
                         ILEXTR = IC > 0;
                         if ( ILEXTR ) {
                            dlartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, C, S, DUMMY );
@@ -414,7 +414,7 @@
                   // First column actually rotated is N
 
                   IENDCH = min( N, M+JKU ) - 1;
-                  DO 220 JR = min( N+JKL, M ) - 1, 1 - JKU, -1;
+                  for (JR = min( N+JKL, M ) - 1; JR >= 1 - JKU; JR--) { // 220
                      EXTRA = ZERO;
                      ANGLE = TWOPI*DLARND( 1, ISEED );
                      C = COS( ANGLE );
@@ -428,7 +428,7 @@
                      // Chase "EXTRA" back down
 
                      IR = JR;
-                     DO 210 JCH = JR + JKU, IENDCH, JKL + JKU;
+                     for (JCH = JR + JKU; JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH; JCH += JKL + JKU) { // 210
                         ILEXTR = IR > 0;
                         if ( ILEXTR ) {
                            dlartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, C, S, DUMMY );
@@ -484,7 +484,7 @@
                      // Chase EXTRA back up the matrix
 
                      ICOL = JC;
-                     DO 240 JCH = JC - K, 1, -K;
+                     for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) { // 240
                         dlartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, C, S, DUMMY );
                         TEMP = A( JCH-ISKEW*( JCH+1 )+IOFFG, JCH+1 );
                         dlarot( true , true , true , K+2, C, -S, A( ( 1-ISKEW )*JCH+IOFFG, JCH ), ILDA, TEMP, EXTRA );
@@ -533,7 +533,7 @@
                dcopy(MNMIN, D, 1, A( 1-ISKEW+IOFFG, 1 ), ILDA+1 );
 
                for (K = 1; K <= UUB; K++) { // 330
-                  DO 320 JC = N - 1, 1, -1;
+                  for (JC = N - 1; JC >= 1; JC--) { // 320
                      IL = min( N+1-JC, K+2 );
                      EXTRA = ZERO;
                      TEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
@@ -547,7 +547,7 @@
                      // Chase EXTRA back down the matrix
 
                      ICOL = JC;
-                     DO 310 JCH = JC + K, N - 1, K;
+                     for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) { // 310
                         dlartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, C, S, DUMMY );
                         TEMP = A( 1+( 1-ISKEW )*JCH+IOFFG, JCH );
                         dlarot( true , true , true , K+2, C, S, A( JCH-ISKEW*ICOL+IOFFG, ICOL ), ILDA, EXTRA, TEMP );
@@ -563,9 +563,9 @@
                // the order of copying is chosen to work for 'b' -> 'q'
 
                if ( IPACK != IPACKG && IPACK != 4 ) {
-                  DO 350 JC = N, 1, -1;
+                  for (JC = N; JC >= 1; JC--) { // 350
                      IROW = IOFFST - ISKEW*JC;
-                     DO 340 JR = JC, max( 1, JC-UUB ), -1;
+                     for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 340
                         A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                      } // 340
                   } // 350
@@ -679,7 +679,7 @@
             IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 470
-               DO 460 I = min( J+LLB, M ), 1, -1;
+               for (I = min( J+LLB, M ); I >= 1; I--) { // 460
                   A( I-J+UUB+1, J ) = A( I, J );
                } // 460
             } // 470
@@ -718,7 +718,7 @@
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 520
                   A( JR, JC ) = ZERO;
                } // 520
-               DO 530 JR = max( 1, min( IR1, IR2-JC ) ), LDA;
+               for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) { // 530
                   A( JR, JC ) = ZERO;
                } // 530
             } // 540

@@ -220,7 +220,7 @@
 
       } else if ( ( MODE ).abs() == 5 ) {
 
-         DO 60 J = 2, N, 2;
+         for (J = 2; J <= N; J += 2) { // 60
             if ( SLARAN( ISEED ) > HALF ) {
                A( J-1, J ) = A( J, J );
                A( J, J-1 ) = -A( J, J );

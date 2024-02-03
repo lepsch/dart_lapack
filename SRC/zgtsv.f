@@ -103,7 +103,7 @@
       for (J = 1; J <= NRHS; J++) { // 50
          B( N, J ) = B( N, J ) / D( N );
          if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-         DO 40 K = N - 2, 1, -1;
+         for (K = N - 2; K >= 1; K--) { // 40
             B( K, J ) = ( B( K, J )-DU( K )*B( K+1, J )-DL( K )* B( K+2, J ) ) / D( K );
          } // 40
       } // 50

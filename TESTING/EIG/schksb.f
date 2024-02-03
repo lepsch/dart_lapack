@@ -288,7 +288,7 @@
                   } // 110
                } // 120
                for (JC = N + 1 - K; JC <= N; JC++) { // 140
-                  DO 130 JR = min( K, N-JC ) + 1, K;
+                  for (JR = min( K, N-JC ) + 1; JR <= K; JR++) { // 130
                      A( JR+1, JC ) = ZERO;
                   } // 130
                } // 140

@@ -73,7 +73,7 @@
             // Sort into decreasing order
 
             for (I = START + 1; I <= ENDD; I++) { // 30
-               DO 20 J = I, START + 1, -1;
+               for (J = I; J >= START + 1; J--) { // 20
                   if ( D( J ) > D( J-1 ) ) {
                      DMNMX = D( J );
                      D( J ) = D( J-1 );
@@ -89,7 +89,7 @@
             // Sort into increasing order
 
             for (I = START + 1; I <= ENDD; I++) { // 50
-               DO 40 J = I, START + 1, -1;
+               for (J = I; J >= START + 1; J--) { // 40
                   if ( D( J ) < D( J-1 ) ) {
                      DMNMX = D( J );
                      D( J ) = D( J-1 );

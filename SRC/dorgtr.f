@@ -105,7 +105,7 @@
          // column to the right, and set the first row and column of Q to
          // those of the unit matrix
 
-         DO 50 J = N, 2, -1;
+         for (J = N; J >= 2; J--) { // 50
             A( 1, J ) = ZERO;
             for (I = J + 1; I <= N; I++) { // 40
                A( I, J ) = A( I, J-1 );

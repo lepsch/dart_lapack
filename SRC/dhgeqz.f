@@ -220,7 +220,7 @@
 
          // General case: j<ILAST
 
-         DO 60 J = ILAST - 1, ILO, -1;
+         for (J = ILAST - 1; J >= ILO; J--) { // 60
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
@@ -431,7 +431,7 @@
 
          // Now check for two consecutive small subdiagonals.
 
-         DO 120 J = ILAST - 1, IFIRST + 1, -1;
+         for (J = ILAST - 1; J >= IFIRST + 1; J--) { // 120
             ISTART = J;
             TEMP = ( S1*H( J, J-1 ) ).abs();
             TEMP2 = ABS( S1*H( J, J )-WR*T( J, J ) );

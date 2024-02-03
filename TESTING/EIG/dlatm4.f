@@ -207,7 +207,7 @@
 
          if ( ISIGN == 2 && ITYPE != 2 && ITYPE != 3 ) {
             SAFMIN = DLAMCH( 'S' );
-            DO 290 JD = KBEG, KEND - 1, 2;
+            for (JD = KBEG; 2 < 0 ? JD >= KEND - 1 : JD <= KEND - 1; JD += 2) { // 290
                if ( DLARAN( ISEED ) > HALF ) {
 
                   // Rotation on left.

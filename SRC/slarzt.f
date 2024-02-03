@@ -43,7 +43,7 @@
          return;
       }
 
-      DO 20 I = K, 1, -1;
+      for (I = K; I >= 1; I--) { // 20
          if ( TAU( I ) == ZERO ) {
 
             // H(i)  =  I

@@ -43,7 +43,7 @@
 
       // I) upper part: L D L^T - SIGMA I = L+ D+ L+^T
       T = -SIGMA;
-      DO 210 BJ = 1, R-1, BLKLEN;
+      for (BJ = 1; BLKLEN < 0 ? BJ >= R-1 : BJ <= R-1; BJ += BLKLEN) { // 210
          NEG1 = 0;
          BSAV = T;
          for (J = BJ; J <= min(BJ+BLKLEN-1, R-1); J++) { // 21
@@ -73,10 +73,10 @@
 
       // II) lower part: L D L^T - SIGMA I = U- D- U-^T
       P = D( N ) - SIGMA;
-      DO 230 BJ = N-1, R, -BLKLEN;
+      for (BJ = N-1; -BLKLEN < 0 ? BJ >= R : BJ <= R; BJ += -BLKLEN) { // 230
          NEG2 = 0;
          BSAV = P;
-         DO 23 J = BJ, max(BJ-BLKLEN+1, R), -1;
+         for (J = BJ; J >= max(BJ-BLKLEN+1, R); J--) { // 23
             DMINUS = LLD( J ) + P;
             if (DMINUS < ZERO) NEG2 = NEG2 + 1;
             TMP = P / DMINUS;
@@ -88,7 +88,7 @@
          if ( SAWNAN ) {
             NEG2 = 0;
             P = BSAV;
-            DO 24 J = BJ, max(BJ-BLKLEN+1, R), -1;
+            for (J = BJ; J >= max(BJ-BLKLEN+1, R); J--) { // 24
                DMINUS = LLD( J ) + P;
                if (DMINUS < ZERO) NEG2 = NEG2 + 1;
                TMP = P / DMINUS;

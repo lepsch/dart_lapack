@@ -72,7 +72,7 @@
 
             // Compute the Cholesky factorization A = U'*U.
 
-            DO 10 J = 1, N, NB;
+            for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) { // 10
 
                JB = min( NB, N-J+1 );
 
@@ -93,7 +93,7 @@
 
             // Compute the Cholesky factorization A = L*L'.
 
-            DO 20 J = 1, N, NB;
+            for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) { // 20
 
                JB = min( NB, N-J+1 );
 

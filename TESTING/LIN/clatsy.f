@@ -53,7 +53,7 @@
          N5 = N / 5;
          N5 = N - 5*N5 + 1;
 
-         DO 30 I = N, N5, -5;
+         for (I = N; I >= N5; I -= 5) { // 30
             A = ALPHA3*CLARND( 5, ISEED );
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;
@@ -115,7 +115,7 @@
          N5 = N / 5;
          N5 = N5*5;
 
-         DO 60 I = 1, N5, 5;
+         for (I = 1; I <= N5; I += 5) { // 60
             A = ALPHA3*CLARND( 5, ISEED );
             B = CLARND( 5, ISEED ) / ALPHA;
             C = A - 2.*B*EYE;

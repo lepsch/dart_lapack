@@ -80,7 +80,7 @@
       // Solve D * M(L)**T * x = b.
 
       WORK( N ) = WORK( N ) / D( N );
-      DO 30 I = N - 1, 1, -1;
+      for (I = N - 1; I >= 1; I--) { // 30
          WORK( I ) = WORK( I ) / D( I ) + WORK( I+1 )*( E( I ) ).abs();
       } // 30
 

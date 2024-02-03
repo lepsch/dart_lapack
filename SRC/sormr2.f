@@ -88,7 +88,7 @@
          MI = M;
       }
 
-      DO 10 I = I1, I2, I3;
+      for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 10
          if ( LEFT ) {
 
             // H(i) is applied to C(1:m-k+i,1:n)

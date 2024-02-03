@@ -27,7 +27,7 @@
       // Code for equal and positive increments.
 
          NS = N*INCX;
-         DO I = 1,NS,INCX;
+         for (I = 1; INCX < 0 ? I >= NS : I <= NS; I += INCX) { //
             DSDOT = DSDOT + DBLE(SX(I))*DBLE(SY(I));
          }
       } else {

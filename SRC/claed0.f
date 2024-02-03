@@ -73,7 +73,7 @@
       TLVLS = 0;
       } // 10
       if ( IWORK( SUBPBS ) > SMLSIZ ) {
-         DO 20 J = SUBPBS, 1, -1;
+         for (J = SUBPBS; J >= 1; J--) { // 20
             IWORK( 2*J ) = ( IWORK( J )+1 ) / 2;
             IWORK( 2*J-1 ) = IWORK( J ) / 2;
          } // 20
@@ -158,7 +158,7 @@
       } // 80
       if ( SUBPBS > 1 ) {
          SPM2 = SUBPBS - 2;
-         DO 90 I = 0, SPM2, 2;
+         for (I = 0; I <= SPM2; I += 2) { // 90
             if ( I == 0 ) {
                SUBMAT = 1;
                MATSIZ = IWORK( 2 );

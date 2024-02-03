@@ -125,7 +125,7 @@
               // T1 -> a(n2), T2 -> a(n1), S -> a(0); lda=n
 
                IJ = NT - N;
-               DO J = N - 1, N1, -1;
+               for (J = N - 1; J >= N1; J--) { //
                   for (I = 0; I <= J; I++) {
                      A( I, J ) = ARF( IJ );
                      IJ = IJ + 1;
@@ -228,7 +228,7 @@
                // T1 -> a(k+1), T2 -> a(k), S -> a(0); lda=n+1
 
                IJ = NT - N - 1;
-               DO J = N - 1, K, -1;
+               for (J = N - 1; J >= K; J--) { //
                   for (I = 0; I <= J; I++) {
                      A( I, J ) = ARF( IJ );
                      IJ = IJ + 1;

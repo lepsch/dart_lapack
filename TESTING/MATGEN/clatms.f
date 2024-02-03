@@ -293,7 +293,7 @@
                   // Last row actually rotated is M
                   // Last column actually rotated is min( M+JKU, N )
 
-                  DO 60 JR = 1, min( M+JKU, N ) + JKL - 1;
+                  for (JR = 1; JR <= min( M+JKU, N ) + JKL - 1; JR++) { // 60
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
@@ -308,7 +308,7 @@
 
                      IR = JR;
                      IC = ICOL;
-                     DO 50 JCH = JR - JKL, 1, -JKL - JKU;
+                     for (JCH = JR - JKL; -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1; JCH += -JKL - JKU) { // 50
                         if ( IR < M ) {
                            clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED );
@@ -342,7 +342,7 @@
 
                   // Transform from bandwidth JKL-1, JKU to JKL, JKU
 
-                  DO 90 JC = 1, min( N+JKL, M ) + JKU - 1;
+                  for (JC = 1; JC <= min( N+JKL, M ) + JKU - 1; JC++) { // 90
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
@@ -357,7 +357,7 @@
 
                      IC = JC;
                      IR = IROW;
-                     DO 80 JCH = JC - JKU, 1, -JKL - JKU;
+                     for (JCH = JC - JKU; -JKL - JKU < 0 ? JCH >= 1 : JCH <= 1; JCH += -JKL - JKU) { // 80
                         if ( IC < N ) {
                            clartg(A( IR+1-ISKEW*( IC+1 )+IOFFST, IC+1 ), EXTRA, REALC, S, DUMMY );
                            DUMMY = CLARND( 5, ISEED );
@@ -398,7 +398,7 @@
                   // First column actually rotated is min( M+JKU, N )
 
                   IENDCH = min( M, N+JKL ) - 1;
-                  DO 120 JC = min( M+JKU, N ) - 1, 1 - JKL, -1;
+                  for (JC = min( M+JKU, N ) - 1; JC >= 1 - JKL; JC--) { // 120
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
@@ -412,7 +412,7 @@
                      // Chase "EXTRA" back down
 
                      IC = JC;
-                     DO 110 JCH = JC + JKL, IENDCH, JKL + JKU;
+                     for (JCH = JC + JKL; JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH; JCH += JKL + JKU) { // 110
                         ILEXTR = IC > 0;
                         if ( ILEXTR ) {
                            clartg(A( JCH-ISKEW*IC+IOFFST, IC ), EXTRA, REALC, S, DUMMY );
@@ -448,7 +448,7 @@
                   // First column actually rotated is N
 
                   IENDCH = min( N, M+JKU ) - 1;
-                  DO 150 JR = min( N+JKL, M ) - 1, 1 - JKU, -1;
+                  for (JR = min( N+JKL, M ) - 1; JR >= 1 - JKU; JR--) { // 150
                      EXTRA = CZERO;
                      ANGLE = TWOPI*SLARND( 1, ISEED );
                      C = COS( ANGLE )*CLARND( 5, ISEED );
@@ -462,7 +462,7 @@
                      // Chase "EXTRA" back down
 
                      IR = JR;
-                     DO 140 JCH = JR + JKU, IENDCH, JKL + JKU;
+                     for (JCH = JR + JKU; JKL + JKU < 0 ? JCH >= IENDCH : JCH <= IENDCH; JCH += JKL + JKU) { // 140
                         ILEXTR = IR > 0;
                         if ( ILEXTR ) {
                            clartg(A( IR-ISKEW*JCH+IOFFST, JCH ), EXTRA, REALC, S, DUMMY );
@@ -537,7 +537,7 @@
                      // Chase EXTRA back up the matrix
 
                      ICOL = JC;
-                     DO 180 JCH = JC - K, 1, -K;
+                     for (JCH = JC - K; -K < 0 ? JCH >= 1 : JCH <= 1; JCH += -K) { // 180
                         clartg(A( JCH+1-ISKEW*( ICOL+1 )+IOFFG, ICOL+1 ), EXTRA, REALC, S, DUMMY );
                         DUMMY = CLARND( 5, ISEED );
                         C = CONJG( REALC*DUMMY );
@@ -606,7 +606,7 @@
                } // 260
 
                for (K = 1; K <= UUB; K++) { // 290
-                  DO 280 JC = N - 1, 1, -1;
+                  for (JC = N - 1; JC >= 1; JC--) { // 280
                      IL = min( N+1-JC, K+2 );
                      EXTRA = CZERO;
                      CTEMP = A( 1+( 1-ISKEW )*JC+IOFFG, JC );
@@ -628,7 +628,7 @@
                      // Chase EXTRA back down the matrix
 
                      ICOL = JC;
-                     DO 270 JCH = JC + K, N - 1, K;
+                     for (JCH = JC + K; K < 0 ? JCH >= N - 1 : JCH <= N - 1; JCH += K) { // 270
                         clartg(A( JCH-ISKEW*ICOL+IOFFG, ICOL ), EXTRA, REALC, S, DUMMY );
                         DUMMY = CLARND( 5, ISEED );
                         C = REALC*DUMMY;
@@ -655,14 +655,14 @@
                // the order of copying is chosen to work for 'b' -> 'q'
 
                if ( IPACK != IPACKG && IPACK != 4 ) {
-                  DO 320 JC = N, 1, -1;
+                  for (JC = N; JC >= 1; JC--) { // 320
                      IROW = IOFFST - ISKEW*JC;
                      if ( CSYM ) {
-                        DO 300 JR = JC, max( 1, JC-UUB ), -1;
+                        for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 300
                            A( JR+IROW, JC ) = A( JC-ISKEW*JR+IOFFG, JR );
                         } // 300
                      } else {
-                        DO 310 JR = JC, max( 1, JC-UUB ), -1;
+                        for (JR = JC; JR >= max( 1, JC-UUB ); JR--) { // 310
                            A( JR+IROW, JC ) = CONJG( A( JC-ISKEW*JR+ IOFFG, JR ) );
                         } // 310
                      }
@@ -792,7 +792,7 @@
             IF( IPACK == 6 ) LLB = 0;
 
             for (J = 1; J <= UUB; J++) { // 450
-               DO 440 I = min( J+LLB, M ), 1, -1;
+               for (I = min( J+LLB, M ); I >= 1; I--) { // 440
                   A( I-J+UUB+1, J ) = A( I, J );
                } // 440
             } // 450
@@ -831,7 +831,7 @@
                for (JR = 1; JR <= UUB + 1 - JC; JR++) { // 500
                   A( JR, JC ) = CZERO;
                } // 500
-               DO 510 JR = max( 1, min( IR1, IR2-JC ) ), LDA;
+               for (JR = max( 1, min( IR1; LDA < 0 ? JR >= IR2-JC ) ) : JR <= IR2-JC ) ); JR += LDA) { // 510
                   A( JR, JC ) = CZERO;
                } // 510
             } // 520

@@ -40,7 +40,7 @@
       DMIN = D;
 
       if ( PP == 0 ) {
-         DO 10 J4 = 4*I0, 4*( N0-3 ), 4;
+         for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 10
             Z( J4-2 ) = D + Z( J4-1 );
             if ( Z( J4-2 ) == ZERO ) {
                Z( J4 ) = ZERO;
@@ -59,7 +59,7 @@
             EMIN = min( EMIN, Z( J4 ) );
          } // 10
       } else {
-         DO 20 J4 = 4*I0, 4*( N0-3 ), 4;
+         for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 20
             Z( J4-3 ) = D + Z( J4 );
             if ( Z( J4-3 ) == ZERO ) {
                Z( J4-1 ) = ZERO;

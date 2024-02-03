@@ -83,7 +83,7 @@
 
             // Compute inverse of upper triangular matrix
 
-            DO 20 J = 1, N, NB;
+            for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) { // 20
                JB = min( NB, N-J+1 );
 
                // Compute rows 1:j-1 of current block column
@@ -100,7 +100,7 @@
             // Compute inverse of lower triangular matrix
 
             NN = ( ( N-1 ) / NB )*NB + 1;
-            DO 30 J = NN, 1, -NB;
+            for (J = NN; -NB < 0 ? J >= 1 : J <= 1; J += -NB) { // 30
                JB = min( NB, N-J+1 );
                if ( J+JB <= N ) {
 

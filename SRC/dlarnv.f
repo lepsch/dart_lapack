@@ -36,7 +36,7 @@
       // ..
       // .. Executable Statements ..
 
-      DO 40 IV = 1, N, LV / 2;
+      for (IV = 1; LV / 2 < 0 ? IV >= N : IV <= N; IV += LV / 2) { // 40
          IL = min( LV / 2, N-IV+1 );
          if ( IDIST == 3 ) {
             IL2 = 2*IL;

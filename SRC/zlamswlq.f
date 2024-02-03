@@ -128,7 +128,7 @@
          CTR = 1;
          zgemlqt('L','N',NB , N, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
 
-         DO I=NB+1,II-NB+K,(NB-K);
+         for (I = NB+1; (NB-K) < 0 ? I >= II-NB+K : I <= II-NB+K; I += (NB-K)) { //
 
           // Multiply Q to the current block of C (I:I+NB,1:N)
 
@@ -179,7 +179,7 @@
          zgemlqt('R','C',M , NB, K, MB, A(1,1), LDA, T ,LDT ,C(1,1), LDC, WORK, INFO );
          CTR = 1;
 
-         DO I=NB+1,II-NB+K,(NB-K);
+         for (I = NB+1; (NB-K) < 0 ? I >= II-NB+K : I <= II-NB+K; I += (NB-K)) { //
 
           // Multiply Q to the current block of C (1:M,I:I+MB)
 

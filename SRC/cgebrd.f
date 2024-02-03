@@ -104,7 +104,7 @@
          NX = MINMN;
       }
 
-      DO 30 I = 1, MINMN - NX, NB;
+      for (I = 1; NB < 0 ? I >= MINMN - NX : I <= MINMN - NX; I += NB) { // 30
 
          // Reduce rows and columns i:i+ib-1 to bidiagonal form and return;
          // the matrices X and Y which are needed to update the unreduced

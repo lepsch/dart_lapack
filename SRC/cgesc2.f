@@ -67,7 +67,7 @@
          cscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*REAL( TEMP );
       }
-      DO 40 I = N, 1, -1;
+      for (I = N; I >= 1; I--) { // 40
          TEMP = CMPLX( ONE, ZERO ) / A( I, I );
          RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30

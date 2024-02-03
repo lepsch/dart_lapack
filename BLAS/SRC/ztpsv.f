@@ -79,12 +79,12 @@
           if (LSAME(UPLO,'U')) {
               KK = (N* (N+1))/2;
               if (INCX == 1) {
-                  DO 20 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 20
                       if (X(J) != ZERO) {
                           if (NOUNIT) X(J) = X(J)/AP(KK);
                           TEMP = X(J);
                           K = KK - 1;
-                          DO 10 I = J - 1,1,-1;
+                          for (I = J - 1; I >= 1; I--) { // 10
                               X(I) = X(I) - TEMP*AP(K);
                               K = K - 1;
                           } // 10
@@ -93,12 +93,12 @@
                   } // 20
               } else {
                   JX = KX + (N-1)*INCX;
-                  DO 40 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 40
                       if (X(JX) != ZERO) {
                           if (NOUNIT) X(JX) = X(JX)/AP(KK);
                           TEMP = X(JX);
                           IX = JX;
-                          DO 30 K = KK - 1,KK - J + 1,-1;
+                          for (K = KK - 1; K >= KK - J + 1; K--) { // 30
                               IX = IX - INCX;
                               X(IX) = X(IX) - TEMP*AP(K);
                           } // 30
@@ -191,17 +191,17 @@
           } else {
               KK = (N* (N+1))/2;
               if (INCX == 1) {
-                  DO 170 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 170
                       TEMP = X(J);
                       K = KK;
                       if (NOCONJ) {
-                          DO 150 I = N,J + 1,-1;
+                          for (I = N; I >= J + 1; I--) { // 150
                               TEMP = TEMP - AP(K)*X(I);
                               K = K - 1;
                           } // 150
                           if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
                       } else {
-                          DO 160 I = N,J + 1,-1;
+                          for (I = N; I >= J + 1; I--) { // 160
                               TEMP = TEMP - DCONJG(AP(K))*X(I);
                               K = K - 1;
                           } // 160
@@ -213,17 +213,17 @@
               } else {
                   KX = KX + (N-1)*INCX;
                   JX = KX;
-                  DO 200 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 200
                       TEMP = X(JX);
                       IX = KX;
                       if (NOCONJ) {
-                          DO 180 K = KK,KK - (N- (J+1)),-1;
+                          for (K = KK; K >= KK - (N- (J+1)); K--) { // 180
                               TEMP = TEMP - AP(K)*X(IX);
                               IX = IX - INCX;
                           } // 180
                           if (NOUNIT) TEMP = TEMP/AP(KK-N+J);
                       } else {
-                          DO 190 K = KK,KK - (N- (J+1)),-1;
+                          for (K = KK; K >= KK - (N- (J+1)); K--) { // 190
                               TEMP = TEMP - DCONJG(AP(K))*X(IX);
                               IX = IX - INCX;
                           } // 190

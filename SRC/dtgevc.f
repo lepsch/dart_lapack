@@ -481,7 +481,7 @@
          // Main loop over eigenvalues
 
          ILCPLX = false;
-         DO 500 JE = N, 1, -1;
+         for (JE = N; JE >= 1; JE--) { // 500
 
             // Skip this iteration if (a) HOWMNY='S' and SELECT= false , or
             // (b) this would be the second of a complex pair.
@@ -651,7 +651,7 @@
             // Columnwise triangular solve of  (a A - b B)  x = 0
 
             IL2BY2 = false;
-            DO 370 J = JE - NW, 1, -1;
+            for (J = JE - NW; J >= 1; J--) { // 370
 
                // If a 2-by-2 block, is in position j-1:j, wait until
                // next iteration to process it (when it will be j:j+1)

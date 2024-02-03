@@ -362,7 +362,7 @@
          // computing blocks of NB columns at a time (note that conjg(W) is
          // actually stored)
 
-         DO 50 J = ( ( K-1 ) / NB )*NB + 1, 1, -NB;
+         for (J = ( ( K-1 ) / NB )*NB + 1; -NB < 0 ? J >= 1 : J <= 1; J += -NB) { // 50
             JB = min( NB, K-J+1 );
 
             // Update the upper triangle of the diagonal block
@@ -703,7 +703,7 @@
          // computing blocks of NB columns at a time (note that conjg(W) is
          // actually stored)
 
-         DO 110 J = K, N, NB;
+         for (J = K; NB < 0 ? J >= N : J <= N; J += NB) { // 110
             JB = min( NB, N-J+1 );
 
             // Update the lower triangle of the diagonal block

@@ -168,25 +168,25 @@
 
       zlaset('Full', M, M, ZERO, ZERO, X, LDX );
 
-      DO I = 1, min(P,Q)-R;
+      for (I = 1; I <= min(P,Q)-R; I++) { //
          X(I,I) = ONE;
       }
       for (I = 1; I <= R; I++) {
          X(min(P,Q)-R+I,min(P,Q)-R+I) = DCMPLX( COS(THETA(I)), 0.0 );
       }
-      DO I = 1, min(P,M-Q)-R;
+      for (I = 1; I <= min(P,M-Q)-R; I++) { //
          X(P-I+1,M-I+1) = -ONE;
       }
       for (I = 1; I <= R; I++) {
          X(P-(min(P,M-Q)-R)+1-I,M-(min(P,M-Q)-R)+1-I) = DCMPLX( -SIN(THETA(R-I+1)), 0.0 );
       }
-      DO I = 1, min(M-P,Q)-R;
+      for (I = 1; I <= min(M-P,Q)-R; I++) { //
          X(M-I+1,Q-I+1) = ONE;
       }
       for (I = 1; I <= R; I++) {
          X(M-(min(M-P,Q)-R)+1-I,Q-(min(M-P,Q)-R)+1-I) = DCMPLX( SIN(THETA(R-I+1)), 0.0 );
       }
-      DO I = 1, min(M-P,M-Q)-R;
+      for (I = 1; I <= min(M-P,M-Q)-R; I++) { //
          X(P+I,Q+I) = ONE;
       }
       for (I = 1; I <= R; I++) {

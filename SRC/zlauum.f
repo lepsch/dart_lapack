@@ -74,7 +74,7 @@
 
             // Compute the product U * U**H.
 
-            DO 10 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 10
                IB = min( NB, N-I+1 );
                ztrmm('Right', 'Upper', 'Conjugate transpose', 'Non-unit', I-1, IB, CONE, A( I, I ), LDA, A( 1, I ), LDA );
                zlauu2('Upper', IB, A( I, I ), LDA, INFO );
@@ -87,7 +87,7 @@
 
             // Compute the product L**H * L.
 
-            DO 20 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 20
                IB = min( NB, N-I+1 );
                ztrmm('Left', 'Lower', 'Conjugate transpose', 'Non-unit', IB, I-1, CONE, A( I, I ), LDA, A( I, 1 ), LDA );
                zlauu2('Lower', IB, A( I, I ), LDA, INFO );

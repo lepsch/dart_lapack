@@ -115,7 +115,7 @@
             // UL decomposition with partial pivoting of B, replacing zero
             // pivots by EPS3.
 
-            DO 90 J = N, 2, -1;
+            for (J = N; J >= 2; J--) { // 90
                EJ = H( J, J-1 );
                if ( ( B( J, J ) ).abs() < ( EJ ).abs() ) {
 
@@ -280,7 +280,7 @@
                B( N+1, J ) = ZERO;
             } // 180
 
-            DO 210 J = N, 2, -1;
+            for (J = N; J >= 2; J--) { // 210
                EJ = H( J, J-1 );
                ABSBJJ = SLAPY2( B( J, J ), B( J+1, J ) );
                if ( ABSBJJ < ( EJ ).abs() ) {
@@ -341,7 +341,7 @@
               // or U**T*(xr,xi) = scale*(vr,vi) for a left eigenvector,
             // overwriting (xr,xi) on (vr,vi).
 
-            DO 250 I = I1, I2, I3;
+            for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 250
 
                if ( WORK( I ) > VCRIT ) {
                   REC = ONE / VMAX;

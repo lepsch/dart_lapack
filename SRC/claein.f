@@ -123,7 +123,7 @@
          // UL decomposition with partial pivoting of B, replacing zero
          // pivots by EPS3.
 
-         DO 90 J = N, 2, -1;
+         for (J = N; J >= 2; J--) { // 90
             EJ = H( J, J-1 );
             if ( CABS1( B( J, J ) ) < CABS1( EJ ) ) {
 

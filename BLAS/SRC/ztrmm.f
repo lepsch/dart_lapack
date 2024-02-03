@@ -109,7 +109,7 @@
                   } // 50
               } else {
                   for (J = 1; J <= N; J++) { // 80
-                      DO 70 K = M,1,-1;
+                      for (K = M; K >= 1; K--) { // 70
                           if (B(K,J) != ZERO) {
                               TEMP = ALPHA*B(K,J);
                               B(K,J) = TEMP;
@@ -127,7 +127,7 @@
 
               if (UPPER) {
                   for (J = 1; J <= N; J++) { // 120
-                      DO 110 I = M,1,-1;
+                      for (I = M; I >= 1; I--) { // 110
                           TEMP = B(I,J);
                           if (NOCONJ) {
                               if (NOUNIT) TEMP = TEMP*A(I,I);
@@ -169,7 +169,7 @@
             // Form  B := alpha*B*A.
 
               if (UPPER) {
-                  DO 200 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 200
                       TEMP = ALPHA;
                       if (NOUNIT) TEMP = TEMP*A(J,J);
                       for (I = 1; I <= M; I++) { // 170
@@ -234,7 +234,7 @@
                       }
                   } // 280
               } else {
-                  DO 320 K = N,1,-1;
+                  for (K = N; K >= 1; K--) { // 320
                       for (J = K + 1; J <= N; J++) { // 300
                           if (A(J,K) != ZERO) {
                               if (NOCONJ) {

@@ -142,7 +142,7 @@
       sgelqt(M, NB, MB, A(1,1), LDA, T, LDT, WORK, INFO );
       CTR = 1;
 
-      DO I = NB+1, II-NB+M, (NB-M);
+      for (I = NB+1; (NB-M) < 0 ? I >= II-NB+M : I <= II-NB+M; I += (NB-M)) { //
 
         // Compute the QR factorization of the current block A(1:M,I:I+NB-M)
 

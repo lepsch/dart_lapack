@@ -44,7 +44,7 @@
 
          // Reduce last NB columns of upper triangle
 
-         DO 10 I = N, N - NB + 1, -1;
+         for (I = N; I >= N - NB + 1; I--) { // 10
             IW = I - N + NB;
             if ( I < N ) {
 

@@ -93,7 +93,7 @@
             // Solve T*p = scale*c
 
             JNEXT = N;
-            DO 30 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 30
                if (J > JNEXT) GO TO 30;
                J1 = J;
                J2 = J;
@@ -292,7 +292,7 @@
             // Solve (T + iB)*(p+iq) = c+id
 
             JNEXT = N;
-            DO 70 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 70
                if (J > JNEXT) GO TO 70;
                J1 = J;
                J2 = J;

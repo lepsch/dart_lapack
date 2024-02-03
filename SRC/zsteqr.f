@@ -201,7 +201,7 @@
          // Inner loop
 
          MM1 = M - 1;
-         DO 70 I = MM1, L, -1;
+         for (I = MM1; I >= L; I--) { // 70
             F = S*E( I );
             B = C*E( I );
             dlartg(G, F, C, S, R );
@@ -250,7 +250,7 @@
          } // 90
          if ( L != LEND ) {
             LENDP1 = LEND + 1;
-            DO 100 M = L, LENDP1, -1;
+            for (M = L; M >= LENDP1; M--) { // 100
                TST = ( E( M-1 ) ).abs()**2;
                if( TST <= ( EPS2*( D( M ) ) ).abs()*( D( M-1 ) ).abs()+ SAFMIN )GO TO 110;
             } // 100

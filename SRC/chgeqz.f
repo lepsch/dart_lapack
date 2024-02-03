@@ -233,7 +233,7 @@
 
          // General case: j<ILAST
 
-         DO 40 J = ILAST - 1, ILO, -1;
+         for (J = ILAST - 1; J >= ILO; J--) { // 40
 
             // Test 1: for H(j,j-1)=0 or j=ILO
 
@@ -424,7 +424,7 @@
 
          // Now check for two consecutive small subdiagonals.
 
-         DO 80 J = ILAST - 1, IFIRST + 1, -1;
+         for (J = ILAST - 1; J >= IFIRST + 1; J--) { // 80
             ISTART = J;
             CTEMP = ASCALE*H( J, J ) - SHIFT*( BSCALE*T( J, J ) );
             TEMP = ABS1( CTEMP );

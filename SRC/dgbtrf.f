@@ -116,7 +116,7 @@
 
          JU = 1;
 
-         DO 180 J = 1, min( M, N ), NB;
+         for (J = 1; NB < 0 ? J >= min( M, N ) : J <= min( M, N ); J += NB) { // 180
             JB = min( NB, min( M, N )-J+1 );
 
             // The active part of the matrix is partitioned
@@ -303,7 +303,7 @@
             // restore the upper triangular form of A31 and copy the upper
             // triangle of A31 back into place
 
-            DO 170 JJ = J + JB - 1, J, -1;
+            for (JJ = J + JB - 1; JJ >= J; JJ--) { // 170
                JP = IPIV( JJ ) - JJ + 1;
                if ( JP != 1 ) {
 

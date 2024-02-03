@@ -72,7 +72,7 @@
 
             // Compute the Cholesky factorization A = U'*U.
 
-            DO 10 J = 1, N, NB;
+            for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) { // 10
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.
@@ -95,7 +95,7 @@
 
             // Compute the Cholesky factorization A = L*L'.
 
-            DO 20 J = 1, N, NB;
+            for (J = 1; NB < 0 ? J >= N : J <= N; J += NB) { // 20
 
                // Update and factorize the current diagonal block and test
                // for non-positive-definiteness.

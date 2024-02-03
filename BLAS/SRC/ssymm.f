@@ -114,7 +114,7 @@
               } // 70
           } else {
               for (J = 1; J <= N; J++) { // 100
-                  DO 90 I = M,1,-1;
+                  for (I = M; I >= 1; I--) { // 90
                       TEMP1 = ALPHA*B(I,J);
                       TEMP2 = ZERO;
                       for (K = I + 1; K <= M; K++) { // 80

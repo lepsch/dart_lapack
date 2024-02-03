@@ -334,7 +334,7 @@
          } // 110
 
          PHI = ZERO;
-         DO 120 J = N, I + 2, -1;
+         for (J = N; J >= I + 2; J--) { // 120
             PHI = PHI + Z( J )*Z( J ) / DELTA( J );
          } // 120
          C = RHOINV + PSI + PHI;
@@ -408,7 +408,7 @@
 
          DPHI = ZERO;
          PHI = ZERO;
-         DO 160 J = N, IIP1, -1;
+         for (J = N; J >= IIP1; J--) { // 160
             TEMP = Z( J ) / DELTA( J );
             PHI = PHI + Z( J )*TEMP;
             DPHI = DPHI + TEMP*TEMP;
@@ -536,7 +536,7 @@
 
          DPHI = ZERO;
          PHI = ZERO;
-         DO 200 J = N, IIP1, -1;
+         for (J = N; J >= IIP1; J--) { // 200
             TEMP = Z( J ) / DELTA( J );
             PHI = PHI + Z( J )*TEMP;
             DPHI = DPHI + TEMP*TEMP;
@@ -685,7 +685,7 @@
 
             DPHI = ZERO;
             PHI = ZERO;
-            DO 230 J = N, IIP1, -1;
+            for (J = N; J >= IIP1; J--) { // 230
                TEMP = Z( J ) / DELTA( J );
                PHI = PHI + Z( J )*TEMP;
                DPHI = DPHI + TEMP*TEMP;

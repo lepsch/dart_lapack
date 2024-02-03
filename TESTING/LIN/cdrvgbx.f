@@ -407,7 +407,8 @@
                            if ( INFO != 0 ) {
                               ANRMPV = ZERO;
                               for (J = 1; J <= INFO; J++) { // 70
-                                 DO 60 I = max( KU+2-J, 1 ), min( N+KU+1-J, KL+KU+1 )                                     ANRMPV = max( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) );
+                                 for (I = max( KU+2-J, 1 ); I <= min( N+KU+1-J, KL+KU+1 ); I++) { // 60
+                                    ANRMPV = max( ANRMPV, ABS( A( I+( J-1 )*LDA ) ) )
                                  } // 60
                               } // 70
                               RPVGRW = CLANTB( 'M', 'U', 'N', INFO, min( INFO-1, KL+KU ), AFB( max( 1, KL+KU+2-INFO ) ), LDAFB, RDUM );

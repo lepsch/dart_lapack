@@ -72,7 +72,7 @@
       Z1 = ALPHA*VL( NLP1 );
       VL( NLP1 ) = ZERO;
       TAU = VF( NLP1 );
-      DO 10 I = NL, 1, -1;
+      for (I = NL; I >= 1; I--) { // 10
          Z( I+1 ) = ALPHA*VL( I );
          VL( I ) = ZERO;
          VF( I+1 ) = VF( I );

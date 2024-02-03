@@ -330,7 +330,7 @@
 
          // Main loop over eigenvalues
 
-         DO 250 JE = N, 1, -1;
+         for (JE = N; JE >= 1; JE--) { // 250
             if ( ILALL ) {
                ILCOMP = true;
             } else {
@@ -402,7 +402,7 @@
                } // 170
                WORK( JE ) = CONE;
 
-               DO 210 J = JE - 1, 1, -1;
+               for (J = JE - 1; J >= 1; J--) { // 210
 
                   // Form x(j) := - w(j) / d
                   // with scaling and perturbation of the denominator

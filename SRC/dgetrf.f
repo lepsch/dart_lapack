@@ -64,7 +64,7 @@
 
          // Use blocked code.
 
-         DO 20 J = 1, min( M, N ), NB;
+         for (J = 1; NB < 0 ? J >= min( M, N ) : J <= min( M, N ); J += NB) { // 20
             JB = min( min( M, N )-J+1, NB );
 
             // Factor diagonal and subdiagonal blocks and test for exact

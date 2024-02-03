@@ -128,7 +128,7 @@
                // submatrix H(KL:N,KL:N) for a left eigenvector, and with
                // the submatrix H(1:KR,1:KR) for a right eigenvector.
 
-               DO 20 I = K, KL + 1, -1;
+               for (I = K; I >= KL + 1; I--) { // 20
                   if( H( I, I-1 ) == ZERO ) GO TO 30;
                } // 20
                } // 30
@@ -165,7 +165,7 @@
 
             WK = W( K );
             } // 60
-            DO 70 I = K - 1, KL, -1;
+            for (I = K - 1; I >= KL; I--) { // 70
                if ( SELECT( I ) && CABS1( W( I )-WK ) < EPS3 ) {
                   WK = WK + EPS3;
                   GO TO 60;

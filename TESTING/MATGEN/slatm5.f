@@ -102,13 +102,13 @@
 
          if ( PRTYPE == 3 ) {
             if (QBLCKA <= 1) QBLCKA = 2;
-            DO 130 K = 1, M - 1, QBLCKA;
+            for (K = 1; QBLCKA < 0 ? K >= M - 1 : K <= M - 1; K += QBLCKA) { // 130
                A( K+1, K+1 ) = A( K, K );
                A( K+1, K ) = -SIN( A( K, K+1 ) );
             } // 130
 
             if (QBLCKB <= 1) QBLCKB = 2;
-            DO 140 K = 1, N - 1, QBLCKB;
+            for (K = 1; QBLCKB < 0 ? K >= N - 1 : K <= N - 1; K += QBLCKB) { // 140
                B( K+1, K+1 ) = B( K, K );
                B( K+1, K ) = -SIN( B( K, K+1 ) );
             } // 140

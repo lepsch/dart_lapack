@@ -101,7 +101,7 @@
 
          if ( LOWER ) {
             WORK( N**2 ) = D( N );
-            DO 40 J = N - 1, 1, -1;
+            for (J = N - 1; J >= 1; J--) { // 40
                if ( KBAND == 1 ) {
                   WORK( ( N+1 )*( J-1 )+2 ) = ( CONE-TAU( J ) )*E( J );
                   for (JR = J + 2; JR <= N; JR++) { // 30

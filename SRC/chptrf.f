@@ -225,9 +225,9 @@
                   D12 = AP( K-1+( K-1 )*K / 2 ) / D;
                   D = TT / D;
 
-                  DO 50 J = K - 2, 1, -1;
+                  for (J = K - 2; J >= 1; J--) { // 50
                      WKM1 = D*( D11*AP( J+( K-2 )*( K-1 ) / 2 )- CONJG( D12 )*AP( J+( K-1 )*K / 2 ) )                      WK = D*( D22*AP( J+( K-1 )*K / 2 )-D12* AP( J+( K-2 )*( K-1 ) / 2 ) );
-                     DO 40 I = J, 1, -1;
+                     for (I = J; I >= 1; I--) { // 40
                         AP( I+( J-1 )*J / 2 ) = AP( I+( J-1 )*J / 2 ) - AP( I+( K-1 )*K / 2 )*CONJG( WK ) - AP( I+( K-2 )*( K-1 ) / 2 )*CONJG( WKM1 );
                      } // 40
                      AP( J+( K-1 )*K / 2 ) = WK;

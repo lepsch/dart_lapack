@@ -135,7 +135,7 @@
 
          // Look for a single small subdiagonal element.
 
-         DO 40 K = I, L + 1, -1;
+         for (K = I; K >= L + 1; K--) { // 40
             if( CABS1( H( K, K-1 ) ) <= SMLNUM ) GO TO 50;
             TST = CABS1( H( K-1, K-1 ) ) + CABS1( H( K, K ) );
             if ( TST == ZERO ) {
@@ -210,7 +210,7 @@
 
          // Look for two consecutive small subdiagonal elements.
 
-         DO 60 M = I - 1, L + 1, -1;
+         for (M = I - 1; M >= L + 1; M--) { // 60
 
             // Determine the effect of starting the single-shift QR
             // iteration at row M, and see if this would make H(M,M-1)

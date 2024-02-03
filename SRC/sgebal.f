@@ -86,7 +86,7 @@
             // Search for rows isolating an eigenvalue and push them down.
 
             NOCONV = false;
-            DO I = L, 1, -1;
+            for (I = L; I >= 1; I--) { //
                CANSWAP = true;
                for (J = 1; J <= L; J++) {
                   if ( I != J && A( I, J ) != ZERO ) {

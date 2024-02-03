@@ -55,7 +55,7 @@
       // Compute the product U**T * U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 10
 
             // Compute the (K,K) element of the result.
 
@@ -71,7 +71,7 @@
       // Compute the product L * L**T, overwriting L.
 
       } else {
-         DO 20 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 20
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.

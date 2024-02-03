@@ -216,7 +216,7 @@
 
             GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
-            DO 40 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 40
 
                // Exit the loop if the growth factor is too small.
 
@@ -257,7 +257,7 @@
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
             GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
-            DO 50 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 50
 
                // Exit the loop if the growth factor is too small.
 
@@ -298,7 +298,7 @@
 
             GROW = HALF / max( XBND, SMLNUM );
             XBND = GROW;
-            DO 70 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 70
 
                // Exit the loop if the growth factor is too small.
 
@@ -332,7 +332,7 @@
             // Compute GROW = 1/G(j), where G(0) = max{x(i), i=1,...,n}.
 
             GROW = min( ONE, HALF / max( XBND, SMLNUM ) );
-            DO 80 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 80
 
                // Exit the loop if the growth factor is too small.
 
@@ -373,7 +373,7 @@
 
             // Solve A * x = b
 
-            DO 110 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 110
 
                // Compute x(j) = b(j) / A(j,j), scaling x if necessary.
 
@@ -488,7 +488,7 @@
 
             // Solve A**T * x = b
 
-            DO 150 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 150
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
                                      // k<>j
@@ -621,7 +621,7 @@
 
             // Solve A**H * x = b
 
-            DO 190 J = JFIRST, JLAST, JINC;
+            for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { // 190
 
                // Compute x(j) = b(j) - sum A(k,j)*x(k).
                                      // k<>j

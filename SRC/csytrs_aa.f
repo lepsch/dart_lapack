@@ -107,7 +107,7 @@
 
             // Pivot, P * B -> B  [ P * (U**T \ (T \ (U \P**T * B) )) ]
 
-            DO K = N, 1, -1;
+            for (K = N; K >= 1; K--) { //
                KP = IPIV( K );
                if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }
@@ -155,7 +155,7 @@
 
             // Pivot, P * B -> B  [ P * (L**T \ (T \ (L \P**T * B) )) ]
 
-            DO K = N, 1, -1;
+            for (K = N; K >= 1; K--) { //
                KP = IPIV( K );
                if (KP != K) cswap( NRHS, B( K, 1 ), LDB, B( KP, 1 ), LDB );
             }

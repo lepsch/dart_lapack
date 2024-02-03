@@ -81,7 +81,7 @@
       // Solve D * M(L)**H * x = b.
 
       RWORK( N ) = RWORK( N ) / D( N );
-      DO 30 I = N - 1, 1, -1;
+      for (I = N - 1; I >= 1; I--) { // 30
          RWORK( I ) = RWORK( I ) / D( I ) + RWORK( I+1 )*( E( I ) ).abs();
       } // 30
 

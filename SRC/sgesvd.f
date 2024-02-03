@@ -562,7 +562,7 @@
                   // WORK(IR), storing result in WORK(IU) and copying to A
                   // (Workspace: need N*N+2*N, prefer N*N+M*N+N)
 
-                  DO 10 I = 1, M, LDWRKU;
+                  for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 10
                      CHUNK = min( M-I+1, LDWRKU );
                      sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -677,7 +677,7 @@
                   // WORK(IR), storing result in WORK(IU) and copying to A
                   // (Workspace: need N*N+2*N, prefer N*N+M*N+N)
 
-                  DO 20 I = 1, M, LDWRKU;
+                  for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 20
                      CHUNK = min( M-I+1, LDWRKU );
                      sgemm('N', 'N', CHUNK, N, N, ONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -1754,7 +1754,7 @@
                   // in A, storing result in WORK(IU) and copying to A
                   // (Workspace: need M*M+2*M, prefer M*M+M*N+M)
 
-                  DO 30 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 30
                      BLK = min( N-I+1, CHUNK );
                      sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
@@ -1872,7 +1872,7 @@
                   // in A, storing result in WORK(IU) and copying to A
                   // (Workspace: need M*M+2*M, prefer M*M+M*N+M))
 
-                  DO 40 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 40
                      BLK = min( N-I+1, CHUNK );
                      sgemm('N', 'N', M, BLK, M, ONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, ZERO, WORK( IU ), LDWRKU );
                      slacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
@@ -2826,7 +2826,7 @@
             } // 50
          }
          if ( IE < 2 ) {
-            DO 60 I = MINMN - 1, 1, -1;
+            for (I = MINMN - 1; I >= 1; I--) { // 60
                WORK( I+1 ) = WORK( I+IE-1 );
             } // 60
          }

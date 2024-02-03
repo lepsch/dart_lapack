@@ -110,7 +110,7 @@
 
       if ( LEFT ) {
          if ( NOTRAN ) {
-            DO I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { //
                LEN = min( NB, N-I+1 );
                LDWORK = M;
 
@@ -137,7 +137,7 @@
                dlacpy('All', M, LEN, WORK, LDWORK, C( 1, I ), LDC );
             }
          } else {
-            DO I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { //
                LEN = min( NB, N-I+1 );
                LDWORK = M;
 
@@ -166,7 +166,7 @@
          }
       } else {
          if ( NOTRAN ) {
-            DO I = 1, M, NB;
+            for (I = 1; NB < 0 ? I >= M : I <= M; I += NB) { //
                LEN = min( NB, M-I+1 );
                LDWORK = LEN;
 
@@ -193,7 +193,7 @@
                dlacpy('All', LEN, N, WORK, LDWORK, C( I, 1 ), LDC );
             }
          } else {
-            DO I = 1, M, NB;
+            for (I = 1; NB < 0 ? I >= M : I <= M; I += NB) { //
                LEN = min( NB, M-I+1 );
                LDWORK = LEN;
 

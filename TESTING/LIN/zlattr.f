@@ -180,7 +180,7 @@
          STAR1 = 0.25*ZLARND( 5, ISEED );
          SFAC = 0.5;
          PLUS1 = SFAC*ZLARND( 5, ISEED );
-         DO 90 J = 1, N, 2;
+         for (J = 1; J <= N; J += 2) { // 90
             PLUS2 = STAR1 / PLUS1;
             WORK( J ) = PLUS1;
             WORK( N+J ) = STAR1;
@@ -353,7 +353,7 @@
 
          if ( UPPER ) {
             JCOUNT = 1;
-            DO 210 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 210
                for (I = 1; I <= J - 1; I++) { // 200
                   A( I, J ) = ZERO;
                } // 200
@@ -385,13 +385,13 @@
 
          if ( UPPER ) {
             B( 1 ) = ZERO;
-            DO 240 I = N, 2, -2;
+            for (I = N; I >= 2; I -= 2) { // 240
                B( I ) = ZERO;
                B( I-1 ) = SMLNUM*ZLARND( 5, ISEED );
             } // 240
          } else {
             B( N ) = ZERO;
-            DO 250 I = 1, N - 1, 2;
+            for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 250
                B( I ) = ZERO;
                B( I+1 ) = SMLNUM*ZLARND( 5, ISEED );
             } // 250
@@ -469,7 +469,7 @@
          } // 330
          TEXP = ONE;
          if ( UPPER ) {
-            DO 340 J = N, 2, -2;
+            for (J = N; J >= 2; J -= 2) { // 340
                A( 1, J ) = -TSCAL / DBLE( N+1 );
                A( J, J ) = ONE;
                B( J ) = TEXP*( ONE-ULP );
@@ -480,7 +480,7 @@
             } // 340
             B( 1 ) = ( DBLE( N+1 ) / DBLE( N+2 ) )*TSCAL;
          } else {
-            DO 350 J = 1, N - 1, 2;
+            for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 350
                A( N, J ) = -TSCAL / DBLE( N+1 );
                A( J, J ) = ONE;
                B( J ) = TEXP*( ONE-ULP );

@@ -38,7 +38,7 @@
             if (N < 3) return;
          }
          MP1 = M + 1;
-         DO I = MP1,N,3;
+         for (I = MP1; I <= N; I += 3) { //
             STEMP = SX(I);
             SX(I) = SY(I);
             SY(I) = STEMP;

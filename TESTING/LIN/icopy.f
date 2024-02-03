@@ -50,7 +50,7 @@
       if (N < 7) return;
       } // 40
       MP1 = M + 1;
-      DO 50 I = MP1, N, 7;
+      for (I = MP1; I <= N; I += 7) { // 50
          SY( I ) = SX( I );
          SY( I+1 ) = SX( I+1 );
          SY( I+2 ) = SX( I+2 );

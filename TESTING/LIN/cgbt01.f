@@ -71,7 +71,7 @@
             // Multiply by the unit lower triangular matrix L.  Note that L
             // is stored as a product of transformations and permutations.
 
-            DO 30 I = min( M-1, J ), J - JU, -1;
+            for (I = min( M-1, J ); I >= J - JU; I--) { // 30
                IL = min( KL, M-I );
                if ( IL > 0 ) {
                   IW = I - J + JU + 1;

@@ -46,7 +46,7 @@
 
             B( N, J ) = B( N, J ) / D( N );
             if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-            DO 30 I = N - 2, 1, -1;
+            for (I = N - 2; I >= 1; I--) { // 30
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I );
             } // 30
             if ( J < NRHS ) {
@@ -72,7 +72,7 @@
 
                B( N, J ) = B( N, J ) / D( N );
                if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-               DO 50 I = N - 2, 1, -1;
+               for (I = N - 2; I >= 1; I--) { // 50
                   B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DU2( I )* B( I+2, J ) ) / D( I );
                } // 50
             } // 60
@@ -95,7 +95,7 @@
 
             // Solve L**T*x = b.
 
-            DO 90 I = N - 1, 1, -1;
+            for (I = N - 1; I >= 1; I--) { // 90
                IP = IPIV( I );
                TEMP = B( I, J ) - DL( I )*B( I+1, J );
                B( I, J ) = B( IP, J );
@@ -116,7 +116,7 @@
                for (I = 3; I <= N; I++) { // 100
                   B( I, J ) = ( B( I, J )-DU( I-1 )*B( I-1, J )- DU2( I-2 )*B( I-2, J ) ) / D( I );
                } // 100
-               DO 110 I = N - 1, 1, -1;
+               for (I = N - 1; I >= 1; I--) { // 110
                   if ( IPIV( I ) == I ) {
                      B( I, J ) = B( I, J ) - DL( I )*B( I+1, J );
                   } else {

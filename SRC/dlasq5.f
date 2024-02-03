@@ -44,7 +44,7 @@
          // Code for IEEE arithmetic.
 
          if ( PP == 0 ) {
-            DO 10 J4 = 4*I0, 4*( N0-3 ), 4;
+            for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 10
                Z( J4-2 ) = D + Z( J4-1 );
                TEMP = Z( J4+1 ) / Z( J4-2 );
                D = D*TEMP - TAU;
@@ -53,7 +53,7 @@
                EMIN = min( Z( J4 ), EMIN );
             } // 10
          } else {
-            DO 20 J4 = 4*I0, 4*( N0-3 ), 4;
+            for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 20
                Z( J4-3 ) = D + Z( J4 );
                TEMP = Z( J4+2 ) / Z( J4-3 );
                D = D*TEMP - TAU;
@@ -87,7 +87,7 @@
          // Code for non IEEE arithmetic.
 
          if ( PP == 0 ) {
-            DO 30 J4 = 4*I0, 4*( N0-3 ), 4;
+            for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 30
                Z( J4-2 ) = D + Z( J4-1 );
                if ( D < ZERO ) {
                   return;
@@ -99,7 +99,7 @@
                EMIN = min( EMIN, Z( J4 ) );
             } // 30
          } else {
-            DO 40 J4 = 4*I0, 4*( N0-3 ), 4;
+            for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 40
                Z( J4-3 ) = D + Z( J4 );
                if ( D < ZERO ) {
                   return;
@@ -152,7 +152,7 @@
       // Code for IEEE arithmetic.
 
             if ( PP == 0 ) {
-               DO 50 J4 = 4*I0, 4*( N0-3 ), 4;
+               for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 50
                   Z( J4-2 ) = D + Z( J4-1 );
                   TEMP = Z( J4+1 ) / Z( J4-2 );
                   D = D*TEMP - TAU;
@@ -162,7 +162,7 @@
                   EMIN = min( Z( J4 ), EMIN );
                } // 50
             } else {
-               DO 60 J4 = 4*I0, 4*( N0-3 ), 4;
+               for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 60
                   Z( J4-3 ) = D + Z( J4 );
                   TEMP = Z( J4+2 ) / Z( J4-3 );
                   D = D*TEMP - TAU;
@@ -197,7 +197,7 @@
       // Code for non IEEE arithmetic.
 
             if ( PP == 0 ) {
-               DO 70 J4 = 4*I0, 4*( N0-3 ), 4;
+               for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 70
                   Z( J4-2 ) = D + Z( J4-1 );
                   if ( D < ZERO ) {
                      return;
@@ -210,7 +210,7 @@
                   EMIN = min( EMIN, Z( J4 ) );
                } // 70
             } else {
-               DO 80 J4 = 4*I0, 4*( N0-3 ), 4;
+               for (J4 = 4*I0; J4 <= 4*( N0-3 ); J4 += 4) { // 80
                   Z( J4-3 ) = D + Z( J4 );
                   if ( D < ZERO ) {
                      return;

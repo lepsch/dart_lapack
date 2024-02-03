@@ -111,7 +111,7 @@
 
       // Now conquer each subproblem bottom-up.
 
-      DO 50 LVL = NLVL, 1, -1;
+      for (LVL = NLVL; LVL >= 1; LVL--) { // 50
 
          // Find the first node LF and last node LL on the
          // current level LVL.

@@ -65,7 +65,7 @@
 
       // Generate lower triangle of hermitian matrix
 
-      DO 40 I = N - 1, 1, -1;
+      for (I = N - 1; I >= 1; I--) { // 40
 
          // generate random reflection
 

@@ -72,7 +72,7 @@
       if ( NB >= NRHS ) {
          cptts2(IUPLO, N, NRHS, D, E, B, LDB );
       } else {
-         DO 10 J = 1, NRHS, NB;
+         for (J = 1; NB < 0 ? J >= NRHS : J <= NRHS; J += NB) { // 10
             JB = min( NRHS-J+1, NB );
             cptts2(IUPLO, N, JB, D, E, B( 1, J ), LDB );
          } // 10

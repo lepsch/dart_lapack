@@ -35,7 +35,7 @@
             if (N < 7) return;
          }
          MP1 = M + 1;
-         DO I = MP1,N,7;
+         for (I = MP1; I <= N; I += 7) { //
             SY(I) = SX(I);
             SY(I+1) = SX(I+1);
             SY(I+2) = SX(I+2);

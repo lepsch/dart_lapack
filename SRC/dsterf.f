@@ -165,7 +165,7 @@
 
          // Inner loop
 
-         DO 80 I = M - 1, L, -1;
+         for (I = M - 1; I >= L; I--) { // 80
             BB = E( I );
             R = P + BB;
             if (I != M-1) E( I+1 ) = S*R;
@@ -203,7 +203,7 @@
          // Look for small superdiagonal element.
 
          } // 100
-         DO 110 M = L, LEND + 1, -1;
+         for (M = L; M >= LEND + 1; M--) { // 110
             if( ( E( M-1 ) ).abs() <= EPS2*ABS( D( M )*D( M-1 ) ) ) GO TO 120;
          } // 110
          M = LEND;

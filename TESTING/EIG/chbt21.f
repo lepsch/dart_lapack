@@ -87,7 +87,7 @@
                J = J + 1;
                WORK( J ) = ZERO;
             } // 30
-            DO 40 JR = min( IKA, JC-1 ), 0, -1;
+            for (JR = min( IKA, JC-1 ); JR >= 0; JR--) { // 40
                J = J + 1;
                WORK( J ) = A( IKA+1-JR, JC );
             } // 40

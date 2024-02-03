@@ -142,7 +142,7 @@
 
          IP = 0;
          IS = M;
-         DO 140 KI = N, 1, -1;
+         for (KI = N; KI >= 1; KI--) { // 140
 
             if (IP == 1) GO TO 130;
             if( KI == 1 ) GO TO 40;
@@ -181,7 +181,7 @@
                   // (T(1:KI-1,1:KI-1) - WR)*X = SCALE*WORK.
 
                JNXT = KI - 1;
-               DO 60 J = KI - 1, 1, -1;
+               for (J = KI - 1; J >= 1; J--) { // 60
                   if (J > JNXT) GO TO 60;
                   J1 = J;
                   J2 = J;
@@ -298,7 +298,7 @@
                // (T(1:KI-2,1:KI-2) - (WR+i*WI))*X = SCALE*(WORK+i*WORK2)
 
                JNXT = KI - 2;
-               DO 90 J = KI - 2, 1, -1;
+               for (J = KI - 2; J >= 1; J--) { // 90
                   if (J > JNXT) GO TO 90;
                   J1 = J;
                   J2 = J;

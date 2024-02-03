@@ -48,7 +48,7 @@
 
       // Blocked loop of length K
 
-      DO I = 1, K,  MB;
+      for (I = 1; MB < 0 ? I >= K : I <= K; I += MB) { //
          IB = min( K-I+1, MB );
 
       // Compute the LQ factorization of the current block A(I:M,I:I+IB-1)

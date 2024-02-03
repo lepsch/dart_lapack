@@ -199,7 +199,7 @@
          // Solve D * M(L)**T * x = b.
 
          WORK( N ) = WORK( N ) / DF( N );
-         DO 70 I = N - 1, 1, -1;
+         for (I = N - 1; I >= 1; I--) { // 70
             WORK( I ) = WORK( I ) / DF( I ) + WORK( I+1 )*( EF( I ) ).abs();
          } // 70
 

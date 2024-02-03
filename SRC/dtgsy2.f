@@ -133,7 +133,7 @@
             JSP1 = JS + 1;
             JE = IWORK( J+1 ) - 1;
             NB = JE - JS + 1;
-            DO 110 I = P, 1, -1;
+            for (I = P; I >= 1; I--) { // 110
 
                IS = IWORK( I );
                ISP1 = IS + 1;
@@ -441,7 +441,7 @@
             ISP1 = IS + 1;
             IE = IWORK ( I+1 ) - 1;
             MB = IE - IS + 1;
-            DO 190 J = Q, P + 2, -1;
+            for (J = Q; J >= P + 2; J--) { // 190
 
                JS = IWORK( J );
                JSP1 = JS + 1;

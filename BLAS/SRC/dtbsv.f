@@ -82,12 +82,12 @@
           if (LSAME(UPLO,'U')) {
               KPLUS1 = K + 1;
               if (INCX == 1) {
-                  DO 20 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 20
                       if (X(J) != ZERO) {
                           L = KPLUS1 - J;
                           if (NOUNIT) X(J) = X(J)/A(KPLUS1,J);
                           TEMP = X(J);
-                          DO 10 I = J - 1,max(1,J-K),-1;
+                          for (I = J - 1; I >= max(1,J-K); I--) { // 10
                               X(I) = X(I) - TEMP*A(L+I,J);
                           } // 10
                       }
@@ -95,14 +95,14 @@
               } else {
                   KX = KX + (N-1)*INCX;
                   JX = KX;
-                  DO 40 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 40
                       KX = KX - INCX;
                       if (X(JX) != ZERO) {
                           IX = KX;
                           L = KPLUS1 - J;
                           if (NOUNIT) X(JX) = X(JX)/A(KPLUS1,J);
                           TEMP = X(JX);
-                          DO 30 I = J - 1,max(1,J-K),-1;
+                          for (I = J - 1; I >= max(1,J-K); I--) { // 30
                               X(IX) = X(IX) - TEMP*A(L+I,J);
                               IX = IX - INCX;
                           } // 30
@@ -174,10 +174,10 @@
               }
           } else {
               if (INCX == 1) {
-                  DO 140 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 140
                       TEMP = X(J);
                       L = 1 - J;
-                      DO 130 I = min(N,J+K),J + 1,-1;
+                      for (I = min(N,J+K); I >= J + 1; I--) { // 130
                           TEMP = TEMP - A(L+I,J)*X(I);
                       } // 130
                       if (NOUNIT) TEMP = TEMP/A(1,J);
@@ -186,11 +186,11 @@
               } else {
                   KX = KX + (N-1)*INCX;
                   JX = KX;
-                  DO 160 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 160
                       TEMP = X(JX);
                       IX = KX;
                       L = 1 - J;
-                      DO 150 I = min(N,J+K),J + 1,-1;
+                      for (I = min(N,J+K); I >= J + 1; I--) { // 150
                           TEMP = TEMP - A(L+I,J)*X(IX);
                           IX = IX - INCX;
                       } // 150

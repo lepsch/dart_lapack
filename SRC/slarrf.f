@@ -205,7 +205,7 @@
          ZNM2 = ONE;
          PROD = ONE;
          OLDP = ONE;
-         DO 15 I = N-1, 1, -1;
+         for (I = N-1; I >= 1; I--) { // 15
             if ( PROD <= EPS ) {
                PROD = ((DPLUS(I+1)*WORK(N+I+1))/(DPLUS(I)*WORK(N+I)))*OLDP;
             } else {
@@ -226,7 +226,7 @@
          ZNM2 = ONE;
          PROD = ONE;
          OLDP = ONE;
-         DO 16 I = N-1, 1, -1;
+         for (I = N-1; I >= 1; I--) { // 16
             if ( PROD <= EPS ) {
                PROD = ((WORK(I+1)*LPLUS(I+1))/(WORK(I)*LPLUS(I)))*OLDP;
             } else {

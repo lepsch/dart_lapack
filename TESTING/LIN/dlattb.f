@@ -167,7 +167,7 @@
             STAR1 = SIGN( TNORM, DLARND( 2, ISEED ) );
             SFAC = sqrt( TNORM );
             PLUS1 = SIGN( SFAC, DLARND( 2, ISEED ) );
-            DO 110 J = 1, N, 2;
+            for (J = 1; J <= N; J += 2) { // 110
                PLUS2 = STAR1 / PLUS1;
                WORK( J ) = PLUS1;
                WORK( N+J ) = STAR1;
@@ -288,7 +288,7 @@
 
          if ( UPPER ) {
             JCOUNT = 1;
-            DO 190 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 190
                DO 180 I = max( 1, KD+1-( J-1 ) ), KD;
                   AB( I, J ) = ZERO;
                } // 180
@@ -320,13 +320,13 @@
 
          if ( UPPER ) {
             B( 1 ) = ZERO;
-            DO 220 I = N, 2, -2;
+            for (I = N; I >= 2; I -= 2) { // 220
                B( I ) = ZERO;
                B( I-1 ) = SMLNUM;
             } // 220
          } else {
             B( N ) = ZERO;
-            DO 230 I = 1, N - 1, 2;
+            for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 230
                B( I ) = ZERO;
                B( I+1 ) = SMLNUM;
             } // 230
@@ -407,8 +407,8 @@
          TEXP = ONE;
          if ( KD > 0 ) {
             if ( UPPER ) {
-               DO 330 J = N, 1, -KD;
-                  DO 320 I = J, max( 1, J-KD+1 ), -2;
+               for (J = N; -KD < 0 ? J >= 1 : J <= 1; J += -KD) { // 330
+                  for (I = J; I >= max( 1, J-KD+1 ); I -= 2) { // 320
                      AB( 1+( J-I ), I ) = -TSCAL / DBLE( KD+2 );
                      AB( KD+1, I ) = ONE;
                      B( I ) = TEXP*( ONE-ULP );
@@ -422,10 +422,10 @@
                   B( max( 1, J-KD+1 ) ) = ( DBLE( KD+2 ) / DBLE( KD+3 ) )*TSCAL;
                } // 330
             } else {
-               DO 350 J = 1, N, KD;
+               for (J = 1; KD < 0 ? J >= N : J <= N; J += KD) { // 350
                   TEXP = ONE;
                   LENJ = min( KD+1, N-J+1 );
-                  DO 340 I = J, min( N, J+KD-1 ), 2;
+                  for (I = J; 2 < 0 ? I >= min( N, J+KD-1 ) : I <= min( N, J+KD-1 ); I += 2) { // 340
                      AB( LENJ-( I-J ), J ) = -TSCAL / DBLE( KD+2 );
                      AB( 1, J ) = ONE;
                      B( J ) = TEXP*( ONE-ULP );

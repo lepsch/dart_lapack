@@ -225,10 +225,10 @@
                   D12 = A( K-1, K ) / D;
                   D = TT / D;
 
-                  DO 40 J = K - 2, 1, -1;
+                  for (J = K - 2; J >= 1; J--) { // 40
                      WKM1 = D*( D11*A( J, K-1 )-DCONJG( D12 )* A( J, K ) );
                      WK = D*( D22*A( J, K )-D12*A( J, K-1 ) );
-                     DO 30 I = J, 1, -1;
+                     for (I = J; I >= 1; I--) { // 30
                         A( I, J ) = A( I, J ) - A( I, K )*DCONJG( WK ) - A( I, K-1 )*DCONJG( WKM1 );
                      } // 30
                      A( J, K ) = WK;

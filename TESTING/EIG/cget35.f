@@ -83,7 +83,7 @@
                for (IMLC = 1; IMLC <= 3; IMLC++) { // 140
                   for (ITRANA = 1; ITRANA <= 2; ITRANA++) { // 130
                      for (ITRANB = 1; ITRANB <= 2; ITRANB++) { // 120
-                        DO 110 ISGN = -1, 1, 2;
+                        for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) { // 110
                            if (ITRANA == 1) TRANA = 'N';
                            if( ITRANA == 2 ) TRANA = 'C';
                            if( ITRANB == 1 ) TRANB = 'N';

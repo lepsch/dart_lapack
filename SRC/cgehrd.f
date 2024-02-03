@@ -132,7 +132,7 @@
          // Use blocked code
 
          IWT = 1 + N*NB;
-         DO 40 I = ILO, IHI - 1 - NX, NB;
+         for (I = ILO; NB < 0 ? I >= IHI - 1 - NX : I <= IHI - 1 - NX; I += NB) { // 40
             IB = min( NB, IHI-I );
 
             // Reduce columns i:i+ib-1 to Hessenberg form, returning the

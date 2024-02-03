@@ -172,7 +172,7 @@
       J = 2**NLVL;
       SQRE = 0;
 
-      DO 160 LVL = NLVL, 1, -1;
+      for (LVL = NLVL; LVL >= 1; LVL--) { // 160
          LVL2 = 2*LVL - 1;
 
          // find the first node LF and last node LL on
@@ -219,7 +219,7 @@
             LF = 2**( LVL-1 );
             LL = 2*LF - 1;
          }
-         DO 180 I = LL, LF, -1;
+         for (I = LL; I >= LF; I--) { // 180
             IM1 = I - 1;
             IC = IWORK( INODE+IM1 );
             NL = IWORK( NDIML+IM1 );

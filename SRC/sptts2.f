@@ -42,7 +42,7 @@
             // Solve D * L**T * x = b.
 
          B( N, J ) = B( N, J ) / D( N );
-         DO 20 I = N - 1, 1, -1;
+         for (I = N - 1; I >= 1; I--) { // 20
             B( I, J ) = B( I, J ) / D( I ) - B( I+1, J )*E( I );
          } // 20
       } // 30

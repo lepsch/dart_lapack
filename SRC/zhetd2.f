@@ -62,7 +62,7 @@
          // Reduce the upper triangle of A
 
          A( N, N ) = DBLE( A( N, N ) );
-         DO 10 I = N - 1, 1, -1;
+         for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**H
             // to annihilate A(1:i-1,i+1)

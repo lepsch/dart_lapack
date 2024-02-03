@@ -75,7 +75,7 @@
       // column to the right, and set the first ilo and the last n-ihi
       // rows and columns to those of the unit matrix
 
-      DO 40 J = IHI, ILO + 1, -1;
+      for (J = IHI; J >= ILO + 1; J--) { // 40
          for (I = 1; I <= J - 1; I++) { // 10
             A( I, J ) = ZERO;
          } // 10

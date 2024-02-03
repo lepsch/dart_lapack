@@ -100,7 +100,7 @@
                    // I=K+1                      J=1
 
          for (L = 1; L <= N; L++) { // 30
-            DO 20 K = M, 1, -1;
+            for (K = M; K >= 1; K--) { // 20
 
                SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 );
                SUMR = ZDOTU( L-1, C( K, 1 ), LDC, B( 1, L ), 1 );
@@ -195,7 +195,7 @@
                       // ISGN*SUM [X(K,J)*B**H(L,J)].
                            // J=L+1
 
-         DO 90 L = N, 1, -1;
+         for (L = N; L >= 1; L--) { // 90
             for (K = 1; K <= M; K++) { // 80
 
                SUML = ZDOTC( K-1, A( 1, K ), 1, C( 1, L ), 1 );
@@ -242,8 +242,8 @@
            // R(K,L) = SUM [A(K,I)*X(I,L)] + ISGN*SUM [X(K,J)*B**H(L,J)]
                    // I=K+1                      J=L+1
 
-         DO 120 L = N, 1, -1;
-            DO 110 K = M, 1, -1;
+         for (L = N; L >= 1; L--) { // 120
+            for (K = M; K >= 1; K--) { // 110
 
                SUML = ZDOTU( M-K, A( K, min( K+1, M ) ), LDA, C( min( K+1, M ), L ), 1 )                SUMR = ZDOTC( N-L, C( K, min( L+1, N ) ), LDC, B( L, min( L+1, N ) ), LDB );
                VEC = C( K, L ) - ( SUML+SGN*DCONJG( SUMR ) );

@@ -187,7 +187,7 @@
          STAR1 = 0.25;
          SFAC = 0.5;
          PLUS1 = SFAC;
-         DO 90 J = 1, N, 2;
+         for (J = 1; J <= N; J += 2) { // 90
             PLUS2 = STAR1 / PLUS1;
             WORK( J ) = PLUS1;
             WORK( N+J ) = STAR1;
@@ -406,7 +406,7 @@
          if ( UPPER ) {
             JCOUNT = 1;
             JC = ( N-1 )*N / 2 + 1;
-            DO 250 J = N, 1, -1;
+            for (J = N; J >= 1; J--) { // 250
                for (I = 1; I <= J - 1; I++) { // 240
                   A( JC+I-1 ) = ZERO;
                } // 240
@@ -441,13 +441,13 @@
 
          if ( UPPER ) {
             B( 1 ) = ZERO;
-            DO 280 I = N, 2, -2;
+            for (I = N; I >= 2; I -= 2) { // 280
                B( I ) = ZERO;
                B( I-1 ) = SMLNUM;
             } // 280
          } else {
             B( N ) = ZERO;
-            DO 290 I = 1, N - 1, 2;
+            for (I = 1; 2 < 0 ? I >= N - 1 : I <= N - 1; I += 2) { // 290
                B( I ) = ZERO;
                B( I+1 ) = SMLNUM;
             } // 290
@@ -532,7 +532,7 @@
          TEXP = ONE;
          if ( UPPER ) {
             JC = ( N-1 )*N / 2 + 1;
-            DO 370 J = N, 2, -2;
+            for (J = N; J >= 2; J -= 2) { // 370
                A( JC ) = -TSCAL / REAL( N+1 );
                A( JC+J-1 ) = ONE;
                B( J ) = TEXP*( ONE-ULP );
@@ -546,7 +546,7 @@
             B( 1 ) = ( REAL( N+1 ) / REAL( N+2 ) )*TSCAL;
          } else {
             JC = 1;
-            DO 380 J = 1, N - 1, 2;
+            for (J = 1; 2 < 0 ? J >= N - 1 : J <= N - 1; J += 2) { // 380
                A( JC+N-J ) = -TSCAL / REAL( N+1 );
                A( JC ) = ONE;
                B( J ) = TEXP*( ONE-ULP );

@@ -59,7 +59,7 @@
       // conjugate shifts are already adjacent to one
       // another
 
-      DO I = 1, NSHIFTS-2, 2;
+      for (I = 1; 2 < 0 ? I >= NSHIFTS-2 : I <= NSHIFTS-2; I += 2) { //
          if ( SI( I ) != -SI( I+1 ) ) {
 
             SWAP = SR( I );
@@ -95,7 +95,7 @@
       dlaset('FULL', NS+1, NS+1, ZERO, ONE, QC, LDQC );
       dlaset('FULL', NS, NS, ZERO, ONE, ZC, LDZC );
 
-      DO I = 1, NS, 2;
+      for (I = 1; I <= NS; I += 2) { //
          // Introduce the shift
          dlaqz1(A( ILO, ILO ), LDA, B( ILO, ILO ), LDB, SR( I ), SR( I+1 ), SI( I ), SS( I ), SS( I+1 ), V );
 
@@ -167,7 +167,7 @@
          dlaset('FULL', NS+NP, NS+NP, ZERO, ONE, ZC, LDZC );
 
          // Near the diagonal shift chase
-         DO I = NS-1, 0, -2;
+         for (I = NS-1; I >= 0; I -= 2) { //
             for (J = 0; J <= NP-1; J++) {
                // Move down the block with index k+i+j-1, updating
                // the (ns+np x ns+np) block:
@@ -224,7 +224,7 @@
       // istopb points to the last column we will be updating
       ISTOPB = IHI;
 
-      DO I = 1, NS, 2;
+      for (I = 1; I <= NS; I += 2) { //
          // Chase the shift down to the bottom right corner
          for (ISHIFT = IHI-I-1; ISHIFT <= IHI-2; ISHIFT++) {
             dlaqz2( true , true , ISHIFT, ISTARTB, ISTOPB, IHI, A, LDA, B, LDB, NS, IHI-NS+1, QC, LDQC, NS+1, IHI-NS, ZC, LDZC );

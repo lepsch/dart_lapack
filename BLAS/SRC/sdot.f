@@ -41,7 +41,7 @@
             }
          }
          MP1 = M + 1;
-         DO I = MP1,N,5;
+         for (I = MP1; I <= N; I += 5) { //
           STEMP = STEMP + SX(I)*SY(I) + SX(I+1)*SY(I+1) + SX(I+2)*SY(I+2) + SX(I+3)*SY(I+3) + SX(I+4)*SY(I+4);
          }
       } else {

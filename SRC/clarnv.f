@@ -36,7 +36,7 @@
       // ..
       // .. Executable Statements ..
 
-      DO 60 IV = 1, N, LV / 2;
+      for (IV = 1; LV / 2 < 0 ? IV >= N : IV <= N; IV += LV / 2) { // 60
          IL = min( LV / 2, N-IV+1 );
 
          // Call SLARUV to generate 2*IL real numbers from a uniform (0,1)

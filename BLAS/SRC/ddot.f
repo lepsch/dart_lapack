@@ -41,7 +41,7 @@
             }
          }
          MP1 = M + 1;
-         DO I = MP1,N,5;
+         for (I = MP1; I <= N; I += 5) { //
           DTEMP = DTEMP + DX(I)*DY(I) + DX(I+1)*DY(I+1) + DX(I+2)*DY(I+2) + DX(I+3)*DY(I+3) + DX(I+4)*DY(I+4);
          }
       } else {

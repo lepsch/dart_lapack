@@ -79,7 +79,7 @@
 
                // Compute inv(U**H)*A*inv(U)
 
-               DO 10 K = 1, N, NB;
+               for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 10
                   KB = min( N-K+1, NB );
 
                   // Update the upper triangle of A(k:n,k:n)
@@ -97,7 +97,7 @@
 
                // Compute inv(L)*A*inv(L**H)
 
-               DO 20 K = 1, N, NB;
+               for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 20
                   KB = min( N-K+1, NB );
 
                   // Update the lower triangle of A(k:n,k:n)
@@ -117,7 +117,7 @@
 
                // Compute U*A*U**H
 
-               DO 30 K = 1, N, NB;
+               for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 30
                   KB = min( N-K+1, NB );
 
                   // Update the upper triangle of A(1:k+kb-1,1:k+kb-1)
@@ -133,7 +133,7 @@
 
                // Compute L**H*A*L
 
-               DO 40 K = 1, N, NB;
+               for (K = 1; NB < 0 ? K >= N : K <= N; K += NB) { // 40
                   KB = min( N-K+1, NB );
 
                   // Update the lower triangle of A(1:k+kb-1,1:k+kb-1)

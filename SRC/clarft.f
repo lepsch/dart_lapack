@@ -51,7 +51,7 @@
 
                if ( LSAME( STOREV, 'C' ) ) {
                   // Skip any trailing zeros.
-                  DO LASTV = N, I+1, -1;
+                  for (LASTV = N; LASTV >= I+1; LASTV--) { //
                      if( V( LASTV, I ) != ZERO ) EXIT;
                   }
                   for (J = 1; J <= I-1; J++) {
@@ -64,7 +64,7 @@
                   cgemv('Conjugate transpose', J-I, I-1, -TAU( I ), V( I+1, 1 ), LDV, V( I+1, I ), 1, ONE, T( 1, I ), 1 );
                } else {
                   // Skip any trailing zeros.
-                  DO LASTV = N, I+1, -1;
+                  for (LASTV = N; LASTV >= I+1; LASTV--) { //
                      if( V( I, LASTV ) != ZERO ) EXIT;
                   }
                   for (J = 1; J <= I-1; J++) {
@@ -90,7 +90,7 @@
          }
       } else {
          PREVLASTV = 1;
-         DO I = K, 1, -1;
+         for (I = K; I >= 1; I--) { //
             if ( TAU( I ) == ZERO ) {
 
                // H(i)  =  I

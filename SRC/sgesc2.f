@@ -67,7 +67,7 @@
          SCALE = SCALE*TEMP;
       }
 
-      DO 40 I = N, 1, -1;
+      for (I = N; I >= 1; I--) { // 40
          TEMP = ONE / A( I, I );
          RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30

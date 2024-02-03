@@ -92,7 +92,7 @@
             DIAG( I-1 ) = CTEMP;
          } // 70
       } else if ( IFST > ILST ) {
-         DO 80 I = IFST - 1, ILST, -1;
+         for (I = IFST - 1; I >= ILST; I--) { // 80
             CTEMP = DIAG( I+1 );
             DIAG( I+1 ) = DIAG( I );
             DIAG( I ) = CTEMP;

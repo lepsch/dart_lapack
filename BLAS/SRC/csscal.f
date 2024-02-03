@@ -37,7 +37,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         DO I = 1,NINCX,INCX;
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
             CX(I) = CMPLX(SA*REAL(CX(I)),SA*AIMAG(CX(I)));
          }
       }

@@ -68,7 +68,7 @@
       // Compute the product U**H * U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 20 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 20
 
             // Compute the (K,K) element of the result.
 
@@ -84,7 +84,7 @@
       // Compute the product L * L**H, overwriting L.
 
       } else {
-         DO 30 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 30
 
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.

@@ -240,7 +240,7 @@
                J2T = J2;
             }
             NRT = ( N-J2T+KA ) / KA1;
-            DO 90 J = J2T, J1, KA1;
+            for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 90
 
                // create nonzero element a(j-ka,j+1) outside the band
                // and store it in WORK(j-m)
@@ -271,7 +271,7 @@
 
             // start applying rotations in 1st set from the left
 
-            DO 110 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 110
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 110
@@ -280,7 +280,7 @@
 
                // post-multiply X by product of rotations in 1st set
 
-               DO 120 J = J2, J1, KA1;
+               for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 120
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), DCONJG( WORK( J-M ) ) );
                } // 120
             }
@@ -296,7 +296,7 @@
             }
          }
 
-         DO 170 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 170
             if ( UPDATE ) {
                J2 = I - K - 1 + max( 2, K-I0+1 )*KA1;
             } else {
@@ -305,17 +305,17 @@
 
             // finish applying rotations in 2nd set from the left
 
-            DO 140 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 140
                NRT = ( N-J2+KA+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J2-L+1 ), INCA, AB( L+1, J2-L+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
             } // 140
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
-            DO 150 J = J1, J2, -KA1;
+            for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) { // 150
                WORK( J ) = WORK( J-KA );
                RWORK( J ) = RWORK( J-KA );
             } // 150
-            DO 160 J = J2, J1, KA1;
+            for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 160
 
                // create nonzero element a(j-ka,j+1) outside the band
                // and store it in WORK(j)
@@ -328,7 +328,7 @@
             }
          } // 170
 
-         DO 210 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 210
             J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
@@ -355,7 +355,7 @@
 
             // start applying rotations in 2nd set from the left
 
-            DO 190 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 190
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
             } // 190
@@ -364,7 +364,7 @@
 
                // post-multiply X by product of rotations in 2nd set
 
-               DO 200 J = J2, J1, KA1;
+               for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 200
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) );
                } // 200
             }
@@ -375,14 +375,14 @@
 
             // finish applying rotations in 1st set from the left
 
-            DO 220 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 220
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J2+KA1-L ), INCA, AB( L+1, J2+KA1-L ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 220
          } // 230
 
          if ( KB > 1 ) {
-            DO 240 J = N - 1, J2 + KA, -1;
+            for (J = N - 1; J >= J2 + KA; J--) { // 240
                RWORK( J-M ) = RWORK( J-KA-M );
                WORK( J-M ) = WORK( J-KA-M );
             } // 240
@@ -465,7 +465,7 @@
                J2T = J2;
             }
             NRT = ( N-J2T+KA ) / KA1;
-            DO 320 J = J2T, J1, KA1;
+            for (J = J2T; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 320
 
                // create nonzero element a(j+1,j-ka) outside the band
                // and store it in WORK(j-m)
@@ -496,7 +496,7 @@
 
             // start applying rotations in 1st set from the right
 
-            DO 340 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 340
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 340
@@ -505,7 +505,7 @@
 
                // post-multiply X by product of rotations in 1st set
 
-               DO 350 J = J2, J1, KA1;
+               for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 350
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J-M ), WORK( J-M ) );
                } // 350
             }
@@ -521,7 +521,7 @@
             }
          }
 
-         DO 400 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 400
             if ( UPDATE ) {
                J2 = I - K - 1 + max( 2, K-I0+1 )*KA1;
             } else {
@@ -530,17 +530,17 @@
 
             // finish applying rotations in 2nd set from the right
 
-            DO 370 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 370
                NRT = ( N-J2+KA+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J2-KA ), INCA, AB( KA1-L, J2-KA+1 ), INCA, RWORK( J2-KA ), WORK( J2-KA ), KA1 );
             } // 370
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
-            DO 380 J = J1, J2, -KA1;
+            for (J = J1; -KA1 < 0 ? J >= J2 : J <= J2; J += -KA1) { // 380
                WORK( J ) = WORK( J-KA );
                RWORK( J ) = RWORK( J-KA );
             } // 380
-            DO 390 J = J2, J1, KA1;
+            for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 390
 
                // create nonzero element a(j+1,j-ka) outside the band
                // and store it in WORK(j)
@@ -553,7 +553,7 @@
             }
          } // 400
 
-         DO 440 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 440
             J2 = I - K - 1 + max( 1, K-I0+1 )*KA1;
             NR = ( N-J2+KA ) / KA1;
             J1 = J2 + ( NR-1 )*KA1;
@@ -580,7 +580,7 @@
 
             // start applying rotations in 2nd set from the right
 
-            DO 420 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 420
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2 ), WORK( J2 ), KA1 );
             } // 420
@@ -589,7 +589,7 @@
 
                // post-multiply X by product of rotations in 2nd set
 
-               DO 430 J = J2, J1, KA1;
+               for (J = J2; KA1 < 0 ? J >= J1 : J <= J1; J += KA1) { // 430
                   zrot(N-M, X( M+1, J ), 1, X( M+1, J+1 ), 1, RWORK( J ), WORK( J ) );
                } // 430
             }
@@ -600,14 +600,14 @@
 
             // finish applying rotations in 1st set from the right
 
-            DO 450 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 450
                NRT = ( N-J2+L ) / KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J2 ), INCA, AB( KA1-L, J2+1 ), INCA, RWORK( J2-M ), WORK( J2-M ), KA1 );
             } // 450
          } // 460
 
          if ( KB > 1 ) {
-            DO 470 J = N - 1, J2 + KA, -1;
+            for (J = N - 1; J >= J2 + KA; J--) { // 470
                RWORK( J-M ) = RWORK( J-KA-M );
                WORK( J-M ) = WORK( J-KA-M );
             } // 470
@@ -738,7 +738,7 @@
                J2T = J2;
             }
             NRT = ( J2T+KA-1 ) / KA1;
-            DO 570 J = J1, J2T, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) { // 570
 
                // create nonzero element a(j-1,j+ka) outside the band
                // and store it in WORK(j)
@@ -769,7 +769,7 @@
 
             // start applying rotations in 1st set from the right
 
-            DO 590 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 590
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
@@ -779,7 +779,7 @@
 
                // post-multiply X by product of rotations in 1st set
 
-               DO 600 J = J1, J2, KA1;
+               for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 600
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), WORK( J ) );
                } // 600
             }
@@ -795,7 +795,7 @@
             }
          }
 
-         DO 650 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 650
             if ( UPDATE ) {
                J2 = I + K + 1 - max( 2, K+I0-M )*KA1;
             } else {
@@ -804,18 +804,18 @@
 
             // finish applying rotations in 2nd set from the right
 
-            DO 620 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 620
                NRT = ( J2+KA+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J1T+KA ), INCA, AB( L+1, J1T+KA-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 620
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
-            DO 630 J = J1, J2, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 630
                WORK( M-KB+J ) = WORK( M-KB+J+KA );
                RWORK( M-KB+J ) = RWORK( M-KB+J+KA );
             } // 630
-            DO 640 J = J1, J2, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 640
 
                // create nonzero element a(j-1,j+ka) outside the band
                // and store it in WORK(m-kb+j)
@@ -828,7 +828,7 @@
             }
          } // 650
 
-         DO 690 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 690
             J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
@@ -855,7 +855,7 @@
 
             // start applying rotations in 2nd set from the right
 
-            DO 670 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 670
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
@@ -865,7 +865,7 @@
 
                // post-multiply X by product of rotations in 2nd set
 
-               DO 680 J = J1, J2, KA1;
+               for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 680
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), WORK( M-KB+J ) );
                } // 680
             }
@@ -876,7 +876,7 @@
 
             // finish applying rotations in 1st set from the right
 
-            DO 700 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 700
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( L, J1T ), INCA, AB( L+1, J1T-1 ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
@@ -966,7 +966,7 @@
                J2T = J2;
             }
             NRT = ( J2T+KA-1 ) / KA1;
-            DO 800 J = J1, J2T, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2T : J <= J2T; J += KA1) { // 800
 
                // create nonzero element a(j+ka,j-1) outside the band
                // and store it in WORK(j)
@@ -997,7 +997,7 @@
 
             // start applying rotations in 1st set from the left
 
-            DO 820 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 820
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );
@@ -1007,7 +1007,7 @@
 
                // post-multiply X by product of rotations in 1st set
 
-               DO 830 J = J1, J2, KA1;
+               for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 830
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( J ), DCONJG( WORK( J ) ) );
                } // 830
             }
@@ -1023,7 +1023,7 @@
             }
          }
 
-         DO 880 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 880
             if ( UPDATE ) {
                J2 = I + K + 1 - max( 2, K+I0-M )*KA1;
             } else {
@@ -1032,18 +1032,18 @@
 
             // finish applying rotations in 2nd set from the left
 
-            DO 850 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 850
                NRT = ( J2+KA+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J1T+L-1 ), INCA, AB( KA1-L, J1T+L-1 ), INCA, RWORK( M-KB+J1T+KA ), WORK( M-KB+J1T+KA ), KA1 );
             } // 850
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
-            DO 860 J = J1, J2, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 860
                WORK( M-KB+J ) = WORK( M-KB+J+KA );
                RWORK( M-KB+J ) = RWORK( M-KB+J+KA );
             } // 860
-            DO 870 J = J1, J2, KA1;
+            for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 870
 
                // create nonzero element a(j+ka,j-1) outside the band
                // and store it in WORK(m-kb+j)
@@ -1056,7 +1056,7 @@
             }
          } // 880
 
-         DO 920 K = KB, 1, -1;
+         for (K = KB; K >= 1; K--) { // 920
             J2 = I + K + 1 - max( 1, K+I0-M )*KA1;
             NR = ( J2+KA-1 ) / KA1;
             J1 = J2 - ( NR-1 )*KA1;
@@ -1083,7 +1083,7 @@
 
             // start applying rotations in 2nd set from the left
 
-            DO 900 L = KA - 1, KB - K + 1, -1;
+            for (L = KA - 1; L >= KB - K + 1; L--) { // 900
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( M-KB+J1T ), WORK( M-KB+J1T ), KA1 );
@@ -1093,7 +1093,7 @@
 
                // post-multiply X by product of rotations in 2nd set
 
-               DO 910 J = J1, J2, KA1;
+               for (J = J1; KA1 < 0 ? J >= J2 : J <= J2; J += KA1) { // 910
                   zrot(NX, X( 1, J ), 1, X( 1, J-1 ), 1, RWORK( M-KB+J ), DCONJG( WORK( M-KB+J ) ) );
                } // 910
             }
@@ -1104,7 +1104,7 @@
 
             // finish applying rotations in 1st set from the left
 
-            DO 930 L = KB - K, 1, -1;
+            for (L = KB - K; L >= 1; L--) { // 930
                NRT = ( J2+L-1 ) / KA1;
                J1T = J2 - ( NRT-1 )*KA1;
                if (NRT > 0) zlartv( NRT, AB( KA1-L+1, J1T-KA1+L ), INCA, AB( KA1-L, J1T-KA1+L ), INCA, RWORK( J1T ), WORK( J1T ), KA1 );

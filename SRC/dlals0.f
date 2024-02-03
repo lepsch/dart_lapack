@@ -200,7 +200,7 @@
 
          // Step (4R): apply back the Givens rotations performed.
 
-         DO 100 I = GIVPTR, 1, -1;
+         for (I = GIVPTR; I >= 1; I--) { // 100
             drot(NRHS, B( GIVCOL( I, 2 ), 1 ), LDB, B( GIVCOL( I, 1 ), 1 ), LDB, GIVNUM( I, 2 ), -GIVNUM( I, 1 ) );
          } // 100
       }

@@ -270,7 +270,7 @@
                      B( JR, JC ) = ZERO;
                   } // 74
                } // 82
-               DO 83 JC = 1, N, 4;
+               for (JC = 1; JC <= N; JC += 4) { // 83
                   B( JC, JC ) = ZERO;
                } // 83
 

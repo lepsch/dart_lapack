@@ -63,7 +63,7 @@
 
          // Upper triangular storage: examine D from bottom to top
 
-         DO 10 INFO = N, 1, -1;
+         for (INFO = N; INFO >= 1; INFO--) { // 10
             if( IPIV( INFO ) > 0 && A( INFO, INFO ) == ZERO ) return;
          } // 10
       } else {

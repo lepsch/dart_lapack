@@ -56,7 +56,7 @@
       // Compute the product U'*U, overwriting U.
 
       if ( LSAME( UPLO, 'U' ) ) {
-         DO 10 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 10
             KC = max( 1, KD+2-K );
             KLEN = KD + 1 - KC;
 
@@ -74,7 +74,7 @@
       // UPLO = 'L':  Compute the product L*L', overwriting L.
 
       } else {
-         DO 20 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 20
             KLEN = min( KD, N-K );
 
             // Add a multiple of column K of the factor L to each of

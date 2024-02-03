@@ -70,7 +70,7 @@
       // Multiply on the left by L.
 
       LASTJ = N;
-      DO 40 I = N - 1, 1, -1;
+      for (I = N - 1; I >= 1; I--) { // 40
          LI = DLF( I );
          caxpy(LASTJ-I+1, LI, WORK( I, I ), LDWORK, WORK( I+1, I ), LDWORK );
          IP = IPIV( I );

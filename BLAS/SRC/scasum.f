@@ -35,7 +35,7 @@
          // code for increment not equal to 1
 
          NINCX = N*INCX;
-         DO I = 1,NINCX,INCX;
+         for (I = 1; INCX < 0 ? I >= NINCX : I <= NINCX; I += INCX) { //
             STEMP = STEMP + ABS(REAL(CX(I))) + ABS(AIMAG(CX(I)));
          }
       }

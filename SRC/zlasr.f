@@ -78,7 +78,7 @@
                   }
                } // 20
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 40 J = M - 1, 1, -1;
+               for (J = M - 1; J >= 1; J--) { // 40
                   CTEMP = C( J );
                   STEMP = S( J );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
@@ -104,7 +104,7 @@
                   }
                } // 60
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 80 J = M, 2, -1;
+               for (J = M; J >= 2; J--) { // 80
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
@@ -130,7 +130,7 @@
                   }
                } // 100
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 120 J = M - 1, 1, -1;
+               for (J = M - 1; J >= 1; J--) { // 120
                   CTEMP = C( J );
                   STEMP = S( J );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
@@ -161,7 +161,7 @@
                   }
                } // 140
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 160 J = N - 1, 1, -1;
+               for (J = N - 1; J >= 1; J--) { // 160
                   CTEMP = C( J );
                   STEMP = S( J );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
@@ -187,7 +187,7 @@
                   }
                } // 180
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 200 J = N, 2, -1;
+               for (J = N; J >= 2; J--) { // 200
                   CTEMP = C( J-1 );
                   STEMP = S( J-1 );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {
@@ -213,7 +213,7 @@
                   }
                } // 220
             } else if ( LSAME( DIRECT, 'B' ) ) {
-               DO 240 J = N - 1, 1, -1;
+               for (J = N - 1; J >= 1; J--) { // 240
                   CTEMP = C( J );
                   STEMP = S( J );
                   if ( ( CTEMP != ONE ) || ( STEMP != ZERO ) ) {

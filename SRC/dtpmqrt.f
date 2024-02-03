@@ -81,7 +81,7 @@
 
       if ( LEFT && TRAN ) {
 
-         DO I = 1, K, NB;
+         for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) { //
             IB = min( NB, K-I+1 );
             MB = min( M-L+I+IB-1, M );
             if ( I >= L ) {
@@ -94,7 +94,7 @@
 
       } else if ( RIGHT && NOTRAN ) {
 
-         DO I = 1, K, NB;
+         for (I = 1; NB < 0 ? I >= K : I <= K; I += NB) { //
             IB = min( NB, K-I+1 );
             MB = min( N-L+I+IB-1, N );
             if ( I >= L ) {
@@ -108,7 +108,7 @@
       } else if ( LEFT && NOTRAN ) {
 
          KF = ((K-1)/NB)*NB+1;
-         DO I = KF, 1, -NB;
+         for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) { //
             IB = min( NB, K-I+1 );
             MB = min( M-L+I+IB-1, M );
             if ( I >= L ) {
@@ -122,7 +122,7 @@
       } else if ( RIGHT && TRAN ) {
 
          KF = ((K-1)/NB)*NB+1;
-         DO I = KF, 1, -NB;
+         for (I = KF; -NB < 0 ? I >= 1 : I <= 1; I += -NB) { //
             IB = min( NB, K-I+1 );
             MB = min( N-L+I+IB-1, N );
             if ( I >= L ) {

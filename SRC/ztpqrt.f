@@ -49,7 +49,7 @@
 
       if (M == 0 || N == 0) return;
 
-      DO I = 1, N, NB;
+      for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { //
 
       // Compute the QR factorization of the current block
 

@@ -330,7 +330,7 @@
                   D12 = A( K-1, K ) / D;
                   TT = ONE / ( D11*D22-ONE );
 
-                  DO 30 J = K - 2, 1, -1;
+                  for (J = K - 2; J >= 1; J--) { // 30
 
                      // Compute  D21 * ( W(k)W(k+1) ) * inv(D(k)) for row J
 
@@ -339,7 +339,7 @@
 
                      // Perform a rank-2 update of A(1:k-2,1:k-2)
 
-                     DO 20 I = J, 1, -1;
+                     for (I = J; I >= 1; I--) { // 20
                         A( I, J ) = A( I, J ) - ( A( I, K ) / D )*DCONJG( WK ) - ( A( I, K-1 ) / D )*DCONJG( WKM1 );
                      } // 20
 

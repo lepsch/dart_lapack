@@ -53,7 +53,7 @@
          } // 10
       } else {
          M1 = min( M+1, N );
-         DO 20 K = M, 1, -1;
+         for (K = M; K >= 1; K--) { // 20
 
             // Use a Householder reflection to zero the kth row of A.
             // First set up the reflection.

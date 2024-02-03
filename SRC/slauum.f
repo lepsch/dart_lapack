@@ -72,7 +72,7 @@
 
             // Compute the product U * U**T.
 
-            DO 10 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 10
                IB = min( NB, N-I+1 );
                strmm('Right', 'Upper', 'Transpose', 'Non-unit', I-1, IB, ONE, A( I, I ), LDA, A( 1, I ), LDA );
                slauu2('Upper', IB, A( I, I ), LDA, INFO );
@@ -85,7 +85,7 @@
 
             // Compute the product L**T * L.
 
-            DO 20 I = 1, N, NB;
+            for (I = 1; NB < 0 ? I >= N : I <= N; I += NB) { // 20
                IB = min( NB, N-I+1 );
                strmm('Left', 'Lower', 'Transpose', 'Non-unit', IB, I-1, ONE, A( I, I ), LDA, A( I, 1 ), LDA );
                slauu2('Lower', IB, A( I, I ), LDA, INFO );

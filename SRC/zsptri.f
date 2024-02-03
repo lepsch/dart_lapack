@@ -62,7 +62,7 @@
          // Upper triangular storage: examine D from bottom to top
 
          KP = N*( N+1 ) / 2;
-         DO 10 INFO = N, 1, -1;
+         for (INFO = N; INFO >= 1; INFO--) { // 10
             if( IPIV( INFO ) > 0 && AP( KP ) == ZERO ) return;
             KP = KP - INFO;
          } // 10

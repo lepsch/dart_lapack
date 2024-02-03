@@ -218,7 +218,7 @@
          } else {
             LTOP = KTOP;
          }
-         DO 60 KROW = LTOP, KWTOP - 1, NV;
+         for (KROW = LTOP; NV < 0 ? KROW >= KWTOP - 1 : KROW <= KWTOP - 1; KROW += NV) { // 60
             KLN = min( NV, KWTOP-KROW );
             cgemm('N', 'N', KLN, JW, JW, ONE, H( KROW, KWTOP ), LDH, V, LDV, ZERO, WV, LDWV );
             clacpy('A', KLN, JW, WV, LDWV, H( KROW, KWTOP ), LDH );
@@ -227,7 +227,7 @@
          // ==== Update horizontal slab in H ====
 
          if ( WANTT ) {
-            DO 70 KCOL = KBOT + 1, N, NH;
+            for (KCOL = KBOT + 1; NH < 0 ? KCOL >= N : KCOL <= N; KCOL += NH) { // 70
                KLN = min( NH, N-KCOL+1 );
                cgemm('C', 'N', JW, KLN, JW, ONE, V, LDV, H( KWTOP, KCOL ), LDH, ZERO, T, LDT );
                clacpy('A', JW, KLN, T, LDT, H( KWTOP, KCOL ), LDH );
@@ -237,7 +237,7 @@
          // ==== Update vertical slab in Z ====
 
          if ( WANTZ ) {
-            DO 80 KROW = ILOZ, IHIZ, NV;
+            for (KROW = ILOZ; NV < 0 ? KROW >= IHIZ : KROW <= IHIZ; KROW += NV) { // 80
                KLN = min( NV, IHIZ-KROW+1 );
                cgemm('N', 'N', KLN, JW, JW, ONE, Z( KROW, KWTOP ), LDZ, V, LDV, ZERO, WV, LDWV );
                clacpy('A', KLN, JW, WV, LDWV, Z( KROW, KWTOP ), LDZ );

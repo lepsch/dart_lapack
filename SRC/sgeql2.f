@@ -46,7 +46,7 @@
 
       K = min( M, N );
 
-      DO 10 I = K, 1, -1;
+      for (I = K; I >= 1; I--) { // 10
 
          // Generate elementary reflector H(i) to annihilate
          // A(1:m-k+i-1,n-k+i)

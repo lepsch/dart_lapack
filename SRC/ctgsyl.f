@@ -215,7 +215,7 @@
                JS = IWORK( J );
                JE = IWORK( J+1 ) - 1;
                NB = JE - JS + 1;
-               DO 120 I = P, 1, -1;
+               for (I = P; I >= 1; I--) { // 120
                   IS = IWORK( I );
                   IE = IWORK( I+1 ) - 1;
                   MB = IE - IS + 1;
@@ -288,7 +288,7 @@
             IS = IWORK( I );
             IE = IWORK( I+1 ) - 1;
             MB = IE - IS + 1;
-            DO 200 J = Q, P + 2, -1;
+            for (J = Q; J >= P + 2; J--) { // 200
                JS = IWORK( J );
                JE = IWORK( J+1 ) - 1;
                NB = JE - JS + 1;

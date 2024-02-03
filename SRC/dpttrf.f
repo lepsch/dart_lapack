@@ -55,7 +55,7 @@
          D( I+1 ) = D( I+1 ) - E( I )*EI;
       } // 10
 
-      DO 20 I = I4 + 1, N - 4, 4;
+      for (I = I4 + 1; 4 < 0 ? I >= N - 4 : I <= N - 4; I += 4) { // 20
 
          // Drop out of the loop if d(i) <= 0: the matrix is not positive
          // definite.

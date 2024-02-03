@@ -107,7 +107,7 @@
          // Solve L**T * X = B, overwriting B with X.
 
          if ( LNOTI ) {
-            DO 40 J = N - 1, 1, -1;
+            for (J = N - 1; J >= 1; J--) { // 40
                LM = min( KL, N-J );
                cgemv('Transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );
                L = IPIV( J );
@@ -129,7 +129,7 @@
          // Solve L**H * X = B, overwriting B with X.
 
          if ( LNOTI ) {
-            DO 60 J = N - 1, 1, -1;
+            for (J = N - 1; J >= 1; J--) { // 60
                LM = min( KL, N-J );
                clacgv(NRHS, B( J, 1 ), LDB );
                cgemv('Conjugate transpose', LM, NRHS, -ONE, B( J+1, 1 ), LDB, AB( KD+1, J ), 1, ONE, B( J, 1 ), LDB );

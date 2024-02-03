@@ -318,7 +318,7 @@
             slacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
-            DO 20 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 20
                BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', N, BL, N, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
@@ -399,7 +399,7 @@
             slacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M;
-            DO 40 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 40
                BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', M, BL, M, ONE, WORK( IL ), LDWORK, B( 1, I ), LDB, ZERO, WORK( IWORK ), M );
                slacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
@@ -473,7 +473,7 @@
             slacpy('F', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
-            DO 60 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 60
                BL = min( NRHS-I+1, CHUNK );
                sgemm('T', 'N', N, BL, M, ONE, A, LDA, B( 1, I ), LDB, ZERO, WORK, N );
                slacpy('F', N, BL, WORK, N, B( 1, I ), LDB );

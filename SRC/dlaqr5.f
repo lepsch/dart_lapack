@@ -53,7 +53,7 @@
       // .    conjugate shifts are already adjacent to one
       // .    another. ====
 
-      DO 10 I = 1, NSHFTS - 2, 2;
+      for (I = 1; 2 < 0 ? I >= NSHFTS - 2 : I <= NSHFTS - 2; I += 2) { // 10
          if ( SI( I ) != -SI( I+1 ) ) {
 
             SWAP = SR( I );
@@ -101,7 +101,7 @@
 
       // ==== Create and chase chains of NBMPS bulges ====
 
-      DO 180 INCOL = KTOP - 2*NBMPS + 1, KBOT - 2, 2*NBMPS;
+      for (INCOL = KTOP - 2*NBMPS + 1; 2*NBMPS < 0 ? INCOL >= KBOT - 2 : INCOL <= KBOT - 2; INCOL += 2*NBMPS) { // 180
 
          // JTOP = Index from which updates from the right start.
 
@@ -249,7 +249,7 @@
 
             // ==== Normal case: Chain of 3-by-3 reflections ====
 
-            DO 80 M = MBOT, MTOP, -1;
+            for (M = MBOT; M >= MTOP; M--) { // 80
                K = KRCOL + 2*( M-1 );
                if ( K == KTOP-1 ) {
                   dlaqr1(3, H( KTOP, KTOP ), LDH, SR( 2*M-1 ), SI( 2*M-1 ), SR( 2*M ), SI( 2*M ), V( 1, M ) );
@@ -399,7 +399,7 @@
                JBOT = KBOT;
             }
 
-            DO 100 M = MBOT, MTOP, -1;
+            for (M = MBOT; M >= MTOP; M--) { // 100
                K = KRCOL + 2*( M-1 );
                T1 = V( 1, M );
                T2 = T1*V( 2, M );
@@ -420,7 +420,7 @@
                // .    with an efficient matrix-matrix
                // .    multiply.) ====
 
-               DO 120 M = MBOT, MTOP, -1;
+               for (M = MBOT; M >= MTOP; M--) { // 120
                   K = KRCOL + 2*( M-1 );
                   KMS = K - INCOL;
                   I2 = max( 1, KTOP-INCOL );
@@ -442,7 +442,7 @@
                // .    now by multiplying by reflections
                // .    from the right. ====
 
-               DO 140 M = MBOT, MTOP, -1;
+               for (M = MBOT; M >= MTOP; M--) { // 140
                   K = KRCOL + 2*( M-1 );
                   T1 = V( 1, M );
                   T2 = T1*V( 2, M );
@@ -477,7 +477,7 @@
 
             // ==== Horizontal Multiply ====
 
-            DO 150 JCOL = min( NDCOL, KBOT ) + 1, JBOT, NH;
+            for (JCOL = min( NDCOL, KBOT ) + 1; NH < 0 ? JCOL >= JBOT : JCOL <= JBOT; JCOL += NH) { // 150
                JLEN = min( NH, JBOT-JCOL+1 );
                dgemm('C', 'N', NU, JLEN, NU, ONE, U( K1, K1 ), LDU, H( INCOL+K1, JCOL ), LDH, ZERO, WH, LDWH );
                dlacpy('ALL', NU, JLEN, WH, LDWH, H( INCOL+K1, JCOL ), LDH );
@@ -485,7 +485,7 @@
 
             // ==== Vertical multiply ====
 
-            DO 160 JROW = JTOP, max( KTOP, INCOL ) - 1, NV;
+            for (JROW = JTOP; NV < 0 ? JROW >= max( KTOP, INCOL ) - 1 : JROW <= max( KTOP, INCOL ) - 1; JROW += NV) { // 160
                JLEN = min( NV, max( KTOP, INCOL )-JROW );
                dgemm('N', 'N', JLEN, NU, NU, ONE, H( JROW, INCOL+K1 ), LDH, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                dlacpy('ALL', JLEN, NU, WV, LDWV, H( JROW, INCOL+K1 ), LDH );
@@ -494,7 +494,7 @@
             // ==== Z multiply (also vertical) ====
 
             if ( WANTZ ) {
-               DO 170 JROW = ILOZ, IHIZ, NV;
+               for (JROW = ILOZ; NV < 0 ? JROW >= IHIZ : JROW <= IHIZ; JROW += NV) { // 170
                   JLEN = min( NV, IHIZ-JROW+1 );
                   dgemm('N', 'N', JLEN, NU, NU, ONE, Z( JROW, INCOL+K1 ), LDZ, U( K1, K1 ), LDU, ZERO, WV, LDWV );
                   dlacpy('ALL', JLEN, NU, WV, LDWV, Z( JROW, INCOL+K1 ), LDZ );

@@ -65,13 +65,13 @@
 
          // Use blocked code.
 
-         DO 20 J = 1, min( M, N ), NB;
+         for (J = 1; NB < 0 ? J >= min( M, N ) : J <= min( M, N ); J += NB) { // 20
             JB = min( min( M, N )-J+1, NB );
 
 
             // Update before factoring the current panel
 
-            DO 30 K = 1, J-NB, NB;
+            for (K = 1; NB < 0 ? K >= J-NB : K <= J-NB; K += NB) { // 30
 
                // Apply interchanges to rows K:K+NB-1.
 
@@ -103,7 +103,7 @@
 
          // Apply interchanges to the left-overs
 
-         DO 40 K = 1, min( M, N ), NB;
+         for (K = 1; NB < 0 ? K >= min( M, N ) : K <= min( M, N ); K += NB) { // 40
             claswp(K-1, A( 1, 1 ), LDA, K, min(K+NB-1, min( M, N )), IPIV, 1 );
          } // 40
 
@@ -113,7 +113,7 @@
 
             claswp(N-M, A(1, M+1), LDA, 1, M, IPIV, 1 );
 
-            DO 50 K = 1, M, NB;
+            for (K = 1; NB < 0 ? K >= M : K <= M; K += NB) { // 50
 
                JB = min( M-K+1, NB );
 

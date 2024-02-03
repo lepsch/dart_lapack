@@ -75,7 +75,7 @@
             }
          } // 20
          if ( JOB == 1 ) {
-            DO 30 K = N, 1, -1;
+            for (K = N; K >= 1; K--) { // 30
                if ( K <= N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 );
                } else if ( K == N-1 ) {
@@ -102,7 +102,7 @@
                Y( K ) = TEMP / AK;
             } // 30
          } else {
-            DO 50 K = N, 1, -1;
+            for (K = N; K >= 1; K--) { // 50
                if ( K <= N-2 ) {
                   TEMP = Y( K ) - B( K )*Y( K+1 ) - D( K )*Y( K+2 );
                } else if ( K == N-1 ) {
@@ -197,7 +197,7 @@
             } // 80
          }
 
-         DO 90 K = N, 2, -1;
+         for (K = N; K >= 2; K--) { // 90
             if ( IN( K-1 ) == 0 ) {
                Y( K-1 ) = Y( K-1 ) - C( K-1 )*Y( K );
             } else {

@@ -115,7 +115,7 @@
       SAWNAN2 = false;
       NEG2 = 0;
       WORK( INDP+BN-1 ) = D( BN ) - LAMBDA;
-      DO 80 I = BN - 1, R1, -1;
+      for (I = BN - 1; I >= R1; I--) { // 80
          DMINUS = LLD( I ) + WORK( INDP+I );
          TMP = D( I ) / DMINUS;
          if (DMINUS < ZERO) NEG2 = NEG2 + 1;
@@ -128,7 +128,7 @@
       if ( SAWNAN2 ) {
          // Runs a slower version of the above loop if a NaN is detected
          NEG2 = 0;
-         DO 100 I = BN-1, R1, -1;
+         for (I = BN-1; I >= R1; I--) { // 100
             DMINUS = LLD( I ) + WORK( INDP+I );
             if((DMINUS).abs() < PIVMIN) DMINUS = -PIVMIN;
             TMP = D( I ) / DMINUS;
@@ -170,7 +170,7 @@
       // Compute the FP vector upwards from R
 
       if ( !SAWNAN1 && !SAWNAN2 ) {
-         DO 210 I = R-1, B1, -1;
+         for (I = R-1; I >= B1; I--) { // 210
             Z( I ) = -( WORK( INDLPL+I )*Z( I+1 ) );
             if ( ((Z(I)).abs()+(Z(I+1))).abs()* (LD(I)).abs() < GAPTOL ) {
                Z( I ) = ZERO;
@@ -182,7 +182,7 @@
          } // 220
       } else {
          // Run slower loop if NaN occurred.
-         DO 230 I = R - 1, B1, -1;
+         for (I = R - 1; I >= B1; I--) { // 230
             if ( Z( I+1 ) == ZERO ) {
                Z( I ) = -( LD( I+1 ) / LD( I ) )*Z( I+2 );
             } else {

@@ -94,7 +94,7 @@
 
                // Reduce i-th row of matrix to tridiagonal form
 
-               DO 80 K = KDN + 1, 2, -1;
+               for (K = KDN + 1; K >= 2; K--) { // 80
                   J1 = J1 + KDN;
                   J2 = J2 + KDN;
 
@@ -118,7 +118,7 @@
 
                      } else {
                         JEND = J1 + ( NR-1 )*KD1;
-                        DO 20 JINC = J1, JEND, KD1;
+                        for (JINC = J1; KD1 < 0 ? JINC >= JEND : JINC <= JEND; JINC += KD1) { // 20
                            srot(KDM1, AB( 2, JINC-1 ), 1, AB( 1, JINC ), 1, D( JINC ), WORK( JINC ) );
                         } // 20
                      }
@@ -166,7 +166,7 @@
                      } else {
                         J1END = J1 + KD1*( NR-2 );
                         if ( J1END >= J1 ) {
-                           DO 40 JIN = J1, J1END, KD1;
+                           for (JIN = J1; KD1 < 0 ? JIN >= J1END : JIN <= J1END; JIN += KD1) { // 40
                               srot(KD-1, AB( KD-1, JIN+1 ), INCX, AB( KD, JIN+1 ), INCX, D( JIN ), WORK( JIN ) );
                            } // 40
                         }
@@ -190,7 +190,7 @@
                         IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
                         IQAEND = min( IQAEND, IQEND );
-                        DO 50 J = J1, J2, KD1;
+                        for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 50
                            IBL = I - I2 / KDM1;
                            I2 = I2 + 1;
                            IQB = max( 1, J-IBL );
@@ -200,7 +200,7 @@
                         } // 50
                      } else {
 
-                        DO 60 J = J1, J2, KD1;
+                        for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 60
                            srot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
                         } // 60
                      }
@@ -215,7 +215,7 @@
                      J2 = J2 - KDN - 1;
                   }
 
-                  DO 70 J = J1, J2, KD1;
+                  for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 70
 
                      // create nonzero element a(j-1,j+kd) outside the band
                      // and store it in WORK
@@ -263,7 +263,7 @@
 
                // Reduce i-th column of matrix to tridiagonal form
 
-               DO 200 K = KDN + 1, 2, -1;
+               for (K = KDN + 1; K >= 2; K--) { // 200
                   J1 = J1 + KDN;
                   J2 = J2 + KDN;
 
@@ -286,7 +286,7 @@
                         } // 130
                      } else {
                         JEND = J1 + KD1*( NR-1 );
-                        DO 140 JINC = J1, JEND, KD1;
+                        for (JINC = J1; KD1 < 0 ? JINC >= JEND : JINC <= JEND; JINC += KD1) { // 140
                            srot(KDM1, AB( KD, JINC-KD ), INCX, AB( KD1, JINC-KD ), INCX, D( JINC ), WORK( JINC ) );
                         } // 140
                      }
@@ -334,7 +334,7 @@
                      } else {
                         J1END = J1 + KD1*( NR-2 );
                         if ( J1END >= J1 ) {
-                           DO 160 J1INC = J1, J1END, KD1;
+                           for (J1INC = J1; KD1 < 0 ? J1INC >= J1END : J1INC <= J1END; J1INC += KD1) { // 160
                               srot(KDM1, AB( 3, J1INC-1 ), 1, AB( 2, J1INC ), 1, D( J1INC ), WORK( J1INC ) );
                            } // 160
                         }
@@ -360,7 +360,7 @@
                         IQAEND = 1 + I*KD;
                         if (K == 2) IQAEND = IQAEND + KD;
                         IQAEND = min( IQAEND, IQEND );
-                        DO 170 J = J1, J2, KD1;
+                        for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 170
                            IBL = I - I2 / KDM1;
                            I2 = I2 + 1;
                            IQB = max( 1, J-IBL );
@@ -370,7 +370,7 @@
                         } // 170
                      } else {
 
-                        DO 180 J = J1, J2, KD1;
+                        for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 180
                            srot(N, Q( 1, J-1 ), 1, Q( 1, J ), 1, D( J ), WORK( J ) );
                         } // 180
                      }
@@ -384,7 +384,7 @@
                      J2 = J2 - KDN - 1;
                   }
 
-                  DO 190 J = J1, J2, KD1;
+                  for (J = J1; KD1 < 0 ? J >= J2 : J <= J2; J += KD1) { // 190
 
                      // create nonzero element a(j+kd,j-1) outside the
                      // band and store it in WORK

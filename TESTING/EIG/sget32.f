@@ -62,7 +62,7 @@
 
       for (ITRANL = 0; ITRANL <= 1; ITRANL++) { // 230
          for (ITRANR = 0; ITRANR <= 1; ITRANR++) { // 220
-            DO 210 ISGN = -1, 1, 2;
+            for (ISGN = -1; 2 < 0 ? ISGN >= 1 : ISGN <= 1; ISGN += 2) { // 210
                SGN = ISGN;
                LTRANL = ITRANL == 1;
                LTRANR = ITRANR == 1;

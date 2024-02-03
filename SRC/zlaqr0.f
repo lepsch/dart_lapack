@@ -194,7 +194,7 @@
 
             // ==== Locate active block ====
 
-            DO 10 K = KBOT, ILO + 1, -1;
+            for (K = KBOT; K >= ILO + 1; K--) { // 10
                if( H( K, K-1 ) == ZERO ) GO TO 20;
             } // 10
             K = ILO;
@@ -293,7 +293,7 @@
 
                if ( MOD( NDFL, KEXSH ) == 0 ) {
                   KS = KBOT - NS + 1;
-                  DO 30 I = KBOT, KS + 1, -2;
+                  for (I = KBOT; I >= KS + 1; I -= 2) { // 30
                      W( I ) = H( I, I ) + WILK1*CABS1( H( I, I-1 ) );
                      W( I-1 ) = W( I );
                   } // 30
@@ -344,7 +344,7 @@
                      // ==== Sort the shifts (Helps a little) ====
 
                      SORTED = false;
-                     DO 50 K = KBOT, KS + 1, -1;
+                     for (K = KBOT; K >= KS + 1; K--) { // 50
                         if (SORTED) GO TO 60;
                         SORTED = true;
                         for (I = KS; I <= K - 1; I++) { // 40

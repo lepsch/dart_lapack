@@ -95,7 +95,7 @@
             MI = M;
          }
 
-         DO 10 I = I1, I2, I3;
+         for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 10
             if ( LEFT ) {
 
                // H(i) is applied to C(1:i,1:n)
@@ -147,7 +147,7 @@
             IC = 1;
          }
 
-         DO 20 I = I1, I2, I3;
+         for (I = I1; I3 < 0 ? I >= I2 : I <= I2; I += I3) { // 20
             AII = AP( II );
             AP( II ) = ONE;
             if ( LEFT ) {

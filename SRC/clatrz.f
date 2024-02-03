@@ -40,7 +40,7 @@
          return;
       }
 
-      DO 20 I = M, 1, -1;
+      for (I = M; I >= 1; I--) { // 20
 
          // Generate elementary reflector H(i) to annihilate
          // [ A(i,i) A(i,n-l+1:n) ]

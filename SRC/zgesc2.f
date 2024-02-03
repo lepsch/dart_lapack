@@ -67,7 +67,7 @@
          zscal(N, TEMP, RHS( 1 ), 1 );
          SCALE = SCALE*DBLE( TEMP );
       }
-      DO 40 I = N, 1, -1;
+      for (I = N; I >= 1; I--) { // 40
          TEMP = DCMPLX( ONE, ZERO ) / A( I, I );
          RHS( I ) = RHS( I )*TEMP;
          for (J = I + 1; J <= N; J++) { // 30

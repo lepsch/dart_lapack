@@ -110,7 +110,7 @@
          // Columns 1:kk are handled by the unblocked method.
 
          KK = N - ( ( N-NX+NB-1 ) / NB )*NB;
-         DO 20 I = N - NB + 1, KK + 1, -NB;
+         for (I = N - NB + 1; -NB < 0 ? I >= KK + 1 : I <= KK + 1; I += -NB) { // 20
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of
@@ -139,7 +139,7 @@
 
          // Reduce the lower triangle of A
 
-         DO 40 I = 1, N - NX, NB;
+         for (I = 1; NB < 0 ? I >= N - NX : I <= N - NX; I += NB) { // 40
 
             // Reduce columns i:i+nb-1 to tridiagonal form and form the
             // matrix W which is needed to update the unreduced part of

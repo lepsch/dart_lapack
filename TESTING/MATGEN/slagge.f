@@ -70,7 +70,7 @@
 
       // pre- and post-multiply A by random orthogonal matrices
 
-      DO 40 I = min( M, N ), 1, -1;
+      for (I = min( M, N ); I >= 1; I--) { // 40
          if ( I < M ) {
 
             // generate random reflection

@@ -553,7 +553,7 @@
                   // (CWorkspace: need N*N+N, prefer N*N+M*N)
                   // (RWorkspace: 0)
 
-                  DO 10 I = 1, M, LDWRKU;
+                  for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 10
                      CHUNK = min( M-I+1, LDWRKU );
                      zgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -678,7 +678,7 @@
                   // (CWorkspace: need N*N+N, prefer N*N+M*N)
                   // (RWorkspace: 0)
 
-                  DO 20 I = 1, M, LDWRKU;
+                  for (I = 1; LDWRKU < 0 ? I >= M : I <= M; I += LDWRKU) { // 20
                      CHUNK = min( M-I+1, LDWRKU );
                      zgemm('N', 'N', CHUNK, N, N, CONE, A( I, 1 ), LDA, WORK( IR ), LDWRKR, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', CHUNK, N, WORK( IU ), LDWRKU, A( I, 1 ), LDA );
@@ -1854,7 +1854,7 @@
                   // (CWorkspace: need M*M+M, prefer M*M+M*N)
                   // (RWorkspace: 0)
 
-                  DO 30 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 30
                      BLK = min( N-I+1, CHUNK );
                      zgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );
@@ -1982,7 +1982,7 @@
                   // (CWorkspace: need M*M+M, prefer M*M+M*N))
                   // (RWorkspace: 0)
 
-                  DO 40 I = 1, N, CHUNK;
+                  for (I = 1; CHUNK < 0 ? I >= N : I <= N; I += CHUNK) { // 40
                      BLK = min( N-I+1, CHUNK );
                      zgemm('N', 'N', M, BLK, M, CONE, WORK( IR ), LDWRKR, A( 1, I ), LDA, CZERO, WORK( IU ), LDWRKU );
                      zlacpy('F', M, BLK, WORK( IU ), LDWRKU, A( 1, I ), LDA );

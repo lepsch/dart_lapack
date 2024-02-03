@@ -100,7 +100,7 @@
       if ( DMIN <= ZERO || N0 < N0IN ) {
          if ( CBIAS*Z( 4*I0+PP-3 ) < Z( 4*N0+PP-3 ) ) {
             IPN4 = 4*( I0+N0 );
-            DO 60 J4 = 4*I0, 2*( I0+N0-1 ), 4;
+            for (J4 = 4*I0; J4 <= 2*( I0+N0-1 ); J4 += 4) { // 60
                TEMP = Z( J4-3 );
                Z( J4-3 ) = Z( IPN4-J4-3 );
                Z( IPN4-J4-3 ) = TEMP;

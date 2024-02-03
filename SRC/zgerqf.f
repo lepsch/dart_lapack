@@ -102,7 +102,7 @@
          KI = ( ( K-NX-1 ) / NB )*NB;
          KK = min( K, KI+NB );
 
-         DO 10 I = K - KK + KI + 1, K - KK + 1, -NB;
+         for (I = K - KK + KI + 1; -NB < 0 ? I >= K - KK + 1 : I <= K - KK + 1; I += -NB) { // 10
             IB = min( K-I+1, NB );
 
             // Compute the RQ factorization of the current block

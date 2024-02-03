@@ -175,7 +175,7 @@
          } // 70
          B( N, J ) = B( N, J ) / D( N );
          if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-         DO 80 I = N - 2, 1, -1;
+         for (I = N - 2; I >= 1; I--) { // 80
             B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
          } // 80
          if ( J < NRHS ) {
@@ -186,7 +186,7 @@
          for (J = 1; J <= NRHS; J++) { // 100
             B( N, J ) = B( N, J ) / D( N );
             if (N > 1) B( N-1, J ) = ( B( N-1, J )-DU( N-1 )*B( N, J ) ) / D( N-1 );
-            DO 90 I = N - 2, 1, -1;
+            for (I = N - 2; I >= 1; I--) { // 90
                B( I, J ) = ( B( I, J )-DU( I )*B( I+1, J )-DL( I )* B( I+2, J ) ) / D( I );
             } // 90
          } // 100

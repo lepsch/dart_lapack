@@ -205,10 +205,10 @@
                   T = CONE / ( D11*D22-CONE );
                   D12 = T / D12;
 
-                  DO 30 J = K - 2, 1, -1;
+                  for (J = K - 2; J >= 1; J--) { // 30
                      WKM1 = D12*( D11*A( J, K-1 )-A( J, K ) );
                      WK = D12*( D22*A( J, K )-A( J, K-1 ) );
-                     DO 20 I = J, 1, -1;
+                     for (I = J; I >= 1; I--) { // 20
                         A( I, J ) = A( I, J ) - A( I, K )*WK - A( I, K-1 )*WKM1;
                      } // 20
                      A( J, K ) = WK;

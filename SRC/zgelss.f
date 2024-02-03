@@ -320,7 +320,7 @@
             zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
-            DO 20 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 20
                BL = min( NRHS-I+1, CHUNK );
                zgemm('C', 'N', N, BL, N, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
                zlacpy('G', N, BL, WORK, N, B( 1, I ), LDB );
@@ -409,7 +409,7 @@
             zlacpy('G', M, NRHS, WORK( IWORK ), LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = ( LWORK-IWORK+1 ) / M;
-            DO 40 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 40
                BL = min( NRHS-I+1, CHUNK );
                zgemm('C', 'N', M, BL, M, CONE, WORK( IL ), LDWORK, B( 1, I ), LDB, CZERO, WORK( IWORK ), M );
                zlacpy('G', M, BL, WORK( IWORK ), M, B( 1, I ), LDB );
@@ -489,7 +489,7 @@
             zlacpy('G', N, NRHS, WORK, LDB, B, LDB );
          } else if ( NRHS > 1 ) {
             CHUNK = LWORK / N;
-            DO 60 I = 1, NRHS, CHUNK;
+            for (I = 1; CHUNK < 0 ? I >= NRHS : I <= NRHS; I += CHUNK) { // 60
                BL = min( NRHS-I+1, CHUNK );
                zgemm('C', 'N', N, BL, M, CONE, A, LDA, B( 1, I ), LDB, CZERO, WORK, N );
                zlacpy('F', N, BL, WORK, N, B( 1, I ), LDB );

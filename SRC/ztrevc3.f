@@ -152,7 +152,7 @@
          // (Note the "0-th" column is used to store the original diagonal.)
          IV = NB;
          IS = M;
-         DO 80 KI = N, 1, -1;
+         for (KI = N; KI >= 1; KI--) { // 80
             if ( SOMEV ) {
                if( !SELECT( KI ) ) GO TO 80;
             }

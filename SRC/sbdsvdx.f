@@ -254,7 +254,7 @@
       // Check for splits in two levels, outer level
       // in E and inner level in D.
 
-      DO IEPTR = 2, N*2, 2;
+      for (IEPTR = 2; 2 < 0 ? IEPTR >= N*2 : IEPTR <= N*2; IEPTR += 2) { //
          if ( WORK( IETGK+IEPTR-1 ) == ZERO ) {
 
             // Split in E (this piece of B is square) or bottom
@@ -262,7 +262,7 @@
 
             ISPLT = IDBEG;
             IDEND = IEPTR - 1;
-            DO IDPTR = IDBEG, IDEND, 2;
+            for (IDPTR = IDBEG; IDPTR <= IDEND; IDPTR += 2) { //
                if ( WORK( IETGK+IDPTR-1 ) == ZERO ) {
 
                   // Split in D (rectangular submatrix). Set the number

@@ -240,7 +240,7 @@
          // Solve D * M(L)**H * x = b.
 
          RWORK( N ) = RWORK( N ) / DF( N );
-         DO 80 I = N - 1, 1, -1;
+         for (I = N - 1; I >= 1; I--) { // 80
             RWORK( I ) = RWORK( I ) / DF( I ) + RWORK( I+1 )*( EF( I ) ).abs();
          } // 80
 

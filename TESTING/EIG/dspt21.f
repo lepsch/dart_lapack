@@ -103,7 +103,7 @@
 
          if ( LOWER ) {
             WORK( LAP ) = D( N );
-            DO 40 J = N - 1, 1, -1;
+            for (J = N - 1; J >= 1; J--) { // 40
                JP = ( ( 2*N-J )*( J-1 ) ) / 2;
                JP1 = JP + N - J;
                if ( KBAND == 1 ) {

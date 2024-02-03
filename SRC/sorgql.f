@@ -126,7 +126,7 @@
 
          // Use blocked code
 
-         DO 50 I = K - KK + 1, K, NB;
+         for (I = K - KK + 1; NB < 0 ? I >= K : I <= K; I += NB) { // 50
             IB = min( NB, K-I+1 );
             if ( N-K+I > 1 ) {
 

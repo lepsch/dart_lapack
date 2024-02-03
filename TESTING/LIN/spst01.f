@@ -65,7 +65,7 @@
             } // 110
          }
 
-         DO 120 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 120
 
             // Compute the (K,K) element of the result.
 
@@ -90,7 +90,7 @@
             } // 140
          }
 
-         DO 150 K = N, 1, -1;
+         for (K = N; K >= 1; K--) { // 150
             // Add a multiple of column K of the factor L to each of
             // columns K+1 through N.
 

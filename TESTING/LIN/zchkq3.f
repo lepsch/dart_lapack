@@ -128,7 +128,7 @@
                         ISTEP = 2;
                         IHIGH = N;
                      }
-                     DO 40 I = ILOW, IHIGH, ISTEP;
+                     for (I = ILOW; ISTEP < 0 ? I >= IHIGH : I <= IHIGH; I += ISTEP) { // 40
                         IWORK( I ) = 1;
                      } // 40
                   }

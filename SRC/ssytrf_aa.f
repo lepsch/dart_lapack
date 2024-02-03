@@ -174,13 +174,13 @@
                   JB = JB - 1;
                }
 
-               DO J2 = J+1, N, NB;
+               for (J2 = J+1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) { //
                   NJ = min( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with SGEMV
 
                   J3 = J2;
-                  DO MJ = NJ-1, 1, -1;
+                  for (MJ = NJ-1; MJ >= 1; MJ--) { //
                      sgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J1-K2, J3 ), 1, ONE, A( J3, J3 ), LDA );
                      J3 = J3 + 1;
                   }
@@ -281,13 +281,13 @@
                   JB = JB - 1;
                }
 
-               DO J2 = J+1, N, NB;
+               for (J2 = J+1; NB < 0 ? J2 >= N : J2 <= N; J2 += NB) { //
                   NJ = min( NB, N-J2+1 );
 
                   // Update (J2, J2) diagonal block with SGEMV
 
                   J3 = J2;
-                  DO MJ = NJ-1, 1, -1;
+                  for (MJ = NJ-1; MJ >= 1; MJ--) { //
                      sgemv('No transpose', MJ, JB+1, -ONE, WORK( J3-J1+1+K1*N ), N, A( J3, J1-K2 ), LDA, ONE, A( J3, J3 ), 1 );
                      J3 = J3 + 1;
                   }

@@ -57,7 +57,7 @@
          // I1 is the index in AP of A(1,I+1).
 
          I1 = N*( N-1 ) / 2 + 1;
-         DO 10 I = N - 1, 1, -1;
+         for (I = N - 1; I >= 1; I--) { // 10
 
             // Generate elementary reflector H(i) = I - tau * v * v**T
             // to annihilate A(1:i-1,i+1)

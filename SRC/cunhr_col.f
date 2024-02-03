@@ -87,7 +87,7 @@
       // block, JNB is the column block size at each step JB.
 
       NPLUSONE = N + 1;
-      DO JB = 1, N, NB;
+      for (JB = 1; NB < 0 ? JB >= N : JB <= N; JB += NB) { //
 
          // (2-0) Determine the column block size JNB.
 

@@ -233,7 +233,7 @@
             }
          }
 
-         DO J = JFIRST, JLAST, JINC;
+         for (J = JFIRST; JINC < 0 ? J >= JLAST : J <= JLAST; J += JINC) { //
             // J1: row index of the first row in A( J, J )
             // J2: row index of the first row in A( J+1, J+1 )
             // so that J2 - J1 is the row count of the block A( J, J )
@@ -334,7 +334,7 @@
                }
             }
 
-            DO I = IFIRST, ILAST, IINC;
+            for (I = IFIRST; IINC < 0 ? I >= ILAST : I <= ILAST; I += IINC) { //
                // I1: row index of the first column in X( I, K )
                // I2: row index of the first column in X( I+1, K )
                // so the I2 - I1 is the row count of the block X( I, K )

@@ -321,7 +321,7 @@
                IWORK( K ) = J;
             } // 80
          } else {
-            DO 90 I = NPVTS, 1, -1;
+            for (I = NPVTS; I >= 1; I--) { // 90
                K = IPIVOT( I );
                J = IWORK( I );
                IWORK( I ) = IWORK( K );

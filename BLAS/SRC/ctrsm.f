@@ -101,7 +101,7 @@
                               B(I,J) = ALPHA*B(I,J);
                           } // 30
                       }
-                      DO 50 K = M,1,-1;
+                      for (K = M; K >= 1; K--) { // 50
                           if (B(K,J) != ZERO) {
                               if (NOUNIT) B(K,J) = B(K,J)/A(K,K);
                               for (I = 1; I <= K - 1; I++) { // 40
@@ -152,7 +152,7 @@
                   } // 140
               } else {
                   for (J = 1; J <= N; J++) { // 180
-                      DO 170 I = M,1,-1;
+                      for (I = M; I >= 1; I--) { // 170
                           TEMP = ALPHA*B(I,J);
                           if (NOCONJ) {
                               for (K = I + 1; K <= M; K++) { // 150
@@ -197,7 +197,7 @@
                       }
                   } // 230
               } else {
-                  DO 280 J = N,1,-1;
+                  for (J = N; J >= 1; J--) { // 280
                       if (ALPHA != ONE) {
                           for (I = 1; I <= M; I++) { // 240
                               B(I,J) = ALPHA*B(I,J);
@@ -224,7 +224,7 @@
             // or    B := alpha*B*inv( A**H ).
 
               if (UPPER) {
-                  DO 330 K = N,1,-1;
+                  for (K = N; K >= 1; K--) { // 330
                       if (NOUNIT) {
                           if (NOCONJ) {
                               TEMP = ONE/A(K,K);

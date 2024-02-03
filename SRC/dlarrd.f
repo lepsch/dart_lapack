@@ -384,7 +384,7 @@
             // Remove some of the largest eigenvalues from the right so that
             // at the end IDISCU =0. Move all eigenvalues up to the left.
             IM=M+1;
-            DO 81 JE = M, 1, -1;
+            for (JE = M; JE >= 1; JE--) { // 81
                if ( W( JE ) >= WUL && IDISCU > 0 ) {
                   IDISCU = IDISCU - 1;
                } else {

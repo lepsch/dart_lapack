@@ -75,7 +75,7 @@
 
          // Compute inverse of lower triangular matrix.
 
-         DO 20 J = N, 1, -1;
+         for (J = N; J >= 1; J--) { // 20
             if ( NOUNIT ) {
                A( J, J ) = ONE / A( J, J );
                AJJ = -A( J, J );
