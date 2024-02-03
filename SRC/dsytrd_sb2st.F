@@ -1,8 +1,8 @@
       SUBROUTINE DSYTRD_SB2ST( STAGE1, VECT, UPLO, N, KD, AB, LDAB, D, E, HOUS, LHOUS, WORK, LWORK, INFO );
 
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
       use omp_lib;
-#endif
+// #endif
 
       // IMPLICIT NONE
 
@@ -197,7 +197,7 @@
 
       // openMP parallelisation start here
 
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
 // $OMP PARALLEL PRIVATE( TID, THGRID, BLKLASTIND )
 // $OMP$         PRIVATE( THED, I, M, K, ST, ED, STT, SWEEPID )
 // $OMP$         PRIVATE( MYID, TTYPE, COLPT, STIND, EDIND )
@@ -205,7 +205,7 @@
 // $OMP$         SHARED ( N, KD, IB, NBTILES, LDA, LDV, INDA )
 // $OMP$         SHARED ( STEPERCOL, THGRNB, THGRSIZ, GRSIZ, SHIFT )
 // $OMP MASTER
-#endif
+// #endif
 
       // main bulge chasing loop
 
@@ -244,7 +244,7 @@
 
                           // Call the kernel
 
-#if defined(_OPENMP) &&  _OPENMP >= 201307
+// #if defined(_OPENMP) &&  _OPENMP >= 201307
                           if ( TTYPE != 1 ) {
 // $OMP TASK DEPEND(in:WORK(MYID+SHIFT-1))
 // $OMP$     DEPEND(in:WORK(MYID-1))
@@ -259,9 +259,9 @@
                               dsb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW + TID*KD ) );
 // $OMP END TASK
                           }
-#else
+// #else
                           dsb2st_kernels(UPLO, WANTQ, TTYPE, STIND, EDIND, SWEEPID, N, KD, IB, WORK ( INDA ), LDA, HOUS( INDV ), HOUS( INDTAU ), LDV, WORK( INDW ) );
-#endif
+// #endif
                           if ( BLKLASTIND >= (N-1) ) {
                               STT = STT + 1;
                               EXIT;
@@ -272,10 +272,10 @@
           } // 110
       } // 100
 
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
 // $OMP END MASTER
 // $OMP END PARALLEL
-#endif
+// #endif
 
       // Copy the diagonal from A to D. Note that D is REAL thus only
       // the Real part is needed, the imaginary part should be zero.

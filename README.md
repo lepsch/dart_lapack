@@ -90,6 +90,12 @@ find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^[^ \t]$//g' %
 // $1
 ```
 
+### Comment out the preprocessor directives
+```
+^(#\s*.*)$
+// $1
+```
+
 ### END -> }
 ```sh
 find . -type f -regex '.*\.[fF]' | xargs -I % sed -Ei '' 's/^      ([ ]*)END$/      \1}/g' %

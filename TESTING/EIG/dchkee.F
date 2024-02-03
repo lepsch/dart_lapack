@@ -1,7 +1,7 @@
       void main() {
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
       use omp_lib;
-#endif
+// #endif
 
 // -- LAPACK test routine --
 // -- LAPACK is a software package provided by Univ. of Tennessee,    --
@@ -782,15 +782,15 @@
          xlaenv(1, 1 );
          xlaenv(9, 25 );
          if ( TSTERR ) {
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
             N_THREADS = OMP_GET_MAX_THREADS();
             ONE_THREAD = 1;
             omp_set_num_threads(ONE_THREAD);
-#endif
+// #endif
             derrst('DST', NOUT );
-#if defined(_OPENMP)
+// #if defined(_OPENMP)
             omp_set_num_threads(N_THREADS);
-#endif
+// #endif
          }
          for (I = 1; I <= NPARMS; I++) { // 290
             xlaenv(1, NBVAL( I ) );
